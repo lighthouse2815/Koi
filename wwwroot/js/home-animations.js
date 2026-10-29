@@ -61,12 +61,12 @@
 
         const up = features.querySelectorAll('.feature-up');
         const down = features.querySelectorAll('.feature-down');
-        const featureParts = features.querySelectorAll('.feature-dot, .feature-caption');
+        const featureParts = features.querySelectorAll('.feature-dot, .feature-caption, .feature-caption > span');
         const featureTimeline = gsap.timeline({
             defaults: { ease: 'none' },
             scrollTrigger: {
                 id: 'feature-columns', trigger: features, start: 'top top', end: () => `+=${features.offsetHeight}`,
-                scrub: context.conditions.desktop ? 0.8 : true, invalidateOnRefresh: true,
+                scrub: context.conditions.desktop ? 1 : true, invalidateOnRefresh: true,
                 onUpdate: self => {
                     const active = self.scroll() >= self.start;
                     features.classList.toggle('is-active', active);
@@ -77,10 +77,10 @@
         featureTimeline.set(up, { y: 0 }, 0)
             .set(down, { y: () => -3 * featureStage.clientHeight }, 0);
         if (context.conditions.desktop) {
-            featureTimeline.fromTo(featureParts, { scale: 0 }, { scale: 1, duration: 0.05 }, 0.05);
+            featureTimeline.fromTo(featureParts, { scale: 0 }, { scale: 1, duration: 0.05, ease: 'power1.out' }, 0.05);
         } else {
             featureTimeline.set(featureParts, { scale: 1 }, 0);
-            gsap.fromTo(featureIntro.querySelectorAll('.feature-dot, .feature-caption'), { scale: 0 }, {
+            gsap.fromTo(featureIntro.querySelectorAll('.feature-dot, .feature-caption, .feature-caption > span'), { scale: 0 }, {
                 scale: 1, ease: 'power1.out',
                 scrollTrigger: { id: 'feature-intro', trigger: featureIntro, start: '10% top', end: '25% top', scrub: 1 }
             });
@@ -91,22 +91,24 @@
             featureTimeline.to(up, { y: () => -step * featureStage.clientHeight, duration, ease: 'power1.out' }, at)
                 .to(down, { y: () => -(3 - step) * featureStage.clientHeight, duration, ease: 'power1.out' }, at);
         }
-        featureTimeline.to(featureParts, { scale: 0, duration: 0.05 }, 0.7)
+        featureTimeline.to(featureParts, { scale: 0, duration: 0.05, ease: 'power1.out' }, 0.7)
             .to({}, { duration: 0.25 }, 0.75);
 
         const art = document.querySelector('.recommendation-art');
         const layers = [...art.querySelectorAll('.recommendation-layer')];
         const burst = gsap.timeline({
-            scrollTrigger: { id: 'recommendation-burst', trigger: recommendation, start: '10% center', end: 'bottom center', toggleActions: 'play reverse play reverse' }
+            scrollTrigger: { id: 'recommendation-burst', trigger: recommendation, start: () => `${(recommendation.offsetHeight + drinkTrack.offsetHeight) * 0.1}px center`, endTrigger: drinkTrack, end: 'bottom center', toggleActions: 'play reverse play reverse' }
         });
-        burst.from('.recommendation-label', { scale: 0, opacity: 0, duration: 0.5, ease: 'power2.out' }, 0)
-            .from('.recommendation h2', { scale: 0, opacity: 0, duration: 0.6, ease: 'power2.out' }, 0.05)
-            .from('.recommendation-captions', { scale: 0, opacity: 0, duration: 0.6 }, 0.15)
-            .from(layers.map(layer => layer.firstElementChild), {
-                x: (index) => art.clientWidth / 2 - layers[index].offsetLeft - layers[index].offsetWidth / 2,
-                y: (index) => art.clientHeight / 2 - layers[index].offsetTop - (layers[index].offsetHeight || layers[index].offsetWidth) / 2,
-                scale: 0.15, opacity: 0, stagger: 0.05, duration: 0.75, ease: 'power2.out'
-            }, 0.05);
+        burst.from('.recommendation-label, .recommendation h2, .recommendation-captions span', { scale: 0, opacity: 0, duration: 0.5, ease: 'power2.out' }, 0);
+        layers.forEach(layer => {
+            const img = layer.firstElementChild;
+            const style = getComputedStyle(img);
+            burst.fromTo(img, {
+                x: Number(style.getPropertyValue('--burst-x')),
+                y: Number(style.getPropertyValue('--burst-y')),
+                scale: 0.15, opacity: 0
+            }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.75, ease: 'power2.out' }, Number(style.getPropertyValue('--burst-delay')));
+        });
         const parallax = layers.map(layer => ({
             depth: Number(layer.dataset.depth),
             x: gsap.quickTo(layer, 'x', { duration: 0.8, ease: 'power2.out' }),

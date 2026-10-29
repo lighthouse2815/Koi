@@ -18,9 +18,9 @@
             {
                 var feature = features[isDown && !Model ? features.Length - 1 - frame : frame];
                 <figure class="feature-frame" data-tone="@feature.Tone">
-                    @for (var dot = 0; dot < (isCenter ? 2 : 5); dot++)
+                    @for (var dot = 0; dot < (isCenter ? 4 : 5); dot++)
                     {
-                        <div class="feature-dot">
+                        <div class="feature-dot @(isCenter && (dot == 1 || dot == 2) ? "feature-mobile-dot" : "")">
                             @if (isDown)
                             {
                                 <img src="~/images/@feature.Photo" alt="" width="82" height="82" loading="lazy" />
@@ -33,9 +33,9 @@
                                 </picture>
                             }
                         </div>
-                        @if (isCenter && dot == 0)
+                        @if (isCenter && dot == 1)
                         {
-                            <figcaption class="feature-caption"><span>@feature.First<br />@feature.Second</span></figcaption>
+                            <figcaption class="feature-caption"><span class="feature-arc-top" aria-hidden="true"></span><span class="feature-copy">@feature.First<br />@feature.Second</span><span class="feature-arc-bottom" aria-hidden="true"></span></figcaption>
                         }
                     }
                 </figure>
