@@ -1,13 +1,6 @@
 @{
     ViewData["Title"] = "Your Daily Beat";
-    var values = new[] { "ENTHUSIASTIC SERVICES", "PRECISION AND CONSISTENCY", "FINE INGREDIENTS", "HAND-MADE ARTISAN TEA", "CHEWY GOLDEN BUBBLE", "FRESH TEA AROMA", "PROFESSIONAL NEATNESS", "PROFESSIONAL NEATNESS" };
-    var features = new[]
-    {
-        (Image: "tea", Photo: "cup-top.png", Tone: "green", First: "FRAGRANCE", Second: "OF TEA LEAVES"),
-        (Image: "service", Photo: "feature-hand.png", Tone: "orange", First: "HEART-WARMING", Second: "SERVICE"),
-        (Image: "shaking", Photo: "feature-drink.png", Tone: "blue", First: "THE SOUND", Second: "OF SHAKING"),
-        (Image: "bubbles", Photo: "feature-lid.png", Tone: "gold", First: "DELICIOUS", Second: "GOLDEN BUBBLE")
-    };
+    var speeds = new[] { 60, 90, 120, 60, 180, 90, 120, 60, 120, 90, 60, 180, 90, 90, 60, 120 };
     var drinks = new[]
     {
         (Image: "chewy", Label: "CHEWY TEA", Id: "45"),
@@ -30,14 +23,17 @@
         <source src="~/videos/hero-mobile.mp4" type="video/mp4" />
     </video>
     <div class="hero-lettering" aria-hidden="true">
-        <img class="hero-wordmark" src="~/images/hero-wordmark.svg" alt="" fetchpriority="high" />
+        <picture>
+            <source media="(max-width: 1024px)" srcset="/images/hero-wordmark-mobile.png" />
+            <img class="hero-wordmark" src="~/images/hero-wordmark.svg" alt="" fetchpriority="high" />
+        </picture>
         <div class="hero-o">
             <img class="hero-ring" src="~/images/hero-ring.svg" alt="" />
             <img class="hero-center" src="~/images/hero-center.png" alt="" fetchpriority="high" />
         </div>
     </div>
     <div class="hero-bottom">
-        <a class="scroll-prompt" href="#our-story"><span aria-hidden="true">↓</span><span>( Scroll to explore more )</span></a>
+        <a class="scroll-prompt" href="#our-story" aria-label="Scroll to explore more"><picture><source media="(max-width: 1024px)" srcset="/images/scroll-mobile.svg" /><img src="~/images/scroll-desktop.svg" width="170" height="81" alt="" /></picture></a>
         <p class="hero-note">Happiness is to share special moments with friends. A celebration, a date or just a relaxing break in the day, there is always a reason to get together around a cup of KOI tea. KOI brings joy to the world. Freshly brewed tea and flavorful ingredients, prepared with passion are the key to KOI’s authentic taste and the reason why people come back again and again.</p>
         <button class="intro-replay" type="button">( Replay intro )</button>
         <button class="motion-toggle" type="button" aria-label="Pause background video" aria-pressed="false">Ⅱ <span>PAUSE</span></button>
@@ -50,53 +46,22 @@
     <div class="story-lines" aria-hidden="true">
         @for (var row = 0; row < 16; row++)
         {
-            <div class="story-line"><div>@for (var repeat = 0; repeat < 5; repeat++) { <span>@values[row % values.Length]</span> }</div></div>
+            <div class="story-line"><div data-marquee-speed="@speeds[row]">@for (var repeat = 0; repeat < 16; repeat++) { <span><img src="~/images/index-bg-text-@(row % 8 + 1).svg" alt="" /></span> }</div></div>
         }
     </div>
     <div class="story-cup" role="img" aria-label="Freshly brewed milk tea turning as you scroll">
         <div class="story-sprite"><img src="~/images/tea-top.png" width="459" height="459" alt="" loading="lazy" /></div>
     </div>
     <div class="story-wipe" aria-hidden="true"></div>
-    <div class="daily-marquee" aria-hidden="true"><div><img src="~/images/marquee.svg" alt="" loading="lazy" /><img src="~/images/marquee.svg" alt="" loading="lazy" /></div></div>
+    <div class="daily-marquee" aria-hidden="true"><div data-marquee-speed="120"><img src="~/images/marquee.svg" alt="" loading="lazy" /><img src="~/images/marquee.svg" alt="" loading="lazy" /></div></div>
     </div>
+</section>
+<section class="feature-intro" aria-hidden="true">
+    <partial name="_FeatureStage" model="true" />
 </section>
 <section class="features" aria-labelledby="features-title">
     <h2 class="visually-hidden" id="features-title">Made with care. Shared with joy.</h2>
-    <div class="feature-stage">
-        @for (var column = 0; column < 5; column++)
-        {
-            var isCenter = column == 2;
-            var isDown = column == 1 || column == 3;
-            <div class="feature-column @(isDown ? "feature-down" : "feature-up") @(isCenter ? "feature-main" : "feature-side") @(column == 0 || column == 4 ? "feature-outer" : "")" aria-hidden="@(isCenter ? null : "true")">
-                @for (var frame = 0; frame < features.Length; frame++)
-                {
-                    var feature = features[isDown ? features.Length - 1 - frame : frame];
-                    <figure class="feature-frame" data-tone="@feature.Tone">
-                        @for (var dot = 0; dot < (isCenter ? 2 : 5); dot++)
-                        {
-                            <div class="feature-dot">
-                                @if (isDown)
-                                {
-                                    <img src="~/images/@feature.Photo" alt="" width="82" height="82" loading="lazy" />
-                                }
-                                else
-                                {
-                                    <picture>
-                                        <source media="(prefers-reduced-motion: reduce)" srcset="/images/feature-@(feature.Image).jpg" />
-                                        <img src="~/images/feature-@(feature.Image).gif" alt="" width="82" height="82" loading="lazy" />
-                                    </picture>
-                                }
-                            </div>
-                            @if (isCenter && dot == 0)
-                            {
-                                <figcaption class="feature-caption"><span>@feature.First<br />@feature.Second</span></figcaption>
-                            }
-                        }
-                    </figure>
-                }
-            </div>
-        }
-    </div>
+    <partial name="_FeatureStage" model="false" />
 </section>
 <section class="recommendation" aria-labelledby="recommendation-title">
     <div class="recommendation-stage">

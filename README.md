@@ -21,14 +21,15 @@ dotnet publish --configuration Release --output ./artifacts/publish
 ## Phần 1: trang chủ — chờ duyệt
 
 - Giao diện tiếng Anh, theo bản tiếng Anh của website mẫu.
-- Video mở đầu lần truy cập đầu tiên trong ngày, nút Skip và Replay intro.
+- Video mở đầu lần truy cập đầu tiên trong ngày: header xuất hiện ở giây 1, Skip ở giây 2, hero trượt lên từ giây 5,5; có Replay intro.
 - Header cố định, menu hình quạt bung xoay khi hover/click, hỗ trợ bàn phím và Escape.
-- Hero giữ màn hình khi cuộn; chữ KOI trượt ngang và vòng chữ O xoay theo tiến độ.
+- Hero giữ màn hình khi cuộn; chữ KOI trượt ngang và vòng chữ O xoay theo tiến độ. Dùng ảnh chữ, logo và đường cong header riêng cho mobile từ bản gốc.
 - Ly trà xoay liên tục, đổi qua 23 khung hình theo cuộn, sau đó mở chuyển cảnh hình tròn.
-- Bốn cảnh thương hiệu; các cột hình tròn chạy ngược chiều và thu/phóng theo cuộn.
+- Chữ nền dùng SVG gốc, chạy liền mạch ở bốn tốc độ và dừng khi ra ngoài màn hình.
+- Bốn cảnh thương hiệu; các cột hình tròn chạy ngược chiều. Mobile có cảnh phóng hình đầu tiên riêng và khoảng chuyển cột dài hơn desktop.
 - Đồ uống, thành phần và nước bung ra từ tâm; từng lớp parallax theo con trỏ.
-- Danh mục đồ uống giữ màn hình và trượt ngang khi cuộn dọc; hỗ trợ nút và phím mũi tên, ảnh tròn xoay khi hover.
-- Tin tức trượt chuyển bài, tiêu đề xuất hiện theo cuộn, chữ footer và linh vật chuyển động.
+- Danh mục đồ uống giữ màn hình và trượt ngang khi cuộn dọc; hỗ trợ nút và phím mũi tên, ảnh tròn xoay khi hover trên desktop và theo cuộn trên mobile.
+- Tin tức trượt chuyển bài, tiêu đề xuất hiện theo cuộn. Footer dùng 13 chữ rời xếp lệch như mẫu; linh vật trượt cả thân lên, nâng ly và hiện Menu/Store khi hover hoặc focus.
 - Responsive; `prefers-reduced-motion` chuyển sang bố cục tĩnh, tắt video/GIF và bỏ các cảnh giữ màn hình.
 
 Hiện triển khai trang bìa tại `/` và trang chủ tại `/Home/Index`. Các trang About, Our Tea, News, Store, Recruit, Contact và Impact chưa được dựng local. Liên kết tới các trang này mở trang tương ứng trên website mẫu; các liên kết nội bộ `#drinks`, `#news`, `#our-story` dẫn tới nội dung của trang chủ. Chưa có đặt hàng hoặc xử lý dữ liệu nghiệp vụ.
@@ -43,12 +44,15 @@ Trang bìa: [desktop](docs/preview/trang-bia-desktop.png) · [điện thoại](d
 
 ## Kiểm tra
 
+Đối chiếu CSS gốc bằng trình duyệt: tọa độ/kích thước logo và vòng chọn ngôn ngữ ở 1440/390px; kích thước/vị trí chữ KOI, vòng O và quãng cuộn ngang ở 390/768/1024/1440/1920px khớp trong phạm vi 1px. Kiểm tra này xác nhận các phần được đo, chưa phải xác nhận toàn trang giống tuyệt đối.
+
 Các kiểm tra sau đã đạt trên bản publish Release: build/publish .NET và cú pháp JavaScript. Kiểm tra trình duyệt bằng Playwright gồm intro/Skip/truy cập lại, sprite và chuyển cảnh, bốn trạng thái thương hiệu theo cả hai chiều cuộn, parallax, carousel bằng cuộn/nút/bàn phím, menu hover/rê chuột ra ngoài/bàn phím/Escape, chuyển tin tức và chế độ giảm chuyển động. Kiểm tra đổi giữa 360, 390, 768, 1024, 1440 và 1920px để phát hiện tràn ngang hoặc tạo lặp ScrollTrigger. Video intro lỗi không làm kẹt trang. Quét axe WCAG 2/2.1 A/AA không phát hiện vi phạm tự động trên desktop/điện thoại.
 
 ## Cấu trúc
 
 - `Controllers/HomeController.cs`: controller trang chủ và xử lý lỗi.
-- `Views/Home/Index.cshtml`: nội dung trang chủ.
+- `Views/Home/Cover.cshtml`, `Views/Shared/_CoverLayout.cshtml`, `wwwroot/css/cover.css`: trang bìa chọn ngôn ngữ.
+- `Views/Home/Index.cshtml`, `_FeatureStage.cshtml`: trang chủ và phần cảnh thương hiệu dùng chung.
 - `Views/Shared/_Layout.cshtml`: khung Razor chung.
 - `Views/Shared/_Navigation.cshtml`, `_Footer.cshtml`: header/menu và footer.
 - `wwwroot/css/site.css`, `wwwroot/js/site.js`: style và các tương tác giao diện.

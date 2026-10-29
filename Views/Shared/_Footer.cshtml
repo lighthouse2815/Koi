@@ -1,13 +1,31 @@
-<aside class="floating-bear" aria-label="Quick links">
-    <a href="#drinks" class="bear-menu-link">(MENU)</a>
-    <a href="https://koithe.com/en/store.php" class="bear-store-link">(STORE)</a>
-    <img src="~/images/bear-head.svg" alt="" width="85" height="62" />
+<aside class="floating-bear" aria-label="Quick links to menu and stores" tabindex="0">
+    <div class="circle" aria-hidden="true">
+        <img class="mascot-menu" src="~/images/m-menu.svg" alt="" />
+        <img class="mascot-store" src="~/images/m-store.svg" alt="" />
+        <img class="mascot-mobile" src="~/images/m-text-mobile.svg" alt="" />
+    </div>
+    <div class="hover-link">
+        <div class="menu"><a href="#drinks" aria-label="Explore the menu"><img src="~/images/m-hover-menu.svg" alt="" /></a></div>
+        <div class="store"><a href="https://koithe.com/en/store.php" aria-label="Find a KOI store"><img src="~/images/m-hover-store.svg" alt="" /></a></div>
+    </div>
+    <div class="bear" aria-hidden="true">
+        <div class="drink"><img src="~/images/b-drink-menu.svg" alt="" /></div>
+        <div class="big-body"><img src="~/images/b-big-body.svg" alt="" /></div>
+    </div>
 </aside>
 <footer class="site-footer" id="footer">
     <div class="footer-marquee" aria-hidden="true">
-        <div class="footer-marquee-track">
-            <img src="~/images/footer-wordmark.svg" width="2656" height="365" alt="" loading="lazy" />
-            <img src="~/images/footer-wordmark.svg" width="2656" height="365" alt="" loading="lazy" />
+        <div class="footer-marquee-track" data-marquee-speed="120">
+            @for (var copy = 0; copy < 2; copy++)
+            {
+                <ul class="footer-marquee-letters">
+                    @for (var letter = 1; letter <= 13; letter++)
+                    {
+                        <li><img src="~/images/footer-@(letter).svg" alt="" /></li>
+                    }
+                </ul>
+                <img class="footer-mobile-art" src="~/images/footer-wordmark.svg" width="2656" height="365" alt="" loading="lazy" />
+            }
         </div>
     </div>
     <div class="footer-top"><a href="#home"><span aria-hidden="true">↑</span>( Top )</a></div>

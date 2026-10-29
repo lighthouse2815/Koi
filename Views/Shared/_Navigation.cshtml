@@ -18,11 +18,14 @@
         <span>HOME <i>(01/08)</i></span>
     </a>
     <a class="brand" asp-controller="Home" asp-action="Index" aria-label="KOI Thé home">
-        <img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" />
+        <picture>
+            <source media="(max-width: 1024px)" srcset="/images/logo-mobile.svg" />
+            <img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" />
+        </picture>
     </a>
     <nav class="fan-navigation" aria-label="Main navigation">
         <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-haspopup="dialog" aria-controls="navigation-dialog">
-            <span class="mobile-menu-label">MENU <span aria-hidden="true">☰</span></span>
+            <span class="mobile-menu-label"><img src="~/images/hamburger.svg" width="23" height="17" alt="" /></span>
         </button>
         <ul class="fan-links">
             @foreach (var navItem in pages)

@@ -1,0 +1,45 @@
+@model bool
+@{
+    var features = new[]
+    {
+        (Image: "tea", Photo: "cup-top.png", Tone: "green", First: "FRAGRANCE", Second: "OF TEA LEAVES"),
+        (Image: "service", Photo: "feature-hand.png", Tone: "orange", First: "HEART-WARMING", Second: "SERVICE"),
+        (Image: "shaking", Photo: "feature-drink.png", Tone: "blue", First: "THE SOUND", Second: "OF SHAKING"),
+        (Image: "bubbles", Photo: "feature-lid.png", Tone: "gold", First: "DELICIOUS", Second: "GOLDEN BUBBLE")
+    };
+}
+<div class="feature-stage">
+    @for (var column = 0; column < 5; column++)
+    {
+        var isCenter = column == 2;
+        var isDown = column == 1 || column == 3;
+        <div class="feature-column @(isDown ? "feature-down" : "feature-up") @(isCenter ? "feature-main" : "feature-side") @(column == 0 || column == 4 ? "feature-outer" : "")" aria-hidden="@(isCenter ? null : "true")">
+            @for (var frame = 0; frame < (Model ? 1 : features.Length); frame++)
+            {
+                var feature = features[isDown && !Model ? features.Length - 1 - frame : frame];
+                <figure class="feature-frame" data-tone="@feature.Tone">
+                    @for (var dot = 0; dot < (isCenter ? 2 : 5); dot++)
+                    {
+                        <div class="feature-dot">
+                            @if (isDown)
+                            {
+                                <img src="~/images/@feature.Photo" alt="" width="82" height="82" loading="lazy" />
+                            }
+                            else
+                            {
+                                <picture>
+                                    <source media="(prefers-reduced-motion: reduce)" srcset="/images/feature-@(feature.Image).jpg" />
+                                    <img src="~/images/feature-@(feature.Image).gif" alt="" width="82" height="82" loading="lazy" />
+                                </picture>
+                            }
+                        </div>
+                        @if (isCenter && dot == 0)
+                        {
+                            <figcaption class="feature-caption"><span>@feature.First<br />@feature.Second</span></figcaption>
+                        }
+                    }
+                </figure>
+            }
+        </div>
+    }
+</div>
