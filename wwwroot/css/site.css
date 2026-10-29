@@ -323,7 +323,7 @@ img { display: block; max-width: 100%; height: auto; }
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .hero-video { display: none; }
-    .hero { background: var(--cream); }
+    .hero { background: var(--cream) url('../images/hero-reading-poster.jpg') center / cover no-repeat; }
     .motion-toggle { display: none; }
 }
 
