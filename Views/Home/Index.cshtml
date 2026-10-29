@@ -1,8 +1,121 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Your Daily Beat";
+    var values = new[] { "ENTHUSIASTIC SERVICES", "PRECISION AND CONSISTENCY", "FINE INGREDIENTS", "HAND-MADE ARTISAN TEA", "CHEWY GOLDEN BUBBLE", "FRESH TEA AROMA", "PROFESSIONAL NEATNESS", "PROFESSIONAL NEATNESS" };
+    var features = new[]
+    {
+        (Image: "tea", First: "FRAGRANCE", Second: "OF TEA LEAVES"),
+        (Image: "service", First: "HEART-WARMING", Second: "SERVICE"),
+        (Image: "shaking", First: "THE SOUND", Second: "OF SHAKING"),
+        (Image: "bubbles", First: "DELICIOUS", Second: "GOLDEN BUBBLE")
+    };
+    var drinks = new[]
+    {
+        (Image: "chewy", Label: "CHEWY TEA", Id: "45"),
+        (Image: "flavored", Label: "FLAVORED TEA", Id: "44"),
+        (Image: "macchiato", Label: "SIGNATURE MACCHIATO", Id: "3"),
+        (Image: "milk", Label: "MILK TEA", Id: "42"),
+        (Image: "latte", Label: "TEA LATTE", Id: "43"),
+        (Image: "juice", Label: "JUICE", Id: "6")
+    };
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-track" id="home">
+<section class="hero" aria-labelledby="hero-title">
+    <h1 class="visually-hidden" id="hero-title">KOI Thé — Your Daily Beat</h1>
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/images/hero-poster.jpg" aria-hidden="true">
+        <source src="~/videos/hero-desktop.mp4" type="video/mp4" media="(min-width: 768px)" />
+        <source src="~/videos/hero-mobile.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-lettering" aria-hidden="true">
+        <img class="hero-wordmark" src="~/images/hero-wordmark.svg" alt="" fetchpriority="high" />
+        <div class="hero-o">
+            <img class="hero-ring" src="~/images/hero-ring.svg" alt="" />
+            <img class="hero-center" src="~/images/hero-center.png" alt="" fetchpriority="high" />
+        </div>
+    </div>
+    <div class="hero-bottom">
+        <a class="scroll-prompt" href="#our-story"><span aria-hidden="true">↓</span><span>( Scroll to explore more )</span></a>
+        <p class="hero-note">Happiness is to share special moments with friends. A celebration, a date or just a relaxing break in the day, there is always a reason to get together around a cup of KOI tea. KOI brings joy to the world. Freshly brewed tea and flavorful ingredients, prepared with passion are the key to KOI’s authentic taste and the reason why people come back again and again.</p>
+        <button class="motion-toggle" type="button" aria-label="Pause background video" aria-pressed="false">Ⅱ <span>PAUSE</span></button>
+    </div>
+</section>
 </div>
+<section class="story" id="our-story" aria-labelledby="story-title">
+    <h2 class="visually-hidden" id="story-title">A little care in every cup</h2>
+    <div class="story-lines" aria-hidden="true">
+        @for (var row = 0; row < 16; row++)
+        {
+            <div class="story-line"><div>@for (var repeat = 0; repeat < 5; repeat++) { <span>@values[row % values.Length]</span> }</div></div>
+        }
+    </div>
+    <img class="story-cup" src="~/images/tea-top.png" width="485" height="485" alt="Freshly brewed iced milk tea, viewed from above" loading="lazy" />
+    <div class="daily-marquee" aria-hidden="true"><div><img src="~/images/marquee.svg" alt="" loading="lazy" /><img src="~/images/marquee.svg" alt="" loading="lazy" /></div></div>
+</section>
+<section class="features" aria-labelledby="features-title">
+    <h2 class="visually-hidden" id="features-title">Made with care. Shared with joy.</h2>
+    <div class="feature-grid">
+        @foreach (var feature in features)
+        {
+            <figure class="feature-item">
+                <picture>
+                    <source media="(prefers-reduced-motion: reduce)" srcset="/images/feature-@(feature.Image).jpg" />
+                    <img src="~/images/feature-@(feature.Image).gif" alt="" width="360" height="360" loading="lazy" />
+                </picture>
+                <figcaption>@feature.First<br />@feature.Second</figcaption>
+            </figure>
+        }
+    </div>
+    <div class="feature-center" aria-hidden="true"><img src="~/images/cup-top.png" alt="" loading="lazy" /><span>Every cup.<br />A little happiness.</span></div>
+</section>
+<section class="recommendation" aria-labelledby="recommendation-title">
+    <p class="recommendation-label">OUR<br />RECOMMENDATION</p>
+    <h2 id="recommendation-title">GOLDEN BUBBLE MILK TEA<br />HONEY GREEN TEA</h2>
+    <div class="recommendation-art">
+        <img class="splash splash-left" src="~/images/splash-left.png" alt="" loading="lazy" />
+        <img class="splash splash-right" src="~/images/splash-right.png" alt="" loading="lazy" />
+        <img class="fruit orange-one" src="~/images/orange-1.png" alt="" loading="lazy" />
+        <img class="fruit orange-two" src="~/images/orange-3.png" alt="" loading="lazy" />
+        <img class="fruit strawberry-one" src="~/images/strawberry-1.png" alt="" loading="lazy" />
+        <img class="fruit strawberry-two" src="~/images/strawberry-3.png" alt="" loading="lazy" />
+        <img class="recommended-drink milk-tea" src="~/images/drink-milk-tea.png" alt="Golden Bubble Milk Tea" width="287" height="465" loading="lazy" />
+        <img class="recommended-drink green-tea" src="~/images/drink-green-tea.png" alt="Honey Green Tea" width="287" height="465" loading="lazy" />
+    </div>
+    <div class="recommendation-captions"><span>GOLDEN BUBBLE MILK TEA</span><span>HONEY GREEN TEA</span></div>
+</section>
+<section class="drinks-section" id="drinks" aria-labelledby="drinks-title">
+    <h2 class="section-heading green" id="drinks-title">DRINK</h2>
+    <div class="drink-controls"><span>FIND YOUR DAILY FAVOURITE</span><div><button type="button" class="carousel-arrow" data-drink-direction="-1" aria-label="Previous drinks" aria-controls="drink-carousel">←</button><button type="button" class="carousel-arrow" data-drink-direction="1" aria-label="Next drinks" aria-controls="drink-carousel">→</button></div></div>
+    <div class="drink-carousel" id="drink-carousel" tabindex="0" role="region" aria-label="Drink categories, scroll horizontally">
+        @foreach (var drink in drinks)
+        {
+            <a class="drink-card" href="https://koithe.com/en/ourtea.php#@drink.Id">
+                <div class="drink-photo">
+                    <img src="~/images/drink-@(drink.Image).jpg" alt="@drink.Label collection" width="600" height="600" loading="lazy" />
+                    <img class="drink-photo-circle" src="~/images/drink-@(drink.Image).jpg" alt="" width="600" height="600" loading="lazy" aria-hidden="true" />
+                    <span class="drink-view-more" aria-hidden="true">VIEW<br />MORE ↗</span>
+                </div>
+                <h3><img src="~/images/icon-@(drink.Image).svg" alt="" width="32" height="44" loading="lazy" />@drink.Label<span aria-hidden="true">↗</span></h3>
+            </a>
+        }
+    </div>
+</section>
+<section class="news-section" id="news" aria-labelledby="news-title">
+    <h2 class="section-heading gold" id="news-title">NEWS</h2>
+    <div class="news-carousel" role="region" aria-roledescription="carousel" aria-label="Latest news">
+        <div class="news-pagination" aria-label="Choose a news article">
+            <button type="button" data-news-slide="0" aria-label="Show news 1" aria-pressed="true" aria-controls="news-1">01</button>
+            <button type="button" data-news-slide="1" aria-label="Show news 2" aria-pressed="false" aria-controls="news-2">02</button>
+        </div>
+        <article class="news-slide" id="news-1" aria-roledescription="slide" aria-label="1 of 2">
+            <a href="https://koithe.com/en/news_detail.php?id=2782" class="news-link">
+                <img class="news-image" src="~/images/news-badges.jpg" alt="Colourful KOI tea magnets from around the world on a yellow background" width="840" height="520" loading="lazy" />
+                <div class="news-copy"><time datetime="2025-12-31">(December 31, 2025)</time><h3>“CLOCK IN the world with KOI” Global Magnet Badge Collection Challenge</h3><span class="news-more"><span aria-hidden="true">→</span>( More )</span></div>
+            </a>
+        </article>
+        <article class="news-slide" id="news-2" aria-roledescription="slide" aria-label="2 of 2" hidden>
+            <a href="https://koithe.com/en/news.php" class="news-link">
+                <img class="news-image" src="~/images/news-website.jpg" alt="KOI Thé celebrates its new official website" width="840" height="520" loading="lazy" />
+                <div class="news-copy"><time datetime="2024-12-01">(December 01, 2024)</time><h3>Welcome to the brand-new official website! Explore and experience the unique charm of KOI.</h3><span class="news-more"><span aria-hidden="true">→</span>( More )</span></div>
+            </a>
+        </article>
+    </div>
+</section>

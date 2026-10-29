@@ -1,0 +1,43 @@
+<aside class="floating-bear" aria-label="Quick links">
+    <a href="#drinks" class="bear-menu-link">(MENU)</a>
+    <a href="https://koithe.com/en/store.php" class="bear-store-link">(STORE)</a>
+    <img src="~/images/bear-head.svg" alt="" width="85" height="62" />
+</aside>
+<footer class="site-footer" id="footer">
+    <div class="footer-marquee" aria-hidden="true">
+        <div class="footer-marquee-track">
+            <img src="~/images/footer-wordmark.svg" width="2656" height="365" alt="" loading="lazy" />
+            <img src="~/images/footer-wordmark.svg" width="2656" height="365" alt="" loading="lazy" />
+        </div>
+    </div>
+    <div class="footer-top"><a href="#home"><span aria-hidden="true">↑</span>( Top )</a></div>
+    <div class="footer-bottom">
+        <div class="footer-brand">
+            <div class="footer-bear" aria-hidden="true">
+                <img class="bear-body" src="~/images/bear-body.svg" alt="" loading="lazy" />
+                <img class="bear-head" src="~/images/bear-head.svg" alt="" loading="lazy" />
+                <img class="bear-drink" src="~/images/bear-drink.svg" alt="" loading="lazy" />
+            </div>
+            <a asp-controller="Home" asp-action="Index" aria-label="KOI Thé home"><img src="~/images/footer-logo.svg" width="184" height="39" alt="KOI Thé" loading="lazy" /></a>
+        </div>
+        <nav class="footer-navigation" aria-label="Footer navigation">
+            <span class="navigation-caption">(NAVIGATION)</span>
+            <div>
+                <a asp-controller="Home" asp-action="Index" aria-current="page">HOME</a>
+                <a href="https://koithe.com/en/about.php">ABOUT</a>
+                <a href="#drinks">OUR TEA</a>
+            </div>
+            <div>
+                <a href="#news">NEWS</a>
+                <a href="https://koithe.com/en/store.php">STORE</a>
+                <a href="https://koithe.com/en/recruit.php">RECRUIT</a>
+            </div>
+            <div>
+                <a href="https://koithe.com/en/impact_list.php">IMPACT</a>
+                <a href="https://koithe.com/en/contact.php">CONTACT</a>
+                <a href="#drinks">MENU</a>
+            </div>
+        </nav>
+        <div class="footer-copyright"><span class="footer-language">EN</span><p>© @DateTime.UtcNow.Year KOI CAFE GROUP (S) PTE LTD.<br />All rights reserved.</p></div>
+    </div>
+</footer>
