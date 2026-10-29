@@ -117,7 +117,7 @@ img { display: block; max-width: 100%; height: auto; }
 .motion-ready :is(.features, .feature-intro) .feature-stage { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: 1fr 1fr minmax(405px, 1.5fr) 1fr 1fr; gap: clamp(20px, 4vw, 70px); overflow: hidden; padding: 0 3.8%; }
 .motion-ready .feature-column { display: block; min-width: 0; }
 .motion-ready .feature-main { max-width: none; margin: 0; }
-.motion-ready .feature-frame { height: 100svh; justify-content: space-between; padding: 40px 0 20px; }
+.motion-ready .feature-frame { height: 100svh; justify-content: space-between; padding: 80px 0 40px; }
 .motion-ready .feature-dot { flex: 0 0 auto; }
 .motion-ready .feature-dot img { width: clamp(65px, 5.2vw, 82px); height: clamp(65px, 5.2vw, 82px); }
 .motion-ready .feature-frame > .feature-dot:last-child { display: block; }
@@ -495,6 +495,29 @@ body.is-intro { overflow: hidden; }
 @media (min-width: 640px) and (max-width: 1024px) {
     .motion-ready :is(.features, .feature-intro) .feature-stage { grid-template-columns: 80px minmax(0, 1fr) 80px; padding-inline: 7%; }
     .motion-ready .feature-dot img { width: 80px; height: 80px; }
+}
+
+@media (min-width: 1025px) {
+    .motion-ready :is(.features, .feature-intro) .feature-stage {
+        --feature-dot-size: 82px;
+        --feature-inner-gap: 200px;
+        grid-template-columns: var(--feature-dot-size) minmax(0, 1fr) var(--feature-dot-size) var(--feature-inner-gap) max-content var(--feature-inner-gap) var(--feature-dot-size) minmax(0, 1fr) var(--feature-dot-size);
+        gap: 0;
+        padding-inline: 55px;
+    }
+    .motion-ready .feature-column:nth-child(1) { grid-column: 1; }
+    .motion-ready .feature-column:nth-child(2) { grid-column: 3; }
+    .motion-ready .feature-column:nth-child(3) { grid-column: 5; }
+    .motion-ready .feature-column:nth-child(4) { grid-column: 7; }
+    .motion-ready .feature-column:nth-child(5) { grid-column: 9; }
+    .motion-ready .feature-dot img { width: var(--feature-dot-size); height: var(--feature-dot-size); }
+}
+@media (min-width: 1025px) and (max-width: 1599px) {
+    .motion-ready :is(.features, .feature-intro) .feature-stage { --feature-dot-size: 75px; --feature-inner-gap: 105px; }
+    .motion-ready .feature-frame { padding: 40px 0 20px; }
+}
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .motion-ready :is(.features, .feature-intro) .feature-stage { --feature-dot-size: 70px; --feature-inner-gap: 55px; }
 }
 
 /* Recommendation geometry and breakpoints from the reference scene. */

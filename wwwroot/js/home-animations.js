@@ -62,37 +62,64 @@
         const up = features.querySelectorAll('.feature-up');
         const down = features.querySelectorAll('.feature-down');
         const featureParts = features.querySelectorAll('.feature-dot, .feature-caption, .feature-caption > span');
-        const featureTimeline = gsap.timeline({
-            defaults: { ease: 'none' },
-            scrollTrigger: {
-                id: 'feature-columns', trigger: features, start: 'top top', end: () => `+=${features.offsetHeight}`,
-                scrub: context.conditions.desktop ? 1 : true, invalidateOnRefresh: true,
-                onUpdate: self => {
-                    const active = self.scroll() >= self.start;
-                    features.classList.toggle('is-active', active);
-                    featureIntro.classList.toggle('is-covered', active);
-                }
+        ScrollTrigger.create({
+            id: 'feature-columns', trigger: features, start: 'top top', end: () => `+=${features.offsetHeight}`,
+            onUpdate: self => {
+                const active = self.scroll() >= self.start;
+                features.classList.toggle('is-active', active);
+                featureIntro.classList.toggle('is-covered', active);
             }
         });
-        featureTimeline.set(up, { y: 0 }, 0)
-            .set(down, { y: () => -3 * featureStage.clientHeight }, 0);
+
+        // The reference uses GSAP 3.5's power3 scrub; current GSAP defaults
+        // to expo, which makes these short transitions settle too quickly.
+        const matchFeatureScrub = animation => {
+            const tween = animation.scrollTrigger.getTween();
+            if (tween) {
+                tween.vars.ease = 'power3';
+                tween.invalidate();
+            }
+        };
+        gsap.set(up, { y: 0 });
+        gsap.set(down, { y: -3 * featureStage.clientHeight });
+        const setUp = gsap.quickSetter(up, 'y', 'px');
+        const setDown = gsap.quickSetter(down, 'y', 'px');
+        const phasePositions = [{ value: 0 }, { value: 0 }, { value: 0 }];
+        const renderFeatureColumns = () => {
+            // Sum independent phases so fast scrolling cannot make several
+            // scrub tweens overwrite the same column transform.
+            const offset = phasePositions.reduce((sum, phase) => sum + phase.value, 0) * featureStage.clientHeight;
+            setUp(-offset);
+            setDown(offset - 3 * featureStage.clientHeight);
+        };
+        ScrollTrigger.addEventListener('refresh', renderFeatureColumns);
+        matchFeatureScrub(gsap.fromTo(featureParts, { scale: 1 }, {
+            scale: 0, ease: 'power1.out',
+            scrollTrigger: { id: 'feature-exit', trigger: features, start: '70% top', end: '75% top', scrub: context.conditions.desktop ? 1 : true }
+        }));
+        for (let step = 3; step >= 1; step--) {
+            const at = (context.conditions.desktop ? 19 : 0) + (step - 1) * 20;
+            const end = at + (context.conditions.desktop ? 1 : 10);
+            matchFeatureScrub(gsap.fromTo(phasePositions[step - 1], { value: 0 }, {
+                value: 1, ease: 'power1.out', onUpdate: renderFeatureColumns,
+                scrollTrigger: {
+                    id: `feature-transition-${step}`, trigger: features, start: `${at}% top`, end: `${end}% top`,
+                    scrub: context.conditions.desktop ? 1 : true, invalidateOnRefresh: true
+                }
+            }));
+        }
         if (context.conditions.desktop) {
-            featureTimeline.fromTo(featureParts, { scale: 0 }, { scale: 1, duration: 0.05, ease: 'power1.out' }, 0.05);
+            matchFeatureScrub(gsap.fromTo(featureParts, { scale: 0 }, {
+                scale: 1, ease: 'power1.out',
+                scrollTrigger: { id: 'feature-entrance', trigger: features, start: '5% top', end: '10% top', scrub: 1 }
+            }));
         } else {
-            featureTimeline.set(featureParts, { scale: 1 }, 0);
-            gsap.fromTo(featureIntro.querySelectorAll('.feature-dot, .feature-caption, .feature-caption > span'), { scale: 0 }, {
+            gsap.set(featureParts, { scale: 1 });
+            matchFeatureScrub(gsap.fromTo(featureIntro.querySelectorAll('.feature-dot, .feature-caption, .feature-caption > span'), { scale: 0 }, {
                 scale: 1, ease: 'power1.out',
                 scrollTrigger: { id: 'feature-intro', trigger: featureIntro, start: '10% top', end: '25% top', scrub: 1 }
-            });
+            }));
         }
-        for (let step = 1; step <= 3; step++) {
-            const at = (context.conditions.desktop ? 0.19 : 0) + (step - 1) * 0.2;
-            const duration = context.conditions.desktop ? 0.01 : 0.1;
-            featureTimeline.to(up, { y: () => -step * featureStage.clientHeight, duration, ease: 'power1.out' }, at)
-                .to(down, { y: () => -(3 - step) * featureStage.clientHeight, duration, ease: 'power1.out' }, at);
-        }
-        featureTimeline.to(featureParts, { scale: 0, duration: 0.05, ease: 'power1.out' }, 0.7)
-            .to({}, { duration: 0.25 }, 0.75);
 
         const art = document.querySelector('.recommendation-art');
         const layers = [...art.querySelectorAll('.recommendation-layer')];
@@ -174,6 +201,7 @@
         ScrollTrigger.refresh();
         return () => {
             ScrollTrigger.removeEventListener('refreshInit', sizeTracks);
+            ScrollTrigger.removeEventListener('refresh', renderFeatureColumns);
             marqueeObserver.disconnect();
             marquees.forEach(track => {
                 track.style.removeProperty('--marquee-duration');
