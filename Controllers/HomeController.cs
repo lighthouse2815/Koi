@@ -6,6 +6,11 @@ namespace Koi.Web.Controllers;
 
 public class HomeController : Controller
 {
+    public IActionResult Cover()
+    {
+        return View();
+    }
+
     public IActionResult Index()
     {
         return View();

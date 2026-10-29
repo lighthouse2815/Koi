@@ -11,7 +11,7 @@ dotnet restore
 dotnet run
 ```
 
-Mở **http://localhost:5118**. Có thể chạy bằng Visual Studio với profile `http`.
+Mở **http://localhost:5118** để xem trang bìa chọn ngôn ngữ như URL gốc. Chọn **ENGLISH** để vào `/Home/Index`. Liên kết 中文 mở bản gốc tiếng Trung; nội dung MVC hiện dùng tiếng Anh. Có thể chạy bằng Visual Studio với profile `http`.
 
 ```bash
 dotnet build --configuration Release
@@ -31,11 +31,13 @@ dotnet publish --configuration Release --output ./artifacts/publish
 - Tin tức trượt chuyển bài, tiêu đề xuất hiện theo cuộn, chữ footer và linh vật chuyển động.
 - Responsive; `prefers-reduced-motion` chuyển sang bố cục tĩnh, tắt video/GIF và bỏ các cảnh giữ màn hình.
 
-Hiện chỉ triển khai trang chủ tại `/` hoặc `/Home/Index`. Các trang About, Our Tea, News, Store, Recruit, Contact và Impact chưa được dựng local. Liên kết tới các trang này mở trang tương ứng trên website mẫu; các liên kết nội bộ `#drinks`, `#news`, `#our-story` dẫn tới nội dung của trang chủ. Chưa có đặt hàng hoặc xử lý dữ liệu nghiệp vụ.
+Hiện triển khai trang bìa tại `/` và trang chủ tại `/Home/Index`. Các trang About, Our Tea, News, Store, Recruit, Contact và Impact chưa được dựng local. Liên kết tới các trang này mở trang tương ứng trên website mẫu; các liên kết nội bộ `#drinks`, `#news`, `#our-story` dẫn tới nội dung của trang chủ. Chưa có đặt hàng hoặc xử lý dữ liệu nghiệp vụ.
 
 Chuỗi hoạt ảnh dùng GSAP, ScrollTrigger và ScrollToPlugin, dựa trên thứ tự cảnh, sprite và các mốc chuyển cảnh của website mẫu. Độ dài vùng cuộn và bố cục tự điều chỉnh theo màn hình; chế độ giảm chuyển động vẫn hiển thị đủ nội dung bằng bố cục tĩnh.
 
 [Video chạy thử toàn bộ chuỗi animation](docs/preview/trang-chu-animation.mp4).
+
+Trang bìa: [desktop](docs/preview/trang-bia-desktop.png) · [điện thoại](docs/preview/trang-bia-mobile.png).
 
 Ảnh xem trước: [desktop](docs/preview/trang-chu-desktop.jpg) · [điện thoại](docs/preview/trang-chu-mobile.jpg).
 
