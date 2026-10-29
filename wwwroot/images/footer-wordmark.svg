@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="b" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="2655.62" height="365.46" viewBox="0 0 2655.62 365.46">
+<svg id="b" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="2655.62" height="365.46" viewBox="0 0 2655.62 365.46"><style>
+@keyframes letter-wave { 50% { transform: translateY(12px) rotate(2deg); } }
+#c > g > * { transform-box: fill-box; transform-origin: center; animation: letter-wave 3.5s ease-in-out infinite; }
+#c > g > :nth-child(3n) { animation-delay: -1.2s; }
+#c > g > :nth-child(3n + 1) { animation-delay: -2.4s; }
+@media (prefers-reduced-motion: reduce) { #c > g > * { animation: none; } }
+</style>
   <g id="c" data-name="footer">
     <g>
       <g>

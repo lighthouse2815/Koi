@@ -3,10 +3,10 @@
     var values = new[] { "ENTHUSIASTIC SERVICES", "PRECISION AND CONSISTENCY", "FINE INGREDIENTS", "HAND-MADE ARTISAN TEA", "CHEWY GOLDEN BUBBLE", "FRESH TEA AROMA", "PROFESSIONAL NEATNESS", "PROFESSIONAL NEATNESS" };
     var features = new[]
     {
-        (Image: "tea", First: "FRAGRANCE", Second: "OF TEA LEAVES"),
-        (Image: "service", First: "HEART-WARMING", Second: "SERVICE"),
-        (Image: "shaking", First: "THE SOUND", Second: "OF SHAKING"),
-        (Image: "bubbles", First: "DELICIOUS", Second: "GOLDEN BUBBLE")
+        (Image: "tea", Photo: "cup-top.png", Tone: "green", First: "FRAGRANCE", Second: "OF TEA LEAVES"),
+        (Image: "service", Photo: "feature-hand.png", Tone: "orange", First: "HEART-WARMING", Second: "SERVICE"),
+        (Image: "shaking", Photo: "feature-drink.png", Tone: "blue", First: "THE SOUND", Second: "OF SHAKING"),
+        (Image: "bubbles", Photo: "feature-lid.png", Tone: "gold", First: "DELICIOUS", Second: "GOLDEN BUBBLE")
     };
     var drinks = new[]
     {
@@ -18,6 +18,10 @@
         (Image: "juice", Label: "JUICE", Id: "6")
     };
 }
+<dialog class="intro" id="intro" aria-label="KOI Thé introduction" hidden>
+    <video class="intro-video" src="~/videos/intro.mp4" muted playsinline preload="none" aria-hidden="true"></video>
+    <button class="intro-skip" type="button">( Skip ) <span aria-hidden="true">→</span></button>
+</dialog>
 <div class="hero-track" id="home">
 <section class="hero" aria-labelledby="hero-title">
     <h1 class="visually-hidden" id="hero-title">KOI Thé — Your Daily Beat</h1>
@@ -35,54 +39,87 @@
     <div class="hero-bottom">
         <a class="scroll-prompt" href="#our-story"><span aria-hidden="true">↓</span><span>( Scroll to explore more )</span></a>
         <p class="hero-note">Happiness is to share special moments with friends. A celebration, a date or just a relaxing break in the day, there is always a reason to get together around a cup of KOI tea. KOI brings joy to the world. Freshly brewed tea and flavorful ingredients, prepared with passion are the key to KOI’s authentic taste and the reason why people come back again and again.</p>
+        <button class="intro-replay" type="button">( Replay intro )</button>
         <button class="motion-toggle" type="button" aria-label="Pause background video" aria-pressed="false">Ⅱ <span>PAUSE</span></button>
     </div>
 </section>
 </div>
 <section class="story" id="our-story" aria-labelledby="story-title">
     <h2 class="visually-hidden" id="story-title">A little care in every cup</h2>
+    <div class="story-stage">
     <div class="story-lines" aria-hidden="true">
         @for (var row = 0; row < 16; row++)
         {
             <div class="story-line"><div>@for (var repeat = 0; repeat < 5; repeat++) { <span>@values[row % values.Length]</span> }</div></div>
         }
     </div>
-    <img class="story-cup" src="~/images/tea-top.png" width="485" height="485" alt="Freshly brewed iced milk tea, viewed from above" loading="lazy" />
+    <div class="story-cup" role="img" aria-label="Freshly brewed milk tea turning as you scroll">
+        <div class="story-sprite"><img src="~/images/tea-top.png" width="459" height="459" alt="" loading="lazy" /></div>
+    </div>
+    <div class="story-wipe" aria-hidden="true"></div>
     <div class="daily-marquee" aria-hidden="true"><div><img src="~/images/marquee.svg" alt="" loading="lazy" /><img src="~/images/marquee.svg" alt="" loading="lazy" /></div></div>
+    </div>
 </section>
 <section class="features" aria-labelledby="features-title">
     <h2 class="visually-hidden" id="features-title">Made with care. Shared with joy.</h2>
-    <div class="feature-grid">
-        @foreach (var feature in features)
+    <div class="feature-stage">
+        @for (var column = 0; column < 5; column++)
         {
-            <figure class="feature-item">
-                <picture>
-                    <source media="(prefers-reduced-motion: reduce)" srcset="/images/feature-@(feature.Image).jpg" />
-                    <img src="~/images/feature-@(feature.Image).gif" alt="" width="360" height="360" loading="lazy" />
-                </picture>
-                <figcaption>@feature.First<br />@feature.Second</figcaption>
-            </figure>
+            var isCenter = column == 2;
+            var isDown = column == 1 || column == 3;
+            <div class="feature-column @(isDown ? "feature-down" : "feature-up") @(isCenter ? "feature-main" : "feature-side") @(column == 0 || column == 4 ? "feature-outer" : "")" aria-hidden="@(isCenter ? null : "true")">
+                @for (var frame = 0; frame < features.Length; frame++)
+                {
+                    var feature = features[isDown ? features.Length - 1 - frame : frame];
+                    <figure class="feature-frame" data-tone="@feature.Tone">
+                        @for (var dot = 0; dot < (isCenter ? 2 : 5); dot++)
+                        {
+                            <div class="feature-dot">
+                                @if (isDown)
+                                {
+                                    <img src="~/images/@feature.Photo" alt="" width="82" height="82" loading="lazy" />
+                                }
+                                else
+                                {
+                                    <picture>
+                                        <source media="(prefers-reduced-motion: reduce)" srcset="/images/feature-@(feature.Image).jpg" />
+                                        <img src="~/images/feature-@(feature.Image).gif" alt="" width="82" height="82" loading="lazy" />
+                                    </picture>
+                                }
+                            </div>
+                            @if (isCenter && dot == 0)
+                            {
+                                <figcaption class="feature-caption"><span>@feature.First<br />@feature.Second</span></figcaption>
+                            }
+                        }
+                    </figure>
+                }
+            </div>
         }
     </div>
-    <div class="feature-center" aria-hidden="true"><img src="~/images/cup-top.png" alt="" loading="lazy" /><span>Every cup.<br />A little happiness.</span></div>
 </section>
 <section class="recommendation" aria-labelledby="recommendation-title">
+    <div class="recommendation-stage">
     <p class="recommendation-label">OUR<br />RECOMMENDATION</p>
     <h2 id="recommendation-title">GOLDEN BUBBLE MILK TEA<br />HONEY GREEN TEA</h2>
     <div class="recommendation-art">
-        <img class="splash splash-left" src="~/images/splash-left.png" alt="" loading="lazy" />
-        <img class="splash splash-right" src="~/images/splash-right.png" alt="" loading="lazy" />
-        <img class="fruit orange-one" src="~/images/orange-1.png" alt="" loading="lazy" />
-        <img class="fruit orange-two" src="~/images/orange-3.png" alt="" loading="lazy" />
-        <img class="fruit strawberry-one" src="~/images/strawberry-1.png" alt="" loading="lazy" />
-        <img class="fruit strawberry-two" src="~/images/strawberry-3.png" alt="" loading="lazy" />
-        <img class="recommended-drink milk-tea" src="~/images/drink-milk-tea.png" alt="Golden Bubble Milk Tea" width="287" height="465" loading="lazy" />
-        <img class="recommended-drink green-tea" src="~/images/drink-green-tea.png" alt="Honey Green Tea" width="287" height="465" loading="lazy" />
+        <div class="recommendation-layer splash splash-left" data-depth="-4.4"><img src="~/images/splash-left.png" alt="" loading="lazy" /></div>
+        <div class="recommendation-layer splash splash-right" data-depth="-4.5"><img src="~/images/splash-right.png" alt="" loading="lazy" /></div>
+        <div class="recommendation-layer fruit orange-one" data-depth="-2"><img src="~/images/orange-1.png" alt="" loading="lazy" /></div>
+        <div class="recommendation-layer fruit orange-two" data-depth="-2.5"><img src="~/images/orange-3.png" alt="" loading="lazy" /></div>
+        <div class="recommendation-layer fruit orange-three" data-depth="-1.8"><img src="~/images/orange-2.png" alt="" loading="lazy" /></div>
+        <div class="recommendation-layer fruit strawberry-one" data-depth="-4.8"><img src="~/images/strawberry-1.png" alt="" loading="lazy" /></div>
+        <div class="recommendation-layer fruit strawberry-two" data-depth="-6.5"><img src="~/images/strawberry-3.png" alt="" loading="lazy" /></div>
+        <div class="recommendation-layer fruit strawberry-three" data-depth="-5"><img src="~/images/strawberry-2.png" alt="" loading="lazy" /></div>
+        <div class="recommendation-layer recommended-drink milk-tea" data-depth="-5"><img src="~/images/drink-milk-tea.png" alt="Golden Bubble Milk Tea" width="287" height="465" loading="lazy" /></div>
+        <div class="recommendation-layer recommended-drink green-tea" data-depth="-6.5"><img src="~/images/drink-green-tea.png" alt="Honey Green Tea" width="287" height="465" loading="lazy" /></div>
     </div>
     <div class="recommendation-captions"><span>GOLDEN BUBBLE MILK TEA</span><span>HONEY GREEN TEA</span></div>
+    </div>
 </section>
+<div class="drinks-track">
 <section class="drinks-section" id="drinks" aria-labelledby="drinks-title">
-    <h2 class="section-heading green" id="drinks-title">DRINK</h2>
+    <h2 class="section-heading green" id="drinks-title"><span class="heading-clip"><span class="heading-word">DRINK</span></span></h2>
     <div class="drink-controls"><span>FIND YOUR DAILY FAVOURITE</span><div><button type="button" class="carousel-arrow" data-drink-direction="-1" aria-label="Previous drinks" aria-controls="drink-carousel">←</button><button type="button" class="carousel-arrow" data-drink-direction="1" aria-label="Next drinks" aria-controls="drink-carousel">→</button></div></div>
     <div class="drink-carousel" id="drink-carousel" tabindex="0" role="region" aria-label="Drink categories, scroll horizontally">
         @foreach (var drink in drinks)
@@ -98,13 +135,15 @@
         }
     </div>
 </section>
+</div>
 <section class="news-section" id="news" aria-labelledby="news-title">
-    <h2 class="section-heading gold" id="news-title">NEWS</h2>
+    <h2 class="section-heading gold" id="news-title"><span class="heading-clip"><span class="heading-word">NEWS</span></span></h2>
     <div class="news-carousel" role="region" aria-roledescription="carousel" aria-label="Latest news">
         <div class="news-pagination" aria-label="Choose a news article">
             <button type="button" data-news-slide="0" aria-label="Show news 1" aria-pressed="true" aria-controls="news-1">01</button>
             <button type="button" data-news-slide="1" aria-label="Show news 2" aria-pressed="false" aria-controls="news-2">02</button>
         </div>
+        <div class="news-slides">
         <article class="news-slide" id="news-1" aria-roledescription="slide" aria-label="1 of 2">
             <a href="https://koithe.com/en/news_detail.php?id=2782" class="news-link">
                 <img class="news-image" src="~/images/news-badges.jpg" alt="Colourful KOI tea magnets from around the world on a yellow background" width="840" height="520" loading="lazy" />
@@ -117,5 +156,15 @@
                 <div class="news-copy"><time datetime="2024-12-01">(December 01, 2024)</time><h3>Welcome to the brand-new official website! Explore and experience the unique charm of KOI.</h3><span class="news-more"><span aria-hidden="true">→</span>( More )</span></div>
             </a>
         </article>
+        </div>
     </div>
 </section>
+
+@section VendorScripts {
+    <script src="~/lib/gsap/gsap.min.js" defer></script>
+    <script src="~/lib/gsap/ScrollTrigger.min.js" defer></script>
+    <script src="~/lib/gsap/ScrollToPlugin.min.js" defer></script>
+}
+@section Scripts {
+    <script src="~/js/home-animations.js" asp-append-version="true" defer></script>
+}

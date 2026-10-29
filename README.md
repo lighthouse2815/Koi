@@ -21,22 +21,27 @@ dotnet publish --configuration Release --output ./artifacts/publish
 ## Phần 1: trang chủ — chờ duyệt
 
 - Giao diện tiếng Anh, theo bản tiếng Anh của website mẫu.
-- Header cố định, điều hướng hình quạt, menu mở bằng hộp thoại.
-- Hero chữ KOI lớn, video nền desktop/mobile, nút tạm dừng video.
-- Các dòng chữ chuyển động, hình trà và bốn điểm nhấn thương hiệu.
-- Đồ uống đề xuất, danh mục đồ uống kéo ngang hoặc bấm mũi tên.
-- Tin tức chuyển giữa hai bài bằng nút chọn, footer và linh vật.
-- Responsive, điều hướng bàn phím, hỗ trợ `prefers-reduced-motion`.
+- Video mở đầu lần truy cập đầu tiên trong ngày, nút Skip và Replay intro.
+- Header cố định, menu hình quạt bung xoay khi hover/click, hỗ trợ bàn phím và Escape.
+- Hero giữ màn hình khi cuộn; chữ KOI trượt ngang và vòng chữ O xoay theo tiến độ.
+- Ly trà xoay liên tục, đổi qua 23 khung hình theo cuộn, sau đó mở chuyển cảnh hình tròn.
+- Bốn cảnh thương hiệu; các cột hình tròn chạy ngược chiều và thu/phóng theo cuộn.
+- Đồ uống, thành phần và nước bung ra từ tâm; từng lớp parallax theo con trỏ.
+- Danh mục đồ uống giữ màn hình và trượt ngang khi cuộn dọc; hỗ trợ nút và phím mũi tên, ảnh tròn xoay khi hover.
+- Tin tức trượt chuyển bài, tiêu đề xuất hiện theo cuộn, chữ footer và linh vật chuyển động.
+- Responsive; `prefers-reduced-motion` chuyển sang bố cục tĩnh, tắt video/GIF và bỏ các cảnh giữ màn hình.
 
 Hiện chỉ triển khai trang chủ tại `/` hoặc `/Home/Index`. Các trang About, Our Tea, News, Store, Recruit, Contact và Impact chưa được dựng local. Liên kết tới các trang này mở trang tương ứng trên website mẫu; các liên kết nội bộ `#drinks`, `#news`, `#our-story` dẫn tới nội dung của trang chủ. Chưa có đặt hàng hoặc xử lý dữ liệu nghiệp vụ.
 
-Bố cục và tài nguyên bám website mẫu; hiệu ứng cuộn được rút gọn, không sao chép toàn bộ chuỗi hoạt ảnh GSAP và đoạn video giới thiệu trước khi vào trang. Phần tính năng thương hiệu được bố trí theo lưới để dễ xem trên desktop và điện thoại.
+Chuỗi hoạt ảnh dùng GSAP, ScrollTrigger và ScrollToPlugin, dựa trên thứ tự cảnh, sprite và các mốc chuyển cảnh của website mẫu. Độ dài vùng cuộn và bố cục tự điều chỉnh theo màn hình; chế độ giảm chuyển động vẫn hiển thị đủ nội dung bằng bố cục tĩnh.
+
+[Video chạy thử toàn bộ chuỗi animation](docs/preview/trang-chu-animation.mp4).
 
 Ảnh xem trước: [desktop](docs/preview/trang-chu-desktop.jpg) · [điện thoại](docs/preview/trang-chu-mobile.jpg).
 
 ## Kiểm tra
 
-Đã build/publish Release, kiểm tra cú pháp JavaScript và chạy kiểm tra trình duyệt bằng Playwright: menu/đóng bằng Escape, dừng/phát video, cuộn ngang hero, carousel hai chiều, chuyển tin tức, chế độ giảm chuyển động, route và tài nguyên local. Không tràn ngang ở 360, 390, 768, 1024, 1440 và 1920px. Quét axe WCAG 2/2.1 A/AA trên desktop và điện thoại không phát hiện vi phạm tự động.
+Các kiểm tra sau đã đạt trên bản publish Release: build/publish .NET và cú pháp JavaScript. Kiểm tra trình duyệt bằng Playwright gồm intro/Skip/truy cập lại, sprite và chuyển cảnh, bốn trạng thái thương hiệu theo cả hai chiều cuộn, parallax, carousel bằng cuộn/nút/bàn phím, menu hover/rê chuột ra ngoài/bàn phím/Escape, chuyển tin tức và chế độ giảm chuyển động. Kiểm tra đổi giữa 360, 390, 768, 1024, 1440 và 1920px để phát hiện tràn ngang hoặc tạo lặp ScrollTrigger. Video intro lỗi không làm kẹt trang. Quét axe WCAG 2/2.1 A/AA không phát hiện vi phạm tự động trên desktop/điện thoại.
 
 ## Cấu trúc
 
@@ -45,9 +50,10 @@ Bố cục và tài nguyên bám website mẫu; hiệu ứng cuộn được rú
 - `Views/Shared/_Layout.cshtml`: khung Razor chung.
 - `Views/Shared/_Navigation.cshtml`, `_Footer.cshtml`: header/menu và footer.
 - `wwwroot/css/site.css`, `wwwroot/js/site.js`: style và các tương tác giao diện.
+- `wwwroot/js/home-animations.js`: timeline GSAP, các cảnh theo cuộn, intro và parallax.
 - `wwwroot/images`, `wwwroot/videos`, `wwwroot/fonts`: tài nguyên local.
 
-Dùng template MVC chính thức của .NET, không thêm NuGet hay thư viện frontend. Bỏ Bootstrap/jQuery mặc định vì trang này không sử dụng chúng.
+Dùng template MVC chính thức của .NET, không thêm NuGet. GSAP 3.15.0 cùng ScrollTrigger/ScrollToPlugin được lưu trong `wwwroot/lib/gsap`, giữ thông tin bản quyền và giấy phép. Không cần npm để build hoặc chạy ứng dụng. Bỏ Bootstrap/jQuery mặc định vì trang này không sử dụng chúng.
 
 ## Tài nguyên tham chiếu
 
