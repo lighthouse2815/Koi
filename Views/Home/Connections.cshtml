@@ -2,6 +2,13 @@
     ViewData["Title"] = "Connections";
 }
 @section Styles {
+    <script>
+        if (!location.hash) {
+            history.scrollRestoration = 'manual';
+            scrollTo({ top: 0, behavior: 'instant' });
+        }
+    </script>
+    <link rel="stylesheet" href="~/lib/swiper/swiper-bundle.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/connections.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/impact-details.css" asp-append-version="true" />
@@ -123,6 +130,7 @@
      </div>
     </div>
     <div class="connections-feature__content">
+     <button class="connections-feature__motion" type="button" aria-pressed="false">( Pause motion )</button>
      <div class="connections-feature__panels">
       <article class="connections-feature__panel active" data-index="0">
        <h2>MEANINGFUL<br>
@@ -275,6 +283,7 @@
   </div>
 </div>
 @section VendorScripts {
+    <script src="~/lib/swiper/swiper-bundle.min.js" defer></script>
     <script src="~/lib/gsap/gsap.min.js" defer></script>
     <script src="~/lib/gsap/ScrollTrigger.min.js" defer></script>
 }

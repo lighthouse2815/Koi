@@ -45,11 +45,11 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 | Responsibility | `/Home/Responsibility` | Hai ảnh bìa trượt vào, chữ hiện theo thứ tự, bốn số liệu đếm cùng lúc, ảnh nguồn nguyên liệu hiện theo cuộn và video có Play/Back trên mobile |
 | Precision | `/Home/Precision` | Banner giữ màn hình, nền tối theo cuộn, đoạn chữ chạy lên và video Play/Back trên mobile |
 | People | `/Home/People` | Chữ hiện theo cuộn, năm thẻ Foundations cuộn vòng, ảnh Moments tự chạy/kéo/Pause và liên kết tuyển dụng |
-| Chi tiết Impact khác | `/Home/Connections` | Ảnh và hoạt động cộng đồng |
+| Connections | `/Home/Connections` | Ảnh bìa thu dần, OUR BELIEF hiện theo cuộn, ba nội dung cộng đồng chuyển mờ tự động và bảy thẻ IN ACTION cuộn vòng, căn giữa |
 
 Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Store, Contact và liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
-Trang About, Our Tea, News, Recruit, Impact, Responsibility và Precision đã được duyệt. People được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
+Trang About, Our Tea, News, Recruit, Impact, Responsibility, Precision và People đã được duyệt. Connections được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
 
 Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
@@ -84,7 +84,7 @@ Các kiểm tra sau đã đạt trên bản publish Release: build/publish .NET 
 
 Dùng template MVC chính thức của .NET, không thêm NuGet. GSAP 3.15.0 cùng ScrollTrigger/ScrollToPlugin được lưu trong `wwwroot/lib/gsap`, giữ thông tin bản quyền và giấy phép. Không cần npm để build hoặc chạy ứng dụng. Bỏ Bootstrap/jQuery mặc định vì trang này không sử dụng chúng.
 
-About, Our Tea và People dùng Swiper 14.3.0 lưu local tại `wwwroot/lib/swiper` (MIT). About dùng cho ảnh/nội dung nguyên liệu và lịch sử; Our Tea dùng cho nền dải ly, ảnh/nền New Drinks và tên món trên mobile; People dùng cho Foundations và Moments. Tự chuyển dừng khi phần tương ứng ra khỏi màn hình, tab bị ẩn, người dùng bấm Pause hoặc bật giảm chuyển động. Mobile xếp dọc bốn giá trị thương hiệu của About, dùng đúng nhóm ảnh bìa và hỗ trợ kéo dải ảnh lịch sử; New Drinks hỗ trợ vuốt và chấm chọn.
+About, Our Tea, People và Connections dùng Swiper 14.3.0 lưu local tại `wwwroot/lib/swiper` (MIT). About dùng cho ảnh/nội dung nguyên liệu và lịch sử; Our Tea dùng cho nền dải ly, ảnh/nền New Drinks và tên món trên mobile; People dùng cho Foundations và Moments; Connections dùng cho IN ACTION. Tự chuyển dừng khi phần tương ứng ra khỏi màn hình, tab bị ẩn, người dùng bấm Pause hoặc bật giảm chuyển động. Mobile xếp dọc bốn giá trị thương hiệu của About, dùng đúng nhóm ảnh bìa và hỗ trợ kéo dải ảnh lịch sử; New Drinks hỗ trợ vuốt và chấm chọn.
 
 [Video chạy thử animation About](docs/preview/about-animation.mp4), gồm cuộn xuôi/ngược từ SELECTION OF FINE INGREDIENTS, chuyển nguyên liệu và lịch sử.
 
@@ -99,6 +99,8 @@ About, Our Tea và People dùng Swiper 14.3.0 lưu local tại `wwwroot/lib/swip
 [Video chạy thử Precision](docs/preview/precision-animation.mp4), gồm cảnh bìa theo hai chiều cuộn, tiêu đề video và ba ảnh quy trình chất lượng. Ảnh xem trước: [desktop](docs/preview/precision-desktop.png) · [mobile](docs/preview/precision-mobile.png) · [chữ chạy trên mobile](docs/preview/precision-banner-mobile.png).
 
 [Video chạy thử People](docs/preview/people-animation.mp4), gồm tiêu đề, Foundations, ba ảnh nội dung, Moments và JOIN OUR TEAM. Ảnh xem trước: [desktop](docs/preview/people-desktop.png) · [mobile](docs/preview/people-mobile.png) · [Foundations trên mobile](docs/preview/people-features-mobile.png) · [Moments](docs/preview/people-moments.png).
+
+[Video chạy thử Connections](docs/preview/connections-animation.mp4), gồm ảnh bìa, OUR BELIEF, chuyển mờ nội dung cộng đồng, ba ảnh hoạt động và IN ACTION. Ảnh xem trước: [desktop](docs/preview/connections-desktop.png) · [mobile](docs/preview/connections-mobile.png) · [nội dung cộng đồng](docs/preview/connections-feature.png) · [IN ACTION trên mobile](docs/preview/connections-in-action-mobile.png).
 
 ## Tài nguyên tham chiếu
 
@@ -125,3 +127,5 @@ Responsibility bắt đầu ở ảnh bìa khi mở lại hoặc tải lại, k�
 Precision tương ứng cam kết thứ hai “PRECISION BUILDS TRUST” trên [trang mẫu](https://koithe.com/en/Precision.php). Đã đối chiếu bố cục, độ mờ nền/tiêu đề và vị trí chữ theo cả hai chiều cuộn ở 1440/390/1024px. Kiểm tra đổi kích thước không tạo lặp cảnh giữ màn hình, ba ảnh hiện theo cuộn, chạm Play/Back, khóa/mở cuộn video và tiếp tục animation sau khi đóng, đổi kích thước khi video đang mở, Back về đúng cam kết và mở lại trang ở ảnh bìa kể cả khi JavaScript tải chậm. Khi giảm chuyển động, bỏ vùng giữ màn hình và hiển thị tĩnh đủ sáu đoạn chữ cùng ba ảnh. Responsibility được kiểm tra lại sau khi dùng chung xử lý video và hiện ảnh. Video vẫn dùng trình phát YouTube gốc.
 
 People tương ứng cam kết thứ ba “PEOPLE BEHIND THE CRAFT” trên [trang mẫu](https://koithe.com/en/people.php). Đã đối chiếu bố cục ở 1440/390/1024px và nhịp hiện tiêu đề/phụ đề trên desktop/mobile. Kiểm tra đủ năm thẻ Foundations theo cả hai chiều và quay vòng, chấm chọn, vuốt/kéo bằng cảm ứng thật, Moments tự chạy với Pause/Play, dừng khi ra khỏi màn hình hoặc giảm chuyển động, đổi liên tục 390–2560px không tạo lặp carousel hay tràn ngang, liên kết Recruit và Back về cam kết People. Mở mới/tải lại luôn bắt đầu ở ảnh bìa, kể cả khi JavaScript tải chậm. Precision được kiểm tra lại sau thay đổi JavaScript dùng chung.
+
+Connections tương ứng cam kết thứ tư “CONNECTIONS THAT GO BEYOND THE CUP” trên [trang mẫu](https://koithe.com/en/connections.php). Đã đối chiếu bố cục ở 1440/390/1024px, nhịp hiện tiêu đề và độ mờ ảnh cộng đồng tại bốn khung hình. GSAP xử lý chuyển mờ 1,15 giây, thanh thời gian 3 giây và cử chỉ qua Observer; Swiper xử lý bảy thẻ IN ACTION căn giữa, quay vòng và vuốt. Kiểm tra Pause/Play, ảnh/chữ/chấm chọn đồng bộ, cảm ứng thật trong cả hai chế độ chuyển động, đổi 390–2560px không tràn ngang/tạo lặp carousel, chuyển sang giảm chuyển động giữa lúc đang đổi ảnh, Back đúng cam kết và mở lại trang ở ảnh bìa khi JavaScript tải chậm. People được kiểm tra lại sau thay đổi JavaScript dùng chung.

@@ -6,7 +6,8 @@
     const responsibility = page.querySelector('.responsibilityWrap');
     const precision = page.querySelector('.precisionWrap');
     const people = page.querySelector('.peopleWrap');
-    if ((responsibility || precision || people) && !location.hash) {
+    const connections = page.querySelector('.connectionsWrap');
+    if ((responsibility || precision || people || connections) && !location.hash) {
         history.scrollRestoration = 'manual';
         window.ScrollTrigger?.clearScrollMemory('manual');
         const startAtTop = () => {
@@ -92,7 +93,7 @@
     for (const prefix of ['people-features', 'connections-share']) {
         const section = page.querySelector('.' + prefix);
         if (!section) continue;
-        if (prefix === 'people-features' && window.Swiper) continue;
+        if (window.Swiper) continue;
         const track = section.querySelector('.' + prefix + '__track');
         let viewport = track.parentElement;
         if (prefix === 'connections-share') {
@@ -184,30 +185,110 @@
         syncShare();
     }
 
+    if (connections && window.Swiper) {
+        const share = connections.querySelector('.connections-share');
+        const marquee = share.querySelector('.connections-share__marquee');
+        marquee.classList.add('swiper');
+        share.querySelector('.connections-share__track').classList.add('swiper-wrapper');
+        share.querySelectorAll('.connections-share__item').forEach(item => item.classList.add('swiper-slide'));
+        const slider = new Swiper(marquee, {
+            slidesPerView: 'auto', centeredSlides: true, loop: true, speed: reducedMotion.matches ? 0 : 800, grabCursor: true,
+            breakpoints: { 0: { spaceBetween: 16 }, 1025: { spaceBetween: 25 } },
+            navigation: { prevEl: share.querySelector('.connections-share__arrow--prev'), nextEl: share.querySelector('.connections-share__arrow--next') }
+        });
+        reducedMotion.addEventListener('change', () => {
+            slider.params.speed = reducedMotion.matches ? 0 : 800;
+            if (reducedMotion.matches && slider.animating) {
+                slider.setTransition(0);
+                slider.transitionEnd();
+            }
+        });
+    }
+
     const feature = page.querySelector('.connections-feature');
     if (feature) {
         const slides = [...feature.querySelectorAll('.connections-feature__slide')];
         const panels = [...feature.querySelectorAll('.connections-feature__panel')];
         const dots = [...feature.querySelectorAll('.dot')];
+        const progress = feature.querySelector('.connections-feature__progress span');
+        const motionButton = feature.querySelector('.connections-feature__motion');
         let index = 0;
+        let visible = false;
+        let paused = false;
+        let busy = false;
+        let countdown;
+        let fade;
+        const canPlay = () => visible && !paused && !reducedMotion.matches && !document.hidden;
+        const startAuto = () => {
+            countdown?.kill();
+            countdown = undefined;
+            progress.style.transform = 'scaleX(0)';
+            if (canPlay() && !busy && window.gsap) countdown = gsap.fromTo(progress, { scaleX: 0 }, { scaleX: 1, duration: 3, ease: 'none', onComplete: () => select(index + 1) });
+        };
         const select = next => {
-            index = (next + slides.length) % slides.length;
-            [slides, panels, dots].forEach(group => group.forEach((item, i) => item.classList.toggle('active', i === index)));
-            dots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === index)));
-            feature.querySelector('.connections-feature__progress span').style.transform = 'translateX(' + index * 100 + '%)';
+            if (busy) return;
+            const target = (next + slides.length) % slides.length;
+            countdown?.kill();
+            countdown = undefined;
+            if (target === index) return startAuto();
+            [panels, dots].forEach(group => group.forEach((item, i) => item.classList.toggle('active', i === target)));
+            panels.forEach((panel, i) => panel.setAttribute('aria-hidden', String(i !== target)));
+            dots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === target)));
+            const finish = () => {
+                index = target;
+                busy = false;
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                    slide.style.opacity = i === index ? '1' : '0';
+                    slide.style.zIndex = i === index ? '2' : '1';
+                });
+                startAuto();
+            };
+            if (reducedMotion.matches || !window.gsap) return finish();
+            busy = true;
+            gsap.set(slides[target], { opacity: 1, zIndex: 2 });
+            gsap.set(slides[index], { opacity: 1, zIndex: 3 });
+            fade = gsap.to(slides[index], { opacity: 0, duration: 1.15, ease: 'power2.inOut', onComplete: finish });
+        };
+        const syncAuto = () => {
+            if (reducedMotion.matches) {
+                fade?.progress(1);
+                countdown?.kill();
+                countdown = undefined;
+                progress.style.transform = 'scaleX(0)';
+            } else if (countdown) countdown.paused(!canPlay());
+            else if (canPlay() && !busy) startAuto();
+            motionButton.textContent = paused ? '( Play motion )' : '( Pause motion )';
+            motionButton.disabled = reducedMotion.matches;
         };
         feature.querySelector('.connections-feature__arrow--prev').addEventListener('click', () => select(index - 1));
         feature.querySelector('.connections-feature__arrow--next').addEventListener('click', () => select(index + 1));
         dots.forEach((dot, i) => dot.addEventListener('click', () => select(i)));
+        motionButton.addEventListener('click', () => {
+            paused = !paused;
+            motionButton.setAttribute('aria-pressed', String(paused));
+            syncAuto();
+        });
+        window.ScrollTrigger?.observe({ target: feature, type: 'touch,pointer', dragMinimum: 44, allowClicks: true, onDragEnd: gesture => {
+            const x = gesture.x - gesture.startX;
+            const y = gesture.y - gesture.startY;
+            if (Math.abs(x) >= 44 && Math.abs(x) > Math.abs(y) * 1.15) select(index + (x < 0 ? 1 : -1));
+        } });
+        new IntersectionObserver(entries => { visible = entries[0].isIntersecting; syncAuto(); }).observe(feature);
+        document.addEventListener('visibilitychange', syncAuto);
+        reducedMotion.addEventListener('change', syncAuto);
+        panels.forEach((panel, i) => panel.setAttribute('aria-hidden', String(i !== index)));
+        dots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === index)));
         select(0);
+        syncAuto();
     }
 
     const numbers = [...page.querySelectorAll('[data-value]')];
     numbers.forEach(item => item.textContent = item.dataset.value + (item.dataset.suffix || ''));
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
-    const revealSourceImages = selector => page.querySelectorAll(selector).forEach(image => {
-        gsap.fromTo(image, { y: 46, opacity: 0 }, { y: 0, opacity: 1, duration: 1.05, ease: 'power2.out', scrollTrigger: { trigger: image, start: 'top 82%', once: true } });
+    const revealSourceImages = (selector, y = 46, start = 'top 82%') => page.querySelectorAll(selector).forEach(image => {
+        gsap.fromTo(image, { y, opacity: 0 }, { y: 0, opacity: 1, duration: 1.05, ease: 'power2.out', scrollTrigger: { trigger: image, start, once: true } });
     });
     if (precision) gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
         page.classList.add('content-motion');
@@ -233,6 +314,17 @@
         }
         gsap.fromTo('.people-share__cta-title .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, stagger: .12, ease: 'power2.out', scrollTrigger: { trigger: '.people-share__cta', start: 'top 76%', once: true } });
         revealSourceImages('.people-source__image');
+        return () => page.classList.remove('content-motion');
+    });
+    else if (connections) gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+        page.classList.add('content-motion');
+        gsap.fromTo('.connections-hero .head-area .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, delay: .85, stagger: .12, ease: 'power2.out' });
+        gsap.fromTo('.connections-hero__media img', { scale: 1.1 }, { scale: 1, duration: 1.55, delay: .15, ease: 'power3.out' });
+        gsap.fromTo('.connections-hero .scroll-down', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 1.45, ease: 'power3.out' });
+        gsap.fromTo('.connections-belief__title .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, stagger: .1, ease: 'power2.out', scrollTrigger: { trigger: '.connections-belief', start: 'top 68%', once: true } });
+        gsap.fromTo('.connections-belief__image', { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 1.05, ease: 'power2.out', scrollTrigger: { trigger: '.connections-belief', start: 'top 62%', once: true } });
+        gsap.fromTo('.connections-share__title .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: '.connections-share__title', start: 'top 72%', once: true } });
+        revealSourceImages('.connections-story__image', 42, 'top 78%');
         return () => page.classList.remove('content-motion');
     });
     else gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
