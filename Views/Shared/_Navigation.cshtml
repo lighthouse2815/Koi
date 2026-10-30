@@ -12,6 +12,7 @@
     };
     var currentUrl = Context.Request.Path.Value;
     if (Context.GetRouteValue("action")?.ToString() == "NewsDetail") currentUrl = Url.Action("News", "Home");
+    if (Context.GetRouteValue("action")?.ToString() is "Responsibility" or "Precision" or "People" or "Connections") currentUrl = Url.Action("Impact", "Home");
     var currentIndex = Array.FindIndex(pages, page => string.Equals(page.Url, currentUrl, StringComparison.OrdinalIgnoreCase));
     if (currentIndex < 0) currentIndex = 0;
     var current = pages[currentIndex];

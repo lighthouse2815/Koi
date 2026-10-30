@@ -33,7 +33,20 @@ dotnet publish --configuration Release --output ./artifacts/publish
 - Tin tức trượt chuyển bài, tiêu đề xuất hiện theo cuộn. Footer dùng 13 chữ rời xếp lệch như mẫu; linh vật trượt cả thân lên, nâng ly và hiện Menu/Store khi hover hoặc focus.
 - Responsive; `prefers-reduced-motion` chuyển sang bố cục tĩnh, tắt video/GIF và bỏ các cảnh giữ màn hình.
 
-Hiện triển khai trang bìa tại `/`, trang chủ tại `/Home/Index` trang About tại `/Home/About` và Our Tea tại `/Home/OurTea`. About có chuyển cảnh theo cuộn, giới thiệu giá trị thương hiệu, chọn nguyên liệu, lịch sử và bản đồ sáu thương hiệu; ảnh/SVG được lưu local. Our Tea có danh mục đồ uống, chọn ảnh từng sản phẩm, đồ uống mới và dải ly chuyển động; hỗ trợ giảm chuyển động. Recruit tại `/Home/Recruit` có quyền lợi, ảnh đội ngũ, bảng lộ trình phát triển và liên kết ứng tuyển gốc. News tại `/Home/News` có 13 bài tĩnh, lọc News/Media, phân trang và trang chi tiết tại `/Home/NewsDetail/{id}`. Video bài viết dùng trình phát YouTube gốc. Ảnh poster của bài cuộc thi năm 2024 dùng lại ảnh bài viết vì URL ảnh nội dung gốc đã ngừng phân giải tên miền. Impact tại `/Home/Impact` có banner giữ màn hình, chữ chạy theo cuộn và bốn cam kết chuyển bằng cuộn hoặc nút. Các trang Store và Contact chưa được dựng local. Liên kết tới các trang này mở trang tương ứng trên website mẫu; các liên kết nội bộ `#drinks`, `#news`, `#our-story` dẫn tới nội dung của trang chủ. Chưa có đặt hàng hoặc xử lý dữ liệu nghiệp vụ.
+Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu trong `wwwroot`:
+
+| Trang | URL | Tương tác |
+| --- | --- | --- |
+| About | `/Home/About` | Cảnh chữ KOI, cuộn ngang, chọn nguyên liệu, lịch sử, bản đồ sáu thương hiệu |
+| Our Tea | `/Home/OurTea` | Dải ly chuyển động, chọn đồ uống mới, danh mục và ảnh từng sản phẩm |
+| Recruit | `/Home/Recruit` | Bảng lộ trình phát triển, quyền lợi, ảnh đội ngũ và hiệu ứng hiện phần ứng tuyển |
+| News | `/Home/News` | 13 bài tĩnh, lọc News/Media, phân trang và trang chi tiết `/Home/NewsDetail/{id}` |
+| Impact | `/Home/Impact` | Banner giữ màn hình, chữ chạy theo cuộn, chuyển bốn cam kết bằng cuộn hoặc nút |
+| Chi tiết Impact | `/Home/Responsibility`, `/Home/Precision`, `/Home/People`, `/Home/Connections` | Ảnh, video, số liệu đếm, nội dung nhân sự và hoạt động cộng đồng |
+
+Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Store, Contact và liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
+
+Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
 Chuỗi hoạt ảnh dùng GSAP, ScrollTrigger và ScrollToPlugin, dựa trên thứ tự cảnh, sprite và các mốc chuyển cảnh của website mẫu. Độ dài vùng cuộn và bố cục tự điều chỉnh theo màn hình; chế độ giảm chuyển động vẫn hiển thị đủ nội dung bằng bố cục tĩnh.
 
@@ -69,3 +82,7 @@ Dùng template MVC chính thức của .NET, không thêm NuGet. GSAP 3.15.0 cù
 ## Tài nguyên tham chiếu
 
 Hình ảnh, logo và video lấy từ trang chủ KOI Thé theo yêu cầu đối chiếu giao diện; quyền đối với những tài nguyên này thuộc chủ sở hữu tương ứng. Không hotlink tài nguyên và không đưa API key của website mẫu vào source. Font Red Hat Display dùng giấy phép SIL Open Font License, kèm tại `wwwroot/fonts/OFL.txt`.
+
+## Kiểm tra các trang nội dung
+
+Build/publish Release không có lỗi hoặc cảnh báo. Kiểm tra Playwright gồm tài nguyên CSS/JS/ảnh có nội dung, không tràn ngang ở 390/768/1024/1440px, chọn nguyên liệu/thương hiệu/lịch sử, đổi đồ uống và danh mục, lọc/phân trang News, đủ 13 trang chi tiết và ID không tồn tại trả 404, sao chép liên kết, chuyển bốn cam kết theo cả hai chiều, carousel nhân sự/cộng đồng và chế độ giảm chuyển động. Trình phát YouTube được kiểm tra URL và thao tác Play/Back; phát video vẫn phụ thuộc kết nối tới YouTube.

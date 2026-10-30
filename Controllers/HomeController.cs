@@ -60,6 +60,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Responsibility() => View();
+    public IActionResult Precision() => View();
+    public IActionResult People() => View();
+    public IActionResult Connections() => View();
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
