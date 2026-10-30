@@ -301,6 +301,17 @@
             activate(dot, () => navigateImpact?.(index));
         });
     }
+    const menus = page.querySelector('.menuListWrap');
+    if (menus) {
+        const startAtTop = () => {
+            if (location.hash) return;
+            history.scrollRestoration = 'manual';
+            window.ScrollTrigger?.clearScrollMemory('manual');
+            scrollTo({ top: 0, behavior: 'instant' });
+        };
+        startAtTop();
+        addEventListener('pageshow', startAtTop);
+    }
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
@@ -414,6 +425,18 @@
         }
         if (page.querySelector('.newsWrap')) {
             gsap.fromTo('.newsWrap .head-area .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, delay: 1, ease: 'power2.out' });
+        }
+        if (menus) {
+            const list = menus.querySelector('.menuList');
+            list.inert = true;
+            gsap.timeline({ delay: 1, onComplete: () => list.inert = false })
+                .fromTo(menus.querySelector('.head-area'), { '--menu-rule-width': '0%' },
+                    { '--menu-rule-width': '100%', duration: 1, ease: 'power3.out' })
+                .fromTo(menus.querySelector('.head-area .en'),
+                    { y: 0, yPercent: context.conditions.desktop && innerWidth >= 1200 ? 100 : 120, rotation: 10 },
+                    { y: 0, yPercent: 0, rotation: 0, duration: .75, ease: 'power2.out' }, .5)
+                .fromTo(list, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power2.out' });
+            cleanUpPage = () => list.inert = false;
         }
         if (page.querySelector('.crmWrap')) {
             const hero = page.querySelector('#crm-banner');

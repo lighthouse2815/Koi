@@ -5,7 +5,7 @@
         <img class="mascot-mobile" src="~/images/m-text-mobile.svg" alt="" />
     </div>
     <div class="hover-link">
-        <div class="menu"><a href="@Url.Action("Index", "Home")#drinks" aria-label="Explore the menu"><img src="~/images/m-hover-menu.svg" alt="" /></a></div>
+        <div class="menu"><a asp-controller="Home" asp-action="Menu" aria-label="Explore the menu"><img src="~/images/m-hover-menu.svg" alt="" /></a></div>
         <div class="store"><a asp-controller="Home" asp-action="Store" aria-label="Find a KOI store"><img src="~/images/m-hover-store.svg" alt="" /></a></div>
     </div>
     <div class="bear" aria-hidden="true">
@@ -53,7 +53,7 @@
             <div>
                 <a asp-controller="Home" asp-action="Impact">IMPACT</a>
                 <a asp-controller="Home" asp-action="Contact">CONTACT</a>
-                <a href="@Url.Action("Index", "Home")#drinks">MENU</a>
+                <a asp-controller="Home" asp-action="Menu">MENU</a>
             </div>
         </nav>
         <div class="footer-copyright"><span class="footer-language">EN</span><p>© @DateTime.UtcNow.Year KOI CAFE GROUP (S) PTE LTD.<br />All rights reserved.</p></div>

@@ -1,0 +1,85 @@
+/* Page-specific layout adapted from the KOI Thé reference. */
+.menuListWrap{padding:200px 105px 250px}
+@media print, screen and (max-width: 99.99875em){.menuListWrap{padding:150px 60px 180px}
+}
+@media print, screen and (max-width: 64.06125em){.menuListWrap{padding:120px 60px 30px}
+}
+@media print, screen and (max-width: 39.99875em){.menuListWrap{padding:90px 20px 30px}
+}
+.menuListWrap .head-area{position:relative;margin-bottom:85px;overflow:hidden}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .head-area{margin-bottom:40px}
+}
+.menuListWrap .head-area::after{position:absolute;content:"";width:0%;height:2px;background-color:#0c131b;left:0px;bottom:0}
+.menuListWrap .head-area .en{font-family:"Red Hat Display",sans-serif;font-size:300px;font-weight:900;margin-left:-18px;line-height:0.72;-webkit-transform-origin:left;-ms-transform-origin:left;transform-origin:left;-webkit-transform:translateY(100%) rotate(10deg);-ms-transform:translateY(100%) rotate(10deg);transform:translateY(100%) rotate(10deg)}
+@media print, screen and (max-width: 99.99875em){.menuListWrap .head-area .en{font-size:250px}
+}
+@media print, screen and (max-width: 74.99875em){.menuListWrap .head-area .en{font-size:25vw;margin-left:0;-webkit-transform:translateY(120%) rotate(10deg);-ms-transform:translateY(120%) rotate(10deg);transform:translateY(120%) rotate(10deg)}
+}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .head-area .en{font-size:205px;margin-left:-11px;margin-bottom:-15px;-webkit-transform:translateY(120%) rotate(10deg);-ms-transform:translateY(120%) rotate(10deg);transform:translateY(120%) rotate(10deg)}
+}
+@media print, screen and (max-width: 39.99875em){.menuListWrap .head-area .en{font-size:110px;margin-left:0;margin-bottom:0;-webkit-transform:translateY(120%) rotate(10deg);-ms-transform:translateY(120%) rotate(10deg);transform:translateY(120%) rotate(10deg)}
+}
+.menuListWrap .menuList{font-family:"Noto Sans SC",sans-serif;opacity:0;-webkit-transform:translateY(20px);-ms-transform:translateY(20px);transform:translateY(20px)}
+.menuListWrap .menuList .menu-inner{position:relative;margin-bottom:80px;padding-bottom:100px}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .menuList .menu-inner{padding-bottom:27px;margin-bottom:40px}
+}
+.menuListWrap .menuList .menu-inner::after{position:absolute;content:"";width:100%;height:1px;background-color:#0c131b;left:0px;bottom:0}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .menuList .menu-inner .inner{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
+}
+.menuListWrap .menuList .menu-inner .en{font-size:30px;font-weight:900;font-family:"Red Hat Display",sans-serif;margin-bottom:25px;letter-spacing:1px}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .menuList .menu-inner .en{font-size:24px;margin-bottom:8px}
+}
+.menuListWrap .menuList .menu-inner .ch{font-size:16px;font-weight:500;font-family:"Noto Sans SC",sans-serif;letter-spacing:5px}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .menuList .menu-inner .ch{font-size:13px;margin-bottom:35px}
+}
+.menuListWrap .linkList{margin-top:10px}
+.menuListWrap .linkList>li{margin-bottom:70px}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .linkList>li{margin-bottom:25px}
+}
+.menuListWrap .linkList>li a{-webkit-box-pack:right;-ms-flex-pack:right;justify-content:right}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .linkList>li a{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-align:normal !important;-ms-flex-align:normal !important;align-items:normal !important}
+}
+.menuListWrap .linkList>li:last-child{margin-bottom:0}
+.menuListWrap .linkList>li:hover .arrow .d{fill:#ea5406}
+.menuListWrap .linkList>li:hover .arrow .e{fill:none;stroke:#ea5406}
+.menuListWrap .linkList .store{font-size:16px;font-weight:500;font-family:"Noto Sans SC",sans-serif;letter-spacing:3px;margin-right:20px}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .linkList .store{font-size:14px;letter-spacing:2px}
+}
+.menuListWrap .linkList .arrow .d{fill:#0c131b;-webkit-transition:0.3s all;transition:0.3s all}
+.menuListWrap .linkList .arrow .e{fill:none;stroke:#0c131b;stroke-miterlimit:10;stroke-width:3px;-webkit-transition:0.3s all;transition:0.3s all}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .linkList .arrow .e{stroke-width:2px}
+}
+.menuListWrap .linkList .arrow .f{fill:#585757}
+.menuListWrap .back a{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
+.menuListWrap .back #b{-webkit-transition:0.5s all;transition:0.5s all}
+.menuListWrap .back .d{fill:#0c131b;-webkit-transition:0.5s all;transition:0.5s all}
+.menuListWrap .back .text{font-size:28px;font-weight:700;font-family:"Red Hat Display",sans-serif;margin-top:15px}
+@media print, screen and (max-width: 64.06125em){.menuListWrap .back .text{font-size:20px;margin-top:10px}
+}
+.menuListWrap .back:hover #b{-webkit-transform:translateX(20px);-ms-transform:translateX(20px);transform:translateX(20px)}
+.menuListWrap .back:hover .d{fill:#ea5406}
+
+/* Only this page needs the reference's Latin menu-label font. */
+@font-face {
+    font-family: 'Noto Sans SC';
+    src: url('../fonts/noto-sans-sc-latin-500.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+}
+body:has(.menuListWrap) { background: var(--peach); }
+.menuListWrap { line-height: 1; }
+.menuListWrap .head-area::after { width: var(--menu-rule-width, 0%); }
+.menuListWrap .back svg { transition: transform .5s; }
+.menuListWrap .back:hover svg,
+.menuListWrap .back a:focus-visible svg { transform: translateX(20px); }
+.menuListWrap .back a:focus-visible .d,
+.menuListWrap .linkList a:focus-visible .d { fill: var(--orange); }
+.menuListWrap .linkList a:focus-visible .e { stroke: var(--orange); }
+@media (prefers-reduced-motion: reduce) {
+    .menuListWrap .head-area { --menu-rule-width: 100%; }
+    .menuListWrap .head-area .en, .menuListWrap .menuList { transform: none; opacity: 1; }
+}
+@media (max-width: 1024px) {
+    .menuListWrap .linkList .arrow .hide-for-large { display: inline !important; vertical-align: middle; }
+}

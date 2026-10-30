@@ -48,10 +48,11 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 | Connections | `/Home/Connections` | Ảnh bìa thu dần, OUR BELIEF hiện theo cuộn, ba nội dung cộng đồng chuyển mờ tự động và bảy thẻ IN ACTION cuộn vòng, căn giữa |
 | Store | `/Home/Store` | Tiêu đề trượt lên, lọc Country/Location/Brand, chín cửa hàng mỗi trang và hộp ảnh tròn hỗ trợ bàn phím/cảm ứng |
 | Contact | `/Home/Contact` | Tiêu đề trượt lên, chuyển mờ giữa Contact/Business Partnership, ảnh Overseas trên desktop và các trường nhập/chọn dùng điều khiển gốc của trình duyệt |
+| Menu | `/Home/Menu` | Đường kẻ mở ngang, tiêu đề/danh sách trượt lên và 22 thực đơn của 17 quốc gia mở trong tab mới |
 
-Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
+Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Các nút Menu trên Our Tea, footer và gấu nổi mở `/Home/Menu`; ảnh thực đơn cũng được lưu local. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
-Trang About, Our Tea, News, Recruit, Impact, Responsibility, Precision, People, Connections và Store đã được duyệt. Contact được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
+Trang About, Our Tea, News, Recruit, Impact, Responsibility, Precision, People, Connections, Store và Contact đã được duyệt. Menu được hoàn thiện tiếp để kiểm tra riêng.
 
 Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
@@ -147,3 +148,11 @@ Theo yêu cầu, Contact chỉ hoàn thiện giao diện; không gửi email, kh
 [Video chạy thử Contact](docs/preview/contact-animation.mp4): tiêu đề, đổi Contact/Business Partnership, chọn quốc gia/ngân sách và nhập ngày. Ảnh xem trước: [desktop](docs/preview/contact-desktop.png) · [mobile](docs/preview/contact-mobile.png) · [Business Partnership](docs/preview/contact-business.png) · [Business Partnership trên mobile](docs/preview/contact-business-mobile.png).
 
 Contact đã đối chiếu tiêu đề, cột nội dung, thanh chọn form và vị trí các trường ở 1440/390/1024px. Kiểm tra bản publish Release gồm hai chế độ ở 360–2560px, dropdown/radio/ngày, giữ dữ liệu khi đổi nhóm, chuyển liên tục, bàn phím và cảm ứng thật, giảm chuyển động giữa lúc chuyển form, tải lại ở đầu trang kể cả JavaScript tải chậm và không phát sinh POST. Chữ mờ/chú thích được tăng độ tương phản; quét axe WCAG 2/2.1 A/AA cho cả hai chế độ trên desktop/mobile không phát hiện vi phạm tự động. Build/publish không có lỗi hoặc cảnh báo.
+
+Menu tương ứng [MENU trên trang mẫu](https://koithe.com/en/menu.php), là trang chọn ảnh thực đơn theo quốc gia/thương hiệu thuộc Our Tea. Danh sách chụp ngày 31/10/2026 có 17 quốc gia và 22 thực đơn; giữ đúng nhãn và thứ tự, lưu ảnh gốc trong `wwwroot/menus` và mở ở tab mới như mẫu. Đây là bản tĩnh, không tự cập nhật thực đơn hay giá từ trang gốc. Noto Sans SC Latin 500 được lưu local, dùng giấy phép tại `wwwroot/fonts/store/OFL.txt`.
+
+Menu dùng lại GSAP và JavaScript trang nội dung: đường kẻ chạy trong một giây, tiêu đề bắt đầu sau 0,5 giây và danh sách hiện tiếp theo. Không thêm dependency. Nút Menu ở Our Tea/footer/gấu nổi và Back về Our Tea đều dùng URL MVC; header hiển thị OUR TEA (03/08) như trang mẫu.
+
+[Video chạy thử Menu](docs/preview/menu-animation.mp4): hiệu ứng mở đầu, cuộn danh sách và mở thực đơn Việt Nam. Ảnh xem trước: [desktop](docs/preview/menu-desktop.png) · [mobile](docs/preview/menu-mobile.png) · [Vietnam trên mobile](docs/preview/menu-vietnam-mobile.png).
+
+Menu đã đối chiếu bố cục ở 1440/390/1024px và lấy mẫu bảy khung hình của animation ở 1440/390px. Kiểm tra bản publish Release: đủ 17 quốc gia/22 liên kết, ảnh local trả đúng nội dung và giải mã được, mở tab thật bằng chuột/cảm ứng, bàn phím, Back về Our Tea, không tràn ngang ở 360–2560px, giảm chuyển động và tải lại bắt đầu ở đầu trang kể cả JavaScript tải chậm. Quét axe WCAG 2/2.1 A/AA không có vi phạm tự động; About, Our Tea, News, Recruit và Impact được kiểm tra lại sau khi bổ sung xử lý Menu trong JavaScript dùng chung. Build/publish không có lỗi hoặc cảnh báo.
