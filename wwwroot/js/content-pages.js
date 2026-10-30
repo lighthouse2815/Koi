@@ -386,7 +386,7 @@
                 .fromTo('.apply-fancy .applyList > li', { opacity: 0, y: 30 }, { opacity: 1, y: 0, stagger: .25 }, .4);
         }
         if (page.querySelector('.newsWrap')) {
-            gsap.fromTo('.newsWrap .head-area .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, ease: 'power2.out' });
+            gsap.fromTo('.newsWrap .head-area .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, delay: 1, ease: 'power2.out' });
         }
         if (page.querySelector('.crmWrap')) {
             const hero = page.querySelector('#crm-banner');

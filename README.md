@@ -40,13 +40,13 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 | About | `/Home/About` | Cảnh chữ KOI/ly trà, ảnh xoay khi cuộn ngang, nguyên liệu chuyển mờ tự động, dải ảnh lịch sử xếp chéo, bản đồ sáu thương hiệu |
 | Our Tea | `/Home/OurTea` | Dải ly và bốn nền chuyển động, New Drinks đồng bộ nền/ảnh, ảnh đồ uống đổi theo cuộn trên mobile |
 | Recruit | `/Home/Recruit` | Bảng lộ trình phát triển, quyền lợi, ảnh đội ngũ và hiệu ứng hiện phần ứng tuyển |
-| News | `/Home/News` | 13 bài tĩnh, lọc News/Media, phân trang và trang chi tiết `/Home/NewsDetail/{id}` |
+| News | `/Home/News` | Tiêu đề xuất hiện theo mẫu, nút More chuyển động, danh sách responsive, lọc/phân trang và 13 bài chi tiết `/Home/NewsDetail/{id}` |
 | Impact | `/Home/Impact` | Banner giữ màn hình, chữ chạy theo cuộn, chuyển bốn cam kết bằng cuộn hoặc nút |
 | Chi tiết Impact | `/Home/Responsibility`, `/Home/Precision`, `/Home/People`, `/Home/Connections` | Ảnh, video, số liệu đếm, nội dung nhân sự và hoạt động cộng đồng |
 
 Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Store, Contact và liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
-Trang About đã được duyệt. Our Tea được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
+Trang About và Our Tea đã được duyệt. News được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
 
 Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
@@ -98,3 +98,5 @@ Build/publish Release không có lỗi hoặc cảnh báo. Kiểm tra Playwright
 About đã đối chiếu vị trí các cột ly trà và góc xoay ảnh theo cả hai chiều cuộn với trang mẫu. Kiểm tra thêm chuyển mờ nguyên liệu, chọn đủ ba thành phần, tự chuyển/Pause, đủ chín mốc lịch sử và quay vòng, đổi liên tục 390/768/1024/1440/1920px không tạo lặp carousel, ảnh bìa rời màn hình trên mobile và chế độ giảm chuyển động. Our Tea và Recruit cũng được kiểm tra lại sau sửa quy tắc hiển thị tablet/mobile dùng chung.
 
 Our Tea đã đối chiếu bố cục tiêu đề, ảnh tròn và danh sách New Drinks trên desktop. Kiểm tra bốn lựa chọn, chuyển mờ ảnh/nền đồng bộ, tự chuyển/Pause, bảy danh mục và phần xem trước của 54 món, vuốt/chấm chọn New Drinks trên điện thoại, đổi ảnh theo cuộn, chọn danh mục mobile, đổi kích thước liên tục và giảm chuyển động.
+
+News đã đối chiếu vị trí/kích thước tiêu đề, tin nổi bật, năm hàng tin và phân trang ở 390/768/1440px. Khôi phục SVG More, cách xếp metadata/tiêu đề/ảnh theo từng màn hình, nhịp hiện chữ và màu hover/focus. Kiểm tra lại lọc tin, ba trang danh sách, 13 bài chi tiết, sao chép liên kết, responsive và giảm chuyển động. Ảnh xem trước: [desktop](docs/preview/news-desktop.png) · [mobile](docs/preview/news-mobile.png).

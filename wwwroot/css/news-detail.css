@@ -62,3 +62,13 @@
 .newsDetailWrap .share-area .shareList li .d{fill:#9e9e9f;-webkit-transition:0.5s all;transition:0.5s all}
 .newsDetailWrap .share-area .shareList li:hover .d{fill:#ea5406}
 .newsDetailWrap .share-area .shareList li:last-child{margin-right:0}
+
+body:has(.newsDetailWrap) { background: #fff; }
+.newsDetailWrap { line-height: 1; }
+.newsDetailWrap time { display: block; }
+.newsDetailWrap .banner iframe { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 0; }
+.newsDetailWrap .detail-area p { margin-bottom: 1.25em; }
+.newsDetailWrap .detail-area ul { padding-left: 1.5em; list-style: disc; }
+.newsDetailWrap .detail-area a { text-decoration: underline; overflow-wrap: anywhere; }
+.newsDetailWrap .article-share { font-size: 16px; border-bottom: 1px solid; padding: 10px 0 !important; }
+.newsDetailWrap .share-status { display: block; margin-top: 8px; font-size: 13px; }
