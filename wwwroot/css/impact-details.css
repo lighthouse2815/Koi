@@ -1,7 +1,7 @@
-.impact-detail .head-area .en { transform: none; }
-.impact-detail .responsibility-hero__content { opacity: 1; }
-.impact-detail .responsibility-hero__content .main-title { transform: none; }
-.impact-detail .scroll-down { opacity: 1; }
+.impact-detail:not(.content-motion) .head-area .en { transform: none; }
+.impact-detail:not(.content-motion) .responsibility-hero__content { opacity: 1; }
+.impact-detail:not(.content-motion) .responsibility-hero__content .main-title { transform: none; }
+.impact-detail:not(.content-motion) .scroll-down { opacity: 1; }
 .impact-detail iframe { width: 100%; height: 100%; border: 0; }
 .impact-detail .people-features__viewport,
 .impact-detail .details-carousel-viewport,

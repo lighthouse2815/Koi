@@ -516,8 +516,8 @@
                 window.addEventListener('wheel', enterOnWheel, { passive: false, capture: true });
                 navigateImpact = index => goTo(index);
                 const requested = (new URLSearchParams(location.search).get('impact') || '').toLowerCase();
-                const requestedIndex = requested ? texts.findIndex(item => item.querySelector('.more-btn').getAttribute('href').toLowerCase().includes(requested)) : -1;
-                if (location.hash === '#scroll-pin-section' && requestedIndex > 0) release = gsap.delayedCall(.1, () => goTo(requestedIndex, true));
+                const requestedIndex = requested ? texts.findIndex(item => item.querySelector('.more-btn').getAttribute('href').toLowerCase().includes(requested)) : 0;
+                if (location.hash === '#scroll-pin-section' && requestedIndex >= 0) release = gsap.delayedCall(.1, () => goTo(requestedIndex, true));
                 cleanUpPage = () => {
                     observer.kill();
                     scrollTween?.kill();
