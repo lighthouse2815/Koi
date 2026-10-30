@@ -5,7 +5,8 @@
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const responsibility = page.querySelector('.responsibilityWrap');
     const precision = page.querySelector('.precisionWrap');
-    if ((responsibility || precision) && !location.hash) {
+    const people = page.querySelector('.peopleWrap');
+    if ((responsibility || precision || people) && !location.hash) {
         history.scrollRestoration = 'manual';
         window.ScrollTrigger?.clearScrollMemory('manual');
         const startAtTop = () => {
@@ -91,6 +92,7 @@
     for (const prefix of ['people-features', 'connections-share']) {
         const section = page.querySelector('.' + prefix);
         if (!section) continue;
+        if (prefix === 'people-features' && window.Swiper) continue;
         const track = section.querySelector('.' + prefix + '__track');
         let viewport = track.parentElement;
         if (prefix === 'connections-share') {
@@ -111,6 +113,75 @@
         section.querySelector('.' + prefix + '__arrow--next')?.addEventListener('click', () => select(index + 1));
         dots.forEach((dot, i) => dot.addEventListener('click', () => select(i)));
         select(0);
+    }
+
+    if (people && window.Swiper) {
+        const features = people.querySelector('.people-features');
+        const viewport = features.querySelector('.people-features__viewport');
+        viewport.classList.add('swiper');
+        features.querySelector('.people-features__track').classList.add('swiper-wrapper');
+        features.querySelectorAll('.people-features__card').forEach(card => card.classList.add('swiper-slide'));
+        const dots = [...features.querySelectorAll('.dot')];
+        const featureSlider = new Swiper(viewport, {
+            slidesPerView: 'auto', loop: true, speed: reducedMotion.matches ? 0 : 720, grabCursor: true,
+            breakpoints: { 0: { spaceBetween: 22 }, 1025: { spaceBetween: 48 } },
+            navigation: { prevEl: features.querySelector('.people-features__arrow--prev'), nextEl: features.querySelector('.people-features__arrow--next') },
+            on: { slideChange: slider => dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === slider.realIndex);
+                dot.setAttribute('aria-pressed', String(index === slider.realIndex));
+            }) }
+        });
+        dots.forEach((dot, index) => dot.addEventListener('click', () => featureSlider.slideToLoop(index)));
+
+        const marquee = people.querySelector('.people-share__marquee');
+        const motionButton = people.querySelector('.people-share__motion');
+        marquee.classList.add('swiper');
+        people.querySelector('.people-share__track').classList.add('swiper-wrapper');
+        people.querySelectorAll('.people-share__item').forEach(item => item.classList.add('swiper-slide'));
+        let visible = false;
+        let paused = false;
+        const shareSlider = new Swiper(marquee, {
+            slidesPerView: 'auto', loop: true, grabCursor: true, freeMode: { enabled: true, momentum: !reducedMotion.matches },
+            breakpoints: { 0: { spaceBetween: 18 }, 1025: { spaceBetween: 25 } },
+            autoplay: { delay: 0, disableOnInteraction: false },
+            on: { init: slider => slider.params.speed = Math.round((slider.slides[0].offsetWidth + Number(slider.params.spaceBetween)) / .027) }
+        });
+        const freezeShare = () => {
+            const position = shareSlider.getTranslate();
+            shareSlider.autoplay.stop();
+            shareSlider.setTransition(0);
+            shareSlider.setTranslate(position);
+            shareSlider.updateActiveIndex();
+            shareSlider.updateSlidesClasses();
+            shareSlider.transitionEnd();
+        };
+        const syncShare = () => {
+            featureSlider.params.speed = reducedMotion.matches ? 0 : 720;
+            if (reducedMotion.matches && featureSlider.animating) {
+                featureSlider.setTransition(0);
+                featureSlider.transitionEnd();
+            }
+            shareSlider.params.freeMode.momentum = !reducedMotion.matches;
+            if (visible && !paused && !reducedMotion.matches && !document.hidden) {
+                if (!shareSlider.autoplay.running) shareSlider.autoplay.start();
+            } else freezeShare();
+            motionButton.textContent = paused ? '( Play motion )' : '( Pause motion )';
+            motionButton.disabled = reducedMotion.matches;
+        };
+        motionButton.addEventListener('click', () => {
+            paused = !paused;
+            motionButton.setAttribute('aria-pressed', String(paused));
+            syncShare();
+        });
+        new IntersectionObserver(entries => { visible = entries[0].isIntersecting; syncShare(); }).observe(marquee);
+        shareSlider.on('resize', () => {
+            freezeShare();
+            shareSlider.params.speed = Math.round((shareSlider.slides[0].offsetWidth + Number(shareSlider.params.spaceBetween)) / .027);
+            syncShare();
+        });
+        document.addEventListener('visibilitychange', syncShare);
+        reducedMotion.addEventListener('change', syncShare);
+        syncShare();
     }
 
     const feature = page.querySelector('.connections-feature');
@@ -150,6 +221,18 @@
             .to('.precision-hero__content', { opacity: () => innerWidth <= 1024 ? 0 : 1, y: () => innerWidth <= 1024 ? -40 : 0, duration: .22, ease: 'none' }, .04);
         gsap.fromTo('.precision-video__title .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: '.precision-video__title', start: 'top 80%', end: 'bottom 80%', toggleActions: 'play resume resume resume' } });
         revealSourceImages('.precision-source__image');
+        return () => page.classList.remove('content-motion');
+    });
+    else if (people) gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+        page.classList.add('content-motion');
+        gsap.fromTo('.people-hero .head-area .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, delay: 1, stagger: .12, ease: 'power2.out' });
+        gsap.fromTo('.people-hero .scroll-down', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 1.45, ease: 'power3.out' });
+        gsap.fromTo('.people-belief__title .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, stagger: .1, ease: 'power2.out', scrollTrigger: { trigger: '.people-belief', start: 'top 70%', once: true } });
+        for (const name of ['features', 'share']) {
+            gsap.fromTo('.people-' + name + '__title .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: '.people-' + name + '__title', start: 'top 72%', once: true } });
+        }
+        gsap.fromTo('.people-share__cta-title .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, stagger: .12, ease: 'power2.out', scrollTrigger: { trigger: '.people-share__cta', start: 'top 76%', once: true } });
+        revealSourceImages('.people-source__image');
         return () => page.classList.remove('content-motion');
     });
     else gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
