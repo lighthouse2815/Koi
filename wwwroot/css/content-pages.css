@@ -15,13 +15,8 @@ html:has(.content-motion) { scroll-behavior: auto; }
 .content-page svg line { stroke: currentColor; stroke-width: 1.5; }
 .content-page button { padding: 0; }
 .content-page [role="button"] { cursor: pointer; }
-.crmWrap .crmListWrap .section-title .en { opacity: 1; transform: none; }
-.crmWrap .pin-mobile__heading .en { transform: none !important; }
 .site-header.header-light .brand img { filter: brightness(0) invert(1); }
 .site-header.header-light .current-page, .site-header.header-light .fan-links { color: white; }
-.content-page:not(.content-motion) .crmWrap .pin-inner { display: none; }
-.content-page:not(.content-motion) .crmWrap .pin-mobile { display: block; }
-.content-page:not(.content-motion) .crmWrap .scroll-pin-section { height: auto; padding: 70px 0; }
 @media (max-width: 1024px) {
     .content-page .show-for-large { display: none !important; }
     .content-page .hide-for-large { display: block !important; }

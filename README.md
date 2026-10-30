@@ -41,12 +41,12 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 | Our Tea | `/Home/OurTea` | Dải ly và bốn nền chuyển động, New Drinks đồng bộ nền/ảnh, ảnh đồ uống đổi theo cuộn trên mobile |
 | Recruit | `/Home/Recruit` | Chữ hiện lần lượt, bảng lộ trình phát triển, ảnh đội ngũ theo thiết bị và bốn pha cuộn Apply NOW |
 | News | `/Home/News` | Tiêu đề xuất hiện theo mẫu, nút More chuyển động, danh sách responsive, lọc/phân trang và 13 bài chi tiết `/Home/NewsDetail/{id}` |
-| Impact | `/Home/Impact` | Banner giữ màn hình, chữ chạy theo cuộn, chuyển bốn cam kết bằng cuộn hoặc nút |
+| Impact | `/Home/Impact` | Banner giữ màn hình, chữ chạy theo cuộn, mỗi lượt cuộn/vuốt chuyển một cam kết, hỗ trợ chấm chọn và quay lại đúng cam kết |
 | Chi tiết Impact | `/Home/Responsibility`, `/Home/Precision`, `/Home/People`, `/Home/Connections` | Ảnh, video, số liệu đếm, nội dung nhân sự và hoạt động cộng đồng |
 
 Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Store, Contact và liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
-Trang About, Our Tea và News đã được duyệt. Recruit được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
+Trang About, Our Tea, News và Recruit đã được duyệt. Impact được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
 
 Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
@@ -89,6 +89,8 @@ About và Our Tea dùng Swiper 14.3.0 lưu local tại `wwwroot/lib/swiper` (MIT
 
 [Video chạy thử Recruit](docs/preview/recruit-animation.mp4), gồm chữ mở đầu, hai ảnh đội ngũ và bốn pha Apply NOW theo cả hai chiều cuộn. Ảnh xem trước: [desktop](docs/preview/recruit-desktop.png) · [mobile](docs/preview/recruit-mobile.png) · [Apply NOW trên mobile](docs/preview/recruit-apply-mobile.png).
 
+[Video chạy thử Impact](docs/preview/impact-animation.mp4), gồm banner, chữ chạy ngang và các lượt cuộn đổi cam kết theo cả hai chiều. Ảnh xem trước: [desktop](docs/preview/impact-desktop.png) · [bốn cam kết](docs/preview/impact-commitments.png) · [mobile](docs/preview/impact-mobile.png) · [cam kết trên mobile](docs/preview/impact-commitments-mobile.png).
+
 ## Tài nguyên tham chiếu
 
 Hình ảnh, logo và video lấy từ trang chủ KOI Thé theo yêu cầu đối chiếu giao diện; quyền đối với những tài nguyên này thuộc chủ sở hữu tương ứng. Không hotlink tài nguyên và không đưa API key của website mẫu vào source. Font Red Hat Display dùng giấy phép SIL Open Font License, kèm tại `wwwroot/fonts/OFL.txt`.
@@ -104,3 +106,5 @@ Our Tea đã đối chiếu bố cục tiêu đề, ảnh tròn và danh sách N
 News đã đối chiếu vị trí/kích thước tiêu đề, tin nổi bật, năm hàng tin và phân trang ở 390/768/1440px. Khôi phục SVG More, cách xếp metadata/tiêu đề/ảnh theo từng màn hình, nhịp hiện chữ và màu hover/focus. Kiểm tra lại lọc tin, ba trang danh sách, 13 bài chi tiết, sao chép liên kết, responsive và giảm chuyển động. Ảnh xem trước: [desktop](docs/preview/news-desktop.png) · [mobile](docs/preview/news-mobile.png).
 
 Recruit đã đối chiếu bố cục và độ mờ/vị trí của bốn pha ứng tuyển với mẫu ở 1440/390px, gồm cả cuộn ngược. Kiểm tra thứ tự hiện chữ, ảnh desktop/tablet/mobile, đổi kích thước liên tục không tạo lặp ScrollTrigger, hover/focus, chặn focus khi vùng ứng tuyển không hoạt động và bố cục tĩnh khi giảm chuyển động. Liên kết ứng tuyển được kiểm tra URL; không gửi hồ sơ.
+
+Impact dùng Observer có sẵn trong ScrollTrigger để xử lý wheel/touch. Chữ, ảnh và chấm chọn đồng bộ theo nhịp chuyển của mẫu; cuộn bình thường được trả lại ở đầu/cuối vùng giữ màn hình. Đối chiếu vị trí chữ ngang, độ mờ banner và lớp phủ ở 1440/390/1024px theo cả hai chiều. Kiểm tra thêm sáu lượt chuyển cam kết xuôi/ngược, chấm chọn, cử chỉ vuốt và mở More thật trên thiết bị cảm ứng, liên kết Back giữ cam kết, đổi kích thước, màu header và bố cục tĩnh đủ bốn thẻ khi giảm chuyển động.

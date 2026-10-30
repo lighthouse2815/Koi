@@ -287,14 +287,18 @@
     }
 
     const impact = page.querySelector('.crmWrap');
+    let navigateImpact;
+    let updateImpactHeader;
     if (impact) {
+        const header = document.querySelector('.site-header');
+        updateImpactHeader = () => header.classList.toggle('header-light', impact.querySelector('.crm-banner').getBoundingClientRect().bottom > header.offsetHeight);
+        window.addEventListener('scroll', updateImpactHeader, { passive: true });
+        window.addEventListener('resize', updateImpactHeader);
+        updateImpactHeader();
         activate(impact.querySelector('.scroll-down'), () => impact.querySelector('.crmListWrap').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
         impact.querySelectorAll('.pin-pagination .dot').forEach((dot, index) => {
             dot.setAttribute('aria-label', 'Commitment ' + (index + 1));
-            activate(dot, () => {
-                const trigger = window.ScrollTrigger?.getById('impact-commitments');
-                if (trigger) gsap.to(window, { scrollTo: { y: trigger.start + (trigger.end - trigger.start) * index / 3, autoKill: true }, duration: .92, ease: 'power4.inOut' });
-            });
+            activate(dot, () => navigateImpact?.(index));
         });
     }
     if (!window.gsap || !window.ScrollTrigger) return;
@@ -413,14 +417,17 @@
         }
         if (page.querySelector('.crmWrap')) {
             const hero = page.querySelector('#crm-banner');
-            const header = document.querySelector('.site-header');
-            header.classList.add('header-light');
-            gsap.from('.impact-list-hero__title', { y: 40, opacity: 0, duration: 1, ease: 'power2.out' });
-            gsap.timeline({ scrollTrigger: { id: 'impact-banner', trigger: hero, start: 'top top', end: () => '+=' + innerHeight * (context.conditions.desktop ? 2.5 : 3.6), pin: true, scrub: 1, invalidateOnRefresh: true, onUpdate: self => header.classList.toggle('header-light', self.progress < 1) } })
+            const smallScreen = () => innerWidth <= 768;
+            gsap.timeline({ delay: 1, defaults: { duration: 1, ease: 'power2.out' } })
+                .fromTo('.impact-list-hero__title .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0 })
+                .fromTo('.crmWrap .sub-title', { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, .4)
+                .from('.crmWrap .scroll-down, .crmWrap .side-text', { opacity: 0 }, .8);
+            gsap.timeline({ scrollTrigger: { id: 'impact-banner', trigger: hero, start: 'top top', end: () => '+=' + innerHeight * (smallScreen() ? 3.6 : 2.5), pin: true, scrub: 1, invalidateOnRefresh: true, onUpdate: updateImpactHeader } })
                 .to('.crmWrap .center-content, .crmWrap .scroll-down, .crmWrap .side-text', { opacity: 0, duration: 1 }, 0)
                 .to('.crmWrap .banner-mask', { opacity: .5, duration: 1 }, 0)
-                .fromTo('.crmWrap .slide-text', { x: () => innerWidth }, { x: () => -(page.querySelector('.slide-text').scrollWidth + innerWidth), duration: 2.4, ease: 'none' });
-            gsap.from('.crmListWrap .section-title .en', { y: 50, opacity: 0, duration: 1, scrollTrigger: { trigger: '.crmListWrap', start: 'top 75%', toggleActions: 'play none none reverse' } });
+                .fromTo('.crmWrap .slide-text', { x: () => innerWidth }, { x: () => -(page.querySelector('.slide-text').scrollWidth + innerWidth * (smallScreen() ? 1.8 : 1)), duration: 2.4, ease: 'none' })
+                .to({}, { duration: () => smallScreen() ? .45 : 0 });
+            gsap.fromTo('.crmListWrap .section-title .en', { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: '.crmListWrap .section-title', start: 'top 80%', toggleActions: 'restart none none none' } });
             if (context.conditions.desktop) {
                 gsap.registerPlugin(ScrollToPlugin);
                 const section = page.querySelector('.scroll-pin-section');
@@ -428,30 +435,107 @@
                 const images = [...section.querySelectorAll('.image-item')];
                 const dots = [...section.querySelectorAll('.pin-pagination .dot')];
                 let current = -1;
-                const select = index => {
-                    if (current === index) return;
+                let busy = false;
+                let scrollTween;
+                let release;
+                let pin;
+                const imageStep = () => images[1].offsetTop - images[0].offsetTop;
+                const wheelDistance = event => event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
+                const select = (index, immediate = false) => {
+                    if (current === index && !immediate) return;
+                    const previous = current;
                     const direction = index > current ? 1 : -1;
                     current = index;
+                    gsap.killTweensOf([...texts, section.querySelector('.image-wrapper')]);
                     texts.forEach((item, i) => {
                         item.classList.toggle('active', i === index);
                         item.inert = i !== index;
-                        gsap.to(item, { autoAlpha: i === index ? 1 : 0, y: i === index ? 0 : -22 * direction, duration: .6, overwrite: true });
+                        if (immediate || (i !== previous && i !== index)) gsap.set(item, { autoAlpha: 0, y: 22 });
                     });
                     images.forEach((item, i) => item.classList.toggle('is-active', i === index));
                     dots.forEach((item, i) => { item.classList.toggle('active', i === index); item.setAttribute('aria-pressed', String(i === index)); });
-                    gsap.to('.crmWrap .image-wrapper', { y: -images[index].offsetTop, duration: .92, ease: 'power4.inOut', overwrite: true });
+                    if (immediate) {
+                        gsap.set(texts[index], { autoAlpha: 1, y: 0 });
+                        gsap.set('.crmWrap .image-wrapper', { y: -imageStep() * index });
+                    } else {
+                        gsap.set(texts[index], { autoAlpha: 0, y: 22 * direction });
+                        gsap.to(texts[previous], { autoAlpha: 0, y: -22 * direction, duration: .22, ease: 'power2.out' });
+                        gsap.to(texts[index], { autoAlpha: 1, y: 0, duration: .72, delay: .2, ease: 'power3.out' });
+                        gsap.to('.crmWrap .image-wrapper', { y: -imageStep() * index, duration: .92, ease: 'power4.inOut' });
+                    }
                 };
-                gsap.set(texts.slice(1), { autoAlpha: 0 });
-                select(0);
-                ScrollTrigger.create({ id: 'impact-commitments', trigger: section, start: 'top top', end: () => '+=' + innerHeight * 3, pin: true, invalidateOnRefresh: true,
-                    snap: { snapTo: 1 / 3, duration: .92, delay: .15, ease: 'power4.inOut', directional: false, inertia: false }, onUpdate: self => select(Math.round(self.progress * 3)) });
+                const goTo = (index, immediate = false) => {
+                    busy = true;
+                    scrollTween?.kill();
+                    release?.kill();
+                    select(index, immediate);
+                    const y = Math.min(pin.end - 1, Math.max(pin.start + 1, pin.start + (pin.end - pin.start) * index / 3));
+                    if (immediate) {
+                        scrollTo({ top: y, behavior: 'instant' });
+                        ScrollTrigger.update();
+                        release = gsap.delayedCall(.18, () => busy = false);
+                    } else scrollTween = gsap.to(window, { scrollTo: { y, autoKill: false }, duration: .92, ease: 'power4.inOut', onComplete: () => busy = false });
+                };
+                const step = direction => {
+                    if (busy) return;
+                    if (current + direction < 0 || current + direction > 3) {
+                        observer.disable();
+                        busy = true;
+                        if (observer.event.type === 'wheel') {
+                            scrollTo({ top: scrollY + wheelDistance(observer.event), behavior: 'instant' });
+                            ScrollTrigger.update();
+                            release = gsap.delayedCall(.18, () => busy = false);
+                        } else scrollTween = gsap.to(window, { scrollTo: direction > 0 ? pin.end + 2 : pin.start - 2, duration: .42, ease: 'power2.out', onComplete: () => busy = false });
+                    } else goTo(current + direction);
+                };
+                const observer = ScrollTrigger.observe({ id: 'impact-input', target: window, type: 'wheel,touch', wheelSpeed: -1, tolerance: 14, dragMinimum: 24, preventDefault: true, allowClicks: true, onUp: () => step(1), onDown: () => step(-1) });
+                observer.disable();
+                gsap.set(texts, { autoAlpha: 0, y: 50 });
+                gsap.set('.crmWrap .image-wrapper', { y: 0 });
+                select(0, true);
+                pin = ScrollTrigger.create({ id: 'impact-commitments', trigger: section, start: 'top top', end: () => '+=' + innerHeight * 3, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+                    onEnter: self => { if (!busy) select(Math.round(self.progress * 3), true); observer.enable(); },
+                    onEnterBack: self => { if (!busy) select(Math.round(self.progress * 3), true); observer.enable(); },
+                    onLeave: () => observer.disable(), onLeaveBack: () => observer.disable(),
+                    onUpdate: self => { if (!busy) select(Math.round(self.progress * 3)); },
+                    onRefresh: () => { gsap.killTweensOf(section.querySelector('.image-wrapper')); gsap.set('.crmWrap .image-wrapper', { y: -imageStep() * current }); }
+                });
+                const enterOnWheel = event => {
+                    if (pin.isActive || busy || event.ctrlKey) return;
+                    const delta = wheelDistance(event);
+                    if (scrollY >= pin.start - 2 && scrollY <= pin.end + 2) {
+                        const direction = Math.sign(delta);
+                        if (Math.abs(delta) >= 14 && current + direction >= 0 && current + direction <= 3) {
+                            event.preventDefault(); observer.enable(); goTo(current + direction);
+                        }
+                        return;
+                    }
+                    if (scrollY < pin.start && scrollY + delta >= pin.start) { event.preventDefault(); goTo(0, true); }
+                    else if (scrollY > pin.end && scrollY + delta <= pin.end) { event.preventDefault(); goTo(3, true); }
+                };
+                window.addEventListener('wheel', enterOnWheel, { passive: false, capture: true });
+                navigateImpact = index => goTo(index);
+                const requested = (new URLSearchParams(location.search).get('impact') || '').toLowerCase();
+                const requestedIndex = requested ? texts.findIndex(item => item.querySelector('.more-btn').getAttribute('href').toLowerCase().includes(requested)) : -1;
+                if (location.hash === '#scroll-pin-section' && requestedIndex > 0) release = gsap.delayedCall(.1, () => goTo(requestedIndex, true));
                 cleanUpPage = () => {
-                    header.classList.remove('header-light');
+                    observer.kill();
+                    scrollTween?.kill();
+                    release?.kill();
+                    gsap.killTweensOf([...texts, section.querySelector('.image-wrapper')]);
+                    window.removeEventListener('wheel', enterOnWheel, true);
+                    navigateImpact = undefined;
                     texts.forEach(item => item.inert = false);
                 };
             } else {
-                cleanUpPage = () => header.classList.remove('header-light');
+                gsap.fromTo('.crmWrap .pin-mobile__heading .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: .95, ease: 'power3.out', scrollTrigger: { trigger: '.pin-mobile__heading', start: 'top 80%', once: true } });
+                const items = [...impact.querySelectorAll('.pin-mobile__item')];
+                const activateItem = item => items.forEach(element => element.classList.toggle('is-active', element === item));
+                activateItem(items[0]);
+                items.forEach(item => ScrollTrigger.create({ trigger: item, start: 'top 58%', end: 'bottom 42%', onUpdate: self => { if (self.isActive) activateItem(item); } }));
+                cleanUpPage = () => items.forEach(item => item.classList.remove('is-active'));
             }
+            updateImpactHeader();
         }
         document.fonts.ready.then(() => ScrollTrigger.refresh());
         return () => {

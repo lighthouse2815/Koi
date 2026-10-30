@@ -131,7 +131,7 @@
 .crmWrap .scroll-pin-section .pin-right .image-mask .image-wrapper .image-item{height:398px}
 .crmWrap .scroll-pin-section .pin-right .pin-pagination{right:32px}
 }
-@media screen and (max-width: 1024px){.crmWrap .scroll-pin-section{height:auto;min-height:100vh;overflow:visible;padding:78px 0 34px}
+@media screen and (max-width: 1024px), (prefers-reduced-motion: reduce){.crmWrap .scroll-pin-section{height:auto;min-height:100vh;overflow:visible;padding:78px 0 34px}
 .crmWrap .scroll-pin-section .pin-inner{display:none}
 .crmWrap .scroll-pin-section .pin-mobile{display:block;width:100%}
 .crmWrap .scroll-pin-section .pin-mobile__heading{text-align:center}
@@ -162,3 +162,27 @@
 .crmWrap .scroll-pin-section .pin-mobile__title em{margin-top:8px}
 .crmWrap .scroll-pin-section .pin-mobile__more{margin-top:28px}
 }
+
+body:has(.crmWrap) { background: var(--peach); }
+.crmWrap { line-height: 1; }
+.crmWrap .crm-banner .impact-list-hero__title { overflow: hidden; }
+.crmWrap .crm-banner .scroll { position: absolute; left: 50%; bottom: 40px; z-index: 2; width: 95.04px; height: 60.99px; color: #fff; cursor: pointer; transform: translateX(-50%); }
+.crmWrap .crm-banner .scroll svg { display: block; width: 95.04px; height: 60.99px; overflow: visible; }
+.crmWrap .crm-banner .scroll path { fill: currentColor; }
+.crmWrap .crm-banner .scroll .d { fill: none; stroke: currentColor; stroke-miterlimit: 10; stroke-width: 3px; }
+.crmWrap .crm-banner .scroll .arrow { animation: arrow-down 1.8s infinite ease-in-out; }
+.crmWrap .more-btn svg line { stroke-width: 4px; }
+.crmWrap .scroll-pin-section .pin-left .text-item .more-btn:focus-visible,
+.crmWrap .scroll-pin-section .pin-mobile__more:focus-visible { color: #ea5504; }
+.content-page:not(.content-motion) .crmWrap .crmListWrap .section-title .en,
+.content-page:not(.content-motion) .crmWrap .pin-mobile__heading .en { opacity: 1; transform: none; }
+.content-page:not(.content-motion) .crmWrap .pin-inner { display: none; }
+.content-page:not(.content-motion) .crmWrap .pin-mobile { display: block; }
+.content-page:not(.content-motion) .crmWrap .scroll-pin-section { height: auto; padding: 70px 0; }
+@media (min-width: 1025px) {
+    .crmWrap .grid-x > .large-7 { width: 58.333333%; }
+}
+@media (min-width: 1025px) and (prefers-reduced-motion: reduce) {
+    .crmWrap .pin-mobile__list { max-width: 720px; margin-left: auto; margin-right: auto; }
+}
+@keyframes arrow-down { 0% { transform: translateY(10px); opacity: 1; } 39.9% { transform: translateY(20px); opacity: 0; } 40% { transform: translateY(0); opacity: 0; } 80%, 100% { transform: translateY(10px); opacity: 1; } }
