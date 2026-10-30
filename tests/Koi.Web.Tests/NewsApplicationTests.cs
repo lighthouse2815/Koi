@@ -55,26 +55,10 @@ public class NewsApplicationFactory : WebApplicationFactory<Program>
 
 public class NewsApplicationTests(NewsApplicationFactory factory) : IClassFixture<NewsApplicationFactory>
 {
-    private static readonly byte[] Image = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jP1cAAAAASUVORK5CYII=");
-    private HttpClient Client() => factory.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
-    private static async Task<string> Token(HttpClient client, string url)
-    {
-        var response = await client.GetAsync(url);
-        response.EnsureSuccessStatusCode();
-        var document = await new HtmlParser().ParseDocumentAsync(await response.Content.ReadAsStringAsync());
-        return document.QuerySelector("input[name=__RequestVerificationToken]")!.GetAttribute("value")!;
-    }
-    private async Task<HttpClient> Admin()
-    {
-        var client = Client();
-        var result = await client.PostAsync("/Admin/Account/Login", new FormUrlEncodedContent(new Dictionary<string, string>
-        {
-            ["Email"] = factory.AdminEmail, ["Password"] = factory.AdminPassword,
-            ["__RequestVerificationToken"] = await Token(client, "/Admin/Account/Login")
-        }));
-        Assert.Equal(HttpStatusCode.Redirect, result.StatusCode);
-        return client;
-    }
+    private static byte[] Image => AdminTestClient.Image;
+    private HttpClient Client() => AdminTestClient.Anonymous(factory);
+    private static Task<string> Token(HttpClient client, string url) => AdminTestClient.Token(client, url);
+    private Task<HttpClient> Admin() => AdminTestClient.Login(factory);
     private static Dictionary<string, string> Article(string title, bool published = false) => new()
     {
         ["Title"] = title, ["Category"] = "NEWS", ["Date"] = "2026-10-31",
@@ -82,12 +66,7 @@ public class NewsApplicationTests(NewsApplicationFactory factory) : IClassFixtur
         ["IsFeatured"] = "false", ["ShowOnHome"] = "false", ["HomeOrder"] = "0"
     };
     private static MultipartFormDataContent Form(Dictionary<string, string> fields, byte[]? image = null, string fileName = "test.png")
-    {
-        var form = new MultipartFormDataContent();
-        foreach (var field in fields) form.Add(new StringContent(field.Value), field.Key);
-        if (image != null) form.Add(new ByteArrayContent(image), "ImageUpload", fileName);
-        return form;
-    }
+        => AdminTestClient.Form(fields, image, fileName);
     private async Task<NewsArticle?> Find(string title)
     {
         using var scope = factory.Services.CreateScope();

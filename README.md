@@ -38,9 +38,10 @@ Development tự áp dụng migration và tạo tài khoản được cấu hìn
 - **Menu:** Controller truyền `MenuViewModel` xuống View; danh sách hiện vẫn từ `MenuCatalog`.
 - **News:** PostgreSQL + EF Core lưu tiêu đề, danh mục, ngày, HTML, ảnh/video, bản nháp/xuất bản, tin nổi bật và lựa chọn hiển thị ở trang chủ. News, chi tiết tin và carousel tin trang chủ đều đọc database.
 - **Quản trị News:** đăng nhập/đăng xuất bằng ASP.NET Core Identity; tìm kiếm, phân trang, thêm/sửa/xóa, xem trước cả bản nháp và tải ảnh JPG/PNG/WebP tối đa 5 MB. Bản nháp chỉ quản trị viên xem được. Có kiểm tra dữ liệu phía server, chống CSRF, loại mã HTML không an toàn và phát hiện sửa đè từ bản cũ.
-- **Phần kế tiếp:** đưa Store, Menu và dữ liệu đồ uống vào PostgreSQL/quản trị. Các phần này hiện chưa có màn hình quản trị. Contact vẫn là giao diện, chưa gửi form theo yêu cầu.
+- **Store:** PostgreSQL lưu 1.211 mục cửa hàng ban đầu, giữ thứ tự riêng toàn bộ/quốc gia/khu vực. Quản trị tìm kiếm, lọc, phân trang, thêm/sửa/xóa, ảnh, xuất bản và phát hiện sửa đè. Có quản trị quốc gia, khu vực, thương hiệu/logo và liên kết mạng xã hội; kiểm tra quan hệ trước khi lưu và chặn xóa dữ liệu đang được sử dụng.
+- **Phần kế tiếp:** Menu và dữ liệu đồ uống. Contact vẫn là giao diện, chưa gửi form theo yêu cầu.
 
-Ảnh tải lên lưu trong `wwwroot/uploads/news`, không đưa vào Git hoặc bản publish. Khi triển khai cần giữ thư mục uploads riêng cùng với dữ liệu PostgreSQL. Xóa bài viết chỉ xóa bản ghi, giữ các ảnh đã lưu.
+Ảnh tải lên lưu trong `wwwroot/uploads`, không đưa vào Git hoặc bản publish. Khi triển khai cần giữ thư mục uploads riêng cùng với dữ liệu PostgreSQL. Xóa bài viết chỉ xóa bản ghi, giữ các ảnh đã lưu.
 
 Kiểm tra tích hợp dùng PostgreSQL riêng, tên database phải kết thúc bằng `_tests`. Với cấu hình local, tạo database kiểm thử một lần rồi chạy:
 
@@ -166,7 +167,7 @@ People tương ứng cam kết thứ ba “PEOPLE BEHIND THE CRAFT” trên [tra
 
 Connections tương ứng cam kết thứ tư “CONNECTIONS THAT GO BEYOND THE CUP” trên [trang mẫu](https://koithe.com/en/connections.php). Đã đối chiếu bố cục ở 1440/390/1024px, nhịp hiện tiêu đề và độ mờ ảnh cộng đồng tại bốn khung hình. GSAP xử lý chuyển mờ 1,15 giây, thanh thời gian 3 giây và cử chỉ qua Observer; Swiper xử lý bảy thẻ IN ACTION căn giữa, quay vòng và vuốt. Kiểm tra Pause/Play, ảnh/chữ/chấm chọn đồng bộ, cảm ứng thật trong cả hai chế độ chuyển động, đổi 390–2560px không tràn ngang/tạo lặp carousel, chuyển sang giảm chuyển động giữa lúc đang đổi ảnh, Back đúng cam kết và mở lại trang ở ảnh bìa khi JavaScript tải chậm. People được kiểm tra lại sau thay đổi JavaScript dùng chung.
 
-Store tương ứng [STORE trên trang mẫu](https://koithe.com/en/store.php). Dữ liệu công khai chụp ngày 31/10/2026 được lưu trong `Data/Stores.json`, gồm 17 quốc gia, 126 lựa chọn địa điểm và sáu thương hiệu; không cần database hay API key. Giữ thứ tự danh sách riêng của từng quốc gia/thành phố, query `c/s/b/page` và chín mục mỗi trang. Dữ liệu này là bản tĩnh, không tự đồng bộ với website gốc. Bốn mục dùng chung một URL ảnh cũ không còn tải được đã chuyển sang ảnh mặc định của mẫu.
+Store tương ứng [STORE trên trang mẫu](https://koithe.com/en/store.php). Dữ liệu công khai chụp ngày 31/10/2026 được lưu trong `Data/Stores.json`, gồm 17 quốc gia, 126 lựa chọn địa điểm và sáu thương hiệu; nay được migration nhập một lần vào PostgreSQL và chỉnh sửa qua quản trị. Không cần API key. Giữ thứ tự danh sách riêng của từng quốc gia/thành phố, query `c/s/b/page` và chín mục mỗi trang. Dữ liệu không tự đồng bộ với website gốc; cập nhật trong quản trị. Bốn mục dùng chung một URL ảnh cũ không còn tải được đã chuyển sang ảnh mặc định của mẫu.
 
 Store dùng GSAP có sẵn cho tiêu đề và dialog HTML gốc để xem ảnh. Ảnh, logo và font Noto Sans SC được lưu local; font chỉ chứa các ký tự cần cho bản dữ liệu này, kèm giấy phép SIL OFL trong `wwwroot/fonts/store/OFL.txt`. Menu/footer/gấu nổi và các liên kết quốc gia trong About đều mở trang Store local.
 
@@ -195,3 +196,5 @@ Rà soát tổng thể ngày 31/10/2026 sau khi duyệt Menu: 27 URL gồm trang
 Bắt đầu giai đoạn MVC: Menu dùng `MenuViewModel`, `MenuCountry`, `MenuDocument`; dữ liệu 17 quốc gia/22 thực đơn nằm trong `Data/MenuCatalog.cs` và được `HomeController.Menu` truyền xuống Razor. View chỉ hiển thị dữ liệu từ Model. Đã build và đối chiếu danh sách với giao diện đã duyệt.
 
 Giai đoạn MVC News đã kiểm tra: build/publish Release, 15 kiểm tra tích hợp trên PostgreSQL riêng (quyền truy cập, CSRF, bản nháp/xuất bản, ảnh, HTML, sửa đè và xóa), đối chiếu đủ nội dung/ảnh/video của 13 bài cũ và luồng trình duyệt đăng nhập → thêm/sửa/xem trước/xóa bản nháp → đăng xuất trên desktop/mobile. Bản publish Production đã chạy thử trang bìa, video người đọc sách, cảnh FRAGRANCE, News, Menu và đăng nhập quản trị. Ảnh quản trị: [danh sách](docs/preview/admin-news-desktop.png) · [sửa bài](docs/preview/admin-news-edit.png) · [mobile](docs/preview/admin-news-mobile.png) · [đăng nhập mobile](docs/preview/admin-login-mobile.png).
+
+MVC Store đã kiểm tra: 26 test tích hợp đạt, đối chiếu 154 bộ lọc/phân trang với dữ liệu trang mẫu, điều hướng quản trị và form sửa trên mobile. Ảnh quản trị: [danh sách cửa hàng](docs/preview/admin-stores-desktop.png) · [sửa cửa hàng trên mobile](docs/preview/admin-store-edit-mobile.png).

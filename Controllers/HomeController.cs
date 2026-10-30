@@ -72,27 +72,35 @@ public class HomeController(ApplicationDbContext database) : Controller
         return View("NewsDetail", article);
     }
 
-    public IActionResult Store(int c = 0, int s = 0, int b = 0, int page = 1)
+    public async Task<IActionResult> Store(int c = 0, int s = 0, int b = 0, int page = 1)
     {
-        var catalog = StoreCatalog.Snapshot;
-        var country = catalog.Countries.FirstOrDefault(country => country.Id == c);
+        var markets = await database.Markets.AsNoTracking().Include(value => value.Brands).Include(value => value.SocialLinks)
+            .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).AsSplitQuery().ToArrayAsync();
+        var country = markets.FirstOrDefault(value => value.Id == c);
         c = country?.Id ?? 0;
-        var locations = catalog.Locations.Where(location => location.CountryId == c).ToArray();
-        var location = locations.FirstOrDefault(location => location.Id == s);
-        s = location?.Id ?? 0;
-        var brands = catalog.Brands.Where(brand => country == null || country.BrandIds.Contains(brand.Id)).ToArray();
-        if (!brands.Any(brand => brand.Id == b)) b = 0;
-        // The reference orders each country/city independently of the global list.
-        var orderedIds = location?.StoreIds ?? country?.StoreIds;
-        var orderedStores = orderedIds == null ? catalog.Stores : orderedIds.Select(id => catalog.Stores[id - 1]);
-        var stores = orderedStores.Where(store => (c == 0 || store.CountryId == c)
-            && (s == 0 || store.LocationId == s) && (b == 0 || store.BrandId == b)).ToArray();
+        var cities = await database.StoreCities.AsNoTracking().Where(value => value.MarketId == c)
+            .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
+        var city = cities.FirstOrDefault(value => value.Id == s);
+        s = city?.Id ?? 0;
+        var brandIds = country?.Brands.Select(value => value.BrandId).ToArray();
+        var brands = await database.TeaBrands.AsNoTracking().Where(value => brandIds == null || brandIds.Contains(value.Id))
+            .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
+        if (!brands.Any(value => value.Id == b)) b = 0;
+        var query = database.Stores.AsNoTracking().Where(value => value.IsPublished && (c == 0 || value.MarketId == c)
+            && (s == 0 || value.CityId == s) && (b == 0 || value.BrandId == b));
         const int pageSize = 9;
-        var pageCount = Math.Max(1, (int)Math.Ceiling(stores.Length / (double)pageSize));
-        page = Math.Clamp(page, 1, pageCount);
-        return View(new StoreViewModel(catalog.Countries, locations, brands,
-            stores.Skip((page - 1) * pageSize).Take(pageSize).ToArray(),
-            country?.SocialLinks ?? [], c, s, b, page, pageCount));
+        var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / (double)pageSize));
+        page = Math.Clamp(page, 1, pages);
+        var stores = await query.OrderBy(value => s != 0 ? value.CityOrder : c != 0 ? value.CountryOrder : value.SortOrder)
+            .ThenBy(value => value.Id).Skip((page - 1) * pageSize).Take(pageSize)
+            .Select(value => new StoreBranch(value.Id, value.Name, value.Phone, value.Hours, value.Address,
+                value.MarketId, value.CityId ?? 0, value.BrandId, value.Brand.Logo, value.Photo, value.NavigationUrl)).ToArrayAsync();
+        return View(new StoreViewModel(markets.Select(value => new StoreCountry(value.Id, value.Name,
+                value.Brands.Select(value => value.BrandId).ToArray(), [], [])).ToArray(),
+            cities.Select(value => new StoreLocation(value.Id, value.MarketId, value.Name, [])).ToArray(),
+            brands.Select(value => new StoreBrand(value.Id, value.Name)).ToArray(), stores,
+            country?.SocialLinks.OrderBy(value => value.SortOrder).Select(value => new StoreSocialLink(value.Url, value.Label)).ToArray() ?? [],
+            c, s, b, page, pages));
     }
 
     public IActionResult Impact()

@@ -15,6 +15,7 @@
         @if (User.IsInRole("Admin"))
         {
             <a asp-area="Admin" asp-controller="News" asp-action="Index">Tin tức</a>
+            <a asp-area="Admin" asp-controller="Stores" asp-action="Index">Cửa hàng</a>
         }
         <a asp-area="" asp-controller="Home" asp-action="Index" target="_blank" rel="noopener">Xem website ↗</a>
         @if (User.IsInRole("Admin"))

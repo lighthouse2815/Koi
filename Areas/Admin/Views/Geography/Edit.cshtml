@@ -1,0 +1,22 @@
+@model GeographyEditViewModel
+@{ var editing = Model.Id > 0; ViewData["Title"] = (editing ? "Sửa " : "Thêm ") + ViewData["KindTitle"]; }
+<div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index" asp-route-kind="@Model.Kind">← Danh sách</a></div>
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (int?)null)" method="post" enctype="multipart/form-data" class="card">
+<input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" /><input asp-for="Kind" type="hidden" />
+<div asp-validation-summary="All" class="validation" role="alert"></div>
+<label asp-for="Name">Tên</label><input asp-for="Name" required maxlength="@(Model.Kind == "countries" ? 100 : 150)" />
+<label asp-for="SortOrder">Thứ tự</label><input asp-for="SortOrder" type="number" min="0" max="100000" />
+@if (Model.Kind == "countries")
+{
+    <fieldset><legend>Thương hiệu tại quốc gia</legend>@foreach (var brand in Model.Brands) { <label class="check"><input type="checkbox" name="BrandIds" value="@brand.Id" checked="@Model.BrandIds.Contains(brand.Id)" /> @brand.Name</label> }</fieldset>
+    <label asp-for="SocialLinks">Liên kết mạng xã hội / website</label><textarea asp-for="SocialLinks" rows="6" maxlength="10000"></textarea><p class="help">Mỗi dòng: Tên liên kết | https://dia-chi. Ví dụ: Facebook | https://www.facebook.com/koithevietnam</p>
+}
+@if (Model.Kind == "cities") { <label asp-for="MarketId">Quốc gia</label><select asp-for="MarketId" asp-items="Model.Markets" required><option value="">Chọn quốc gia</option></select> }
+@if (Model.Kind == "brands")
+{
+    <label asp-for="ImageUpload">Logo thương hiệu</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Logo hiện tại" /> }
+    <input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" /><p class="help">JPG, PNG hoặc WebP, tối đa 5 MB.</p><label class="check"><input asp-for="RemoveImage" /> Bỏ logo hiện tại</label>
+}
+<p><button type="submit" class="button">Lưu dữ liệu</button></p>
+@if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id" asp-route-kind="@Model.Kind">Tải lại bản mới nhất</a> }
+</form>

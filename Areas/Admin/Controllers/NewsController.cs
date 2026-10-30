@@ -1,6 +1,7 @@
 using Ganss.Xss;
 using Koi.Web.Data;
 using Koi.Web.Models;
+using Koi.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Koi.Web.Areas.Admin.Controllers;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
-public class NewsController(ApplicationDbContext database, IWebHostEnvironment environment, ILogger<NewsController> logger) : Controller
+public class NewsController(ApplicationDbContext database, ImageUploads uploads, ILogger<NewsController> logger) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Index(string? search, int page = 1)
@@ -65,22 +66,8 @@ public class NewsController(ApplicationDbContext database, IWebHostEnvironment e
         sanitizer.AllowedAttributes.Add("class");
         var body = sanitizer.Sanitize(model.BodyHtml ?? "").Trim();
         if (string.IsNullOrWhiteSpace(body)) ModelState.AddModelError(nameof(model.BodyHtml), "Nhập nội dung bài viết.");
-        byte[]? imageBytes = null;
-        string? extension = null;
-        if (model.ImageUpload is { Length: > 0 } image)
-        {
-            extension = Path.GetExtension(image.FileName).ToLowerInvariant();
-            if (image.Length > 5 * 1024 * 1024 || extension is not (".jpg" or ".jpeg" or ".png" or ".webp"))
-                ModelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh JPG, PNG hoặc WebP tối đa 5 MB.");
-            else
-            {
-                using var buffer = new MemoryStream();
-                await image.CopyToAsync(buffer);
-                imageBytes = buffer.ToArray();
-                if (!IsImage(imageBytes, extension)) ModelState.AddModelError(nameof(model.ImageUpload), "Nội dung tệp không đúng định dạng ảnh.");
-            }
-        }
-        else if (id == null) ModelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh cho bài viết.");
+        var image = await uploads.ReadAsync(model.ImageUpload, ModelState, nameof(model.ImageUpload));
+        if (id == null && image == null) ModelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh cho bài viết.");
         if (!ModelState.IsValid)
         {
             Response.StatusCode = StatusCodes.Status400BadRequest;
@@ -90,14 +77,10 @@ public class NewsController(ApplicationDbContext database, IWebHostEnvironment e
         await using var transaction = await database.Database.BeginTransactionAsync();
         try
         {
-            if (imageBytes != null)
+            if (image != null)
             {
-                var name = Guid.NewGuid().ToString("N") + extension;
-                var directory = Path.Combine(environment.WebRootPath, "uploads", "news");
-                Directory.CreateDirectory(directory);
-                uploadedFile = Path.Combine(directory, name);
-                await System.IO.File.WriteAllBytesAsync(uploadedFile, imageBytes);
-                article.Image = article.BannerImage = "/uploads/news/" + name;
+                uploadedFile = await uploads.SaveAsync(image, "news");
+                article.Image = article.BannerImage = uploadedFile;
                 article.HomeImage = "";
             }
             article.Title = model.Title.Trim();
@@ -136,7 +119,7 @@ public class NewsController(ApplicationDbContext database, IWebHostEnvironment e
             ModelState.AddModelError("", "Chưa lưu được bài viết. Vui lòng thử lại.");
             Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
         }
-        if (uploadedFile != null) System.IO.File.Delete(uploadedFile);
+        uploads.Rollback(uploadedFile);
         return View("Edit", model);
     }
 
@@ -157,14 +140,6 @@ public class NewsController(ApplicationDbContext database, IWebHostEnvironment e
         TempData["Status"] = "Đã xóa bài viết.";
         return RedirectToAction(nameof(Index));
     }
-
-    private static bool IsImage(byte[] data, string extension) => extension switch
-    {
-        ".png" => data.AsSpan().StartsWith(new byte[] { 137, 80, 78, 71, 13, 10, 26, 10 }),
-        ".jpg" or ".jpeg" => data.AsSpan().StartsWith(new byte[] { 255, 216, 255 }),
-        ".webp" => data.Length >= 12 && data.AsSpan(0, 4).SequenceEqual("RIFF"u8) && data.AsSpan(8, 4).SequenceEqual("WEBP"u8),
-        _ => false
-    };
 
     private static string? ParseVideoId(string? value)
     {

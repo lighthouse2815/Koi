@@ -1,0 +1,11 @@
+@model DeleteContentViewModel
+@{ ViewData["Title"] = "Xóa dữ liệu"; }
+<div class="card delete-card">
+    <h1>Xóa @Model.Name?</h1>
+    <p>Mục này sẽ được gỡ khỏi cơ sở dữ liệu. Ảnh đã tải lên được giữ lại để tránh ảnh hưởng nội dung khác.</p>
+    <div asp-validation-summary="All" class="validation" role="alert"></div>
+    <form asp-action="Delete" asp-route-id="@Model.Id" asp-route-kind="@Model.Kind" method="post">
+        <button class="button danger" type="submit">Xác nhận xóa</button>
+        <a asp-action="Index" asp-route-kind="@Model.Kind">Hủy</a>
+    </form>
+</div>
