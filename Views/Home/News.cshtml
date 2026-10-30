@@ -2,7 +2,6 @@
 @using System.Globalization
 @{
     ViewData["Title"] = "News";
-    var featured = Model.Featured;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/news.css" asp-append-version="true" />
@@ -11,6 +10,8 @@
 <div class="content-page" id="home">
     <div class="newsWrap">
         <div class="head-area"><h1 class="en">NEWS</h1></div>
+        @if (Model.Featured is { } featured)
+        {
         <div class="top-news">
             <a asp-action="NewsDetail" asp-route-id="@featured.Id" class="flex-container align-middle align-justify">
                 <div class="pic-area hide-for-large">
@@ -44,6 +45,7 @@
                 </div>
             </a>
         </div>
+        }
         <div class="newsListWrap" id="articles">
             <div class="news-inner flex-container">
                 <ul class="newsCatList" aria-label="News categories">

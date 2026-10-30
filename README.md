@@ -4,19 +4,52 @@ Dựng lại giao diện [KOI Thé](https://koithe.com/en/main.php) bằng ASP.N
 
 ## Chạy project
 
-Yêu cầu .NET 10 SDK. Không cần Node.js, npm hoặc database.
+Yêu cầu .NET 10 SDK và PostgreSQL. Có sẵn Docker Compose dùng PostgreSQL 17; không cần Node.js/npm để chạy web.
 
 ```bash
-dotnet restore
-dotnet run
+dotnet restore Koi.sln
+dotnet tool restore
+# Lần đầu: sao chép .env.example thành .env và đặt POSTGRES_PASSWORD.
+docker compose up -d --wait
 ```
 
-Mở **http://localhost:5118** để xem trang bìa chọn ngôn ngữ như URL gốc. Chọn **ENGLISH** để vào `/Home/Index`. Liên kết 中文 mở bản gốc tiếng Trung; nội dung MVC hiện dùng tiếng Anh. Có thể chạy bằng Visual Studio với profile `http`.
+Cấu hình kết nối và tài khoản quản trị đầu tiên bằng User Secrets (thay các giá trị YOUR_ trước khi chạy):
 
 ```bash
-dotnet build --configuration Release
-dotnet publish --configuration Release --output ./artifacts/publish
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=127.0.0.1;Port=55432;Database=koi;Username=koi;Password=YOUR_POSTGRES_PASSWORD" --project Koi.Web.csproj
+dotnet user-secrets set "Admin:Email" "YOUR_ADMIN_EMAIL" --project Koi.Web.csproj
+dotnet user-secrets set "Admin:Password" "YOUR_ADMIN_PASSWORD" --project Koi.Web.csproj
+dotnet run --project Koi.Web.csproj
 ```
+
+Mật khẩu quản trị cần ít nhất 12 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt. User Secrets và `.env` nằm ngoài Git. Tại máy đang làm việc, PostgreSQL và tài khoản quản trị đã được cấu hình bằng User Secrets ID `koi-web-development`.
+
+Mở **http://localhost:5118** để xem trang bìa; chọn **ENGLISH** để vào `/Home/Index`. Quản trị ở **http://localhost:5118/Admin**; người chưa đăng nhập sẽ được chuyển tới trang đăng nhập. Có thể mở `Koi.sln` trong Visual Studio hoặc dùng profile `http`.
+
+```bash
+dotnet build Koi.sln --configuration Release
+dotnet publish Koi.Web.csproj --configuration Release --output ./artifacts/publish
+```
+
+Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration nạp 13 bài News ban đầu một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
+
+## MVC và quản trị đã triển khai
+
+- **Menu:** Controller truyền `MenuViewModel` xuống View; danh sách hiện vẫn từ `MenuCatalog`.
+- **News:** PostgreSQL + EF Core lưu tiêu đề, danh mục, ngày, HTML, ảnh/video, bản nháp/xuất bản, tin nổi bật và lựa chọn hiển thị ở trang chủ. News, chi tiết tin và carousel tin trang chủ đều đọc database.
+- **Quản trị News:** đăng nhập/đăng xuất bằng ASP.NET Core Identity; tìm kiếm, phân trang, thêm/sửa/xóa, xem trước cả bản nháp và tải ảnh JPG/PNG/WebP tối đa 5 MB. Bản nháp chỉ quản trị viên xem được. Có kiểm tra dữ liệu phía server, chống CSRF, loại mã HTML không an toàn và phát hiện sửa đè từ bản cũ.
+- **Phần kế tiếp:** đưa Store, Menu và dữ liệu đồ uống vào PostgreSQL/quản trị. Các phần này hiện chưa có màn hình quản trị. Contact vẫn là giao diện, chưa gửi form theo yêu cầu.
+
+Ảnh tải lên lưu trong `wwwroot/uploads/news`, không đưa vào Git hoặc bản publish. Khi triển khai cần giữ thư mục uploads riêng cùng với dữ liệu PostgreSQL. Xóa bài viết chỉ xóa bản ghi, giữ các ảnh đã lưu.
+
+Kiểm tra tích hợp dùng PostgreSQL riêng, tên database phải kết thúc bằng `_tests`. Với cấu hình local, tạo database kiểm thử một lần rồi chạy:
+
+```bash
+docker compose exec postgres createdb -U koi koi_tests
+dotnet test tests/Koi.Web.Tests/Koi.Web.Tests.csproj --configuration Release
+```
+
+Có thể đặt `KOI_TEST_CONNECTION_STRING` để dùng một database kiểm thử khác có hậu tố `_tests`. Test không xóa/reset database website. Mật khẩu tài khoản test được tạo ngẫu nhiên; kiểm thử dùng thư mục uploads tạm. Nội dung 13 bài cũ đã được đối chiếu với bản Razor trước khi chuyển sang database.
 
 ## Trang chủ
 
@@ -50,11 +83,11 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 | Contact | `/Home/Contact` | Tiêu đề trượt lên, chuyển mờ giữa Contact/Business Partnership, ảnh Overseas trên desktop và các trường nhập/chọn dùng điều khiển gốc của trình duyệt |
 | Menu | `/Home/Menu` | Đường kẻ mở ngang, tiêu đề/danh sách trượt lên và 22 thực đơn của 17 quốc gia mở trong tab mới |
 
-Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Các nút Menu trên Our Tea, footer và gấu nổi mở `/Home/Menu`; ảnh thực đơn cũng được lưu local. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
+Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Các nút Menu trên Our Tea, footer và gấu nổi mở `/Home/Menu`; ảnh thực đơn cũng được lưu local. Chưa có đặt hàng hoặc gửi form; News đã dùng PostgreSQL, các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
 Các trang nội dung trong bảng đã được duyệt, gồm cả Menu. Phần giao diện đã hoàn tất trong phạm vi các trang này; Contact giữ chế độ xem trước theo yêu cầu, không gửi form.
 
-Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
+Nội dung News hiện lưu trong PostgreSQL và chỉnh sửa được qua trang quản trị; dữ liệu ban đầu được chuyển từ 13 bài của giai đoạn dựng giao diện. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
 Chuỗi hoạt ảnh dùng GSAP, ScrollTrigger và ScrollToPlugin, dựa trên thứ tự cảnh, sprite và các mốc chuyển cảnh của website mẫu. Độ dài vùng cuộn và bố cục tự điều chỉnh theo màn hình; chế độ giảm chuyển động vẫn hiển thị đủ nội dung bằng bố cục tĩnh.
 
@@ -85,7 +118,7 @@ Các kiểm tra sau đã đạt trên bản publish Release: build/publish .NET 
 - `wwwroot/js/home-animations.js`: timeline GSAP, các cảnh theo cuộn, intro và parallax.
 - `wwwroot/images`, `wwwroot/videos`, `wwwroot/fonts`: tài nguyên local.
 
-Dùng template MVC chính thức của .NET, không thêm NuGet. GSAP 3.15.0 cùng ScrollTrigger/ScrollToPlugin được lưu trong `wwwroot/lib/gsap`, giữ thông tin bản quyền và giấy phép. Không cần npm để build hoặc chạy ứng dụng. Bỏ Bootstrap/jQuery mặc định vì trang này không sử dụng chúng.
+Dùng template MVC chính thức của .NET. Giai đoạn backend dùng Npgsql/EF Core cho PostgreSQL, ASP.NET Core Identity cho tài khoản và HtmlSanitizer cho nội dung HTML. GSAP 3.15.0 cùng ScrollTrigger/ScrollToPlugin được lưu trong `wwwroot/lib/gsap`, giữ thông tin bản quyền và giấy phép. Không cần npm để build hoặc chạy ứng dụng. Bỏ Bootstrap/jQuery mặc định vì trang này không sử dụng chúng.
 
 About, Our Tea, People và Connections dùng Swiper 14.3.0 lưu local tại `wwwroot/lib/swiper` (MIT). About dùng cho ảnh/nội dung nguyên liệu và lịch sử; Our Tea dùng cho nền dải ly, ảnh/nền New Drinks và tên món trên mobile; People dùng cho Foundations và Moments; Connections dùng cho IN ACTION. Tự chuyển dừng khi phần tương ứng ra khỏi màn hình, tab bị ẩn, người dùng bấm Pause hoặc bật giảm chuyển động. Mobile xếp dọc bốn giá trị thương hiệu của About, dùng đúng nhóm ảnh bìa và hỗ trợ kéo dải ảnh lịch sử; New Drinks hỗ trợ vuốt và chấm chọn.
 
@@ -160,3 +193,5 @@ Menu đã đối chiếu bố cục ở 1440/390/1024px và lấy mẫu bảy kh
 Rà soát tổng thể ngày 31/10/2026 sau khi duyệt Menu: 27 URL gồm trang bìa, trang chủ, 12 trang nội dung và 13 bài News đều trả HTTP 200; 85 đích liên kết local hoạt động và 306 tài nguyên tham chiếu có nội dung. Kiểm tra trình duyệt cho 14 trang chính/nội dung ở 1440/390px, gồm đầu trang và footer, không phát hiện lỗi JavaScript, tài nguyên local lỗi hoặc tràn ngang. Header giữ đủ tám mục dẫn tới MVC; ID bài News không tồn tại trả 404. Build Release đạt, không có lỗi hoặc cảnh báo. Đây là lượt kiểm tra điều hướng/tài nguyên/bố cục tổng thể; các kiểm tra animation và tương tác riêng được ghi ở từng trang phía trên.
 
 Bắt đầu giai đoạn MVC: Menu dùng `MenuViewModel`, `MenuCountry`, `MenuDocument`; dữ liệu 17 quốc gia/22 thực đơn nằm trong `Data/MenuCatalog.cs` và được `HomeController.Menu` truyền xuống Razor. View chỉ hiển thị dữ liệu từ Model. Đã build và đối chiếu danh sách với giao diện đã duyệt.
+
+Giai đoạn MVC News đã kiểm tra: build/publish Release, 15 kiểm tra tích hợp trên PostgreSQL riêng (quyền truy cập, CSRF, bản nháp/xuất bản, ảnh, HTML, sửa đè và xóa), đối chiếu đủ nội dung/ảnh/video của 13 bài cũ và luồng trình duyệt đăng nhập → thêm/sửa/xem trước/xóa bản nháp → đăng xuất trên desktop/mobile. Bản publish Production đã chạy thử trang bìa, video người đọc sách, cảnh FRAGRANCE, News, Menu và đăng nhập quản trị. Ảnh quản trị: [danh sách](docs/preview/admin-news-desktop.png) · [sửa bài](docs/preview/admin-news-edit.png) · [mobile](docs/preview/admin-news-mobile.png) · [đăng nhập mobile](docs/preview/admin-login-mobile.png).

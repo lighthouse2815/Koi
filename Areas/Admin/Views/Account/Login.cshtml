@@ -1,0 +1,20 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+<section class="login-card">
+    <p class="eyebrow">KOI ADMIN</p>
+    <h1>Đăng nhập quản trị</h1>
+    <form asp-action="Login" method="post">
+        <input asp-for="ReturnUrl" type="hidden" />
+        <div asp-validation-summary="ModelOnly" class="validation" role="alert"></div>
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" type="email" autocomplete="username" required />
+        <span asp-validation-for="Email" class="validation"></span>
+        <label asp-for="Password">Mật khẩu</label>
+        <input asp-for="Password" autocomplete="current-password" required />
+        <span asp-validation-for="Password" class="validation"></span>
+        <label class="check"><input asp-for="RememberMe" /> Giữ đăng nhập</label>
+        <button type="submit" class="button">Đăng nhập</button>
+    </form>
+</section>
