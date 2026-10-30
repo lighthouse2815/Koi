@@ -1,7 +1,7 @@
 @model NewsArticle
 @{
     ViewData["Title"] = SiteText.Select(Model.Title, Model.TitleVi);
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/code/Views/Shared/_Layout.cshtml";
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/news-detail.css" asp-append-version="true" />

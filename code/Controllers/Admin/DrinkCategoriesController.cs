@@ -67,7 +67,7 @@ public class DrinkCategoriesController(ApplicationDbContext database, ImageUploa
     public async Task<IActionResult> Delete(int id)
     {
         var value = await database.DrinkCategories.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View("~/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
+        return value == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
     }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)
@@ -77,7 +77,7 @@ public class DrinkCategoriesController(ApplicationDbContext database, ImageUploa
         catch (DbUpdateException)
         {
             Response.StatusCode = 409; ModelState.AddModelError("", "Danh mục đang có đồ uống. Hãy chuyển hoặc xóa đồ uống trước, hoặc tắt hiển thị danh mục.");
-            return View("~/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
+            return View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
         }
         TempData["Status"] = "Đã xóa danh mục đồ uống."; return RedirectToAction(nameof(Index));
     }

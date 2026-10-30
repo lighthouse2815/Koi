@@ -67,7 +67,7 @@ public class DrinksController(ApplicationDbContext database, ImageUploads upload
     public async Task<IActionResult> Delete(int id)
     {
         var value = await database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View("~/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
+        return value == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
     }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)

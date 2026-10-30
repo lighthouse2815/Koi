@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddLocalization(options => options.ResourcesPath = "code/Resources");
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     options.SetDefaultCulture("en").AddSupportedCultures("en", "vi").AddSupportedUICultures("en", "vi");
@@ -18,11 +18,14 @@ builder.Services.AddControllersWithViews(options => options.Filters.Add(new Auto
     .AddViewLocalization()
     .AddRazorOptions(options =>
     {
-        // Keep all Razor views under Views, including the Admin area.
+        // Both public and Admin views live inside the shared code folder.
+        options.ViewLocationFormats.Clear();
+        options.ViewLocationFormats.Add("/code/Views/{1}/{0}.cshtml");
+        options.ViewLocationFormats.Add("/code/Views/Shared/{0}.cshtml");
         options.AreaViewLocationFormats.Clear();
-        options.AreaViewLocationFormats.Add("/Views/{2}/{1}/{0}.cshtml");
-        options.AreaViewLocationFormats.Add("/Views/{2}/Shared/{0}.cshtml");
-        options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
+        options.AreaViewLocationFormats.Add("/code/Views/{2}/{1}/{0}.cshtml");
+        options.AreaViewLocationFormats.Add("/code/Views/{2}/Shared/{0}.cshtml");
+        options.AreaViewLocationFormats.Add("/code/Views/Shared/{0}.cshtml");
     });
 builder.Services.AddScoped<ImageUploads>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(

@@ -111,31 +111,36 @@ Các kiểm tra sau đã đạt trên bản publish Release: build/publish .NET 
 
 ## Cấu trúc
 
-Controller và View được gom vào một thư mục tương ứng ở gốc project; phần quản trị đặt trong thư mục con `Admin`:
+Mã ứng dụng được gom vào `code/`; file khởi động, cấu hình dự án và tài nguyên tĩnh giữ ở gốc:
 
 ```text
-Controllers/
-├── HomeController.cs       # Các trang công khai
-└── Admin/                  # Tám controller quản trị
-Views/
-├── Home/                   # Giao diện công khai
-├── Admin/                  # Giao diện quản trị
-└── Shared/                 # Layout, header, footer dùng chung
-Models/                     # Entity và ViewModel
-Data/                       # DbContext, migration và dữ liệu ban đầu
-Services/                   # Xử lý ảnh dùng chung
+code/
+├── Controllers/
+│   ├── HomeController.cs    # Các trang công khai
+│   └── Admin/              # Tám controller quản trị
+├── Views/
+│   ├── Home/               # Giao diện công khai
+│   ├── Admin/              # Giao diện quản trị
+│   └── Shared/             # Layout, header, footer dùng chung
+├── Models/                 # Entity và ViewModel
+├── Data/                   # DbContext, migration và dữ liệu ban đầu
+├── Localization/           # Chọn nội dung theo ngôn ngữ
+├── Resources/              # Tài nguyên tiếng Việt/tiếng Anh
+└── Services/               # Xử lý ảnh dùng chung
 wwwroot/                    # CSS, JavaScript, ảnh, font và video
+Program.cs                  # Khởi động, routing và cấu hình View/localization
+Koi.Web.csproj              # Cấu hình build và tài nguyên nhúng
 ```
 
-Không còn thư mục `Areas` riêng. Phần quản trị vẫn dùng cơ chế Area và giữ URL `/Admin/...`; đường dẫn tìm Razor View được cấu hình trong `Program.cs`. Các View quản trị kế thừa `_ViewImports.cshtml` chung và dùng layout quản trị qua `Views/Admin/_ViewStart.cshtml`. Sau khi gom thư mục: build/publish Release đạt, 43 test tích hợp đạt trên PostgreSQL kiểm thử mới; bản publish Production kiểm tra 7 URL công khai và 32 trang quản trị ở 1440/390px, gồm layout, form/CSRF, đăng nhập/đăng xuất và đường dẫn ảnh.
+Phần quản trị vẫn dùng cơ chế Area và giữ URL `/Admin/...`. `Program.cs` tìm View tại `code/Views`, tài nguyên ngôn ngữ tại `code/Resources`; các đường dẫn layout/View dùng chung đã được cập nhật. View quản trị kế thừa `_ViewImports.cshtml` chung và dùng layout qua `code/Views/Admin/_ViewStart.cshtml`. Tên tài nguyên JSON nhúng được giữ cố định trong `Koi.Web.csproj` để migration và các bản cài đặt mới tiếp tục đọc được dữ liệu. Lệnh build, chạy, test và publish ở gốc project không thay đổi. Kiểm tra sau khi chuyển vào `code/`: build/publish Release đạt, 59 test trên PostgreSQL kiểm thử mới đạt; bản publish Production kiểm tra 27 URL công khai, 32 trang quản trị, 85 liên kết local, 307 tài nguyên và chuyển VI/EN ở desktop/mobile. Không có thay đổi model cần migration. Khi thêm migration mới, dùng `dotnet ef migrations add TenMigration --output-dir code/Data/Migrations --namespace Koi.Web.Data.Migrations` để đặt file đúng thư mục.
 
-- `Controllers/HomeController.cs`: các trang công khai và xử lý lỗi.
-- `Controllers/Admin/`: đăng nhập và các chức năng quản trị nội dung.
-- `Views/Admin/`: danh sách, form thêm/sửa/xóa và trang đăng nhập quản trị.
-- `Views/Home/Cover.cshtml`, `Views/Shared/_CoverLayout.cshtml`, `wwwroot/css/cover.css`: trang bìa chọn ngôn ngữ.
-- `Views/Home/Index.cshtml`, `_FeatureStage.cshtml`: trang chủ và phần cảnh thương hiệu dùng chung.
-- `Views/Shared/_Layout.cshtml`: khung Razor chung.
-- `Views/Shared/_Navigation.cshtml`, `_Footer.cshtml`: header/menu và footer.
+- `code/Controllers/HomeController.cs`: các trang công khai và xử lý lỗi.
+- `code/Controllers/Admin/`: đăng nhập và các chức năng quản trị nội dung.
+- `code/Views/Admin/`: danh sách, form thêm/sửa/xóa và trang đăng nhập quản trị.
+- `code/Views/Home/Cover.cshtml`, `code/Views/Shared/_CoverLayout.cshtml`, `wwwroot/css/cover.css`: trang bìa chọn ngôn ngữ.
+- `code/Views/Home/Index.cshtml`, `_FeatureStage.cshtml`: trang chủ và phần cảnh thương hiệu dùng chung.
+- `code/Views/Shared/_Layout.cshtml`: khung Razor chung.
+- `code/Views/Shared/_Navigation.cshtml`, `_Footer.cshtml`: header/menu và footer.
 - `wwwroot/css/site.css`, `wwwroot/js/site.js`: style và các tương tác giao diện.
 - `wwwroot/js/home-animations.js`: timeline GSAP, các cảnh theo cuộn, intro và parallax.
 - `wwwroot/images`, `wwwroot/videos`, `wwwroot/fonts`: tài nguyên local.
@@ -188,7 +193,7 @@ People tương ứng cam kết thứ ba “PEOPLE BEHIND THE CRAFT” trên [tra
 
 Connections tương ứng cam kết thứ tư “CONNECTIONS THAT GO BEYOND THE CUP” trên [trang mẫu](https://koithe.com/en/connections.php). Đã đối chiếu bố cục ở 1440/390/1024px, nhịp hiện tiêu đề và độ mờ ảnh cộng đồng tại bốn khung hình. GSAP xử lý chuyển mờ 1,15 giây, thanh thời gian 3 giây và cử chỉ qua Observer; Swiper xử lý bảy thẻ IN ACTION căn giữa, quay vòng và vuốt. Kiểm tra Pause/Play, ảnh/chữ/chấm chọn đồng bộ, cảm ứng thật trong cả hai chế độ chuyển động, đổi 390–2560px không tràn ngang/tạo lặp carousel, chuyển sang giảm chuyển động giữa lúc đang đổi ảnh, Back đúng cam kết và mở lại trang ở ảnh bìa khi JavaScript tải chậm. People được kiểm tra lại sau thay đổi JavaScript dùng chung.
 
-Store tương ứng [STORE trên trang mẫu](https://koithe.com/en/store.php). Dữ liệu công khai chụp ngày 31/10/2026 được lưu trong `Data/Stores.json`, gồm 17 quốc gia, 126 lựa chọn địa điểm và sáu thương hiệu; nay được migration nhập một lần vào PostgreSQL và chỉnh sửa qua quản trị. Không cần API key. Giữ thứ tự danh sách riêng của từng quốc gia/thành phố, query `c/s/b/page` và chín mục mỗi trang. Dữ liệu không tự đồng bộ với website gốc; cập nhật trong quản trị. Bốn mục dùng chung một URL ảnh cũ không còn tải được đã chuyển sang ảnh mặc định của mẫu.
+Store tương ứng [STORE trên trang mẫu](https://koithe.com/en/store.php). Dữ liệu công khai chụp ngày 31/10/2026 được lưu trong `code/Data/Stores.json`, gồm 17 quốc gia, 126 lựa chọn địa điểm và sáu thương hiệu; nay được migration nhập một lần vào PostgreSQL và chỉnh sửa qua quản trị. Không cần API key. Giữ thứ tự danh sách riêng của từng quốc gia/thành phố, query `c/s/b/page` và chín mục mỗi trang. Dữ liệu không tự đồng bộ với website gốc; cập nhật trong quản trị. Bốn mục dùng chung một URL ảnh cũ không còn tải được đã chuyển sang ảnh mặc định của mẫu.
 
 Store dùng GSAP có sẵn cho tiêu đề và dialog HTML gốc để xem ảnh. Ảnh, logo và font Noto Sans SC được lưu local; font chỉ chứa các ký tự cần cho bản dữ liệu này, kèm giấy phép SIL OFL trong `wwwroot/fonts/store/OFL.txt`. Menu/footer/gấu nổi và các liên kết quốc gia trong About đều mở trang Store local.
 
@@ -214,7 +219,7 @@ Menu đã đối chiếu bố cục ở 1440/390/1024px và lấy mẫu bảy kh
 
 Rà soát tổng thể ngày 31/10/2026 sau khi duyệt Menu: 27 URL gồm trang bìa, trang chủ, 12 trang nội dung và 13 bài News đều trả HTTP 200; 85 đích liên kết local hoạt động và 306 tài nguyên tham chiếu có nội dung. Kiểm tra trình duyệt cho 14 trang chính/nội dung ở 1440/390px, gồm đầu trang và footer, không phát hiện lỗi JavaScript, tài nguyên local lỗi hoặc tràn ngang. Header giữ đủ tám mục dẫn tới MVC; ID bài News không tồn tại trả 404. Build Release đạt, không có lỗi hoặc cảnh báo. Đây là lượt kiểm tra điều hướng/tài nguyên/bố cục tổng thể; các kiểm tra animation và tương tác riêng được ghi ở từng trang phía trên.
 
-Bắt đầu giai đoạn MVC: Menu dùng `MenuViewModel`, `MenuCountry`, `MenuDocument`; dữ liệu 17 quốc gia/22 thực đơn nằm trong `Data/MenuCatalog.cs` và được `HomeController.Menu` truyền xuống Razor. View chỉ hiển thị dữ liệu từ Model. Đã build và đối chiếu danh sách với giao diện đã duyệt.
+Bắt đầu giai đoạn MVC: Menu dùng `MenuViewModel`, `MenuCountry`, `MenuDocument`; dữ liệu 17 quốc gia/22 thực đơn nằm trong `code/Data/MenuCatalog.cs` và được `HomeController.Menu` truyền xuống Razor. View chỉ hiển thị dữ liệu từ Model. Đã build và đối chiếu danh sách với giao diện đã duyệt.
 
 Giai đoạn MVC News đã kiểm tra: build/publish Release, 15 kiểm tra tích hợp trên PostgreSQL riêng (quyền truy cập, CSRF, bản nháp/xuất bản, ảnh, HTML, sửa đè và xóa), đối chiếu đủ nội dung/ảnh/video của 13 bài cũ và luồng trình duyệt đăng nhập → thêm/sửa/xem trước/xóa bản nháp → đăng xuất trên desktop/mobile. Bản publish Production đã chạy thử trang bìa, video người đọc sách, cảnh FRAGRANCE, News, Menu và đăng nhập quản trị. Ảnh quản trị: [danh sách](docs/preview/admin-news-desktop.png) · [sửa bài](docs/preview/admin-news-edit.png) · [mobile](docs/preview/admin-news-mobile.png) · [đăng nhập mobile](docs/preview/admin-login-mobile.png).
 
@@ -250,9 +255,9 @@ Các phần MVC và quản trị trong phạm vi website giới thiệu đã ho�
 
 Trang bìa thay lựa chọn tiếng Trung bằng **TIẾNG VIỆT**, giữ **ENGLISH**; cả hai mở website local. Chuyển ngôn ngữ trong menu hoặc chân trang sẽ giữ nguyên trang và các bộ lọc/phân trang hiện tại. Lựa chọn được lưu bằng cookie trong một năm. Website dùng localization và tài nguyên `.resx` có sẵn của ASP.NET Core, không cần dịch vụ dịch hoặc API key. Có thể mở trực tiếp một trang bằng `?culture=vi` hoặc `?culture=en` khi chưa có cookie lựa chọn.
 
-- `Resources/Localization/SiteText.vi.resx`: bản dịch giao diện, nội dung các trang tĩnh và nhãn tương tác.
-- `Resources/Localization/SiteText.resx`: nội dung tiếng Anh tương ứng; các khóa chỉ khác hoa/thường được phân biệt bằng hậu tố `__text`.
-- `Localization/SiteText.cs`: chọn trường nội dung theo ngôn ngữ và định dạng ngày.
+- `code/Resources/Localization/SiteText.vi.resx`: bản dịch giao diện, nội dung các trang tĩnh và nhãn tương tác.
+- `code/Resources/Localization/SiteText.resx`: nội dung tiếng Anh tương ứng; các khóa chỉ khác hoa/thường được phân biệt bằng hậu tố `__text`.
+- `code/Localization/SiteText.cs`: chọn trường nội dung theo ngôn ngữ và định dạng ngày.
 - Các form quản trị có nhóm **Nội dung tiếng Việt** cho tin tức, đồ uống, danh mục, New Drinks, thực đơn, quốc gia/khu vực/thương hiệu và cửa hàng. Để trống một trường tiếng Việt sẽ hiển thị nội dung gốc.
 - Migration thêm cột tiếng Việt, giữ dữ liệu tiếng Anh; nhập một lần bản dịch 13 bài News, 54 món, 7 danh mục, 4 mục New Drinks và tên quốc gia/khu vực. HTML tiếng Việt được làm sạch như nội dung tiếng Anh. Tìm kiếm quản trị News, đồ uống và cửa hàng nhận cả nội dung gốc lẫn tiếng Việt.
 

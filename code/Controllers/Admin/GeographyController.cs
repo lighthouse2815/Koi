@@ -134,7 +134,7 @@ public class GeographyController(ApplicationDbContext database, ImageUploads upl
     {
         var value = await Find(id, kind);
         if (value == null) return NotFound();
-        return View("~/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, Name(value), kind));
+        return View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, Name(value), kind));
     }
 
     [HttpPost, ActionName("Delete")]
@@ -146,7 +146,7 @@ public class GeographyController(ApplicationDbContext database, ImageUploads upl
         {
             Response.StatusCode = 409;
             ModelState.AddModelError("", "Dữ liệu đang được sử dụng. Hãy chuyển hoặc xóa các mục liên quan trước.");
-            return View("~/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, Name(value), kind));
+            return View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, Name(value), kind));
         }
         TempData["Status"] = "Đã xóa dữ liệu."; return RedirectToAction(nameof(Index), new { kind });
     }
