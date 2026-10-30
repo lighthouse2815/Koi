@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="b" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="21.4" height="18.63" viewBox="0 0 21.4 18.63">
+  <defs>
+    <style>
+      .d {
+        fill: #fff;
+      }
+
+      .e {
+        fill: none;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 1.85px;
+      }
+    </style>
+  </defs>
+  <g id="c" data-name="設計">
+    <g>
+      <line class="e" y1="9.31" x2="19.18" y2="9.31"/>
+      <path class="d" d="M6.52,18.2c-.27-.43-.15-1,.29-1.28l11.95-7.61L6.81,1.71c-.43-.27-.56-.85-.29-1.28s.85-.56,1.28-.28l13.17,8.39c.27,.17,.43,.46,.43,.78s-.16,.61-.43,.78L7.8,18.49c-.16,.1-.33,.14-.5,.14-.31,0-.61-.15-.78-.43Z"/>
+    </g>
+  </g>
+</svg>

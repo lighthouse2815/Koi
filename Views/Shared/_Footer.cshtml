@@ -5,7 +5,7 @@
         <img class="mascot-mobile" src="~/images/m-text-mobile.svg" alt="" />
     </div>
     <div class="hover-link">
-        <div class="menu"><a href="#drinks" aria-label="Explore the menu"><img src="~/images/m-hover-menu.svg" alt="" /></a></div>
+        <div class="menu"><a href="@Url.Action("Index", "Home")#drinks" aria-label="Explore the menu"><img src="~/images/m-hover-menu.svg" alt="" /></a></div>
         <div class="store"><a href="https://koithe.com/en/store.php" aria-label="Find a KOI store"><img src="~/images/m-hover-store.svg" alt="" /></a></div>
     </div>
     <div class="bear" aria-hidden="true">
@@ -41,19 +41,19 @@
         <nav class="footer-navigation" aria-label="Footer navigation">
             <span class="navigation-caption">(NAVIGATION)</span>
             <div>
-                <a asp-controller="Home" asp-action="Index" aria-current="page">HOME</a>
-                <a href="https://koithe.com/en/about.php">ABOUT</a>
-                <a href="#drinks">OUR TEA</a>
+                <a asp-controller="Home" asp-action="Index">HOME</a>
+                <a asp-controller="Home" asp-action="About">ABOUT</a>
+                <a href="@Url.Action("Index", "Home")#drinks">OUR TEA</a>
             </div>
             <div>
-                <a href="#news">NEWS</a>
+                <a href="@Url.Action("Index", "Home")#news">NEWS</a>
                 <a href="https://koithe.com/en/store.php">STORE</a>
                 <a href="https://koithe.com/en/recruit.php">RECRUIT</a>
             </div>
             <div>
                 <a href="https://koithe.com/en/impact_list.php">IMPACT</a>
                 <a href="https://koithe.com/en/contact.php">CONTACT</a>
-                <a href="#drinks">MENU</a>
+                <a href="@Url.Action("Index", "Home")#drinks">MENU</a>
             </div>
         </nav>
         <div class="footer-copyright"><span class="footer-language">EN</span><p>© @DateTime.UtcNow.Year KOI CAFE GROUP (S) PTE LTD.<br />All rights reserved.</p></div>

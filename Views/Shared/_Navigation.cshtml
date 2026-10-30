@@ -2,7 +2,7 @@
     var pages = new[]
     {
         (Label: "HOME", Url: Url.Action("Index", "Home")!),
-        (Label: "ABOUT", Url: "https://koithe.com/en/about.php"),
+        (Label: "ABOUT", Url: Url.Action("About", "Home")!),
         (Label: "OUR TEA", Url: "https://koithe.com/en/ourtea.php"),
         (Label: "NEWS", Url: "https://koithe.com/en/news.php"),
         (Label: "STORE", Url: "https://koithe.com/en/store.php"),
@@ -10,12 +10,16 @@
         (Label: "IMPACT", Url: "https://koithe.com/en/impact_list.php"),
         (Label: "CONTACT", Url: "https://koithe.com/en/contact.php")
     };
+    var currentUrl = Context.Request.Path.Value;
+    var currentIndex = Array.FindIndex(pages, page => string.Equals(page.Url, currentUrl, StringComparison.OrdinalIgnoreCase));
+    if (currentIndex < 0) currentIndex = 0;
+    var current = pages[currentIndex];
 }
 <header class="site-header">
-    <a class="current-page" asp-controller="Home" asp-action="Index" aria-label="Home, page 1 of 8" aria-current="page">
+    <a class="current-page" href="@current.Url" aria-label="@current.Label, page @(currentIndex + 1) of 8" aria-current="page">
         <img src="~/images/page-icon.svg" width="36" height="35" alt="" />
         <span class="page-marker" aria-hidden="true">▸</span>
-        <span>HOME <i>(01/08)</i></span>
+        <span>@current.Label <i>(@((currentIndex + 1).ToString("D2"))/08)</i></span>
     </a>
     <a class="brand" asp-controller="Home" asp-action="Index" aria-label="KOI Thé home">
         <picture>
@@ -30,7 +34,7 @@
         <ul class="fan-links">
             @foreach (var navItem in pages)
             {
-                <li><a href="@navItem.Url" aria-current="@(navItem.Label == "HOME" ? "page" : null)">@navItem.Label</a></li>
+                <li><a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)">@navItem.Label</a></li>
             }
         </ul>
     </nav>
@@ -43,7 +47,7 @@
     <nav aria-label="Expanded navigation">
         @foreach (var navItem in pages)
         {
-            <a href="@navItem.Url" aria-current="@(navItem.Label == "HOME" ? "page" : null)"><span>@navItem.Label</span><span aria-hidden="true">↗</span></a>
+            <a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)"><span>@navItem.Label</span><span aria-hidden="true">↗</span></a>
         }
     </nav>
     <div class="dialog-bottom"><span>YOUR DAILY BEAT.</span><span lang="en">ENGLISH</span></div>
