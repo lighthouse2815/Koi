@@ -15,17 +15,6 @@ html:has(.content-motion) { scroll-behavior: auto; }
 .content-page svg line { stroke: currentColor; stroke-width: 1.5; }
 .content-page button { padding: 0; }
 .content-page [role="button"] { cursor: pointer; }
-.our-teaWrap > .head-area > .inner .en { transform: none; }
-.our-teaWrap .drinkListWrap { background: url('/images/pages/en/images/t-top-bg-1.jpg') center / cover; }
-.our-teaWrap .new-drinkWrap { position: relative; background-position: center; background-size: cover; }
-.our-teaWrap .new-drinkWrap .pic { flex-shrink: 0; }
-.our-teaWrap .tea-pause { position: absolute; right: 25px; bottom: 20px; color: white; font-size: 13px; }
-.our-teaWrap .drinkWrapList > li { scroll-margin-top: 100px; }
-.our-teaWrap .drinkList-pic { visibility: hidden; }
-.our-teaWrap .catalog-active .drinkList-pic { visibility: visible; }
-.our-teaWrap .drinkWrapList .drinkList > li { pointer-events: auto; }
-.our-teaWrap .menu-select.open .list { display: block; opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
-.our-teaWrap.tea-paused *, .our-teaWrap.tea-paused *::before, .our-teaWrap.tea-paused *::after { animation-play-state: paused !important; }
 .recruitWrap .head-area .en, .recruitWrap .apply-area .head-area .en { transform: none; }
 .recruitWrap .apply-area .apply-fancy { pointer-events: auto; }
 .recruitWrap .apply-area .apply-fancy .fancy-inner,
@@ -62,10 +51,6 @@ html:has(.content-motion) { scroll-behavior: auto; }
     .content-page .show-for-large { display: none !important; }
     .content-page .hide-for-large { display: block !important; }
     .content-page .hide-for-large.flex-container { display: flex !important; }
-    .our-teaWrap .drink-mobile .swiper-wrapper { display: flex; width: max-content; animation: marquee-drift 35s linear infinite; }
-    .our-teaWrap .drink-mobile .swiper-slide { flex-shrink: 0; }
-    .our-teaWrap .new-drinkWrap .new-drink > li { margin-bottom: 14px; }
-    .our-teaWrap .new-drinkWrap .new-drink .en { font-size: 18px; }
     .newsWrap .top-news .article-area { max-width: none; }
     .newsWrap .top-news .news-page-more { display: none; }
     .newsWrap .newsListWrap .news-row { grid-template-columns: minmax(0, 1fr) 140px; gap: 20px; padding: 10px 0; }
@@ -81,5 +66,4 @@ html:has(.content-motion) { scroll-behavior: auto; }
 @media (min-width: 1600px) { .content-page .hide-for-xxlarge { display: none; } }
 @media (prefers-reduced-motion: reduce) {
     .content-page *, .content-page *::before, .content-page *::after { animation: none !important; transition: none !important; }
-    .our-teaWrap .drinkList-pic { position: sticky; bottom: 0; margin-left: auto; pointer-events: none; visibility: visible; }
 }

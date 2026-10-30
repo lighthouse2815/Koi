@@ -2,6 +2,7 @@
     ViewData["Title"] = "Our Tea";
 }
 @section Styles {
+    <link rel="stylesheet" href="~/lib/swiper/swiper-bundle.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/ourtea.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
 }
@@ -12,6 +13,12 @@
                 <div class="en" role="heading" aria-level="1">OUR <span>TEA</span></div>
             </div>
             <div class="drinkListWrap">
+                <div class="tea-hero-background swiper" aria-hidden="true"><div class="swiper-wrapper">
+                    @for (var background = 1; background <= 4; background++)
+                    {
+                        <div class="swiper-slide"><img src="/images/pages/en/images/t-top-bg-@(background).jpg" alt="" /></div>
+                    }
+                </div></div>
                 <ul class="drink">
                     <li>
                         <div class="name">
@@ -169,17 +176,25 @@
             </div>
         </div>
         <div class="new-drinkWrap flex-container align-center">
+            <div class="tea-new-background swiper" aria-hidden="true"><div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/images/pages/upload_image/maintea/maintea_1_7241_527.jpg" alt="" /></div>
+                <div class="swiper-slide"><img src="/images/pages/upload_image/maintea/maintea_1_7015_9849.jpg" alt="" /></div>
+                <div class="swiper-slide"><img src="/images/pages/upload_image/maintea/maintea_879_6786_5695.jpg" alt="" /></div>
+                <div class="swiper-slide"><img src="/images/pages/upload_image/maintea/maintea_1_1747_2497.jpg" alt="" /></div>
+            </div></div>
+            <div class="tea-feature-content">
             <div class="title">
 
                 <div class="en">
                     NEW DRINKS                </div>
             </div>
-            <ul class="pic">
-                                    <li><img src="/images/pages/upload_image/maintea/maintea_1_4513_6009.jpg" alt=""></li>
-                                    <li><img src="/images/pages/upload_image/maintea/maintea_1_3582_1591.jpg" alt=""></li>
-                                    <li><img src="/images/pages/upload_image/maintea/maintea_880_4599_867.jpg" alt=""></li>
-                                    <li><img src="/images/pages/upload_image/maintea/maintea_1_9592_7179.jpg" alt=""></li>
-                            </ul>
+            <div class="pic tea-new-pictures swiper"><ul class="swiper-wrapper">
+                <li class="swiper-slide"><img src="/images/pages/upload_image/maintea/maintea_1_4513_6009.jpg" alt=""></li>
+                <li class="swiper-slide"><img src="/images/pages/upload_image/maintea/maintea_1_3582_1591.jpg" alt=""></li>
+                <li class="swiper-slide"><img src="/images/pages/upload_image/maintea/maintea_880_4599_867.jpg" alt=""></li>
+                <li class="swiper-slide"><img src="/images/pages/upload_image/maintea/maintea_1_9592_7179.jpg" alt=""></li>
+            </ul></div>
+            <div class="tea-new-copy swiper">
             <ul class="new-drink">
                                                     <li data-drink="1">
                         <div class="inner">
@@ -210,6 +225,10 @@
                         </div>
                     </li>
                                                 </ul>
+                <div class="tea-new-pagination"></div>
+            </div>
+            </div>
+            <button type="button" class="tea-pause" aria-pressed="false">( Pause motion )</button>
         </div>
         <div class="drinkWrap">
             <div class="menu-mobileListWrap hide-for-large">
@@ -731,8 +750,10 @@
     </div>
 </div>
 @section VendorScripts {
+    <script src="~/lib/swiper/swiper-bundle.min.js" defer></script>
     <script src="~/lib/gsap/gsap.min.js" defer></script>
     <script src="~/lib/gsap/ScrollTrigger.min.js" defer></script>
+    <script src="~/lib/gsap/ScrollToPlugin.min.js" defer></script>
 }
 @section Scripts {
     <script src="~/js/content-pages.js" asp-append-version="true" defer></script>

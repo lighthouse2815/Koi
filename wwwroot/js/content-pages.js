@@ -168,56 +168,112 @@
     const tea = page.querySelector('.our-teaWrap');
     let selectCategory;
     if (tea) {
+        if (window.gsap && window.ScrollToPlugin) gsap.registerPlugin(ScrollToPlugin);
         const newDrinks = [...tea.querySelectorAll('.new-drink > li')];
-        const newPictures = [...tea.querySelectorAll('.new-drinkWrap .pic > li')];
-        const newBackgrounds = ['maintea_1_7241_527.jpg', 'maintea_1_7015_9849.jpg', 'maintea_879_6786_5695.jpg', 'maintea_1_1747_2497.jpg'];
-        let newIndex = 0;
+        const mobile = matchMedia('(max-width: 1024px)');
         let paused = false;
-        const selectNew = index => {
-            newIndex = index;
-            newDrinks.forEach((item, i) => { item.classList.toggle('current', i === index); item.setAttribute('aria-pressed', String(i === index)); });
-            newPictures.forEach((item, i) => item.hidden = i !== index);
-            tea.querySelector('.new-drinkWrap').style.backgroundImage = 'url(/images/pages/upload_image/maintea/' + newBackgrounds[index] + ')';
+        let copySlider;
+        const sliders = new Map();
+        const syncMotion = () => sliders.forEach((visible, slider) => {
+            if (visible && !paused && !reducedMotion.matches && !document.hidden) slider.autoplay.start();
+            else slider.autoplay.stop();
+        });
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => sliders.forEach((visible, slider) => {
+                if (slider.el.closest('.drinkListWrap, .new-drinkWrap') === entry.target) {
+                    sliders.set(slider, entry.isIntersecting);
+                    entry.target.classList.toggle('tea-motion-off', !entry.isIntersecting);
+                }
+            }));
+            syncMotion();
+        });
+        const watchMotion = slider => {
+            sliders.set(slider, false);
+            slider.autoplay.stop();
+            observer.observe(slider.el.closest('.drinkListWrap, .new-drinkWrap'));
         };
-        newDrinks.forEach((item, index) => activate(item, () => selectNew(index)));
-        selectNew(0);
-        const pause = document.createElement('button');
-        pause.type = 'button';
-        pause.className = 'tea-pause';
-        pause.textContent = '( Pause motion )';
-        pause.setAttribute('aria-pressed', 'false');
+        const heroBackground = new Swiper(tea.querySelector('.tea-hero-background'), {
+            effect: 'fade', fadeEffect: { crossFade: true }, speed: 500, allowTouchMove: false, rewind: true,
+            autoplay: { delay: 3000, disableOnInteraction: false }
+        });
+        const newBackground = new Swiper(tea.querySelector('.tea-new-background'), {
+            effect: 'fade', fadeEffect: { crossFade: true }, speed: 1000, allowTouchMove: false
+        });
+        const showNew = index => {
+            newDrinks.forEach((item, i) => {
+                item.classList.toggle('current', i === index);
+                item.setAttribute('aria-pressed', String(i === index));
+                item.setAttribute('aria-hidden', String(mobile.matches && i !== index));
+                item.tabIndex = mobile.matches && i !== index ? -1 : 0;
+            });
+            newBackground.slideTo(index, reducedMotion.matches ? 0 : 1000);
+            copySlider?.slideTo(index, reducedMotion.matches ? 0 : 1500);
+        };
+        const newPictures = new Swiper(tea.querySelector('.tea-new-pictures'), {
+            effect: 'fade', fadeEffect: { crossFade: true }, speed: 1000, allowTouchMove: false, rewind: true,
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            on: { slideChange: slider => showNew(slider.activeIndex) }
+        });
+        const mountCopy = () => {
+            copySlider?.destroy(true, true);
+            copySlider = undefined;
+            const wrapper = tea.querySelector('.new-drink');
+            wrapper.classList.toggle('swiper-wrapper', mobile.matches);
+            newDrinks.forEach(item => item.classList.toggle('swiper-slide', mobile.matches));
+            if (mobile.matches) copySlider = new Swiper(tea.querySelector('.tea-new-copy'), {
+                initialSlide: newPictures.activeIndex, speed: 1500, effect: 'fade', fadeEffect: { crossFade: true },
+                pagination: { el: tea.querySelector('.tea-new-pagination'), clickable: true },
+                on: { slideChange: slider => newPictures.slideTo(slider.activeIndex, reducedMotion.matches ? 0 : 1000) }
+            });
+            showNew(newPictures.activeIndex);
+        };
+        newDrinks.forEach((item, index) => activate(item, () => newPictures.slideTo(index, reducedMotion.matches ? 0 : 1000)));
+        mountCopy();
+        mobile.addEventListener('change', mountCopy);
+        watchMotion(heroBackground);
+        watchMotion(newPictures);
+        reducedMotion.addEventListener('change', syncMotion);
+        document.addEventListener('visibilitychange', syncMotion);
+        const pause = tea.querySelector('.tea-pause');
         pause.addEventListener('click', () => {
             paused = !paused;
             tea.classList.toggle('tea-paused', paused);
             pause.textContent = paused ? '( Play motion )' : '( Pause motion )';
             pause.setAttribute('aria-pressed', String(paused));
+            syncMotion();
         });
-        tea.querySelector('.new-drinkWrap').append(pause);
-        setInterval(() => {
-            if (!paused && !reducedMotion.matches && !document.hidden) selectNew((newIndex + 1) % newDrinks.length);
-        }, 5000);
+        const explore = tea.querySelector('.scroll-down');
+        explore.setAttribute('aria-label', 'Explore new drinks');
+        activate(explore, () => tea.querySelector('.new-drinkWrap').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
         const sections = [...tea.querySelectorAll('.drinkWrapList > li')];
         const pictures = [...tea.querySelectorAll('.drinkList-pic > ul')];
         const menuItems = [...tea.querySelectorAll('.drink-fixedList > li')];
         selectCategory = (index, drink = 0) => {
-            sections.forEach((item, i) => item.classList.toggle('current', i === index));
-            menuItems.forEach((item, i) => { item.classList.toggle('current', i === index); item.style.opacity = String(1 / (1 + Math.abs(i - index) * 2)); });
+            sections.forEach((section, i) => {
+                section.classList.toggle('current', i === index);
+                section.querySelectorAll('.drinkList > li').forEach(item => item.classList.toggle('current', i === index && Number(item.dataset.drink) === drink));
+            });
+            menuItems.forEach((item, i) => { item.classList.toggle('current', i === index); item.style.opacity = String([1, .4, .2][Math.abs(i - index)] ?? .1); });
             pictures.forEach((list, i) => {
                 list.classList.toggle('is-show', i === index);
-                [...list.children].forEach((item, j) => item.classList.toggle('is-show', j === drink));
+                const image = drink < list.children.length ? drink : 0;
+                [...list.children].forEach((item, j) => item.classList.toggle('is-show', j === image));
             });
         };
         sections.forEach((section, index) => {
+            activate(section.querySelector('.title'), () => selectCategory(index));
             section.querySelectorAll('.drinkList > li').forEach(item => {
                 const select = () => selectCategory(index, Number(item.dataset.drink));
                 activate(item, select);
-                item.addEventListener('pointerenter', select);
+                item.addEventListener('pointerenter', () => { if (!mobile.matches) select(); });
                 item.addEventListener('focus', select);
             });
         });
         const scrollCategory = index => {
             selectCategory(index);
-            sections[index].scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' });
+            if (!reducedMotion.matches && window.ScrollToPlugin) {
+                gsap.to(window, { scrollTo: { y: sections[index], offsetY: mobile.matches ? 100 : 10, autoKill: true }, duration: 1.2, ease: 'power2.inOut' });
+            } else sections[index].scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' });
         };
         menuItems.forEach((item, index) => activate(item, () => scrollCategory(index)));
         const select = tea.querySelector('.menu-select');
@@ -301,11 +357,18 @@
             }
         }
         if (tea) {
-            gsap.fromTo('.our-teaWrap > .head-area > .inner .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, ease: 'power2.out' });
+            gsap.fromTo('.our-teaWrap > .head-area > .inner .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, delay: 1, ease: 'power2.out' });
             tea.querySelectorAll('.drinkWrapList > li').forEach((section, index) => {
-                ScrollTrigger.create({ trigger: section, start: 'top 70%', end: 'bottom 70%', onEnter: () => selectCategory(index), onEnterBack: () => selectCategory(index) });
+                ScrollTrigger.create({ trigger: section, start: context.conditions.desktop ? 'top 70%' : '20% 80%', end: context.conditions.desktop ? 'bottom 70%' : 'bottom 80%', onEnter: () => selectCategory(index), onEnterBack: () => selectCategory(index) });
+                if (!context.conditions.desktop) {
+                    section.querySelectorAll('.drinkList > li').forEach(item => {
+                        const select = () => selectCategory(index, Number(item.dataset.drink));
+                        ScrollTrigger.create({ trigger: item, start: 'top 70%', end: 'bottom 70%', onEnter: select, onEnterBack: select });
+                    });
+                }
             });
-            ScrollTrigger.create({ trigger: '.drinkWrap', start: 'top bottom', end: 'bottom top', toggleClass: 'catalog-active' });
+            ScrollTrigger.create({ trigger: '.drinkWrapList', start: 'top 70%', end: 'bottom 70%', onToggle: self => tea.querySelector('.drinkWrap').classList.toggle('catalog-active', self.isActive) });
+            cleanUpPage = () => tea.querySelector('.drinkWrap').classList.remove('catalog-active');
             if (context.conditions.desktop) {
                 ScrollTrigger.create({ trigger: '.menu-drinkList', endTrigger: '.drinkWrap', start: 'top 10%', end: 'bottom 90%', pin: true, pinSpacing: false });
                 ScrollTrigger.create({ trigger: '.drinkList-pic', endTrigger: '.drinkWrap', start: 'top 39%', end: 'bottom 100%', pin: true, pinSpacing: false });

@@ -403,3 +403,49 @@
 @keyframes drink-6{0%{-webkit-transform:translateY(100px);transform:translateY(100px)}17%{-webkit-transform:translateY(150px);transform:translateY(150px)}67%{-webkit-transform:translateY(0px);transform:translateY(0px)}100%{-webkit-transform:translateY(100px);transform:translateY(100px)}}
 @keyframes drink-6-mobile{0%{-webkit-transform:translateY(60px);transform:translateY(60px)}17%{-webkit-transform:translateY(90px);transform:translateY(90px)}67%{-webkit-transform:translateY(0px);transform:translateY(0px)}100%{-webkit-transform:translateY(60px);transform:translateY(60px)}}
 @keyframes arrow-down2{0%{-webkit-transform:translateY(0px);transform:translateY(0px);opacity:1}39.9%{-webkit-transform:translateY(10px);transform:translateY(10px);opacity:0}40%{-webkit-transform:translateY(-10px);transform:translateY(-10px);opacity:0}80%{-webkit-transform:translateY(0px);transform:translateY(0px);opacity:1}100%{-webkit-transform:translateY(0px);transform:translateY(0px);opacity:1}}
+
+/* Keep the reference layout while Swiper handles image and background fades. */
+body:has(.our-teaWrap) { background: #fff; }
+html:has(.our-teaWrap) { scroll-padding-top: 0; }
+.our-teaWrap { line-height: 1; }
+.our-teaWrap > .head-area > .inner .en { transform: none; }
+.our-teaWrap .tea-hero-background,
+.our-teaWrap .tea-new-background { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.our-teaWrap .tea-hero-background img,
+.our-teaWrap .tea-new-background img { width: 100%; height: 100%; object-fit: cover; }
+.our-teaWrap .drinkListWrap .drink { position: relative; z-index: 1; }
+.our-teaWrap .new-drinkWrap.flex-container { position: relative; display: block; isolation: isolate; }
+.our-teaWrap .tea-feature-content { position: relative; z-index: 1; display: flex; justify-content: center; width: 100%; }
+.our-teaWrap .tea-new-pictures { flex-shrink: 0; margin-left: 0; }
+.our-teaWrap .new-drinkWrap .pic li { animation: none; }
+.our-teaWrap .new-drinkWrap .pic li img { animation: circle-rotate 60s infinite linear; }
+.our-teaWrap .tea-new-copy { display: contents; }
+.our-teaWrap .tea-new-pagination { display: none; }
+.our-teaWrap .tea-pause { position: absolute; z-index: 2; right: 25px; bottom: 20px; color: white; font-size: 13px; }
+.our-teaWrap .drinkWrapList > li { scroll-margin-top: 10px; }
+.our-teaWrap .drink-changeList { position: relative; }
+.our-teaWrap .drink-changeList::after { content: ''; position: absolute; left: 0; bottom: 0; width: 12px; height: 12px; border: 3.5px solid #000; border-radius: 50%; }
+.our-teaWrap .drinkWrap .drinkWrapList > li > .title,
+.our-teaWrap .drinkWrap .drinkWrapList .drinkList > li { pointer-events: auto; }
+.our-teaWrap .drinkWrap .drinkWrapList .drinkList > li,
+.our-teaWrap .drinkWrap .drinkWrapList .drinkList > li .en,
+.our-teaWrap .drinkWrap .drinkWrapList .drinkList > li .ch { transition-property: color, opacity; }
+.our-teaWrap .drinkList-pic { visibility: hidden; pointer-events: none; }
+.our-teaWrap .catalog-active .drinkList-pic { visibility: visible; }
+.our-teaWrap .menu-select.open .list { display: block; opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+.our-teaWrap.tea-paused *, .our-teaWrap.tea-paused *::before, .our-teaWrap.tea-paused *::after,
+.our-teaWrap .tea-motion-off *, .our-teaWrap .tea-motion-off *::before, .our-teaWrap .tea-motion-off *::after { animation-play-state: paused !important; }
+@media (max-width: 1024px) {
+    .our-teaWrap .tea-feature-content { display: block; }
+    .our-teaWrap .tea-new-copy { display: block; height: 105px; overflow: hidden; }
+    .our-teaWrap .tea-new-copy .new-drink { flex-direction: row; justify-content: flex-start; height: 70px; }
+    .our-teaWrap .tea-new-copy .new-drink > li { width: 100%; height: 70px; margin: 0; transition-property: opacity; }
+    .our-teaWrap .tea-new-copy .new-drink li.current .inner::after { width: 100%; }
+    .our-teaWrap .tea-new-pagination { position: absolute; bottom: 0; display: flex; justify-content: center; gap: 18px; width: 100%; }
+    .our-teaWrap .tea-new-pagination .swiper-pagination-bullet { position: relative; margin: 0; width: 12px; height: 12px; opacity: 1; background: #000; }
+    .our-teaWrap .tea-new-pagination .swiper-pagination-bullet-active::after { content: ''; position: absolute; inset: 3.5px; border-radius: 50%; background: var(--cream); }
+    .our-teaWrap .drinkWrapList > li { scroll-margin-top: 100px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .our-teaWrap .drinkList-pic { position: sticky; bottom: 0; margin-left: auto; visibility: visible; }
+}
