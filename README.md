@@ -18,7 +18,7 @@ dotnet build --configuration Release
 dotnet publish --configuration Release --output ./artifacts/publish
 ```
 
-## Phần 1: trang chủ — chờ duyệt
+## Trang chủ
 
 - Giao diện tiếng Anh, theo bản tiếng Anh của website mẫu.
 - Video mở đầu lần truy cập đầu tiên trong ngày: header xuất hiện ở giây 1, Skip ở giây 2, hero trượt lên từ giây 5,5; có Replay intro.
@@ -52,7 +52,7 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 
 Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Các nút Menu trên Our Tea, footer và gấu nổi mở `/Home/Menu`; ảnh thực đơn cũng được lưu local. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
-Trang About, Our Tea, News, Recruit, Impact, Responsibility, Precision, People, Connections, Store và Contact đã được duyệt. Menu được hoàn thiện tiếp để kiểm tra riêng.
+Các trang nội dung trong bảng đã được duyệt, gồm cả Menu. Phần giao diện đã hoàn tất trong phạm vi các trang này; Contact giữ chế độ xem trước theo yêu cầu, không gửi form.
 
 Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
@@ -156,3 +156,5 @@ Menu dùng lại GSAP và JavaScript trang nội dung: đường kẻ chạy tro
 [Video chạy thử Menu](docs/preview/menu-animation.mp4): hiệu ứng mở đầu, cuộn danh sách và mở thực đơn Việt Nam. Ảnh xem trước: [desktop](docs/preview/menu-desktop.png) · [mobile](docs/preview/menu-mobile.png) · [Vietnam trên mobile](docs/preview/menu-vietnam-mobile.png).
 
 Menu đã đối chiếu bố cục ở 1440/390/1024px và lấy mẫu bảy khung hình của animation ở 1440/390px. Kiểm tra bản publish Release: đủ 17 quốc gia/22 liên kết, ảnh local trả đúng nội dung và giải mã được, mở tab thật bằng chuột/cảm ứng, bàn phím, Back về Our Tea, không tràn ngang ở 360–2560px, giảm chuyển động và tải lại bắt đầu ở đầu trang kể cả JavaScript tải chậm. Quét axe WCAG 2/2.1 A/AA không có vi phạm tự động; About, Our Tea, News, Recruit và Impact được kiểm tra lại sau khi bổ sung xử lý Menu trong JavaScript dùng chung. Build/publish không có lỗi hoặc cảnh báo.
+
+Rà soát tổng thể ngày 31/10/2026 sau khi duyệt Menu: 27 URL gồm trang bìa, trang chủ, 12 trang nội dung và 13 bài News đều trả HTTP 200; 85 đích liên kết local hoạt động và 306 tài nguyên tham chiếu có nội dung. Kiểm tra trình duyệt cho 14 trang chính/nội dung ở 1440/390px, gồm đầu trang và footer, không phát hiện lỗi JavaScript, tài nguyên local lỗi hoặc tràn ngang. Header giữ đủ tám mục dẫn tới MVC; ID bài News không tồn tại trả 404. Build Release đạt, không có lỗi hoặc cảnh báo. Đây là lượt kiểm tra điều hướng/tài nguyên/bố cục tổng thể; các kiểm tra animation và tương tác riêng được ghi ở từng trang phía trên.
