@@ -4,6 +4,15 @@
     if (!page) return;
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const responsibility = page.querySelector('.responsibilityWrap');
+    if (responsibility && !location.hash) {
+        history.scrollRestoration = 'manual';
+        window.ScrollTrigger?.clearScrollMemory('manual');
+        const startAtTop = () => {
+            if (!location.hash) scrollTo({ top: 0, behavior: 'instant' });
+        };
+        startAtTop();
+        window.addEventListener('pageshow', startAtTop);
+    }
     page.querySelectorAll('.scroll-down').forEach(button => {
         button.setAttribute('role', 'button');
         button.setAttribute('aria-label', 'Explore more');
