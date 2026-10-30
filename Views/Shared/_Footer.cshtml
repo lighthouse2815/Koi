@@ -6,7 +6,7 @@
     </div>
     <div class="hover-link">
         <div class="menu"><a href="@Url.Action("Index", "Home")#drinks" aria-label="Explore the menu"><img src="~/images/m-hover-menu.svg" alt="" /></a></div>
-        <div class="store"><a href="https://koithe.com/en/store.php" aria-label="Find a KOI store"><img src="~/images/m-hover-store.svg" alt="" /></a></div>
+        <div class="store"><a asp-controller="Home" asp-action="Store" aria-label="Find a KOI store"><img src="~/images/m-hover-store.svg" alt="" /></a></div>
     </div>
     <div class="bear" aria-hidden="true">
         <div class="drink"><img src="~/images/b-drink-menu.svg" alt="" /></div>
@@ -47,7 +47,7 @@
             </div>
             <div>
                 <a asp-controller="Home" asp-action="News">NEWS</a>
-                <a href="https://koithe.com/en/store.php">STORE</a>
+                <a asp-controller="Home" asp-action="Store">STORE</a>
                 <a asp-controller="Home" asp-action="Recruit">RECRUIT</a>
             </div>
             <div>

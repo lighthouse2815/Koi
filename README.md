@@ -46,10 +46,11 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 | Precision | `/Home/Precision` | Banner giữ màn hình, nền tối theo cuộn, đoạn chữ chạy lên và video Play/Back trên mobile |
 | People | `/Home/People` | Chữ hiện theo cuộn, năm thẻ Foundations cuộn vòng, ảnh Moments tự chạy/kéo/Pause và liên kết tuyển dụng |
 | Connections | `/Home/Connections` | Ảnh bìa thu dần, OUR BELIEF hiện theo cuộn, ba nội dung cộng đồng chuyển mờ tự động và bảy thẻ IN ACTION cuộn vòng, căn giữa |
+| Store | `/Home/Store` | Tiêu đề trượt lên, lọc Country/Location/Brand, chín cửa hàng mỗi trang và hộp ảnh tròn hỗ trợ bàn phím/cảm ứng |
 
-Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Store, Contact và liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
+Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Contact và liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
-Trang About, Our Tea, News, Recruit, Impact, Responsibility, Precision và People đã được duyệt. Connections được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
+Trang About, Our Tea, News, Recruit, Impact, Responsibility, Precision, People và Connections đã được duyệt. Store được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
 
 Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
@@ -129,3 +130,11 @@ Precision tương ứng cam kết thứ hai “PRECISION BUILDS TRUST” trên [
 People tương ứng cam kết thứ ba “PEOPLE BEHIND THE CRAFT” trên [trang mẫu](https://koithe.com/en/people.php). Đã đối chiếu bố cục ở 1440/390/1024px và nhịp hiện tiêu đề/phụ đề trên desktop/mobile. Kiểm tra đủ năm thẻ Foundations theo cả hai chiều và quay vòng, chấm chọn, vuốt/kéo bằng cảm ứng thật, Moments tự chạy với Pause/Play, dừng khi ra khỏi màn hình hoặc giảm chuyển động, đổi liên tục 390–2560px không tạo lặp carousel hay tràn ngang, liên kết Recruit và Back về cam kết People. Mở mới/tải lại luôn bắt đầu ở ảnh bìa, kể cả khi JavaScript tải chậm. Precision được kiểm tra lại sau thay đổi JavaScript dùng chung.
 
 Connections tương ứng cam kết thứ tư “CONNECTIONS THAT GO BEYOND THE CUP” trên [trang mẫu](https://koithe.com/en/connections.php). Đã đối chiếu bố cục ở 1440/390/1024px, nhịp hiện tiêu đề và độ mờ ảnh cộng đồng tại bốn khung hình. GSAP xử lý chuyển mờ 1,15 giây, thanh thời gian 3 giây và cử chỉ qua Observer; Swiper xử lý bảy thẻ IN ACTION căn giữa, quay vòng và vuốt. Kiểm tra Pause/Play, ảnh/chữ/chấm chọn đồng bộ, cảm ứng thật trong cả hai chế độ chuyển động, đổi 390–2560px không tràn ngang/tạo lặp carousel, chuyển sang giảm chuyển động giữa lúc đang đổi ảnh, Back đúng cam kết và mở lại trang ở ảnh bìa khi JavaScript tải chậm. People được kiểm tra lại sau thay đổi JavaScript dùng chung.
+
+Store tương ứng [STORE trên trang mẫu](https://koithe.com/en/store.php). Dữ liệu công khai chụp ngày 31/10/2026 được lưu trong `Data/Stores.json`, gồm 17 quốc gia, 126 lựa chọn địa điểm và sáu thương hiệu; không cần database hay API key. Giữ thứ tự danh sách riêng của từng quốc gia/thành phố, query `c/s/b/page` và chín mục mỗi trang. Dữ liệu này là bản tĩnh, không tự đồng bộ với website gốc. Bốn mục dùng chung một URL ảnh cũ không còn tải được đã chuyển sang ảnh mặc định của mẫu.
+
+Store dùng GSAP có sẵn cho tiêu đề và dialog HTML gốc để xem ảnh. Ảnh, logo và font Noto Sans SC được lưu local; font chỉ chứa các ký tự cần cho bản dữ liệu này, kèm giấy phép SIL OFL trong `wwwroot/fonts/store/OFL.txt`. Menu/footer/gấu nổi và các liên kết quốc gia trong About đều mở trang Store local.
+
+[Video chạy thử Store](docs/preview/store-animation.mp4): tiêu đề, chọn Vietnam/Ha Noi và mở/đóng ảnh. Ảnh xem trước: [desktop](docs/preview/store-desktop.png) · [mobile](docs/preview/store-mobile.png) · [Vietnam](docs/preview/store-vietnam.png) · [ảnh cửa hàng trên mobile](docs/preview/store-photo-mobile.png).
+
+Store đã đối chiếu vị trí/kích thước tiêu đề, bộ lọc, thẻ đầu tiên và phân trang ở 1440/390/1024px. Kiểm tra bản publish Release gồm 154 danh sách lọc/phân trang theo dữ liệu mẫu, query không hợp lệ, liên kết giữ/xóa bộ lọc đúng cấp, hộp ảnh với Back/Escape/chạm nền và trả focus, chuyển mờ khi mở/đóng, giảm chuyển động, font CJK, không tràn ngang ở 360–1920px và tải lại bắt đầu ở đầu trang. Build/publish không có lỗi hoặc cảnh báo; các liên kết Store trong About cũng đã được kiểm tra.

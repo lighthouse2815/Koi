@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Data/Stores.json" />
+  </ItemGroup>
+
 </Project>

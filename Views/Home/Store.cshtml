@@ -1,0 +1,200 @@
+@model StoreViewModel
+@{
+    ViewData["Title"] = "Store";
+    var visiblePages = Enumerable.Range(1, Model.PageCount)
+        .Where(page => Model.PageCount <= 9 || page == 1 || page == Model.PageCount || Math.Abs(page - Model.Page) <= 1 || (Model.Page <= 2 && page <= 3) || (Model.Page >= Model.PageCount - 1 && page >= Model.PageCount - 2))
+        .ToArray();
+}
+@section Styles {
+    <script>
+        if (!location.hash) {
+            history.scrollRestoration = 'manual';
+            scrollTo({ top: 0, behavior: 'instant' });
+        }
+    </script>
+    <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/store-fonts.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/store.css" asp-append-version="true" />
+    <noscript><style>.storeWrap .head-area .en { transform: none; }</style></noscript>
+}
+<div class="content-page store-page-content" id="home">
+<div class="storeWrap menu-pin">
+    <div class="head-area">
+        <h1 class="en">STORE <span class="note">700+</span></h1>
+    </div>
+    <div class="storeListWrap flex-container align-justify">
+        <nav class="storeCat-area" aria-label="Filter stores">
+            <div class="storeCat-inner">
+                <div class="store" id="store-country">(Country)</div>
+                <ul class="storeCatList" aria-labelledby="store-country">
+                    <li class="@(Model.CountryId == 0 ? "current" : null)">
+                        <a asp-action="Store" class="flex-container align-middle" aria-current="@(Model.CountryId == 0 ? "true" : null)"><span class="dot"></span><span class="title">All</span></a>
+                    </li>
+                    @foreach (var country in Model.Countries)
+                    {
+                        <li class="@(Model.CountryId == country.Id ? "current" : null)">
+                            <a asp-action="Store" asp-route-c="@country.Id" class="flex-container align-middle" aria-current="@(Model.CountryId == country.Id ? "true" : null)"><span class="dot"></span><span class="title">@country.Name</span></a>
+                        </li>
+                    }
+                </ul>
+            </div>
+                <div class="storeCat-inner">
+                    <div class="store" id="store-location">(Location)</div>
+                    <ul class="storeCatList" aria-labelledby="store-location">
+                        <li class="@(Model.LocationId == 0 ? "current" : null)">
+                            <a asp-action="Store" asp-route-c="@Model.CountryId" class="flex-container align-middle" aria-current="@(Model.LocationId == 0 ? "true" : null)"><span class="dot"></span><span class="title">All</span></a>
+                        </li>
+                        @foreach (var location in Model.Locations)
+                        {
+                            <li class="@(Model.LocationId == location.Id ? "current" : null)">
+                                <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@location.Id" class="flex-container align-middle" aria-current="@(Model.LocationId == location.Id ? "true" : null)"><span class="dot"></span><span class="title">@location.Name</span></a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            <div class="storeCat-inner">
+                <div class="store" id="store-brand">(Brand)</div>
+                <ul class="storeCatList" aria-labelledby="store-brand">
+                    <li class="@(Model.BrandId == 0 ? "current" : null)">
+                        <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" class="flex-container align-middle" aria-current="@(Model.BrandId == 0 ? "true" : null)"><span class="dot"></span><span class="title">All</span></a>
+                    </li>
+                    @foreach (var brand in Model.Brands)
+                    {
+                        <li class="@(Model.BrandId == brand.Id ? "current" : null)">
+                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@brand.Id" class="flex-container align-middle" aria-current="@(Model.BrandId == brand.Id ? "true" : null)"><span class="dot"></span><span class="title">@brand.Name</span></a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
+        <div class="storeList-area">
+            <ul class="store-socialList flex-container align-right" aria-label="Country social media">
+                @foreach (var social in Model.SocialLinks)
+                {
+                    var icon = social.Label is "Instagram" or "Facebook" ? social.Label.ToLowerInvariant() : null;
+                    <li class="@(icon == null ? "custom" : null)"><a href="@social.Url" target="_blank" rel="noopener noreferrer" aria-label="@social.Label">
+                        @if (icon != null)
+                        {
+                            <img src="/images/pages/en/images/store-@(icon).svg" width="36" height="36" alt="" />
+                        }
+                        else
+                        {
+                            @social.Label
+                        }
+                    </a></li>
+                }
+            </ul>
+            <ul class="storeList" aria-label="Stores">
+                @foreach (var store in Model.Stores)
+                {
+                    var brandName = Model.Brands.FirstOrDefault(brand => brand.Id == store.BrandId)?.Name ?? "KOI";
+                    var phone = new string(store.Phone.Where(character => char.IsAsciiDigit(character) || character == '+').ToArray());
+                    var isDialable = phone.Count(char.IsAsciiDigit) is >= 5 and <= 15 && phone.Count(character => character == '+') <= 1;
+                    <li data-store-id="@store.Id">
+                        <div class="deco"><img src="~/images/pages/en/images/s-deco-top.svg" alt="" /></div>
+                        <div class="head flex-container align-justify">
+                            <h2 class="title">@store.Name</h2>
+                            <div class="brand">
+                                @if (!string.IsNullOrEmpty(store.Logo))
+                                {
+                                    <img src="@store.Logo" alt="@brandName" />
+                                }
+                                else
+                                {
+                                    <span class="visually-hidden">@brandName</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="phone">
+                            @if (isDialable)
+                            {
+                                <a href="tel:@phone">@store.Phone</a>
+                            }
+                            else
+                            {
+                                @store.Phone
+                            }
+                        </div>
+                        <div class="time">@store.Hours</div>
+                        <div class="address">@store.Address</div>
+                        <div class="other-area flex-container align-middle align-justify">
+                            @if (!string.IsNullOrEmpty(store.Photo))
+                            {
+                                <a class="pic" href="@store.Photo" data-store-photo data-store-name="@store.Name" aria-label="View photo of @store.Name"><img src="@store.Photo" alt="@store.Name" loading="lazy" /></a>
+                            }
+                            else
+                            {
+                                <div class="pic no-hover"><img src="~/images/pages/images/store-default.jpg" alt="" loading="lazy" /></div>
+                            }
+                            @if (!string.IsNullOrEmpty(store.NavigationUrl))
+                            {
+                                <a class="directions" href="@store.NavigationUrl" target="_blank" rel="noopener noreferrer" aria-label="Directions to @store.Name"><span class="googlemap">Google map</span><svg class="arrow" width="66" height="27" viewBox="0 0 66 27" aria-hidden="true"><path class="d" d="M0 13.5h62"/><path class="e" d="m45 0 21 13.5L45 27l-2-3 17-10.5L43 3z"/></svg></a>
+                            }
+                        </div>
+                    </li>
+                }
+            </ul>
+            @if (Model.Stores.Count == 0)
+            {
+                <p class="store-empty" role="status">No stores match these filters. Choose another location or brand.</p>
+            }
+            @if (Model.PageCount > 1)
+            {
+                <nav class="store-pageWrap flex-container align-center-middle" aria-label="Store pages">
+                    <div class="prev">
+                        @if (Model.Page > 1)
+                        {
+                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@(Model.Page - 1)" rel="prev">prev</a>
+                        }
+                    </div>
+                    <ul class="store-page flex-container align-center-middle">
+                        @for (var index = 0; index < visiblePages.Length; index++)
+                        {
+                            var number = visiblePages[index];
+                            if (index > 0 && number > visiblePages[index - 1] + 1)
+                            {
+                                <li class="ellipsis" aria-hidden="true">…</li>
+                            }
+                            <li class="@(number == Model.Page ? "current" : null)"><a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@number" aria-label="Page @number of @Model.PageCount" aria-current="@(number == Model.Page ? "page" : null)">@number</a></li>
+                        }
+                    </ul>
+                    <div class="next">
+                        @if (Model.Page < Model.PageCount)
+                        {
+                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@(Model.Page + 1)" rel="next">next</a>
+                        }
+                    </div>
+                </nav>
+            }
+        </div>
+    </div>
+    <dialog class="store-fancy" id="store-photo-dialog" aria-label="Store photo">
+        <div class="inner-fancy flex-container align-center-middle">
+            <div class="pic"><img alt="" /></div>
+            <button class="back" type="button" aria-label="Close store photo"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="70" height="54.92" viewBox="0 0 70 54.92">
+                                <g>
+                                    <g class="e">
+                                        <path class="d" d="M3.55,54.92c-1.15-.67-2.03-1.56-2.64-2.67s-.92-2.38-.92-3.81,.3-2.7,.92-3.82,1.49-2,2.64-2.67l.76,.9c-.96,.58-1.7,1.35-2.21,2.31-.51,.96-.77,2.05-.77,3.28s.26,2.3,.77,3.27,1.25,1.73,2.21,2.3l-.76,.91Z"></path>
+                                        <path class="d" d="M10.29,41.6h3.2c2.12,0,3.64,.67,3.64,2.54,0,.98-.54,1.92-1.47,2.23v.07c1.18,.25,2.03,1.05,2.03,2.45,0,2.04-1.67,3.03-3.95,3.03h-3.45v-10.31Zm3.01,4.3c1.57,0,2.23-.59,2.23-1.56,0-1.08-.73-1.48-2.19-1.48h-1.43v3.04h1.39Zm.25,4.73c1.61,0,2.54-.57,2.54-1.83,0-1.16-.9-1.67-2.54-1.67h-1.64v3.5h1.64Z"></path>
+                                        <path class="d" d="M19.67,49.86c0-1.65,1.4-2.51,4.61-2.86-.01-.9-.34-1.68-1.47-1.68-.81,0-1.57,.36-2.23,.79l-.6-1.09c.8-.5,1.88-1.01,3.11-1.01,1.92,0,2.8,1.22,2.8,3.26v4.64h-1.32l-.14-.88h-.04c-.7,.6-1.53,1.06-2.45,1.06-1.33,0-2.27-.87-2.27-2.23Zm4.61,.06v-1.89c-2.28,.28-3.05,.85-3.05,1.72,0,.76,.52,1.06,1.21,1.06s1.22-.32,1.85-.9Z"></path>
+                                        <path class="d" d="M28.25,48.07c0-2.58,1.78-4.06,3.81-4.06,.98,0,1.7,.39,2.26,.88l-.8,1.05c-.42-.38-.85-.6-1.39-.6-1.29,0-2.21,1.09-2.21,2.73s.88,2.7,2.17,2.7c.64,0,1.22-.31,1.68-.7l.66,1.06c-.7,.63-1.61,.95-2.49,.95-2.09,0-3.68-1.47-3.68-4.02Z"></path>
+                                        <path class="d" d="M36.67,40.74h1.57v7.2h.04l3.03-3.74h1.78l-2.62,3.12,2.91,4.58h-1.75l-2.09-3.49-1.3,1.5v1.99h-1.57v-11.16Z"></path>
+                                        <path class="d" d="M48.87,41.9c1.15,.67,2.03,1.56,2.64,2.67s.92,2.38,.92,3.81-.3,2.7-.92,3.82-1.49,2-2.64,2.67l-.76-.9c.96-.58,1.7-1.35,2.21-2.31s.77-2.05,.77-3.28-.26-2.3-.77-3.27-1.25-1.73-2.21-2.3l.76-.91Z"></path>
+                                    </g>
+                                    <g class="arrow">
+                                        <rect class="d" x="7.17" y="15.61" width="35.69" height="3.45"></rect>
+                                        <path class="d" d="M30.73,.8c.51,.8,.27,1.87-.53,2.38L7.96,17.34l22.23,14.16c.8,.51,1.04,1.58,.53,2.38s-1.58,1.03-2.38,.53L3.83,18.79c-.49-.32-.8-.86-.8-1.45s.3-1.14,.8-1.45L28.34,.27c.29-.18,.61-.27,.93-.27,.57,0,1.13,.28,1.46,.8Z"></path>
+                                    </g>
+                                </g>
+                            </svg></button>
+        </div>
+    </dialog>
+</div>
+</div>
+@section VendorScripts {
+    <script src="~/lib/gsap/gsap.min.js" defer></script>
+    <script src="~/lib/gsap/ScrollTrigger.min.js" defer></script>
+}
+@section Scripts {
+    <script src="~/js/store.js" asp-append-version="true" defer></script>
+}
