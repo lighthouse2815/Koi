@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Koi.Web.Areas.Admin.Controllers;
+namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class FeaturedDrinksController(ApplicationDbContext database, ImageUploads uploads, ILogger<FeaturedDrinksController> logger) : Controller
@@ -55,7 +55,7 @@ public class FeaturedDrinksController(ApplicationDbContext database, ImageUpload
     public async Task<IActionResult> Delete(int id)
     {
         var value = await database.FeaturedDrinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View("~/Areas/Admin/Views/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
+        return value == null ? NotFound() : View("~/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
     }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)

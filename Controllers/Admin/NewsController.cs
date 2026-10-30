@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Koi.Web.Areas.Admin.Controllers;
+namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class NewsController(ApplicationDbContext database, ImageUploads uploads, ILogger<NewsController> logger) : Controller

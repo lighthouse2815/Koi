@@ -7,7 +7,15 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
+    .AddRazorOptions(options =>
+    {
+        // Keep all Razor views under Views, including the Admin area.
+        options.AreaViewLocationFormats.Clear();
+        options.AreaViewLocationFormats.Add("/Views/{2}/{1}/{0}.cshtml");
+        options.AreaViewLocationFormats.Add("/Views/{2}/Shared/{0}.cshtml");
+        options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
+    });
 builder.Services.AddScoped<ImageUploads>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")

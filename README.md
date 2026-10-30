@@ -111,7 +111,27 @@ Các kiểm tra sau đã đạt trên bản publish Release: build/publish .NET 
 
 ## Cấu trúc
 
-- `Controllers/HomeController.cs`: controller trang chủ và xử lý lỗi.
+Controller và View được gom vào một thư mục tương ứng ở gốc project; phần quản trị đặt trong thư mục con `Admin`:
+
+```text
+Controllers/
+├── HomeController.cs       # Các trang công khai
+└── Admin/                  # Tám controller quản trị
+Views/
+├── Home/                   # Giao diện công khai
+├── Admin/                  # Giao diện quản trị
+└── Shared/                 # Layout, header, footer dùng chung
+Models/                     # Entity và ViewModel
+Data/                       # DbContext, migration và dữ liệu ban đầu
+Services/                   # Xử lý ảnh dùng chung
+wwwroot/                    # CSS, JavaScript, ảnh, font và video
+```
+
+Không còn thư mục `Areas` riêng. Phần quản trị vẫn dùng cơ chế Area và giữ URL `/Admin/...`; đường dẫn tìm Razor View được cấu hình trong `Program.cs`. Các View quản trị kế thừa `_ViewImports.cshtml` chung và dùng layout quản trị qua `Views/Admin/_ViewStart.cshtml`. Sau khi gom thư mục: build/publish Release đạt, 43 test tích hợp đạt trên PostgreSQL kiểm thử mới; bản publish Production kiểm tra 7 URL công khai và 32 trang quản trị ở 1440/390px, gồm layout, form/CSRF, đăng nhập/đăng xuất và đường dẫn ảnh.
+
+- `Controllers/HomeController.cs`: các trang công khai và xử lý lỗi.
+- `Controllers/Admin/`: đăng nhập và các chức năng quản trị nội dung.
+- `Views/Admin/`: danh sách, form thêm/sửa/xóa và trang đăng nhập quản trị.
 - `Views/Home/Cover.cshtml`, `Views/Shared/_CoverLayout.cshtml`, `wwwroot/css/cover.css`: trang bìa chọn ngôn ngữ.
 - `Views/Home/Index.cshtml`, `_FeatureStage.cshtml`: trang chủ và phần cảnh thương hiệu dùng chung.
 - `Views/Shared/_Layout.cshtml`: khung Razor chung.

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Koi.Web.Areas.Admin.Controllers;
+namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin")]
 public class AccountController(SignInManager<IdentityUser> signInManager) : Controller

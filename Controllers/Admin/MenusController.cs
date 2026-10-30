@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace Koi.Web.Areas.Admin.Controllers;
+namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class MenusController(ApplicationDbContext database, ImageUploads uploads, ILogger<MenusController> logger) : Controller
@@ -61,7 +61,7 @@ public class MenusController(ApplicationDbContext database, ImageUploads uploads
     public async Task<IActionResult> Delete(int id)
     {
         var value = await database.Menus.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View("~/Areas/Admin/Views/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Label));
+        return value == null ? NotFound() : View("~/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Label));
     }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)

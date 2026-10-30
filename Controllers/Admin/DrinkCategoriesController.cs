@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Koi.Web.Areas.Admin.Controllers;
+namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class DrinkCategoriesController(ApplicationDbContext database, ImageUploads uploads, ILogger<DrinkCategoriesController> logger) : Controller
@@ -66,7 +66,7 @@ public class DrinkCategoriesController(ApplicationDbContext database, ImageUploa
     public async Task<IActionResult> Delete(int id)
     {
         var value = await database.DrinkCategories.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View("~/Areas/Admin/Views/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
+        return value == null ? NotFound() : View("~/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
     }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)
@@ -76,7 +76,7 @@ public class DrinkCategoriesController(ApplicationDbContext database, ImageUploa
         catch (DbUpdateException)
         {
             Response.StatusCode = 409; ModelState.AddModelError("", "Danh mục đang có đồ uống. Hãy chuyển hoặc xóa đồ uống trước, hoặc tắt hiển thị danh mục.");
-            return View("~/Areas/Admin/Views/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
+            return View("~/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
         }
         TempData["Status"] = "Đã xóa danh mục đồ uống."; return RedirectToAction(nameof(Index));
     }
