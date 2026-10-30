@@ -4,13 +4,14 @@
         (Label: "HOME", Url: Url.Action("Index", "Home")!),
         (Label: "ABOUT", Url: Url.Action("About", "Home")!),
         (Label: "OUR TEA", Url: Url.Action("OurTea", "Home")!),
-        (Label: "NEWS", Url: "https://koithe.com/en/news.php"),
+        (Label: "NEWS", Url: Url.Action("News", "Home")!),
         (Label: "STORE", Url: "https://koithe.com/en/store.php"),
         (Label: "RECRUIT", Url: Url.Action("Recruit", "Home")!),
         (Label: "IMPACT", Url: "https://koithe.com/en/impact_list.php"),
         (Label: "CONTACT", Url: "https://koithe.com/en/contact.php")
     };
     var currentUrl = Context.Request.Path.Value;
+    if (Context.GetRouteValue("action")?.ToString() == "NewsDetail") currentUrl = Url.Action("News", "Home");
     var currentIndex = Array.FindIndex(pages, page => string.Equals(page.Url, currentUrl, StringComparison.OrdinalIgnoreCase));
     if (currentIndex < 0) currentIndex = 0;
     var current = pages[currentIndex];

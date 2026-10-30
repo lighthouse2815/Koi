@@ -1,0 +1,76 @@
+@model NewsViewModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "News";
+    var featured = Model.Featured;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/news.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
+}
+<div class="content-page" id="home">
+    <div class="newsWrap">
+        <div class="head-area"><h1 class="en">NEWS</h1></div>
+        <div class="top-news">
+            <a asp-action="NewsDetail" asp-route-id="@featured.Id" class="flex-container align-middle align-justify">
+                <div class="article-area">
+                    <div class="title">@featured.Title</div>
+                    <span class="news-page-more" aria-hidden="true">→<small>( More )</small></span>
+                </div>
+                <div class="pic-area">
+                    <div class="cat">@featured.Category</div>
+                    <time class="date" datetime="@featured.Date.ToString("yyyy-MM-dd")">(@featured.Date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture))</time>
+                    <div class="pic"><img src="@featured.Image" alt="Colourful KOI travel magnet badges" /></div>
+                </div>
+            </a>
+        </div>
+        <div class="newsListWrap" id="articles">
+            <div class="news-inner flex-container">
+                <ul class="newsCatList" aria-label="News categories">
+                    @foreach (var category in new[] { "ALL", "NEWS", "MEDIA" })
+                    {
+                        var selected = (Model.Category ?? "ALL") == category;
+                        <li class="@(selected ? "current" : null)">
+                            <a asp-action="News" asp-route-category="@(category == "ALL" ? null : category)" asp-fragment="articles" class="flex-container align-middle" aria-current="@(selected ? "page" : null)">
+                                <span class="dot"></span><span class="title">@category</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <ul class="newsList">
+                    @foreach (var article in Model.Articles)
+                    {
+                        <li>
+                            <a asp-action="NewsDetail" asp-route-id="@article.Id" class="news-row">
+                                <div class="top-area">
+                                    <div class="cat">@article.Category</div>
+                                    <time class="date" datetime="@article.Date.ToString("yyyy-MM-dd")">(@article.Date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture))</time>
+                                </div>
+                                <h2 class="title">@article.Title</h2>
+                                <div class="pic"><img src="@article.Image" alt="" loading="lazy" /></div>
+                                <span class="news-row-arrow" aria-hidden="true">↗</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <nav class="article-pagination" aria-label="News pages">
+                @for (var pageNumber = 1; pageNumber <= Model.PageCount; pageNumber++)
+                {
+                    <a asp-action="News" asp-route-page="@pageNumber" asp-route-category="@Model.Category" asp-fragment="articles" aria-label="Page @pageNumber" aria-current="@(pageNumber == Model.Page ? "page" : null)">@pageNumber</a>
+                }
+                @if (Model.Page < Model.PageCount)
+                {
+                    <a asp-action="News" asp-route-page="@(Model.Page + 1)" asp-route-category="@Model.Category" asp-fragment="articles" aria-label="Next page">→</a>
+                }
+            </nav>
+        </div>
+    </div>
+</div>
+@section VendorScripts {
+    <script src="~/lib/gsap/gsap.min.js" defer></script>
+    <script src="~/lib/gsap/ScrollTrigger.min.js" defer></script>
+}
+@section Scripts {
+    <script src="~/js/content-pages.js" asp-append-version="true" defer></script>
+}

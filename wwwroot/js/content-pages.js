@@ -3,6 +3,15 @@
     const page = document.querySelector('.content-page');
     if (!page) return;
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    page.querySelector('[data-copy-link]')?.addEventListener('click', async () => {
+        const status = page.querySelector('.share-status');
+        try {
+            await navigator.clipboard.writeText(location.href);
+            status.textContent = 'Link copied';
+        } catch {
+            status.textContent = 'Copy the address from your browser to share this article.';
+        }
+    });
     const activate = (element, callback) => {
         element.setAttribute('role', 'button');
         element.tabIndex = 0;
@@ -209,6 +218,9 @@
             apply.fromTo('.apply-fancy .fancy-inner', { opacity: 0, y: 30 }, { opacity: 1, y: 0 })
                 .fromTo('.apply-fancy .top-area', { opacity: 0, y: 30 }, { opacity: 1, y: 0 }, .2)
                 .fromTo('.apply-fancy .applyList > li', { opacity: 0, y: 30 }, { opacity: 1, y: 0, stagger: .25 }, .4);
+        }
+        if (page.querySelector('.newsWrap')) {
+            gsap.fromTo('.newsWrap .head-area .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, ease: 'power2.out' });
         }
         document.fonts.ready.then(() => ScrollTrigger.refresh());
         return () => page.classList.remove('content-motion');

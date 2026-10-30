@@ -1,0 +1,14 @@
+@model NewsArticle
+@{
+    ViewData["Title"] = Model.Title;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/news-detail.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
+}
+<div class="content-page" id="home">
+    <partial name="NewsArticles/_@(Model.Id)" />
+</div>
+@section Scripts {
+    <script src="~/js/content-pages.js" asp-append-version="true" defer></script>
+}
