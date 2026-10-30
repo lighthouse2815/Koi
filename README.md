@@ -37,7 +37,7 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 
 | Trang | URL | Tương tác |
 | --- | --- | --- |
-| About | `/Home/About` | Cảnh chữ KOI, cuộn ngang, chọn nguyên liệu, lịch sử, bản đồ sáu thương hiệu |
+| About | `/Home/About` | Cảnh chữ KOI/ly trà, ảnh xoay khi cuộn ngang, nguyên liệu chuyển mờ tự động, dải ảnh lịch sử xếp chéo, bản đồ sáu thương hiệu |
 | Our Tea | `/Home/OurTea` | Dải ly chuyển động, chọn đồ uống mới, danh mục và ảnh từng sản phẩm |
 | Recruit | `/Home/Recruit` | Bảng lộ trình phát triển, quyền lợi, ảnh đội ngũ và hiệu ứng hiện phần ứng tuyển |
 | News | `/Home/News` | 13 bài tĩnh, lọc News/Media, phân trang và trang chi tiết `/Home/NewsDetail/{id}` |
@@ -79,6 +79,10 @@ Các kiểm tra sau đã đạt trên bản publish Release: build/publish .NET 
 
 Dùng template MVC chính thức của .NET, không thêm NuGet. GSAP 3.15.0 cùng ScrollTrigger/ScrollToPlugin được lưu trong `wwwroot/lib/gsap`, giữ thông tin bản quyền và giấy phép. Không cần npm để build hoặc chạy ứng dụng. Bỏ Bootstrap/jQuery mặc định vì trang này không sử dụng chúng.
 
+Trang About dùng Swiper 14.3.0 lưu local tại `wwwroot/lib/swiper` (MIT) cho ảnh/nội dung nguyên liệu và lịch sử. Tự chuyển dừng khi phần tương ứng ra khỏi màn hình, tab bị ẩn, người dùng bấm Pause hoặc bật giảm chuyển động. Mobile xếp dọc bốn giá trị thương hiệu, dùng đúng nhóm ảnh bìa và hỗ trợ kéo dải ảnh lịch sử.
+
+[Video chạy thử animation About](docs/preview/about-animation.mp4), gồm cuộn xuôi/ngược từ SELECTION OF FINE INGREDIENTS, chuyển nguyên liệu và lịch sử.
+
 ## Tài nguyên tham chiếu
 
 Hình ảnh, logo và video lấy từ trang chủ KOI Thé theo yêu cầu đối chiếu giao diện; quyền đối với những tài nguyên này thuộc chủ sở hữu tương ứng. Không hotlink tài nguyên và không đưa API key của website mẫu vào source. Font Red Hat Display dùng giấy phép SIL Open Font License, kèm tại `wwwroot/fonts/OFL.txt`.
@@ -86,3 +90,5 @@ Hình ảnh, logo và video lấy từ trang chủ KOI Thé theo yêu cầu đ�
 ## Kiểm tra các trang nội dung
 
 Build/publish Release không có lỗi hoặc cảnh báo. Kiểm tra Playwright gồm tài nguyên CSS/JS/ảnh có nội dung, không tràn ngang ở 390/768/1024/1440px, chọn nguyên liệu/thương hiệu/lịch sử, đổi đồ uống và danh mục, lọc/phân trang News, đủ 13 trang chi tiết và ID không tồn tại trả 404, sao chép liên kết, chuyển bốn cam kết theo cả hai chiều, carousel nhân sự/cộng đồng và chế độ giảm chuyển động. Trình phát YouTube được kiểm tra URL và thao tác Play/Back; phát video vẫn phụ thuộc kết nối tới YouTube.
+
+About đã đối chiếu vị trí các cột ly trà và góc xoay ảnh theo cả hai chiều cuộn với trang mẫu. Kiểm tra thêm chuyển mờ nguyên liệu, chọn đủ ba thành phần, tự chuyển/Pause, đủ chín mốc lịch sử và quay vòng, đổi liên tục 390/768/1024/1440/1920px không tạo lặp carousel, ảnh bìa rời màn hình trên mobile và chế độ giảm chuyển động. Our Tea và Recruit cũng được kiểm tra lại sau sửa quy tắc hiển thị tablet/mobile dùng chung.

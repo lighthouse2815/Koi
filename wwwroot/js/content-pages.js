@@ -33,17 +33,68 @@
         const ingredients = [...about.querySelectorAll('[data-ing]')];
         const triangles = [...about.querySelectorAll('[data-tri]')];
         const backgrounds = [...about.querySelectorAll('.about-ingredient .bg > li')];
-        const selectIngredient = index => {
+        const motionButton = about.querySelector('.about-motion-pause');
+        const autoplay = new Map();
+        let paused = false;
+        const syncAutoplay = () => autoplay.forEach((visible, slider) => {
+            if (visible && !paused && !reducedMotion.matches && !document.hidden) slider.autoplay?.start();
+            else slider.autoplay?.stop();
+        });
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => autoplay.forEach((visible, slider) => {
+                if (slider.el.closest('section, .about-ingredient, .about-event') === entry.target) autoplay.set(slider, entry.isIntersecting);
+            }));
+            syncAutoplay();
+        });
+        const watchAutoplay = slider => {
+            if (!slider.params.autoplay?.enabled) return;
+            autoplay.set(slider, false);
+            slider.autoplay?.stop();
+            observer.observe(slider.el.closest('.about-ingredient, .about-event'));
+        };
+        motionButton.addEventListener('click', () => {
+            paused = !paused;
+            motionButton.setAttribute('aria-pressed', String(paused));
+            motionButton.textContent = paused ? '( Play motion )' : '( Pause motion )';
+            syncAutoplay();
+        });
+        reducedMotion.addEventListener('change', syncAutoplay);
+        document.addEventListener('visibilitychange', syncAutoplay);
+        let copySlider;
+        let syncingCopy = false;
+        const showIngredient = index => {
             ingredients.forEach((item, i) => item.classList.toggle('slick-current', i === index));
             triangles.forEach((item, i) => {
                 item.classList.toggle('is-show', i === index);
                 item.setAttribute('aria-pressed', String(i === index));
             });
-            backgrounds.forEach((item, i) => item.hidden = i !== index);
+            backgrounds.forEach((item, i) => item.setAttribute('aria-hidden', String(i !== index)));
+            syncingCopy = true;
+            copySlider?.slideTo(index, reducedMotion.matches ? 0 : 1000);
+            syncingCopy = false;
         };
-        ingredients.forEach((item, index) => { item.classList.add('slick-slide'); activate(item, () => selectIngredient(index)); });
+        const backgroundSlider = new Swiper(about.querySelector('.ingredient-background'), {
+            speed: 1000, effect: 'fade', fadeEffect: { crossFade: true }, allowTouchMove: false,
+            autoplay: { delay: 5000, disableOnInteraction: false },
+            pagination: { el: about.querySelector('.ingredient-pagination'), clickable: true },
+            on: {
+                slideChange: slider => showIngredient(slider.activeIndex),
+                reachEnd: slider => { slider.params.autoplay.reverseDirection = true; },
+                reachBeginning: slider => { slider.params.autoplay.reverseDirection = false; }
+            }
+        });
+        copySlider = new Swiper(about.querySelector('.ingredient-copy'), {
+            direction: 'vertical', speed: 1000, slidesPerView: 1, breakpoints: { 640: { slidesPerView: 2.5 } },
+            on: { slideChange: slider => { if (!syncingCopy) backgroundSlider.slideTo(slider.activeIndex); } }
+        });
+        const selectIngredient = index => {
+            backgroundSlider.slideTo(index, reducedMotion.matches ? 0 : 1000);
+            showIngredient(index);
+        };
+        ingredients.forEach((item, index) => activate(item, () => selectIngredient(index)));
         triangles.forEach((item, index) => activate(item, () => selectIngredient(index)));
-        selectIngredient(0);
+        showIngredient(0);
+        watchAutoplay(backgroundSlider);
 
         const brands = [...about.querySelectorAll('.brandmap > li')];
         const maps = [...about.querySelectorAll('.brandmapList > li')];
@@ -70,37 +121,48 @@
         activate(countrySelect.querySelector('.current'), () => countrySelect.classList.toggle('open'));
 
         const history = about.querySelector('.about-event');
-        const years = [...history.querySelectorAll('.number > li')];
-        let yearIndex = 0;
-        const selectYear = index => {
-            yearIndex = (index + years.length) % years.length;
-            ['.number', '.en', '.pic-area'].forEach(selector => {
-                history.querySelectorAll(selector).forEach(list => {
-                    [...list.children].forEach((item, i) => item.hidden = i !== yearIndex);
+        const yearSlider = new Swiper(history.querySelector('.history-year'), { effect: 'fade', fadeEffect: { crossFade: true }, speed: 700, autoHeight: true, allowTouchMove: false });
+        const descriptionSlider = new Swiper(history.querySelector('.history-description'), { effect: 'fade', fadeEffect: { crossFade: true }, speed: 700, allowTouchMove: false });
+        let historySlider;
+        const desktop = matchMedia('(min-width: 1025px)');
+        const smallScreen = matchMedia('(max-width: 639px)');
+        const mountHistory = () => {
+            if (historySlider) {
+                autoplay.delete(historySlider);
+                historySlider.destroy(true, true);
+            }
+            const element = history.querySelector(desktop.matches ? '.pic-area.show-for-large' : '.pic-area.hide-for-large');
+            element.dir = desktop.matches ? 'rtl' : 'ltr';
+            const update = slider => {
+                const index = slider.realIndex;
+                const count = slider.slides.length;
+                slider.slides.forEach(slide => {
+                    const number = Number(slide.dataset.swiperSlideIndex);
+                    const distance = (number - index + count) % count;
+                    slide.classList.toggle('is-selected', distance === 0);
+                    slide.classList.toggle('is-show', distance < 4);
+                    slide.style.zIndex = String(count - distance);
                 });
+                yearSlider.slideTo(index % 9, reducedMotion.matches ? 0 : 700);
+                descriptionSlider.slideTo(index % 9, reducedMotion.matches ? 0 : 700);
+            };
+            historySlider = new Swiper(element, {
+                slidesPerView: 'auto', centeredSlides: true, loop: true,
+                spaceBetween: desktop.matches ? -225 : innerWidth < 640 ? -200 : -300,
+                speed: 900, allowTouchMove: !desktop.matches,
+                autoplay: desktop.matches ? false : { delay: 3000, disableOnInteraction: false },
+                on: { init: update, realIndexChange: update }
             });
+            watchAutoplay(historySlider);
         };
+        mountHistory();
+        desktop.addEventListener('change', mountHistory);
+        smallScreen.addEventListener('change', mountHistory);
         history.querySelectorAll('.prev, .next').forEach(button => {
             const next = button.classList.contains('next');
             button.setAttribute('aria-label', next ? 'Next milestone' : 'Previous milestone');
-            activate(button, () => selectYear(yearIndex + (next ? 1 : -1)));
+            activate(button, () => next ? historySlider.slideNext(reducedMotion.matches ? 0 : 900) : historySlider.slidePrev(reducedMotion.matches ? 0 : 900));
         });
-        selectYear(0);
-        const cards = about.querySelector('.about-infoWrap.hide-for-large');
-        const pagination = document.createElement('div');
-        pagination.className = 'content-pager hide-for-large';
-        pagination.setAttribute('aria-label', 'Brand values');
-        [...cards.children].forEach((card, index) => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.setAttribute('aria-label', 'Brand value ' + (index + 1));
-            button.addEventListener('click', () => cards.scrollTo({ left: cards.clientWidth * index, behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
-            pagination.append(button);
-        });
-        cards.after(pagination);
-        const updatePagination = () => [...pagination.children].forEach((button, index) => button.setAttribute('aria-pressed', String(index === Math.round(cards.scrollLeft / cards.clientWidth))));
-        cards.addEventListener('scroll', updatePagination, { passive: true });
-        updatePagination();
     }
 
     const tea = page.querySelector('.our-teaWrap');
@@ -188,25 +250,54 @@
         page.classList.add('content-motion');
         if (about) {
             gsap.fromTo('.about-animation .text-area', { scale: 10 }, { scale: 1, duration: 1.75, ease: 'power4.out' });
-            const number = gsap.timeline({ scrollTrigger: { trigger: '.number-area', start: 'top top', end: '35% top', scrub: 1 } });
+            const number = gsap.timeline({ scrollTrigger: { trigger: '.number-area', start: 'top top', end: context.conditions.desktop ? '20% top' : '35% top', scrub: 1 } });
             about.querySelectorAll('.number-area .inner-sticky').forEach(group => {
                 const items = [...group.querySelectorAll('[class*="hollow"]')];
-                items.forEach((item, index) => number.to(item, group.classList.contains('show-for-large')
-                    ? { y: [324, 162, -162, -324][index] }
-                    : { yPercent: (items.length / 2 - index - (index >= items.length / 2 ? 1 : 0)) * 100 }, 0));
+                items.forEach((item, index) => {
+                    const line = Number(item.className.match(/hollow-(\d+)/)?.[1]);
+                    number.to(item, group.classList.contains('show-for-large')
+                        ? { y: [324, 162, -162, -324][index] }
+                        : { yPercent: (line <= 5 ? 6 - line : 5 - line) * 100 }, 0);
+                });
             });
-            const drinks = gsap.timeline({ scrollTrigger: { trigger: '.drink-area', start: context.conditions.desktop ? 'top top' : 'top 60%', end: '90% top', scrub: 1 } });
-            drinks.to('.drink-area li:nth-child(odd)', { y: 0, yPercent: -110 }, 0)
-                .to('.drink-area li:nth-child(even)', { y: 0, yPercent: 110 }, 0);
-            gsap.to('.drink-area .bg-change', { opacity: 1, scrollTrigger: { trigger: '.drink-area', start: 'top top', end: '55% top', scrub: true } });
+            if (!context.conditions.desktop) number.to('.number-area .hollow', { opacity: 0 });
+            const drinks = gsap.timeline({ scrollTrigger: { trigger: '.drink-area', start: context.conditions.desktop ? 'top top' : 'top 60%', end: context.conditions.desktop ? '90% top' : '90% 60%', scrub: 1, invalidateOnRefresh: true } });
+            if (context.conditions.desktop) {
+                drinks.to('.drink-area li:nth-child(odd)', { y: 0, yPercent: -110 }, 0)
+                    .to('.drink-area li:nth-child(even)', { y: 0, yPercent: 110 }, 0);
+            } else {
+                drinks.to('.drink-area li:nth-child(odd)', { y: () => -innerHeight * (innerWidth > 640 ? 1.5 : 1.1) }, 0)
+                    .to('.drink-area li:nth-child(even)', { y: () => innerHeight * (innerWidth > 640 ? 1.5 : 1.1) }, 0);
+            }
+            if (context.conditions.desktop) gsap.to('.drink-area .bg-change', { opacity: 1, scrollTrigger: { trigger: '.drink-area', start: 'top top', end: '55% top', scrub: true } });
             if (context.conditions.desktop) {
                 gsap.to('.about-info-preview .about-infoWrap', { opacity: 1, scrollTrigger: { trigger: '.about-info-preview', start: '10% top', end: '50% top', scrub: 1 } });
                 const track = about.querySelector('#horizontalWrap');
+                const pictureElements = [...track.querySelectorAll('.pic-area')];
+                gsap.set(pictureElements, { rotation: 0 });
+                const pictures = pictureElements.map(picture => gsap.quickSetter(picture, 'rotation', 'deg'));
+                const rotatePictures = () => {
+                    const x = Number(gsap.getProperty(track, 'x'));
+                    [...track.children].forEach((card, index) => {
+                        const left = card.offsetLeft + x;
+                        if (left < innerWidth / 2) pictures[index](left / 20);
+                    });
+                };
                 gsap.to(track, {
                     x: () => -(track.scrollWidth - innerWidth), ease: 'none',
                     scrollTrigger: { trigger: track, start: 'top top', end: () => '+=' + (track.scrollWidth - innerWidth), pin: true, scrub: true, invalidateOnRefresh: true,
+                        onUpdate: rotatePictures,
                         onToggle: trigger => about.querySelector('.about-info-preview').classList.toggle('is-not-show', trigger.isActive || trigger.progress === 1) }
                 });
+            }
+            gsap.fromTo('.about-brandmap .title .overflow .en', { yPercent: 100, rotation: 10 }, {
+                yPercent: 0, rotation: 0, duration: 1, ease: 'power2.out',
+                scrollTrigger: { trigger: '.about-brandmap', start: 'top 80%', toggleActions: 'play none play reverse' }
+            });
+            if (context.conditions.desktop) {
+                const header = document.querySelector('.site-header');
+                ScrollTrigger.create({ trigger: '.about-event', start: 'top 1px', end: 'bottom top', onToggle: self => header.classList.toggle('header-light', self.isActive) });
+                cleanUpPage = () => header.classList.remove('header-light');
             }
         }
         if (tea) {

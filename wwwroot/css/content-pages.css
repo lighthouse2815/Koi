@@ -15,30 +15,6 @@ html:has(.content-motion) { scroll-behavior: auto; }
 .content-page svg line { stroke: currentColor; stroke-width: 1.5; }
 .content-page button { padding: 0; }
 .content-page [role="button"] { cursor: pointer; }
-.aboutWrap .about-animation .text-area { transform: none; }
-.aboutWrap .about-animation .scroll { opacity: 1; pointer-events: auto; }
-.aboutWrap .about-ingredient .bg { position: absolute; inset: 0; }
-.aboutWrap .about-ingredient .bg > li, .aboutWrap .about-ingredient .bg img { width: 100%; height: 100%; object-fit: cover; }
-.aboutWrap .about-ingredient .slick-article { flex-direction: column; gap: 18px; }
-.aboutWrap .about-ingredient .slick-article > li { flex-shrink: 0; }
-.aboutWrap .about-event .number, .aboutWrap .about-event .en { display: block; }
-.aboutWrap .about-event .pic-area > li { width: 100%; }
-.aboutWrap .about-event .pic-area { pointer-events: none; }
-.aboutWrap .about-event .article-area { position: relative; z-index: 3; }
-.aboutWrap .country-select.open .list { display: block; opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
-.aboutWrap .brandmap > li { flex-shrink: 0; }
-.content-page:not(.content-motion) .about-animation .number-area { height: auto; padding: 70px 0; }
-.content-page:not(.content-motion) .about-animation .number-area .inner-sticky { position: relative; height: auto; }
-.content-page:not(.content-motion) .about-animation .number-area [class*="hollow"] { display: none; }
-.content-page:not(.content-motion) .about-animation .drink-area { height: 100svh; margin: 0; overflow: hidden; }
-.content-page:not(.content-motion) .about-animation .drink-area .inner-sticky { position: relative; }
-.content-page:not(.content-motion) .about-animation .drink-area li { transform: none; }
-.content-page:not(.content-motion) .about-info-preview { display: none; }
-.content-page:not(.content-motion) #horizontalWrap { width: 100%; flex-wrap: wrap; }
-.content-page:not(.content-motion) .about-infoWrap li { width: 100%; }
-.content-pager { display: flex; justify-content: center; gap: 14px; padding: 15px; background: white; }
-.content-pager button { width: 12px; height: 12px; border-radius: 50%; background: var(--ink); }
-.content-pager button[aria-pressed="true"] { background: var(--orange); }
 .our-teaWrap > .head-area > .inner .en { transform: none; }
 .our-teaWrap .drinkListWrap { background: url('/images/pages/en/images/t-top-bg-1.jpg') center / cover; }
 .our-teaWrap .new-drinkWrap { position: relative; background-position: center; background-size: cover; }
@@ -86,8 +62,6 @@ html:has(.content-motion) { scroll-behavior: auto; }
     .content-page .show-for-large { display: none !important; }
     .content-page .hide-for-large { display: block !important; }
     .content-page .hide-for-large.flex-container { display: flex !important; }
-    .content-page .aboutWrap > .about-infoWrap { display: flex !important; width: 100%; overflow-x: auto; scroll-snap-type: x mandatory; }
-    .content-page .aboutWrap > .about-infoWrap > li { flex: 0 0 100%; scroll-snap-align: start; }
     .our-teaWrap .drink-mobile .swiper-wrapper { display: flex; width: max-content; animation: marquee-drift 35s linear infinite; }
     .our-teaWrap .drink-mobile .swiper-slide { flex-shrink: 0; }
     .our-teaWrap .new-drinkWrap .new-drink > li { margin-bottom: 14px; }
@@ -100,7 +74,7 @@ html:has(.content-motion) { scroll-behavior: auto; }
     .newsWrap .news-row-arrow { display: none; }
 }
 @media (max-width: 639px) {
-    .content-page .show-for-medium { display: none !important; }
+    .content-page .show-for-medium, .content-page .hide-for-large.show-for-medium { display: none !important; }
     .content-page .hide-for-medium { display: block !important; }
     .content-page .hide-for-medium.flex-container { display: flex !important; }
 }
