@@ -1,81 +1,7 @@
+@model MenuViewModel
 @{
     ViewData["Title"] = "Menu";
-    var countries = new[]
-    {
-        (Name: "SINGAPORE", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_803.png"),
-            (Label: "KOI Thé Express", File: "menu_1773625244840236_0.png"),
-            (Label: "Signature KOI", File: "menu_196.png"),
-        }),
-        (Name: "CHINA", Menus: new[]
-        {
-            (Label: "KOI PLUS-China", File: "menu_1770704210330852_0.png"),
-            (Label: "KOI Thé-Macau, China", File: "menu_1770704243540267_0.png"),
-            (Label: "KOI Thé-Hong Kong, China", File: "menu_1770704288979111_0.png"),
-        }),
-        (Name: "INDONESIA", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1770688296852018_0.jpeg"),
-        }),
-        (Name: "CAMBODIA", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1770608542155817_0.jpg"),
-        }),
-        (Name: "JAPAN", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1770088037400963_0.jpg"),
-        }),
-        (Name: "VIETNAM", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1772420360655077_0.jpg"),
-        }),
-        (Name: "THAILAND", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1770272104855109_0.jpg"),
-            (Label: "KOI Thé Express", File: "menu_207.png"),
-        }),
-        (Name: "MALAYSIA", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1770172471045047_0.png"),
-        }),
-        (Name: "USA", Menus: new[]
-        {
-            (Label: "FIFTYLAN", File: "menu_1770602499259791_0.jpg"),
-        }),
-        (Name: "DUBAI", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_670.png"),
-        }),
-        (Name: "PHILIPPINES", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1778467151696168_0.jpg"),
-        }),
-        (Name: "BANGLADESH", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1788233321211640_0.jpg"),
-        }),
-        (Name: "LAOS", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_653.jpg"),
-        }),
-        (Name: "CANADA", Menus: new[]
-        {
-            (Label: "FIFTYLAN", File: "menu_1770602532413945_0.jpg"),
-        }),
-        (Name: "FRANCE", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1789609954060168_0.png"),
-        }),
-        (Name: "BRUNEI", Menus: new[]
-        {
-            (Label: "KOI Thé", File: "menu_1.jpeg"),
-        }),
-        (Name: "AUSTRALIA", Menus: new[]
-        {
-            (Label: "FIFTYLAN", File: "menu_1770607615376631_0.png"),
-        }),
-    };
+
 }
 @section Styles {
     <script>
@@ -92,7 +18,7 @@
 <div class="menuListWrap menu-pin">
     <div class="head-area"><h1 class="en">MENU</h1></div>
     <ul class="menuList" aria-label="Menus by country">
-        @foreach (var country in countries)
+        @foreach (var country in Model.Countries)
         {
             <li class="menu-inner">
                 <div class="inner flex-container align-justify">

@@ -88,7 +88,7 @@ public class HomeController : Controller
     public IActionResult People() => View();
     public IActionResult Connections() => View();
     public IActionResult Contact() => View();
-    public IActionResult Menu() => View();
+    public IActionResult Menu() => View(new MenuViewModel(MenuCatalog.Countries));
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
