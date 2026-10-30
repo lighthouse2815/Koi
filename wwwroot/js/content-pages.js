@@ -199,6 +199,17 @@
                 ScrollTrigger.create({ trigger: '.drinkList-pic', endTrigger: '.drinkWrap', start: 'top 39%', end: 'bottom 100%', pin: true, pinSpacing: false });
             }
         }
+        if (page.querySelector('.recruitWrap')) {
+            gsap.fromTo('.recruit-top .head-area .en', { yPercent: 105, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, stagger: .18, ease: 'power2.out' });
+            gsap.fromTo('.apply-area .head-area .en', { yPercent: 100, rotation: 10 }, {
+                yPercent: 0, rotation: 0, duration: 1, stagger: .25, ease: 'power2.out',
+                scrollTrigger: { trigger: '.apply-area', start: '5% 25%', toggleActions: 'play none none reverse' }
+            });
+            const apply = gsap.timeline({ scrollTrigger: { trigger: '.apply-area', start: '15% 25%', end: '40% 25%', scrub: 1 } });
+            apply.fromTo('.apply-fancy .fancy-inner', { opacity: 0, y: 30 }, { opacity: 1, y: 0 })
+                .fromTo('.apply-fancy .top-area', { opacity: 0, y: 30 }, { opacity: 1, y: 0 }, .2)
+                .fromTo('.apply-fancy .applyList > li', { opacity: 0, y: 30 }, { opacity: 1, y: 0, stagger: .25 }, .4);
+        }
         document.fonts.ready.then(() => ScrollTrigger.refresh());
         return () => page.classList.remove('content-motion');
     });
