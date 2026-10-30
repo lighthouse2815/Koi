@@ -47,10 +47,11 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 | People | `/Home/People` | Chữ hiện theo cuộn, năm thẻ Foundations cuộn vòng, ảnh Moments tự chạy/kéo/Pause và liên kết tuyển dụng |
 | Connections | `/Home/Connections` | Ảnh bìa thu dần, OUR BELIEF hiện theo cuộn, ba nội dung cộng đồng chuyển mờ tự động và bảy thẻ IN ACTION cuộn vòng, căn giữa |
 | Store | `/Home/Store` | Tiêu đề trượt lên, lọc Country/Location/Brand, chín cửa hàng mỗi trang và hộp ảnh tròn hỗ trợ bàn phím/cảm ứng |
+| Contact | `/Home/Contact` | Tiêu đề trượt lên, chuyển mờ giữa Contact/Business Partnership, ảnh Overseas trên desktop và các trường nhập/chọn dùng điều khiển gốc của trình duyệt |
 
-Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Contact và liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
+Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
-Trang About, Our Tea, News, Recruit, Impact, Responsibility, Precision, People và Connections đã được duyệt. Store được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
+Trang About, Our Tea, News, Recruit, Impact, Responsibility, Precision, People, Connections và Store đã được duyệt. Contact được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
 
 Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
@@ -138,3 +139,11 @@ Store dùng GSAP có sẵn cho tiêu đề và dialog HTML gốc để xem ảnh
 [Video chạy thử Store](docs/preview/store-animation.mp4): tiêu đề, chọn Vietnam/Ha Noi và mở/đóng ảnh. Ảnh xem trước: [desktop](docs/preview/store-desktop.png) · [mobile](docs/preview/store-mobile.png) · [Vietnam](docs/preview/store-vietnam.png) · [ảnh cửa hàng trên mobile](docs/preview/store-photo-mobile.png).
 
 Store đã đối chiếu vị trí/kích thước tiêu đề, bộ lọc, thẻ đầu tiên và phân trang ở 1440/390/1024px. Kiểm tra bản publish Release gồm 154 danh sách lọc/phân trang theo dữ liệu mẫu, query không hợp lệ, liên kết giữ/xóa bộ lọc đúng cấp, hộp ảnh với Back/Escape/chạm nền và trả focus, chuyển mờ khi mở/đóng, giảm chuyển động, font CJK, không tràn ngang ở 360–1920px và tải lại bắt đầu ở đầu trang. Build/publish không có lỗi hoặc cảnh báo; các liên kết Store trong About cũng đã được kiểm tra.
+
+Contact tương ứng [CONTACT trên trang mẫu](https://koithe.com/en/contact.php). Giữ bố cục, nội dung và hai nhóm trường; GSAP có sẵn xử lý tiêu đề trượt lên sau một giây và chuyển mờ 0,5 giây khi đổi form. Select, radio và ngày dùng điều khiển gốc của trình duyệt, hỗ trợ bàn phím/cảm ứng và giữ nội dung đã nhập khi chuyển nhóm. Menu/footer đã nối tới Contact local.
+
+Theo yêu cầu, Contact chỉ hoàn thiện giao diện; không gửi email, không lưu dữ liệu và không giả lập thông báo gửi thành công. Nút gửi và ô Verify Code được vô hiệu hóa, kèm chú thích trên trang. Không thêm package NuGet, dịch vụ mail hoặc khóa CAPTCHA.
+
+[Video chạy thử Contact](docs/preview/contact-animation.mp4): tiêu đề, đổi Contact/Business Partnership, chọn quốc gia/ngân sách và nhập ngày. Ảnh xem trước: [desktop](docs/preview/contact-desktop.png) · [mobile](docs/preview/contact-mobile.png) · [Business Partnership](docs/preview/contact-business.png) · [Business Partnership trên mobile](docs/preview/contact-business-mobile.png).
+
+Contact đã đối chiếu tiêu đề, cột nội dung, thanh chọn form và vị trí các trường ở 1440/390/1024px. Kiểm tra bản publish Release gồm hai chế độ ở 360–2560px, dropdown/radio/ngày, giữ dữ liệu khi đổi nhóm, chuyển liên tục, bàn phím và cảm ứng thật, giảm chuyển động giữa lúc chuyển form, tải lại ở đầu trang kể cả JavaScript tải chậm và không phát sinh POST. Chữ mờ/chú thích được tăng độ tương phản; quét axe WCAG 2/2.1 A/AA cho cả hai chế độ trên desktop/mobile không phát hiện vi phạm tự động. Build/publish không có lỗi hoặc cảnh báo.

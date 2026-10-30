@@ -8,7 +8,7 @@
         (Label: "STORE", Url: Url.Action("Store", "Home")!),
         (Label: "RECRUIT", Url: Url.Action("Recruit", "Home")!),
         (Label: "IMPACT", Url: Url.Action("Impact", "Home")!),
-        (Label: "CONTACT", Url: "https://koithe.com/en/contact.php")
+        (Label: "CONTACT", Url: Url.Action("Contact", "Home")!)
     };
     var currentUrl = Context.Request.Path.Value;
     if (Context.GetRouteValue("action")?.ToString() == "NewsDetail") currentUrl = Url.Action("News", "Home");
