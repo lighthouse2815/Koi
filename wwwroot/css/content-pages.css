@@ -15,14 +15,6 @@ html:has(.content-motion) { scroll-behavior: auto; }
 .content-page svg line { stroke: currentColor; stroke-width: 1.5; }
 .content-page button { padding: 0; }
 .content-page [role="button"] { cursor: pointer; }
-.recruitWrap .head-area .en, .recruitWrap .apply-area .head-area .en { transform: none; }
-.recruitWrap .apply-area .apply-fancy { pointer-events: auto; }
-.recruitWrap .apply-area .apply-fancy .fancy-inner,
-.recruitWrap .apply-area .apply-fancy .top-area,
-.recruitWrap .apply-area .apply-fancy .applyList > li { opacity: 1; transform: none; }
-.content-page:not(.content-motion) .recruitWrap .apply-area { height: auto; display: flex; flex-direction: column-reverse; gap: 50px; }
-.content-page:not(.content-motion) .recruitWrap .apply-area .apply-fancy { position: relative; left: auto; top: auto; transform: none; margin: auto; max-width: 100%; }
-.content-page:not(.content-motion) .recruitWrap .apply-area .head-area { position: relative; top: auto; }
 .crmWrap .crmListWrap .section-title .en { opacity: 1; transform: none; }
 .crmWrap .pin-mobile__heading .en { transform: none !important; }
 .site-header.header-light .brand img { filter: brightness(0) invert(1); }

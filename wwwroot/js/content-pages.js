@@ -375,15 +375,38 @@
             }
         }
         if (page.querySelector('.recruitWrap')) {
-            gsap.fromTo('.recruit-top .head-area .en', { yPercent: 105, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, stagger: .18, ease: 'power2.out' });
-            gsap.fromTo('.apply-area .head-area .en', { yPercent: 100, rotation: 10 }, {
-                yPercent: 0, rotation: 0, duration: 1, stagger: .25, ease: 'power2.out',
-                scrollTrigger: { trigger: '.apply-area', start: '5% 25%', toggleActions: 'play none none reverse' }
+            const intro = gsap.timeline({ delay: 1, defaults: { duration: 1, ease: 'power2.out' } });
+            const introLines = context.conditions.desktop
+                ? ['.recruit-top .en.top', '.recruit-top .en.bottom']
+                : ['.recruit-top .head-1 .en', '.recruit-top .head-1-2 .en', '.recruit-top .head-2 .en'];
+            introLines.forEach((selector, index) => intro.fromTo(selector, { yPercent: context.conditions.desktop ? 100 : 105, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0 }, index * .25));
+            const applyArea = page.querySelector('.apply-area');
+            const fancy = applyArea.querySelector('.apply-fancy');
+            const title = gsap.timeline({ paused: true, defaults: { duration: 1, ease: 'power2.out' } })
+                .fromTo('.apply-area .en.top', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: -25, rotation: 0 })
+                .fromTo('.apply-area .en.bottom', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0 }, .25);
+            ScrollTrigger.create({
+                id: 'recruit-apply-active', trigger: applyArea, start: '5% 25%', end: '80% 25%',
+                onEnter: () => title.play(),
+                onToggle: self => {
+                    fancy.classList.toggle('is-show', self.isActive);
+                    fancy.inert = !self.isActive;
+                }
             });
-            const apply = gsap.timeline({ scrollTrigger: { trigger: '.apply-area', start: '15% 25%', end: '40% 25%', scrub: 1 } });
-            apply.fromTo('.apply-fancy .fancy-inner', { opacity: 0, y: 30 }, { opacity: 1, y: 0 })
-                .fromTo('.apply-fancy .top-area', { opacity: 0, y: 30 }, { opacity: 1, y: 0 }, .2)
-                .fromTo('.apply-fancy .applyList > li', { opacity: 0, y: 30 }, { opacity: 1, y: 0, stagger: .25 }, .4);
+            fancy.inert = !ScrollTrigger.getById('recruit-apply-active').isActive;
+            [
+                ['.fancy-inner', 15, 25], ['.top-area', 20, 35],
+                ['.applyList > li:first-child', 25, 35], ['.applyList > li:last-child', 30, 40]
+            ].forEach(([selector, start, end], index) => {
+                gsap.fromTo(fancy.querySelector(selector), { opacity: 0, y: 30 }, {
+                    opacity: 1, y: 0,
+                    scrollTrigger: { id: 'recruit-apply-stage-' + index, trigger: applyArea, start: start + '% 25%', end: end + '% 25%', scrub: 1 }
+                });
+            });
+            cleanUpPage = () => {
+                fancy.classList.remove('is-show');
+                fancy.inert = false;
+            };
         }
         if (page.querySelector('.newsWrap')) {
             gsap.fromTo('.newsWrap .head-area .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, delay: 1, ease: 'power2.out' });
