@@ -1,0 +1,6 @@
+<form asp-area="" asp-controller="Home" asp-action="Language" method="post" class="language-switcher" aria-label="@T["Language"]">
+    <input type="hidden" name="returnUrl" value="@(Context.Request.PathBase + Context.Request.Path + Context.Request.QueryString)" />
+    <button type="submit" name="culture" value="vi" lang="vi" aria-pressed="@(SiteText.IsVietnamese ? "true" : "false")">VI</button>
+    <span aria-hidden="true">/</span>
+    <button type="submit" name="culture" value="en" lang="en" aria-pressed="@(!SiteText.IsVietnamese ? "true" : "false")">EN</button>
+</form>

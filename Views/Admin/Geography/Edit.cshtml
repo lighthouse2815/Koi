@@ -4,6 +4,9 @@
 <form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (int?)null)" method="post" enctype="multipart/form-data" class="card">
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" /><input asp-for="Kind" type="hidden" />
 <div asp-validation-summary="All" class="validation" role="alert"></div>
+<fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>
+<label asp-for="NameVi">Tên tiếng Việt</label><input asp-for="NameVi" maxlength="150" />
+</fieldset>
 <label asp-for="Name">Tên</label><input asp-for="Name" required maxlength="@(Model.Kind == "countries" ? 100 : 150)" />
 <label asp-for="SortOrder">Thứ tự</label><input asp-for="SortOrder" type="number" min="0" max="100000" />
 @if (Model.Kind == "countries")

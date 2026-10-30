@@ -34,7 +34,7 @@
             event.preventDefault();
             photo.src = link.href;
             photo.alt = link.dataset.storeName;
-            dialog.setAttribute('aria-label', `Photo of ${link.dataset.storeName}`);
+            dialog.setAttribute('aria-label', window.koiText('Photo of {0}', link.dataset.storeName));
             dialog.showModal();
             dialog.classList.add('is-show');
         });

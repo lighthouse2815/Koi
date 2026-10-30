@@ -5,6 +5,10 @@
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
 <div asp-validation-summary="All" class="validation" role="alert"></div>
 <div class="editor-columns"><div class="card">
+<fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>
+<label asp-for="LabelVi">Tên thực đơn tiếng Việt</label><input asp-for="LabelVi" maxlength="200" />
+</fieldset>
+
 <label asp-for="Label">Tên thực đơn / thương hiệu</label><input asp-for="Label" required maxlength="200" />
 <label asp-for="MarketId">Quốc gia</label><select asp-for="MarketId" asp-items="Model.Markets" required><option value="">Chọn quốc gia</option></select>
 <label asp-for="ImageUpload">Ảnh thực đơn</label><input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />

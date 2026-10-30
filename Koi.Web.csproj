@@ -11,6 +11,7 @@
     <EmbeddedResource Include="Data/Stores.json" />
     <EmbeddedResource Include="Data/NewsSeed.json" />
     <EmbeddedResource Include="Data/DrinksSeed.json" />
+    <EmbeddedResource Include="Data/VietnameseSeed.json" />
     <Compile Remove="tests/**/*.cs" />
     <Content Remove="tests/**" />
     <Content Remove="wwwroot/uploads/**" />

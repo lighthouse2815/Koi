@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = T["Contact__text"].Value;
 }
 @section Styles {
     <script>
@@ -15,78 +15,76 @@
 <div class="content-page contact-page-content" id="home">
 <div class="contactWrap menu-pin" id="contact">
         <div class="head-area">
-            <h1 class="en">CONTACT</h1>
+            <h1 class="en">@T["CONTACT"]</h1>
         </div>
             <div class="overseas show-for-large" hidden="">
                 <img src="/images/pages/en/images/overseas.svg" alt="">
             </div>
         <div class="contact-area flex-container align-justify">
-            <ul class="formList flex-container align-justify hide-for-large" role="radiogroup" aria-label="Inquiry type">
+            <ul class="formList flex-container align-justify hide-for-large" role="radiogroup" aria-label="@T["Inquiry type"]">
                 <li class="flex-container align-middle" data-list="1" role="presentation">
-                    <input type="radio" name="contact-m" id="option-m1" checked="" value="1" data-contact-type="1" aria-controls="contactForm1" aria-label="Contact">
+                    <input type="radio" name="contact-m" id="option-m1" checked="" value="1" data-contact-type="1" aria-controls="contactForm1" aria-label="@T["Contact__text"]">
                     <label for="option-m1" class="flex-container align-middle">
                         <div class="radio"></div>
-                        <div class="title">CONTACT</div>
+                        <div class="title">@T["CONTACT"]</div>
                     </label>
                 </li>
                 <li class="flex-container align-middle" data-list="2" role="presentation">
-                    <input type="radio" name="contact-m" id="option-m2" value="2" data-contact-type="2" aria-controls="contactForm2" aria-label="Business partnership inquiry">
+                    <input type="radio" name="contact-m" id="option-m2" value="2" data-contact-type="2" aria-controls="contactForm2" aria-label="@T["Business partnership inquiry"]">
                     <label for="option-m2" class="flex-container align-middle">
                         <div class="radio"></div>
-                        <div class="title">BUSINESS <br>PARTNERSHIP INQUIRY</div>
+                        <div class="title">@T["BUSINESS"] <br>@T["PARTNERSHIP INQUIRY"]</div>
                     </label>
                 </li>
             </ul>
             <div class="article-area">
                     <div class="content content-1">
                         <ul class="change">
-                            <li class="inner">ANY QUESTI<span class="orange">O</span>NS?</li>
-                            <li class="inner">PLEASE FEEL</li>
-                            <li class="inner">FREE T<span class="orange">O</span></li>
-                            <li class="inner">C<span class="orange">O</span>NTACT US</li>
-                            <li class="inner">HERE.</li>
+                            <li class="inner">@H["Contact.Questions"]</li>
+                            <li class="inner">@T["PLEASE FEEL"]</li>
+                            <li class="inner">@H["Contact.Free"]</li>
+                            <li class="inner">@H["Contact.ContactUs"]</li>
+                            <li class="inner">@T["HERE."]</li>
                         </ul>
-                        <div class="note">Thank you for contacting us.<br>We will be in touch with you as soon as
-                            possible.</div>
+                        <div class="note">@T["Thank you for contacting us."]<br>@T["We will be in touch with you as soon as possible."]</div>
                     </div>
                     <div class="content content-2" hidden="">
                         <ul class="change">
-                            <li class="inner">THANK Y<span class="orange">O</span>U</li>
-                            <li class="inner">F<span class="orange">O</span>R YOUR L<span class="orange">O</span>VE</li>
-                            <li class="inner">F<span class="orange">O</span>R K<span class="orange">O</span>I Thé</li>
+                            <li class="inner">@H["Contact.Thanks"]</li>
+                            <li class="inner">@H["Contact.Love"]</li>
+                            <li class="inner">@H["Contact.ForKoi"]</li>
                         </ul>
-                        <div class="note">Thank you for your love for KOI. <br>
-                            Please complete the following form and provide the relevant details to help us evaluate the
-                            collaboration and learn more about our overseas partnership opportunities.</div>
+                        <div class="note">@T["Thank you for your love for KOI."] <br>
+                            @T["Please complete the following form and provide the relevant details to help us evaluate the collaboration and learn more about our overseas partnership opportunities."]</div>
                         <div class="other flex-container">
                             <div class="dot show-for-large">＊</div>
                             <div class="text">
-                                Collaboration is currently not open for the following regions: <br class="hide-for-large">Singapore, Malaysia, Cambodia, Vietnam
+                                @T["Collaboration is currently not open for the following regions:"] <br class="hide-for-large">@T["Singapore, Malaysia, Cambodia, Vietnam"]
                             </div>
                         </div>
                     </div>
             </div>
             <div class="form-area">
-                <ul class="formList flex-container align-justify show-for-large" role="radiogroup" aria-label="Inquiry type">
+                <ul class="formList flex-container align-justify show-for-large" role="radiogroup" aria-label="@T["Inquiry type"]">
                     <li class="flex-container align-middle" data-list="1" role="presentation">
-                        <input type="radio" name="contact" id="option1" checked="" value="1" data-contact-type="1" aria-controls="contactForm1" aria-label="Contact">
+                        <input type="radio" name="contact" id="option1" checked="" value="1" data-contact-type="1" aria-controls="contactForm1" aria-label="@T["Contact__text"]">
                         <label for="option1" class="flex-container align-middle">
                             <div class="radio"></div>
-                            <div class="title">CONTACT</div>
+                            <div class="title">@T["CONTACT"]</div>
                         </label>
                     </li>
                     <li class="flex-container align-middle" data-list="2" role="presentation">
-                        <input type="radio" name="contact" id="option2" value="2" data-contact-type="2" aria-controls="contactForm2" aria-label="Business partnership inquiry">
+                        <input type="radio" name="contact" id="option2" value="2" data-contact-type="2" aria-controls="contactForm2" aria-label="@T["Business partnership inquiry"]">
                         <label for="option2" class="flex-container align-middle">
                             <div class="radio"></div>
-                            <div class="title">BUSINESS <br>PARTNERSHIP INQUIRY</div>
+                            <div class="title">@T["BUSINESS"] <br>@T["PARTNERSHIP INQUIRY"]</div>
                         </label>
                     </li>
                 </ul>
-                    <section class="contact-form" id="contactForm1" role="form" aria-label="Contact">
+                    <section class="contact-form" id="contactForm1" role="form" aria-label="@T["Contact__text"]">
                         <div class="item required">
                             <label class="title" for="name">
-                                Name
+                                @T["Name"]
                             </label>
                             <div>
                                 <input type="text" name="name" id="name" required="" autocomplete="name" maxlength="300">
@@ -94,7 +92,7 @@
                         </div>
                         <div class="item required">
                             <label class="title" for="area">
-                                Area
+                                @T["Area"]
                             </label>
                             <div>
                                 <select name="area" id="area" class="ask-select no-first" required="">
@@ -102,65 +100,65 @@
                                         <span class="ch"></span>
                                     </option>
                                                                             <option value="SINGAPORE">
-                                            <span class="ch">SINGAPORE</span>
+                                            <span class="ch">@T["SINGAPORE"]</span>
                                         </option>
                                                                             <option value="CHINA">
-                                            <span class="ch">CHINA</span>
+                                            <span class="ch">@T["CHINA"]</span>
                                         </option>
                                                                             <option value="INDONESIA">
-                                            <span class="ch">INDONESIA</span>
+                                            <span class="ch">@T["INDONESIA"]</span>
                                         </option>
                                                                             <option value="CAMBODIA">
-                                            <span class="ch">CAMBODIA</span>
+                                            <span class="ch">@T["CAMBODIA"]</span>
                                         </option>
                                                                             <option value="JAPAN">
-                                            <span class="ch">JAPAN</span>
+                                            <span class="ch">@T["JAPAN"]</span>
                                         </option>
                                                                             <option value="VIETNAM">
-                                            <span class="ch">VIETNAM</span>
+                                            <span class="ch">@T["VIETNAM"]</span>
                                         </option>
                                                                             <option value="THAILAND">
-                                            <span class="ch">THAILAND</span>
+                                            <span class="ch">@T["THAILAND"]</span>
                                         </option>
                                                                             <option value="MALAYSIA">
-                                            <span class="ch">MALAYSIA</span>
+                                            <span class="ch">@T["MALAYSIA"]</span>
                                         </option>
                                                                             <option value="USA">
-                                            <span class="ch">USA</span>
+                                            <span class="ch">@T["USA"]</span>
                                         </option>
                                                                             <option value="DUBAI">
-                                            <span class="ch">DUBAI</span>
+                                            <span class="ch">@T["DUBAI"]</span>
                                         </option>
                                                                             <option value="PHILIPPINES">
-                                            <span class="ch">PHILIPPINES</span>
+                                            <span class="ch">@T["PHILIPPINES"]</span>
                                         </option>
                                                                             <option value="BANGLADESH">
-                                            <span class="ch">BANGLADESH</span>
+                                            <span class="ch">@T["BANGLADESH"]</span>
                                         </option>
                                                                             <option value="LAOS">
-                                            <span class="ch">LAOS</span>
+                                            <span class="ch">@T["LAOS"]</span>
                                         </option>
                                                                             <option value="CANADA">
-                                            <span class="ch">CANADA</span>
+                                            <span class="ch">@T["CANADA"]</span>
                                         </option>
                                                                             <option value="FRANCE">
-                                            <span class="ch">FRANCE</span>
+                                            <span class="ch">@T["FRANCE"]</span>
                                         </option>
                                                                             <option value="BRUNEI">
-                                            <span class="ch">BRUNEI</span>
+                                            <span class="ch">@T["BRUNEI"]</span>
                                         </option>
                                                                             <option value="AUSTRALIA">
-                                            <span class="ch">AUSTRALIA</span>
+                                            <span class="ch">@T["AUSTRALIA"]</span>
                                         </option>
                                                                             <option value="INTERNATIONAL HEADQUARTERS">
-                                            <span class="ch">INTERNATIONAL HEADQUARTERS</span>
+                                            <span class="ch">@T["INTERNATIONAL HEADQUARTERS"]</span>
                                         </option>
                                                                     </select>
                             </div>
                         </div>
                         <div class="item required">
                             <label class="title" for="phone">
-                                Contact Number
+                                @T["Contact Number"]
                             </label>
                             <div>
                                 <input type="tel" name="phone" id="phone" required="" autocomplete="tel" maxlength="300">
@@ -168,7 +166,7 @@
                         </div>
                         <div class="item required">
                             <label class="title" for="email">
-                                E-Mail
+                                @T["E-Mail"]
                             </label>
                             <div>
                                 <input type="email" name="email" id="email" required="" autocomplete="email" maxlength="300">
@@ -176,32 +174,32 @@
                         </div>
                         <div class="item required">
                             <label class="title" for="ask">
-                                Category
+                                @T["Category"]
                             </label>
                             <div>
                                 <select name="ask" id="ask" class="ask-select" required="">
                                     <option value="After sales service">
-                                        <span class="ch">After sales service</span>
+                                        <span class="ch">@T["After sales service"]</span>
                                     </option>
                                     <option value="Business cooperation">
-                                        <span class="ch">Business cooperation</span>
+                                        <span class="ch">@T["Business cooperation"]</span>
                                     </option>
                                     <option value="Others">
-                                        <span class="ch">Others</span>
+                                        <span class="ch">@T["Others"]</span>
                                     </option>
                                 </select>
                             </div>
                         </div>
                         <div class="item required">
                             <label class="title" for="content">
-                                Content
+                                @T["Content"]
                             </label>
                             <div>
                                 <textarea name="content" id="content" required="" maxlength="5000"></textarea>
                             </div>
                         </div>
                         <div class="submit" id="submit1">
-                            <button type="submit" disabled="" aria-label="Submit form (unavailable in preview)" aria-describedby="form-preview-0">
+                            <button type="submit" disabled="" aria-label="@T["Submit form (unavailable in preview)"]" aria-describedby="form-preview-0">
                                 <svg class="show-for-large" xmlns="http://www.w3.org/2000/svg" width="113.33" height="71.38" viewBox="0 0 113.33 71.38" aria-hidden="true">
                                     <g>
                                         <g class="arrow">
@@ -239,18 +237,18 @@
                                     </g>
                                 </svg>
                             </button>
-                        </div><p class="form-preview-note" id="form-preview-0">Form preview. Sending is not enabled.</p>
+                        </div><p class="form-preview-note" id="form-preview-0">@T["Form preview. Sending is not enabled."]</p>
                     </section>
-                    <section class="contact-form" id="contactForm2" role="form" aria-label="Business partnership inquiry" hidden="">
+                    <section class="contact-form" id="contactForm2" role="form" aria-label="@T["Business partnership inquiry"]" hidden="">
                         <div class="title-area flex-container">
                             <div class="line"></div>
                             <div class="head">
-                                <div class="en">YOUR CONTACT DETAILS</div>
+                                <div class="en">@T["YOUR CONTACT DETAILS"]</div>
                             </div>
                         </div>
                         <div class="item required">
                             <label class="title" for="o_family_name">
-                                Family Name
+                                @T["Family Name"]
                             </label>
                             <div>
                                 <input type="text" name="o_family_name" id="o_family_name" required="" autocomplete="family-name" maxlength="300">
@@ -258,7 +256,7 @@
                         </div>
                         <div class="item required">
                             <label class="title" for="o_first_name">
-                                First Name
+                                @T["First Name"]
                             </label>
                             <div>
                                 <input type="text" name="o_first_name" id="o_first_name" required="" autocomplete="given-name" maxlength="300">
@@ -266,7 +264,7 @@
                         </div>
                         <div class="item required">
                             <label class="title" for="o_email">
-                                E-mail
+                                @T["E-mail__text"]
                             </label>
                             <div>
                                 <input type="email" name="o_email" id="o_email" required="" autocomplete="email" maxlength="300">
@@ -274,7 +272,7 @@
                         </div>
                         <div class="item required">
                             <label class="title" for="o_country">
-                                Country of Residence
+                                @T["Country of Residence"]
                             </label>
                             <div>
                                 <input type="text" name="o_country" id="o_country" required="" autocomplete="country-name" maxlength="300">
@@ -282,38 +280,38 @@
                         </div>
                         <div class="item">
                             <label class="title" for="o_ask">
-                                Please select your expected capital investment amount.
+                                @T["Please select your expected capital investment amount."]
                             </label>
                             <div>
                                 <select name="o_ask" id="o_ask" class="ask-select">
                                     <option value="USD 300,000">
-                                        <span class="ch">USD 300,000</span>
+                                        <span class="ch">@T["USD 300,000"]</span>
                                     </option>
                                     <option value="USD 400,000">
-                                        <span class="ch">USD 400,000</span>
+                                        <span class="ch">@T["USD 400,000"]</span>
                                     </option>
                                     <option value="USD 500,000">
-                                        <span class="ch">USD 500,000</span>
+                                        <span class="ch">@T["USD 500,000"]</span>
                                     </option>
                                 </select>
                             </div>
                             <div class="note flex-container">
                                 <div>＊</div>
                                 <div>
-                                    Based on our past experience, the total initial investment is approximately USD 300,000.<br>
-                                    Therefore, the starting amount in the dropdown menu is set at USD 300,000
+                                    @T["Based on our past experience, the total initial investment is approximately USD 300,000."]<br>
+                                    @T["Therefore, the starting amount in the dropdown menu is set at USD 300,000"]
                                 </div>
                             </div>
                         </div>
                         <div class="title-area flex-container">
                             <div class="line"></div>
                             <div class="head">
-                                <div class="en">Your Company Profile</div>
+                                <div class="en">@T["Your Company Profile"]</div>
                             </div>
                         </div>
                         <div class="item required">
                             <label class="title" for="o_company">
-                                Company Name
+                                @T["Company Name"]
                             </label>
                             <div>
                                 <input type="text" name="o_company" id="o_company" required="" autocomplete="organization" maxlength="300">
@@ -321,23 +319,23 @@
                         </div>
                         <div class="item">
                             <label class="title" for="o_c_address">
-                                Where is your company legally incorporated?
+                                @T["Where is your company legally incorporated?"]
                             </label>
                             <div>
-                                <input type="text" name="o_c_address" id="o_c_address" placeholder="Please indicate the appropriate state, province, territory of country" maxlength="300">
+                                <input type="text" name="o_c_address" id="o_c_address" placeholder="@T["Please indicate the appropriate state, province, territory of country"]" maxlength="300">
                             </div>
                         </div>
                         <div class="item date">
                             <label class="title" for="o_c_date">
-                                Incorporation Date
+                                @T["Incorporation Date"]
                             </label>
                             <div>
-                                <input type="date" name="o_c_date" id="o_c_date" placeholder="yyyy/mm/dd" lang="en" maxlength="300">
+                                <input type="date" name="o_c_date" id="o_c_date" placeholder="@T["yyyy/mm/dd"]" lang="en" maxlength="300">
                             </div>
                         </div>
                         <div class="item">
                             <label class="title" for="o_c_website">
-                                Company Website
+                                @T["Company Website"]
                             </label>
                             <div>
                                 <input type="url" name="o_c_website" id="o_c_website" autocomplete="url" maxlength="300">
@@ -345,7 +343,7 @@
                         </div>
                         <div class="item">
                             <label class="title" for="o_c_business">
-                                Business Activities Description
+                                @T["Business Activities Description"]
                             </label>
                             <div>
                                 <input type="text" name="o_c_business" id="o_c_business" maxlength="300">
@@ -353,7 +351,7 @@
                         </div>
                         <div class="item">
                             <label class="title" for="o_c_job">
-                                Job Title
+                                @T["Job Title"]
                             </label>
                             <div>
                                 <input type="text" name="o_c_job" id="o_c_job" autocomplete="organization-title" maxlength="300">
@@ -361,7 +359,7 @@
                         </div>
                         <div class="item">
                             <label class="title" for="o_c_choose">
-                                Reasons why you are interested in KOI over other brands
+                                @T["Reasons why you are interested in KOI over other brands"]
                             </label>
                             <div>
                                 <input type="text" name="o_c_choose" id="o_c_choose" maxlength="300">
@@ -369,51 +367,51 @@
                         </div>
                         <div class="item">
                             <label class="title" for="o_experience_detail" id="question-12">
-                                Have you ever owned or managed a retail F&amp;B business?
+                                @T["Have you ever owned or managed a retail F&B business?"]
                             </label>
                             <div class="flex-container experience" role="group" aria-labelledby="question-12">
                                 <div>
                                     <input type="radio" id="yes" name="o_experience" value="yes">
                                     <label for="yes" class="left flex-container align-middle">
-                                        <div class="radio"></div>Yes
+                                        <div class="radio"></div>@T["Yes"]
                                     </label>
                                 </div>
                                 <div>
                                     <input type="radio" id="no" name="o_experience" value="no">
                                     <label for="no" class="flex-container align-middle">
-                                        <div class="radio"></div>No
+                                        <div class="radio"></div>@T["No"]
                                     </label>
                                 </div>
                             </div>
                             <div>
-                                <textarea name="o_experience_detail" id="o_experience_detail" placeholder="Please describe your answer briefly." maxlength="5000"></textarea>
+                                <textarea name="o_experience_detail" id="o_experience_detail" placeholder="@T["Please describe your answer briefly."]" maxlength="5000"></textarea>
                             </div>
                         </div>
                         <div class="item">
                             <label class="title" for="o_experience2_detail" id="question-13">
-                                Do you have the experience in running a chain store?
+                                @T["Do you have the experience in running a chain store?"]
                             </label>
                             <div class="flex-container experience" role="group" aria-labelledby="question-13">
                                 <div>
                                     <input type="radio" id="yes2" name="o_experience2" value="yes">
                                     <label for="yes2" class="left flex-container align-middle">
-                                        <div class="radio"></div>Yes
+                                        <div class="radio"></div>@T["Yes"]
                                     </label>
                                 </div>
                                 <div>
                                     <input type="radio" id="no2" name="o_experience2" value="no">
                                     <label for="no2" class="flex-container align-middle">
-                                        <div class="radio"></div>No
+                                        <div class="radio"></div>@T["No"]
                                     </label>
                                 </div>
                             </div>
                             <div>
-                                <textarea name="o_experience2_detail" id="o_experience2_detail" placeholder="Please describe your answer briefly." maxlength="5000"></textarea>
+                                <textarea name="o_experience2_detail" id="o_experience2_detail" placeholder="@T["Please describe your answer briefly."]" maxlength="5000"></textarea>
                             </div>
                         </div>
                         <div class="item">
                             <label class="title" for="o_c_area">
-                                Proposed Business Site / Preferred Business Location
+                                @T["Proposed Business Site / Preferred Business Location"]
                             </label>
                             <div>
                                 <input type="text" name="o_c_area" id="o_c_area" maxlength="300">
@@ -421,84 +419,82 @@
                         </div>
                         <div class="item">
                             <label class="title" for="o_cooperate">
-                                What type of collaboration would you like to have with KOI in this city/region/country?
+                                @T["What type of collaboration would you like to have with KOI in this city/region/country?"]
                             </label>
                             <div>
                                 <select name="o_cooperate" id="o_cooperate" class="ask-select">
                                     <option value="New Country Partnership">
-                                        New Country Partnership
+                                        @T["New Country Partnership"]
                                     </option>
                                     <option value="Franchise Requests">
-                                        Franchise Requests
+                                        @T["Franchise Requests"]
                                     </option>
                                     <option value="Brand Collaboration">
-                                        Brand Collaboration
+                                        @T["Brand Collaboration"]
                                     </option>
                                     <option value="Job Seeking">
-                                        Job Seeking
+                                        @T["Job Seeking"]
                                     </option>
                                     <option value="Sponsorship">
-                                        Sponsorship
+                                        @T["Sponsorship"]
                                     </option>
                                 </select>
                             </div>
                         </div>
                         <div class="item">
                             <div class="title" id="question-16">
-                                Will there be any partners or sponsors involved?
+                                @T["Will there be any partners or sponsors involved?"]
                             </div>
                             <div class="flex-container" role="group" aria-labelledby="question-16">
                                 <div>
                                     <input type="radio" id="yes3" name="o_other" value="yes">
                                     <label for="yes3" class="left flex-container align-middle">
-                                        <div class="radio"></div>Yes
+                                        <div class="radio"></div>@T["Yes"]
                                     </label>
                                 </div>
                                 <div>
                                     <input type="radio" id="no3" name="o_other" value="no">
                                     <label for="no3" class="flex-container align-middle">
-                                        <div class="radio"></div>No
+                                        <div class="radio"></div>@T["No"]
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="item">
                             <div class="title" id="question-17">
-                                Will you take an active role in managing the business?
+                                @T["Will you take an active role in managing the business?"]
                             </div>
                             <div class="flex-container" role="group" aria-labelledby="question-17">
                                 <div>
                                     <input type="radio" id="yes4" name="o_in_person" value="yes">
                                     <label for="yes4" class="left flex-container align-middle">
-                                        <div class="radio"></div>Yes
+                                        <div class="radio"></div>@T["Yes"]
                                     </label>
                                 </div>
                                 <div>
                                     <input type="radio" id="no4" name="o_in_person" value="no">
                                     <label for="no4" class="flex-container align-middle">
-                                        <div class="radio"></div>No
+                                        <div class="radio"></div>@T["No"]
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="item">
                             <label class="title" for="o_content">
-                                Comments / Please state any relevant experience you believe will help enable you to
-                                succeed with KOI given the Business Arrangement(s) you have mentioned in previous
-                                section.
+                                @T["Comments / Please state any relevant experience you believe will help enable you to succeed with KOI given the Business Arrangement(s) you have mentioned in previous section."]
                             </label>
                             <div>
                                 <textarea name="o_content" id="o_content" maxlength="5000"></textarea>
                             </div>
                         </div>
                         <div class="item required">
-                            <label class="title" for="captcha">Verify Code</label>
+                            <label class="title" for="captcha">@T["Verify Code"]</label>
                             <div class="checkNumData">
                                 <input name="captcha" type="text" id="captcha" size="60" class="check-input" disabled="" aria-describedby="verification-note" maxlength="300">
                             </div>
-                        <p id="verification-note" class="verification-note">Verification is unavailable while sending is disabled.</p></div>
+                        <p id="verification-note" class="verification-note">@T["Verification is unavailable while sending is disabled."]</p></div>
                         <div class="submit" id="submit2">
-                            <button type="submit" disabled="" aria-label="Submit form (unavailable in preview)" aria-describedby="form-preview-1">
+                            <button type="submit" disabled="" aria-label="@T["Submit form (unavailable in preview)"]" aria-describedby="form-preview-1">
                                 <svg class="show-for-large" xmlns="http://www.w3.org/2000/svg" width="113.33" height="71.38" viewBox="0 0 113.33 71.38" aria-hidden="true">
                                     <g>
                                         <g class="arrow">
@@ -536,7 +532,7 @@
                                     </g>
                                 </svg>
                             </button>
-                        </div><p class="form-preview-note" id="form-preview-1">Form preview. Sending is not enabled.</p>
+                        </div><p class="form-preview-note" id="form-preview-1">@T["Form preview. Sending is not enabled."]</p>
                     </section>
             </div>
         </div>

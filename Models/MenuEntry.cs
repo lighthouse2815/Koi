@@ -7,6 +7,8 @@ namespace Koi.Web.Models;
 
 public class MenuEntry
 {
+    [StringLength(200)] public string LabelVi { get; set; } = "";
+
     public int Id { get; set; }
     public int MarketId { get; set; }
     public Market Market { get; set; } = null!;
@@ -19,6 +21,8 @@ public class MenuEntry
 
 public class MenuEditViewModel
 {
+    [StringLength(200)] public string? LabelVi { get; set; }
+
     public int Id { get; set; }
     public int Revision { get; set; }
     [Required, StringLength(200)] public string Label { get; set; } = "";

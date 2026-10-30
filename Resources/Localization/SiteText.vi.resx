@@ -1,0 +1,1563 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="&quot;JOIN" xml:space="preserve">
+    <value>"GIA NHẬP</value>
+  </data>
+  <data name="&quot;JOIN OUR" xml:space="preserve">
+    <value>"GIA NHẬP</value>
+  </data>
+  <data name="( AUSTRALIA )" xml:space="preserve">
+    <value>( ÚC )</value>
+  </data>
+  <data name="( BANGLADESH )" xml:space="preserve">
+    <value>( BANGLADESH )</value>
+  </data>
+  <data name="( BRUNEI )" xml:space="preserve">
+    <value>( BRUNEI )</value>
+  </data>
+  <data name="( Back )" xml:space="preserve">
+    <value>( Quay lại )</value>
+  </data>
+  <data name="( CAMBODIA )" xml:space="preserve">
+    <value>( CAMPUCHIA )</value>
+  </data>
+  <data name="( CANADA )" xml:space="preserve">
+    <value>( CANADA )</value>
+  </data>
+  <data name="( CHINA )" xml:space="preserve">
+    <value>( TRUNG QUỐC )</value>
+  </data>
+  <data name="( DUBAI )" xml:space="preserve">
+    <value>( DUBAI )</value>
+  </data>
+  <data name="( FRANCE )" xml:space="preserve">
+    <value>( PHÁP )</value>
+  </data>
+  <data name="( INDONESIA )" xml:space="preserve">
+    <value>( INDONESIA )</value>
+  </data>
+  <data name="( JAPAN )" xml:space="preserve">
+    <value>( NHẬT BẢN )</value>
+  </data>
+  <data name="( LAOS )" xml:space="preserve">
+    <value>( LÀO )</value>
+  </data>
+  <data name="( MALAYSIA )" xml:space="preserve">
+    <value>( MALAYSIA )</value>
+  </data>
+  <data name="( More )" xml:space="preserve">
+    <value>( Xem thêm )</value>
+  </data>
+  <data name="( PHILIPPINES )" xml:space="preserve">
+    <value>( PHILIPPINES )</value>
+  </data>
+  <data name="( Pause motion )" xml:space="preserve">
+    <value>( Tạm dừng chuyển động )</value>
+  </data>
+  <data name="( Play motion )" xml:space="preserve">
+    <value>( Tiếp tục chuyển động )</value>
+  </data>
+  <data name="( Replay intro )" xml:space="preserve">
+    <value>( Xem lại mở đầu )</value>
+  </data>
+  <data name="( SINGAPORE )" xml:space="preserve">
+    <value>( SINGAPORE )</value>
+  </data>
+  <data name="( Skip )" xml:space="preserve">
+    <value>( Bỏ qua )</value>
+  </data>
+  <data name="( THAILAND )" xml:space="preserve">
+    <value>( THÁI LAN )</value>
+  </data>
+  <data name="( Top )" xml:space="preserve">
+    <value>( Đầu trang )</value>
+  </data>
+  <data name="( USA )" xml:space="preserve">
+    <value>( HOA KỲ )</value>
+  </data>
+  <data name="( VIETNAM )" xml:space="preserve">
+    <value>( VIỆT NAM )</value>
+  </data>
+  <data name="(Brand)" xml:space="preserve">
+    <value>(Thương hiệu)</value>
+  </data>
+  <data name="(Country)" xml:space="preserve">
+    <value>(Quốc gia)</value>
+  </data>
+  <data name="(FEATURES)" xml:space="preserve">
+    <value>(ĐIỂM NỔI BẬT)</value>
+  </data>
+  <data name="(Location)" xml:space="preserve">
+    <value>(Khu vực)</value>
+  </data>
+  <data name="(NAVIGATION)" xml:space="preserve">
+    <value>(ĐIỀU HƯỚNG)</value>
+  </data>
+  <data name="(USD)" xml:space="preserve">
+    <value>(USD)</value>
+  </data>
+  <data name="0M+" xml:space="preserve">
+    <value>0M+</value>
+  </data>
+  <data name="20th Anniversary Drink Giveaway" xml:space="preserve">
+    <value>Tặng đồ uống kỷ niệm 20 năm</value>
+  </data>
+  <data name="A BUBBLING BETTER WORLD" xml:space="preserve">
+    <value>LAN TỎA ĐIỀU TỐT ĐẸP</value>
+  </data>
+  <data name="A Stage for" xml:space="preserve">
+    <value>Sân khấu của</value>
+  </data>
+  <data name="A coffee bean sparked a series of magical journeys for KOI." xml:space="preserve">
+    <value>Một hạt cà phê đã mở đầu cho hành trình đầy cảm hứng của KOI.</value>
+  </data>
+  <data name="A cup of tea can start a conversation." xml:space="preserve">
+    <value>Một ly trà có thể mở đầu câu chuyện.</value>
+  </data>
+  <data name="A global platform that celebrates craftsmanship, innovation, and excellence." xml:space="preserve">
+    <value>Sân chơi toàn cầu tôn vinh tay nghề, sự sáng tạo và tinh thần xuất sắc.</value>
+  </data>
+  <data name="A little care in every cup" xml:space="preserve">
+    <value>Chút quan tâm trong từng ly trà</value>
+  </data>
+  <data name="A new Beat of vibrancy! Injected new vitality into our original hand-drawn logo, reflecting KOI's pursuit of professionalism and constant innovation." xml:space="preserve">
+    <value>Một nhịp điệu mới đầy sức sống! Logo vẽ tay được làm mới, thể hiện tinh thần chuyên nghiệp và đổi mới không ngừng của KOI.</value>
+  </data>
+  <data name="A simple act of kindness can bring a community together." xml:space="preserve">
+    <value>Một hành động tử tế có thể gắn kết cả cộng đồng.</value>
+  </data>
+  <data name="A supportive culture built on collaboration and shared success." xml:space="preserve">
+    <value>Văn hóa hỗ trợ lẫn nhau, xây dựng từ hợp tác và thành công chung.</value>
+  </data>
+  <data name="ABOUT" xml:space="preserve">
+    <value>GIỚI THIỆU</value>
+  </data>
+  <data name="ALL" xml:space="preserve">
+    <value>TẤT CẢ</value>
+  </data>
+  <data name="AREA EXCLUSIVE" xml:space="preserve">
+    <value>HƯƠNG VỊ TỪNG VÙNG</value>
+  </data>
+  <data name="AUSTRALIA" xml:space="preserve">
+    <value>ÚC</value>
+  </data>
+  <data name="About__text" xml:space="preserve">
+    <value>Giới thiệu</value>
+  </data>
+  <data name="About KOI Thé" xml:space="preserve">
+    <value>Về KOI Thé</value>
+  </data>
+  <data name="Actively engaging with local communities and fostering meaningful connections with the people we serve." xml:space="preserve">
+    <value>Chủ động tham gia cộng đồng địa phương, xây dựng kết nối ý nghĩa với những người chúng tôi phục vụ.</value>
+  </data>
+  <data name="Additional benefits include operations bonuses, housing allowances, regional allowances, home traveling allowances, tax subsidies, health checkup subsidies, medical insurance, annual gifts, and so on." xml:space="preserve">
+    <value>Các phúc lợi khác bao gồm thưởng vận hành, phụ cấp nhà ở, khu vực, về thăm nhà, hỗ trợ thuế, khám sức khỏe, bảo hiểm y tế, quà tặng hằng năm và nhiều quyền lợi khác.</value>
+  </data>
+  <data name="After sales service" xml:space="preserve">
+    <value>Chăm sóc sau bán hàng</value>
+  </data>
+  <data name="All__text" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="All rights reserved." xml:space="preserve">
+    <value>Bảo lưu mọi quyền.</value>
+  </data>
+  <data name="Annual Company Trip" xml:space="preserve">
+    <value>Du lịch công ty hằng năm</value>
+  </data>
+  <data name="Annual leave: 10-30 days" xml:space="preserve">
+    <value>Nghỉ phép năm: 10–30 ngày</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Ứng tuyển</value>
+  </data>
+  <data name="Apply NOW！" xml:space="preserve">
+    <value>Ứng tuyển NGAY！</value>
+  </data>
+  <data name="Apply Now" xml:space="preserve">
+    <value>Ứng tuyển ngay</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Khu vực</value>
+  </data>
+  <data name="Area Manager" xml:space="preserve">
+    <value>Quản lý khu vực</value>
+  </data>
+  <data name="Asia-Pac" xml:space="preserve">
+    <value>Châu Á – Thái Bình Dương</value>
+  </data>
+  <data name="At KOI, we cherish every encounter and believe that even" xml:space="preserve">
+    <value>Tại KOI, chúng tôi trân trọng từng cuộc gặp và tin rằng</value>
+  </data>
+  <data name="Australia__text" xml:space="preserve">
+    <value>Úc</value>
+  </data>
+  <data name="BANGLADESH" xml:space="preserve">
+    <value>BANGLADESH</value>
+  </data>
+  <data name="BEHIND THE" xml:space="preserve">
+    <value>ĐẰNG SAU</value>
+  </data>
+  <data name="BRAND MAP" xml:space="preserve">
+    <value>BẢN ĐỒ THƯƠNG HIỆU</value>
+  </data>
+  <data name="BREWING A BETTER" xml:space="preserve">
+    <value>PHA TRÀ CHO</value>
+  </data>
+  <data name="BRUNEI" xml:space="preserve">
+    <value>BRUNEI</value>
+  </data>
+  <data name="BUILDS TRUST" xml:space="preserve">
+    <value>TẠO NÊN NIỀM TIN</value>
+  </data>
+  <data name="BUSINESS" xml:space="preserve">
+    <value>HỢP TÁC</value>
+  </data>
+  <data name="BY THE NUMBERS" xml:space="preserve">
+    <value>NHỮNG CON SỐ</value>
+  </data>
+  <data name="Back to KOI Thé →" xml:space="preserve">
+    <value>Về trang chủ KOI Thé →</value>
+  </data>
+  <data name="Back to Our Tea" xml:space="preserve">
+    <value>Quay lại Trà của KOI</value>
+  </data>
+  <data name="Back to impact list" xml:space="preserve">
+    <value>Quay lại các cam kết</value>
+  </data>
+  <data name="Back to news" xml:space="preserve">
+    <value>Quay lại tin tức</value>
+  </data>
+  <data name="Back to video list" xml:space="preserve">
+    <value>Quay lại danh sách video</value>
+  </data>
+  <data name="Bangladesh__text" xml:space="preserve">
+    <value>Bangladesh</value>
+  </data>
+  <data name="Base Salary" xml:space="preserve">
+    <value>Lương cơ bản</value>
+  </data>
+  <data name="Based on our past experience, the total initial investment is approximately USD 300,000." xml:space="preserve">
+    <value>Theo kinh nghiệm của chúng tôi, tổng vốn đầu tư ban đầu khoảng 300.000 USD.</value>
+  </data>
+  <data name="Behind every consistently crafted cup is a commitment to sourcing the right ingredients. From carefully selected tea leaves to the production of our signature bubbles, every ingredient is managed under consistent quality standards to ensure trust begins at the source. With the establishment of our own pearl production facility, we have strengthened our ability to manage quality, specifications, and supply stability—ensuring every bubble served meets KOI’s standards." xml:space="preserve">
+    <value>Đằng sau mỗi ly trà đồng nhất là cam kết chọn đúng nguyên liệu. Từ lá trà được tuyển chọn đến trân châu đặc trưng, mọi nguyên liệu đều được quản lý theo tiêu chuẩn chất lượng nhất quán để niềm tin bắt đầu từ nguồn gốc. Việc xây dựng nhà máy sản xuất trân châu riêng giúp chúng tôi chủ động hơn về chất lượng, quy cách và nguồn cung, bảo đảm mỗi hạt trân châu đều đáp ứng tiêu chuẩn KOI.</value>
+  </data>
+  <data name="Beyond professional development, we care deeply about the well-being and connection of our people. Through company trips, annual celebrations, team-building activities, and community initiatives, we create opportunities for meaningful connection, shared experiences, and positive impact. Together, we foster a culture where people feel valued, supported, and inspired to grow." xml:space="preserve">
+    <value>Bên cạnh phát triển chuyên môn, chúng tôi quan tâm đến sức khỏe và sự gắn kết của đội ngũ. Qua du lịch công ty, lễ hội hằng năm, hoạt động tập thể và sáng kiến cộng đồng, chúng tôi tạo nên những kết nối ý nghĩa, trải nghiệm chung và tác động tích cực. Cùng nhau, chúng tôi xây dựng môi trường để mỗi người cảm thấy được trân trọng, hỗ trợ và truyền cảm hứng phát triển.</value>
+  </data>
+  <data name="Black Tea" xml:space="preserve">
+    <value>Hồng trà</value>
+  </data>
+  <data name="Brand Collaboration" xml:space="preserve">
+    <value>Hợp tác thương hiệu</value>
+  </data>
+  <data name="Brown Sugar" xml:space="preserve">
+    <value>Đường đen</value>
+  </data>
+  <data name="Brunei__text" xml:space="preserve">
+    <value>Brunei</value>
+  </data>
+  <data name="Business Activities Description" xml:space="preserve">
+    <value>Mô tả hoạt động kinh doanh</value>
+  </data>
+  <data name="Business cooperation" xml:space="preserve">
+    <value>Hợp tác kinh doanh</value>
+  </data>
+  <data name="Business partnership inquiry" xml:space="preserve">
+    <value>Yêu cầu hợp tác kinh doanh</value>
+  </data>
+  <data name="By investing in training and development, we empower our teams to uphold the craftsmanship that defines KOI – while growing together as a global community." xml:space="preserve">
+    <value>Bằng việc đầu tư cho đào tạo và phát triển, chúng tôi giúp đội ngũ gìn giữ tay nghề làm nên KOI và cùng trưởng thành trong một cộng đồng toàn cầu.</value>
+  </data>
+  <data name="By opening our doors to young explorers and local communities, we share the story behind every cup — from tea craftsmanship to the values that define KOI. Through hands-on experiences, we inspire curiosity and create meaningful connections with our brand." xml:space="preserve">
+    <value>Mở cửa đón các bạn nhỏ và cộng đồng địa phương, chúng tôi kể câu chuyện đằng sau từng ly trà: từ tay nghề pha chế đến giá trị KOI. Qua những trải nghiệm thực tế, chúng tôi khơi dậy trí tò mò và xây dựng kết nối ý nghĩa với thương hiệu.</value>
+  </data>
+  <data name="By supporting initiatives that promote respect, inclusion, and empathy, we hope to inspire positive values and encourage meaningful conversations that strengthen our communities." xml:space="preserve">
+    <value>Bằng việc hỗ trợ các sáng kiến đề cao sự tôn trọng, hòa nhập và đồng cảm, chúng tôi hy vọng lan tỏa giá trị tích cực và khơi mở những câu chuyện giúp cộng đồng thêm gắn kết.</value>
+  </data>
+  <data name="By supporting meaningful community initiatives, we extend kindness beyond every cup and bring warmth and care to the communities we serve." xml:space="preserve">
+    <value>Hỗ trợ các sáng kiến cộng đồng có ý nghĩa giúp chúng tôi mang lòng tốt, sự ấm áp và quan tâm vượt ra ngoài ly trà.</value>
+  </data>
+  <data name="CAMBODIA" xml:space="preserve">
+    <value>CAMPUCHIA</value>
+  </data>
+  <data name="CANADA" xml:space="preserve">
+    <value>CANADA</value>
+  </data>
+  <data name="CAREER GROWTH" xml:space="preserve">
+    <value>PHÁT TRIỂN SỰ NGHIỆP</value>
+  </data>
+  <data name="CHEWY TEA" xml:space="preserve">
+    <value>TRÀ KÈM TOPPING</value>
+  </data>
+  <data name="CHINA" xml:space="preserve">
+    <value>TRUNG QUỐC</value>
+  </data>
+  <data name="COMMUNITY" xml:space="preserve">
+    <value>GẮN KẾT</value>
+  </data>
+  <data name="CONNECTIONS THAT" xml:space="preserve">
+    <value>KẾT NỐI</value>
+  </data>
+  <data name="CONNECTIONS THATGO BEYOND THE CUP" xml:space="preserve">
+    <value>KẾT NỐI VƯỢT NGOÀI LY TRÀ</value>
+  </data>
+  <data name="CONSISTENCY" xml:space="preserve">
+    <value>ĐỒNG NHẤT</value>
+  </data>
+  <data name="CONTACT" xml:space="preserve">
+    <value>LIÊN HỆ</value>
+  </data>
+  <data name="CRAFT" xml:space="preserve">
+    <value>TAY NGHỀ</value>
+  </data>
+  <data name="CREATING POSITIVE IMPACT THROUGH EVERY CUP WE SERVE." xml:space="preserve">
+    <value>TẠO TÁC ĐỘNG TÍCH CỰC QUA TỪNG LY TRÀ.</value>
+  </data>
+  <data name="Cambodia__text" xml:space="preserve">
+    <value>Campuchia</value>
+  </data>
+  <data name="Canada__text" xml:space="preserve">
+    <value>Canada</value>
+  </data>
+  <data name="Careers at KOI Thé" xml:space="preserve">
+    <value>Cơ hội nghề nghiệp tại KOI Thé</value>
+  </data>
+  <data name="Carefully Selected" xml:space="preserve">
+    <value>Tuyển chọn kỹ lưỡng</value>
+  </data>
+  <data name="Carefully selecting every ingredient, with an unwavering commitment to quality and responsibility." xml:space="preserve">
+    <value>Tuyển chọn kỹ lưỡng từng nguyên liệu, kiên định với cam kết về chất lượng và trách nhiệm.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Chủ đề</value>
+  </data>
+  <data name="Certifications" xml:space="preserve">
+    <value>an toàn thực phẩm</value>
+  </data>
+  <data name="China__text" xml:space="preserve">
+    <value>Trung Quốc</value>
+  </data>
+  <data name="Choose a news article" xml:space="preserve">
+    <value>Chọn bài viết</value>
+  </data>
+  <data name="Choose your language" xml:space="preserve">
+    <value>Chọn ngôn ngữ</value>
+  </data>
+  <data name="Clear Promotion Pathway" xml:space="preserve">
+    <value>Lộ trình thăng tiến rõ ràng</value>
+  </data>
+  <data name="Clear career path encourage long-term professional growth." xml:space="preserve">
+    <value>Lộ trình nghề nghiệp rõ ràng khuyến khích phát triển chuyên môn lâu dài.</value>
+  </data>
+  <data name="Close navigation menu" xml:space="preserve">
+    <value>Đóng menu điều hướng</value>
+  </data>
+  <data name="Close store photo" xml:space="preserve">
+    <value>Đóng ảnh cửa hàng</value>
+  </data>
+  <data name="Collaborating with organizations and community partners to create positive and lasting impact together." xml:space="preserve">
+    <value>Hợp tác với các tổ chức và đối tác cộng đồng để cùng tạo nên tác động tích cực, lâu dài.</value>
+  </data>
+  <data name="Collaboration is currently not open for the following regions:" xml:space="preserve">
+    <value>Hiện chưa tiếp nhận hợp tác tại các thị trường:</value>
+  </data>
+  <data name="Colourful KOI travel magnet badges" xml:space="preserve">
+    <value>Bộ huy hiệu nam châm du lịch đầy màu sắc của KOI</value>
+  </data>
+  <data name="Comments / Please state any relevant experience you believe will help enable you to succeed with KOI given the Business Arrangement(s) you have mentioned in previous section." xml:space="preserve">
+    <value>Ý kiến / Kinh nghiệm liên quan có thể giúp bạn thành công khi hợp tác cùng KOI theo hình thức đã đề xuất.</value>
+  </data>
+  <data name="Commitment {0}" xml:space="preserve">
+    <value>Cam kết {0}</value>
+  </data>
+  <data name="Community Clean-Up Initiative" xml:space="preserve">
+    <value>Chung tay làm sạch cộng đồng</value>
+  </data>
+  <data name="Company Name" xml:space="preserve">
+    <value>Tên doanh nghiệp</value>
+  </data>
+  <data name="Company Website" xml:space="preserve">
+    <value>Website doanh nghiệp</value>
+  </data>
+  <data name="Comprehensive Salary Benefits" xml:space="preserve">
+    <value>Chế độ lương và phúc lợi toàn diện</value>
+  </data>
+  <data name="Connections" xml:space="preserve">
+    <value>Kết nối</value>
+  </data>
+  <data name="Consistency is achieved through attention to detail. From tea measurements and brewing time to sweetness and ice level controls, every step follows standardized procedures to ensure the signature taste and quality that customers expect from KOI." xml:space="preserve">
+    <value>Chất lượng đồng nhất đến từ sự chú ý đến từng chi tiết. Từ lượng trà, thời gian ủ đến độ ngọt và lượng đá, mọi bước đều tuân theo quy trình chuẩn để giữ hương vị và chất lượng KOI mà khách hàng mong đợi.</value>
+  </data>
+  <data name="Consistent Quality Standards" xml:space="preserve">
+    <value>Tiêu chuẩn chất lượng đồng nhất</value>
+  </data>
+  <data name="Contact__text" xml:space="preserve">
+    <value>Liên hệ</value>
+  </data>
+  <data name="Contact Number" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="Continuous learning opportunities to strengthen professional skills and knowledge." xml:space="preserve">
+    <value>Cơ hội học tập liên tục để nâng cao kỹ năng và kiến thức chuyên môn.</value>
+  </data>
+  <data name="Copy link ↗" xml:space="preserve">
+    <value>Sao chép liên kết ↗</value>
+  </data>
+  <data name="Copy the address from your browser to share this article." xml:space="preserve">
+    <value>Sao chép địa chỉ trên trình duyệt để chia sẻ bài viết.</value>
+  </data>
+  <data name="Country of Residence" xml:space="preserve">
+    <value>Quốc gia cư trú</value>
+  </data>
+  <data name="Country social media" xml:space="preserve">
+    <value>Mạng xã hội theo quốc gia</value>
+  </data>
+  <data name="Crafting every cup with precision to deliver a consistent and trusted experience." xml:space="preserve">
+    <value>Pha chế chính xác từng ly trà để mang đến chất lượng đồng nhất và trải nghiệm đáng tin cậy.</value>
+  </data>
+  <data name="Cups of Quality" xml:space="preserve">
+    <value>Ly trà</value>
+  </data>
+  <data name="Curiosity" xml:space="preserve">
+    <value>sự tò mò</value>
+  </data>
+  <data name="DELICIOUS" xml:space="preserve">
+    <value>TRÂN CHÂU</value>
+  </data>
+  <data name="DO NOT send your resume to both portals." xml:space="preserve">
+    <value>Không gửi hồ sơ đồng thời đến cả hai kênh.</value>
+  </data>
+  <data name="DRINK" xml:space="preserve">
+    <value>ĐỒ UỐNG</value>
+  </data>
+  <data name="DRINK CLASSIFICATION" xml:space="preserve">
+    <value>DANH MỤC ĐỒ UỐNG</value>
+  </data>
+  <data name="DUBAI" xml:space="preserve">
+    <value>DUBAI</value>
+  </data>
+  <data name="Do you have the experience in running a chain store?" xml:space="preserve">
+    <value>Bạn có kinh nghiệm vận hành chuỗi cửa hàng không?</value>
+  </data>
+  <data name="Drink categories, scroll horizontally" xml:space="preserve">
+    <value>Danh mục đồ uống, cuộn theo chiều ngang</value>
+  </data>
+  <data name="Dubai__text" xml:space="preserve">
+    <value>Dubai</value>
+  </data>
+  <data name="E-Mail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="E-mail__text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EN" xml:space="preserve">
+    <value>EN</value>
+  </data>
+  <data name="ENGAGEMENT" xml:space="preserve">
+    <value>CỘNG ĐỒNG</value>
+  </data>
+  <data name="ENGLISH" xml:space="preserve">
+    <value>ENGLISH</value>
+  </data>
+  <data name="EXPLORE KOI" xml:space="preserve">
+    <value>KHÁM PHÁ KOI</value>
+  </data>
+  <data name="Europe/UK" xml:space="preserve">
+    <value>Châu Âu/Anh</value>
+  </data>
+  <data name="Every Cup Has a Greater" xml:space="preserve">
+    <value>Mỗi ly trà mang một</value>
+  </data>
+  <data name="Every KOI drink is crafted with precision – not only to" xml:space="preserve">
+    <value>Mỗi thức uống KOI đều được pha chế chính xác,</value>
+  </data>
+  <data name="Excellence" xml:space="preserve">
+    <value>sự xuất sắc</value>
+  </data>
+  <data name="Expanded navigation" xml:space="preserve">
+    <value>Menu mở rộng</value>
+  </data>
+  <data name="Expanding into Europe, marking the grand opening of our first store in Paris." xml:space="preserve">
+    <value>KOI mở rộng đến châu Âu, khai trương cửa hàng đầu tiên tại Paris.</value>
+  </data>
+  <data name="Expanding into Oceania, with the grand opening of our first store in Sydney" xml:space="preserve">
+    <value>KOI mở rộng đến châu Đại Dương, khai trương cửa hàng đầu tiên tại Sydney.</value>
+  </data>
+  <data name="Explore more" xml:space="preserve">
+    <value>Khám phá thêm</value>
+  </data>
+  <data name="Explore new drinks" xml:space="preserve">
+    <value>Khám phá đồ uống mới</value>
+  </data>
+  <data name="Explore the KOI story" xml:space="preserve">
+    <value>Khám phá câu chuyện KOI</value>
+  </data>
+  <data name="Explore the menu" xml:space="preserve">
+    <value>Khám phá thực đơn</value>
+  </data>
+  <data name="Extending warmth beyond every cup to create meaningful connections within our communities." xml:space="preserve">
+    <value>Lan tỏa sự ấm áp từ từng ly trà, tạo nên những kết nối ý nghĩa trong cộng đồng.</value>
+  </data>
+  <data name="FIND YOUR DAILY FAVOURITE" xml:space="preserve">
+    <value>TÌM HƯƠNG VỊ YÊU THÍCH MỖI NGÀY</value>
+  </data>
+  <data name="FINE INGREDIENTS" xml:space="preserve">
+    <value>NGUYÊN LIỆU TINH TÚY</value>
+  </data>
+  <data name="FLAVORED TEA" xml:space="preserve">
+    <value>TRÀ NGUYÊN VỊ</value>
+  </data>
+  <data name="FOUNDATIONS" xml:space="preserve">
+    <value>NỀN TẢNG</value>
+  </data>
+  <data name="FRAGRANCE" xml:space="preserve">
+    <value>HƯƠNG THƠM</value>
+  </data>
+  <data name="FRANCE" xml:space="preserve">
+    <value>PHÁP</value>
+  </data>
+  <data name="FROM CONTINUOUS LEARNING TO SHARED GROWTH." xml:space="preserve">
+    <value>TỪ HỌC HỎI KHÔNG NGỪNG ĐẾN CÙNG NHAU PHÁT TRIỂN.</value>
+  </data>
+  <data name="FROM GENUINE CONNECTIONS TO STRONGER COMMUNITIES." xml:space="preserve">
+    <value>TỪ KẾT NỐI CHÂN THÀNH ĐẾN CỘNG ĐỒNG VỮNG MẠNH.</value>
+  </data>
+  <data name="FROM SOURCE" xml:space="preserve">
+    <value>TỪ NGUỒN GỐC</value>
+  </data>
+  <data name="Family Name" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="Feature 1" xml:space="preserve">
+    <value>Điểm nổi bật 1</value>
+  </data>
+  <data name="Feature 2" xml:space="preserve">
+    <value>Điểm nổi bật 2</value>
+  </data>
+  <data name="Feature 3" xml:space="preserve">
+    <value>Điểm nổi bật 3</value>
+  </data>
+  <data name="Feature 4" xml:space="preserve">
+    <value>Điểm nổi bật 4</value>
+  </data>
+  <data name="Feature 5" xml:space="preserve">
+    <value>Điểm nổi bật 5</value>
+  </data>
+  <data name="Feature pagination" xml:space="preserve">
+    <value>Chọn nội dung nổi bật</value>
+  </data>
+  <data name="Features pagination" xml:space="preserve">
+    <value>Chọn điểm nổi bật</value>
+  </data>
+  <data name="Filter stores" xml:space="preserve">
+    <value>Lọc cửa hàng</value>
+  </data>
+  <data name="Find a KOI store" xml:space="preserve">
+    <value>Tìm cửa hàng KOI</value>
+  </data>
+  <data name="Find stores by country" xml:space="preserve">
+    <value>Tìm cửa hàng theo quốc gia</value>
+  </data>
+  <data name="First Name" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="Food Safety" xml:space="preserve">
+    <value>Chứng nhận</value>
+  </data>
+  <data name="Footer navigation" xml:space="preserve">
+    <value>Điều hướng chân trang</value>
+  </data>
+  <data name="Form preview. Sending is not enabled." xml:space="preserve">
+    <value>Biểu mẫu xem trước. Chức năng gửi chưa được bật.</value>
+  </data>
+  <data name="France__text" xml:space="preserve">
+    <value>Pháp</value>
+  </data>
+  <data name="Franchise Requests" xml:space="preserve">
+    <value>Đề nghị nhượng quyền</value>
+  </data>
+  <data name="Fresh Milk" xml:space="preserve">
+    <value>Sữa tươi</value>
+  </data>
+  <data name="Freshly brewed milk tea turning as you scroll" xml:space="preserve">
+    <value>Ly trà sữa pha mới xoay theo thao tác cuộn</value>
+  </data>
+  <data name="Freshly-picked tea leaves are meticulously chosen to create a tea that satisfies even the most discerning palate. Golden Bubbles are made from natural ingredients and cooked at varying temperatures to ensure their distinctive golden sheen and delightful chewiness." xml:space="preserve">
+    <value>Những lá trà tươi được chọn lựa kỹ lưỡng để làm hài lòng cả người thưởng trà khó tính. Trân châu hoàng kim được làm từ nguyên liệu tự nhiên, nấu ở những mức nhiệt khác nhau để có sắc vàng đặc trưng và độ dai mềm hấp dẫn.</value>
+  </data>
+  <data name="From Nature" xml:space="preserve">
+    <value>Từ thiên nhiên</value>
+  </data>
+  <data name="From carefully crafted processes to consistent quality." xml:space="preserve">
+    <value>Từ quy trình tỉ mỉ đến chất lượng đồng nhất.</value>
+  </data>
+  <data name="From product knowledge and service excellence to tea craftsmanship and brand values, we provide structured training and learning opportunities that help our people develop professionally while embracing the standards and spirit that define KOI." xml:space="preserve">
+    <value>Từ kiến thức sản phẩm, chất lượng phục vụ đến nghệ thuật pha trà và giá trị thương hiệu, chúng tôi tổ chức đào tạo bài bản để đội ngũ phát triển chuyên môn và thấm nhuần tiêu chuẩn, tinh thần của KOI.</value>
+  </data>
+  <data name="From supply chain management to product integrity, we ensure that every cup reflects our commitment to both excellence and sustainability." xml:space="preserve">
+    <value>Từ quản lý chuỗi cung ứng đến chất lượng sản phẩm, mỗi ly trà đều thể hiện cam kết về sự xuất sắc và phát triển bền vững.</value>
+  </data>
+  <data name="From tea gardens to tea cups, from our people to our communities, KOI believes every cup is an opportunity to create something meaningful." xml:space="preserve">
+    <value>Từ vườn trà đến ly trà, từ đội ngũ đến cộng đồng, KOI tin mỗi ly trà đều là cơ hội tạo nên điều ý nghĩa.</value>
+  </data>
+  <data name="From trusted ingredients to every cup we proudly serve." xml:space="preserve">
+    <value>Từ nguyên liệu đáng tin đến từng ly trà tự hào phục vụ.</value>
+  </data>
+  <data name="From trusted origins to careful selection, every ingredient is chosen with quality in mind." xml:space="preserve">
+    <value>Từ nguồn gốc rõ ràng đến khâu tuyển chọn, mỗi nguyên liệu đều được lựa chọn với tiêu chí chất lượng.</value>
+  </data>
+  <data name="From trusted origins to lasting confidence." xml:space="preserve">
+    <value>Từ nguồn gốc đáng tin đến niềm tin bền vững.</value>
+  </data>
+  <data name="GIVING BACK" xml:space="preserve">
+    <value>SẺ CHIA</value>
+  </data>
+  <data name="GLOBAL EXPOSURE" xml:space="preserve">
+    <value>TRẢI NGHIỆM QUỐC TẾ</value>
+  </data>
+  <data name="GO BEYOND THE CUP" xml:space="preserve">
+    <value>VƯỢT NGOÀI LY TRÀ</value>
+  </data>
+  <data name="GOLDEN BUBBLE" xml:space="preserve">
+    <value>HOÀNG KIM</value>
+  </data>
+  <data name="GOLDEN BUBBLE MILK TEA" xml:space="preserve">
+    <value>TRÀ SỮA TRÂN CHÂU HOÀNG KIM</value>
+  </data>
+  <data name="GROW TOGETHER" xml:space="preserve">
+    <value>PHÁT TRIỂN</value>
+  </data>
+  <data name="Giving back through charitable initiatives and community support, extending care to those who need it most." xml:space="preserve">
+    <value>Đóng góp qua hoạt động thiện nguyện và hỗ trợ cộng đồng, mang sự quan tâm đến những người cần nhất.</value>
+  </data>
+  <data name="Golden Bubble__text" xml:space="preserve">
+    <value>Trân châu hoàng kim</value>
+  </data>
+  <data name="Golden Bubble Milk Tea__text" xml:space="preserve">
+    <value>Trà sữa trân châu hoàng kim</value>
+  </data>
+  <data name="Google map" xml:space="preserve">
+    <value>Chỉ đường</value>
+  </data>
+  <data name="HEART-WARMING" xml:space="preserve">
+    <value>PHỤC VỤ</value>
+  </data>
+  <data name="HOME" xml:space="preserve">
+    <value>TRANG CHỦ</value>
+  </data>
+  <data name="HONEY GREEN TEA" xml:space="preserve">
+    <value>LỤC TRÀ MẬT ONG</value>
+  </data>
+  <data name="HQ New Product Showcase" xml:space="preserve">
+    <value>Giới thiệu sản phẩm mới tại trụ sở</value>
+  </data>
+  <data name="HQ Spring Training" xml:space="preserve">
+    <value>Đào tạo mùa xuân tại trụ sở</value>
+  </data>
+  <data name="Happiness is to share special moments with friends. A celebration, a date or just a relaxing break in the day, there is always a reason to get together around a cup of KOI tea. KOI brings joy to the world. Freshly brewed tea and flavorful ingredients, prepared with passion are the key to KOI’s authentic taste and the reason why people come back again and again." xml:space="preserve">
+    <value>Hạnh phúc là sẻ chia những khoảnh khắc đặc biệt cùng bạn bè. Dù là một buổi gặp gỡ, một cuộc hẹn hay phút nghỉ ngơi trong ngày, luôn có lý do để quây quần bên một ly trà KOI. KOI mang niềm vui đến với mọi người. Trà pha mới cùng nguyên liệu thơm ngon, được chuẩn bị bằng sự tận tâm, tạo nên hương vị KOI đặc trưng và khiến khách hàng muốn quay lại nhiều lần.</value>
+  </data>
+  <data name="Have you ever owned or managed a retail F&amp;B business?" xml:space="preserve">
+    <value>Bạn đã từng sở hữu hoặc quản lý doanh nghiệp bán lẻ F&amp;B chưa?</value>
+  </data>
+  <data name="Honey Green Tea__text" xml:space="preserve">
+    <value>Lục trà mật ong</value>
+  </data>
+  <data name="IMPACT" xml:space="preserve">
+    <value>TÁC ĐỘNG</value>
+  </data>
+  <data name="IN ACTION" xml:space="preserve">
+    <value>HÀNH ĐỘNG</value>
+  </data>
+  <data name="INDONESIA" xml:space="preserve">
+    <value>INDONESIA</value>
+  </data>
+  <data name="INTERNATIONAL HEADQUARTERS" xml:space="preserve">
+    <value>TRỤ SỞ QUỐC TẾ</value>
+  </data>
+  <data name="Ice Cubes" xml:space="preserve">
+    <value>Đá viên</value>
+  </data>
+  <data name="Impact__text" xml:space="preserve">
+    <value>Tác động tích cực</value>
+  </data>
+  <data name="In order to ensure that every sip of tea delivers a delightful and refined taste experience, the training of our tea baristas involves meticulous practice in every detail, from the precise use of ice and tea quantity to the consistent shaking gestures. Only through such dedication can the intricate nuances of a good tea be consistently expressed, creating a lingering and memorable aftertaste with each sip." xml:space="preserve">
+    <value>Để mỗi ngụm trà đều mang đến trải nghiệm tinh tế, đội ngũ pha chế của chúng tôi luyện tập kỹ lưỡng từng chi tiết: lượng đá, lượng trà và động tác lắc đều nhất quán. Sự tận tâm ấy giúp lưu giữ những tầng hương vị của trà ngon và để lại dư vị đáng nhớ.</value>
+  </data>
+  <data name="Incorporation Date" xml:space="preserve">
+    <value>Ngày thành lập</value>
+  </data>
+  <data name="Indonesia__text" xml:space="preserve">
+    <value>Indonesia</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>nguyên liệu</value>
+  </data>
+  <data name="Inquiry type" xml:space="preserve">
+    <value>Loại yêu cầu</value>
+  </data>
+  <data name="Inspiring Change" xml:space="preserve">
+    <value>Truyền cảm hứng thay đổi</value>
+  </data>
+  <data name="International opportunities that connect our people across markets." xml:space="preserve">
+    <value>Cơ hội quốc tế kết nối đội ngũ tại nhiều thị trường.</value>
+  </data>
+  <data name="Investing in our people to nurture talent and carry forward the spirit of craftsmanship." xml:space="preserve">
+    <value>Đầu tư cho con người để phát triển tài năng và tiếp nối tinh thần tận tâm trong nghề.</value>
+  </data>
+  <data name="JAPAN" xml:space="preserve">
+    <value>NHẬT BẢN</value>
+  </data>
+  <data name="JUICE" xml:space="preserve">
+    <value>NƯỚC ÉP</value>
+  </data>
+  <data name="Japan__text" xml:space="preserve">
+    <value>Nhật Bản</value>
+  </data>
+  <data name="Job Seeking" xml:space="preserve">
+    <value>Ứng tuyển</value>
+  </data>
+  <data name="Job Title" xml:space="preserve">
+    <value>Chức danh</value>
+  </data>
+  <data name="Job post on 104 portal" xml:space="preserve">
+    <value>Tin tuyển dụng trên cổng 104</value>
+  </data>
+  <data name="KOI Group reserves the right, at our sole discretion, to change," xml:space="preserve">
+    <value>Tập đoàn KOI có quyền thay đổi,</value>
+  </data>
+  <data name="KOI Thé" xml:space="preserve">
+    <value>KOI Thé</value>
+  </data>
+  <data name="KOI Thé Cambodia donated beverages and school supplies to a community kindergarten, supporting children's education." xml:space="preserve">
+    <value>KOI Thé Campuchia tặng thức uống và đồ dùng học tập cho một trường mẫu giáo cộng đồng, góp phần hỗ trợ việc học của trẻ.</value>
+  </data>
+  <data name="KOI Thé China partnered with the Treasure House Project to create a safe and nurturing space for community children." xml:space="preserve">
+    <value>KOI Thé Trung Quốc đồng hành cùng dự án Treasure House để tạo không gian an toàn, nuôi dưỡng trẻ em trong cộng đồng.</value>
+  </data>
+  <data name="KOI Thé Indonesia shared care, kindness, and joyful moments with children." xml:space="preserve">
+    <value>KOI Thé Indonesia mang sự quan tâm, lòng tốt và những khoảnh khắc vui tươi đến với trẻ em.</value>
+  </data>
+  <data name="KOI Thé Japan organized a community clean-up in Ikebukuro, supporting a cleaner environment and local community." xml:space="preserve">
+    <value>KOI Thé Nhật Bản tổ chức dọn vệ sinh tại Ikebukuro, góp phần xây dựng môi trường sạch đẹp cho cộng đồng địa phương.</value>
+  </data>
+  <data name="KOI Thé Malaysia partnered with a local film to launch the Kindness Wall campaign, spreading kindness and raising awareness about anti-bullying." xml:space="preserve">
+    <value>KOI Thé Malaysia hợp tác với một bộ phim địa phương để triển khai chiến dịch Bức tường Tử tế, lan tỏa lòng tốt và nâng cao nhận thức về phòng chống bắt nạt.</value>
+  </data>
+  <data name="KOI Thé Thailand donated food, beverages, and daily necessities to the Foundation for the Blind, supporting people with visual impairments." xml:space="preserve">
+    <value>KOI Thé Thái Lan quyên góp thực phẩm, thức uống và nhu yếu phẩm cho quỹ hỗ trợ người khiếm thị.</value>
+  </data>
+  <data name="KOI Thé home" xml:space="preserve">
+    <value>Trang chủ KOI Thé</value>
+  </data>
+  <data name="KOI Thé introduction" xml:space="preserve">
+    <value>Giới thiệu KOI Thé</value>
+  </data>
+  <data name="KOI Thé video" xml:space="preserve">
+    <value>Video KOI Thé</value>
+  </data>
+  <data name="KOI Thé — Your Daily Beat" xml:space="preserve">
+    <value>KOI Thé — Nhịp vui mỗi ngày</value>
+  </data>
+  <data name="Kindness Wall Campaign" xml:space="preserve">
+    <value>Chiến dịch Bức tường Tử tế</value>
+  </data>
+  <data name="LAOS" xml:space="preserve">
+    <value>LÀO</value>
+  </data>
+  <data name="LEARNING &amp; DEVELOPMENT" xml:space="preserve">
+    <value>HỌC TẬP VÀ PHÁT TRIỂN</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="Laos__text" xml:space="preserve">
+    <value>Lào</value>
+  </data>
+  <data name="Latest news" xml:space="preserve">
+    <value>Tin mới nhất</value>
+  </data>
+  <data name="Latte" xml:space="preserve">
+    <value>Latte</value>
+  </data>
+  <data name="Launching into North America under the FIFTYLAN brand, with the grand opening of the New York store." xml:space="preserve">
+    <value>KOI tiến vào Bắc Mỹ với thương hiệu FIFTYLAN và khai trương cửa hàng tại New York.</value>
+  </data>
+  <data name="Learning Never Stops" xml:space="preserve">
+    <value>Học hỏi không ngừng</value>
+  </data>
+  <data name="Let's try that again." xml:space="preserve">
+    <value>Vui lòng thử lại.</value>
+  </data>
+  <data name="Link copied" xml:space="preserve">
+    <value>Đã sao chép liên kết</value>
+  </data>
+  <data name="Location allowance / housing allowance / Home travel allowance / Tax rebate / Annual health check-up" xml:space="preserve">
+    <value>Phụ cấp khu vực / nhà ở / về thăm nhà / hoàn thuế / khám sức khỏe hằng năm</value>
+  </data>
+  <data name="MALAYSIA" xml:space="preserve">
+    <value>MALAYSIA</value>
+  </data>
+  <data name="MASTERS" xml:space="preserve">
+    <value>PHA TRÀ</value>
+  </data>
+  <data name="MEANINGFUL" xml:space="preserve">
+    <value>HỢP TÁC</value>
+  </data>
+  <data name="MEDIA" xml:space="preserve">
+    <value>TRUYỀN THÔNG</value>
+  </data>
+  <data name="MENU" xml:space="preserve">
+    <value>THỰC ĐƠN</value>
+  </data>
+  <data name="MILK TEA" xml:space="preserve">
+    <value>TRÀ SỮA</value>
+  </data>
+  <data name="MOMENTS" xml:space="preserve">
+    <value>KHOẢNH KHẮC</value>
+  </data>
+  <data name="MORE ↗" xml:space="preserve">
+    <value>THÊM ↗</value>
+  </data>
+  <data name="Macchiato" xml:space="preserve">
+    <value>Macchiato</value>
+  </data>
+  <data name="Made with care. Shared with joy." xml:space="preserve">
+    <value>Tận tâm pha chế. Niềm vui sẻ chia.</value>
+  </data>
+  <data name="Main navigation" xml:space="preserve">
+    <value>Điều hướng chính</value>
+  </data>
+  <data name="Malaysia__text" xml:space="preserve">
+    <value>Malaysia</value>
+  </data>
+  <data name="Management" xml:space="preserve">
+    <value>Quản lý</value>
+  </data>
+  <data name="Managing" xml:space="preserve">
+    <value>Quản lý</value>
+  </data>
+  <data name="Markets" xml:space="preserve">
+    <value>Thị trường</value>
+  </data>
+  <data name="Menu__text" xml:space="preserve">
+    <value>Thực đơn</value>
+  </data>
+  <data name="Menus by country" xml:space="preserve">
+    <value>Thực đơn theo quốc gia</value>
+  </data>
+  <data name="Milk Tea__text" xml:space="preserve">
+    <value>Trà sữa</value>
+  </data>
+  <data name="Moments That Matter" xml:space="preserve">
+    <value>Những khoảnh khắc ý nghĩa</value>
+  </data>
+  <data name="More than a beverage, each cup reflects our commitment to quality, our care for people, and our dedication to building a better future together." xml:space="preserve">
+    <value>Hơn cả một thức uống, mỗi ly trà thể hiện cam kết chất lượng, sự quan tâm đến con người và nỗ lực cùng xây dựng tương lai tốt đẹp.</value>
+  </data>
+  <data name="Multiple Stores" xml:space="preserve">
+    <value>Nhiều cửa hàng</value>
+  </data>
+  <data name="Multiple Territories" xml:space="preserve">
+    <value>Nhiều thị trường</value>
+  </data>
+  <data name="NEW DRINKS" xml:space="preserve">
+    <value>ĐỒ UỐNG MỚI</value>
+  </data>
+  <data name="NEWS" xml:space="preserve">
+    <value>TIN TỨC</value>
+  </data>
+  <data name="NOW!" xml:space="preserve">
+    <value>NGAY!</value>
+  </data>
+  <data name="NOW!”" xml:space="preserve">
+    <value>NGAY!”</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Họ tên</value>
+  </data>
+  <data name="New Country Partnership" xml:space="preserve">
+    <value>Đối tác tại quốc gia mới</value>
+  </data>
+  <data name="News__text" xml:space="preserve">
+    <value>Tin tức</value>
+  </data>
+  <data name="News categories" xml:space="preserve">
+    <value>Danh mục tin tức</value>
+  </data>
+  <data name="News pages" xml:space="preserve">
+    <value>Phân trang tin tức</value>
+  </data>
+  <data name="Next brand" xml:space="preserve">
+    <value>Thương hiệu tiếp theo</value>
+  </data>
+  <data name="Next drinks" xml:space="preserve">
+    <value>Đồ uống tiếp theo</value>
+  </data>
+  <data name="Next feature" xml:space="preserve">
+    <value>Điểm nổi bật tiếp theo</value>
+  </data>
+  <data name="Next milestone" xml:space="preserve">
+    <value>Cột mốc tiếp theo</value>
+  </data>
+  <data name="Next page" xml:space="preserve">
+    <value>Trang tiếp theo</value>
+  </data>
+  <data name="Next share" xml:space="preserve">
+    <value>Câu chuyện tiếp theo</value>
+  </data>
+  <data name="Next video" xml:space="preserve">
+    <value>Video tiếp theo</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="No stores match these filters. Choose another location or brand." xml:space="preserve">
+    <value>Không có cửa hàng phù hợp. Vui lòng chọn khu vực hoặc thương hiệu khác.</value>
+  </data>
+  <data name="No.8 Juice" xml:space="preserve">
+    <value>Nước ép số 8</value>
+  </data>
+  <data name="OF SHAKING" xml:space="preserve">
+    <value>KHI LẮC TRÀ</value>
+  </data>
+  <data name="OF TEA LEAVES" xml:space="preserve">
+    <value>CỦA LÁ TRÀ</value>
+  </data>
+  <data name="OUR" xml:space="preserve">
+    <value>TRÀ</value>
+  </data>
+  <data name="OUR BELIEF" xml:space="preserve">
+    <value>NIỀM TIN CỦA KOI</value>
+  </data>
+  <data name="OUR COMMITMENTS" xml:space="preserve">
+    <value>CAM KẾT CỦA KOI</value>
+  </data>
+  <data name="OUR QUALITY" xml:space="preserve">
+    <value>CHẤT LƯỢNG CỦA KOI</value>
+  </data>
+  <data name="OUR TEA" xml:space="preserve">
+    <value>TRÀ CỦA KOI</value>
+  </data>
+  <data name="Open navigation menu" xml:space="preserve">
+    <value>Mở menu điều hướng</value>
+  </data>
+  <data name="Operations" xml:space="preserve">
+    <value>Vận hành</value>
+  </data>
+  <data name="Operations Director/COO" xml:space="preserve">
+    <value>Giám đốc vận hành/COO</value>
+  </data>
+  <data name="Operations Manager" xml:space="preserve">
+    <value>Quản lý vận hành</value>
+  </data>
+  <data name="Other paid leave: sick leave, marriage leave, maternity leave, pregnancy checkup leave, paternity leave, compassionate leave." xml:space="preserve">
+    <value>Các chế độ nghỉ có lương khác: nghỉ ốm, kết hôn, thai sản, khám thai, chăm vợ sinh và tang chế.</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Khác</value>
+  </data>
+  <data name="Our Tea__text" xml:space="preserve">
+    <value>Trà của KOI</value>
+  </data>
+  <data name="PARTNERSHIP INQUIRY" xml:space="preserve">
+    <value>KINH DOANH</value>
+  </data>
+  <data name="PARTNERSHIPS" xml:space="preserve">
+    <value>Ý NGHĨA</value>
+  </data>
+  <data name="PAUSE" xml:space="preserve">
+    <value>TẠM DỪNG</value>
+  </data>
+  <data name="PEOPLE" xml:space="preserve">
+    <value>CON NGƯỜI</value>
+  </data>
+  <data name="PEOPLE BEHIND" xml:space="preserve">
+    <value>CON NGƯỜI</value>
+  </data>
+  <data name="PEOPLE BEHINDTHE CRAFT" xml:space="preserve">
+    <value>CON NGƯỜI LÀM NÊN TAY NGHỀ</value>
+  </data>
+  <data name="PHILIPPINES" xml:space="preserve">
+    <value>PHILIPPINES</value>
+  </data>
+  <data name="PLAY" xml:space="preserve">
+    <value>PHÁT</value>
+  </data>
+  <data name="PRECISION" xml:space="preserve">
+    <value>CHUẨN XÁC</value>
+  </data>
+  <data name="PRECISION AND" xml:space="preserve">
+    <value>CHÍNH XÁC VÀ</value>
+  </data>
+  <data name="PRECISIONBUILDS TRUST" xml:space="preserve">
+    <value>CHUẨN XÁC TẠO NÊN NIỀM TIN</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Trang {0}</value>
+  </data>
+  <data name="Page {0} of {1}" xml:space="preserve">
+    <value>Trang {0} / {1}</value>
+  </data>
+  <data name="Pause background video" xml:space="preserve">
+    <value>Tạm dừng video nền</value>
+  </data>
+  <data name="People__text" xml:space="preserve">
+    <value>Con người</value>
+  </data>
+  <data name="Perfected through repeated testing by our team, the ideal ratio elevates the deliciousness of our tea to another level, with each sip releasing just the right amount of sweet aroma." xml:space="preserve">
+    <value>Qua nhiều lần thử nghiệm, đội ngũ KOI tìm ra tỷ lệ lý tưởng giúp hương vị trà thêm trọn vẹn, để từng ngụm đều tỏa hương thơm ngọt vừa đủ.</value>
+  </data>
+  <data name="Philippines__text" xml:space="preserve">
+    <value>Philippines</value>
+  </data>
+  <data name="Photo of {0}" xml:space="preserve">
+    <value>Ảnh cửa hàng {0}</value>
+  </data>
+  <data name="Play background video" xml:space="preserve">
+    <value>Phát video nền</value>
+  </data>
+  <data name="Play video" xml:space="preserve">
+    <value>Phát video</value>
+  </data>
+  <data name="Please complete the following form and provide the relevant details to help us evaluate the collaboration and learn more about our overseas partnership opportunities." xml:space="preserve">
+    <value>Vui lòng điền biểu mẫu và cung cấp thông tin để chúng tôi tìm hiểu đề xuất hợp tác và cơ hội phát triển ở thị trường quốc tế.</value>
+  </data>
+  <data name="Please describe your answer briefly." xml:space="preserve">
+    <value>Vui lòng mô tả ngắn gọn câu trả lời.</value>
+  </data>
+  <data name="Please indicate the appropriate state, province, territory of country" xml:space="preserve">
+    <value>Vui lòng ghi rõ bang, tỉnh hoặc khu vực của quốc gia</value>
+  </data>
+  <data name="Please select your expected capital investment amount." xml:space="preserve">
+    <value>Vui lòng chọn số vốn dự kiến đầu tư.</value>
+  </data>
+  <data name="Please send your resume to Global Recruitment Team" xml:space="preserve">
+    <value>Vui lòng gửi hồ sơ đến đội ngũ tuyển dụng toàn cầu</value>
+  </data>
+  <data name="Precision__text" xml:space="preserve">
+    <value>Sự chuẩn xác</value>
+  </data>
+  <data name="Precision Begins with" xml:space="preserve">
+    <value>Sự chuẩn xác bắt đầu từ</value>
+  </data>
+  <data name="Precision goes beyond the brewing process—it represents our commitment to every customer. Through daily quality control checks, comprehensive quality management systems, and global operating standards, we continuously monitor product quality and operational consistency across our stores. This ensures every customer can enjoy the same trusted KOI experience, with every cup reflecting our dedication to quality and care." xml:space="preserve">
+    <value>Sự chuẩn xác vượt ra ngoài quá trình pha trà, thể hiện cam kết của chúng tôi với từng khách hàng. Qua kiểm tra chất lượng hằng ngày, hệ thống quản lý toàn diện và tiêu chuẩn vận hành toàn cầu, chúng tôi theo dõi chất lượng sản phẩm và tính nhất quán tại cửa hàng. Nhờ đó, khách hàng luôn có thể tận hưởng trải nghiệm KOI đáng tin cậy trong từng ly trà được chuẩn bị bằng sự tận tâm.</value>
+  </data>
+  <data name="Precision in Every Brew" xml:space="preserve">
+    <value>Chuẩn xác trong từng mẻ trà</value>
+  </data>
+  <data name="Precision in Every Cup" xml:space="preserve">
+    <value>Chuẩn xác trong từng ly trà</value>
+  </data>
+  <data name="Previous brand" xml:space="preserve">
+    <value>Thương hiệu trước</value>
+  </data>
+  <data name="Previous drinks" xml:space="preserve">
+    <value>Đồ uống trước</value>
+  </data>
+  <data name="Previous feature" xml:space="preserve">
+    <value>Điểm nổi bật trước</value>
+  </data>
+  <data name="Previous milestone" xml:space="preserve">
+    <value>Cột mốc trước</value>
+  </data>
+  <data name="Previous page" xml:space="preserve">
+    <value>Trang trước</value>
+  </data>
+  <data name="Previous share" xml:space="preserve">
+    <value>Câu chuyện trước</value>
+  </data>
+  <data name="Previous video" xml:space="preserve">
+    <value>Video trước</value>
+  </data>
+  <data name="Proposed Business Site / Preferred Business Location" xml:space="preserve">
+    <value>Địa điểm kinh doanh đề xuất / Khu vực mong muốn</value>
+  </data>
+  <data name="Quick links to menu and stores" xml:space="preserve">
+    <value>Liên kết nhanh đến thực đơn và cửa hàng</value>
+  </data>
+  <data name="RECOMMENDATION" xml:space="preserve">
+    <value>GỢI Ý</value>
+  </data>
+  <data name="RECRUIT" xml:space="preserve">
+    <value>TUYỂN DỤNG</value>
+  </data>
+  <data name="RESPONSIBILITY" xml:space="preserve">
+    <value>TRÁCH NHIỆM</value>
+  </data>
+  <data name="RESPONSIBILITYSTARTS FROM THE SOURCE" xml:space="preserve">
+    <value>TRÁCH NHIỆM BẮT ĐẦU TỪ NGUỒN GỐC</value>
+  </data>
+  <data name="Reasons why you are interested in KOI over other brands" xml:space="preserve">
+    <value>Lý do bạn quan tâm đến KOI thay vì thương hiệu khác</value>
+  </data>
+  <data name="Recruit__text" xml:space="preserve">
+    <value>Tuyển dụng</value>
+  </data>
+  <data name="Reference:" xml:space="preserve">
+    <value>Mã tham chiếu:</value>
+  </data>
+  <data name="Reliable Supply Chain" xml:space="preserve">
+    <value>Chuỗi cung ứng tin cậy</value>
+  </data>
+  <data name="Responsibility__text" xml:space="preserve">
+    <value>Trách nhiệm</value>
+  </data>
+  <data name="SELECTION OF" xml:space="preserve">
+    <value>TUYỂN CHỌN</value>
+  </data>
+  <data name="SERVICE" xml:space="preserve">
+    <value>TẬN TÂM</value>
+  </data>
+  <data name="SHAKER MASTER CHAMPIONSHIP" xml:space="preserve">
+    <value>GIẢI VÔ ĐỊCH SHAKER MASTER</value>
+  </data>
+  <data name="SIGNATURE MACCHIATO" xml:space="preserve">
+    <value>MACCHIATO ĐẶC TRƯNG</value>
+  </data>
+  <data name="SINGAPORE" xml:space="preserve">
+    <value>SINGAPORE</value>
+  </data>
+  <data name="STARTS FROM THE SOURCE" xml:space="preserve">
+    <value>BẮT ĐẦU TỪ NGUỒN GỐC</value>
+  </data>
+  <data name="STORE" xml:space="preserve">
+    <value>CỬA HÀNG</value>
+  </data>
+  <data name="STRONGER COMMUNITIES" xml:space="preserve">
+    <value>CỘNG ĐỒNG VỮNG MẠNH</value>
+  </data>
+  <data name="Scroll" xml:space="preserve">
+    <value>Cuộn xuống</value>
+  </data>
+  <data name="Scroll to explore more" xml:space="preserve">
+    <value>Cuộn để khám phá thêm</value>
+  </data>
+  <data name="Shaker Master Competition" xml:space="preserve">
+    <value>Cuộc thi Shaker Master</value>
+  </data>
+  <data name="Share Kindness" xml:space="preserve">
+    <value>Sẻ chia sự tử tế</value>
+  </data>
+  <data name="Singapore__text" xml:space="preserve">
+    <value>Singapore</value>
+  </data>
+  <data name="Singapore, Malaysia, Cambodia, Vietnam" xml:space="preserve">
+    <value>Singapore, Malaysia, Campuchia, Việt Nam</value>
+  </data>
+  <data name="Single Store" xml:space="preserve">
+    <value>Một cửa hàng</value>
+  </data>
+  <data name="Single Territory" xml:space="preserve">
+    <value>Một thị trường</value>
+  </data>
+  <data name="Skip to content" xml:space="preserve">
+    <value>Chuyển đến nội dung</value>
+  </data>
+  <data name="Something went wrong" xml:space="preserve">
+    <value>Đã xảy ra lỗi</value>
+  </data>
+  <data name="Spark" xml:space="preserve">
+    <value>Khơi dậy</value>
+  </data>
+  <data name="Sponsorship" xml:space="preserve">
+    <value>Tài trợ</value>
+  </data>
+  <data name="Store__text" xml:space="preserve">
+    <value>Cửa hàng</value>
+  </data>
+  <data name="Store Manager" xml:space="preserve">
+    <value>Quản lý cửa hàng</value>
+  </data>
+  <data name="Store pages" xml:space="preserve">
+    <value>Phân trang cửa hàng</value>
+  </data>
+  <data name="Store photo" xml:space="preserve">
+    <value>Ảnh cửa hàng</value>
+  </data>
+  <data name="Stores" xml:space="preserve">
+    <value>Cửa hàng</value>
+  </data>
+  <data name="Stronger Together" xml:space="preserve">
+    <value>Cùng nhau vững mạnh</value>
+  </data>
+  <data name="Submit form (unavailable in preview)" xml:space="preserve">
+    <value>Gửi biểu mẫu (chưa khả dụng trong bản xem trước)</value>
+  </data>
+  <data name="Supporting Children's Education" xml:space="preserve">
+    <value>Đồng hành cùng giáo dục trẻ em</value>
+  </data>
+  <data name="Sweetness" xml:space="preserve">
+    <value>Độ ngọt</value>
+  </data>
+  <data name="TEA" xml:space="preserve">
+    <value>CỦA KOI</value>
+  </data>
+  <data name="TEA BREWING" xml:space="preserve">
+    <value>BẬC THẦY</value>
+  </data>
+  <data name="TEA LATTE" xml:space="preserve">
+    <value>TRÀ LATTE</value>
+  </data>
+  <data name="TEAM CULTURE" xml:space="preserve">
+    <value>VĂN HÓA ĐỘI NGŨ</value>
+  </data>
+  <data name="TEAM&quot;" xml:space="preserve">
+    <value>KOI"</value>
+  </data>
+  <data name="THAILAND" xml:space="preserve">
+    <value>THÁI LAN</value>
+  </data>
+  <data name="THE CRAFT" xml:space="preserve">
+    <value>LÀM NÊN TAY NGHỀ</value>
+  </data>
+  <data name="THE SOUND" xml:space="preserve">
+    <value>ÂM THANH</value>
+  </data>
+  <data name="TO COMMUNITY" xml:space="preserve">
+    <value>ĐẾN CỘNG ĐỒNG</value>
+  </data>
+  <data name="TOMORROW" xml:space="preserve">
+    <value>NGÀY MAI TỐT ĐẸP</value>
+  </data>
+  <data name="TRIANGLE_RULE" xml:space="preserve">
+    <value>QUY TẮC &lt;span class="orange"&gt;TAM GIÁC VÀNG&lt;/span&gt; CỦA TRÀ KOI</value>
+  </data>
+  <data name="Targeting Global Talents" xml:space="preserve">
+    <value>Tìm kiếm nhân tài toàn cầu</value>
+  </data>
+  <data name="Taro Purple" xml:space="preserve">
+    <value>Khoai môn tím</value>
+  </data>
+  <data name="Tea__text" xml:space="preserve">
+    <value>Trà</value>
+  </data>
+  <data name="Tea Served Every" xml:space="preserve">
+    <value>chất lượng mỗi</value>
+  </data>
+  <data name="Team Building Activities" xml:space="preserve">
+    <value>Hoạt động gắn kết đội ngũ</value>
+  </data>
+  <data name="Thailand__text" xml:space="preserve">
+    <value>Thái Lan</value>
+  </data>
+  <data name="Thank you for contacting us." xml:space="preserve">
+    <value>Cảm ơn bạn đã liên hệ.</value>
+  </data>
+  <data name="Thank you for your love for KOI." xml:space="preserve">
+    <value>Cảm ơn tình cảm bạn dành cho KOI.</value>
+  </data>
+  <data name="Thank you." xml:space="preserve">
+    <value>Xin cảm ơn.</value>
+  </data>
+  <data name="The Global Shaker Master Competition is more than a contest. It is a platform for learning, sharing, and growth. It encourages our people to refine their craft, challenge themselves, and strive for excellence." xml:space="preserve">
+    <value>Cuộc thi Global Shaker Master không chỉ là một cuộc thi mà còn là nơi học hỏi, chia sẻ và trưởng thành. Sân chơi này khuyến khích mỗi thành viên trau dồi tay nghề, thử thách bản thân và hướng tới sự xuất sắc.</value>
+  </data>
+  <data name="The grand opening of Toa Payoh flagship store in Singapore has successfully ignited the KOI craze across Southeast Asia." xml:space="preserve">
+    <value>Cửa hàng đầu tiên tại Toa Payoh, Singapore khai trương, khơi dậy sức hút của KOI trên khắp Đông Nam Á.</value>
+  </data>
+  <data name="The salary scale in the table represents the basic monthly salary (shown in USD)." xml:space="preserve">
+    <value>Bảng trên thể hiện mức lương cơ bản hằng tháng (tính bằng USD).</value>
+  </data>
+  <data name="The unspoiled flavors of tea can only be extracted by brewing tea leaves in traditional metal kettles. Utilizing self-made dedicated utensils and maintaining precise control over the ideal ratio of water, tea leaves, and temperature empowers the tea master to achieve the perfect flavor in every sip. Everyone can savor the endlessly memorable tea anytime, no matter where they are." xml:space="preserve">
+    <value>Hương vị nguyên bản của trà được đánh thức khi ủ lá trà trong ấm kim loại truyền thống. Dụng cụ chuyên dụng do chúng tôi phát triển cùng sự kiểm soát chính xác tỷ lệ nước, lá trà và nhiệt độ giúp người pha trà tạo nên hương vị trọn vẹn trong từng ngụm. Nhờ đó, bạn có thể thưởng thức ly trà đáng nhớ ở bất cứ đâu, vào bất cứ lúc nào.</value>
+  </data>
+  <data name="Therefore, the starting amount in the dropdown menu is set at USD 300,000" xml:space="preserve">
+    <value>Vì vậy, mức đầu tư trong danh sách bắt đầu từ 300.000 USD.</value>
+  </data>
+  <data name="Through a robust supply chain network, we ensure reliable sourcing and consistent quality." xml:space="preserve">
+    <value>Mạng lưới cung ứng vững chắc giúp chúng tôi bảo đảm nguồn cung tin cậy và chất lượng đồng nhất.</value>
+  </data>
+  <data name="Through rigorous standards and continuous monitoring, we safeguard the quality of every cup." xml:space="preserve">
+    <value>Những tiêu chuẩn nghiêm ngặt và hoạt động giám sát liên tục giúp bảo vệ chất lượng từng ly trà.</value>
+  </data>
+  <data name="Through strict standards and continuous refinement," xml:space="preserve">
+    <value>Thông qua tiêu chuẩn nghiêm ngặt và cải tiến liên tục,</value>
+  </data>
+  <data name="To celebrate KOI Thé’s 20th anniversary, KOI Thé France surprised the local community with complimentary drinks, sharing joy and appreciation." xml:space="preserve">
+    <value>Nhân kỷ niệm 20 năm KOI Thé, KOI Thé Pháp bất ngờ tặng đồ uống cho cộng đồng địa phương, sẻ chia niềm vui và lời tri ân.</value>
+  </data>
+  <data name="To ensure successful submission of your resume," xml:space="preserve">
+    <value>Để hồ sơ được tiếp nhận thuận lợi,</value>
+  </data>
+  <data name="To reflect the professionalism of tea beverages and the brand philosophy, KOI Café has officially been renamed KOI Thé." xml:space="preserve">
+    <value>Để thể hiện chuyên môn về trà và triết lý thương hiệu, KOI Café chính thức đổi tên thành KOI Thé.</value>
+  </data>
+  <data name="Transparent Pay Progression" xml:space="preserve">
+    <value>Chính sách lương minh bạch</value>
+  </data>
+  <data name="Treasure House Community Project" xml:space="preserve">
+    <value>Dự án cộng đồng Treasure House</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Phạm vi</value>
+  </data>
+  <data name="USA" xml:space="preserve">
+    <value>Hoa Kỳ</value>
+  </data>
+  <data name="USA/" xml:space="preserve">
+    <value>Hoa Kỳ/</value>
+  </data>
+  <data name="USD 300,000" xml:space="preserve">
+    <value>USD 300,000</value>
+  </data>
+  <data name="USD 400,000" xml:space="preserve">
+    <value>USD 400,000</value>
+  </data>
+  <data name="USD 500,000" xml:space="preserve">
+    <value>USD 500,000</value>
+  </data>
+  <data name="VIDEO" xml:space="preserve">
+    <value>VIDEO</value>
+  </data>
+  <data name="VIETNAM" xml:space="preserve">
+    <value>VIỆT NAM</value>
+  </data>
+  <data name="VIEW" xml:space="preserve">
+    <value>XEM</value>
+  </data>
+  <data name="Venturing into South Asia, Grand Opening of the Bangladesh store." xml:space="preserve">
+    <value>KOI đến Nam Á, khai trương cửa hàng tại Bangladesh.</value>
+  </data>
+  <data name="Venturing into West Asia, Grand Opening of the Dubai store." xml:space="preserve">
+    <value>KOI đến Tây Á, khai trương cửa hàng tại Dubai.</value>
+  </data>
+  <data name="Verification is unavailable while sending is disabled." xml:space="preserve">
+    <value>Mã xác minh chưa khả dụng khi chức năng gửi chưa được bật.</value>
+  </data>
+  <data name="Verify Code" xml:space="preserve">
+    <value>Mã xác minh</value>
+  </data>
+  <data name="Video 1" xml:space="preserve">
+    <value>Video 1</value>
+  </data>
+  <data name="Video pagination" xml:space="preserve">
+    <value>Chọn video</value>
+  </data>
+  <data name="Vietnam__text" xml:space="preserve">
+    <value>Việt Nam</value>
+  </data>
+  <data name="View menus by country" xml:space="preserve">
+    <value>Xem thực đơn theo quốc gia</value>
+  </data>
+  <data name="Voices for Vision" xml:space="preserve">
+    <value>Tiếng nói vì thị giác</value>
+  </data>
+  <data name="WAYS WE" xml:space="preserve">
+    <value>CÙNG NHAU</value>
+  </data>
+  <data name="Want" xml:space="preserve">
+    <value>tìm kiếm</value>
+  </data>
+  <data name="We" xml:space="preserve">
+    <value>Chúng tôi</value>
+  </data>
+  <data name="We Want" xml:space="preserve">
+    <value>Chúng tôi tìm kiếm</value>
+  </data>
+  <data name="We believe great tea is created by skilled hands and passionate individuals." xml:space="preserve">
+    <value>Chúng tôi tin trà ngon được tạo nên từ đôi tay lành nghề và những con người đầy nhiệt huyết.</value>
+  </data>
+  <data name="We carefully select our tea leaves and ingredients with a focus on quality, consistency, and responsible sourcing." xml:space="preserve">
+    <value>Chúng tôi chọn lá trà và nguyên liệu với sự chú trọng đến chất lượng, tính đồng nhất và nguồn cung có trách nhiệm.</value>
+  </data>
+  <data name="We come from different places," xml:space="preserve">
+    <value>Chúng ta đến từ nhiều nơi khác nhau,</value>
+  </data>
+  <data name="We conduct regular water quality checks, strictly control the temperature of each batch of tea, ensuring that every cup reflects the exquisite flavors of carefully selected tea leaves." xml:space="preserve">
+    <value>Chúng tôi kiểm tra chất lượng nước thường xuyên và kiểm soát chặt nhiệt độ từng mẻ trà để mỗi ly đều thể hiện trọn vẹn hương vị của lá trà được tuyển chọn.</value>
+  </data>
+  <data name="We couldn't load this page. Please refresh or return to the home page." xml:space="preserve">
+    <value>Không tải được trang này. Hãy tải lại hoặc quay về trang chủ.</value>
+  </data>
+  <data name="We strive to provide the most friendly services by treating you as part of our family. In our friendly and welcoming store, please savor the customized beverages designed just for you. Enjoy the happiness embraced by the aroma of tea and feel the sincere warmth we extend to you." xml:space="preserve">
+    <value>Chúng tôi luôn nỗ lực phục vụ thân thiện và đón tiếp bạn như người thân. Trong không gian gần gũi, bạn có thể thưởng thức thức uống được pha theo sở thích riêng. Hãy tận hưởng niềm vui trong hương trà và cảm nhận sự quan tâm chân thành từ KOI.</value>
+  </data>
+  <data name="We use harder ice cubes with high density plus precise control over the quantity to preserve the original flavor of the tea as well as provide a refreshing and pleasant texture, enhancing the overall taste experience." xml:space="preserve">
+    <value>Chúng tôi sử dụng đá có độ cứng và mật độ cao, kết hợp kiểm soát lượng đá chính xác để giữ hương vị nguyên bản, tạo cảm giác mát lành và làm nổi bật trải nghiệm thưởng thức.</value>
+  </data>
+  <data name="We will be in touch with you as soon as possible." xml:space="preserve">
+    <value>Chúng tôi sẽ phản hồi trong thời gian sớm nhất.</value>
+  </data>
+  <data name="Welcome to KOI Thé. Choose your language." xml:space="preserve">
+    <value>Chào mừng đến với KOI Thé. Vui lòng chọn ngôn ngữ.</value>
+  </data>
+  <data name="What type of collaboration would you like to have with KOI in this city/region/country?" xml:space="preserve">
+    <value>Bạn muốn hợp tác với KOI theo hình thức nào tại thành phố/khu vực/quốc gia này?</value>
+  </data>
+  <data name="Where is your company legally incorporated?" xml:space="preserve">
+    <value>Doanh nghiệp được đăng ký thành lập tại đâu?</value>
+  </data>
+  <data name="Will there be any partners or sponsors involved?" xml:space="preserve">
+    <value>Có đối tác hoặc nhà tài trợ nào cùng tham gia không?</value>
+  </data>
+  <data name="Will you take an active role in managing the business?" xml:space="preserve">
+    <value>Bạn có trực tiếp tham gia điều hành việc kinh doanh không?</value>
+  </data>
+  <data name="With Care" xml:space="preserve">
+    <value>Bằng sự tận tâm</value>
+  </data>
+  <data name="Worldwide" xml:space="preserve">
+    <value>trên thế giới</value>
+  </data>
+  <data name="YOU!" xml:space="preserve">
+    <value>BẠN!</value>
+  </data>
+  <data name="YOUR CONTACT DETAILS" xml:space="preserve">
+    <value>THÔNG TIN LIÊN HỆ</value>
+  </data>
+  <data name="YOUR DAILY BEAT." xml:space="preserve">
+    <value>NHỊP VUI MỖI NGÀY.</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>năm</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Có</value>
+  </data>
+  <data name="Your Company Profile" xml:space="preserve">
+    <value>Thông tin doanh nghiệp</value>
+  </data>
+  <data name="Your Daily Beat" xml:space="preserve">
+    <value>Nhịp vui mỗi ngày</value>
+  </data>
+  <data name="Your daily beat. Discover freshly brewed tea, golden bubbles and little moments of happiness with KOI Thé." xml:space="preserve">
+    <value>Nhịp vui mỗi ngày. Khám phá trà pha mới, trân châu hoàng kim và những khoảnh khắc hạnh phúc cùng KOI Thé.</value>
+  </data>
+  <data name="deliver a consistent taste, but to build trust with" xml:space="preserve">
+    <value>để mang đến hương vị đồng nhất và xây dựng niềm tin</value>
+  </data>
+  <data name="every customer." xml:space="preserve">
+    <value>với từng khách hàng.</value>
+  </data>
+  <data name="globalcareers" xml:space="preserve">
+    <value>globalcareers</value>
+  </data>
+  <data name="into the lives of those around us." xml:space="preserve">
+    <value>đến cuộc sống của mọi người xung quanh.</value>
+  </data>
+  <data name="modify or otherwise alter the salary scale and benefits package at any time." xml:space="preserve">
+    <value>điều chỉnh thang lương và chế độ phúc lợi vào bất kỳ thời điểm nào.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>sau</value>
+  </data>
+  <data name="our ongoing commitment to community engagement and" xml:space="preserve">
+    <value>những hoạt động gắn kết cộng đồng và</value>
+  </data>
+  <data name="please select only 1 application portal from below." xml:space="preserve">
+    <value>vui lòng chỉ chọn một trong hai kênh ứng tuyển dưới đây.</value>
+  </data>
+  <data name="prev" xml:space="preserve">
+    <value>trước</value>
+  </data>
+  <data name="social initiatives, we extend warmth beyond the cup and" xml:space="preserve">
+    <value>sáng kiến xã hội, chúng tôi lan tỏa sự ấm áp từ ly trà</value>
+  </data>
+  <data name="tea is the common language that unites us here." xml:space="preserve">
+    <value>và trà là ngôn ngữ chung kết nối chúng ta tại đây.</value>
+  </data>
+  <data name="the smallest actions can create a lasting impact. Through" xml:space="preserve">
+    <value>ngay cả hành động nhỏ cũng tạo nên ảnh hưởng bền lâu. Qua</value>
+  </data>
+  <data name="we ensure a reliable experience across every market" xml:space="preserve">
+    <value>chúng tôi mang đến trải nghiệm đáng tin cậy tại mọi</value>
+  </data>
+  <data name="we serve." xml:space="preserve">
+    <value>thị trường phục vụ.</value>
+  </data>
+  <data name="yyyy/mm/dd" xml:space="preserve">
+    <value>năm/tháng/ngày</value>
+  </data>
+  <data name="“Apply" xml:space="preserve">
+    <value>“Ứng tuyển</value>
+  </data>
+  <data name="● Allowances" xml:space="preserve">
+    <value>● Phụ cấp</value>
+  </data>
+  <data name="● Competitive salary in international job markets" xml:space="preserve">
+    <value>● Mức lương cạnh tranh trên thị trường quốc tế</value>
+  </data>
+  <data name="● Medical insurance" xml:space="preserve">
+    <value>● Bảo hiểm y tế</value>
+  </data>
+  <data name="● Operations bonuses" xml:space="preserve">
+    <value>● Thưởng vận hành</value>
+  </data>
+  <data name="● Paid Leave" xml:space="preserve">
+    <value>● Nghỉ phép có lương</value>
+  </data>
+  <data name="PLEASE FEEL" xml:space="preserve">
+    <value>ĐỪNG NGẦN NGẠI</value>
+  </data>
+  <data name="HERE." xml:space="preserve">
+    <value>TẠI ĐÂY.</value>
+  </data>
+  <data name="SHARED GROWTH." xml:space="preserve">
+    <value>CÙNG PHÁT TRIỂN.</value>
+  </data>
+  <data name="We come from different places, and we bring together diverse cultures;" xml:space="preserve">
+    <value>Đến từ nhiều nơi, chúng ta cùng hội tụ những nền văn hóa khác nhau;</value>
+  </data>
+  <data name="Navigation page {0} of {1}" xml:space="preserve">
+    <value>trang {0} / {1}</value>
+  </data>
+  <data name="Impact.Purpose" xml:space="preserve">
+    <value>ý nghĩa lớn hơn</value>
+  </data>
+  <data name="Responsibility.Origin" xml:space="preserve">
+    <value>Từ nguồn gốc đáng tin</value>
+  </data>
+  <data name="Responsibility.Confidence" xml:space="preserve">
+    <value>đến niềm tin bền vững.</value>
+  </data>
+  <data name="People.LearningStart" xml:space="preserve">
+    <value>TỪ HỌC HỎI</value>
+  </data>
+  <data name="People.LearningEnd" xml:space="preserve">
+    <value>KHÔNG NGỪNG ĐẾN</value>
+  </data>
+  <data name="Connections.From" xml:space="preserve">
+    <value>TỪ KẾT NỐI CHÂN THÀNH</value>
+  </data>
+  <data name="Connections.To" xml:space="preserve">
+    <value>ĐẾN</value>
+  </data>
+  <data name="Contact.Questions" xml:space="preserve">
+    <value>BẠN CẦN HỖ TRỢ?</value>
+  </data>
+  <data name="Contact.Free" xml:space="preserve">
+    <value>LIÊN HỆ</value>
+  </data>
+  <data name="Contact.ContactUs" xml:space="preserve">
+    <value>VỚI KOI</value>
+  </data>
+  <data name="Contact.Thanks" xml:space="preserve">
+    <value>CẢM ƠN BẠN</value>
+  </data>
+  <data name="Contact.Love" xml:space="preserve">
+    <value>ĐÃ YÊU MẾN</value>
+  </data>
+  <data name="Contact.ForKoi" xml:space="preserve">
+    <value>KOI THÉ</value>
+  </data>
+</root>

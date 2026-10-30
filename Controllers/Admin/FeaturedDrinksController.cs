@@ -15,7 +15,7 @@ public class FeaturedDrinksController(ApplicationDbContext database, ImageUpload
     public async Task<IActionResult> Edit(int id)
     {
         var value = await database.FeaturedDrinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View(new FeaturedDrinkEditViewModel { Id = id, Revision = value.Revision, Name = value.Name,
+        return value == null ? NotFound() : View(new FeaturedDrinkEditViewModel { Id = id, Revision = value.Revision, NameVi = value.NameVi, RegionVi = value.RegionVi, Name = value.Name,
             Region = value.Region, IsPublished = value.IsPublished, SortOrder = value.SortOrder, CurrentImage = value.Image, CurrentBackground = value.BackgroundImage });
     }
     [HttpPost, RequestSizeLimit(12 * 1024 * 1024)]
@@ -37,7 +37,8 @@ public class FeaturedDrinksController(ApplicationDbContext database, ImageUpload
         {
             if (image != null) value.Image = uploaded = await uploads.SaveAsync(image, "featured-drinks");
             if (background != null) value.BackgroundImage = uploadedBackground = await uploads.SaveAsync(background, "featured-drinks");
-            value.Name = model.Name.Trim(); value.Region = model.Region?.Trim() ?? "";
+            value.Name = model.Name.Trim();
+            value.NameVi = model.NameVi?.Trim() ?? ""; value.RegionVi = model.RegionVi?.Trim() ?? ""; value.Region = model.Region?.Trim() ?? "";
             value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
             if (id == null) database.FeaturedDrinks.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }

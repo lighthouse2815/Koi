@@ -16,7 +16,7 @@ public class StoresController(ApplicationDbContext database, ImageUploads upload
         search = search?.Trim();
         if (search?.Length > 200) search = search[..200];
         var query = database.Stores.AsNoTracking().Where(value => marketId == 0 || value.MarketId == marketId);
-        if (!string.IsNullOrEmpty(search)) query = query.Where(value => EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.Address, $"%{search}%"));
+        if (!string.IsNullOrEmpty(search)) query = query.Where(value => EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.Address, $"%{search}%") || EF.Functions.ILike(value.NameVi, $"%{search}%") || EF.Functions.ILike(value.AddressVi, $"%{search}%"));
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 20d));
         page = Math.Clamp(page, 1, pages);
         var rows = await query.Include(value => value.Market).Include(value => value.City).Include(value => value.Brand)
@@ -31,7 +31,7 @@ public class StoresController(ApplicationDbContext database, ImageUploads upload
         var value = await database.Stores.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? NotFound() : View(await Options(new StoreEditViewModel
         {
-            Id = value.Id, Revision = value.Revision, Name = value.Name, Phone = value.Phone, Hours = value.Hours,
+            Id = value.Id, Revision = value.Revision, NameVi = value.NameVi, AddressVi = value.AddressVi, HoursVi = value.HoursVi, Name = value.Name, Phone = value.Phone, Hours = value.Hours,
             Address = value.Address, MarketId = value.MarketId, CityId = value.CityId, BrandId = value.BrandId,
             NavigationUrl = value.NavigationUrl, IsPublished = value.IsPublished, SortOrder = value.SortOrder,
             CountryOrder = value.CountryOrder, CityOrder = value.CityOrder, CurrentImage = value.Photo
@@ -61,7 +61,8 @@ public class StoresController(ApplicationDbContext database, ImageUploads upload
         {
             if (image != null) value.Photo = uploaded = await uploads.SaveAsync(image, "stores");
             else if (model.RemoveImage) value.Photo = "";
-            value.Name = model.Name.Trim(); value.Address = model.Address?.Trim() ?? "";
+            value.Name = model.Name.Trim();
+            value.NameVi = model.NameVi?.Trim() ?? ""; value.AddressVi = model.AddressVi?.Trim() ?? ""; value.HoursVi = model.HoursVi?.Trim() ?? ""; value.Address = model.Address?.Trim() ?? "";
             value.Phone = model.Phone?.Trim() ?? ""; value.Hours = model.Hours?.Trim() ?? "";
             value.MarketId = model.MarketId; value.CityId = model.CityId; value.BrandId = model.BrandId;
             value.NavigationUrl = model.NavigationUrl?.Trim() ?? ""; value.IsPublished = model.IsPublished;

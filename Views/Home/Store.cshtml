@@ -1,6 +1,6 @@
 @model StoreViewModel
 @{
-    ViewData["Title"] = "Store";
+    ViewData["Title"] = T["Store__text"].Value;
     var visiblePages = Enumerable.Range(1, Model.PageCount)
         .Where(page => Model.PageCount <= 9 || page == 1 || page == Model.PageCount || Math.Abs(page - Model.Page) <= 1 || (Model.Page <= 2 && page <= 3) || (Model.Page >= Model.PageCount - 1 && page >= Model.PageCount - 2))
         .ToArray();
@@ -20,15 +20,15 @@
 <div class="content-page store-page-content" id="home">
 <div class="storeWrap menu-pin">
     <div class="head-area">
-        <h1 class="en">STORE <span class="note">700+</span></h1>
+        <h1 class="en">@T["STORE"] <span class="note">700+</span></h1>
     </div>
     <div class="storeListWrap flex-container align-justify">
-        <nav class="storeCat-area" aria-label="Filter stores">
+        <nav class="storeCat-area" aria-label="@T["Filter stores"]">
             <div class="storeCat-inner">
-                <div class="store" id="store-country">(Country)</div>
+                <div class="store" id="store-country">@T["(Country)"]</div>
                 <ul class="storeCatList" aria-labelledby="store-country">
                     <li class="@(Model.CountryId == 0 ? "current" : null)">
-                        <a asp-action="Store" class="flex-container align-middle" aria-current="@(Model.CountryId == 0 ? "true" : null)"><span class="dot"></span><span class="title">All</span></a>
+                        <a asp-action="Store" class="flex-container align-middle" aria-current="@(Model.CountryId == 0 ? "true" : null)"><span class="dot"></span><span class="title">@T["All__text"]</span></a>
                     </li>
                     @foreach (var country in Model.Countries)
                     {
@@ -39,10 +39,10 @@
                 </ul>
             </div>
                 <div class="storeCat-inner">
-                    <div class="store" id="store-location">(Location)</div>
+                    <div class="store" id="store-location">@T["(Location)"]</div>
                     <ul class="storeCatList" aria-labelledby="store-location">
                         <li class="@(Model.LocationId == 0 ? "current" : null)">
-                            <a asp-action="Store" asp-route-c="@Model.CountryId" class="flex-container align-middle" aria-current="@(Model.LocationId == 0 ? "true" : null)"><span class="dot"></span><span class="title">All</span></a>
+                            <a asp-action="Store" asp-route-c="@Model.CountryId" class="flex-container align-middle" aria-current="@(Model.LocationId == 0 ? "true" : null)"><span class="dot"></span><span class="title">@T["All__text"]</span></a>
                         </li>
                         @foreach (var location in Model.Locations)
                         {
@@ -53,10 +53,10 @@
                     </ul>
                 </div>
             <div class="storeCat-inner">
-                <div class="store" id="store-brand">(Brand)</div>
+                <div class="store" id="store-brand">@T["(Brand)"]</div>
                 <ul class="storeCatList" aria-labelledby="store-brand">
                     <li class="@(Model.BrandId == 0 ? "current" : null)">
-                        <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" class="flex-container align-middle" aria-current="@(Model.BrandId == 0 ? "true" : null)"><span class="dot"></span><span class="title">All</span></a>
+                        <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" class="flex-container align-middle" aria-current="@(Model.BrandId == 0 ? "true" : null)"><span class="dot"></span><span class="title">@T["All__text"]</span></a>
                     </li>
                     @foreach (var brand in Model.Brands)
                     {
@@ -68,7 +68,7 @@
             </div>
         </nav>
         <div class="storeList-area">
-            <ul class="store-socialList flex-container align-right" aria-label="Country social media">
+            <ul class="store-socialList flex-container align-right" aria-label="@T["Country social media"]">
                 @foreach (var social in Model.SocialLinks)
                 {
                     var icon = social.Label is "Instagram" or "Facebook" ? social.Label.ToLowerInvariant() : null;
@@ -84,7 +84,7 @@
                     </a></li>
                 }
             </ul>
-            <ul class="storeList" aria-label="Stores">
+            <ul class="storeList" aria-label="@T["Stores"]">
                 @foreach (var store in Model.Stores)
                 {
                     var brandName = Model.Brands.FirstOrDefault(brand => brand.Id == store.BrandId)?.Name ?? "KOI";
@@ -128,7 +128,7 @@
                             }
                             @if (!string.IsNullOrEmpty(store.NavigationUrl))
                             {
-                                <a class="directions" href="@store.NavigationUrl" target="_blank" rel="noopener noreferrer" aria-label="Directions to @store.Name"><span class="googlemap">Google map</span><svg class="arrow" width="66" height="27" viewBox="0 0 66 27" aria-hidden="true"><path class="d" d="M0 13.5h62"/><path class="e" d="m45 0 21 13.5L45 27l-2-3 17-10.5L43 3z"/></svg></a>
+                                <a class="directions" href="@store.NavigationUrl" target="_blank" rel="noopener noreferrer" aria-label="Directions to @store.Name"><span class="googlemap">@T["Google map"]</span><svg class="arrow" width="66" height="27" viewBox="0 0 66 27" aria-hidden="true"><path class="d" d="M0 13.5h62"/><path class="e" d="m45 0 21 13.5L45 27l-2-3 17-10.5L43 3z"/></svg></a>
                             }
                         </div>
                     </li>
@@ -136,15 +136,15 @@
             </ul>
             @if (Model.Stores.Count == 0)
             {
-                <p class="store-empty" role="status">No stores match these filters. Choose another location or brand.</p>
+                <p class="store-empty" role="status">@T["No stores match these filters. Choose another location or brand."]</p>
             }
             @if (Model.PageCount > 1)
             {
-                <nav class="store-pageWrap flex-container align-center-middle" aria-label="Store pages">
+                <nav class="store-pageWrap flex-container align-center-middle" aria-label="@T["Store pages"]">
                     <div class="prev">
                         @if (Model.Page > 1)
                         {
-                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@(Model.Page - 1)" rel="prev">prev</a>
+                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@(Model.Page - 1)" rel="prev">@T["prev"]</a>
                         }
                     </div>
                     <ul class="store-page flex-container align-center-middle">
@@ -155,23 +155,23 @@
                             {
                                 <li class="ellipsis" aria-hidden="true">…</li>
                             }
-                            <li class="@(number == Model.Page ? "current" : null)"><a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@number" aria-label="Page @number of @Model.PageCount" aria-current="@(number == Model.Page ? "page" : null)">@number</a></li>
+                            <li class="@(number == Model.Page ? "current" : null)"><a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@number" aria-label="@T["Page {0} of {1}", number, Model.PageCount]" aria-current="@(number == Model.Page ? "page" : null)">@number</a></li>
                         }
                     </ul>
                     <div class="next">
                         @if (Model.Page < Model.PageCount)
                         {
-                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@(Model.Page + 1)" rel="next">next</a>
+                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@(Model.Page + 1)" rel="next">@T["next"]</a>
                         }
                     </div>
                 </nav>
             }
         </div>
     </div>
-    <dialog class="store-fancy" id="store-photo-dialog" aria-label="Store photo">
+    <dialog class="store-fancy" id="store-photo-dialog" aria-label="@T["Store photo"]">
         <div class="inner-fancy flex-container align-center-middle">
             <div class="pic"><img alt="" /></div>
-            <button class="back" type="button" aria-label="Close store photo"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="70" height="54.92" viewBox="0 0 70 54.92">
+            <button class="back" type="button" aria-label="@T["Close store photo"]"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="70" height="54.92" viewBox="0 0 70 54.92">
                                 <g>
                                     <g class="e">
                                         <path class="d" d="M3.55,54.92c-1.15-.67-2.03-1.56-2.64-2.67s-.92-2.38-.92-3.81,.3-2.7,.92-3.82,1.49-2,2.64-2.67l.76,.9c-.96,.58-1.7,1.35-2.21,2.31-.51,.96-.77,2.05-.77,3.28s.26,2.3,.77,3.27,1.25,1.73,2.21,2.3l-.76,.91Z"></path>

@@ -4,11 +4,23 @@ using Koi.Web.Models;
 using Koi.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
+using Koi.Web.Localization;
 
 namespace Koi.Web.Controllers;
 
 public class HomeController(ApplicationDbContext database) : Controller
 {
+    [HttpPost]
+    public IActionResult Language(string culture, string? returnUrl)
+    {
+        if (culture is not ("vi" or "en")) return BadRequest();
+        Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+            new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1), IsEssential = true, HttpOnly = true, Secure = Request.IsHttps, SameSite = SameSiteMode.Lax });
+        return LocalRedirect(Url.IsLocalUrl(returnUrl) ? returnUrl! : Url.Action(nameof(Index))!);
+    }
+
     public IActionResult Cover()
     {
         return View();
@@ -100,12 +112,12 @@ public class HomeController(ApplicationDbContext database) : Controller
         page = Math.Clamp(page, 1, pages);
         var stores = await query.OrderBy(value => s != 0 ? value.CityOrder : c != 0 ? value.CountryOrder : value.SortOrder)
             .ThenBy(value => value.Id).Skip((page - 1) * pageSize).Take(pageSize)
-            .Select(value => new StoreBranch(value.Id, value.Name, value.Phone, value.Hours, value.Address,
+            .Select(value => new StoreBranch(value.Id, SiteText.Select(value.Name, value.NameVi), value.Phone, SiteText.Select(value.Hours, value.HoursVi), SiteText.Select(value.Address, value.AddressVi),
                 value.MarketId, value.CityId ?? 0, value.BrandId, value.Brand.Logo, value.Photo, value.NavigationUrl)).ToArrayAsync();
-        return View(new StoreViewModel(markets.Select(value => new StoreCountry(value.Id, value.Name,
+        return View(new StoreViewModel(markets.Select(value => new StoreCountry(value.Id, SiteText.Select(value.Name, value.NameVi),
                 value.Brands.Select(value => value.BrandId).ToArray(), [], [])).ToArray(),
-            cities.Select(value => new StoreLocation(value.Id, value.MarketId, value.Name, [])).ToArray(),
-            brands.Select(value => new StoreBrand(value.Id, value.Name)).ToArray(), stores,
+            cities.Select(value => new StoreLocation(value.Id, value.MarketId, SiteText.Select(value.Name, value.NameVi), [])).ToArray(),
+            brands.Select(value => new StoreBrand(value.Id, SiteText.Select(value.Name, value.NameVi))).ToArray(), stores,
             country?.SocialLinks.OrderBy(value => value.SortOrder).Select(value => new StoreSocialLink(value.Url, value.Label)).ToArray() ?? [],
             c, s, b, page, pages));
     }
@@ -125,7 +137,7 @@ public class HomeController(ApplicationDbContext database) : Controller
         var menus = await database.Menus.AsNoTracking().Where(value => value.IsPublished).Include(value => value.Market)
             .OrderBy(value => value.Market.SortOrder).ThenBy(value => value.MarketId).ThenBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         return View(new MenuViewModel(menus.GroupBy(value => value.MarketId).Select(group =>
-            new MenuCountry(group.First().Market.Name, group.Select(value => new MenuDocument(value.Label, value.File)).ToArray())).ToArray()));
+            new MenuCountry(SiteText.Select(group.First().Market.Name, group.First().Market.NameVi), group.Select(value => new MenuDocument(SiteText.Select(value.Label, value.LabelVi), value.File)).ToArray())).ToArray()));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

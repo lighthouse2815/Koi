@@ -24,7 +24,7 @@ dotnet run --project Koi.Web.csproj
 
 Mật khẩu quản trị cần ít nhất 12 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt. User Secrets và `.env` nằm ngoài Git. Tại máy đang làm việc, PostgreSQL và tài khoản quản trị đã được cấu hình bằng User Secrets ID `koi-web-development`.
 
-Mở **http://localhost:5118** để xem trang bìa; chọn **ENGLISH** để vào `/Home/Index`. Quản trị ở **http://localhost:5118/Admin**; người chưa đăng nhập sẽ được chuyển tới trang đăng nhập. Có thể mở `Koi.sln` trong Visual Studio hoặc dùng profile `http`.
+Mở **http://localhost:5118** để xem trang bìa; chọn **TIẾNG VIỆT** hoặc **ENGLISH** để vào `/Home/Index`. Quản trị ở **http://localhost:5118/Admin**; người chưa đăng nhập sẽ được chuyển tới trang đăng nhập. Có thể mở `Koi.sln` trong Visual Studio hoặc dùng profile `http`.
 
 ```bash
 dotnet build Koi.sln --configuration Release
@@ -55,7 +55,7 @@ Có thể đặt `KOI_TEST_CONNECTION_STRING` để dùng một database kiểm 
 
 ## Trang chủ
 
-- Giao diện tiếng Anh, theo bản tiếng Anh của website mẫu.
+- Giao diện có tiếng Việt và tiếng Anh; ngôn ngữ được chọn ở trang bìa hoặc nút VI/EN trong menu và chân trang.
 - Video mở đầu lần truy cập đầu tiên trong ngày: header xuất hiện ở giây 1, Skip ở giây 2, hero trượt lên từ giây 5,5; có Replay intro.
 - Header cố định, menu hình quạt bung xoay khi hover/click, hỗ trợ bàn phím và Escape.
 - Cảnh bìa cố định là người đọc sách, cầm ly trà; đồng bộ video desktop/tablet/mobile, ảnh trong vòng O và poster từ cùng một cảnh của trang mẫu.
@@ -68,7 +68,7 @@ Có thể đặt `KOI_TEST_CONNECTION_STRING` để dùng một database kiểm 
 - Tin tức trượt chuyển bài, tiêu đề xuất hiện theo cuộn. Footer dùng 13 chữ rời xếp lệch như mẫu; linh vật trượt cả thân lên, nâng ly và hiện Menu/Store khi hover hoặc focus.
 - Responsive; `prefers-reduced-motion` chuyển sang bố cục tĩnh, tắt video/GIF và bỏ các cảnh giữ màn hình.
 
-Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu trong `wwwroot`:
+Các trang nội dung đã dựng local, có bản tiếng Việt/tiếng Anh và ảnh/SVG lưu trong `wwwroot`:
 
 | Trang | URL | Tương tác |
 | --- | --- | --- |
@@ -245,3 +245,17 @@ Kiểm tra nghiệm thu MVC ngày 31/10/2026: build/publish Release không có l
 Bản publish chạy ở môi trường Production đã kiểm tra 27 URL, 85 đích liên kết local, 306 tài nguyên có nội dung và 14 trang trên desktop/mobile; không phát hiện lỗi JavaScript, tài nguyên local lỗi hoặc tràn ngang. Trang bìa, video người đọc sách và cảnh FRAGRANCE được chạy thử lại; 13 bài News giữ nguyên nội dung/ảnh/video và luồng quản trị tin tức vẫn hoạt động. Dữ liệu website sau kiểm tra giữ 13 bài, 1.211 mục cửa hàng, 22 thực đơn, 7 danh mục, 54 món và 4 mục New Drinks; các bản nháp thử qua trình duyệt đã được xóa.
 
 Các phần MVC và quản trị trong phạm vi website giới thiệu đã hoàn tất. Contact vẫn không gửi/lưu form theo yêu cầu trước đó. Dự án chạy local; chưa triển khai lên hosting/domain công khai.
+
+## Tiếng Việt và tiếng Anh
+
+Trang bìa thay lựa chọn tiếng Trung bằng **TIẾNG VIỆT**, giữ **ENGLISH**; cả hai mở website local. Chuyển ngôn ngữ trong menu hoặc chân trang sẽ giữ nguyên trang và các bộ lọc/phân trang hiện tại. Lựa chọn được lưu bằng cookie trong một năm. Website dùng localization và tài nguyên `.resx` có sẵn của ASP.NET Core, không cần dịch vụ dịch hoặc API key. Có thể mở trực tiếp một trang bằng `?culture=vi` hoặc `?culture=en` khi chưa có cookie lựa chọn.
+
+- `Resources/Localization/SiteText.vi.resx`: bản dịch giao diện, nội dung các trang tĩnh và nhãn tương tác.
+- `Resources/Localization/SiteText.resx`: nội dung tiếng Anh tương ứng; các khóa chỉ khác hoa/thường được phân biệt bằng hậu tố `__text`.
+- `Localization/SiteText.cs`: chọn trường nội dung theo ngôn ngữ và định dạng ngày.
+- Các form quản trị có nhóm **Nội dung tiếng Việt** cho tin tức, đồ uống, danh mục, New Drinks, thực đơn, quốc gia/khu vực/thương hiệu và cửa hàng. Để trống một trường tiếng Việt sẽ hiển thị nội dung gốc.
+- Migration thêm cột tiếng Việt, giữ dữ liệu tiếng Anh; nhập một lần bản dịch 13 bài News, 54 món, 7 danh mục, 4 mục New Drinks và tên quốc gia/khu vực. HTML tiếng Việt được làm sạch như nội dung tiếng Anh. Tìm kiếm quản trị News, đồ uống và cửa hàng nhận cả nội dung gốc lẫn tiếng Việt.
+
+Tên riêng thương hiệu, địa chỉ cửa hàng tại nước ngoài và ảnh thực đơn/poster gốc được giữ nguyên; có thể nhập tên/địa chỉ tiếng Việt riêng trong quản trị. Video và các hình nhận diện thương hiệu vẫn dùng tài nguyên đã duyệt. Contact tiếp tục không gửi form.
+
+Kiểm tra phiên bản song ngữ: build/publish Release; 59 test tích hợp trên PostgreSQL mới, gồm chọn ngôn ngữ/CSRF, giữ URL và bộ lọc, chặn chuyển hướng ngoài, nội dung dịch từ máy chủ, lưu hai ngôn ngữ và HTML an toàn. Đã kiểm tra 13 trang ở 1440/390px, điều khiển animation và chuyển ngôn ngữ; ảnh xem trước: [trang chọn ngôn ngữ](docs/preview/languages-1440.png) · [Our Tea tiếng Việt](docs/preview/ourtea-vi-1440.png) · [Contact trên mobile](docs/preview/contact-vi-390.png).

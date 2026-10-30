@@ -19,39 +19,39 @@
     var current = pages[currentIndex];
 }
 <header class="site-header">
-    <a class="current-page" href="@current.Url" aria-label="@current.Label, page @(currentIndex + 1) of 8" aria-current="page">
+    <a class="current-page" href="@current.Url" aria-label="@T[current.Label], @T["Navigation page {0} of {1}", currentIndex + 1, 8]" aria-current="page">
         <img src="~/images/page-icon.svg" width="36" height="35" alt="" />
         <span class="page-marker" aria-hidden="true">▸</span>
-        <span>@current.Label <i>(@((currentIndex + 1).ToString("D2"))/08)</i></span>
+        <span>@T[current.Label] <i>(@((currentIndex + 1).ToString("D2"))/08)</i></span>
     </a>
-    <a class="brand" asp-controller="Home" asp-action="Index" aria-label="KOI Thé home">
+    <a class="brand" asp-controller="Home" asp-action="Index" aria-label="@T["KOI Thé home"]">
         <picture>
             <source media="(max-width: 1024px)" srcset="/images/logo-mobile.svg" />
-            <img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" />
+            <img src="~/images/logo.svg" width="184" height="39" alt="@T["KOI Thé"]" />
         </picture>
     </a>
-    <nav class="fan-navigation" aria-label="Main navigation">
-        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-haspopup="dialog" aria-controls="navigation-dialog">
+    <nav class="fan-navigation" aria-label="@T["Main navigation"]">
+        <button class="menu-toggle" type="button" aria-label="@T["Open navigation menu"]" aria-haspopup="dialog" aria-controls="navigation-dialog">
             <span class="mobile-menu-label"><img src="~/images/hamburger.svg" width="23" height="17" alt="" /></span>
         </button>
         <ul class="fan-links">
             @foreach (var navItem in pages)
             {
-                <li><a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)">@navItem.Label</a></li>
+                <li><a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)">@T[navItem.Label]</a></li>
             }
         </ul>
     </nav>
 </header>
 <dialog class="navigation-dialog" id="navigation-dialog" aria-labelledby="navigation-title">
     <div class="dialog-heading">
-        <span id="navigation-title">EXPLORE KOI</span>
-        <button class="menu-close" type="button" aria-label="Close navigation menu">×</button>
+        <span id="navigation-title">@T["EXPLORE KOI"]</span>
+        <button class="menu-close" type="button" aria-label="@T["Close navigation menu"]">×</button>
     </div>
-    <nav aria-label="Expanded navigation">
+    <nav aria-label="@T["Expanded navigation"]">
         @foreach (var navItem in pages)
         {
-            <a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)"><span>@navItem.Label</span><span aria-hidden="true">↗</span></a>
+            <a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)"><span>@T[navItem.Label]</span><span aria-hidden="true">↗</span></a>
         }
     </nav>
-    <div class="dialog-bottom"><span>YOUR DAILY BEAT.</span><span lang="en">ENGLISH</span></div>
+    <div class="dialog-bottom"><span>@T["YOUR DAILY BEAT."]</span><partial name="_LanguageSwitcher" /></div>
 </dialog>

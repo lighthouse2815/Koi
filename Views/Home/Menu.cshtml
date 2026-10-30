@@ -1,6 +1,6 @@
 @model MenuViewModel
 @{
-    ViewData["Title"] = "Menu";
+    ViewData["Title"] = T["Menu__text"].Value;
 
 }
 @section Styles {
@@ -16,8 +16,8 @@
 }
 <div class="content-page" id="home">
 <div class="menuListWrap menu-pin">
-    <div class="head-area"><h1 class="en">MENU</h1></div>
-    <ul class="menuList" aria-label="Menus by country">
+    <div class="head-area"><h1 class="en">@T["MENU"]</h1></div>
+    <ul class="menuList" aria-label="@T["Menus by country"]">
         @foreach (var country in Model.Countries)
         {
             <li class="menu-inner">
@@ -53,7 +53,7 @@
             </li>
         }
     </ul>
-    <div class="back"><a asp-controller="Home" asp-action="OurTea" class="flex-container align-middle" aria-label="Back to Our Tea">
+    <div class="back"><a asp-controller="Home" asp-action="OurTea" class="flex-container align-middle" aria-label="@T["Back to Our Tea"]">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">←</span>@T["( Back )"]</span> }
 <svg class="show-for-large" xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14" aria-hidden="true">
                     <g>
                         <g>
@@ -70,7 +70,7 @@
                         </g>
                     </g>
                 </svg>
-        <span class="text">OUR TEA</span>
+        <span class="text">@T["OUR TEA"]</span>
     </a></div>
 </div>
 </div>

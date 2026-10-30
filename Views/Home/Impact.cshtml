@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Impact";
+    ViewData["Title"] = T["Impact__text"].Value;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/impact_list.css" asp-append-version="true" />
@@ -13,17 +13,17 @@
             <div class="banner-mask"></div>
 
 
-            <div class="side-text left-side show-for-large">FROM SOURCE</div>
-            <div class="side-text right-side show-for-large">TO COMMUNITY</div>
+            <div class="side-text left-side show-for-large">@T["FROM SOURCE"]</div>
+            <div class="side-text right-side show-for-large">@T["TO COMMUNITY"]</div>
 
             <div class="center-content">
                 <div class="impact-list-hero__title head-area">
-                    <h1 class="main-title en">BREWING A BETTER<br>TOMORROW</h1>
+                    <h1 class="main-title en">@T["BREWING A BETTER"]<br>@T["TOMORROW"]</h1>
                 </div>
-                <p class="sub-title">CREATING POSITIVE IMPACT THROUGH EVERY CUP WE SERVE.</p>
+                <p class="sub-title">@T["CREATING POSITIVE IMPACT THROUGH EVERY CUP WE SERVE."]</p>
             </div>
 
-            <div class="scroll scroll-down show-for-large is-show">
+            <div class="scroll scroll-down show-for-large is-show">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }
                 <svg data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="95.04" height="60.99" viewBox="0 0 95.04 60.99">
                     <g data-name="圖層 1">
                         <g>
@@ -52,7 +52,7 @@
 
 
             <div class="slide-text-container">
-                <div class="slide-text">A BUBBLING BETTER WORLD</div>
+                <div class="slide-text">@T["A BUBBLING BETTER WORLD"]</div>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
                     <div class="cell large-12">
                         <div class="section-title">
                             <div class="en">
-                                Every Cup Has a Greater<br>Purp<span class="orange">o</span>se
+                                @T["Every Cup Has a Greater"]<br>@H["Impact.Purpose"]
                             </div>
                         </div>
                     </div>
@@ -71,11 +71,11 @@
 
                     <div class="cell large-7 crm-desc-cell">
                         <div class="section-desc">
-                            <div class="orange-italic">OUR BELIEF</div>
+                            <div class="orange-italic">@T["OUR BELIEF"]</div>
                             <div class="desc-content">
-                                <p>From tea gardens to tea cups, from our people to our communities, KOI believes every cup is an opportunity to create something meaningful.</p>
+                                <p>@T["From tea gardens to tea cups, from our people to our communities, KOI believes every cup is an opportunity to create something meaningful."]</p>
                                 <br>
-                                <p>More than a beverage, each cup reflects our commitment to quality, our care for people, and our dedication to building a better future together.</p>
+                                <p>@T["More than a beverage, each cup reflects our commitment to quality, our care for people, and our dedication to building a better future together."]</p>
                             </div>
                         </div>
                     </div>
@@ -92,10 +92,10 @@
                     <div class="text-wrapper">
                                                 <div class="text-item active">
                             <h2 class="title">
-                                                                                                            <span class="title-line title-line-first">RESPONSIBILITY<span class="num">(01)</span></span>
-                                                                                                                                                <span class="title-line">STARTS FROM THE SOURCE</span>
+                                                                                                            <span class="title-line title-line-first">@T["RESPONSIBILITY"]<span class="num">(01)</span></span>
+                                                                                                                                                <span class="title-line">@T["STARTS FROM THE SOURCE"]</span>
                                                                                                 </h2>
-                            <p class="desc">Carefully selecting every ingredient, with an unwavering commitment to quality and responsibility.</p>
+                            <p class="desc">@T["Carefully selecting every ingredient, with an unwavering commitment to quality and responsibility."]</p>
 
                             <a href="/Home/Responsibility" class="more-btn">
                                 <div class="arrow-wrap">
@@ -104,15 +104,15 @@
                                         <path d="M10.57,29.49c-.45-.7-.24-1.63.46-2.07l19.36-12.33L11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43.28.69.75.69,1.27s-.26.99-.69,1.27l-21.34,13.59c-.25.16-.53.23-.81.23-.5,0-.98-.25-1.27-.69Z" fill="currentColor"></path>
                                     </svg>
                                 </div>
-                                <span class="btn-text">( More )</span>
+                                <span class="btn-text">@T["( More )"]</span>
                             </a>
                         </div>
                                                 <div class="text-item ">
                             <h2 class="title">
-                                                                                                            <span class="title-line title-line-first">PRECISION<span class="num">(02)</span></span>
-                                                                                                                                                <span class="title-line">BUILDS TRUST</span>
+                                                                                                            <span class="title-line title-line-first">@T["PRECISION"]<span class="num">(02)</span></span>
+                                                                                                                                                <span class="title-line">@T["BUILDS TRUST"]</span>
                                                                                                 </h2>
-                            <p class="desc">Crafting every cup with precision to deliver a consistent and trusted experience.</p>
+                            <p class="desc">@T["Crafting every cup with precision to deliver a consistent and trusted experience."]</p>
 
                             <a href="/Home/Precision" class="more-btn">
                                 <div class="arrow-wrap">
@@ -121,15 +121,15 @@
                                         <path d="M10.57,29.49c-.45-.7-.24-1.63.46-2.07l19.36-12.33L11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43.28.69.75.69,1.27s-.26.99-.69,1.27l-21.34,13.59c-.25.16-.53.23-.81.23-.5,0-.98-.25-1.27-.69Z" fill="currentColor"></path>
                                     </svg>
                                 </div>
-                                <span class="btn-text">( More )</span>
+                                <span class="btn-text">@T["( More )"]</span>
                             </a>
                         </div>
                                                 <div class="text-item ">
                             <h2 class="title">
-                                                                                                            <span class="title-line title-line-first">PEOPLE BEHIND<span class="num">(03)</span></span>
-                                                                                                                                                <span class="title-line">THE CRAFT</span>
+                                                                                                            <span class="title-line title-line-first">@T["PEOPLE BEHIND"]<span class="num">(03)</span></span>
+                                                                                                                                                <span class="title-line">@T["THE CRAFT"]</span>
                                                                                                 </h2>
-                            <p class="desc">Investing in our people to nurture talent and carry forward the spirit of craftsmanship.</p>
+                            <p class="desc">@T["Investing in our people to nurture talent and carry forward the spirit of craftsmanship."]</p>
 
                             <a href="/Home/People" class="more-btn">
                                 <div class="arrow-wrap">
@@ -138,15 +138,15 @@
                                         <path d="M10.57,29.49c-.45-.7-.24-1.63.46-2.07l19.36-12.33L11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43.28.69.75.69,1.27s-.26.99-.69,1.27l-21.34,13.59c-.25.16-.53.23-.81.23-.5,0-.98-.25-1.27-.69Z" fill="currentColor"></path>
                                     </svg>
                                 </div>
-                                <span class="btn-text">( More )</span>
+                                <span class="btn-text">@T["( More )"]</span>
                             </a>
                         </div>
                                                 <div class="text-item ">
                             <h2 class="title">
-                                                                                                            <span class="title-line title-line-first">CONNECTIONS THAT<span class="num">(04)</span></span>
-                                                                                                                                                <span class="title-line">GO BEYOND THE CUP</span>
+                                                                                                            <span class="title-line title-line-first">@T["CONNECTIONS THAT"]<span class="num">(04)</span></span>
+                                                                                                                                                <span class="title-line">@T["GO BEYOND THE CUP"]</span>
                                                                                                 </h2>
-                            <p class="desc">Extending warmth beyond every cup to create meaningful connections within our communities.</p>
+                            <p class="desc">@T["Extending warmth beyond every cup to create meaningful connections within our communities."]</p>
 
                             <a href="/Home/Connections" class="more-btn">
                                 <div class="arrow-wrap">
@@ -155,7 +155,7 @@
                                         <path d="M10.57,29.49c-.45-.7-.24-1.63.46-2.07l19.36-12.33L11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43.28.69.75.69,1.27s-.26.99-.69,1.27l-21.34,13.59c-.25.16-.53.23-.81.23-.5,0-.98-.25-1.27-.69Z" fill="currentColor"></path>
                                     </svg>
                                 </div>
-                                <span class="btn-text">( More )</span>
+                                <span class="btn-text">@T["( More )"]</span>
                             </a>
                         </div>
                                             </div>
@@ -165,10 +165,10 @@
                 <div class="pin-right">
                     <div class="image-mask">
                         <div class="image-wrapper">
-                                                        <a href="/Home/Responsibility" class="image-item" style="background-image: url(/images/pages/en/images/impact-list1.jpg);" aria-label="RESPONSIBILITYSTARTS FROM THE SOURCE"></a>
-                                                        <a href="/Home/Precision" class="image-item" style="background-image: url(/images/pages/en/images/impact-list2.jpg);" aria-label="PRECISIONBUILDS TRUST"></a>
-                                                        <a href="/Home/People" class="image-item" style="background-image: url(/images/pages/en/images/impact-list3.jpg);" aria-label="PEOPLE BEHINDTHE CRAFT"></a>
-                                                        <a href="/Home/Connections" class="image-item" style="background-image: url(/images/pages/en/images/impact-list4.jpg);" aria-label="CONNECTIONS THATGO BEYOND THE CUP"></a>
+                                                        <a href="/Home/Responsibility" class="image-item" style="background-image: url(/images/pages/en/images/impact-list1.jpg);" aria-label="@T["RESPONSIBILITYSTARTS FROM THE SOURCE"]"></a>
+                                                        <a href="/Home/Precision" class="image-item" style="background-image: url(/images/pages/en/images/impact-list2.jpg);" aria-label="@T["PRECISIONBUILDS TRUST"]"></a>
+                                                        <a href="/Home/People" class="image-item" style="background-image: url(/images/pages/en/images/impact-list3.jpg);" aria-label="@T["PEOPLE BEHINDTHE CRAFT"]"></a>
+                                                        <a href="/Home/Connections" class="image-item" style="background-image: url(/images/pages/en/images/impact-list4.jpg);" aria-label="@T["CONNECTIONS THATGO BEYOND THE CUP"]"></a>
                                                     </div>
                     </div>
 
@@ -189,7 +189,7 @@
                         </svg>
                     </div>
                     <div class="overflow">
-                        <div class="en">OUR COMMITMENTS</div>
+                        <div class="en">@T["OUR COMMITMENTS"]</div>
                     </div>
                     <div class="deco bottom">
                         <svg xmlns="http://www.w3.org/2000/svg" width="75.19" height="14.36" viewBox="0 0 75.19 14.36">
@@ -200,9 +200,9 @@
 
                 <div class="pin-mobile__list">
                                         <article class="pin-mobile__item">
-                        <a href="/Home/Responsibility" class="pin-mobile__image" style="background-image: url(/images/pages/en/images/impact-list1.jpg);" aria-label="RESPONSIBILITYSTARTS FROM THE SOURCE"></a>
+                        <a href="/Home/Responsibility" class="pin-mobile__image" style="background-image: url(/images/pages/en/images/impact-list1.jpg);" aria-label="@T["RESPONSIBILITYSTARTS FROM THE SOURCE"]"></a>
                         <h2 class="pin-mobile__title">
-                            <span>RESPONSIBILITY<br>STARTS FROM THE SOURCE</span>
+                            <span>@T["RESPONSIBILITY"]<br>@T["STARTS FROM THE SOURCE"]</span>
                             <em>(01)</em>
                         </h2>
                         <a href="/Home/Responsibility" class="more-btn pin-mobile__more">
@@ -212,13 +212,13 @@
                                     <path d="M10.57,29.49c-.45-.7-.24-1.63.46-2.07l19.36-12.33L11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43.28.69.75.69,1.27s-.26.99-.69,1.27l-21.34,13.59c-.25.16-.53.23-.81.23-.5,0-.98-.25-1.27-.69Z" fill="currentColor"></path>
                                 </svg>
                             </div>
-                            <span class="btn-text">( More )</span>
+                            <span class="btn-text">@T["( More )"]</span>
                         </a>
                     </article>
                                         <article class="pin-mobile__item">
-                        <a href="/Home/Precision" class="pin-mobile__image" style="background-image: url(/images/pages/en/images/impact-list2.jpg);" aria-label="PRECISIONBUILDS TRUST"></a>
+                        <a href="/Home/Precision" class="pin-mobile__image" style="background-image: url(/images/pages/en/images/impact-list2.jpg);" aria-label="@T["PRECISIONBUILDS TRUST"]"></a>
                         <h2 class="pin-mobile__title">
-                            <span>PRECISION<br>BUILDS TRUST</span>
+                            <span>@T["PRECISION"]<br>@T["BUILDS TRUST"]</span>
                             <em>(02)</em>
                         </h2>
                         <a href="/Home/Precision" class="more-btn pin-mobile__more">
@@ -228,13 +228,13 @@
                                     <path d="M10.57,29.49c-.45-.7-.24-1.63.46-2.07l19.36-12.33L11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43.28.69.75.69,1.27s-.26.99-.69,1.27l-21.34,13.59c-.25.16-.53.23-.81.23-.5,0-.98-.25-1.27-.69Z" fill="currentColor"></path>
                                 </svg>
                             </div>
-                            <span class="btn-text">( More )</span>
+                            <span class="btn-text">@T["( More )"]</span>
                         </a>
                     </article>
                                         <article class="pin-mobile__item">
-                        <a href="/Home/People" class="pin-mobile__image" style="background-image: url(/images/pages/en/images/impact-list3.jpg);" aria-label="PEOPLE BEHINDTHE CRAFT"></a>
+                        <a href="/Home/People" class="pin-mobile__image" style="background-image: url(/images/pages/en/images/impact-list3.jpg);" aria-label="@T["PEOPLE BEHINDTHE CRAFT"]"></a>
                         <h2 class="pin-mobile__title">
-                            <span>PEOPLE BEHIND<br>THE CRAFT</span>
+                            <span>@T["PEOPLE BEHIND"]<br>@T["THE CRAFT"]</span>
                             <em>(03)</em>
                         </h2>
                         <a href="/Home/People" class="more-btn pin-mobile__more">
@@ -244,13 +244,13 @@
                                     <path d="M10.57,29.49c-.45-.7-.24-1.63.46-2.07l19.36-12.33L11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43.28.69.75.69,1.27s-.26.99-.69,1.27l-21.34,13.59c-.25.16-.53.23-.81.23-.5,0-.98-.25-1.27-.69Z" fill="currentColor"></path>
                                 </svg>
                             </div>
-                            <span class="btn-text">( More )</span>
+                            <span class="btn-text">@T["( More )"]</span>
                         </a>
                     </article>
                                         <article class="pin-mobile__item">
-                        <a href="/Home/Connections" class="pin-mobile__image" style="background-image: url(/images/pages/en/images/impact-list4.jpg);" aria-label="CONNECTIONS THATGO BEYOND THE CUP"></a>
+                        <a href="/Home/Connections" class="pin-mobile__image" style="background-image: url(/images/pages/en/images/impact-list4.jpg);" aria-label="@T["CONNECTIONS THATGO BEYOND THE CUP"]"></a>
                         <h2 class="pin-mobile__title">
-                            <span>CONNECTIONS THAT<br>GO BEYOND THE CUP</span>
+                            <span>@T["CONNECTIONS THAT"]<br>@T["GO BEYOND THE CUP"]</span>
                             <em>(04)</em>
                         </h2>
                         <a href="/Home/Connections" class="more-btn pin-mobile__more">
@@ -260,7 +260,7 @@
                                     <path d="M10.57,29.49c-.45-.7-.24-1.63.46-2.07l19.36-12.33L11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43.28.69.75.69,1.27s-.26.99-.69,1.27l-21.34,13.59c-.25.16-.53.23-.81.23-.5,0-.98-.25-1.27-.69Z" fill="currentColor"></path>
                                 </svg>
                             </div>
-                            <span class="btn-text">( More )</span>
+                            <span class="btn-text">@T["( More )"]</span>
                         </a>
                     </article>
                                     </div>

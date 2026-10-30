@@ -1,0 +1,1563 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="&quot;JOIN" xml:space="preserve">
+    <value>"JOIN</value>
+  </data>
+  <data name="&quot;JOIN OUR" xml:space="preserve">
+    <value>"JOIN OUR</value>
+  </data>
+  <data name="( AUSTRALIA )" xml:space="preserve">
+    <value>( AUSTRALIA )</value>
+  </data>
+  <data name="( BANGLADESH )" xml:space="preserve">
+    <value>( BANGLADESH )</value>
+  </data>
+  <data name="( BRUNEI )" xml:space="preserve">
+    <value>( BRUNEI )</value>
+  </data>
+  <data name="( Back )" xml:space="preserve">
+    <value>( Back )</value>
+  </data>
+  <data name="( CAMBODIA )" xml:space="preserve">
+    <value>( CAMBODIA )</value>
+  </data>
+  <data name="( CANADA )" xml:space="preserve">
+    <value>( CANADA )</value>
+  </data>
+  <data name="( CHINA )" xml:space="preserve">
+    <value>( CHINA )</value>
+  </data>
+  <data name="( DUBAI )" xml:space="preserve">
+    <value>( DUBAI )</value>
+  </data>
+  <data name="( FRANCE )" xml:space="preserve">
+    <value>( FRANCE )</value>
+  </data>
+  <data name="( INDONESIA )" xml:space="preserve">
+    <value>( INDONESIA )</value>
+  </data>
+  <data name="( JAPAN )" xml:space="preserve">
+    <value>( JAPAN )</value>
+  </data>
+  <data name="( LAOS )" xml:space="preserve">
+    <value>( LAOS )</value>
+  </data>
+  <data name="( MALAYSIA )" xml:space="preserve">
+    <value>( MALAYSIA )</value>
+  </data>
+  <data name="( More )" xml:space="preserve">
+    <value>( More )</value>
+  </data>
+  <data name="( PHILIPPINES )" xml:space="preserve">
+    <value>( PHILIPPINES )</value>
+  </data>
+  <data name="( Pause motion )" xml:space="preserve">
+    <value>( Pause motion )</value>
+  </data>
+  <data name="( Play motion )" xml:space="preserve">
+    <value>( Play motion )</value>
+  </data>
+  <data name="( Replay intro )" xml:space="preserve">
+    <value>( Replay intro )</value>
+  </data>
+  <data name="( SINGAPORE )" xml:space="preserve">
+    <value>( SINGAPORE )</value>
+  </data>
+  <data name="( Skip )" xml:space="preserve">
+    <value>( Skip )</value>
+  </data>
+  <data name="( THAILAND )" xml:space="preserve">
+    <value>( THAILAND )</value>
+  </data>
+  <data name="( Top )" xml:space="preserve">
+    <value>( Top )</value>
+  </data>
+  <data name="( USA )" xml:space="preserve">
+    <value>( USA )</value>
+  </data>
+  <data name="( VIETNAM )" xml:space="preserve">
+    <value>( VIETNAM )</value>
+  </data>
+  <data name="(Brand)" xml:space="preserve">
+    <value>(Brand)</value>
+  </data>
+  <data name="(Country)" xml:space="preserve">
+    <value>(Country)</value>
+  </data>
+  <data name="(FEATURES)" xml:space="preserve">
+    <value>(FEATURES)</value>
+  </data>
+  <data name="(Location)" xml:space="preserve">
+    <value>(Location)</value>
+  </data>
+  <data name="(NAVIGATION)" xml:space="preserve">
+    <value>(NAVIGATION)</value>
+  </data>
+  <data name="(USD)" xml:space="preserve">
+    <value>(USD)</value>
+  </data>
+  <data name="0M+" xml:space="preserve">
+    <value>0M+</value>
+  </data>
+  <data name="20th Anniversary Drink Giveaway" xml:space="preserve">
+    <value>20th Anniversary Drink Giveaway</value>
+  </data>
+  <data name="A BUBBLING BETTER WORLD" xml:space="preserve">
+    <value>A BUBBLING BETTER WORLD</value>
+  </data>
+  <data name="A Stage for" xml:space="preserve">
+    <value>A Stage for</value>
+  </data>
+  <data name="A coffee bean sparked a series of magical journeys for KOI." xml:space="preserve">
+    <value>A coffee bean sparked a series of magical journeys for KOI.</value>
+  </data>
+  <data name="A cup of tea can start a conversation." xml:space="preserve">
+    <value>A cup of tea can start a conversation.</value>
+  </data>
+  <data name="A global platform that celebrates craftsmanship, innovation, and excellence." xml:space="preserve">
+    <value>A global platform that celebrates craftsmanship, innovation, and excellence.</value>
+  </data>
+  <data name="A little care in every cup" xml:space="preserve">
+    <value>A little care in every cup</value>
+  </data>
+  <data name="A new Beat of vibrancy! Injected new vitality into our original hand-drawn logo, reflecting KOI's pursuit of professionalism and constant innovation." xml:space="preserve">
+    <value>A new Beat of vibrancy! Injected new vitality into our original hand-drawn logo, reflecting KOI's pursuit of professionalism and constant innovation.</value>
+  </data>
+  <data name="A simple act of kindness can bring a community together." xml:space="preserve">
+    <value>A simple act of kindness can bring a community together.</value>
+  </data>
+  <data name="A supportive culture built on collaboration and shared success." xml:space="preserve">
+    <value>A supportive culture built on collaboration and shared success.</value>
+  </data>
+  <data name="ABOUT" xml:space="preserve">
+    <value>ABOUT</value>
+  </data>
+  <data name="ALL" xml:space="preserve">
+    <value>ALL</value>
+  </data>
+  <data name="AREA EXCLUSIVE" xml:space="preserve">
+    <value>AREA EXCLUSIVE</value>
+  </data>
+  <data name="AUSTRALIA" xml:space="preserve">
+    <value>AUSTRALIA</value>
+  </data>
+  <data name="About__text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="About KOI Thé" xml:space="preserve">
+    <value>About KOI Thé</value>
+  </data>
+  <data name="Actively engaging with local communities and fostering meaningful connections with the people we serve." xml:space="preserve">
+    <value>Actively engaging with local communities and fostering meaningful connections with the people we serve.</value>
+  </data>
+  <data name="Additional benefits include operations bonuses, housing allowances, regional allowances, home traveling allowances, tax subsidies, health checkup subsidies, medical insurance, annual gifts, and so on." xml:space="preserve">
+    <value>Additional benefits include operations bonuses, housing allowances, regional allowances, home traveling allowances, tax subsidies, health checkup subsidies, medical insurance, annual gifts, and so on.</value>
+  </data>
+  <data name="After sales service" xml:space="preserve">
+    <value>After sales service</value>
+  </data>
+  <data name="All__text" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="All rights reserved." xml:space="preserve">
+    <value>All rights reserved.</value>
+  </data>
+  <data name="Annual Company Trip" xml:space="preserve">
+    <value>Annual Company Trip</value>
+  </data>
+  <data name="Annual leave: 10-30 days" xml:space="preserve">
+    <value>Annual leave: 10-30 days</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Apply NOW！" xml:space="preserve">
+    <value>Apply NOW！</value>
+  </data>
+  <data name="Apply Now" xml:space="preserve">
+    <value>Apply Now</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="Area Manager" xml:space="preserve">
+    <value>Area Manager</value>
+  </data>
+  <data name="Asia-Pac" xml:space="preserve">
+    <value>Asia-Pac</value>
+  </data>
+  <data name="At KOI, we cherish every encounter and believe that even" xml:space="preserve">
+    <value>At KOI, we cherish every encounter and believe that even</value>
+  </data>
+  <data name="Australia__text" xml:space="preserve">
+    <value>Australia</value>
+  </data>
+  <data name="BANGLADESH" xml:space="preserve">
+    <value>BANGLADESH</value>
+  </data>
+  <data name="BEHIND THE" xml:space="preserve">
+    <value>BEHIND THE</value>
+  </data>
+  <data name="BRAND MAP" xml:space="preserve">
+    <value>BRAND MAP</value>
+  </data>
+  <data name="BREWING A BETTER" xml:space="preserve">
+    <value>BREWING A BETTER</value>
+  </data>
+  <data name="BRUNEI" xml:space="preserve">
+    <value>BRUNEI</value>
+  </data>
+  <data name="BUILDS TRUST" xml:space="preserve">
+    <value>BUILDS TRUST</value>
+  </data>
+  <data name="BUSINESS" xml:space="preserve">
+    <value>BUSINESS</value>
+  </data>
+  <data name="BY THE NUMBERS" xml:space="preserve">
+    <value>BY THE NUMBERS</value>
+  </data>
+  <data name="Back to KOI Thé →" xml:space="preserve">
+    <value>Back to KOI Thé →</value>
+  </data>
+  <data name="Back to Our Tea" xml:space="preserve">
+    <value>Back to Our Tea</value>
+  </data>
+  <data name="Back to impact list" xml:space="preserve">
+    <value>Back to impact list</value>
+  </data>
+  <data name="Back to news" xml:space="preserve">
+    <value>Back to news</value>
+  </data>
+  <data name="Back to video list" xml:space="preserve">
+    <value>Back to video list</value>
+  </data>
+  <data name="Bangladesh__text" xml:space="preserve">
+    <value>Bangladesh</value>
+  </data>
+  <data name="Base Salary" xml:space="preserve">
+    <value>Base Salary</value>
+  </data>
+  <data name="Based on our past experience, the total initial investment is approximately USD 300,000." xml:space="preserve">
+    <value>Based on our past experience, the total initial investment is approximately USD 300,000.</value>
+  </data>
+  <data name="Behind every consistently crafted cup is a commitment to sourcing the right ingredients. From carefully selected tea leaves to the production of our signature bubbles, every ingredient is managed under consistent quality standards to ensure trust begins at the source. With the establishment of our own pearl production facility, we have strengthened our ability to manage quality, specifications, and supply stability—ensuring every bubble served meets KOI’s standards." xml:space="preserve">
+    <value>Behind every consistently crafted cup is a commitment to sourcing the right ingredients. From carefully selected tea leaves to the production of our signature bubbles, every ingredient is managed under consistent quality standards to ensure trust begins at the source. With the establishment of our own pearl production facility, we have strengthened our ability to manage quality, specifications, and supply stability—ensuring every bubble served meets KOI’s standards.</value>
+  </data>
+  <data name="Beyond professional development, we care deeply about the well-being and connection of our people. Through company trips, annual celebrations, team-building activities, and community initiatives, we create opportunities for meaningful connection, shared experiences, and positive impact. Together, we foster a culture where people feel valued, supported, and inspired to grow." xml:space="preserve">
+    <value>Beyond professional development, we care deeply about the well-being and connection of our people. Through company trips, annual celebrations, team-building activities, and community initiatives, we create opportunities for meaningful connection, shared experiences, and positive impact. Together, we foster a culture where people feel valued, supported, and inspired to grow.</value>
+  </data>
+  <data name="Black Tea" xml:space="preserve">
+    <value>Black Tea</value>
+  </data>
+  <data name="Brand Collaboration" xml:space="preserve">
+    <value>Brand Collaboration</value>
+  </data>
+  <data name="Brown Sugar" xml:space="preserve">
+    <value>Brown Sugar</value>
+  </data>
+  <data name="Brunei__text" xml:space="preserve">
+    <value>Brunei</value>
+  </data>
+  <data name="Business Activities Description" xml:space="preserve">
+    <value>Business Activities Description</value>
+  </data>
+  <data name="Business cooperation" xml:space="preserve">
+    <value>Business cooperation</value>
+  </data>
+  <data name="Business partnership inquiry" xml:space="preserve">
+    <value>Business partnership inquiry</value>
+  </data>
+  <data name="By investing in training and development, we empower our teams to uphold the craftsmanship that defines KOI – while growing together as a global community." xml:space="preserve">
+    <value>By investing in training and development, we empower our teams to uphold the craftsmanship that defines KOI – while growing together as a global community.</value>
+  </data>
+  <data name="By opening our doors to young explorers and local communities, we share the story behind every cup — from tea craftsmanship to the values that define KOI. Through hands-on experiences, we inspire curiosity and create meaningful connections with our brand." xml:space="preserve">
+    <value>By opening our doors to young explorers and local communities, we share the story behind every cup — from tea craftsmanship to the values that define KOI. Through hands-on experiences, we inspire curiosity and create meaningful connections with our brand.</value>
+  </data>
+  <data name="By supporting initiatives that promote respect, inclusion, and empathy, we hope to inspire positive values and encourage meaningful conversations that strengthen our communities." xml:space="preserve">
+    <value>By supporting initiatives that promote respect, inclusion, and empathy, we hope to inspire positive values and encourage meaningful conversations that strengthen our communities.</value>
+  </data>
+  <data name="By supporting meaningful community initiatives, we extend kindness beyond every cup and bring warmth and care to the communities we serve." xml:space="preserve">
+    <value>By supporting meaningful community initiatives, we extend kindness beyond every cup and bring warmth and care to the communities we serve.</value>
+  </data>
+  <data name="CAMBODIA" xml:space="preserve">
+    <value>CAMBODIA</value>
+  </data>
+  <data name="CANADA" xml:space="preserve">
+    <value>CANADA</value>
+  </data>
+  <data name="CAREER GROWTH" xml:space="preserve">
+    <value>CAREER GROWTH</value>
+  </data>
+  <data name="CHEWY TEA" xml:space="preserve">
+    <value>CHEWY TEA</value>
+  </data>
+  <data name="CHINA" xml:space="preserve">
+    <value>CHINA</value>
+  </data>
+  <data name="COMMUNITY" xml:space="preserve">
+    <value>COMMUNITY</value>
+  </data>
+  <data name="CONNECTIONS THAT" xml:space="preserve">
+    <value>CONNECTIONS THAT</value>
+  </data>
+  <data name="CONNECTIONS THATGO BEYOND THE CUP" xml:space="preserve">
+    <value>CONNECTIONS THATGO BEYOND THE CUP</value>
+  </data>
+  <data name="CONSISTENCY" xml:space="preserve">
+    <value>CONSISTENCY</value>
+  </data>
+  <data name="CONTACT" xml:space="preserve">
+    <value>CONTACT</value>
+  </data>
+  <data name="CRAFT" xml:space="preserve">
+    <value>CRAFT</value>
+  </data>
+  <data name="CREATING POSITIVE IMPACT THROUGH EVERY CUP WE SERVE." xml:space="preserve">
+    <value>CREATING POSITIVE IMPACT THROUGH EVERY CUP WE SERVE.</value>
+  </data>
+  <data name="Cambodia__text" xml:space="preserve">
+    <value>Cambodia</value>
+  </data>
+  <data name="Canada__text" xml:space="preserve">
+    <value>Canada</value>
+  </data>
+  <data name="Careers at KOI Thé" xml:space="preserve">
+    <value>Careers at KOI Thé</value>
+  </data>
+  <data name="Carefully Selected" xml:space="preserve">
+    <value>Carefully Selected</value>
+  </data>
+  <data name="Carefully selecting every ingredient, with an unwavering commitment to quality and responsibility." xml:space="preserve">
+    <value>Carefully selecting every ingredient, with an unwavering commitment to quality and responsibility.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Certifications" xml:space="preserve">
+    <value>Certifications</value>
+  </data>
+  <data name="China__text" xml:space="preserve">
+    <value>China</value>
+  </data>
+  <data name="Choose a news article" xml:space="preserve">
+    <value>Choose a news article</value>
+  </data>
+  <data name="Choose your language" xml:space="preserve">
+    <value>Choose your language</value>
+  </data>
+  <data name="Clear Promotion Pathway" xml:space="preserve">
+    <value>Clear Promotion Pathway</value>
+  </data>
+  <data name="Clear career path encourage long-term professional growth." xml:space="preserve">
+    <value>Clear career path encourage long-term professional growth.</value>
+  </data>
+  <data name="Close navigation menu" xml:space="preserve">
+    <value>Close navigation menu</value>
+  </data>
+  <data name="Close store photo" xml:space="preserve">
+    <value>Close store photo</value>
+  </data>
+  <data name="Collaborating with organizations and community partners to create positive and lasting impact together." xml:space="preserve">
+    <value>Collaborating with organizations and community partners to create positive and lasting impact together.</value>
+  </data>
+  <data name="Collaboration is currently not open for the following regions:" xml:space="preserve">
+    <value>Collaboration is currently not open for the following regions:</value>
+  </data>
+  <data name="Colourful KOI travel magnet badges" xml:space="preserve">
+    <value>Colourful KOI travel magnet badges</value>
+  </data>
+  <data name="Comments / Please state any relevant experience you believe will help enable you to succeed with KOI given the Business Arrangement(s) you have mentioned in previous section." xml:space="preserve">
+    <value>Comments / Please state any relevant experience you believe will help enable you to succeed with KOI given the Business Arrangement(s) you have mentioned in previous section.</value>
+  </data>
+  <data name="Commitment {0}" xml:space="preserve">
+    <value>Commitment {0}</value>
+  </data>
+  <data name="Community Clean-Up Initiative" xml:space="preserve">
+    <value>Community Clean-Up Initiative</value>
+  </data>
+  <data name="Company Name" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="Company Website" xml:space="preserve">
+    <value>Company Website</value>
+  </data>
+  <data name="Comprehensive Salary Benefits" xml:space="preserve">
+    <value>Comprehensive Salary Benefits</value>
+  </data>
+  <data name="Connections" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="Consistency is achieved through attention to detail. From tea measurements and brewing time to sweetness and ice level controls, every step follows standardized procedures to ensure the signature taste and quality that customers expect from KOI." xml:space="preserve">
+    <value>Consistency is achieved through attention to detail. From tea measurements and brewing time to sweetness and ice level controls, every step follows standardized procedures to ensure the signature taste and quality that customers expect from KOI.</value>
+  </data>
+  <data name="Consistent Quality Standards" xml:space="preserve">
+    <value>Consistent Quality Standards</value>
+  </data>
+  <data name="Contact__text" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Contact Number" xml:space="preserve">
+    <value>Contact Number</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="Continuous learning opportunities to strengthen professional skills and knowledge." xml:space="preserve">
+    <value>Continuous learning opportunities to strengthen professional skills and knowledge.</value>
+  </data>
+  <data name="Copy link ↗" xml:space="preserve">
+    <value>Copy link ↗</value>
+  </data>
+  <data name="Copy the address from your browser to share this article." xml:space="preserve">
+    <value>Copy the address from your browser to share this article.</value>
+  </data>
+  <data name="Country of Residence" xml:space="preserve">
+    <value>Country of Residence</value>
+  </data>
+  <data name="Country social media" xml:space="preserve">
+    <value>Country social media</value>
+  </data>
+  <data name="Crafting every cup with precision to deliver a consistent and trusted experience." xml:space="preserve">
+    <value>Crafting every cup with precision to deliver a consistent and trusted experience.</value>
+  </data>
+  <data name="Cups of Quality" xml:space="preserve">
+    <value>Cups of Quality</value>
+  </data>
+  <data name="Curiosity" xml:space="preserve">
+    <value>Curiosity</value>
+  </data>
+  <data name="DELICIOUS" xml:space="preserve">
+    <value>DELICIOUS</value>
+  </data>
+  <data name="DO NOT send your resume to both portals." xml:space="preserve">
+    <value>DO NOT send your resume to both portals.</value>
+  </data>
+  <data name="DRINK" xml:space="preserve">
+    <value>DRINK</value>
+  </data>
+  <data name="DRINK CLASSIFICATION" xml:space="preserve">
+    <value>DRINK CLASSIFICATION</value>
+  </data>
+  <data name="DUBAI" xml:space="preserve">
+    <value>DUBAI</value>
+  </data>
+  <data name="Do you have the experience in running a chain store?" xml:space="preserve">
+    <value>Do you have the experience in running a chain store?</value>
+  </data>
+  <data name="Drink categories, scroll horizontally" xml:space="preserve">
+    <value>Drink categories, scroll horizontally</value>
+  </data>
+  <data name="Dubai__text" xml:space="preserve">
+    <value>Dubai</value>
+  </data>
+  <data name="E-Mail" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="E-mail__text" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EN" xml:space="preserve">
+    <value>EN</value>
+  </data>
+  <data name="ENGAGEMENT" xml:space="preserve">
+    <value>ENGAGEMENT</value>
+  </data>
+  <data name="ENGLISH" xml:space="preserve">
+    <value>ENGLISH</value>
+  </data>
+  <data name="EXPLORE KOI" xml:space="preserve">
+    <value>EXPLORE KOI</value>
+  </data>
+  <data name="Europe/UK" xml:space="preserve">
+    <value>Europe/UK</value>
+  </data>
+  <data name="Every Cup Has a Greater" xml:space="preserve">
+    <value>Every Cup Has a Greater</value>
+  </data>
+  <data name="Every KOI drink is crafted with precision – not only to" xml:space="preserve">
+    <value>Every KOI drink is crafted with precision – not only to</value>
+  </data>
+  <data name="Excellence" xml:space="preserve">
+    <value>Excellence</value>
+  </data>
+  <data name="Expanded navigation" xml:space="preserve">
+    <value>Expanded navigation</value>
+  </data>
+  <data name="Expanding into Europe, marking the grand opening of our first store in Paris." xml:space="preserve">
+    <value>Expanding into Europe, marking the grand opening of our first store in Paris.</value>
+  </data>
+  <data name="Expanding into Oceania, with the grand opening of our first store in Sydney" xml:space="preserve">
+    <value>Expanding into Oceania, with the grand opening of our first store in Sydney</value>
+  </data>
+  <data name="Explore more" xml:space="preserve">
+    <value>Explore more</value>
+  </data>
+  <data name="Explore new drinks" xml:space="preserve">
+    <value>Explore new drinks</value>
+  </data>
+  <data name="Explore the KOI story" xml:space="preserve">
+    <value>Explore the KOI story</value>
+  </data>
+  <data name="Explore the menu" xml:space="preserve">
+    <value>Explore the menu</value>
+  </data>
+  <data name="Extending warmth beyond every cup to create meaningful connections within our communities." xml:space="preserve">
+    <value>Extending warmth beyond every cup to create meaningful connections within our communities.</value>
+  </data>
+  <data name="FIND YOUR DAILY FAVOURITE" xml:space="preserve">
+    <value>FIND YOUR DAILY FAVOURITE</value>
+  </data>
+  <data name="FINE INGREDIENTS" xml:space="preserve">
+    <value>FINE INGREDIENTS</value>
+  </data>
+  <data name="FLAVORED TEA" xml:space="preserve">
+    <value>FLAVORED TEA</value>
+  </data>
+  <data name="FOUNDATIONS" xml:space="preserve">
+    <value>FOUNDATIONS</value>
+  </data>
+  <data name="FRAGRANCE" xml:space="preserve">
+    <value>FRAGRANCE</value>
+  </data>
+  <data name="FRANCE" xml:space="preserve">
+    <value>FRANCE</value>
+  </data>
+  <data name="FROM CONTINUOUS LEARNING TO SHARED GROWTH." xml:space="preserve">
+    <value>FROM CONTINUOUS LEARNING TO SHARED GROWTH.</value>
+  </data>
+  <data name="FROM GENUINE CONNECTIONS TO STRONGER COMMUNITIES." xml:space="preserve">
+    <value>FROM GENUINE CONNECTIONS TO STRONGER COMMUNITIES.</value>
+  </data>
+  <data name="FROM SOURCE" xml:space="preserve">
+    <value>FROM SOURCE</value>
+  </data>
+  <data name="Family Name" xml:space="preserve">
+    <value>Family Name</value>
+  </data>
+  <data name="Feature 1" xml:space="preserve">
+    <value>Feature 1</value>
+  </data>
+  <data name="Feature 2" xml:space="preserve">
+    <value>Feature 2</value>
+  </data>
+  <data name="Feature 3" xml:space="preserve">
+    <value>Feature 3</value>
+  </data>
+  <data name="Feature 4" xml:space="preserve">
+    <value>Feature 4</value>
+  </data>
+  <data name="Feature 5" xml:space="preserve">
+    <value>Feature 5</value>
+  </data>
+  <data name="Feature pagination" xml:space="preserve">
+    <value>Feature pagination</value>
+  </data>
+  <data name="Features pagination" xml:space="preserve">
+    <value>Features pagination</value>
+  </data>
+  <data name="Filter stores" xml:space="preserve">
+    <value>Filter stores</value>
+  </data>
+  <data name="Find a KOI store" xml:space="preserve">
+    <value>Find a KOI store</value>
+  </data>
+  <data name="Find stores by country" xml:space="preserve">
+    <value>Find stores by country</value>
+  </data>
+  <data name="First Name" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Food Safety" xml:space="preserve">
+    <value>Food Safety</value>
+  </data>
+  <data name="Footer navigation" xml:space="preserve">
+    <value>Footer navigation</value>
+  </data>
+  <data name="Form preview. Sending is not enabled." xml:space="preserve">
+    <value>Form preview. Sending is not enabled.</value>
+  </data>
+  <data name="France__text" xml:space="preserve">
+    <value>France</value>
+  </data>
+  <data name="Franchise Requests" xml:space="preserve">
+    <value>Franchise Requests</value>
+  </data>
+  <data name="Fresh Milk" xml:space="preserve">
+    <value>Fresh Milk</value>
+  </data>
+  <data name="Freshly brewed milk tea turning as you scroll" xml:space="preserve">
+    <value>Freshly brewed milk tea turning as you scroll</value>
+  </data>
+  <data name="Freshly-picked tea leaves are meticulously chosen to create a tea that satisfies even the most discerning palate. Golden Bubbles are made from natural ingredients and cooked at varying temperatures to ensure their distinctive golden sheen and delightful chewiness." xml:space="preserve">
+    <value>Freshly-picked tea leaves are meticulously chosen to create a tea that satisfies even the most discerning palate. Golden Bubbles are made from natural ingredients and cooked at varying temperatures to ensure their distinctive golden sheen and delightful chewiness.</value>
+  </data>
+  <data name="From Nature" xml:space="preserve">
+    <value>From Nature</value>
+  </data>
+  <data name="From carefully crafted processes to consistent quality." xml:space="preserve">
+    <value>From carefully crafted processes to consistent quality.</value>
+  </data>
+  <data name="From product knowledge and service excellence to tea craftsmanship and brand values, we provide structured training and learning opportunities that help our people develop professionally while embracing the standards and spirit that define KOI." xml:space="preserve">
+    <value>From product knowledge and service excellence to tea craftsmanship and brand values, we provide structured training and learning opportunities that help our people develop professionally while embracing the standards and spirit that define KOI.</value>
+  </data>
+  <data name="From supply chain management to product integrity, we ensure that every cup reflects our commitment to both excellence and sustainability." xml:space="preserve">
+    <value>From supply chain management to product integrity, we ensure that every cup reflects our commitment to both excellence and sustainability.</value>
+  </data>
+  <data name="From tea gardens to tea cups, from our people to our communities, KOI believes every cup is an opportunity to create something meaningful." xml:space="preserve">
+    <value>From tea gardens to tea cups, from our people to our communities, KOI believes every cup is an opportunity to create something meaningful.</value>
+  </data>
+  <data name="From trusted ingredients to every cup we proudly serve." xml:space="preserve">
+    <value>From trusted ingredients to every cup we proudly serve.</value>
+  </data>
+  <data name="From trusted origins to careful selection, every ingredient is chosen with quality in mind." xml:space="preserve">
+    <value>From trusted origins to careful selection, every ingredient is chosen with quality in mind.</value>
+  </data>
+  <data name="From trusted origins to lasting confidence." xml:space="preserve">
+    <value>From trusted origins to lasting confidence.</value>
+  </data>
+  <data name="GIVING BACK" xml:space="preserve">
+    <value>GIVING BACK</value>
+  </data>
+  <data name="GLOBAL EXPOSURE" xml:space="preserve">
+    <value>GLOBAL EXPOSURE</value>
+  </data>
+  <data name="GO BEYOND THE CUP" xml:space="preserve">
+    <value>GO BEYOND THE CUP</value>
+  </data>
+  <data name="GOLDEN BUBBLE" xml:space="preserve">
+    <value>GOLDEN BUBBLE</value>
+  </data>
+  <data name="GOLDEN BUBBLE MILK TEA" xml:space="preserve">
+    <value>GOLDEN BUBBLE MILK TEA</value>
+  </data>
+  <data name="GROW TOGETHER" xml:space="preserve">
+    <value>GROW TOGETHER</value>
+  </data>
+  <data name="Giving back through charitable initiatives and community support, extending care to those who need it most." xml:space="preserve">
+    <value>Giving back through charitable initiatives and community support, extending care to those who need it most.</value>
+  </data>
+  <data name="Golden Bubble__text" xml:space="preserve">
+    <value>Golden Bubble</value>
+  </data>
+  <data name="Golden Bubble Milk Tea__text" xml:space="preserve">
+    <value>Golden Bubble Milk Tea</value>
+  </data>
+  <data name="Google map" xml:space="preserve">
+    <value>Google map</value>
+  </data>
+  <data name="HEART-WARMING" xml:space="preserve">
+    <value>HEART-WARMING</value>
+  </data>
+  <data name="HOME" xml:space="preserve">
+    <value>HOME</value>
+  </data>
+  <data name="HONEY GREEN TEA" xml:space="preserve">
+    <value>HONEY GREEN TEA</value>
+  </data>
+  <data name="HQ New Product Showcase" xml:space="preserve">
+    <value>HQ New Product Showcase</value>
+  </data>
+  <data name="HQ Spring Training" xml:space="preserve">
+    <value>HQ Spring Training</value>
+  </data>
+  <data name="Happiness is to share special moments with friends. A celebration, a date or just a relaxing break in the day, there is always a reason to get together around a cup of KOI tea. KOI brings joy to the world. Freshly brewed tea and flavorful ingredients, prepared with passion are the key to KOI’s authentic taste and the reason why people come back again and again." xml:space="preserve">
+    <value>Happiness is to share special moments with friends. A celebration, a date or just a relaxing break in the day, there is always a reason to get together around a cup of KOI tea. KOI brings joy to the world. Freshly brewed tea and flavorful ingredients, prepared with passion are the key to KOI’s authentic taste and the reason why people come back again and again.</value>
+  </data>
+  <data name="Have you ever owned or managed a retail F&amp;B business?" xml:space="preserve">
+    <value>Have you ever owned or managed a retail F&amp;B business?</value>
+  </data>
+  <data name="Honey Green Tea__text" xml:space="preserve">
+    <value>Honey Green Tea</value>
+  </data>
+  <data name="IMPACT" xml:space="preserve">
+    <value>IMPACT</value>
+  </data>
+  <data name="IN ACTION" xml:space="preserve">
+    <value>IN ACTION</value>
+  </data>
+  <data name="INDONESIA" xml:space="preserve">
+    <value>INDONESIA</value>
+  </data>
+  <data name="INTERNATIONAL HEADQUARTERS" xml:space="preserve">
+    <value>INTERNATIONAL HEADQUARTERS</value>
+  </data>
+  <data name="Ice Cubes" xml:space="preserve">
+    <value>Ice Cubes</value>
+  </data>
+  <data name="Impact__text" xml:space="preserve">
+    <value>Impact</value>
+  </data>
+  <data name="In order to ensure that every sip of tea delivers a delightful and refined taste experience, the training of our tea baristas involves meticulous practice in every detail, from the precise use of ice and tea quantity to the consistent shaking gestures. Only through such dedication can the intricate nuances of a good tea be consistently expressed, creating a lingering and memorable aftertaste with each sip." xml:space="preserve">
+    <value>In order to ensure that every sip of tea delivers a delightful and refined taste experience, the training of our tea baristas involves meticulous practice in every detail, from the precise use of ice and tea quantity to the consistent shaking gestures. Only through such dedication can the intricate nuances of a good tea be consistently expressed, creating a lingering and memorable aftertaste with each sip.</value>
+  </data>
+  <data name="Incorporation Date" xml:space="preserve">
+    <value>Incorporation Date</value>
+  </data>
+  <data name="Indonesia__text" xml:space="preserve">
+    <value>Indonesia</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
+  <data name="Inquiry type" xml:space="preserve">
+    <value>Inquiry type</value>
+  </data>
+  <data name="Inspiring Change" xml:space="preserve">
+    <value>Inspiring Change</value>
+  </data>
+  <data name="International opportunities that connect our people across markets." xml:space="preserve">
+    <value>International opportunities that connect our people across markets.</value>
+  </data>
+  <data name="Investing in our people to nurture talent and carry forward the spirit of craftsmanship." xml:space="preserve">
+    <value>Investing in our people to nurture talent and carry forward the spirit of craftsmanship.</value>
+  </data>
+  <data name="JAPAN" xml:space="preserve">
+    <value>JAPAN</value>
+  </data>
+  <data name="JUICE" xml:space="preserve">
+    <value>JUICE</value>
+  </data>
+  <data name="Japan__text" xml:space="preserve">
+    <value>Japan</value>
+  </data>
+  <data name="Job Seeking" xml:space="preserve">
+    <value>Job Seeking</value>
+  </data>
+  <data name="Job Title" xml:space="preserve">
+    <value>Job Title</value>
+  </data>
+  <data name="Job post on 104 portal" xml:space="preserve">
+    <value>Job post on 104 portal</value>
+  </data>
+  <data name="KOI Group reserves the right, at our sole discretion, to change," xml:space="preserve">
+    <value>KOI Group reserves the right, at our sole discretion, to change,</value>
+  </data>
+  <data name="KOI Thé" xml:space="preserve">
+    <value>KOI Thé</value>
+  </data>
+  <data name="KOI Thé Cambodia donated beverages and school supplies to a community kindergarten, supporting children's education." xml:space="preserve">
+    <value>KOI Thé Cambodia donated beverages and school supplies to a community kindergarten, supporting children's education.</value>
+  </data>
+  <data name="KOI Thé China partnered with the Treasure House Project to create a safe and nurturing space for community children." xml:space="preserve">
+    <value>KOI Thé China partnered with the Treasure House Project to create a safe and nurturing space for community children.</value>
+  </data>
+  <data name="KOI Thé Indonesia shared care, kindness, and joyful moments with children." xml:space="preserve">
+    <value>KOI Thé Indonesia shared care, kindness, and joyful moments with children.</value>
+  </data>
+  <data name="KOI Thé Japan organized a community clean-up in Ikebukuro, supporting a cleaner environment and local community." xml:space="preserve">
+    <value>KOI Thé Japan organized a community clean-up in Ikebukuro, supporting a cleaner environment and local community.</value>
+  </data>
+  <data name="KOI Thé Malaysia partnered with a local film to launch the Kindness Wall campaign, spreading kindness and raising awareness about anti-bullying." xml:space="preserve">
+    <value>KOI Thé Malaysia partnered with a local film to launch the Kindness Wall campaign, spreading kindness and raising awareness about anti-bullying.</value>
+  </data>
+  <data name="KOI Thé Thailand donated food, beverages, and daily necessities to the Foundation for the Blind, supporting people with visual impairments." xml:space="preserve">
+    <value>KOI Thé Thailand donated food, beverages, and daily necessities to the Foundation for the Blind, supporting people with visual impairments.</value>
+  </data>
+  <data name="KOI Thé home" xml:space="preserve">
+    <value>KOI Thé home</value>
+  </data>
+  <data name="KOI Thé introduction" xml:space="preserve">
+    <value>KOI Thé introduction</value>
+  </data>
+  <data name="KOI Thé video" xml:space="preserve">
+    <value>KOI Thé video</value>
+  </data>
+  <data name="KOI Thé — Your Daily Beat" xml:space="preserve">
+    <value>KOI Thé — Your Daily Beat</value>
+  </data>
+  <data name="Kindness Wall Campaign" xml:space="preserve">
+    <value>Kindness Wall Campaign</value>
+  </data>
+  <data name="LAOS" xml:space="preserve">
+    <value>LAOS</value>
+  </data>
+  <data name="LEARNING &amp; DEVELOPMENT" xml:space="preserve">
+    <value>LEARNING &amp; DEVELOPMENT</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Laos__text" xml:space="preserve">
+    <value>Laos</value>
+  </data>
+  <data name="Latest news" xml:space="preserve">
+    <value>Latest news</value>
+  </data>
+  <data name="Latte" xml:space="preserve">
+    <value>Latte</value>
+  </data>
+  <data name="Launching into North America under the FIFTYLAN brand, with the grand opening of the New York store." xml:space="preserve">
+    <value>Launching into North America under the FIFTYLAN brand, with the grand opening of the New York store.</value>
+  </data>
+  <data name="Learning Never Stops" xml:space="preserve">
+    <value>Learning Never Stops</value>
+  </data>
+  <data name="Let's try that again." xml:space="preserve">
+    <value>Let's try that again.</value>
+  </data>
+  <data name="Link copied" xml:space="preserve">
+    <value>Link copied</value>
+  </data>
+  <data name="Location allowance / housing allowance / Home travel allowance / Tax rebate / Annual health check-up" xml:space="preserve">
+    <value>Location allowance / housing allowance / Home travel allowance / Tax rebate / Annual health check-up</value>
+  </data>
+  <data name="MALAYSIA" xml:space="preserve">
+    <value>MALAYSIA</value>
+  </data>
+  <data name="MASTERS" xml:space="preserve">
+    <value>MASTERS</value>
+  </data>
+  <data name="MEANINGFUL" xml:space="preserve">
+    <value>MEANINGFUL</value>
+  </data>
+  <data name="MEDIA" xml:space="preserve">
+    <value>MEDIA</value>
+  </data>
+  <data name="MENU" xml:space="preserve">
+    <value>MENU</value>
+  </data>
+  <data name="MILK TEA" xml:space="preserve">
+    <value>MILK TEA</value>
+  </data>
+  <data name="MOMENTS" xml:space="preserve">
+    <value>MOMENTS</value>
+  </data>
+  <data name="MORE ↗" xml:space="preserve">
+    <value>MORE ↗</value>
+  </data>
+  <data name="Macchiato" xml:space="preserve">
+    <value>Macchiato</value>
+  </data>
+  <data name="Made with care. Shared with joy." xml:space="preserve">
+    <value>Made with care. Shared with joy.</value>
+  </data>
+  <data name="Main navigation" xml:space="preserve">
+    <value>Main navigation</value>
+  </data>
+  <data name="Malaysia__text" xml:space="preserve">
+    <value>Malaysia</value>
+  </data>
+  <data name="Management" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="Managing" xml:space="preserve">
+    <value>Managing</value>
+  </data>
+  <data name="Markets" xml:space="preserve">
+    <value>Markets</value>
+  </data>
+  <data name="Menu__text" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Menus by country" xml:space="preserve">
+    <value>Menus by country</value>
+  </data>
+  <data name="Milk Tea__text" xml:space="preserve">
+    <value>Milk Tea</value>
+  </data>
+  <data name="Moments That Matter" xml:space="preserve">
+    <value>Moments That Matter</value>
+  </data>
+  <data name="More than a beverage, each cup reflects our commitment to quality, our care for people, and our dedication to building a better future together." xml:space="preserve">
+    <value>More than a beverage, each cup reflects our commitment to quality, our care for people, and our dedication to building a better future together.</value>
+  </data>
+  <data name="Multiple Stores" xml:space="preserve">
+    <value>Multiple Stores</value>
+  </data>
+  <data name="Multiple Territories" xml:space="preserve">
+    <value>Multiple Territories</value>
+  </data>
+  <data name="NEW DRINKS" xml:space="preserve">
+    <value>NEW DRINKS</value>
+  </data>
+  <data name="NEWS" xml:space="preserve">
+    <value>NEWS</value>
+  </data>
+  <data name="NOW!" xml:space="preserve">
+    <value>NOW!</value>
+  </data>
+  <data name="NOW!”" xml:space="preserve">
+    <value>NOW!”</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="New Country Partnership" xml:space="preserve">
+    <value>New Country Partnership</value>
+  </data>
+  <data name="News__text" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="News categories" xml:space="preserve">
+    <value>News categories</value>
+  </data>
+  <data name="News pages" xml:space="preserve">
+    <value>News pages</value>
+  </data>
+  <data name="Next brand" xml:space="preserve">
+    <value>Next brand</value>
+  </data>
+  <data name="Next drinks" xml:space="preserve">
+    <value>Next drinks</value>
+  </data>
+  <data name="Next feature" xml:space="preserve">
+    <value>Next feature</value>
+  </data>
+  <data name="Next milestone" xml:space="preserve">
+    <value>Next milestone</value>
+  </data>
+  <data name="Next page" xml:space="preserve">
+    <value>Next page</value>
+  </data>
+  <data name="Next share" xml:space="preserve">
+    <value>Next share</value>
+  </data>
+  <data name="Next video" xml:space="preserve">
+    <value>Next video</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="No stores match these filters. Choose another location or brand." xml:space="preserve">
+    <value>No stores match these filters. Choose another location or brand.</value>
+  </data>
+  <data name="No.8 Juice" xml:space="preserve">
+    <value>No.8 Juice</value>
+  </data>
+  <data name="OF SHAKING" xml:space="preserve">
+    <value>OF SHAKING</value>
+  </data>
+  <data name="OF TEA LEAVES" xml:space="preserve">
+    <value>OF TEA LEAVES</value>
+  </data>
+  <data name="OUR" xml:space="preserve">
+    <value>OUR</value>
+  </data>
+  <data name="OUR BELIEF" xml:space="preserve">
+    <value>OUR BELIEF</value>
+  </data>
+  <data name="OUR COMMITMENTS" xml:space="preserve">
+    <value>OUR COMMITMENTS</value>
+  </data>
+  <data name="OUR QUALITY" xml:space="preserve">
+    <value>OUR QUALITY</value>
+  </data>
+  <data name="OUR TEA" xml:space="preserve">
+    <value>OUR TEA</value>
+  </data>
+  <data name="Open navigation menu" xml:space="preserve">
+    <value>Open navigation menu</value>
+  </data>
+  <data name="Operations" xml:space="preserve">
+    <value>Operations</value>
+  </data>
+  <data name="Operations Director/COO" xml:space="preserve">
+    <value>Operations Director/COO</value>
+  </data>
+  <data name="Operations Manager" xml:space="preserve">
+    <value>Operations Manager</value>
+  </data>
+  <data name="Other paid leave: sick leave, marriage leave, maternity leave, pregnancy checkup leave, paternity leave, compassionate leave." xml:space="preserve">
+    <value>Other paid leave: sick leave, marriage leave, maternity leave, pregnancy checkup leave, paternity leave, compassionate leave.</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="Our Tea__text" xml:space="preserve">
+    <value>Our Tea</value>
+  </data>
+  <data name="PARTNERSHIP INQUIRY" xml:space="preserve">
+    <value>PARTNERSHIP INQUIRY</value>
+  </data>
+  <data name="PARTNERSHIPS" xml:space="preserve">
+    <value>PARTNERSHIPS</value>
+  </data>
+  <data name="PAUSE" xml:space="preserve">
+    <value>PAUSE</value>
+  </data>
+  <data name="PEOPLE" xml:space="preserve">
+    <value>PEOPLE</value>
+  </data>
+  <data name="PEOPLE BEHIND" xml:space="preserve">
+    <value>PEOPLE BEHIND</value>
+  </data>
+  <data name="PEOPLE BEHINDTHE CRAFT" xml:space="preserve">
+    <value>PEOPLE BEHINDTHE CRAFT</value>
+  </data>
+  <data name="PHILIPPINES" xml:space="preserve">
+    <value>PHILIPPINES</value>
+  </data>
+  <data name="PLAY" xml:space="preserve">
+    <value>PLAY</value>
+  </data>
+  <data name="PRECISION" xml:space="preserve">
+    <value>PRECISION</value>
+  </data>
+  <data name="PRECISION AND" xml:space="preserve">
+    <value>PRECISION AND</value>
+  </data>
+  <data name="PRECISIONBUILDS TRUST" xml:space="preserve">
+    <value>PRECISIONBUILDS TRUST</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Page {0}</value>
+  </data>
+  <data name="Page {0} of {1}" xml:space="preserve">
+    <value>Page {0} of {1}</value>
+  </data>
+  <data name="Pause background video" xml:space="preserve">
+    <value>Pause background video</value>
+  </data>
+  <data name="People__text" xml:space="preserve">
+    <value>People</value>
+  </data>
+  <data name="Perfected through repeated testing by our team, the ideal ratio elevates the deliciousness of our tea to another level, with each sip releasing just the right amount of sweet aroma." xml:space="preserve">
+    <value>Perfected through repeated testing by our team, the ideal ratio elevates the deliciousness of our tea to another level, with each sip releasing just the right amount of sweet aroma.</value>
+  </data>
+  <data name="Philippines__text" xml:space="preserve">
+    <value>Philippines</value>
+  </data>
+  <data name="Photo of {0}" xml:space="preserve">
+    <value>Photo of {0}</value>
+  </data>
+  <data name="Play background video" xml:space="preserve">
+    <value>Play background video</value>
+  </data>
+  <data name="Play video" xml:space="preserve">
+    <value>Play video</value>
+  </data>
+  <data name="Please complete the following form and provide the relevant details to help us evaluate the collaboration and learn more about our overseas partnership opportunities." xml:space="preserve">
+    <value>Please complete the following form and provide the relevant details to help us evaluate the collaboration and learn more about our overseas partnership opportunities.</value>
+  </data>
+  <data name="Please describe your answer briefly." xml:space="preserve">
+    <value>Please describe your answer briefly.</value>
+  </data>
+  <data name="Please indicate the appropriate state, province, territory of country" xml:space="preserve">
+    <value>Please indicate the appropriate state, province, territory of country</value>
+  </data>
+  <data name="Please select your expected capital investment amount." xml:space="preserve">
+    <value>Please select your expected capital investment amount.</value>
+  </data>
+  <data name="Please send your resume to Global Recruitment Team" xml:space="preserve">
+    <value>Please send your resume to Global Recruitment Team</value>
+  </data>
+  <data name="Precision__text" xml:space="preserve">
+    <value>Precision</value>
+  </data>
+  <data name="Precision Begins with" xml:space="preserve">
+    <value>Precision Begins with</value>
+  </data>
+  <data name="Precision goes beyond the brewing process—it represents our commitment to every customer. Through daily quality control checks, comprehensive quality management systems, and global operating standards, we continuously monitor product quality and operational consistency across our stores. This ensures every customer can enjoy the same trusted KOI experience, with every cup reflecting our dedication to quality and care." xml:space="preserve">
+    <value>Precision goes beyond the brewing process—it represents our commitment to every customer. Through daily quality control checks, comprehensive quality management systems, and global operating standards, we continuously monitor product quality and operational consistency across our stores. This ensures every customer can enjoy the same trusted KOI experience, with every cup reflecting our dedication to quality and care.</value>
+  </data>
+  <data name="Precision in Every Brew" xml:space="preserve">
+    <value>Precision in Every Brew</value>
+  </data>
+  <data name="Precision in Every Cup" xml:space="preserve">
+    <value>Precision in Every Cup</value>
+  </data>
+  <data name="Previous brand" xml:space="preserve">
+    <value>Previous brand</value>
+  </data>
+  <data name="Previous drinks" xml:space="preserve">
+    <value>Previous drinks</value>
+  </data>
+  <data name="Previous feature" xml:space="preserve">
+    <value>Previous feature</value>
+  </data>
+  <data name="Previous milestone" xml:space="preserve">
+    <value>Previous milestone</value>
+  </data>
+  <data name="Previous page" xml:space="preserve">
+    <value>Previous page</value>
+  </data>
+  <data name="Previous share" xml:space="preserve">
+    <value>Previous share</value>
+  </data>
+  <data name="Previous video" xml:space="preserve">
+    <value>Previous video</value>
+  </data>
+  <data name="Proposed Business Site / Preferred Business Location" xml:space="preserve">
+    <value>Proposed Business Site / Preferred Business Location</value>
+  </data>
+  <data name="Quick links to menu and stores" xml:space="preserve">
+    <value>Quick links to menu and stores</value>
+  </data>
+  <data name="RECOMMENDATION" xml:space="preserve">
+    <value>RECOMMENDATION</value>
+  </data>
+  <data name="RECRUIT" xml:space="preserve">
+    <value>RECRUIT</value>
+  </data>
+  <data name="RESPONSIBILITY" xml:space="preserve">
+    <value>RESPONSIBILITY</value>
+  </data>
+  <data name="RESPONSIBILITYSTARTS FROM THE SOURCE" xml:space="preserve">
+    <value>RESPONSIBILITYSTARTS FROM THE SOURCE</value>
+  </data>
+  <data name="Reasons why you are interested in KOI over other brands" xml:space="preserve">
+    <value>Reasons why you are interested in KOI over other brands</value>
+  </data>
+  <data name="Recruit__text" xml:space="preserve">
+    <value>Recruit</value>
+  </data>
+  <data name="Reference:" xml:space="preserve">
+    <value>Reference:</value>
+  </data>
+  <data name="Reliable Supply Chain" xml:space="preserve">
+    <value>Reliable Supply Chain</value>
+  </data>
+  <data name="Responsibility__text" xml:space="preserve">
+    <value>Responsibility</value>
+  </data>
+  <data name="SELECTION OF" xml:space="preserve">
+    <value>SELECTION OF</value>
+  </data>
+  <data name="SERVICE" xml:space="preserve">
+    <value>SERVICE</value>
+  </data>
+  <data name="SHAKER MASTER CHAMPIONSHIP" xml:space="preserve">
+    <value>SHAKER MASTER CHAMPIONSHIP</value>
+  </data>
+  <data name="SIGNATURE MACCHIATO" xml:space="preserve">
+    <value>SIGNATURE MACCHIATO</value>
+  </data>
+  <data name="SINGAPORE" xml:space="preserve">
+    <value>SINGAPORE</value>
+  </data>
+  <data name="STARTS FROM THE SOURCE" xml:space="preserve">
+    <value>STARTS FROM THE SOURCE</value>
+  </data>
+  <data name="STORE" xml:space="preserve">
+    <value>STORE</value>
+  </data>
+  <data name="STRONGER COMMUNITIES" xml:space="preserve">
+    <value>STRONGER COMMUNITIES</value>
+  </data>
+  <data name="Scroll" xml:space="preserve">
+    <value>Scroll</value>
+  </data>
+  <data name="Scroll to explore more" xml:space="preserve">
+    <value>Scroll to explore more</value>
+  </data>
+  <data name="Shaker Master Competition" xml:space="preserve">
+    <value>Shaker Master Competition</value>
+  </data>
+  <data name="Share Kindness" xml:space="preserve">
+    <value>Share Kindness</value>
+  </data>
+  <data name="Singapore__text" xml:space="preserve">
+    <value>Singapore</value>
+  </data>
+  <data name="Singapore, Malaysia, Cambodia, Vietnam" xml:space="preserve">
+    <value>Singapore, Malaysia, Cambodia, Vietnam</value>
+  </data>
+  <data name="Single Store" xml:space="preserve">
+    <value>Single Store</value>
+  </data>
+  <data name="Single Territory" xml:space="preserve">
+    <value>Single Territory</value>
+  </data>
+  <data name="Skip to content" xml:space="preserve">
+    <value>Skip to content</value>
+  </data>
+  <data name="Something went wrong" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="Spark" xml:space="preserve">
+    <value>Spark</value>
+  </data>
+  <data name="Sponsorship" xml:space="preserve">
+    <value>Sponsorship</value>
+  </data>
+  <data name="Store__text" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="Store Manager" xml:space="preserve">
+    <value>Store Manager</value>
+  </data>
+  <data name="Store pages" xml:space="preserve">
+    <value>Store pages</value>
+  </data>
+  <data name="Store photo" xml:space="preserve">
+    <value>Store photo</value>
+  </data>
+  <data name="Stores" xml:space="preserve">
+    <value>Stores</value>
+  </data>
+  <data name="Stronger Together" xml:space="preserve">
+    <value>Stronger Together</value>
+  </data>
+  <data name="Submit form (unavailable in preview)" xml:space="preserve">
+    <value>Submit form (unavailable in preview)</value>
+  </data>
+  <data name="Supporting Children's Education" xml:space="preserve">
+    <value>Supporting Children's Education</value>
+  </data>
+  <data name="Sweetness" xml:space="preserve">
+    <value>Sweetness</value>
+  </data>
+  <data name="TEA" xml:space="preserve">
+    <value>TEA</value>
+  </data>
+  <data name="TEA BREWING" xml:space="preserve">
+    <value>TEA BREWING</value>
+  </data>
+  <data name="TEA LATTE" xml:space="preserve">
+    <value>TEA LATTE</value>
+  </data>
+  <data name="TEAM CULTURE" xml:space="preserve">
+    <value>TEAM CULTURE</value>
+  </data>
+  <data name="TEAM&quot;" xml:space="preserve">
+    <value>TEAM"</value>
+  </data>
+  <data name="THAILAND" xml:space="preserve">
+    <value>THAILAND</value>
+  </data>
+  <data name="THE CRAFT" xml:space="preserve">
+    <value>THE CRAFT</value>
+  </data>
+  <data name="THE SOUND" xml:space="preserve">
+    <value>THE SOUND</value>
+  </data>
+  <data name="TO COMMUNITY" xml:space="preserve">
+    <value>TO COMMUNITY</value>
+  </data>
+  <data name="TOMORROW" xml:space="preserve">
+    <value>TOMORROW</value>
+  </data>
+  <data name="TRIANGLE_RULE" xml:space="preserve">
+    <value>THE "G&lt;span class="orange"&gt;O&lt;/span&gt;LDEN TRIANGLE RULE" &lt;span class="orange"&gt;O&lt;/span&gt;F K&lt;span class="orange"&gt;O&lt;/span&gt;I TEA</value>
+  </data>
+  <data name="Targeting Global Talents" xml:space="preserve">
+    <value>Targeting Global Talents</value>
+  </data>
+  <data name="Taro Purple" xml:space="preserve">
+    <value>Taro Purple</value>
+  </data>
+  <data name="Tea__text" xml:space="preserve">
+    <value>Tea</value>
+  </data>
+  <data name="Tea Served Every" xml:space="preserve">
+    <value>Tea Served Every</value>
+  </data>
+  <data name="Team Building Activities" xml:space="preserve">
+    <value>Team Building Activities</value>
+  </data>
+  <data name="Thailand__text" xml:space="preserve">
+    <value>Thailand</value>
+  </data>
+  <data name="Thank you for contacting us." xml:space="preserve">
+    <value>Thank you for contacting us.</value>
+  </data>
+  <data name="Thank you for your love for KOI." xml:space="preserve">
+    <value>Thank you for your love for KOI.</value>
+  </data>
+  <data name="Thank you." xml:space="preserve">
+    <value>Thank you.</value>
+  </data>
+  <data name="The Global Shaker Master Competition is more than a contest. It is a platform for learning, sharing, and growth. It encourages our people to refine their craft, challenge themselves, and strive for excellence." xml:space="preserve">
+    <value>The Global Shaker Master Competition is more than a contest. It is a platform for learning, sharing, and growth. It encourages our people to refine their craft, challenge themselves, and strive for excellence.</value>
+  </data>
+  <data name="The grand opening of Toa Payoh flagship store in Singapore has successfully ignited the KOI craze across Southeast Asia." xml:space="preserve">
+    <value>The grand opening of Toa Payoh flagship store in Singapore has successfully ignited the KOI craze across Southeast Asia.</value>
+  </data>
+  <data name="The salary scale in the table represents the basic monthly salary (shown in USD)." xml:space="preserve">
+    <value>The salary scale in the table represents the basic monthly salary (shown in USD).</value>
+  </data>
+  <data name="The unspoiled flavors of tea can only be extracted by brewing tea leaves in traditional metal kettles. Utilizing self-made dedicated utensils and maintaining precise control over the ideal ratio of water, tea leaves, and temperature empowers the tea master to achieve the perfect flavor in every sip. Everyone can savor the endlessly memorable tea anytime, no matter where they are." xml:space="preserve">
+    <value>The unspoiled flavors of tea can only be extracted by brewing tea leaves in traditional metal kettles. Utilizing self-made dedicated utensils and maintaining precise control over the ideal ratio of water, tea leaves, and temperature empowers the tea master to achieve the perfect flavor in every sip. Everyone can savor the endlessly memorable tea anytime, no matter where they are.</value>
+  </data>
+  <data name="Therefore, the starting amount in the dropdown menu is set at USD 300,000" xml:space="preserve">
+    <value>Therefore, the starting amount in the dropdown menu is set at USD 300,000</value>
+  </data>
+  <data name="Through a robust supply chain network, we ensure reliable sourcing and consistent quality." xml:space="preserve">
+    <value>Through a robust supply chain network, we ensure reliable sourcing and consistent quality.</value>
+  </data>
+  <data name="Through rigorous standards and continuous monitoring, we safeguard the quality of every cup." xml:space="preserve">
+    <value>Through rigorous standards and continuous monitoring, we safeguard the quality of every cup.</value>
+  </data>
+  <data name="Through strict standards and continuous refinement," xml:space="preserve">
+    <value>Through strict standards and continuous refinement,</value>
+  </data>
+  <data name="To celebrate KOI Thé’s 20th anniversary, KOI Thé France surprised the local community with complimentary drinks, sharing joy and appreciation." xml:space="preserve">
+    <value>To celebrate KOI Thé’s 20th anniversary, KOI Thé France surprised the local community with complimentary drinks, sharing joy and appreciation.</value>
+  </data>
+  <data name="To ensure successful submission of your resume," xml:space="preserve">
+    <value>To ensure successful submission of your resume,</value>
+  </data>
+  <data name="To reflect the professionalism of tea beverages and the brand philosophy, KOI Café has officially been renamed KOI Thé." xml:space="preserve">
+    <value>To reflect the professionalism of tea beverages and the brand philosophy, KOI Café has officially been renamed KOI Thé.</value>
+  </data>
+  <data name="Transparent Pay Progression" xml:space="preserve">
+    <value>Transparent Pay Progression</value>
+  </data>
+  <data name="Treasure House Community Project" xml:space="preserve">
+    <value>Treasure House Community Project</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="USA" xml:space="preserve">
+    <value>USA</value>
+  </data>
+  <data name="USA/" xml:space="preserve">
+    <value>USA/</value>
+  </data>
+  <data name="USD 300,000" xml:space="preserve">
+    <value>USD 300,000</value>
+  </data>
+  <data name="USD 400,000" xml:space="preserve">
+    <value>USD 400,000</value>
+  </data>
+  <data name="USD 500,000" xml:space="preserve">
+    <value>USD 500,000</value>
+  </data>
+  <data name="VIDEO" xml:space="preserve">
+    <value>VIDEO</value>
+  </data>
+  <data name="VIETNAM" xml:space="preserve">
+    <value>VIETNAM</value>
+  </data>
+  <data name="VIEW" xml:space="preserve">
+    <value>VIEW</value>
+  </data>
+  <data name="Venturing into South Asia, Grand Opening of the Bangladesh store." xml:space="preserve">
+    <value>Venturing into South Asia, Grand Opening of the Bangladesh store.</value>
+  </data>
+  <data name="Venturing into West Asia, Grand Opening of the Dubai store." xml:space="preserve">
+    <value>Venturing into West Asia, Grand Opening of the Dubai store.</value>
+  </data>
+  <data name="Verification is unavailable while sending is disabled." xml:space="preserve">
+    <value>Verification is unavailable while sending is disabled.</value>
+  </data>
+  <data name="Verify Code" xml:space="preserve">
+    <value>Verify Code</value>
+  </data>
+  <data name="Video 1" xml:space="preserve">
+    <value>Video 1</value>
+  </data>
+  <data name="Video pagination" xml:space="preserve">
+    <value>Video pagination</value>
+  </data>
+  <data name="Vietnam__text" xml:space="preserve">
+    <value>Vietnam</value>
+  </data>
+  <data name="View menus by country" xml:space="preserve">
+    <value>View menus by country</value>
+  </data>
+  <data name="Voices for Vision" xml:space="preserve">
+    <value>Voices for Vision</value>
+  </data>
+  <data name="WAYS WE" xml:space="preserve">
+    <value>WAYS WE</value>
+  </data>
+  <data name="Want" xml:space="preserve">
+    <value>Want</value>
+  </data>
+  <data name="We" xml:space="preserve">
+    <value>We</value>
+  </data>
+  <data name="We Want" xml:space="preserve">
+    <value>We Want</value>
+  </data>
+  <data name="We believe great tea is created by skilled hands and passionate individuals." xml:space="preserve">
+    <value>We believe great tea is created by skilled hands and passionate individuals.</value>
+  </data>
+  <data name="We carefully select our tea leaves and ingredients with a focus on quality, consistency, and responsible sourcing." xml:space="preserve">
+    <value>We carefully select our tea leaves and ingredients with a focus on quality, consistency, and responsible sourcing.</value>
+  </data>
+  <data name="We come from different places," xml:space="preserve">
+    <value>We come from different places,</value>
+  </data>
+  <data name="We conduct regular water quality checks, strictly control the temperature of each batch of tea, ensuring that every cup reflects the exquisite flavors of carefully selected tea leaves." xml:space="preserve">
+    <value>We conduct regular water quality checks, strictly control the temperature of each batch of tea, ensuring that every cup reflects the exquisite flavors of carefully selected tea leaves.</value>
+  </data>
+  <data name="We couldn't load this page. Please refresh or return to the home page." xml:space="preserve">
+    <value>We couldn't load this page. Please refresh or return to the home page.</value>
+  </data>
+  <data name="We strive to provide the most friendly services by treating you as part of our family. In our friendly and welcoming store, please savor the customized beverages designed just for you. Enjoy the happiness embraced by the aroma of tea and feel the sincere warmth we extend to you." xml:space="preserve">
+    <value>We strive to provide the most friendly services by treating you as part of our family. In our friendly and welcoming store, please savor the customized beverages designed just for you. Enjoy the happiness embraced by the aroma of tea and feel the sincere warmth we extend to you.</value>
+  </data>
+  <data name="We use harder ice cubes with high density plus precise control over the quantity to preserve the original flavor of the tea as well as provide a refreshing and pleasant texture, enhancing the overall taste experience." xml:space="preserve">
+    <value>We use harder ice cubes with high density plus precise control over the quantity to preserve the original flavor of the tea as well as provide a refreshing and pleasant texture, enhancing the overall taste experience.</value>
+  </data>
+  <data name="We will be in touch with you as soon as possible." xml:space="preserve">
+    <value>We will be in touch with you as soon as possible.</value>
+  </data>
+  <data name="Welcome to KOI Thé. Choose your language." xml:space="preserve">
+    <value>Welcome to KOI Thé. Choose your language.</value>
+  </data>
+  <data name="What type of collaboration would you like to have with KOI in this city/region/country?" xml:space="preserve">
+    <value>What type of collaboration would you like to have with KOI in this city/region/country?</value>
+  </data>
+  <data name="Where is your company legally incorporated?" xml:space="preserve">
+    <value>Where is your company legally incorporated?</value>
+  </data>
+  <data name="Will there be any partners or sponsors involved?" xml:space="preserve">
+    <value>Will there be any partners or sponsors involved?</value>
+  </data>
+  <data name="Will you take an active role in managing the business?" xml:space="preserve">
+    <value>Will you take an active role in managing the business?</value>
+  </data>
+  <data name="With Care" xml:space="preserve">
+    <value>With Care</value>
+  </data>
+  <data name="Worldwide" xml:space="preserve">
+    <value>Worldwide</value>
+  </data>
+  <data name="YOU!" xml:space="preserve">
+    <value>YOU!</value>
+  </data>
+  <data name="YOUR CONTACT DETAILS" xml:space="preserve">
+    <value>YOUR CONTACT DETAILS</value>
+  </data>
+  <data name="YOUR DAILY BEAT." xml:space="preserve">
+    <value>YOUR DAILY BEAT.</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Your Company Profile" xml:space="preserve">
+    <value>Your Company Profile</value>
+  </data>
+  <data name="Your Daily Beat" xml:space="preserve">
+    <value>Your Daily Beat</value>
+  </data>
+  <data name="Your daily beat. Discover freshly brewed tea, golden bubbles and little moments of happiness with KOI Thé." xml:space="preserve">
+    <value>Your daily beat. Discover freshly brewed tea, golden bubbles and little moments of happiness with KOI Thé.</value>
+  </data>
+  <data name="deliver a consistent taste, but to build trust with" xml:space="preserve">
+    <value>deliver a consistent taste, but to build trust with</value>
+  </data>
+  <data name="every customer." xml:space="preserve">
+    <value>every customer.</value>
+  </data>
+  <data name="globalcareers" xml:space="preserve">
+    <value>globalcareers</value>
+  </data>
+  <data name="into the lives of those around us." xml:space="preserve">
+    <value>into the lives of those around us.</value>
+  </data>
+  <data name="modify or otherwise alter the salary scale and benefits package at any time." xml:space="preserve">
+    <value>modify or otherwise alter the salary scale and benefits package at any time.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>next</value>
+  </data>
+  <data name="our ongoing commitment to community engagement and" xml:space="preserve">
+    <value>our ongoing commitment to community engagement and</value>
+  </data>
+  <data name="please select only 1 application portal from below." xml:space="preserve">
+    <value>please select only 1 application portal from below.</value>
+  </data>
+  <data name="prev" xml:space="preserve">
+    <value>prev</value>
+  </data>
+  <data name="social initiatives, we extend warmth beyond the cup and" xml:space="preserve">
+    <value>social initiatives, we extend warmth beyond the cup and</value>
+  </data>
+  <data name="tea is the common language that unites us here." xml:space="preserve">
+    <value>tea is the common language that unites us here.</value>
+  </data>
+  <data name="the smallest actions can create a lasting impact. Through" xml:space="preserve">
+    <value>the smallest actions can create a lasting impact. Through</value>
+  </data>
+  <data name="we ensure a reliable experience across every market" xml:space="preserve">
+    <value>we ensure a reliable experience across every market</value>
+  </data>
+  <data name="we serve." xml:space="preserve">
+    <value>we serve.</value>
+  </data>
+  <data name="yyyy/mm/dd" xml:space="preserve">
+    <value>yyyy/mm/dd</value>
+  </data>
+  <data name="“Apply" xml:space="preserve">
+    <value>“Apply</value>
+  </data>
+  <data name="● Allowances" xml:space="preserve">
+    <value>● Allowances</value>
+  </data>
+  <data name="● Competitive salary in international job markets" xml:space="preserve">
+    <value>● Competitive salary in international job markets</value>
+  </data>
+  <data name="● Medical insurance" xml:space="preserve">
+    <value>● Medical insurance</value>
+  </data>
+  <data name="● Operations bonuses" xml:space="preserve">
+    <value>● Operations bonuses</value>
+  </data>
+  <data name="● Paid Leave" xml:space="preserve">
+    <value>● Paid Leave</value>
+  </data>
+  <data name="PLEASE FEEL" xml:space="preserve">
+    <value>PLEASE FEEL</value>
+  </data>
+  <data name="HERE." xml:space="preserve">
+    <value>HERE.</value>
+  </data>
+  <data name="SHARED GROWTH." xml:space="preserve">
+    <value>SHARED GROWTH.</value>
+  </data>
+  <data name="We come from different places, and we bring together diverse cultures;" xml:space="preserve">
+    <value>We come from different places, and we bring together diverse cultures;</value>
+  </data>
+  <data name="Navigation page {0} of {1}" xml:space="preserve">
+    <value>page {0} of {1}</value>
+  </data>
+  <data name="Impact.Purpose" xml:space="preserve">
+    <value>Purp&lt;span class="orange"&gt;o&lt;/span&gt;se</value>
+  </data>
+  <data name="Responsibility.Origin" xml:space="preserve">
+    <value>Fr&lt;span&gt;o&lt;/span&gt;m trusted origins</value>
+  </data>
+  <data name="Responsibility.Confidence" xml:space="preserve">
+    <value>t&lt;span&gt;o&lt;/span&gt; lasting confidence.</value>
+  </data>
+  <data name="People.LearningStart" xml:space="preserve">
+    <value>FR&lt;span&gt;O&lt;/span&gt;M CONTINUOUS</value>
+  </data>
+  <data name="People.LearningEnd" xml:space="preserve">
+    <value>LEARNING T&lt;span&gt;O&lt;/span&gt;</value>
+  </data>
+  <data name="Connections.From" xml:space="preserve">
+    <value>FR&lt;span&gt;O&lt;/span&gt;M GENUINE CONNECTIONS</value>
+  </data>
+  <data name="Connections.To" xml:space="preserve">
+    <value>T&lt;span&gt;O&lt;/span&gt;</value>
+  </data>
+  <data name="Contact.Questions" xml:space="preserve">
+    <value>ANY QUESTI&lt;span class="orange"&gt;O&lt;/span&gt;NS?</value>
+  </data>
+  <data name="Contact.Free" xml:space="preserve">
+    <value>FREE T&lt;span class="orange"&gt;O&lt;/span&gt;</value>
+  </data>
+  <data name="Contact.ContactUs" xml:space="preserve">
+    <value>C&lt;span class="orange"&gt;O&lt;/span&gt;NTACT US</value>
+  </data>
+  <data name="Contact.Thanks" xml:space="preserve">
+    <value>THANK Y&lt;span class="orange"&gt;O&lt;/span&gt;U</value>
+  </data>
+  <data name="Contact.Love" xml:space="preserve">
+    <value>F&lt;span class="orange"&gt;O&lt;/span&gt;R YOUR L&lt;span class="orange"&gt;O&lt;/span&gt;VE</value>
+  </data>
+  <data name="Contact.ForKoi" xml:space="preserve">
+    <value>F&lt;span class="orange"&gt;O&lt;/span&gt;R K&lt;span class="orange"&gt;O&lt;/span&gt;I Thé</value>
+  </data>
+</root>

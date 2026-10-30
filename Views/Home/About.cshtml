@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = T["About__text"].Value;
 }
 @section Styles {
     <link rel="stylesheet" href="~/lib/swiper/swiper-bundle.min.css" asp-append-version="true" />
@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
 }
 <div class="content-page" id="home">
-<div class="aboutWrap about-menu-pin"><h1 class="visually-hidden">About KOI Thé</h1>
+<div class="aboutWrap about-menu-pin"><h1 class="visually-hidden">@T["About KOI Thé"]</h1>
         <div class="about-animation">
             <div class="text-area-outter">
                 <div class="text-area flex-container align-center-middle" aria-hidden="true">
@@ -19,7 +19,7 @@
                     <div class="letter-h"><img src="/images/pages/en/images/h.svg" alt=""></div>
                     <div class="letter-e"><img src="/images/pages/en/images/e.svg" alt=""></div>
                 </div>
-                <div class="scroll show-for-large">
+                <div class="scroll show-for-large">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }
                     <svg data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="95.04" height="60.99" viewBox="0 0 95.04 60.99">
                         <g data-name="圖層 1">
                             <g>
@@ -45,7 +45,7 @@
                         </g>
                     </svg>
                 </div>
-                <div class="scroll hide-for-large">
+                <div class="scroll hide-for-large">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }
                     <img src="/images/pages/en/images/about-scroll-mobile.svg" alt="">
                 </div>
             </div>
@@ -134,17 +134,14 @@
                             <div class="title flex-container align-middle">
                                 <div class="deco top"><img src="/images/pages/en/images/a-h-deco-top.svg" alt=""></div>
                                 <div class="en">
-                                    SELECTION OF<br>
-                                    FINE INGREDIENTS
+                                    @T["SELECTION OF"]<br>
+                                    @T["FINE INGREDIENTS"]
                                 </div>
 
                                 <div class="deco bottom"><img src="/images/pages/en/images/a-h-deco-bottom.svg" alt=""></div>
                             </div>
                             <div class="content">
-                                Freshly-picked tea leaves are meticulously chosen to create a tea that satisfies even
-                                the
-                                most discerning palate. Golden Bubbles are made from natural ingredients and cooked at
-                                varying temperatures to ensure their distinctive golden sheen and delightful chewiness.
+                                @T["Freshly-picked tea leaves are meticulously chosen to create a tea that satisfies even the most discerning palate. Golden Bubbles are made from natural ingredients and cooked at varying temperatures to ensure their distinctive golden sheen and delightful chewiness."]
                             </div>
                         </div>
                         <div class="pic-area"><img src="/images/pages/en/images/a-info-pic-1.png" alt=""></div>
@@ -159,16 +156,14 @@
                         <div class="title flex-container align-middle">
                             <div class="deco top"><img src="/images/pages/en/images/a-h-deco-top.svg" alt=""></div>
                             <div class="en">
-                                SELECTION OF<br>
-                                FINE INGREDIENTS
+                                @T["SELECTION OF"]<br>
+                                @T["FINE INGREDIENTS"]
                             </div>
 
                             <div class="deco bottom"><img src="/images/pages/en/images/a-h-deco-bottom.svg" alt=""></div>
                         </div>
                         <div class="content">
-                            Freshly-picked tea leaves are meticulously chosen to create a tea that satisfies even the
-                            most discerning palate. Golden Bubbles are made from natural ingredients and cooked at
-                            varying temperatures to ensure their distinctive golden sheen and delightful chewiness.
+                            @T["Freshly-picked tea leaves are meticulously chosen to create a tea that satisfies even the most discerning palate. Golden Bubbles are made from natural ingredients and cooked at varying temperatures to ensure their distinctive golden sheen and delightful chewiness."]
                         </div>
                     </div>
                     <div class="pic-area"><img src="/images/pages/en/images/a-info-pic-1.png" alt=""></div>
@@ -178,18 +173,14 @@
                         <div class="title flex-container align-middle">
                             <div class="deco top"><img src="/images/pages/en/images/a-h-deco-top.svg" alt=""></div>
                             <div class="en">
-                                TEA BREWING<br>
-                                MASTERS
+                                @T["TEA BREWING"]<br>
+                                @T["MASTERS"]
                             </div>
 
                             <div class="deco bottom"><img src="/images/pages/en/images/a-h-deco-bottom.svg" alt=""></div>
                         </div>
                         <div class="content">
-                            The unspoiled flavors of tea can only be extracted by brewing tea leaves in traditional
-                            metal kettles. Utilizing self-made dedicated utensils and maintaining precise control over
-                            the ideal ratio of water, tea leaves, and temperature empowers the tea master to achieve
-                            the perfect flavor in every sip. Everyone can savor the endlessly memorable tea
-                            anytime, no matter where they are.
+                            @T["The unspoiled flavors of tea can only be extracted by brewing tea leaves in traditional metal kettles. Utilizing self-made dedicated utensils and maintaining precise control over the ideal ratio of water, tea leaves, and temperature empowers the tea master to achieve the perfect flavor in every sip. Everyone can savor the endlessly memorable tea anytime, no matter where they are."]
                         </div>
                     </div>
                     <div class="pic-area"><img src="/images/pages/en/images/a-info-pic-2.png" alt=""></div>
@@ -199,18 +190,14 @@
                         <div class="title flex-container align-middle">
                             <div class="deco top"><img src="/images/pages/en/images/a-h-deco-top.svg" alt=""></div>
                             <div class="en">
-                                PRECISION AND<br>
-                                CONSISTENCY
+                                @T["PRECISION AND"]<br>
+                                @T["CONSISTENCY"]
                             </div>
 
                             <div class="deco bottom"><img src="/images/pages/en/images/a-h-deco-bottom.svg" alt=""></div>
                         </div>
                         <div class="content">
-                            In order to ensure that every sip of tea delivers a delightful and refined taste experience,
-                            the training of our tea baristas involves meticulous practice in every detail, from the
-                            precise use of ice and tea quantity to the consistent shaking gestures. Only through such
-                            dedication can the intricate nuances of a good tea be consistently expressed, creating a
-                            lingering and memorable aftertaste with each sip.
+                            @T["In order to ensure that every sip of tea delivers a delightful and refined taste experience, the training of our tea baristas involves meticulous practice in every detail, from the precise use of ice and tea quantity to the consistent shaking gestures. Only through such dedication can the intricate nuances of a good tea be consistently expressed, creating a lingering and memorable aftertaste with each sip."]
                         </div>
                     </div>
                     <div class="pic-area"><img src="/images/pages/en/images/a-info-pic-3.png" alt=""></div>
@@ -220,16 +207,14 @@
                         <div class="title flex-container align-middle">
                             <div class="deco top"><img src="/images/pages/en/images/a-h-deco-top.svg" alt=""></div>
                             <div class="en">
-                                HEART-WARMING<br>
-                                SERVICE
+                                @T["HEART-WARMING"]<br>
+                                @T["SERVICE"]
                             </div>
 
                             <div class="deco bottom"><img src="/images/pages/en/images/a-h-deco-bottom.svg" alt=""></div>
                         </div>
                         <div class="content">
-                            We strive to provide the most friendly services by treating you as part of our family. In our
-                            friendly and welcoming store, please savor the customized beverages designed just for you.
-                            Enjoy the happiness embraced by the aroma of tea and feel the sincere warmth we extend to you.
+                            @T["We strive to provide the most friendly services by treating you as part of our family. In our friendly and welcoming store, please savor the customized beverages designed just for you. Enjoy the happiness embraced by the aroma of tea and feel the sincere warmth we extend to you."]
                         </div>
                     </div>
                     <div class="pic-area"><img src="/images/pages/en/images/a-info-pic-4.png" alt=""></div>
@@ -242,9 +227,7 @@
                 <div class="pic-area"><img src="/images/pages/en/images/a-info-pic-1-mobile.png" alt=""></div>
                 <div class="article-area">
                     <div class="content">
-                        Freshly-picked tea leaves are meticulously chosen to create a tea that satisfies even the
-                        most discerning palate. Golden Bubbles are made from natural ingredients and cooked at
-                        varying temperatures to ensure their distinctive golden sheen and delightful chewiness.
+                        @T["Freshly-picked tea leaves are meticulously chosen to create a tea that satisfies even the most discerning palate. Golden Bubbles are made from natural ingredients and cooked at varying temperatures to ensure their distinctive golden sheen and delightful chewiness."]
                     </div>
                 </div>
             </li>
@@ -252,11 +235,7 @@
                 <div class="pic-area"><img src="/images/pages/en/images/a-info-pic-2-mobile.png" alt=""></div>
                 <div class="article-area">
                     <div class="content">
-                        The unspoiled flavors of tea can only be extracted by brewing tea leaves in traditional
-                        metal kettles. Utilizing self-made dedicated utensils and maintaining precise control over
-                        the ideal ratio of water, tea leaves, and temperature empowers the tea master to achieve
-                        the perfect flavor in every sip. Everyone can savor the endlessly memorable tea
-                        anytime, no matter where they are.
+                        @T["The unspoiled flavors of tea can only be extracted by brewing tea leaves in traditional metal kettles. Utilizing self-made dedicated utensils and maintaining precise control over the ideal ratio of water, tea leaves, and temperature empowers the tea master to achieve the perfect flavor in every sip. Everyone can savor the endlessly memorable tea anytime, no matter where they are."]
                     </div>
                 </div>
             </li>
@@ -264,11 +243,7 @@
                 <div class="pic-area"><img src="/images/pages/en/images/a-info-pic-3-mobile.png" alt=""></div>
                 <div class="article-area">
                     <div class="content">
-                        In order to ensure that every sip of tea delivers a delightful and refined taste experience, the
-                        training of our tea baristas involves meticulous practice in every detail, from the precise use
-                        of ice and tea quantity to the consistent shaking gestures. Only through such dedication can the
-                        intricate nuances of a good tea be consistently expressed, creating a lingering and memorable
-                        aftertaste with each sip.
+                        @T["In order to ensure that every sip of tea delivers a delightful and refined taste experience, the training of our tea baristas involves meticulous practice in every detail, from the precise use of ice and tea quantity to the consistent shaking gestures. Only through such dedication can the intricate nuances of a good tea be consistently expressed, creating a lingering and memorable aftertaste with each sip."]
                     </div>
                 </div>
             </li>
@@ -276,9 +251,7 @@
                 <div class="pic-area"><img src="/images/pages/en/images/a-info-pic-4-mobile.png" alt=""></div>
                 <div class="article-area">
                     <div class="content">
-                        We strive to provide the most friendly services by treating you as part of our family. In our
-                        friendly and welcoming store, please savor the customized beverages designed just for you.
-                        Enjoy the happiness embraced by the aroma of tea and feel the sincere warmth we extend to you.
+                        @T["We strive to provide the most friendly services by treating you as part of our family. In our friendly and welcoming store, please savor the customized beverages designed just for you. Enjoy the happiness embraced by the aroma of tea and feel the sincere warmth we extend to you."]
                     </div>
                 </div>
             </li>
@@ -291,53 +264,48 @@
                     <li class="swiper-slide"><img src="/images/pages/en/images/a-i-pic-3.jpg" alt=""></li>
                 </ul></div>
                 <div class="triangle">
-                    <div data-tri="1" class="one triangle-1 is-show">Tea</div>
-                    <div data-tri="2" class="two triangle-2">Sweetness</div>
-                    <div data-tri="3" class="three triangle-3">Ice Cubes</div>
+                    <div data-tri="1" class="one triangle-1 is-show">@T["Tea__text"]</div>
+                    <div data-tri="2" class="two triangle-2">@T["Sweetness"]</div>
+                    <div data-tri="3" class="three triangle-3">@T["Ice Cubes"]</div>
                 </div>
             </div>
             <div class="article-area">
                 <div class="title">
                     <div class="en">
-                        THE "G<span class="orange">O</span>LDEN TRIANGLE RULE" <span class="orange">O</span>F K<span class="orange">O</span>I TEA
+                        @H["TRIANGLE_RULE"]
                     </div>
 
                 </div>
                 <div class="ingredient-copy swiper"><ul class="slick-article swiper-wrapper">
                     <li class="swiper-slide slick-slide" data-ing="1">
                         <div class="title-area">
-                            <div class="en">Tea</div>
+                            <div class="en">@T["Tea__text"]</div>
 
                         </div>
                         <div class="content">
-                            We conduct regular water quality checks, strictly control the temperature of each batch of
-                            tea, ensuring that every cup reflects the exquisite flavors of carefully selected tea
-                            leaves.
+                            @T["We conduct regular water quality checks, strictly control the temperature of each batch of tea, ensuring that every cup reflects the exquisite flavors of carefully selected tea leaves."]
                         </div>
                     </li>
                     <li class="swiper-slide slick-slide" data-ing="2">
                         <div class="title-area">
-                            <div class="en">Sweetness</div>
+                            <div class="en">@T["Sweetness"]</div>
 
                         </div>
                         <div class="content">
-                            Perfected through repeated testing by our team, the ideal ratio elevates the deliciousness
-                            of our tea to another level, with each sip releasing just the right amount of sweet aroma.
+                            @T["Perfected through repeated testing by our team, the ideal ratio elevates the deliciousness of our tea to another level, with each sip releasing just the right amount of sweet aroma."]
                         </div>
                     </li>
                     <li class="swiper-slide slick-slide" data-ing="3">
                         <div class="title-area">
-                            <div class="en">Ice Cubes</div>
+                            <div class="en">@T["Ice Cubes"]</div>
 
                         </div>
                         <div class="content">
-                            We use harder ice cubes with high density plus precise control over the quantity to preserve
-                            the original flavor of the tea as well as provide a refreshing and pleasant texture,
-                            enhancing the overall taste experience.
+                            @T["We use harder ice cubes with high density plus precise control over the quantity to preserve the original flavor of the tea as well as provide a refreshing and pleasant texture, enhancing the overall taste experience."]
                         </div>
                     </li>
                 </ul><div class="ingredient-pagination"></div></div>
-                <button type="button" class="about-motion-pause" aria-pressed="false">( Pause motion )</button>
+                <button type="button" class="about-motion-pause" aria-pressed="false">@T["( Pause motion )"]</button>
             </div>
         </div>
         <div class="about-event flex-container">
@@ -405,19 +373,15 @@
                 </ul></div>
 
                 <div class="history-description swiper"><ul class="en swiper-wrapper">
-                    <li class="swiper-slide">A coffee bean sparked a series of magical journeys for KOI.</li>
-                    <li class="swiper-slide">The grand opening of Toa Payoh flagship store in Singapore has successfully ignited the KOI
-                        craze across Southeast Asia.</li>
-                    <li class="swiper-slide">To reflect the professionalism of tea beverages and the brand philosophy, KOI Café has
-                        officially been renamed KOI Thé.</li>
-                    <li class="swiper-slide">Launching into North America under the FIFTYLAN brand, with the grand opening of the New York
-                        store.</li>
-                    <li class="swiper-slide">Venturing into West Asia, Grand Opening of the Dubai store.</li>
-                    <li class="swiper-slide">Venturing into South Asia, Grand Opening of the Bangladesh store.</li>
-                    <li class="swiper-slide">A new Beat of vibrancy! Injected new vitality into our original hand-drawn logo, reflecting
-                        KOI's pursuit of professionalism and constant innovation.</li>
-                    <li class="swiper-slide">Expanding into Europe, marking the grand opening of our first store in Paris.</li>
-                    <li class="swiper-slide">Expanding into Oceania, with the grand opening of our first store in Sydney</li>
+                    <li class="swiper-slide">@T["A coffee bean sparked a series of magical journeys for KOI."]</li>
+                    <li class="swiper-slide">@T["The grand opening of Toa Payoh flagship store in Singapore has successfully ignited the KOI craze across Southeast Asia."]</li>
+                    <li class="swiper-slide">@T["To reflect the professionalism of tea beverages and the brand philosophy, KOI Café has officially been renamed KOI Thé."]</li>
+                    <li class="swiper-slide">@T["Launching into North America under the FIFTYLAN brand, with the grand opening of the New York store."]</li>
+                    <li class="swiper-slide">@T["Venturing into West Asia, Grand Opening of the Dubai store."]</li>
+                    <li class="swiper-slide">@T["Venturing into South Asia, Grand Opening of the Bangladesh store."]</li>
+                    <li class="swiper-slide">@T["A new Beat of vibrancy! Injected new vitality into our original hand-drawn logo, reflecting KOI's pursuit of professionalism and constant innovation."]</li>
+                    <li class="swiper-slide">@T["Expanding into Europe, marking the grand opening of our first store in Paris."]</li>
+                    <li class="swiper-slide">@T["Expanding into Oceania, with the grand opening of our first store in Sydney"]</li>
                 </ul></div>
                 <div class="arrow-area flex-container align-middle align-right show-for-large">
                     <div class="prev">
@@ -461,7 +425,7 @@
                     </svg>
                 </div>
                 <div class="overflow">
-                    <div class="en">BRAND MAP</div>
+                    <div class="en">@T["BRAND MAP"]</div>
                 </div>
                 <div class="deco bottom">
                     <svg data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="75.19" height="14.36" viewBox="0 0 75.19 14.36">
@@ -507,77 +471,77 @@
             </div>
             <div class="countryWrap hide-for-large">
                 <div class="country-select">
-                    <span class="current">Find stores by country</span>
+                    <span class="current">@T["Find stores by country"]</span>
                     <ul class="list">
                         <li class="option">
                             <a href="/Home/Store?c=53" class="flex-container align-justify">
-                                <div class="ch">CHINA</div>
+                                <div class="ch">@T["CHINA"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=46" class="flex-container align-justify">
-                                <div class="ch">JAPAN</div>
+                                <div class="ch">@T["JAPAN"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=61" class="flex-container align-justify">
-                                <div class="ch">BANGLADESH</div>
+                                <div class="ch">@T["BANGLADESH"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=57" class="flex-container align-justify">
-                                <div class="ch">THAILAND</div>
+                                <div class="ch">@T["THAILAND"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=19" class="flex-container align-justify">
-                                <div class="ch">PHILIPPINES</div>
+                                <div class="ch">@T["PHILIPPINES"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=55" class="flex-container align-justify">
-                                <div class="ch">CAMBODIA</div>
+                                <div class="ch">@T["CAMBODIA"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=58" class="flex-container align-justify">
-                                <div class="ch">MALAYSIA</div>
+                                <div class="ch">@T["MALAYSIA"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=51" class="flex-container align-justify">
-                                <div class="ch">SINGAPORE</div>
+                                <div class="ch">@T["SINGAPORE"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=54" class="flex-container align-justify">
-                                <div class="ch">INDONESIA</div>
+                                <div class="ch">@T["INDONESIA"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=59" class="flex-container align-justify">
-                                <div class="ch">USA</div>
+                                <div class="ch">@T["USA"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=59" class="flex-container align-justify">
-                                <div class="ch">DUBAI</div>
+                                <div class="ch">@T["DUBAI"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
                         <li class="option">
                             <a href="/Home/Store?c=59" class="flex-container align-justify">
-                                <div class="ch">CANADA</div>
+                                <div class="ch">@T["CANADA"]</div>
                                 <div class="arrow"><img src="/images/pages/en/images/a-country-arrow.svg" alt=""></div>
                             </a>
                         </li>
@@ -591,85 +555,85 @@
                             <div class="pin japan">
                                 <a href="/Home/Store?c=46">
                                     <div class="dot"></div>
-                                    <div class="name">( JAPAN )</div>
+                                    <div class="name">@T["( JAPAN )"]</div>
                                 </a>
                             </div>
                             <div class="pin china">
                                 <a href="/Home/Store?c=53">
                                     <div class="dot"></div>
-                                    <div class="name">( CHINA )</div>
+                                    <div class="name">@T["( CHINA )"]</div>
                                 </a>
                             </div>
                             <div class="pin bangladesh">
                                 <a href="/Home/Store?c=61">
                                     <div class="dot"></div>
-                                    <div class="name">( BANGLADESH )</div>
+                                    <div class="name">@T["( BANGLADESH )"]</div>
                                 </a>
                             </div>
                             <div class="pin thailand">
                                 <a href="/Home/Store?c=57">
                                     <div class="dot"></div>
-                                    <div class="name">( THAILAND )</div>
+                                    <div class="name">@T["( THAILAND )"]</div>
                                 </a>
                             </div>
                             <div class="pin laos">
                                 <a href="/Home/Store?c=62">
                                     <div class="dot"></div>
-                                    <div class="name">( LAOS )</div>
+                                    <div class="name">@T["( LAOS )"]</div>
                                 </a>
                             </div>
                             <div class="pin cambodia">
                                 <a href="/Home/Store?c=55">
                                     <div class="dot"></div>
-                                    <div class="name">( CAMBODIA )</div>
+                                    <div class="name">@T["( CAMBODIA )"]</div>
                                 </a>
                             </div>
                             <div class="pin vietnam">
                                 <a href="/Home/Store?c=56">
                                     <div class="dot"></div>
-                                    <div class="name">( VIETNAM )</div>
+                                    <div class="name">@T["( VIETNAM )"]</div>
                                 </a>
                             </div>
                             <div class="pin philippines">
                                 <a href="/Home/Store?c=19">
                                     <div class="dot"></div>
-                                    <div class="name">( PHILIPPINES )</div>
+                                    <div class="name">@T["( PHILIPPINES )"]</div>
                                 </a>
                             </div>
                             <div class="pin malaysia">
                                 <a href="/Home/Store?c=58">
                                     <div class="dot"></div>
-                                    <div class="name">( MALAYSIA )</div>
+                                    <div class="name">@T["( MALAYSIA )"]</div>
                                 </a>
                             </div>
                             <div class="pin singapore">
                                 <a href="/Home/Store?c=51">
                                     <div class="dot"></div>
-                                    <div class="name">( SINGAPORE )</div>
+                                    <div class="name">@T["( SINGAPORE )"]</div>
                                 </a>
                             </div>
                             <div class="pin indonesia">
                                 <a href="/Home/Store?c=54">
                                     <div class="dot"></div>
-                                    <div class="name">( INDONESIA )</div>
+                                    <div class="name">@T["( INDONESIA )"]</div>
                                 </a>
                             </div>
                             <div class="pin dubai">
                                 <a href="/Home/Store?c=60">
                                     <div class="dot"></div>
-                                    <div class="name">( DUBAI )</div>
+                                    <div class="name">@T["( DUBAI )"]</div>
                                 </a>
                             </div>
                             <div class="pin France">
                                 <a href="/Home/Store?c=161">
                                     <div class="dot"></div>
-                                    <div class="name">( FRANCE )</div>
+                                    <div class="name">@T["( FRANCE )"]</div>
                                 </a>
                             </div>
                             <div class="pin Brunei">
                                 <a href="/Home/Store?c=174">
                                     <div class="dot"></div>
-                                    <div class="name">( BRUNEI )</div>
+                                    <div class="name">@T["( BRUNEI )"]</div>
                                 </a>
                             </div>
                         </li>
@@ -678,7 +642,7 @@
                             <div class="pin singapore">
                                 <a href="/Home/Store?c=51">
                                     <div class="dot"></div>
-                                    <div class="name">( SINGAPORE )</div>
+                                    <div class="name">@T["( SINGAPORE )"]</div>
                                 </a>
                             </div>
                         </li>
@@ -686,19 +650,19 @@
                             <div class="pin usa">
                                 <a href="/Home/Store?c=59">
                                     <div class="dot"></div>
-                                    <div class="name">( USA )</div>
+                                    <div class="name">@T["( USA )"]</div>
                                 </a>
                             </div>
                             <div class="pin canada">
                                 <a href="/Home/Store?c=63">
                                     <div class="dot"></div>
-                                    <div class="name">( CANADA )</div>
+                                    <div class="name">@T["( CANADA )"]</div>
                                 </a>
                             </div>
                             <div class="pin australia">
                                 <a href="/Home/Store?c=176">
                                     <div class="dot"></div>
-                                    <div class="name">( AUSTRALIA )</div>
+                                    <div class="name">@T["( AUSTRALIA )"]</div>
                                 </a>
                             </div>
                         </li>
@@ -706,7 +670,7 @@
                             <div class="pin vietnam">
                                 <a href="/Home/Store?c=56">
                                     <div class="dot"></div>
-                                    <div class="name">( VIETNAM )</div>
+                                    <div class="name">@T["( VIETNAM )"]</div>
                                 </a>
                             </div>
                         </li>
@@ -714,7 +678,7 @@
                             <div class="pin singapore">
                                 <a href="/Home/Store?c=51">
                                     <div class="dot"></div>
-                                    <div class="name">( SINGAPORE )</div>
+                                    <div class="name">@T["( SINGAPORE )"]</div>
                                 </a>
                             </div>
                         </li>
@@ -722,7 +686,7 @@
                             <div class="pin china">
                                 <a href="/Home/Store?c=53">
                                     <div class="dot"></div>
-                                    <div class="name">( CHINA )</div>
+                                    <div class="name">@T["( CHINA )"]</div>
                                 </a>
                             </div>
                         </li>
@@ -734,7 +698,7 @@
 
             <div class="scroll hide-for-large flex-container align-middle">
                 <div class="line"></div>
-                <div class="text">Scroll</div>
+                <div class="text">@T["Scroll"]</div>
             </div>
         </div>
             </div>

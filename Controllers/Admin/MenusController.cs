@@ -20,7 +20,7 @@ public class MenusController(ApplicationDbContext database, ImageUploads uploads
     public async Task<IActionResult> Edit(int id)
     {
         var value = await database.Menus.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View(new MenuEditViewModel { Id = id, Revision = value.Revision,
+        return value == null ? NotFound() : View(new MenuEditViewModel { Id = id, Revision = value.Revision, LabelVi = value.LabelVi,
             Label = value.Label, MarketId = value.MarketId, SortOrder = value.SortOrder, IsPublished = value.IsPublished,
             CurrentImage = value.File, Markets = await Markets() });
     }
@@ -43,7 +43,8 @@ public class MenusController(ApplicationDbContext database, ImageUploads uploads
         try
         {
             if (image != null) value.File = uploaded = await uploads.SaveAsync(image, "menus");
-            value.Label = model.Label.Trim(); value.MarketId = model.MarketId; value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
+            value.Label = model.Label.Trim();
+            value.LabelVi = model.LabelVi?.Trim() ?? ""; value.MarketId = model.MarketId; value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
             if (id == null) database.Menus.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); TempData["Status"] = "Đã lưu thực đơn.";

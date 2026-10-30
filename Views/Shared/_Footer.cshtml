@@ -1,12 +1,12 @@
-<aside class="floating-bear" aria-label="Quick links to menu and stores" tabindex="0">
+<aside class="floating-bear" aria-label="@T["Quick links to menu and stores"]" tabindex="0">
     <div class="circle" aria-hidden="true">
         <img class="mascot-menu" src="~/images/m-menu.svg" alt="" />
         <img class="mascot-store" src="~/images/m-store.svg" alt="" />
         <img class="mascot-mobile" src="~/images/m-text-mobile.svg" alt="" />
     </div>
     <div class="hover-link">
-        <div class="menu"><a asp-controller="Home" asp-action="Menu" aria-label="Explore the menu"><img src="~/images/m-hover-menu.svg" alt="" /></a></div>
-        <div class="store"><a asp-controller="Home" asp-action="Store" aria-label="Find a KOI store"><img src="~/images/m-hover-store.svg" alt="" /></a></div>
+        <div class="menu"><a asp-controller="Home" asp-action="Menu" aria-label="@T["Explore the menu"]">@if (SiteText.IsVietnamese) { <span class="localized-menu-label">@T["MENU"]</span> }<img src="~/images/m-hover-menu.svg" alt="" /></a></div>
+        <div class="store"><a asp-controller="Home" asp-action="Store" aria-label="@T["Find a KOI store"]">@if (SiteText.IsVietnamese) { <span class="localized-menu-label">@T["STORE"]</span> }<img src="~/images/m-hover-store.svg" alt="" /></a></div>
     </div>
     <div class="bear" aria-hidden="true">
         <div class="drink"><img src="~/images/b-drink-menu.svg" alt="" /></div>
@@ -28,7 +28,7 @@
             }
         </div>
     </div>
-    <div class="footer-top"><a href="#home"><span aria-hidden="true">↑</span>( Top )</a></div>
+    <div class="footer-top"><a href="#home"><span aria-hidden="true">↑</span>@T["( Top )"]</a></div>
     <div class="footer-bottom">
         <div class="footer-brand">
             <div class="footer-bear" aria-hidden="true">
@@ -36,26 +36,26 @@
                 <img class="bear-head" src="~/images/bear-head.svg" alt="" loading="lazy" />
                 <img class="bear-drink" src="~/images/bear-drink.svg" alt="" loading="lazy" />
             </div>
-            <a asp-controller="Home" asp-action="Index" aria-label="KOI Thé home"><img src="~/images/footer-logo.svg" width="184" height="39" alt="KOI Thé" loading="lazy" /></a>
+            <a asp-controller="Home" asp-action="Index" aria-label="@T["KOI Thé home"]"><img src="~/images/footer-logo.svg" width="184" height="39" alt="@T["KOI Thé"]" loading="lazy" /></a>
         </div>
-        <nav class="footer-navigation" aria-label="Footer navigation">
-            <span class="navigation-caption">(NAVIGATION)</span>
+        <nav class="footer-navigation" aria-label="@T["Footer navigation"]">
+            <span class="navigation-caption">@T["(NAVIGATION)"]</span>
             <div>
-                <a asp-controller="Home" asp-action="Index">HOME</a>
-                <a asp-controller="Home" asp-action="About">ABOUT</a>
-                <a asp-controller="Home" asp-action="OurTea">OUR TEA</a>
+                <a asp-controller="Home" asp-action="Index">@T["HOME"]</a>
+                <a asp-controller="Home" asp-action="About">@T["ABOUT"]</a>
+                <a asp-controller="Home" asp-action="OurTea">@T["OUR TEA"]</a>
             </div>
             <div>
-                <a asp-controller="Home" asp-action="News">NEWS</a>
-                <a asp-controller="Home" asp-action="Store">STORE</a>
-                <a asp-controller="Home" asp-action="Recruit">RECRUIT</a>
+                <a asp-controller="Home" asp-action="News">@T["NEWS"]</a>
+                <a asp-controller="Home" asp-action="Store">@T["STORE"]</a>
+                <a asp-controller="Home" asp-action="Recruit">@T["RECRUIT"]</a>
             </div>
             <div>
-                <a asp-controller="Home" asp-action="Impact">IMPACT</a>
-                <a asp-controller="Home" asp-action="Contact">CONTACT</a>
-                <a asp-controller="Home" asp-action="Menu">MENU</a>
+                <a asp-controller="Home" asp-action="Impact">@T["IMPACT"]</a>
+                <a asp-controller="Home" asp-action="Contact">@T["CONTACT"]</a>
+                <a asp-controller="Home" asp-action="Menu">@T["MENU"]</a>
             </div>
         </nav>
-        <div class="footer-copyright"><span class="footer-language">EN</span><p>© @DateTime.UtcNow.Year KOI CAFE GROUP (S) PTE LTD.<br />All rights reserved.</p></div>
+        <div class="footer-copyright"><partial name="_LanguageSwitcher" /><p>© @DateTime.UtcNow.Year KOI CAFE GROUP (S) PTE LTD.<br />@T["All rights reserved."]</p></div>
     </div>
 </footer>

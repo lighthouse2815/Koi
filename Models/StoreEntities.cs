@@ -4,6 +4,8 @@ namespace Koi.Web.Models;
 
 public class Market
 {
+    [StringLength(100)] public string NameVi { get; set; } = "";
+
     public int Id { get; set; }
     [Required, StringLength(100)] public string Name { get; set; } = "";
     [Range(0, 100000)] public int SortOrder { get; set; }
@@ -32,6 +34,8 @@ public class MarketSocialLink
 
 public class StoreCity
 {
+    [StringLength(150)] public string NameVi { get; set; } = "";
+
     public int Id { get; set; }
     [Required, StringLength(150)] public string Name { get; set; } = "";
     public int MarketId { get; set; }
@@ -42,6 +46,8 @@ public class StoreCity
 
 public class TeaBrand
 {
+    [StringLength(150)] public string NameVi { get; set; } = "";
+
     public int Id { get; set; }
     [Required, StringLength(150)] public string Name { get; set; } = "";
     [StringLength(500)] public string Logo { get; set; } = "";
@@ -51,6 +57,10 @@ public class TeaBrand
 
 public class StoreEntry
 {
+    [StringLength(300)] public string NameVi { get; set; } = "";
+    [StringLength(2000)] public string AddressVi { get; set; } = "";
+    [StringLength(500)] public string HoursVi { get; set; } = "";
+
     public int Id { get; set; }
     [Required, StringLength(300)] public string Name { get; set; } = "";
     [StringLength(100)] public string Phone { get; set; } = "";

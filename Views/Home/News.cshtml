@@ -1,7 +1,7 @@
 @model NewsViewModel
 @using System.Globalization
 @{
-    ViewData["Title"] = "News";
+    ViewData["Title"] = T["News__text"].Value;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/news.css" asp-append-version="true" />
@@ -9,15 +9,15 @@
 }
 <div class="content-page" id="home">
     <div class="newsWrap">
-        <div class="head-area"><h1 class="en">NEWS</h1></div>
+        <div class="head-area"><h1 class="en">@T["NEWS"]</h1></div>
         @if (Model.Featured is { } featured)
         {
         <div class="top-news">
             <a asp-action="NewsDetail" asp-route-id="@featured.Id" class="flex-container align-middle align-justify">
                 <div class="pic-area hide-for-large">
-                    <div class="cat">@featured.Category</div>
-                    <time class="date" datetime="@featured.Date.ToString("yyyy-MM-dd")">(@featured.Date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture))</time>
-                    <div class="more" aria-hidden="true">
+                    <div class="cat">@T[featured.Category]</div>
+                    <time class="date" datetime="@featured.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(featured.Date))</time>
+                    <div class="more" aria-hidden="true">@if (SiteText.IsVietnamese) { <span class="localized-control-text">@T["( More )"] ↗</span> }
                         <svg xmlns="http://www.w3.org/2000/svg" width="34.67" height="30.18" viewBox="0 0 34.67 30.18"><g class="arrow">
                             <line class="d" y1="15.09" x2="31.07" y2="15.09" />
                             <path class="e" d="M10.57,29.49c-.45-.7-.24-1.63,.46-2.07L30.38,15.09,11.03,2.76c-.7-.45-.91-1.37-.46-2.07C11.01,0,11.95-.21,12.64,.23l21.34,13.59c.43,.28,.69,.75,.69,1.27s-.26,.99-.69,1.27L12.64,29.95c-.25,.16-.53,.23-.81,.23-.5,0-.98-.25-1.27-.69Z" />
@@ -25,8 +25,8 @@
                     </div>
                 </div>
                 <div class="article-area">
-                    <div class="title">@featured.Title</div>
-                    <div class="more show-for-large" aria-hidden="true">
+                    <div class="title">@SiteText.Select(featured.Title, featured.TitleVi)</div>
+                    <div class="more show-for-large" aria-hidden="true">@if (SiteText.IsVietnamese) { <span class="localized-control-text">@T["( More )"] ↗</span> }
                         <svg xmlns="http://www.w3.org/2000/svg" width="54" height="53.02" viewBox="0 0 54 53.02">
                             <path class="e" d="M3.56,53.02c-1.15-.67-2.03-1.56-2.64-2.67C.31,49.24,0,47.97,0,46.54s.31-2.7,.92-3.82c.61-1.12,1.49-2,2.64-2.67l.76,.9c-.96,.58-1.7,1.35-2.21,2.31-.51,.96-.77,2.05-.77,3.28s.26,2.3,.77,3.27,1.25,1.73,2.21,2.3l-.76,.91Z" />
                             <path class="e" d="M10.29,39.7h1.86l1.89,5.21c.24,.69,.45,1.39,.69,2.09h.07c.24-.7,.43-1.4,.67-2.09l1.86-5.21h1.88v10.31h-1.51v-5.1c0-.92,.13-2.25,.21-3.19h-.06l-.83,2.38-1.79,4.92h-1.01l-1.81-4.92-.81-2.38h-.06c.07,.94,.2,2.27,.2,3.19v5.1h-1.46v-10.31Z" />
@@ -39,22 +39,22 @@
                     </div>
                 </div>
                 <div class="pic-area">
-                    <div class="cat show-for-large">@featured.Category</div>
-                    <time class="date show-for-large" datetime="@featured.Date.ToString("yyyy-MM-dd")">(@featured.Date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture))</time>
-                    <div class="pic"><img src="@featured.Image" alt="Colourful KOI travel magnet badges" /></div>
+                    <div class="cat show-for-large">@T[featured.Category]</div>
+                    <time class="date show-for-large" datetime="@featured.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(featured.Date))</time>
+                    <div class="pic"><img src="@featured.Image" alt="@T["Colourful KOI travel magnet badges"]" /></div>
                 </div>
             </a>
         </div>
         }
         <div class="newsListWrap" id="articles">
             <div class="news-inner flex-container">
-                <ul class="newsCatList" aria-label="News categories">
+                <ul class="newsCatList" aria-label="@T["News categories"]">
                     @foreach (var category in new[] { "ALL", "NEWS", "MEDIA" })
                     {
                         var selected = (Model.Category ?? "ALL") == category;
                         <li class="@(selected ? "current" : null)">
                             <a asp-action="News" asp-route-category="@(category == "ALL" ? null : category)" asp-fragment="articles" class="flex-container align-middle" aria-current="@(selected ? "page" : null)">
-                                <span class="dot"></span><span class="title">@category</span>
+                                <span class="dot"></span><span class="title">@T[category]</span>
                             </a>
                         </li>
                     }
@@ -66,41 +66,41 @@
                             <a asp-action="NewsDetail" asp-route-id="@article.Id" class="news-row flex-container align-middle">
                                 <div class="news-mobile-summary flex-container align-justify align-middle hide-for-large">
                                     <div class="top-area">
-                                        <div class="cat">@article.Category</div>
-                                        <time class="date" datetime="@article.Date.ToString("yyyy-MM-dd")">(@article.Date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture))</time>
-                                        <h2 class="title hide-for-large show-for-medium">@article.Title</h2>
+                                        <div class="cat">@T[article.Category]</div>
+                                        <time class="date" datetime="@article.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(article.Date))</time>
+                                        <h2 class="title hide-for-large show-for-medium">@SiteText.Select(article.Title, article.TitleVi)</h2>
                                     </div>
                                     <div class="pic"><img src="@article.Image" alt="" loading="lazy" /></div>
                                 </div>
                                 <div class="top-area show-for-large">
-                                    <div class="cat">@article.Category</div>
-                                    <time class="date" datetime="@article.Date.ToString("yyyy-MM-dd")">(@article.Date.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture))</time>
+                                    <div class="cat">@T[article.Category]</div>
+                                    <time class="date" datetime="@article.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(article.Date))</time>
                                 </div>
-                                <h2 class="title show-for-large">@article.Title</h2>
-                                <h2 class="title hide-for-medium">@article.Title</h2>
+                                <h2 class="title show-for-large">@SiteText.Select(article.Title, article.TitleVi)</h2>
+                                <h2 class="title hide-for-medium">@SiteText.Select(article.Title, article.TitleVi)</h2>
                                 <div class="pic show-for-large"><img src="@article.Image" alt="" loading="lazy" /></div>
                             </a>
                         </li>
                     }
                 </ul>
             </div>
-            <nav class="article-pagination news-pageWrap flex-container align-center-middle" aria-label="News pages">
+            <nav class="article-pagination news-pageWrap flex-container align-center-middle" aria-label="@T["News pages"]">
                 <div class="prev">
                     @if (Model.Page > 1)
                     {
-                        <a asp-action="News" asp-route-page="@(Model.Page - 1)" asp-route-category="@Model.Category" asp-fragment="articles" aria-label="Previous page">prev</a>
+                        <a asp-action="News" asp-route-page="@(Model.Page - 1)" asp-route-category="@Model.Category" asp-fragment="articles" aria-label="@T["Previous page"]">@T["prev"]</a>
                     }
                 </div>
                 <ul class="news-page flex-container align-center-middle">
                 @for (var pageNumber = 1; pageNumber <= Model.PageCount; pageNumber++)
                 {
-                    <li class="@(pageNumber == Model.Page ? "current" : null)"><a asp-action="News" asp-route-page="@pageNumber" asp-route-category="@Model.Category" asp-fragment="articles" aria-label="Page @pageNumber" aria-current="@(pageNumber == Model.Page ? "page" : null)">@pageNumber</a></li>
+                    <li class="@(pageNumber == Model.Page ? "current" : null)"><a asp-action="News" asp-route-page="@pageNumber" asp-route-category="@Model.Category" asp-fragment="articles" aria-label="@T["Page {0}", pageNumber]" aria-current="@(pageNumber == Model.Page ? "page" : null)">@pageNumber</a></li>
                 }
                 </ul>
                 <div class="next">
                 @if (Model.Page < Model.PageCount)
                 {
-                    <a asp-action="News" asp-route-page="@(Model.Page + 1)" asp-route-category="@Model.Category" asp-fragment="articles" aria-label="Next page">next</a>
+                    <a asp-action="News" asp-route-page="@(Model.Page + 1)" asp-route-category="@Model.Category" asp-fragment="articles" aria-label="@T["Next page"]">@T["next"]</a>
                 }
                 </div>
             </nav>

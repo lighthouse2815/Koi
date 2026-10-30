@@ -10,6 +10,7 @@ using static Koi.Web.Tests.AdminTestClient;
 
 namespace Koi.Web.Tests;
 
+[Collection("Drink catalog")]
 public class DrinkApplicationTests(NewsApplicationFactory factory) : IClassFixture<NewsApplicationFactory>
 {
     [Fact]

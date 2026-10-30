@@ -35,18 +35,18 @@ public class GeographyController(ApplicationDbContext database, ImageUploads upl
         if (kind == "countries")
         {
             var value = await database.Markets.AsNoTracking().Include(value => value.Brands).Include(value => value.SocialLinks).SingleOrDefaultAsync(value => value.Id == id);
-            if (value != null) model = new() { Id = id, Revision = value.Revision, Name = value.Name, SortOrder = value.SortOrder,
+            if (value != null) model = new() { Id = id, Revision = value.Revision, NameVi = value.NameVi, Name = value.Name, SortOrder = value.SortOrder,
                 BrandIds = value.Brands.Select(value => value.BrandId).ToArray(), SocialLinks = string.Join("\n", value.SocialLinks.OrderBy(value => value.SortOrder).Select(value => $"{value.Label} | {value.Url}")) };
         }
         else if (kind == "cities")
         {
             var value = await database.StoreCities.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-            if (value != null) model = new() { Id = id, Revision = value.Revision, Name = value.Name, SortOrder = value.SortOrder, MarketId = value.MarketId };
+            if (value != null) model = new() { Id = id, Revision = value.Revision, NameVi = value.NameVi, Name = value.Name, SortOrder = value.SortOrder, MarketId = value.MarketId };
         }
         else
         {
             var value = await database.TeaBrands.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-            if (value != null) model = new() { Id = id, Revision = value.Revision, Name = value.Name, SortOrder = value.SortOrder, CurrentImage = value.Logo };
+            if (value != null) model = new() { Id = id, Revision = value.Revision, NameVi = value.NameVi, Name = value.Name, SortOrder = value.SortOrder, CurrentImage = value.Logo };
         }
         if (model == null) return NotFound();
         model.Kind = kind; return View(await Options(model));
@@ -68,6 +68,7 @@ public class GeographyController(ApplicationDbContext database, ImageUploads upl
         var links = new List<MarketSocialLink>();
         if (country != null)
         {
+            if (model.NameVi?.Length > 100) ModelState.AddModelError(nameof(model.NameVi), "Tên quốc gia tiếng Việt tối đa 100 ký tự.");
             if (model.Name?.Length > 100) ModelState.AddModelError(nameof(model.Name), "Tên quốc gia tối đa 100 ký tự.");
             var ids = model.BrandIds.Distinct().ToArray();
             if (await database.TeaBrands.CountAsync(value => ids.Contains(value.Id)) != ids.Length)
@@ -96,7 +97,7 @@ public class GeographyController(ApplicationDbContext database, ImageUploads upl
         {
             if (country != null)
             {
-                country.Name = (model.Name ?? "").Trim(); country.SortOrder = model.SortOrder;
+                country.Name = (model.Name ?? "").Trim(); country.NameVi = model.NameVi?.Trim() ?? ""; country.SortOrder = model.SortOrder;
                 database.RemoveRange(country.Brands.Where(value => !model.BrandIds.Contains(value.BrandId)));
                 foreach (var brandId in model.BrandIds.Distinct().Except(country.Brands.Select(value => value.BrandId))) country.Brands.Add(new MarketBrand { BrandId = brandId });
                 database.RemoveRange(country.SocialLinks); country.SocialLinks = links;
@@ -105,13 +106,13 @@ public class GeographyController(ApplicationDbContext database, ImageUploads upl
             }
             if (city != null)
             {
-                city.Name = (model.Name ?? "").Trim(); city.SortOrder = model.SortOrder; city.MarketId = model.MarketId;
+                city.Name = (model.Name ?? "").Trim(); city.NameVi = model.NameVi?.Trim() ?? ""; city.SortOrder = model.SortOrder; city.MarketId = model.MarketId;
                 if (id == null) database.StoreCities.Add(city);
                 else { database.Entry(city).Property(value => value.Revision).OriginalValue = model.Revision; city.Revision++; }
             }
             if (brand != null)
             {
-                brand.Name = (model.Name ?? "").Trim(); brand.SortOrder = model.SortOrder;
+                brand.Name = (model.Name ?? "").Trim(); brand.NameVi = model.NameVi?.Trim() ?? ""; brand.SortOrder = model.SortOrder;
                 if (image != null) brand.Logo = uploaded = await uploads.SaveAsync(image, "brands");
                 else if (model.RemoveImage) brand.Logo = "";
                 if (id == null) database.TeaBrands.Add(brand);

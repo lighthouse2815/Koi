@@ -3,11 +3,19 @@ using Koi.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.SetDefaultCulture("en").AddSupportedCultures("en", "vi").AddSupportedUICultures("en", "vi");
+    options.RequestCultureProviders = [new CookieRequestCultureProvider(), new QueryStringRequestCultureProvider(), new AcceptLanguageHeaderRequestCultureProvider()];
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
+    .AddViewLocalization()
     .AddRazorOptions(options =>
     {
         // Keep all Razor views under Views, including the Admin area.
@@ -45,6 +53,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+app.UseRequestLocalization();
 app.UseRouting();
 
 app.UseAuthentication();

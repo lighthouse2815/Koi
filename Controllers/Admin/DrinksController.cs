@@ -15,7 +15,7 @@ public class DrinksController(ApplicationDbContext database, ImageUploads upload
     {
         search = search?.Trim(); if (search?.Length > 200) search = search[..200];
         var query = database.Drinks.AsNoTracking().Where(value => categoryId == 0 || value.CategoryId == categoryId);
-        if (!string.IsNullOrEmpty(search)) query = query.Where(value => EF.Functions.ILike(value.Name, $"%{search}%"));
+        if (!string.IsNullOrEmpty(search)) query = query.Where(value => (EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.NameVi, $"%{search}%")));
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 20d)); page = Math.Clamp(page, 1, pages);
         return View(new AdminDrinksViewModel(await query.Include(value => value.Category).OrderBy(value => value.Category.SortOrder)
             .ThenBy(value => value.CategoryId).ThenBy(value => value.SortOrder).ThenBy(value => value.Id).Skip((page - 1) * 20).Take(20).ToArrayAsync(),
@@ -26,7 +26,7 @@ public class DrinksController(ApplicationDbContext database, ImageUploads upload
     public async Task<IActionResult> Edit(int id)
     {
         var value = await database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View(new DrinkEditViewModel { Id = id, Revision = value.Revision, Name = value.Name,
+        return value == null ? NotFound() : View(new DrinkEditViewModel { Id = id, Revision = value.Revision, NameVi = value.NameVi, RegionVi = value.RegionVi, DescriptionVi = value.DescriptionVi, Name = value.Name,
             CategoryId = value.CategoryId, Region = value.Region, Description = value.Description, SortOrder = value.SortOrder,
             IsPublished = value.IsPublished, CurrentImage = value.Image, Categories = await Categories() });
     }
@@ -47,7 +47,8 @@ public class DrinksController(ApplicationDbContext database, ImageUploads upload
         {
             if (image != null) value.Image = uploaded = await uploads.SaveAsync(image, "drinks");
             else if (model.RemoveImage) value.Image = "";
-            value.Name = model.Name.Trim(); value.CategoryId = model.CategoryId; value.Region = model.Region?.Trim() ?? "";
+            value.Name = model.Name.Trim();
+            value.NameVi = model.NameVi?.Trim() ?? ""; value.RegionVi = model.RegionVi?.Trim() ?? ""; value.DescriptionVi = model.DescriptionVi?.Trim() ?? ""; value.CategoryId = model.CategoryId; value.Region = model.Region?.Trim() ?? "";
             value.Description = model.Description?.Trim() ?? ""; value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
             if (id == null) database.Drinks.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }

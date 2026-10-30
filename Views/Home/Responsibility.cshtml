@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Responsibility";
+    ViewData["Title"] = T["Responsibility__text"].Value;
 }
 @section Styles {
     <script>
@@ -21,12 +21,12 @@
     </div>
     <div class="responsibility-hero__content">
      <div class="responsibility-hero__title head-area">
-      <h1 class="main-title en">RESPONSIBILITY<br>
-       STARTS FROM THE SOURCE</h1>
+      <h1 class="main-title en">@T["RESPONSIBILITY"]<br>
+       @T["STARTS FROM THE SOURCE"]</h1>
      </div>
-     <p class="sub-title">From trusted origins to lasting confidence.</p>
+     <p class="sub-title">@T["From trusted origins to lasting confidence."]</p>
     </div>
-    <div class="scroll scroll-down is-show">
+    <div class="scroll scroll-down is-show">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }
      <svg xmlns="http://www.w3.org/2000/svg" width="95.04" height="60.99" viewBox="0 0 95.04 60.99"><g>
        <g class="arrow">
         <line class="d" x1="47.52" x2="47.52" y2="24.38"></line>
@@ -53,23 +53,23 @@
    <section class="responsibility-belief">
     <div class="responsibility-belief__inner">
      <div class="responsibility-belief__label">
-      OUR BELIEF
+      @T["OUR BELIEF"]
      </div>
      <div class="responsibility-belief__title head-area">
       <div class="overflow">
        <div class="en">
-        Fr<span>o</span>m trusted origins
+        @H["Responsibility.Origin"]
        </div>
       </div>
       <div class="overflow">
        <div class="en">
-        t<span>o</span> lasting confidence.
+        @H["Responsibility.Confidence"]
        </div>
       </div>
      </div>
      <div class="responsibility-belief__desc">
-      <p>We carefully select our tea leaves and ingredients with a focus on quality, consistency, and responsible sourcing.</p>
-      <p>From supply chain management to product integrity, we ensure that every cup reflects our commitment to both excellence and sustainability.</p>
+      <p>@T["We carefully select our tea leaves and ingredients with a focus on quality, consistency, and responsible sourcing."]</p>
+      <p>@T["From supply chain management to product integrity, we ensure that every cup reflects our commitment to both excellence and sustainability."]</p>
      </div>
     </div>
    </section>
@@ -82,7 +82,7 @@
       </div>
       <div class="overflow">
        <div class="en">
-        VIDEO
+        @T["VIDEO"]
        </div>
       </div>
       <div class="deco bottom">
@@ -90,22 +90,22 @@
        </svg>
       </div>
      </div>
-     <div class="responsibility-video__stage"><button class="responsibility-video__arrow responsibility-video__arrow--prev" type="button" aria-label="Previous video" hidden="">
+     <div class="responsibility-video__stage"><button class="responsibility-video__arrow responsibility-video__arrow--prev" type="button" aria-label="@T["Previous video"]" hidden="">
        <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14"><rect fill="#0c131b" x="5.63" y="21.23" width="48.52" height="4.68"></rect> <path fill="#0c131b" d="M37.65,1.08c.7,1.09.37,2.54-.72,3.23L6.7,23.57l30.23,19.25c1.09.7,1.42,2.15.72,3.23s-2.15,1.4-3.24.72L1.08,25.55c-.67-.43-1.08-1.18-1.08-1.98s.41-1.55,1.08-1.98L34.41.37c.39-.25.83-.37,1.26-.37.77,0,1.53.38,1.98,1.08Z"></path>
        </svg></button>
       <div class="responsibility-video__frame">
        <div class="responsibility-video__track">
-        <div class="responsibility-video__slide active" data-caption="From Nature"><iframe class="responsibility-video__embed" data-src="https://www.youtube.com/embed/t3Djx70BMIA?rel=0&amp;mute=1" src="https://www.youtube.com/embed/t3Djx70BMIA?rel=0&amp;mute=1" allow="autoplay; encrypted-media" allowfullscreen="" title="KOI Thé video" loading="lazy"> </iframe>
+        <div class="responsibility-video__slide active" data-caption="From Nature"><iframe class="responsibility-video__embed" data-src="https://www.youtube.com/embed/t3Djx70BMIA?rel=0&amp;mute=1" src="https://www.youtube.com/embed/t3Djx70BMIA?rel=0&amp;mute=1" allow="autoplay; encrypted-media" allowfullscreen="" title="@T["KOI Thé video"]" loading="lazy"> </iframe>
         </div>
-       </div><button class="responsibility-video__play" type="button" aria-label="Play video"> <span>PLAY</span> </button>
-      </div><button class="responsibility-video__arrow responsibility-video__arrow--next" type="button" aria-label="Next video" hidden="">
+       </div><button class="responsibility-video__play" type="button" aria-label="@T["Play video"]"> <span>@T["PLAY"]</span> </button>
+      </div><button class="responsibility-video__arrow responsibility-video__arrow--next" type="button" aria-label="@T["Next video"]" hidden="">
        <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14"><rect fill="#0c131b" x="0" y="21.23" width="48.52" height="4.68"></rect> <path fill="#0c131b" d="M16.5,1.08c-.7,1.09-.37,2.54.72,3.23l30.23,19.25-30.23,19.25c-1.09.7-1.42,2.15-.72,3.23s2.15,1.4,3.24.72l33.33-21.23c.67-.43,1.08-1.18,1.08-1.98,0-.8-.41-1.55-1.08-1.98L19.74.37C19.34.12,18.91,0,18.48,0c-.77,0-1.53.38-1.98,1.08Z"></path>
        </svg></button>
      </div>
-     <p class="responsibility-video__caption">From Nature</p><button class="responsibility-video__back" type="button" aria-label="Back to video list">
+     <p class="responsibility-video__caption">@T["From Nature"]</p><button class="responsibility-video__back" type="button" aria-label="@T["Back to video list"]">
       <svg xmlns="http://www.w3.org/2000/svg" width="34.68" height="30.19" viewBox="0 0 34.68 30.19"><line x1="34.68" y1="15.09" x2="3.61" y2="15.09" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="3"></line> <path fill="currentColor" d="M24.11.7c.45.7.24,1.63-.46,2.07L4.29,15.09l19.36,12.33c.7.45.91,1.37.46,2.07s-1.38.9-2.07.46L.69,16.37c-.43-.28-.69-.75-.69-1.27s.26-.99.69-1.27L22.04.24c.25-.16.53-.23.81-.23.5,0,.98.25,1.27.69Z"></path>
-      </svg><span>( Back )</span> </button>
-     <div class="responsibility-video__dots" aria-label="Video pagination"><button class="dot active" type="button" aria-label="Video 1"></button>
+      </svg><span>@T["( Back )"]</span> </button>
+     <div class="responsibility-video__dots" aria-label="@T["Video pagination"]"><button class="dot active" type="button" aria-label="@T["Video 1"]"></button>
      </div>
     </div>
    </section>
@@ -118,7 +118,7 @@
       </div>
       <div class="overflow">
        <div class="en">
-        BY THE NUMBERS
+        @T["BY THE NUMBERS"]
        </div>
       </div>
       <div class="deco bottom">
@@ -132,8 +132,8 @@
         0+
        </div>
        <div class="label">
-        Markets<br>
-         Worldwide
+        @T["Markets"]<br>
+         @T["Worldwide"]
        </div>
       </div>
       <div class="responsibility-numbers__card">
@@ -141,8 +141,8 @@
         0+
        </div>
        <div class="label">
-        Stores<br>
-         Worldwide
+        @T["Stores"]<br>
+         @T["Worldwide"]
        </div>
       </div>
       <div class="responsibility-numbers__card">
@@ -150,39 +150,39 @@
         0+
        </div>
        <div class="label">
-        Food Safety<br>
-         Certifications
+        @T["Food Safety"]<br>
+         @T["Certifications"]
        </div>
       </div>
       <div class="responsibility-numbers__card">
        <div class="number" data-value="80" data-suffix="M+">
-        0M+
+        @T["0M+"]
        </div>
        <div class="label">
-        Cups of Quality<br>
-         Tea Served Every<br>
-         Year
+        @T["Cups of Quality"]<br>
+         @T["Tea Served Every"]<br>
+         @T["Year"]
        </div>
       </div>
      </div>
-     <p class="responsibility-numbers__desc">From trusted ingredients to every cup we proudly serve.</p>
+     <p class="responsibility-numbers__desc">@T["From trusted ingredients to every cup we proudly serve."]</p>
     </div>
    </section>
    <section class="responsibility-source">
     <div class="responsibility-source__inner">
      <div class="responsibility-source__block responsibility-source__block--text-image">
       <div class="responsibility-source__text">
-       <h2>Carefully Selected<br>
-         Ingredients</h2>
-       <p>From trusted origins to careful selection, every ingredient is chosen with quality in mind.</p>
+       <h2>@T["Carefully Selected"]<br>
+         @T["Ingredients"]</h2>
+       <p>@T["From trusted origins to careful selection, every ingredient is chosen with quality in mind."]</p>
       </div>
       <div class="responsibility-source__image"><img src="/images/pages/en/images/impact_uploads/20260717124703_6a59b3c72abc96.59171292.jpg" alt="">
       </div>
      </div>
      <div class="responsibility-source__block responsibility-source__block--image-text">
       <div class="responsibility-source__text">
-       <h2>Reliable Supply Chain</h2>
-       <p>Through a robust supply chain network, we ensure reliable sourcing and consistent quality.</p>
+       <h2>@T["Reliable Supply Chain"]</h2>
+       <p>@T["Through a robust supply chain network, we ensure reliable sourcing and consistent quality."]</p>
       </div>
       <div class="responsibility-source__image"><img src="/images/pages/en/images/impact_uploads/20260717124703_6a59b3c72b0166.94410322.jpg" alt="">
       </div>
@@ -191,14 +191,14 @@
       <div class="responsibility-source__image"><img src="/images/pages/en/images/impact_uploads/20260720144527_6a5dc407cd9bc7.07105952.jpg" alt="">
       </div>
       <div class="responsibility-source__text">
-       <h2>Consistent Quality Standards</h2>
-       <p>Through rigorous standards and continuous monitoring, we safeguard the quality of every cup.</p>
+       <h2>@T["Consistent Quality Standards"]</h2>
+       <p>@T["Through rigorous standards and continuous monitoring, we safeguard the quality of every cup."]</p>
       </div>
      </div>
     </div>
    </section>
-   <div class="responsibility-impact-back"><a class="responsibility-impact-back__link" href="/Home/Impact#scroll-pin-section" aria-label="Back to impact list">
-     <div class="back">
+   <div class="responsibility-impact-back"><a class="responsibility-impact-back__link" href="/Home/Impact#scroll-pin-section" aria-label="@T["Back to impact list"]">
+     <div class="back">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">←</span>@T["( Back )"]</span> }
       <svg class="show-for-large" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="90" height="74.44" viewBox="0 0 90 74.44"><g data-name="layout">
         <g>
          <g>

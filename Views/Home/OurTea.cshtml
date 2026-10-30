@@ -1,6 +1,6 @@
 @model OurTeaViewModel
 @{
-    ViewData["Title"] = "Our Tea";
+    ViewData["Title"] = T["Our Tea__text"].Value;
 }
 @section Styles {
     <link rel="stylesheet" href="~/lib/swiper/swiper-bundle.min.css" asp-append-version="true" />
@@ -11,7 +11,7 @@
 <div class="our-teaWrap menu-pin">
         <div class="head-area">
             <div class="inner">
-                <div class="en" role="heading" aria-level="1">OUR <span>TEA</span></div>
+                <div class="en" role="heading" aria-level="1">@T["OUR"] <span>@T["TEA"]</span></div>
             </div>
             <div class="drinkListWrap">
                 <div class="tea-hero-background swiper" aria-hidden="true"><div class="swiper-wrapper">
@@ -23,90 +23,90 @@
                 <ul class="drink">
                     <li>
                         <div class="name">
-                            <div class="en">Black Tea <br class="hide-for-xxlarge">Latte</div>
+                            <div class="en">@T["Black Tea"] <br class="hide-for-xxlarge">@T["Latte"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-1.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">No.8 Juice</div>
+                            <div class="en">@T["No.8 Juice"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-2.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">Golden Bubble <br class="hide-for-xxlarge">Milk Tea</div>
+                            <div class="en">@T["Golden Bubble__text"] <br class="hide-for-xxlarge">@T["Milk Tea__text"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-3.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">Black Tea <br class="hide-for-xxlarge">Macchiato</div>
+                            <div class="en">@T["Black Tea"] <br class="hide-for-xxlarge">@T["Macchiato"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-4.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">Taro Purple <br class="hide-for-xxlarge">Milk Tea</div>
+                            <div class="en">@T["Taro Purple"] <br class="hide-for-xxlarge">@T["Milk Tea__text"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-5.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">Brown Sugar <br class="hide-for-xxlarge">Fresh Milk</div>
+                            <div class="en">@T["Brown Sugar"] <br class="hide-for-xxlarge">@T["Fresh Milk"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-6.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">Black Tea <br class="hide-for-xxlarge">Latte</div>
+                            <div class="en">@T["Black Tea"] <br class="hide-for-xxlarge">@T["Latte"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-1.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">No.8 Juice</div>
+                            <div class="en">@T["No.8 Juice"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-2.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">Golden Bubble <br class="hide-for-xxlarge">Milk Tea</div>
+                            <div class="en">@T["Golden Bubble__text"] <br class="hide-for-xxlarge">@T["Milk Tea__text"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-3.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">Black Tea <br class="hide-for-xxlarge">Macchiato</div>
+                            <div class="en">@T["Black Tea"] <br class="hide-for-xxlarge">@T["Macchiato"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-4.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">Taro Purple <br class="hide-for-xxlarge">Milk Tea</div>
+                            <div class="en">@T["Taro Purple"] <br class="hide-for-xxlarge">@T["Milk Tea__text"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-5.png" alt="">
                     </li>
                     <li>
                         <div class="name">
-                            <div class="en">Brown Sugar <br class="hide-for-xxlarge">Fresh Milk</div>
+                            <div class="en">@T["Brown Sugar"] <br class="hide-for-xxlarge">@T["Fresh Milk"]</div>
 
                         </div>
                         <img src="/images/pages/en/images/drink-6.png" alt="">
                     </li>
                 </ul>
-                <div class="scroll-down">
+                <div class="scroll-down">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }
                     <svg class="show-for-large" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="170.03" height="55.27" viewBox="0 0 170.03 55.27">
                         <g data-name="設計">
                             <g>
@@ -183,7 +183,7 @@
                 @foreach (var item in Model.Featured) { <div class="swiper-slide"><img src="@item.BackgroundImage" alt="" /></div> }
             </div></div>
             <div class="tea-feature-content">
-                <div class="title"><div class="en">NEW DRINKS</div></div>
+                <div class="title"><div class="en">@T["NEW DRINKS"]</div></div>
                 <div class="pic tea-new-pictures swiper"><ul class="swiper-wrapper">
                     @foreach (var item in Model.Featured) { <li class="swiper-slide"><img src="@item.Image" alt="" /></li> }
                 </ul></div>
@@ -191,26 +191,26 @@
                     @for (var index = 0; index < Model.Featured.Length; index++)
                     {
                         var item = Model.Featured[index];
-                        <li data-drink="@(index + 1)"><div class="inner">@if (!string.IsNullOrEmpty(item.Region)) { <div class="region">/ @item.Region</div> }<div class="en">@item.Name</div></div></li>
+                        <li data-drink="@(index + 1)"><div class="inner">@if (!string.IsNullOrEmpty(item.Region)) { <div class="region">/ @SiteText.Select(item.Region, item.RegionVi)</div> }<div class="en">@SiteText.Select(item.Name, item.NameVi)</div></div></li>
                     }
                 </ul><div class="tea-new-pagination"></div></div>
             </div>
-            <button type="button" class="tea-pause" aria-pressed="false">( Pause motion )</button>
+            <button type="button" class="tea-pause" aria-pressed="false">@T["( Pause motion )"]</button>
         </div>
         }
         <div class="drinkWrap">
             <div class="menu-mobileListWrap hide-for-large">
                 <div class="menu">
-                    <a asp-controller="Home" asp-action="Menu" aria-label="View menus by country"><img src="/images/pages/en/images/menu-link-mobile.svg" alt=""></a>
+                    <a asp-controller="Home" asp-action="Menu" aria-label="@T["View menus by country"]">@if (SiteText.IsVietnamese) { <span class="localized-menu-label">@T["MENU"] ↗</span> }<img src="/images/pages/en/images/menu-link-mobile.svg" alt=""></a>
                 </div>
                 <div class="menu-select">
                     <span class="current">
-                        DRINK CLASSIFICATION
+                        @T["DRINK CLASSIFICATION"]
                     </span>
                     <ul class="list">
-                        <li class="option selected">DRINK CLASSIFICATION</li>
+                        <li class="option selected">@T["DRINK CLASSIFICATION"]</li>
                         @for (var index = 0; index < Model.Categories.Length; index++)
-                        { <li class="option" data-menu="@index">@Model.Categories[index].Name</li> }
+                        { <li class="option" data-menu="@index">@SiteText.Select(Model.Categories[index].Name, Model.Categories[index].NameVi)</li> }
                     </ul>
                 </div>
             </div>
@@ -219,14 +219,14 @@
                 {
                     var category = Model.Categories[index];
                     <li id="@category.Id" data-where="@index">
-                        <div class="title"><div class="en">@category.Name</div>@if (!string.IsNullOrEmpty(category.Icon)) { <div class="icon"><img src="@category.Icon" alt="" /></div> }</div>
+                        <div class="title"><div class="en">@SiteText.Select(category.Name, category.NameVi)</div>@if (!string.IsNullOrEmpty(category.Icon)) { <div class="icon"><img src="@category.Icon" alt="" /></div> }</div>
                         <div class="drink-changeList"><ul class="drinkList">
                             @for (var drinkIndex = 0; drinkIndex < category.Drinks.Count; drinkIndex++)
                             {
                                 var drink = category.Drinks[drinkIndex];
                                 <li data-drink="@(drinkIndex + 1)" data-drink-id="@drink.Id">
-                                    @if (!string.IsNullOrEmpty(drink.Region)) { <div class="region">/ @drink.Region</div> }
-                                    <div class="en">@drink.Name</div><div class="content show-for-large">@drink.Description</div>
+                                    @if (!string.IsNullOrEmpty(drink.Region)) { <div class="region">/ @SiteText.Select(drink.Region, drink.RegionVi)</div> }
+                                    <div class="en">@SiteText.Select(drink.Name, drink.NameVi)</div><div class="content show-for-large">@SiteText.Select(drink.Description, drink.DescriptionVi)</div>
                                 </li>
                             }
                         </ul></div>
@@ -235,7 +235,7 @@
             </ul>
             <div class="menu-drinkList show-for-large">
                 <div class="menu">
-                    <a asp-controller="Home" asp-action="Menu" aria-label="View menus by country">
+                    <a asp-controller="Home" asp-action="Menu" aria-label="@T["View menus by country"]">
                         <svg data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="91.72" height="91.72" viewBox="0 0 91.72 91.72">
                             <g data-name="設計">
                                 <circle cx="45.86" cy="45.86" r="45.86"></circle>
@@ -261,7 +261,7 @@
                 </div>
                 <ul class="drink-fixedList">
                     @foreach (var category in Model.Categories)
-                    { <li data-scroll="@category.Id" class="flex-container align-middle"><div class="dot"></div><div class="title">@category.Name</div></li> }
+                    { <li data-scroll="@category.Id" class="flex-container align-middle"><div class="dot"></div><div class="title">@SiteText.Select(category.Name, category.NameVi)</div></li> }
                 </ul>
             </div>
             <div class="drinkList-pic">

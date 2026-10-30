@@ -9,6 +9,11 @@
     <div asp-validation-summary="All" class="validation" role="alert"></div>
     <div class="editor-columns">
         <div class="card">
+<fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>
+<label asp-for="TitleVi">Tiêu đề tiếng Việt</label><input asp-for="TitleVi" maxlength="300" />
+<label asp-for="BodyHtmlVi">Nội dung tiếng Việt (HTML)</label><textarea asp-for="BodyHtmlVi" rows="12" maxlength="200000"></textarea>
+</fieldset>
+
             <label asp-for="Title">Tiêu đề</label><input asp-for="Title" maxlength="300" required />
             <div class="field-row"><div><label asp-for="Category">Danh mục</label><select asp-for="Category"><option value="NEWS">NEWS</option><option value="MEDIA">MEDIA</option></select></div><div><label asp-for="Date">Ngày đăng</label><input asp-for="Date" asp-format="{0:yyyy-MM-dd}" type="date" required /></div></div>
             <label asp-for="BodyHtml">Nội dung (HTML)</label>

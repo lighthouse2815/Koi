@@ -7,6 +7,10 @@ namespace Koi.Web.Models;
 
 public class StoreEditViewModel
 {
+    [StringLength(300)] public string? NameVi { get; set; }
+    [StringLength(2000)] public string? AddressVi { get; set; }
+    [StringLength(500)] public string? HoursVi { get; set; }
+
     public int Id { get; set; }
     public int Revision { get; set; }
     [Required, StringLength(300)] public string Name { get; set; } = "";
@@ -33,6 +37,8 @@ public record AdminStoresViewModel(StoreEntry[] Stores, SelectList Markets, stri
 
 public class GeographyEditViewModel
 {
+    [StringLength(150)] public string? NameVi { get; set; }
+
     public int Id { get; set; }
     public int Revision { get; set; }
     [Required, RegularExpression("countries|cities|brands")] public string Kind { get; set; } = "countries";
