@@ -2,6 +2,12 @@
     ViewData["Title"] = "Precision";
 }
 @section Styles {
+    <script>
+        if (!location.hash) {
+            history.scrollRestoration = 'manual';
+            scrollTo({ top: 0, behavior: 'instant' });
+        }
+    </script>
     <link rel="stylesheet" href="~/css/Precision.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/impact-details.css" asp-append-version="true" />

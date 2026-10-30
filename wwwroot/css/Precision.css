@@ -2,7 +2,7 @@
 @media screen and (max-width: 63.9375em) {
     }
 
-.precisionWrap{min-height:100vh;background-color:#fff}
+.precisionWrap{min-height:100vh;background-color:#fff;line-height:1}
 .precisionWrap .precision-hero{position:relative;width:100%;height:100vh;min-height:720px;overflow:hidden;font-family:'Red Hat Display', sans-serif;color:#fff}
 .precisionWrap .precision-hero__bg{position:absolute;inset:0;z-index:1}
 .precisionWrap .precision-hero__bg img{display:block;width:100%;height:100%;-o-object-fit:cover;object-fit:cover}
@@ -193,3 +193,20 @@
 }
 
 @keyframes arrow-down{0%{-webkit-transform:translateY(10px);transform:translateY(10px);opacity:1}39.9%{-webkit-transform:translateY(20px);transform:translateY(20px);opacity:0}40%{-webkit-transform:translateY(0px);transform:translateY(0px);opacity:0}80%{-webkit-transform:translateY(10px);transform:translateY(10px);opacity:1}100%{-webkit-transform:translateY(10px);transform:translateY(10px);opacity:1}}
+
+body:has(.precisionWrap) { background: var(--peach); }
+body.is-precision-video-playing { position: fixed; top: var(--precision-scroll-y); left: 0; right: 0; width: 100%; overflow: hidden; }
+.precisionWrap .precision-video__back svg line { stroke-width: 3px; }
+.precisionWrap .precision-video__play:focus-visible,
+.precisionWrap .precision-video__back:focus-visible,
+.precisionWrap .scroll-down:focus-visible { outline: 2px solid #EA5406; outline-offset: 6px; }
+@media (prefers-reduced-motion: reduce) {
+    .precisionWrap .precision-hero { height: auto; min-height: 100svh; padding: 160px 7vw 90px; }
+    .precisionWrap .precision-hero__content { position: relative; top: auto; left: auto; right: auto; max-width: none; transform: none; }
+    .precisionWrap .precision-hero__head { display: block; text-align: center; }
+    .precisionWrap .precision-hero__label, .precisionWrap .scroll-down { display: none; }
+    .precisionWrap .precision-hero__desc { margin: 24px 0 0; text-align: center; }
+    .precisionWrap .precision-hero__scroll-text { position: relative; top: auto; left: auto; right: auto; width: auto; max-width: 760px; margin: 40px auto 0; transform: none; font-size: 18px; line-height: 1.6; }
+    .precisionWrap .precision-hero__scroll-text p+p { margin-top: 18px; }
+    .precisionWrap .precision-hero__shade { opacity: 1; }
+}

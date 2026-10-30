@@ -43,11 +43,12 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 | News | `/Home/News` | Tiêu đề xuất hiện theo mẫu, nút More chuyển động, danh sách responsive, lọc/phân trang và 13 bài chi tiết `/Home/NewsDetail/{id}` |
 | Impact | `/Home/Impact` | Banner giữ màn hình, chữ chạy theo cuộn, mỗi lượt cuộn/vuốt chuyển một cam kết, hỗ trợ chấm chọn và quay lại đúng cam kết |
 | Responsibility | `/Home/Responsibility` | Hai ảnh bìa trượt vào, chữ hiện theo thứ tự, bốn số liệu đếm cùng lúc, ảnh nguồn nguyên liệu hiện theo cuộn và video có Play/Back trên mobile |
-| Chi tiết Impact khác | `/Home/Precision`, `/Home/People`, `/Home/Connections` | Ảnh, video, nội dung nhân sự và hoạt động cộng đồng |
+| Precision | `/Home/Precision` | Banner giữ màn hình, nền tối theo cuộn, đoạn chữ chạy lên và video Play/Back trên mobile |
+| Chi tiết Impact khác | `/Home/People`, `/Home/Connections` | Ảnh, nội dung nhân sự và hoạt động cộng đồng |
 
 Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Store, Contact và liên kết menu PDF vẫn mở trang mẫu. Chưa có đặt hàng, gửi form hoặc database; các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
-Trang About, Our Tea, News, Recruit và Impact đã được duyệt. Responsibility được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
+Trang About, Our Tea, News, Recruit, Impact và Responsibility đã được duyệt. Precision được hoàn thiện tiếp để kiểm tra riêng trước khi chuyển sang trang khác.
 
 Nội dung News là bản tĩnh tại thời điểm dựng. Video bài viết và chi tiết Impact dùng YouTube gốc. Poster của bài cuộc thi năm 2024 dùng lại ảnh của chính bài viết vì tên miền chứa ảnh nội dung cũ đã ngừng hoạt động.
 
@@ -94,6 +95,8 @@ About và Our Tea dùng Swiper 14.3.0 lưu local tại `wwwroot/lib/swiper` (MIT
 
 [Video chạy thử Responsibility](docs/preview/responsibility-animation.mp4), gồm hai ảnh mở đầu, tiêu đề, số liệu và ba ảnh nguồn nguyên liệu. Ảnh xem trước: [desktop](docs/preview/responsibility-desktop.png) · [mobile](docs/preview/responsibility-mobile.png) · [số liệu trên mobile](docs/preview/responsibility-numbers-mobile.png).
 
+[Video chạy thử Precision](docs/preview/precision-animation.mp4), gồm cảnh bìa theo hai chiều cuộn, tiêu đề video và ba ảnh quy trình chất lượng. Ảnh xem trước: [desktop](docs/preview/precision-desktop.png) · [mobile](docs/preview/precision-mobile.png) · [chữ chạy trên mobile](docs/preview/precision-banner-mobile.png).
+
 ## Tài nguyên tham chiếu
 
 Hình ảnh, logo và video lấy từ trang chủ KOI Thé theo yêu cầu đối chiếu giao diện; quyền đối với những tài nguyên này thuộc chủ sở hữu tương ứng. Không hotlink tài nguyên và không đưa API key của website mẫu vào source. Font Red Hat Display dùng giấy phép SIL Open Font License, kèm tại `wwwroot/fonts/OFL.txt`.
@@ -115,3 +118,5 @@ Impact dùng Observer có sẵn trong ScrollTrigger để xử lý wheel/touch. 
 Responsibility đã đối chiếu bố cục và mốc kích hoạt hiệu ứng ở 1440/390/1024px. Vị trí chữ, độ mờ phụ đề/mũi tên và thứ tự hai dòng OUR BELIEF được lấy mẫu theo thời gian trên desktop/mobile. Kiểm tra bốn số liệu khởi chạy cùng lúc, ba ảnh nguồn nguyên liệu hiện theo cuộn, chạm Play/Back thật, căn giữa và khóa/mở cuộn video trên mobile, đổi kích thước khi video đang mở, giảm chuyển động và các trang chi tiết dùng chung CSS/JavaScript. Nút Back từ Responsibility đưa desktop về đúng cam kết đầu tiên trên Impact thay vì đầu trang. Video dùng trình phát YouTube gốc; việc phát nội dung phụ thuộc kết nối tới YouTube.
 
 Responsibility bắt đầu ở ảnh bìa khi mở lại hoặc tải lại, kể cả lúc JavaScript tải chậm. Đã kiểm tra vào từ More, lịch sử Back, cuộn bình thường, giảm chuyển động và liên kết có fragment; các trang khác vẫn giữ cách khôi phục vị trí cuộn của trình duyệt.
+
+Precision tương ứng cam kết thứ hai “PRECISION BUILDS TRUST” trên [trang mẫu](https://koithe.com/en/Precision.php). Đã đối chiếu bố cục, độ mờ nền/tiêu đề và vị trí chữ theo cả hai chiều cuộn ở 1440/390/1024px. Kiểm tra đổi kích thước không tạo lặp cảnh giữ màn hình, ba ảnh hiện theo cuộn, chạm Play/Back, khóa/mở cuộn video và tiếp tục animation sau khi đóng, đổi kích thước khi video đang mở, Back về đúng cam kết và mở lại trang ở ảnh bìa kể cả khi JavaScript tải chậm. Khi giảm chuyển động, bỏ vùng giữ màn hình và hiển thị tĩnh đủ sáu đoạn chữ cùng ba ảnh. Responsibility được kiểm tra lại sau khi dùng chung xử lý video và hiện ảnh. Video vẫn dùng trình phát YouTube gốc.

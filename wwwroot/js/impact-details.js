@@ -4,7 +4,8 @@
     if (!page) return;
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const responsibility = page.querySelector('.responsibilityWrap');
-    if (responsibility && !location.hash) {
+    const precision = page.querySelector('.precisionWrap');
+    if ((responsibility || precision) && !location.hash) {
         history.scrollRestoration = 'manual';
         window.ScrollTrigger?.clearScrollMemory('manual');
         const startAtTop = () => {
@@ -32,28 +33,39 @@
         const frame = button.parentElement;
         const iframe = frame.querySelector('iframe');
         const back = section.querySelector('[class$="-video__back"]');
+        const videoName = responsibility ? 'responsibility' : precision ? 'precision' : null;
+        const playingClass = 'is-' + videoName + '-video-playing';
+        const scrollProperty = '--' + videoName + '-scroll-y';
         let updateVideoLayout;
         let unlockVideoScroll;
-        if (responsibility) {
+        if (videoName) {
             const mobile = matchMedia('(max-width: 1024px)');
             let lockedScroll;
+            let lockedPin;
             unlockVideoScroll = () => {
                 if (lockedScroll === undefined) return;
-                document.body.classList.remove('is-responsibility-video-playing');
-                document.body.style.removeProperty('--responsibility-scroll-y');
+                document.body.classList.remove(playingClass);
+                document.body.style.removeProperty(scrollProperty);
                 scrollTo({ top: lockedScroll, behavior: 'instant' });
+                lockedPin?.enable(false);
+                lockedPin = undefined;
                 lockedScroll = undefined;
             };
             updateVideoLayout = () => {
                 if (!mobile.matches) return unlockVideoScroll();
                 if (!section.classList.contains('is-playing') || lockedScroll !== undefined) return;
+                lockedPin = precision ? window.ScrollTrigger?.getById('precision-banner') : undefined;
+                lockedPin?.disable(false);
                 const rect = frame.getBoundingClientRect();
                 scrollTo({ top: scrollY + rect.top - (innerHeight - rect.height) / 2, behavior: 'instant' });
                 lockedScroll = scrollY;
-                document.body.style.setProperty('--responsibility-scroll-y', -lockedScroll + 'px');
-                document.body.classList.add('is-responsibility-video-playing');
+                document.body.style.setProperty(scrollProperty, -lockedScroll + 'px');
+                document.body.classList.add(playingClass);
             };
             mobile.addEventListener('change', updateVideoLayout);
+            reducedMotion.addEventListener('change', () => {
+                if (document.body.classList.contains(playingClass)) back.click();
+            });
         }
         button.addEventListener('click', () => {
             const url = new URL(iframe.dataset.src || iframe.src);
@@ -64,7 +76,7 @@
             section.classList.add('is-playing');
             button.hidden = true;
             updateVideoLayout?.();
-            if (document.body.classList.contains('is-responsibility-video-playing')) back.focus({ preventScroll: true });
+            if (videoName && document.body.classList.contains(playingClass)) back.focus({ preventScroll: true });
         });
         back?.addEventListener('click', () => {
             iframe.src = iframe.dataset.src || iframe.src.replace('autoplay=1', 'autoplay=0');
@@ -72,7 +84,7 @@
             section.classList.remove('is-playing');
             button.hidden = false;
             unlockVideoScroll?.();
-            if (responsibility) button.focus({ preventScroll: true });
+            if (videoName) button.focus({ preventScroll: true });
         });
     });
 
@@ -123,7 +135,24 @@
     numbers.forEach(item => item.textContent = item.dataset.value + (item.dataset.suffix || ''));
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
-    gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    const revealSourceImages = selector => page.querySelectorAll(selector).forEach(image => {
+        gsap.fromTo(image, { y: 46, opacity: 0 }, { y: 0, opacity: 1, duration: 1.05, ease: 'power2.out', scrollTrigger: { trigger: image, start: 'top 82%', once: true } });
+    });
+    if (precision) gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+        page.classList.add('content-motion');
+        gsap.fromTo('.precision-hero__label', { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: .35, ease: 'power3.out' });
+        gsap.fromTo('.precision-hero .head-area .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, delay: 1, stagger: .12, ease: 'power2.out' });
+        gsap.fromTo('.precision-hero .scroll-down', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 1.65, ease: 'power3.out' });
+        gsap.timeline({ scrollTrigger: { id: 'precision-banner', trigger: '.precision-hero', start: 'top top', end: '+=2600', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
+            .to('.precision-hero .scroll-down', { opacity: 0, y: 24, duration: .15, ease: 'none' }, 0)
+            .to('.precision-hero__shade', { opacity: 1, duration: .28, ease: 'none' }, .02)
+            .fromTo('.precision-hero__scroll-text', { y: () => innerHeight * .68 }, { y: () => innerHeight * (innerWidth <= 1024 ? -.3 : -1.15), duration: .75, ease: 'none' }, .25)
+            .to('.precision-hero__content', { opacity: () => innerWidth <= 1024 ? 0 : 1, y: () => innerWidth <= 1024 ? -40 : 0, duration: .22, ease: 'none' }, .04);
+        gsap.fromTo('.precision-video__title .en', { yPercent: 100, y: 0, rotation: 10 }, { yPercent: 0, y: 0, rotation: 0, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: '.precision-video__title', start: 'top 80%', end: 'bottom 80%', toggleActions: 'play resume resume resume' } });
+        revealSourceImages('.precision-source__image');
+        return () => page.classList.remove('content-motion');
+    });
+    else gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
         if (responsibility) {
             page.classList.add('content-motion');
             gsap.set('.responsibility-hero__content', { opacity: 1 });
@@ -144,9 +173,7 @@
                 item.textContent = '0' + (item.dataset.suffix || '');
                 count.to(counter, { value: Number(item.dataset.value), duration: 1.8, ease: 'power2.out', onUpdate: () => item.textContent = Math.round(counter.value) + (item.dataset.suffix || '') }, 0);
             });
-            responsibility.querySelectorAll('.responsibility-source__image').forEach(image => {
-                gsap.fromTo(image, { y: 46, opacity: 0 }, { y: 0, opacity: 1, duration: 1.05, ease: 'power2.out', scrollTrigger: { trigger: image, start: 'top 82%', once: true } });
-            });
+            revealSourceImages('.responsibility-source__image');
             return () => {
                 page.classList.remove('content-motion');
                 numbers.forEach(item => item.textContent = item.dataset.value + (item.dataset.suffix || ''));
