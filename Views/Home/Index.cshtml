@@ -3,15 +3,7 @@
 @{
     ViewData["Title"] = "Your Daily Beat";
     var speeds = new[] { 60, 90, 120, 60, 180, 90, 120, 60, 120, 90, 60, 180, 90, 90, 60, 120 };
-    var drinks = new[]
-    {
-        (Image: "chewy", Label: "CHEWY TEA", Id: "45"),
-        (Image: "flavored", Label: "FLAVORED TEA", Id: "4"),
-        (Image: "macchiato", Label: "SIGNATURE MACCHIATO", Id: "44"),
-        (Image: "milk", Label: "MILK TEA", Id: "5"),
-        (Image: "latte", Label: "TEA LATTE", Id: "43"),
-        (Image: "juice", Label: "JUICE", Id: "6")
-    };
+
 }
 <dialog class="intro" id="intro" aria-label="KOI Thé introduction" hidden>
     <video class="intro-video" src="~/videos/intro.mp4" muted playsinline preload="none" aria-hidden="true"></video>
@@ -90,15 +82,15 @@
     <h2 class="section-heading green" id="drinks-title"><span class="heading-clip"><span class="heading-word">DRINK</span></span></h2>
     <div class="drink-controls"><span>FIND YOUR DAILY FAVOURITE</span><div><button type="button" class="carousel-arrow" data-drink-direction="-1" aria-label="Previous drinks" aria-controls="drink-carousel">←</button><button type="button" class="carousel-arrow" data-drink-direction="1" aria-label="Next drinks" aria-controls="drink-carousel">→</button></div></div>
     <div class="drink-carousel" id="drink-carousel" tabindex="0" role="region" aria-label="Drink categories, scroll horizontally">
-        @foreach (var drink in drinks)
+        @foreach (var drink in Model.DrinkCategories)
         {
             <a class="drink-card" href="@Url.Action("OurTea", "Home")#@drink.Id">
                 <div class="drink-photo">
-                    <img src="~/images/drink-@(drink.Image).jpg" alt="@drink.Label collection" width="600" height="600" loading="lazy" />
-                    <img class="drink-photo-circle" src="~/images/drink-@(drink.Image).jpg" alt="" width="600" height="600" loading="lazy" aria-hidden="true" />
+                    <img src="@drink.HomeImage" alt="@drink.Name collection" width="600" height="600" loading="lazy" />
+                    <img class="drink-photo-circle" src="@drink.HomeImage" alt="" width="600" height="600" loading="lazy" aria-hidden="true" />
                     <span class="drink-view-more" aria-hidden="true">VIEW<br />MORE ↗</span>
                 </div>
-                <h3><img src="~/images/icon-@(drink.Image).svg" alt="" width="32" height="44" loading="lazy" />@drink.Label<span aria-hidden="true">↗</span></h3>
+                <h3><img src="@drink.HomeIcon" alt="" width="32" height="44" loading="lazy" />@drink.Name<span aria-hidden="true">↗</span></h3>
             </a>
         }
     </div>

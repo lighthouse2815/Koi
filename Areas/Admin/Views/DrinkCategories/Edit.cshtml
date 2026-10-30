@@ -1,0 +1,20 @@
+@model DrinkCategoryEditViewModel
+@{ var editing = Model.Id > 0; ViewData["Title"] = editing ? "Sửa danh mục" : "Thêm danh mục"; }
+<div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh mục đồ uống</a></div>
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (int?)null)" method="post" enctype="multipart/form-data" class="editor">
+<input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" /><div asp-validation-summary="All" class="validation" role="alert"></div>
+<div class="editor-columns"><div class="card">
+<label asp-for="Name">Tên danh mục</label><input asp-for="Name" maxlength="200" required />
+<label asp-for="ImageUpload">Ảnh chung của danh mục (Our Tea)</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh danh mục" /> }<input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
+<label asp-for="IconUpload">Biểu tượng cạnh tên danh mục</label>@if (!string.IsNullOrEmpty(Model.CurrentIcon)) { <img class="current-icon" src="@Model.CurrentIcon" alt="Biểu tượng danh mục" /> }<input asp-for="IconUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+<label class="check"><input asp-for="RemoveIcon" /> Bỏ biểu tượng danh mục</label>
+<label asp-for="HomeImageUpload">Ảnh thẻ trên trang chủ</label>@if (!string.IsNullOrEmpty(Model.CurrentHomeImage)) { <img class="current-image" src="@Model.CurrentHomeImage" alt="Ảnh thẻ trang chủ" /> }<input asp-for="HomeImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+<label asp-for="HomeIconUpload">Biểu tượng thẻ trên trang chủ</label>@if (!string.IsNullOrEmpty(Model.CurrentHomeIcon)) { <img class="current-icon" src="@Model.CurrentHomeIcon" alt="Biểu tượng trang chủ" /> }<input asp-for="HomeIconUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+<p class="help">Mỗi ảnh JPG, PNG hoặc WebP tối đa 5 MB. Để trống để giữ ảnh hiện tại. Bật thẻ trang chủ cần có cả ảnh và biểu tượng thẻ.</p>
+</div><aside class="card">
+<label class="check"><input asp-for="IsPublished" /> Hiển thị danh mục và đồ uống bên trong</label>
+<label class="check"><input asp-for="ShowOnHome" /> Hiển thị thẻ trên trang chủ</label>
+<label asp-for="SortOrder">Thứ tự ở Our Tea</label><input asp-for="SortOrder" type="number" min="0" max="100000" />
+<label asp-for="HomeOrder">Thứ tự trên trang chủ</label><input asp-for="HomeOrder" type="number" min="0" max="100000" /><p class="help">Số nhỏ hiển thị trước.</p>
+<button class="button" type="submit">Lưu danh mục</button>@if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }
+</aside></div></form>

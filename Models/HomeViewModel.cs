@@ -1,3 +1,3 @@
 namespace Koi.Web.Models;
 
-public record HomeViewModel(IReadOnlyList<NewsArticle> News);
+public record HomeViewModel(IReadOnlyList<NewsArticle> News, IReadOnlyList<DrinkCategory> DrinkCategories);

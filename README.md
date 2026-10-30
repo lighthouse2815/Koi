@@ -31,7 +31,7 @@ dotnet build Koi.sln --configuration Release
 dotnet publish Koi.Web.csproj --configuration Release --output ./artifacts/publish
 ```
 
-Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration nạp 13 bài News ban đầu một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
+Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration nạp dữ liệu News, Store, Menu và đồ uống ban đầu một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
 
 ## MVC và quản trị đã triển khai
 
@@ -39,7 +39,8 @@ Development tự áp dụng migration và tạo tài khoản được cấu hìn
 - **News:** PostgreSQL + EF Core lưu tiêu đề, danh mục, ngày, HTML, ảnh/video, bản nháp/xuất bản, tin nổi bật và lựa chọn hiển thị ở trang chủ. News, chi tiết tin và carousel tin trang chủ đều đọc database.
 - **Quản trị News:** đăng nhập/đăng xuất bằng ASP.NET Core Identity; tìm kiếm, phân trang, thêm/sửa/xóa, xem trước cả bản nháp và tải ảnh JPG/PNG/WebP tối đa 5 MB. Bản nháp chỉ quản trị viên xem được. Có kiểm tra dữ liệu phía server, chống CSRF, loại mã HTML không an toàn và phát hiện sửa đè từ bản cũ.
 - **Store:** PostgreSQL lưu 1.211 mục cửa hàng ban đầu, giữ thứ tự riêng toàn bộ/quốc gia/khu vực. Quản trị tìm kiếm, lọc, phân trang, thêm/sửa/xóa, ảnh, xuất bản và phát hiện sửa đè. Có quản trị quốc gia, khu vực, thương hiệu/logo và liên kết mạng xã hội; kiểm tra quan hệ trước khi lưu và chặn xóa dữ liệu đang được sử dụng.
-- **Phần kế tiếp:** dữ liệu đồ uống. Contact vẫn là giao diện, chưa gửi form theo yêu cầu.
+- **Đồ uống:** PostgreSQL lưu 54 món, 7 danh mục và 4 mục New Drinks ban đầu. Quản trị thêm/sửa/xóa, mô tả/khu vực/ảnh, thứ tự, xuất bản, ảnh và biểu tượng danh mục, thẻ trang chủ và nền New Drinks. Our Tea và carousel danh mục trang chủ đọc database. Danh mục ẩn sẽ ẩn toàn bộ món bên trong và thẻ trang chủ.
+- **Contact:** giữ giao diện không gửi form theo yêu cầu. Không có đặt hàng/thanh toán trong phạm vi website giới thiệu này.
 
 Ảnh tải lên lưu trong `wwwroot/uploads`, không đưa vào Git hoặc bản publish. Khi triển khai cần giữ thư mục uploads riêng cùng với dữ liệu PostgreSQL. Xóa bài viết chỉ xóa bản ghi, giữ các ảnh đã lưu.
 
@@ -84,7 +85,7 @@ Các trang nội dung đã dựng local, dùng tiếng Anh và ảnh/SVG lưu tr
 | Contact | `/Home/Contact` | Tiêu đề trượt lên, chuyển mờ giữa Contact/Business Partnership, ảnh Overseas trên desktop và các trường nhập/chọn dùng điều khiển gốc của trình duyệt |
 | Menu | `/Home/Menu` | Đường kẻ mở ngang, tiêu đề/danh sách trượt lên và 22 thực đơn của 17 quốc gia mở trong tab mới |
 
-Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Các nút Menu trên Our Tea, footer và gấu nổi mở `/Home/Menu`; ảnh thực đơn cũng được lưu local. Chưa có đặt hàng hoặc gửi form; News đã dùng PostgreSQL, các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
+Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Các nút Menu trên Our Tea, footer và gấu nổi mở `/Home/Menu`; ảnh thực đơn cũng được lưu local. Chưa có đặt hàng hoặc gửi form; News, Store, Menu và đồ uống đã dùng PostgreSQL, các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
 Các trang nội dung trong bảng đã được duyệt, gồm cả Menu. Phần giao diện đã hoàn tất trong phạm vi các trang này; Contact giữ chế độ xem trước theo yêu cầu, không gửi form.
 
@@ -200,3 +201,27 @@ Giai đoạn MVC News đã kiểm tra: build/publish Release, 15 kiểm tra tíc
 MVC Store đã kiểm tra: 26 test tích hợp đạt, đối chiếu 154 bộ lọc/phân trang với dữ liệu trang mẫu, điều hướng quản trị và form sửa trên mobile. Ảnh quản trị: [danh sách cửa hàng](docs/preview/admin-stores-desktop.png) · [sửa cửa hàng trên mobile](docs/preview/admin-store-edit-mobile.png).
 
 MVC Menu đã kiểm tra: 32 test tích hợp đạt; trình duyệt xác nhận đủ 17 quốc gia/22 thực đơn và ảnh, mở tab mới bằng chuột/cảm ứng, bàn phím, bố cục 360–2560px, animation và chế độ giảm chuyển động. Ảnh quản trị: [danh sách](docs/preview/admin-menus-desktop.png) · [sửa trên mobile](docs/preview/admin-menu-edit-mobile.png).
+
+MVC đồ uống đã kiểm tra: 43 test tích hợp đạt; so sánh đủ tên/mô tả/khu vực/ảnh của 54 món với giao diện trước khi chuyển, kiểm tra danh mục/thẻ trang chủ, ảnh/nền New Drinks, xuất bản, quan hệ, CSRF và sửa đè. Kiểm tra trình duyệt xác nhận animation, cảm ứng, đổi kích thước, giảm chuyển động, luồng thêm/sửa/xóa bản nháp thật và danh sách rỗng. Ảnh quản trị: [đồ uống](docs/preview/admin-drinks-desktop.png) · [sửa danh mục trên mobile](docs/preview/admin-category-edit-mobile.png).
+
+## Cập nhật nội dung
+
+| Nội dung | Đường dẫn quản trị |
+| --- | --- |
+| Tin tức | `/Admin/News` |
+| Cửa hàng | `/Admin/Stores` |
+| Quốc gia, thương hiệu và khu vực | `/Admin/Geography` (các tab trong trang) |
+| Thực đơn | `/Admin/Menus` |
+| Đồ uống | `/Admin/Drinks` |
+| Danh mục và thẻ trang chủ | `/Admin/DrinkCategories` |
+| New Drinks | `/Admin/FeaturedDrinks` |
+
+Thêm thương hiệu → gán thương hiệu tại quốc gia → thêm khu vực nếu cần → thêm cửa hàng. Khu vực phải thuộc đúng quốc gia; không xóa được quốc gia/khu vực/thương hiệu hoặc danh mục còn dữ liệu sử dụng. Dùng tùy chọn hiển thị để tạm ẩn cửa hàng, thực đơn, món hoặc danh mục. Số thứ tự nhỏ hiển thị trước, ID phân xử khi trùng thứ tự. Cửa hàng giữ ba thứ tự riêng như trang mẫu.
+
+Ảnh mới nhận JPG/PNG/WebP tối đa 5 MB mỗi tệp; giữ nguyên SVG gốc đã có. Chỉnh sửa không bắt buộc tải lại ảnh. Các trang nhập liệu có kiểm tra phía server, chống CSRF, yêu cầu quyền Admin và phát hiện bản sửa cũ. Khi gặp thông báo dữ liệu đã thay đổi, tải lại trang sửa trước khi lưu tiếp.
+
+Kiểm tra nghiệm thu MVC ngày 31/10/2026: build/publish Release không có lỗi/cảnh báo; 43 test tích hợp đạt cả trên database kiểm thử đang dùng và một database mới tạo từ đầu. Khởi tạo migration và Identity được khóa bằng advisory lock của PostgreSQL để nhiều tiến trình không tạo trùng migration/role; không ghi đè mật khẩu tài khoản đã tồn tại. EF xác nhận không có thay đổi model thiếu migration.
+
+Bản publish chạy ở môi trường Production đã kiểm tra 27 URL, 85 đích liên kết local, 306 tài nguyên có nội dung và 14 trang trên desktop/mobile; không phát hiện lỗi JavaScript, tài nguyên local lỗi hoặc tràn ngang. Trang bìa, video người đọc sách và cảnh FRAGRANCE được chạy thử lại; 13 bài News giữ nguyên nội dung/ảnh/video và luồng quản trị tin tức vẫn hoạt động. Dữ liệu website sau kiểm tra giữ 13 bài, 1.211 mục cửa hàng, 22 thực đơn, 7 danh mục, 54 món và 4 mục New Drinks; các bản nháp thử qua trình duyệt đã được xóa.
+
+Các phần MVC và quản trị trong phạm vi website giới thiệu đã hoàn tất. Contact vẫn không gửi/lưu form theo yêu cầu trước đó. Dự án chạy local; chưa triển khai lên hosting/domain công khai.

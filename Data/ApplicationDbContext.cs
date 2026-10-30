@@ -14,6 +14,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<StoreEntry> Stores => Set<StoreEntry>();
     public DbSet<MarketBrand> MarketBrands => Set<MarketBrand>();
     public DbSet<MenuEntry> Menus => Set<MenuEntry>();
+    public DbSet<DrinkCategory> DrinkCategories => Set<DrinkCategory>();
+    public DbSet<Drink> Drinks => Set<Drink>();
+    public DbSet<FeaturedDrink> FeaturedDrinks => Set<FeaturedDrink>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -30,6 +33,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<StoreEntry>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
         builder.Entity<MenuEntry>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<MenuEntry>().HasIndex(value => new { value.MarketId, value.IsPublished, value.SortOrder });
+        builder.Entity<Drink>().HasOne(value => value.Category).WithMany(value => value.Drinks).OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.IsPublished, value.SortOrder });
+        builder.Entity<DrinkCategory>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
+        builder.Entity<Drink>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
+        builder.Entity<FeaturedDrink>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
         var articles = builder.Entity<NewsArticle>();
         articles.Property(article => article.Id).HasIdentityOptions(startValue: 10000);
         articles.HasIndex(article => new { article.IsPublished, article.Date });

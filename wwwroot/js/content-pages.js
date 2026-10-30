@@ -196,55 +196,57 @@
             effect: 'fade', fadeEffect: { crossFade: true }, speed: 500, allowTouchMove: false, rewind: true,
             autoplay: { delay: 3000, disableOnInteraction: false }
         });
-        const newBackground = new Swiper(tea.querySelector('.tea-new-background'), {
-            effect: 'fade', fadeEffect: { crossFade: true }, speed: 1000, allowTouchMove: false
-        });
-        const showNew = index => {
-            newDrinks.forEach((item, i) => {
-                item.classList.toggle('current', i === index);
-                item.setAttribute('aria-pressed', String(i === index));
-                item.setAttribute('aria-hidden', String(mobile.matches && i !== index));
-                item.tabIndex = mobile.matches && i !== index ? -1 : 0;
-            });
-            newBackground.slideTo(index, reducedMotion.matches ? 0 : 1000);
-            copySlider?.slideTo(index, reducedMotion.matches ? 0 : 1500);
-        };
-        const newPictures = new Swiper(tea.querySelector('.tea-new-pictures'), {
-            effect: 'fade', fadeEffect: { crossFade: true }, speed: 1000, allowTouchMove: false, rewind: true,
-            autoplay: { delay: 3000, disableOnInteraction: false },
-            on: { slideChange: slider => showNew(slider.activeIndex) }
-        });
-        const mountCopy = () => {
-            copySlider?.destroy(true, true);
-            copySlider = undefined;
-            const wrapper = tea.querySelector('.new-drink');
-            wrapper.classList.toggle('swiper-wrapper', mobile.matches);
-            newDrinks.forEach(item => item.classList.toggle('swiper-slide', mobile.matches));
-            if (mobile.matches) copySlider = new Swiper(tea.querySelector('.tea-new-copy'), {
-                initialSlide: newPictures.activeIndex, speed: 1500, effect: 'fade', fadeEffect: { crossFade: true },
-                pagination: { el: tea.querySelector('.tea-new-pagination'), clickable: true },
-                on: { slideChange: slider => newPictures.slideTo(slider.activeIndex, reducedMotion.matches ? 0 : 1000) }
-            });
-            showNew(newPictures.activeIndex);
-        };
-        newDrinks.forEach((item, index) => activate(item, () => newPictures.slideTo(index, reducedMotion.matches ? 0 : 1000)));
-        mountCopy();
-        mobile.addEventListener('change', mountCopy);
         watchMotion(heroBackground);
-        watchMotion(newPictures);
         reducedMotion.addEventListener('change', syncMotion);
         document.addEventListener('visibilitychange', syncMotion);
-        const pause = tea.querySelector('.tea-pause');
-        pause.addEventListener('click', () => {
-            paused = !paused;
-            tea.classList.toggle('tea-paused', paused);
-            pause.textContent = paused ? '( Play motion )' : '( Pause motion )';
-            pause.setAttribute('aria-pressed', String(paused));
-            syncMotion();
-        });
+        if (newDrinks.length) {
+            const newBackground = new Swiper(tea.querySelector('.tea-new-background'), {
+                effect: 'fade', fadeEffect: { crossFade: true }, speed: 1000, allowTouchMove: false
+            });
+            const showNew = index => {
+                newDrinks.forEach((item, i) => {
+                    item.classList.toggle('current', i === index);
+                    item.setAttribute('aria-pressed', String(i === index));
+                    item.setAttribute('aria-hidden', String(mobile.matches && i !== index));
+                    item.tabIndex = mobile.matches && i !== index ? -1 : 0;
+                });
+                newBackground.slideTo(index, reducedMotion.matches ? 0 : 1000);
+                copySlider?.slideTo(index, reducedMotion.matches ? 0 : 1500);
+            };
+            const newPictures = new Swiper(tea.querySelector('.tea-new-pictures'), {
+                effect: 'fade', fadeEffect: { crossFade: true }, speed: 1000, allowTouchMove: false, rewind: true,
+                autoplay: { delay: 3000, disableOnInteraction: false },
+                on: { slideChange: slider => showNew(slider.activeIndex) }
+            });
+            const mountCopy = () => {
+                copySlider?.destroy(true, true);
+                copySlider = undefined;
+                const wrapper = tea.querySelector('.new-drink');
+                wrapper.classList.toggle('swiper-wrapper', mobile.matches);
+                newDrinks.forEach(item => item.classList.toggle('swiper-slide', mobile.matches));
+                if (mobile.matches) copySlider = new Swiper(tea.querySelector('.tea-new-copy'), {
+                    initialSlide: newPictures.activeIndex, speed: 1500, effect: 'fade', fadeEffect: { crossFade: true },
+                    pagination: { el: tea.querySelector('.tea-new-pagination'), clickable: true },
+                    on: { slideChange: slider => newPictures.slideTo(slider.activeIndex, reducedMotion.matches ? 0 : 1000) }
+                });
+                showNew(newPictures.activeIndex);
+            };
+            newDrinks.forEach((item, index) => activate(item, () => newPictures.slideTo(index, reducedMotion.matches ? 0 : 1000)));
+            mountCopy();
+            mobile.addEventListener('change', mountCopy);
+            watchMotion(newPictures);
+            const pause = tea.querySelector('.tea-pause');
+            pause.addEventListener('click', () => {
+                paused = !paused;
+                tea.classList.toggle('tea-paused', paused);
+                pause.textContent = paused ? '( Play motion )' : '( Pause motion )';
+                pause.setAttribute('aria-pressed', String(paused));
+                syncMotion();
+            });
+        }
         const explore = tea.querySelector('.scroll-down');
         explore.setAttribute('aria-label', 'Explore new drinks');
-        activate(explore, () => tea.querySelector('.new-drinkWrap').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
+        activate(explore, () => (tea.querySelector('.new-drinkWrap') || tea.querySelector('.drinkWrap')).scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
         const sections = [...tea.querySelectorAll('.drinkWrapList > li')];
         const pictures = [...tea.querySelectorAll('.drinkList-pic > ul')];
         const menuItems = [...tea.querySelectorAll('.drink-fixedList > li')];

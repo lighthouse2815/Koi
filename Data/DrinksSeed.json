@@ -1,0 +1,561 @@
+{
+  "categories": [
+    {
+      "id": 3,
+      "name": "AREA EXCLUSIVE",
+      "icon": "",
+      "image": "/images/pages/upload_image/ourtea/ourtea_657.jpg",
+      "homeImage": "",
+      "homeIcon": "",
+      "showOnHome": false,
+      "sortOrder": 0,
+      "homeOrder": 0,
+      "drinks": [
+        {
+          "id": 1,
+          "name": "Berry Cheesy Green Milk Tea",
+          "region": "CHINA",
+          "description": "Velvety cream cheese and fresh green tea topped with tangy-sweet berry jam create a delicate balance of savoury and sweet flavours.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_218.jpg",
+          "sortOrder": 0
+        },
+        {
+          "id": 2,
+          "name": "Gula Melaka Milk Tea",
+          "region": "MALAYSIA",
+          "description": "Gula Melaka in KOI's signature milk tea creates a perfectly sweet and delightful sip.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_628.jpg",
+          "sortOrder": 1
+        },
+        {
+          "id": 3,
+          "name": "Uji Matcha Latte",
+          "region": "JAPAN",
+          "description": "Select Uji matcha latte, with its captivating green and white gradients, seems to be sending an invitation to an elegant tea ceremony.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_219.jpg",
+          "sortOrder": 2
+        },
+        {
+          "id": 4,
+          "name": "Crunchy Thai Tea",
+          "region": "THAILAND",
+          "description": "KOI's signature Thai milk tea combined with our special crunchy toppings is surely going to be a treat for your taste buds!",
+          "image": "/images/pages/upload_image/ourtea/ourtea_656.jpg",
+          "sortOrder": 3
+        },
+        {
+          "id": 5,
+          "name": "Ribena Black Tea",
+          "region": "SINGAPORE",
+          "description": "Tangy blackcurrant flavour blends with rich black tea to bring us back to the joy of childhood.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_623.jpg",
+          "sortOrder": 4
+        },
+        {
+          "id": 6,
+          "name": "Oolong Sweetened Milk Tea",
+          "region": "VIETNAM",
+          "description": "Condensed milk with KOI's signature Oolong milk tea is perfectly creamy and smooth.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_629.jpg",
+          "sortOrder": 5
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "name": "CHEWY TEA",
+      "icon": "/images/pages/upload_file/ourtea/ourtea_213.svg",
+      "image": "/images/pages/upload_image/ourtea/ourtea_221.jpg",
+      "homeImage": "/images/drink-chewy.jpg",
+      "homeIcon": "/images/icon-chewy.svg",
+      "showOnHome": true,
+      "sortOrder": 1,
+      "homeOrder": 1,
+      "drinks": [
+        {
+          "id": 7,
+          "name": "Golden Bubble Milk Tea",
+          "region": "",
+          "description": "Using the classic Assam black tea as a base, velvety creamer and chewy golden bubbles are added to bring you KOI's signature milk tea.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_221.jpg",
+          "sortOrder": 0
+        },
+        {
+          "id": 8,
+          "name": "Ice Cream Black Tea",
+          "region": "",
+          "description": "Creamy vanilla ice cream and full-bodied black tea combined to become the the best summer treat!",
+          "image": "/images/pages/upload_image/ourtea/ourtea_223.jpg",
+          "sortOrder": 1
+        },
+        {
+          "id": 9,
+          "name": "Grass Jelly Green Milk Tea",
+          "region": "",
+          "description": "Silky grass jelly paired with mellow green milk tea feels like a delightful dessert surprise.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_225.jpg",
+          "sortOrder": 2
+        },
+        {
+          "id": 10,
+          "name": "Taro Q Black Tea Latte",
+          "region": "",
+          "description": "Fragrant Taro Q's texture pairs perfectly with our fresh milk tea for a delicious treat in every bite.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_227.jpg",
+          "sortOrder": 3
+        },
+        {
+          "id": 11,
+          "name": "Aloe Vera Passion Fruit Green Tea",
+          "region": "",
+          "description": "Passion fruit green tea with juicy aloe vera chunks, enjoy a fun and refreshing summer-in-a-cup.",
+          "image": "",
+          "sortOrder": 4
+        },
+        {
+          "id": 12,
+          "name": "Konjac Oolong Milk Tea",
+          "region": "",
+          "description": "Chewy konjac jelly is combined with our Oolong milk tea to satisfy and fill you up.",
+          "image": "",
+          "sortOrder": 5
+        },
+        {
+          "id": 13,
+          "name": "Coconut Jelly Green Milk Tea",
+          "region": "",
+          "description": "Nibble on those gummy coconut jellies as you enjoy our signature green milk tea. Rich yet surprisingly refreshing.",
+          "image": "",
+          "sortOrder": 6
+        },
+        {
+          "id": 14,
+          "name": "Brown Konjac Milk Tea",
+          "region": "",
+          "description": "Brown sugar from the konjac jelly complements the creaminess of our milk tea. Definitely a sweet and delightful treat.",
+          "image": "",
+          "sortOrder": 7
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "FLAVORED TEA",
+      "icon": "/images/pages/upload_file/ourtea/ourtea_187.svg",
+      "image": "/images/pages/upload_image/ourtea/ourtea_107.jpg",
+      "homeImage": "/images/drink-flavored.jpg",
+      "homeIcon": "/images/icon-flavored.svg",
+      "showOnHome": true,
+      "sortOrder": 2,
+      "homeOrder": 2,
+      "drinks": [
+        {
+          "id": 15,
+          "name": "Jasmine Green Tea",
+          "region": "",
+          "description": "Green tea blends with a light touch of jasmine aroma, ready to soothe both your body and soul.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_228.jpg",
+          "sortOrder": 0
+        },
+        {
+          "id": 16,
+          "name": "Assam Black Tea",
+          "region": "",
+          "description": "Assam black tea is bold yet smooth, with malty notes and no bitterness.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_230.jpg",
+          "sortOrder": 1
+        },
+        {
+          "id": 17,
+          "name": "Golden Oolong Tea",
+          "region": "",
+          "description": "Our Oolong tea has a caramel-like aroma and a rich aftertaste, reminiscent of sipping from a mountain spring.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_232.jpg",
+          "sortOrder": 2
+        },
+        {
+          "id": 18,
+          "name": "Honey Green Tea",
+          "region": "",
+          "description": "Smooth blend of sweet honey and refreshing green tea, perfectly balanced for a rich yet enjoyable sip.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_233.jpg",
+          "sortOrder": 3
+        },
+        {
+          "id": 19,
+          "name": "Lychee Black Tea",
+          "region": "",
+          "description": "Rich lychee aroma blends with smooth black tea, creating a delightful moment where the fragrance of fruit and tea intertwine, as if you're in a lychee orchard.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_234.jpg",
+          "sortOrder": 4
+        },
+        {
+          "id": 20,
+          "name": "Fresh Lemon Green Tea",
+          "region": "",
+          "description": "Zesty lemon pairs with refreshing green tea, the perfect thirst-quenching choice.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_235.jpg",
+          "sortOrder": 5
+        },
+        {
+          "id": 21,
+          "name": "No.8 Green Tea",
+          "region": "",
+          "description": "Every sip filled with a delightful surprise of sweet and tangy notes of calamansi and plum in the aromatic green tea.",
+          "image": "",
+          "sortOrder": 6
+        },
+        {
+          "id": 22,
+          "name": "Passion Fruit Green Tea",
+          "region": "",
+          "description": "The perfect fusion of vibrant passion fruit and fragrant green tea brings a burst of tropical flavors to life.",
+          "image": "",
+          "sortOrder": 7
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "name": "SIGNATURE MACCHIATO",
+      "icon": "/images/pages/upload_file/ourtea/ourtea_190.svg",
+      "image": "/images/pages/upload_image/ourtea/ourtea_156.jpg",
+      "homeImage": "/images/drink-macchiato.jpg",
+      "homeIcon": "/images/icon-macchiato.svg",
+      "showOnHome": true,
+      "sortOrder": 3,
+      "homeOrder": 3,
+      "drinks": [
+        {
+          "id": 23,
+          "name": "Black Tea Macchiato",
+          "region": "",
+          "description": "Bold black tea blends with our specially crafted, velvety cream foam for a smooth and satisfying experience.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_237.jpg",
+          "sortOrder": 0
+        },
+        {
+          "id": 24,
+          "name": "Oolong Tea Macchiato",
+          "region": "",
+          "description": "Smooth and velvety cream foam pairs beautifully with the elegant notes of our toasty Oolong tea, delivering a distinct and refined tea indulgence.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_239.jpg",
+          "sortOrder": 1
+        },
+        {
+          "id": 25,
+          "name": "Caramel Black Tea Macchiato",
+          "region": "",
+          "description": "Scrumptious caramel seamlessly blends with our rich black tea, topped with a layer of silky cream foam.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_240.jpg",
+          "sortOrder": 2
+        },
+        {
+          "id": 26,
+          "name": "Lychee Black Tea Macchiato",
+          "region": "",
+          "description": "Fragrant lychee harmonizes well with bold black tea, while the cream foam adds a smooth and layered finish.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_241.jpg",
+          "sortOrder": 3
+        },
+        {
+          "id": 27,
+          "name": "Peach Green Tea Macchiato",
+          "region": "",
+          "description": "Sweet peach mingles with soothing green tea, topped with milky cream foam for a light yet rich treat.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_243.jpg",
+          "sortOrder": 4
+        },
+        {
+          "id": 28,
+          "name": "Passion Fruit Green Tea Macchiato",
+          "region": "",
+          "description": "Tropical passion fruit combined with fragrant green tea, topped with velvety cream foam for a tangy and refreshing double delight!",
+          "image": "",
+          "sortOrder": 5
+        },
+        {
+          "id": 29,
+          "name": "Mango Oolong Tea Macchiato",
+          "region": "",
+          "description": "Mango is paired with delicate Oolong tea and velvety cream foam for to bring about a sophisticated sensation.",
+          "image": "",
+          "sortOrder": 6
+        },
+        {
+          "id": 30,
+          "name": "Ovaltine Macchiato",
+          "region": "",
+          "description": "Double the sweetness and double the joy with classic Ovaltine and our signature creamy macchiato foam.",
+          "image": "",
+          "sortOrder": 7
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "MILK TEA",
+      "icon": "/images/pages/upload_file/ourtea/ourtea_188.svg",
+      "image": "/images/pages/upload_image/ourtea/ourtea_61.jpg",
+      "homeImage": "/images/drink-milk.jpg",
+      "homeIcon": "/images/icon-milk.svg",
+      "showOnHome": true,
+      "sortOrder": 4,
+      "homeOrder": 4,
+      "drinks": [
+        {
+          "id": 31,
+          "name": "Green Milk Tea",
+          "region": "",
+          "description": "Refreshing yet creamy, our green milk tea is delicate yet harmonised which may leave you craving for more!",
+          "image": "/images/pages/upload_image/ourtea/ourtea_567.jpg",
+          "sortOrder": 0
+        },
+        {
+          "id": 32,
+          "name": "Oolong Milk Tea",
+          "region": "",
+          "description": "Roasted Oolong tea mingles with creamy milk. Each sip is full of happiness unveiling layers of rich flavour.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_570.jpg",
+          "sortOrder": 1
+        },
+        {
+          "id": 33,
+          "name": "Hazelnut Milk Tea",
+          "region": "",
+          "description": "Fragrant hazelnut blends with creamy milk tea for an autumnal experience that warms both heart and soul.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_572.jpg",
+          "sortOrder": 2
+        },
+        {
+          "id": 34,
+          "name": "Caramel Milk Tea",
+          "region": "",
+          "description": "Sweetness of caramel in our rich milk tea is irresistibly charming.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_573.jpg",
+          "sortOrder": 3
+        },
+        {
+          "id": 35,
+          "name": "Honey Milk Tea",
+          "region": "",
+          "description": "Sweet honey meets creamy milk tea, like a gentle touch of sunshine on a cozy day.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_574.jpg",
+          "sortOrder": 4
+        },
+        {
+          "id": 36,
+          "name": "Ovaltine",
+          "region": "",
+          "description": "Smooth blend of malt and creamy milk for a delightful flavor you won't want to miss.",
+          "image": "",
+          "sortOrder": 5
+        },
+        {
+          "id": 37,
+          "name": "Chocolate Milk",
+          "region": "",
+          "description": "Perfect treat for chocoholics seeking for a creamy and sinful chocolate sensation in every sip.",
+          "image": "",
+          "sortOrder": 6
+        },
+        {
+          "id": 38,
+          "name": "Cacao Barry",
+          "region": "",
+          "description": "The intense cocoa notes play off the creamy milk in perfect harmony, like watching a ballet unfold in every sip.",
+          "image": "",
+          "sortOrder": 7
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "name": "TEA LATTE",
+      "icon": "/images/pages/upload_file/ourtea/ourtea_189.svg",
+      "image": "/images/pages/upload_image/ourtea/ourtea_575.jpg",
+      "homeImage": "/images/drink-latte.jpg",
+      "homeIcon": "/images/icon-latte.svg",
+      "showOnHome": true,
+      "sortOrder": 5,
+      "homeOrder": 5,
+      "drinks": [
+        {
+          "id": 39,
+          "name": "Black Tea Latte",
+          "region": "",
+          "description": "Rich and smooth black tea with fresh milk feels balanced and satifisfying in every sip.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_575.jpg",
+          "sortOrder": 0
+        },
+        {
+          "id": 40,
+          "name": "Green Tea Latte",
+          "region": "",
+          "description": "Refreshing green tea and sweet fresh milk blows like a springtime breeze.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_577.jpg",
+          "sortOrder": 1
+        },
+        {
+          "id": 41,
+          "name": "Oolong Tea Latte",
+          "region": "",
+          "description": "Delicate and roasted Oolong tea with sweet fresh milk offers a complex, yet refined flavor.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_579.jpg",
+          "sortOrder": 2
+        },
+        {
+          "id": 42,
+          "name": "Matcha Latte",
+          "region": "",
+          "description": "Slightly bitter matcha blends flawlessly with fresh milk to give you an elegant and exquisite tea moment.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_652.jpg",
+          "sortOrder": 3
+        },
+        {
+          "id": 43,
+          "name": "Hazelnut Black Tea Latte",
+          "region": "",
+          "description": "Nutty hazelnut and aromatic milk tea form a unique and comforting flavor profile.",
+          "image": "",
+          "sortOrder": 4
+        },
+        {
+          "id": 44,
+          "name": "Caramel Black Tea Latte",
+          "region": "",
+          "description": "Sweet caramel, rich black tea, and smooth milk collide in a beautiful medley of flavors.",
+          "image": "",
+          "sortOrder": 5
+        },
+        {
+          "id": 45,
+          "name": "Cacao Barry Latte",
+          "region": "",
+          "description": "Bold cocoa and sweet fresh milk deliver a graceful and sophisticated taste.",
+          "image": "",
+          "sortOrder": 6
+        },
+        {
+          "id": 46,
+          "name": "Brown Sugar Black Tea Latte",
+          "region": "",
+          "description": "Smoky Okinawan-style brown sugar pairs with smooth milk tea brings a captivating and irresistible flavor.",
+          "image": "",
+          "sortOrder": 7
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "JUICE",
+      "icon": "/images/pages/upload_file/ourtea/ourtea_191.svg",
+      "image": "/images/pages/upload_image/ourtea/ourtea_62.jpg",
+      "homeImage": "/images/drink-juice.jpg",
+      "homeIcon": "/images/icon-juice.svg",
+      "showOnHome": true,
+      "sortOrder": 6,
+      "homeOrder": 6,
+      "drinks": [
+        {
+          "id": 47,
+          "name": "Ice Honey",
+          "region": "",
+          "description": "Aromatic honey invites you to enjoy a refreshing and soothing moment together!",
+          "image": "/images/pages/upload_image/ourtea/ourtea_583.jpg",
+          "sortOrder": 0
+        },
+        {
+          "id": 48,
+          "name": "Fresh Lemon Juice",
+          "region": "",
+          "description": "Freshly squeezed lemon juice offers a tart and refreshing thirst-quencher.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_584.jpg",
+          "sortOrder": 1
+        },
+        {
+          "id": 49,
+          "name": "Fresh Lime Juice",
+          "region": "",
+          "description": "Sweet and tangy, freshly pressed calamansi juice is your perfect summer companion.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_585.jpg",
+          "sortOrder": 2
+        },
+        {
+          "id": 50,
+          "name": "No.8 Juice",
+          "region": "",
+          "description": "Calamansi is combined with plum juice to bring about a zesty yet interestingly savoury summer treat.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_586.jpg",
+          "sortOrder": 3
+        },
+        {
+          "id": 51,
+          "name": "Honey Lemon Lime Juice",
+          "region": "",
+          "description": "Fresh fruit juice and sweet honey, your perfect refreshment for hot weather.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_587.jpg",
+          "sortOrder": 4
+        },
+        {
+          "id": 52,
+          "name": "Lemon Plum Juice",
+          "region": "",
+          "description": "Plum with fresh lemon, sweet and sour like the taste of love?",
+          "image": "/images/pages/upload_image/ourtea/ourtea_588.jpg",
+          "sortOrder": 5
+        },
+        {
+          "id": 53,
+          "name": "Lemon Yakult Juice",
+          "region": "",
+          "description": "Citrusy and light fusion of lemon and Yakult energizes you all day long.",
+          "image": "/images/pages/upload_image/ourtea/ourtea_589.jpg",
+          "sortOrder": 6
+        },
+        {
+          "id": 54,
+          "name": "Mango Yakult Juice",
+          "region": "",
+          "description": "Fruity mango and Yakult creates a dreamy blend with refreshing burst of tropical flavour.",
+          "image": "",
+          "sortOrder": 7
+        }
+      ]
+    }
+  ],
+  "featured": [
+    {
+      "id": 1,
+      "name": "Shiranui Tangerine",
+      "region": "Japan",
+      "image": "/images/pages/upload_image/maintea/maintea_1_4513_6009.jpg",
+      "backgroundImage": "/images/pages/upload_image/maintea/maintea_1_7241_527.jpg",
+      "sortOrder": 0
+    },
+    {
+      "id": 2,
+      "name": "Handmade Taro Series",
+      "region": "Indonesia",
+      "image": "/images/pages/upload_image/maintea/maintea_1_3582_1591.jpg",
+      "backgroundImage": "/images/pages/upload_image/maintea/maintea_1_7015_9849.jpg",
+      "sortOrder": 1
+    },
+    {
+      "id": 3,
+      "name": "Matcha Series",
+      "region": "Singapore",
+      "image": "/images/pages/upload_image/maintea/maintea_880_4599_867.jpg",
+      "backgroundImage": "/images/pages/upload_image/maintea/maintea_879_6786_5695.jpg",
+      "sortOrder": 2
+    },
+    {
+      "id": 4,
+      "name": "Longjing Tea Series",
+      "region": "Malaysia",
+      "image": "/images/pages/upload_image/maintea/maintea_1_9592_7179.jpg",
+      "backgroundImage": "/images/pages/upload_image/maintea/maintea_1_1747_2497.jpg",
+      "sortOrder": 3
+    }
+  ]
+}

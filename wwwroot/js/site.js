@@ -90,6 +90,7 @@
                 return;
             }
             const card = drinkCarousel.querySelector('.drink-card');
+            if (!card) return;
             const gap = parseFloat(getComputedStyle(drinkCarousel).columnGap) || 0;
             drinkCarousel.scrollBy({ left: (card.offsetWidth + gap) * direction, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
         }));

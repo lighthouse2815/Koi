@@ -20,7 +20,9 @@ public class HomeController(ApplicationDbContext database) : Controller
             .Where(article => article.IsPublished && article.ShowOnHome)
             .OrderBy(article => article.HomeOrder).ThenByDescending(article => article.Date)
             .Take(6).ToArrayAsync();
-        return View(new HomeViewModel(news));
+        var categories = await database.DrinkCategories.AsNoTracking().Where(value => value.IsPublished && value.ShowOnHome)
+            .OrderBy(value => value.HomeOrder).ThenBy(value => value.Id).ToArrayAsync();
+        return View(new HomeViewModel(news, categories));
     }
 
     public IActionResult About()
@@ -28,9 +30,14 @@ public class HomeController(ApplicationDbContext database) : Controller
         return View();
     }
 
-    public IActionResult OurTea()
+    public async Task<IActionResult> OurTea()
     {
-        return View();
+        var categories = await database.DrinkCategories.AsNoTracking().Where(value => value.IsPublished)
+            .Include(value => value.Drinks.Where(drink => drink.IsPublished).OrderBy(drink => drink.SortOrder).ThenBy(drink => drink.Id))
+            .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).AsSplitQuery().ToArrayAsync();
+        var featured = await database.FeaturedDrinks.AsNoTracking().Where(value => value.IsPublished)
+            .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
+        return View(new OurTeaViewModel(categories, featured));
     }
 
     public IActionResult Recruit()

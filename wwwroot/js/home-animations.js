@@ -15,6 +15,7 @@
     const drinkStage = document.querySelector('.drinks-section');
     const carousel = document.querySelector('.drink-carousel');
     const drinkButtons = [...document.querySelectorAll('[data-drink-direction]')];
+    const drinkCount = carousel.querySelectorAll('.drink-card').length;
     const media = gsap.matchMedia();
 
     const setupScenes = () => media.add({
@@ -158,7 +159,7 @@
                 id: 'drinks-scroll', trigger: drinkTrack, start: 'top top', end: 'bottom bottom', scrub: 0.65, invalidateOnRefresh: true,
                 onUpdate: (self) => {
                     drinkButtons.forEach(button => {
-                        button.disabled = Number(button.dataset.drinkDirection) < 0 ? self.progress < 0.002 : self.progress > 0.998;
+                        button.disabled = drinkCount < 2 || (Number(button.dataset.drinkDirection) < 0 ? self.progress < 0.002 : self.progress > 0.998);
                     });
                     if (!context.conditions.mobile) return;
                     carousel.querySelectorAll('.drink-photo-circle').forEach(circle => {
@@ -171,6 +172,7 @@
         const stepDrinks = (event) => {
             const trigger = drinkTween.scrollTrigger;
             const count = carousel.querySelectorAll('.drink-card').length - 1;
+            if (count <= 0) return;
             const index = Math.round(trigger.progress * count);
             const target = gsap.utils.clamp(0, count, index + event.detail.direction);
             gsap.to(window, { scrollTo: { y: trigger.start + target / count * (trigger.end - trigger.start), autoKill: true }, duration: 0.9, ease: 'power2.inOut' });
@@ -182,7 +184,7 @@
         };
         document.addEventListener('koi:drink-step', stepDrinks);
         carousel.addEventListener('keydown', keyDrinks);
-        drinkButtons.forEach(button => { button.disabled = Number(button.dataset.drinkDirection) < 0; });
+        drinkButtons.forEach(button => { button.disabled = drinkCount < 2 || Number(button.dataset.drinkDirection) < 0; });
 
         const hoverCleanups = [];
         document.querySelectorAll('.drink-photo').forEach(photo => {

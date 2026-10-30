@@ -1,0 +1,11 @@
+@model DrinkCategory[]
+@{ ViewData["Title"] = "Danh mục đồ uống"; }
+<div class="page-heading"><h1>Danh mục đồ uống</h1><a asp-action="Create" class="button">+ Thêm danh mục</a></div>
+<p><a asp-controller="Drinks">Đồ uống</a> · <a asp-controller="FeaturedDrinks">New Drinks</a></p>
+<div class="table-wrap"><table><thead><tr><th>Danh mục</th><th>Thứ tự</th><th>Hiển thị</th><th>Trang chủ</th><th>Thao tác</th></tr></thead><tbody>
+@foreach (var category in Model)
+{
+    <tr><td>@category.Name</td><td>@category.SortOrder</td><td>@(category.IsPublished ? "Đã xuất bản" : "Bản nháp")</td><td>@(category.ShowOnHome ? "Có · thứ tự " + category.HomeOrder : "Không")</td><td><div class="row-actions"><a asp-action="Edit" asp-route-id="@category.Id">Sửa</a><a asp-area="" asp-controller="Home" asp-action="OurTea" asp-fragment="@category.Id.ToString()" target="_blank" rel="noopener">Xem website</a><a asp-action="Delete" asp-route-id="@category.Id">Xóa</a></div></td></tr>
+}
+</tbody></table></div>
+@if (Model.Length == 0) { <p>Chưa có danh mục.</p> }
