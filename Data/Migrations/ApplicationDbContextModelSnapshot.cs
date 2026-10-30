@@ -94,6 +94,44 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("MarketSocialLink");
                 });
 
+            modelBuilder.Entity("Koi.Web.Models.MenuEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("File")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int>("MarketId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Revision")
+                        .IsConcurrencyToken()
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MarketId", "IsPublished", "SortOrder");
+
+                    b.ToTable("Menus");
+                });
+
             modelBuilder.Entity("Koi.Web.Models.NewsArticle", b =>
                 {
                     b.Property<int>("Id")
@@ -744,6 +782,17 @@ namespace Koi.Web.Data.Migrations
                         .WithMany("SocialLinks")
                         .HasForeignKey("MarketId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Market");
+                });
+
+            modelBuilder.Entity("Koi.Web.Models.MenuEntry", b =>
+                {
+                    b.HasOne("Koi.Web.Models.Market", "Market")
+                        .WithMany()
+                        .HasForeignKey("MarketId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Market");

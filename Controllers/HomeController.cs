@@ -113,7 +113,13 @@ public class HomeController(ApplicationDbContext database) : Controller
     public IActionResult People() => View();
     public IActionResult Connections() => View();
     public IActionResult Contact() => View();
-    public IActionResult Menu() => View(new MenuViewModel(MenuCatalog.Countries));
+    public async Task<IActionResult> Menu()
+    {
+        var menus = await database.Menus.AsNoTracking().Where(value => value.IsPublished).Include(value => value.Market)
+            .OrderBy(value => value.Market.SortOrder).ThenBy(value => value.MarketId).ThenBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
+        return View(new MenuViewModel(menus.GroupBy(value => value.MarketId).Select(group =>
+            new MenuCountry(group.First().Market.Name, group.Select(value => new MenuDocument(value.Label, value.File)).ToArray())).ToArray()));
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

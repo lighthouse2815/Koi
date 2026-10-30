@@ -1,0 +1,18 @@
+@model MenuEditViewModel
+@{ var editing = Model.Id > 0; ViewData["Title"] = editing ? "Sửa thực đơn" : "Thêm thực đơn"; }
+<div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh sách thực đơn</a></div>
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (int?)null)" method="post" enctype="multipart/form-data" class="editor">
+<input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
+<div asp-validation-summary="All" class="validation" role="alert"></div>
+<div class="editor-columns"><div class="card">
+<label asp-for="Label">Tên thực đơn / thương hiệu</label><input asp-for="Label" required maxlength="200" />
+<label asp-for="MarketId">Quốc gia</label><select asp-for="MarketId" asp-items="Model.Markets" required><option value="">Chọn quốc gia</option></select>
+<label asp-for="ImageUpload">Ảnh thực đơn</label><input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
+<p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Khi sửa, để trống để giữ ảnh hiện tại.</p>
+@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <a href="@Model.CurrentImage" target="_blank" rel="noopener"><img src="@Model.CurrentImage" class="current-image" alt="Thực đơn hiện tại" />Mở ảnh kích thước đầy đủ ↗</a> }
+</div><aside class="card">
+<label asp-for="SortOrder">Thứ tự trong quốc gia</label><input asp-for="SortOrder" type="number" min="0" max="100000" />
+<p class="help">Số nhỏ hiển thị trước.</p><label class="check"><input asp-for="IsPublished" /> Hiển thị trên website</label>
+<button class="button" type="submit">Lưu thực đơn</button>
+@if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }
+</aside></div></form>

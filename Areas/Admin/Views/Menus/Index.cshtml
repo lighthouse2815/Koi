@@ -1,0 +1,11 @@
+@model AdminMenusViewModel
+@{ ViewData["Title"] = "Quản lý thực đơn"; }
+<div class="page-heading"><h1>Quản lý thực đơn</h1><a asp-action="Create" class="button">+ Thêm thực đơn</a></div>
+<form method="get" class="search"><label for="marketId">Quốc gia</label><select name="marketId" id="marketId" asp-items="Model.Markets"><option value="0">Tất cả</option></select><p><button class="button secondary">Lọc thực đơn</button></p></form>
+<div class="table-wrap"><table><thead><tr><th>Thực đơn</th><th>Quốc gia</th><th>Thứ tự</th><th>Hiển thị</th><th>Thao tác</th></tr></thead><tbody>
+@foreach (var menu in Model.Menus)
+{
+    <tr><td><a href="@menu.File" target="_blank" rel="noopener">@menu.Label ↗</a></td><td>@menu.Market.Name</td><td>@menu.SortOrder</td><td>@(menu.IsPublished ? "Đã xuất bản" : "Bản nháp")</td><td><div class="row-actions"><a asp-action="Edit" asp-route-id="@menu.Id">Sửa</a><a asp-action="Delete" asp-route-id="@menu.Id">Xóa</a></div></td></tr>
+}
+</tbody></table></div>
+@if (Model.Menus.Length == 0) { <p>Chưa có thực đơn.</p> }

@@ -13,6 +13,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<TeaBrand> TeaBrands => Set<TeaBrand>();
     public DbSet<StoreEntry> Stores => Set<StoreEntry>();
     public DbSet<MarketBrand> MarketBrands => Set<MarketBrand>();
+    public DbSet<MenuEntry> Menus => Set<MenuEntry>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -27,6 +28,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<StoreCity>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
         builder.Entity<TeaBrand>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
         builder.Entity<StoreEntry>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
+        builder.Entity<MenuEntry>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<MenuEntry>().HasIndex(value => new { value.MarketId, value.IsPublished, value.SortOrder });
         var articles = builder.Entity<NewsArticle>();
         articles.Property(article => article.Id).HasIdentityOptions(startValue: 10000);
         articles.HasIndex(article => new { article.IsPublished, article.Date });
