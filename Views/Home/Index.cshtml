@@ -4,9 +4,9 @@
     var drinks = new[]
     {
         (Image: "chewy", Label: "CHEWY TEA", Id: "45"),
-        (Image: "flavored", Label: "FLAVORED TEA", Id: "44"),
-        (Image: "macchiato", Label: "SIGNATURE MACCHIATO", Id: "3"),
-        (Image: "milk", Label: "MILK TEA", Id: "42"),
+        (Image: "flavored", Label: "FLAVORED TEA", Id: "4"),
+        (Image: "macchiato", Label: "SIGNATURE MACCHIATO", Id: "44"),
+        (Image: "milk", Label: "MILK TEA", Id: "5"),
         (Image: "latte", Label: "TEA LATTE", Id: "43"),
         (Image: "juice", Label: "JUICE", Id: "6")
     };
@@ -90,7 +90,7 @@
     <div class="drink-carousel" id="drink-carousel" tabindex="0" role="region" aria-label="Drink categories, scroll horizontally">
         @foreach (var drink in drinks)
         {
-            <a class="drink-card" href="https://koithe.com/en/ourtea.php#@drink.Id">
+            <a class="drink-card" href="@Url.Action("OurTea", "Home")#@drink.Id">
                 <div class="drink-photo">
                     <img src="~/images/drink-@(drink.Image).jpg" alt="@drink.Label collection" width="600" height="600" loading="lazy" />
                     <img class="drink-photo-circle" src="~/images/drink-@(drink.Image).jpg" alt="" width="600" height="600" loading="lazy" aria-hidden="true" />

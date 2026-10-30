@@ -94,6 +94,71 @@
         updatePagination();
     }
 
+    const tea = page.querySelector('.our-teaWrap');
+    let selectCategory;
+    if (tea) {
+        const newDrinks = [...tea.querySelectorAll('.new-drink > li')];
+        const newPictures = [...tea.querySelectorAll('.new-drinkWrap .pic > li')];
+        const newBackgrounds = ['maintea_1_7241_527.jpg', 'maintea_1_7015_9849.jpg', 'maintea_879_6786_5695.jpg', 'maintea_1_1747_2497.jpg'];
+        let newIndex = 0;
+        let paused = false;
+        const selectNew = index => {
+            newIndex = index;
+            newDrinks.forEach((item, i) => { item.classList.toggle('current', i === index); item.setAttribute('aria-pressed', String(i === index)); });
+            newPictures.forEach((item, i) => item.hidden = i !== index);
+            tea.querySelector('.new-drinkWrap').style.backgroundImage = 'url(/images/pages/upload_image/maintea/' + newBackgrounds[index] + ')';
+        };
+        newDrinks.forEach((item, index) => activate(item, () => selectNew(index)));
+        selectNew(0);
+        const pause = document.createElement('button');
+        pause.type = 'button';
+        pause.className = 'tea-pause';
+        pause.textContent = '( Pause motion )';
+        pause.setAttribute('aria-pressed', 'false');
+        pause.addEventListener('click', () => {
+            paused = !paused;
+            tea.classList.toggle('tea-paused', paused);
+            pause.textContent = paused ? '( Play motion )' : '( Pause motion )';
+            pause.setAttribute('aria-pressed', String(paused));
+        });
+        tea.querySelector('.new-drinkWrap').append(pause);
+        setInterval(() => {
+            if (!paused && !reducedMotion.matches && !document.hidden) selectNew((newIndex + 1) % newDrinks.length);
+        }, 5000);
+        const sections = [...tea.querySelectorAll('.drinkWrapList > li')];
+        const pictures = [...tea.querySelectorAll('.drinkList-pic > ul')];
+        const menuItems = [...tea.querySelectorAll('.drink-fixedList > li')];
+        selectCategory = (index, drink = 0) => {
+            sections.forEach((item, i) => item.classList.toggle('current', i === index));
+            menuItems.forEach((item, i) => { item.classList.toggle('current', i === index); item.style.opacity = String(1 / (1 + Math.abs(i - index) * 2)); });
+            pictures.forEach((list, i) => {
+                list.classList.toggle('is-show', i === index);
+                [...list.children].forEach((item, j) => item.classList.toggle('is-show', j === drink));
+            });
+        };
+        sections.forEach((section, index) => {
+            section.querySelectorAll('.drinkList > li').forEach(item => {
+                const select = () => selectCategory(index, Number(item.dataset.drink));
+                activate(item, select);
+                item.addEventListener('pointerenter', select);
+                item.addEventListener('focus', select);
+            });
+        });
+        const scrollCategory = index => {
+            selectCategory(index);
+            sections[index].scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' });
+        };
+        menuItems.forEach((item, index) => activate(item, () => scrollCategory(index)));
+        const select = tea.querySelector('.menu-select');
+        activate(select.querySelector('.current'), () => select.classList.toggle('open'));
+        select.querySelectorAll('[data-menu]').forEach(item => activate(item, () => {
+            select.querySelector('.current').textContent = item.textContent.trim();
+            select.classList.remove('open');
+            scrollCategory(Number(item.dataset.menu));
+        }));
+        selectCategory(0);
+    }
+
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
@@ -121,6 +186,17 @@
                     scrollTrigger: { trigger: track, start: 'top top', end: () => '+=' + (track.scrollWidth - innerWidth), pin: true, scrub: true, invalidateOnRefresh: true,
                         onToggle: trigger => about.querySelector('.about-info-preview').classList.toggle('is-not-show', trigger.isActive || trigger.progress === 1) }
                 });
+            }
+        }
+        if (tea) {
+            gsap.fromTo('.our-teaWrap > .head-area > .inner .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, ease: 'power2.out' });
+            tea.querySelectorAll('.drinkWrapList > li').forEach((section, index) => {
+                ScrollTrigger.create({ trigger: section, start: 'top 70%', end: 'bottom 70%', onEnter: () => selectCategory(index), onEnterBack: () => selectCategory(index) });
+            });
+            ScrollTrigger.create({ trigger: '.drinkWrap', start: 'top bottom', end: 'bottom top', toggleClass: 'catalog-active' });
+            if (context.conditions.desktop) {
+                ScrollTrigger.create({ trigger: '.menu-drinkList', endTrigger: '.drinkWrap', start: 'top 10%', end: 'bottom 90%', pin: true, pinSpacing: false });
+                ScrollTrigger.create({ trigger: '.drinkList-pic', endTrigger: '.drinkWrap', start: 'top 39%', end: 'bottom 100%', pin: true, pinSpacing: false });
             }
         }
         document.fonts.ready.then(() => ScrollTrigger.refresh());

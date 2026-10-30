@@ -39,12 +39,27 @@ html:has(.content-motion) { scroll-behavior: auto; }
 .content-pager { display: flex; justify-content: center; gap: 14px; padding: 15px; background: white; }
 .content-pager button { width: 12px; height: 12px; border-radius: 50%; background: var(--ink); }
 .content-pager button[aria-pressed="true"] { background: var(--orange); }
+.our-teaWrap > .head-area > .inner .en { transform: none; }
+.our-teaWrap .drinkListWrap { background: url('/images/pages/en/images/t-top-bg-1.jpg') center / cover; }
+.our-teaWrap .new-drinkWrap { position: relative; background-position: center; background-size: cover; }
+.our-teaWrap .new-drinkWrap .pic { flex-shrink: 0; }
+.our-teaWrap .tea-pause { position: absolute; right: 25px; bottom: 20px; color: white; font-size: 13px; }
+.our-teaWrap .drinkWrapList > li { scroll-margin-top: 100px; }
+.our-teaWrap .drinkList-pic { visibility: hidden; }
+.our-teaWrap .catalog-active .drinkList-pic { visibility: visible; }
+.our-teaWrap .drinkWrapList .drinkList > li { pointer-events: auto; }
+.our-teaWrap .menu-select.open .list { display: block; opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+.our-teaWrap.tea-paused *, .our-teaWrap.tea-paused *::before, .our-teaWrap.tea-paused *::after { animation-play-state: paused !important; }
 @media (max-width: 1024px) {
     .content-page .show-for-large { display: none !important; }
     .content-page .hide-for-large { display: block !important; }
     .content-page .hide-for-large.flex-container { display: flex !important; }
     .content-page .aboutWrap > .about-infoWrap { display: flex !important; width: 100%; overflow-x: auto; scroll-snap-type: x mandatory; }
     .content-page .aboutWrap > .about-infoWrap > li { flex: 0 0 100%; scroll-snap-align: start; }
+    .our-teaWrap .drink-mobile .swiper-wrapper { display: flex; width: max-content; animation: marquee-drift 35s linear infinite; }
+    .our-teaWrap .drink-mobile .swiper-slide { flex-shrink: 0; }
+    .our-teaWrap .new-drinkWrap .new-drink > li { margin-bottom: 14px; }
+    .our-teaWrap .new-drinkWrap .new-drink .en { font-size: 18px; }
 }
 @media (max-width: 639px) {
     .content-page .show-for-medium { display: none !important; }
@@ -52,3 +67,7 @@ html:has(.content-motion) { scroll-behavior: auto; }
     .content-page .hide-for-medium.flex-container { display: flex !important; }
 }
 @media (min-width: 1600px) { .content-page .hide-for-xxlarge { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+    .content-page *, .content-page *::before, .content-page *::after { animation: none !important; transition: none !important; }
+    .our-teaWrap .drinkList-pic { position: sticky; bottom: 0; margin-left: auto; pointer-events: none; visibility: visible; }
+}

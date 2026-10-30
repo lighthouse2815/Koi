@@ -43,7 +43,7 @@
             <div>
                 <a asp-controller="Home" asp-action="Index">HOME</a>
                 <a asp-controller="Home" asp-action="About">ABOUT</a>
-                <a href="@Url.Action("Index", "Home")#drinks">OUR TEA</a>
+                <a asp-controller="Home" asp-action="OurTea">OUR TEA</a>
             </div>
             <div>
                 <a href="@Url.Action("Index", "Home")#news">NEWS</a>
