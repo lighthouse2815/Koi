@@ -55,6 +55,11 @@ public class HomeController : Controller
         return article == null ? NotFound() : View(article);
     }
 
+    public IActionResult Impact()
+    {
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

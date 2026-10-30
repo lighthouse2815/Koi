@@ -168,11 +168,23 @@
         selectCategory(0);
     }
 
+    const impact = page.querySelector('.crmWrap');
+    if (impact) {
+        activate(impact.querySelector('.scroll-down'), () => impact.querySelector('.crmListWrap').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
+        impact.querySelectorAll('.pin-pagination .dot').forEach((dot, index) => {
+            dot.setAttribute('aria-label', 'Commitment ' + (index + 1));
+            activate(dot, () => {
+                const trigger = window.ScrollTrigger?.getById('impact-commitments');
+                if (trigger) gsap.to(window, { scrollTo: { y: trigger.start + (trigger.end - trigger.start) * index / 3, autoKill: true }, duration: .92, ease: 'power4.inOut' });
+            });
+        });
+    }
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
     media.add({ motion: '(prefers-reduced-motion: no-preference)', desktop: '(min-width: 1025px)' }, context => {
         if (!context.conditions.motion) return;
+        let cleanUpPage = () => {};
         page.classList.add('content-motion');
         if (about) {
             gsap.fromTo('.about-animation .text-area', { scale: 10 }, { scale: 1, duration: 1.75, ease: 'power4.out' });
@@ -222,7 +234,52 @@
         if (page.querySelector('.newsWrap')) {
             gsap.fromTo('.newsWrap .head-area .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, ease: 'power2.out' });
         }
+        if (page.querySelector('.crmWrap')) {
+            const hero = page.querySelector('#crm-banner');
+            const header = document.querySelector('.site-header');
+            header.classList.add('header-light');
+            gsap.from('.impact-list-hero__title', { y: 40, opacity: 0, duration: 1, ease: 'power2.out' });
+            gsap.timeline({ scrollTrigger: { id: 'impact-banner', trigger: hero, start: 'top top', end: () => '+=' + innerHeight * (context.conditions.desktop ? 2.5 : 3.6), pin: true, scrub: 1, invalidateOnRefresh: true, onUpdate: self => header.classList.toggle('header-light', self.progress < 1) } })
+                .to('.crmWrap .center-content, .crmWrap .scroll-down, .crmWrap .side-text', { opacity: 0, duration: 1 }, 0)
+                .to('.crmWrap .banner-mask', { opacity: .5, duration: 1 }, 0)
+                .fromTo('.crmWrap .slide-text', { x: () => innerWidth }, { x: () => -(page.querySelector('.slide-text').scrollWidth + innerWidth), duration: 2.4, ease: 'none' });
+            gsap.from('.crmListWrap .section-title .en', { y: 50, opacity: 0, duration: 1, scrollTrigger: { trigger: '.crmListWrap', start: 'top 75%', toggleActions: 'play none none reverse' } });
+            if (context.conditions.desktop) {
+                gsap.registerPlugin(ScrollToPlugin);
+                const section = page.querySelector('.scroll-pin-section');
+                const texts = [...section.querySelectorAll('.text-item')];
+                const images = [...section.querySelectorAll('.image-item')];
+                const dots = [...section.querySelectorAll('.pin-pagination .dot')];
+                let current = -1;
+                const select = index => {
+                    if (current === index) return;
+                    const direction = index > current ? 1 : -1;
+                    current = index;
+                    texts.forEach((item, i) => {
+                        item.classList.toggle('active', i === index);
+                        item.inert = i !== index;
+                        gsap.to(item, { autoAlpha: i === index ? 1 : 0, y: i === index ? 0 : -22 * direction, duration: .6, overwrite: true });
+                    });
+                    images.forEach((item, i) => item.classList.toggle('is-active', i === index));
+                    dots.forEach((item, i) => { item.classList.toggle('active', i === index); item.setAttribute('aria-pressed', String(i === index)); });
+                    gsap.to('.crmWrap .image-wrapper', { y: -images[index].offsetTop, duration: .92, ease: 'power4.inOut', overwrite: true });
+                };
+                gsap.set(texts.slice(1), { autoAlpha: 0 });
+                select(0);
+                ScrollTrigger.create({ id: 'impact-commitments', trigger: section, start: 'top top', end: () => '+=' + innerHeight * 3, pin: true, invalidateOnRefresh: true,
+                    snap: { snapTo: 1 / 3, duration: .92, delay: .15, ease: 'power4.inOut', directional: false, inertia: false }, onUpdate: self => select(Math.round(self.progress * 3)) });
+                cleanUpPage = () => {
+                    header.classList.remove('header-light');
+                    texts.forEach(item => item.inert = false);
+                };
+            } else {
+                cleanUpPage = () => header.classList.remove('header-light');
+            }
+        }
         document.fonts.ready.then(() => ScrollTrigger.refresh());
-        return () => page.classList.remove('content-motion');
+        return () => {
+            page.classList.remove('content-motion');
+            cleanUpPage();
+        };
     });
 })();
