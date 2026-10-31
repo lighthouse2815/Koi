@@ -124,11 +124,17 @@ public class OrderController(ApplicationDbContext database) : Controller
             }
         }
         HttpContext.Session.Remove(CartKey);
-        TempData["OrderReference"] = order.Id.ToString();
+        HttpContext.Session.SetString("order-reference", order.Id.ToString());
         return RedirectToAction(nameof(Complete));
     }
 
-    public IActionResult Complete() => TempData["OrderReference"] is string reference ? View((object)reference) : RedirectToAction(nameof(Index));
+    public IActionResult Complete()
+    {
+        var reference = HttpContext.Session.GetString("order-reference");
+        if (reference == null) return RedirectToAction(nameof(Index));
+        HttpContext.Session.Remove("order-reference");
+        return View((object)reference);
+    }
 
     private Task<ShopSettings> CurrentShop() => database.ShopSettings.AsNoTracking().SingleAsync(value => value.Id == 1);
 

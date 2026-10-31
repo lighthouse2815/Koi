@@ -40,6 +40,10 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
         var checkout = await AdminTestClient.Post(client, "/Order/Checkout", Fields(), tokenUrl: "/Admin/Account/Login");
         Assert.Equal(HttpStatusCode.Redirect, checkout.StatusCode);
         Assert.Contains("/Order/Complete", checkout.Headers.Location!.ToString());
+        var confirmation = await client.GetAsync(checkout.Headers.Location);
+        Assert.Equal(HttpStatusCode.OK, confirmation.StatusCode);
+        Assert.Contains("Đã gửi đơn hàng", WebUtility.HtmlDecode(await confirmation.Content.ReadAsStringAsync()));
+        Assert.Equal(HttpStatusCode.Redirect, (await client.GetAsync(checkout.Headers.Location)).StatusCode);
         using var verify = factory.Services.CreateScope();
         var database = verify.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var order = await database.Orders.Include(value => value.Items).SingleAsync(value => value.StoreId == branchId);
