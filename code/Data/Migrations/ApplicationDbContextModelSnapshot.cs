@@ -747,6 +747,30 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("SaleOptions");
                 });
 
+            modelBuilder.Entity("Koi.Web.Models.ShopSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid?>("BrandId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.ToTable("ShopSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1
+                        });
+                });
+
             modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1171,6 +1195,16 @@ namespace Koi.Web.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Koi.Web.Models.ShopSettings", b =>
+                {
+                    b.HasOne("Koi.Web.Models.TeaBrand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Brand");
                 });
 
             modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
