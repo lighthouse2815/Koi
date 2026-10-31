@@ -6,6 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(2);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 builder.Services.AddLocalization(options => options.ResourcesPath = "code/Resources");
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -66,6 +73,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseRequestLocalization();
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

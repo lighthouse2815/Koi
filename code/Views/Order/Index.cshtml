@@ -1,0 +1,33 @@
+@model OrderingPageViewModel
+@{ Layout = null; var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); }
+<!doctype html><html lang="vi"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Đặt đồ uống · KOI Thé</title><link rel="stylesheet" href="~/css/ordering.css" asp-append-version="true" /></head><body>
+<header class="order-header"><a asp-controller="Home" asp-action="Index">KOI THÉ</a><a asp-controller="Home" asp-action="Store">Xem chi nhánh</a></header>
+<main class="order-page"><h1>Đặt đồ uống</h1><p>Chọn chi nhánh, thêm món và gửi đơn. Chi nhánh sẽ liên hệ xác nhận.</p>
+@if (TempData["OrderMessage"] is string message) { <p class="notice" role="status">@message</p> }
+<div asp-validation-summary="All" class="notice" role="alert"></div>
+<section class="order-card"><h2>1. Chọn chi nhánh</h2>
+@if (Model.Branches.Length == 0) { <p>Hiện chưa có chi nhánh mở nhận đơn.</p> }
+else { <form asp-action="SelectBranch" method="post" class="inline-form"><label for="storeId">Chi nhánh</label><select id="storeId" name="storeId" required><option value="">Chọn chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.Cart.StoreId)">@branch.Name · @branch.Address · @branch.Market.Name</option> }</select><button type="submit">Chọn</button></form> }
+@if (Model.Branch != null) { <p>Đang chọn: <strong>@Model.Branch.Name</strong> · @Model.Branch.Address</p> }
+</section>
+@if (Model.Branch != null) {
+<section class="order-card"><h2>2. Chọn đồ uống</h2>
+@if (Model.Drinks.Length == 0) { <p>Chưa có đồ uống được mở bán.</p> }
+<div class="drink-grid">@foreach (var drink in Model.Drinks) {
+<article class="drink-card"><h3>@(string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi)</h3><p>@drink.Price!.Value.ToString("N0", culture) đ</p><form asp-action="Add" method="post"><input type="hidden" name="id" value="@drink.Id" /><label>Số lượng <input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ</button></form></article>
+}</div></section>
+}
+<section class="order-card"><h2>3. Giỏ hàng</h2>
+@if (Model.Lines.Count == 0) { <p>Giỏ hàng đang trống.</p> }
+else { @foreach (var line in Model.Lines) { <div class="cart-line"><span>@line.Name · @line.Price.ToString("N0", culture) đ</span><form asp-action="Update" method="post" class="inline-form"><input type="hidden" name="id" value="@line.DrinkId" /><label>Số lượng <input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label><button type="submit">Cập nhật</button><small>Nhập 0 để xóa</small></form></div> } <p><strong>Tạm tính: @Model.Total.ToString("N0", culture) đ</strong></p> }
+</section>
+@if (Model.Branch != null && Model.Lines.Count > 0) {
+<section class="order-card"><h2>4. Thông tin nhận hàng</h2><form asp-action="Checkout" method="post" class="checkout-form">
+<label asp-for="Checkout.CustomerName">Họ tên</label><input asp-for="Checkout.CustomerName" required maxlength="150" /><span asp-validation-for="Checkout.CustomerName"></span>
+<label asp-for="Checkout.CustomerPhone">Số điện thoại</label><input asp-for="Checkout.CustomerPhone" type="tel" required maxlength="30" /><span asp-validation-for="Checkout.CustomerPhone"></span>
+<label asp-for="Checkout.Fulfillment">Cách nhận hàng</label><select asp-for="Checkout.Fulfillment"><option value="0">Nhận tại chi nhánh</option><option value="1">Giao hàng</option></select>
+<label asp-for="Checkout.DeliveryAddress">Địa chỉ giao hàng (bắt buộc nếu chọn giao hàng)</label><input asp-for="Checkout.DeliveryAddress" maxlength="2000" /><span asp-validation-for="Checkout.DeliveryAddress"></span>
+<label asp-for="Checkout.Note">Ghi chú</label><textarea asp-for="Checkout.Note" maxlength="1000"></textarea>
+<p>Thanh toán khi nhận hàng. Phí giao hàng, nếu có, được chi nhánh xác nhận trước.</p><button type="submit">Gửi đơn hàng</button></form></section>
+}
+</main></body></html>
