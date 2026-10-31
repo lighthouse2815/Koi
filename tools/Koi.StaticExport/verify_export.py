@@ -6,6 +6,7 @@ import sys
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urljoin, urlsplit
+from uuid import UUID
 
 
 class References(HTMLParser):
@@ -90,7 +91,7 @@ for language in manifest["languages"]:
     for value in stores["stores"] + news["articles"]:
         References(Path(f"{language}/Home/Store/index.html")).feed(value["html"])
     for file in (root / language / "Home/NewsDetail").glob("*/index.html"):
-        assert file.parent.name.isdigit()
+        assert str(UUID(file.parent.name)) == file.parent.name
     assert len(list((root / language / "Home/NewsDetail").glob("*/index.html"))) == manifest["counts"]["news"]
 
 if failures:

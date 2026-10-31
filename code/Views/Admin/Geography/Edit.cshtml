@@ -1,7 +1,7 @@
 @model GeographyEditViewModel
-@{ var editing = Model.Id > 0; ViewData["Title"] = (editing ? "Sửa " : "Thêm ") + ViewData["KindTitle"]; }
+@{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = (editing ? "Sửa " : "Thêm ") + ViewData["KindTitle"]; }
 <div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index" asp-route-kind="@Model.Kind">← Danh sách</a></div>
-<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (int?)null)" method="post" enctype="multipart/form-data" class="card">
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="card">
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" /><input asp-for="Kind" type="hidden" />
 <div asp-validation-summary="All" class="validation" role="alert"></div>
 <fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>

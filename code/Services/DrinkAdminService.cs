@@ -8,10 +8,10 @@ namespace Koi.Web.Services;
 
 public class DrinkAdminService(ApplicationDbContext database, ImageUploads uploads, ILogger<DrinkAdminService> logger)
 {
-    public async Task<AdminDrinksViewModel> GetListAsync(string? search, int categoryId = 0, int page = 1)
+    public async Task<AdminDrinksViewModel> GetListAsync(string? search, Guid categoryId = default, int page = 1)
     {
         search = search?.Trim(); if (search?.Length > 200) search = search[..200];
-        var query = database.Drinks.AsNoTracking().Where(value => categoryId == 0 || value.CategoryId == categoryId);
+        var query = database.Drinks.AsNoTracking().Where(value => categoryId == Guid.Empty || value.CategoryId == categoryId);
         if (!string.IsNullOrEmpty(search)) query = query.Where(value => (EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.NameVi, $"%{search}%")));
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 20d)); page = Math.Clamp(page, 1, pages);
         return new AdminDrinksViewModel(await query.Include(value => value.Category).OrderBy(value => value.Category.SortOrder)
@@ -21,7 +21,7 @@ public class DrinkAdminService(ApplicationDbContext database, ImageUploads uploa
 
     public async Task<DrinkEditViewModel> CreateAsync() => new() { Categories = await Categories() };
 
-    public async Task<DrinkEditViewModel?> GetEditAsync(int id)
+    public async Task<DrinkEditViewModel?> GetEditAsync(Guid id)
     {
         var value = await database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DrinkEditViewModel { Id = id, Revision = value.Revision, NameVi = value.NameVi, RegionVi = value.RegionVi, DescriptionVi = value.DescriptionVi, Name = value.Name,
@@ -29,7 +29,7 @@ public class DrinkAdminService(ApplicationDbContext database, ImageUploads uploa
             IsPublished = value.IsPublished, CurrentImage = value.Image, Categories = await Categories() };
     }
 
-    public async Task<SaveResult> SaveAsync(DrinkEditViewModel model, int? id, ModelStateDictionary modelState)
+    public async Task<SaveResult> SaveAsync(DrinkEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
         var value = id.HasValue ? await database.Drinks.SingleOrDefaultAsync(value => value.Id == id) : new Drink();
         if (value == null) return SaveResult.NotFound; model.CurrentImage = value.Image;
@@ -58,13 +58,13 @@ public class DrinkAdminService(ApplicationDbContext database, ImageUploads uploa
         uploads.Rollback(uploaded); model.Categories = await Categories(); return result;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(int id)
+    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
     {
         var value = await database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DeleteContentViewModel(id, value.Name);
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var value = await database.Drinks.FindAsync(id);
         if (value == null) return false;

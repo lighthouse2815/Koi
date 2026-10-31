@@ -85,8 +85,10 @@ public class NewsApplicationTests(NewsApplicationFactory factory) : IClassFixtur
     public async Task ImportedArticlesDoNotContainRazorEscapedEmailAddresses()
     {
         using var scope = factory.Services.CreateScope();
+        var ids = new[] { 7, 8, 508, 512, 513, 514, 1155, 2092, 2782, 5253, 5289, 7299, 7931 }
+            .Select(id => AdminTestClient.SeedGuid("NewsArticles", id)).ToArray();
         var rows = await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().NewsArticles.AsNoTracking()
-            .Where(article => article.Id < 10000).ToArrayAsync();
+            .Where(article => ids.Contains(article.Id)).ToArrayAsync();
         Assert.Equal(13, rows.Length);
         Assert.All(rows, article => Assert.DoesNotContain("@@", article.BodyHtml));
         Assert.All(rows.Where(article => article.VideoId != null), article => Assert.Equal(11, article.VideoId!.Length));
@@ -98,7 +100,7 @@ public class NewsApplicationTests(NewsApplicationFactory factory) : IClassFixtur
     public async Task ImportedArticlesKeepTheirOriginalImageAndVideoCombination(int id, bool hasImage)
     {
         using var client = Client();
-        var document = await new HtmlParser().ParseDocumentAsync(await client.GetStringAsync($"/Home/NewsDetail/{id}"));
+        var document = await new HtmlParser().ParseDocumentAsync(await client.GetStringAsync($"/Home/NewsDetail/{AdminTestClient.SeedGuid("NewsArticles", id)}"));
         Assert.Equal(hasImage, document.QuerySelector(".banner img") != null);
         Assert.NotNull(document.QuerySelector(".banner iframe"));
     }
@@ -128,9 +130,9 @@ public class NewsApplicationTests(NewsApplicationFactory factory) : IClassFixtur
     public async Task OrdinaryUserDoesNotHaveAdminAccess()
     {
         using var scope = factory.Services.CreateScope();
-        var users = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        var users = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser<Guid>>>();
         var email = $"reader-{Guid.NewGuid():N}@example.test";
-        Assert.True((await users.CreateAsync(new IdentityUser { UserName = email, Email = email }, factory.AdminPassword)).Succeeded);
+        Assert.True((await users.CreateAsync(new IdentityUser<Guid> { UserName = email, Email = email }, factory.AdminPassword)).Succeeded);
         using var client = Client();
         await client.PostAsync("/Admin/Account/Login", new FormUrlEncodedContent(new Dictionary<string, string>
         {
@@ -159,7 +161,7 @@ public class NewsApplicationTests(NewsApplicationFactory factory) : IClassFixtur
     {
         using var admin = await Admin();
         var article = await Create(admin, Article(Title()));
-        Assert.True(article.Id >= 10000);
+        Assert.NotEqual(Guid.Empty, article.Id);
         Assert.False(article.IsPublished);
         using var anonymous = Client();
         Assert.Equal(HttpStatusCode.NotFound, (await anonymous.GetAsync($"/Home/NewsDetail/{article.Id}")).StatusCode);

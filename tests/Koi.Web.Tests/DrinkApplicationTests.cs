@@ -25,7 +25,7 @@ public class DrinkApplicationTests(NewsApplicationFactory factory) : IClassFixtu
         Assert.Equal(54, page.QuerySelectorAll(".drinkWrapList .drinkList > li").Length);
         foreach (var category in categories)
         {
-            var section = page.QuerySelector($".drinkWrapList > li[id='{category.GetProperty("id").GetInt32()}']")!;
+            var section = page.QuerySelector($".drinkWrapList > li[id='{SeedGuid("DrinkCategories", category.GetProperty("id").GetInt32())}']")!;
             Assert.Equal(category.GetProperty("name").GetString(), section.QuerySelector(".title .en")!.TextContent);
             var rows = section.QuerySelectorAll(".drinkList > li"); var drinks = category.GetProperty("drinks").EnumerateArray().ToArray();
             Assert.Equal(drinks.Length, rows.Length);
@@ -38,7 +38,7 @@ public class DrinkApplicationTests(NewsApplicationFactory factory) : IClassFixtu
         }
         Assert.Equal(4, page.QuerySelectorAll(".new-drink > li").Length);
         var home = await new HtmlParser().ParseDocumentAsync(await client.GetStringAsync("/Home/Index"));
-        Assert.Equal(new[] { "45", "4", "44", "5", "43", "6" }, home.QuerySelectorAll(".drink-card").Select(value => value.GetAttribute("href")!.Split('#').Last()));
+        Assert.Equal(new[] { 45, 4, 44, 5, 43, 6 }.Select(id => SeedGuid("DrinkCategories", id).ToString()), home.QuerySelectorAll(".drink-card").Select(value => value.GetAttribute("href")!.Split('#').Last()));
     }
 
     [Theory]
@@ -64,7 +64,7 @@ public class DrinkApplicationTests(NewsApplicationFactory factory) : IClassFixtu
         using var categoryForm = Form(categoryFields, Image);
         categoryForm.Add(new ByteArrayContent(Image), "HomeImageUpload", "home.png"); categoryForm.Add(new ByteArrayContent(Image), "HomeIconUpload", "icon.png");
         Assert.Equal(HttpStatusCode.Redirect, (await admin.PostAsync("/Admin/DrinkCategories/Create", categoryForm)).StatusCode);
-        int categoryId;
+        Guid categoryId;
         using (var scope = factory.Services.CreateScope())
             categoryId = (await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().DrinkCategories.SingleAsync(value => value.Name == categoryName)).Id;
         Assert.Contains(categoryName, await client.GetStringAsync("/Home/Index"));
@@ -118,7 +118,7 @@ public class DrinkApplicationTests(NewsApplicationFactory factory) : IClassFixtu
     public async Task InvalidDrinkInputIsRejected(string scenario)
     {
         using var admin = await Login(factory);
-        var fields = new Dictionary<string, string> { ["Name"] = scenario == "blank-name" ? " " : "Invalid " + Guid.NewGuid().ToString("N"), ["CategoryId"] = scenario == "missing-category" ? "9999999" : "45" };
+        var fields = new Dictionary<string, string> { ["Name"] = scenario == "blank-name" ? " " : "Invalid " + Guid.NewGuid().ToString("N"), ["CategoryId"] = scenario == "missing-category" ? Guid.NewGuid().ToString() : SeedGuid("DrinkCategories", 45).ToString() };
         Assert.Equal(HttpStatusCode.BadRequest, (await Post(admin, "/Admin/Drinks/Create", fields, scenario == "invalid-image" ? "bad"u8.ToArray() : null)).StatusCode);
     }
 

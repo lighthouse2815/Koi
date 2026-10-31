@@ -40,14 +40,14 @@ public class HomeController(SiteContentService site) : Controller
 
     public async Task<IActionResult> News(string? category, int page = 1) => View(await site.GetNewsAsync(category, page));
 
-    public async Task<IActionResult> NewsDetail(int id)
+    public async Task<IActionResult> NewsDetail(Guid id)
     {
         var article = await site.GetArticleAsync(id, publishedOnly: true);
         return article == null ? NotFound() : View(article);
     }
 
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> NewsPreview(int id)
+    public async Task<IActionResult> NewsPreview(Guid id)
     {
         var article = await site.GetArticleAsync(id, publishedOnly: false);
         if (article == null) return NotFound();
@@ -55,7 +55,7 @@ public class HomeController(SiteContentService site) : Controller
         return View("NewsDetail", article);
     }
 
-    public async Task<IActionResult> Store(int c = 0, int s = 0, int b = 0, int page = 1) => View(await site.GetStoresAsync(c, s, b, page));
+    public async Task<IActionResult> Store(Guid c = default, Guid s = default, Guid b = default, int page = 1) => View(await site.GetStoresAsync(c, s, b, page));
 
     public IActionResult Impact()
     {

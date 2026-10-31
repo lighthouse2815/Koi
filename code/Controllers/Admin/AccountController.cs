@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin")]
-public class AccountController(SignInManager<IdentityUser> signInManager) : Controller
+public class AccountController(SignInManager<IdentityUser<Guid>> signInManager) : Controller
 {
     [HttpGet]
     public IActionResult Login(string? returnUrl = null) => View(new LoginViewModel { ReturnUrl = returnUrl });

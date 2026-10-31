@@ -10,7 +10,7 @@ public class FeaturedDrinksController(FeaturedDrinkAdminService drinks) : Contro
 {
     public async Task<IActionResult> Index() => View(await drinks.GetListAsync());
     public IActionResult Create() => View("Edit", new FeaturedDrinkEditViewModel());
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(Guid id)
     {
         var model = await drinks.GetEditAsync(id);
         return model == null ? NotFound() : View(model);
@@ -18,9 +18,9 @@ public class FeaturedDrinksController(FeaturedDrinkAdminService drinks) : Contro
     [HttpPost, RequestSizeLimit(12 * 1024 * 1024)]
     public Task<IActionResult> Create(FeaturedDrinkEditViewModel model) => Save(model, null);
     [HttpPost, RequestSizeLimit(12 * 1024 * 1024)]
-    public Task<IActionResult> Edit(int id, FeaturedDrinkEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
+    public Task<IActionResult> Edit(Guid id, FeaturedDrinkEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
 
-    private async Task<IActionResult> Save(FeaturedDrinkEditViewModel model, int? id)
+    private async Task<IActionResult> Save(FeaturedDrinkEditViewModel model, Guid? id)
     {
         var result = await drinks.SaveAsync(model, id, ModelState);
         if (result == SaveResult.NotFound) return NotFound();
@@ -38,13 +38,13 @@ public class FeaturedDrinksController(FeaturedDrinkAdminService drinks) : Contro
         return View("Edit", model);
     }
 
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var model = await drinks.GetDeleteAsync(id);
         return model == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", model);
     }
     [HttpPost, ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         if (!await drinks.DeleteAsync(id)) return NotFound();
         TempData["Status"] = "Đã xóa mục New Drinks.";

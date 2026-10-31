@@ -10,7 +10,7 @@ public class DrinkCategoriesController(DrinkCategoryAdminService categories) : C
 {
     public async Task<IActionResult> Index() => View(await categories.GetListAsync());
     public IActionResult Create() => View("Edit", new DrinkCategoryEditViewModel());
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(Guid id)
     {
         var model = await categories.GetEditAsync(id);
         return model == null ? NotFound() : View(model);
@@ -18,9 +18,9 @@ public class DrinkCategoriesController(DrinkCategoryAdminService categories) : C
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
     public Task<IActionResult> Create(DrinkCategoryEditViewModel model) => Save(model, null);
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
-    public Task<IActionResult> Edit(int id, DrinkCategoryEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
+    public Task<IActionResult> Edit(Guid id, DrinkCategoryEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
 
-    private async Task<IActionResult> Save(DrinkCategoryEditViewModel model, int? id)
+    private async Task<IActionResult> Save(DrinkCategoryEditViewModel model, Guid? id)
     {
         var result = await categories.SaveAsync(model, id, ModelState);
         if (result == SaveResult.NotFound) return NotFound();
@@ -38,13 +38,13 @@ public class DrinkCategoriesController(DrinkCategoryAdminService categories) : C
         return View("Edit", model);
     }
 
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var model = await categories.GetDeleteAsync(id);
         return model == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", model);
     }
     [HttpPost, ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         var model = await categories.GetDeleteAsync(id);
         if (model == null) return NotFound();

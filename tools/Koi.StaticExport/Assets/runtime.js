@@ -5,6 +5,7 @@
     const query = new URLSearchParams(location.search);
     const get = name => [...query].find(([key]) => key.toLowerCase() === name)?.[1];
     const integer = (value, fallback = 0) => value && /^[+-]?\d+$/.test(value) && Number.isSafeInteger(Number(value)) && Number(value) >= -2147483648 && Number(value) <= 2147483647 ? Number(value) : fallback;
+    const guid = value => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value || '') ? value.toLowerCase() : '';
     const format = (value, ...args) => value.replace(/\{(\d+)\}/g, (_, index) => args[Number(index)]);
     const create = (tag, className, text) => {
         const element = document.createElement(tag);
@@ -50,20 +51,20 @@
 
     async function stores() {
         const data = await read('stores');
-        const country = data.countries.find(value => value.id === integer(get('c')));
+        const country = data.countries.find(value => value.id === guid(get('c')));
         const locations = data.locations.filter(value => value.countryId === country?.id);
-        const city = locations.find(value => value.id === integer(get('s')));
+        const city = locations.find(value => value.id === guid(get('s')));
         const brands = data.brands.filter(value => !country || country.brandIds.includes(value.id));
-        const brand = brands.find(value => value.id === integer(get('b')));
-        const state = { c: country?.id || 0, s: city?.id || 0, b: brand?.id || 0 };
+        const brand = brands.find(value => value.id === guid(get('b')));
+        const state = { c: country?.id || '', s: city?.id || '', b: brand?.id || '' };
         const results = data.stores.filter(value => (!state.c || value.countryId === state.c) && (!state.s || value.locationId === state.s) && (!state.b || value.brandId === state.b))
-            .sort((a, b) => (state.s ? a.locationOrder - b.locationOrder : state.c ? a.countryOrder - b.countryOrder : a.sortOrder - b.sortOrder) || a.id - b.id);
+            .sort((a, b) => (state.s ? a.locationOrder - b.locationOrder : state.c ? a.countryOrder - b.countryOrder : a.sortOrder - b.sortOrder) || a.id.localeCompare(b.id));
         const pages = Math.max(1, Math.ceil(results.length / 9));
         const page = Math.min(pages, Math.max(1, integer(get('page'), 1)));
         const filters = [...document.querySelectorAll('.storeCatList')];
         const filter = (container, items, selected, base, field) => {
             container.replaceChildren();
-            [{ id: 0, name: data.labels.All__text }, ...items].forEach(value => {
+            [{ id: '', name: data.labels.All__text }, ...items].forEach(value => {
                 const item = create('li', value.id === selected ? 'current' : '');
                 const link = anchor(url('Store', { ...base, [field]: value.id }), null, value.id === selected);
                 link.className = 'flex-container align-middle';

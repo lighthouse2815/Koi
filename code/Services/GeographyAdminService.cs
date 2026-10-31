@@ -26,7 +26,7 @@ public class GeographyAdminService(ApplicationDbContext database, ImageUploads u
     public async Task<GeographyEditViewModel?> CreateAsync(string kind) =>
         !ValidKind(kind) ? null : await Options(new GeographyEditViewModel { Kind = kind });
 
-    public async Task<GeographyEditViewModel?> GetEditAsync(int id, string kind = "countries")
+    public async Task<GeographyEditViewModel?> GetEditAsync(Guid id, string kind = "countries")
     {
         if (!ValidKind(kind)) return null;
         GeographyEditViewModel? model = null;
@@ -50,7 +50,7 @@ public class GeographyAdminService(ApplicationDbContext database, ImageUploads u
         model.Kind = kind; return await Options(model);
     }
 
-    public async Task<SaveResult> SaveAsync(GeographyEditViewModel model, int? id, ModelStateDictionary modelState)
+    public async Task<SaveResult> SaveAsync(GeographyEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
         if (!ValidKind(model.Kind)) return SaveResult.BadRequest;
         var country = model.Kind == "countries" ? (id == null ? new Market() : await database.Markets.Include(value => value.Brands).Include(value => value.SocialLinks).SingleOrDefaultAsync(value => value.Id == id)) : null;
@@ -123,13 +123,13 @@ public class GeographyAdminService(ApplicationDbContext database, ImageUploads u
         uploads.Rollback(uploaded); await Options(model); return result;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(int id, string kind)
+    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id, string kind)
     {
         var value = await Find(id, kind);
         return value == null ? null : new DeleteContentViewModel(id, Name(value), kind);
     }
 
-    public async Task<SaveResult> DeleteAsync(int id, string kind, ModelStateDictionary modelState)
+    public async Task<SaveResult> DeleteAsync(Guid id, string kind, ModelStateDictionary modelState)
     {
         var value = await Find(id, kind);
         if (value == null) return SaveResult.NotFound;
@@ -142,7 +142,7 @@ public class GeographyAdminService(ApplicationDbContext database, ImageUploads u
         return SaveResult.Success;
     }
 
-    private async Task<object?> Find(int id, string kind) => kind switch
+    private async Task<object?> Find(Guid id, string kind) => kind switch
     {
         "countries" => await database.Markets.FindAsync(id), "cities" => await database.StoreCities.FindAsync(id),
         "brands" => await database.TeaBrands.FindAsync(id), _ => null

@@ -6,8 +6,8 @@ public class MenuEntry
 {
     [StringLength(200)] public string LabelVi { get; set; } = "";
 
-    public int Id { get; set; }
-    public int MarketId { get; set; }
+    public Guid Id { get; set; }
+    public Guid MarketId { get; set; }
     public Market Market { get; set; } = null!;
     [Required, StringLength(200)] public string Label { get; set; } = "";
     [Required, StringLength(500)] public string File { get; set; } = "";

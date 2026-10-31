@@ -8,9 +8,9 @@ namespace Koi.Web.Controllers.Admin;
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class MenusController(MenuAdminService menus) : Controller
 {
-    public async Task<IActionResult> Index(int marketId = 0) => View(await menus.GetListAsync(marketId));
+    public async Task<IActionResult> Index(Guid marketId = default) => View(await menus.GetListAsync(marketId));
     public async Task<IActionResult> Create() => View("Edit", await menus.CreateAsync());
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(Guid id)
     {
         var model = await menus.GetEditAsync(id);
         return model == null ? NotFound() : View(model);
@@ -18,9 +18,9 @@ public class MenusController(MenuAdminService menus) : Controller
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
     public Task<IActionResult> Create(MenuEditViewModel model) => Save(model, null);
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
-    public Task<IActionResult> Edit(int id, MenuEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
+    public Task<IActionResult> Edit(Guid id, MenuEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
 
-    private async Task<IActionResult> Save(MenuEditViewModel model, int? id)
+    private async Task<IActionResult> Save(MenuEditViewModel model, Guid? id)
     {
         var result = await menus.SaveAsync(model, id, ModelState);
         if (result == SaveResult.NotFound) return NotFound();
@@ -38,13 +38,13 @@ public class MenusController(MenuAdminService menus) : Controller
         return View("Edit", model);
     }
 
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var model = await menus.GetDeleteAsync(id);
         return model == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", model);
     }
     [HttpPost, ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         if (!await menus.DeleteAsync(id)) return NotFound();
         TempData["Status"] = "Đã xóa thực đơn.";

@@ -16,14 +16,28 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
     {
         using var client = Anonymous(factory);
         var snapshot = StoreCatalog.Snapshot;
-        var queries = new List<(string Url, int[] Ids)> { ("/Home/Store", snapshot.Stores.Take(9).Select(value => value.Id).ToArray()) };
-        queries.AddRange(snapshot.Countries.Select(value => ($"/Home/Store?c={value.Id}", value.StoreIds.Take(9).ToArray())));
-        queries.AddRange(snapshot.Locations.Select(value => ($"/Home/Store?c={value.CountryId}&s={value.Id}", value.StoreIds.Take(9).ToArray())));
+        var queries = new List<(string Url, Guid[] Ids)> { ("/Home/Store", snapshot.Stores.Take(9).Select(value => SeedGuid("Stores", value.Id)).ToArray()) };
+        queries.AddRange(snapshot.Countries.Select(value => ($"/Home/Store?c={SeedGuid("Markets", value.Id)}", value.StoreIds.Take(9).Select(id => SeedGuid("Stores", id)).ToArray())));
+        queries.AddRange(snapshot.Locations.Select(value => ($"/Home/Store?c={SeedGuid("Markets", value.CountryId)}&s={SeedGuid("StoreCities", value.Id)}", value.StoreIds.Take(9).Select(id => SeedGuid("Stores", id)).ToArray())));
         foreach (var (url, ids) in queries)
         {
             var document = await new HtmlParser().ParseDocumentAsync(await client.GetStringAsync(url));
-            Assert.Equal(ids, document.QuerySelectorAll(".storeList > li").Select(value => int.Parse(value.GetAttribute("data-store-id")!)));
+            Assert.Equal(ids, document.QuerySelectorAll(".storeList > li").Select(value => Guid.Parse(value.GetAttribute("data-store-id")!)));
         }
+    }
+
+    [Fact]
+    public async Task AboutLinksPointToExistingMarketGuids()
+    {
+        using var client = Anonymous(factory);
+        var page = await new HtmlParser().ParseDocumentAsync(await client.GetStringAsync("/Home/About"));
+        var ids = page.QuerySelectorAll("a[href*=\"/Home/Store?c=\"]")
+            .Select(value => new Uri("http://localhost" + value.GetAttribute("href")).Query[3..])
+            .Select(Guid.Parse).Distinct().ToArray();
+        Assert.NotEmpty(ids);
+        using var scope = factory.Services.CreateScope();
+        var markets = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Markets;
+        Assert.Equal(ids.Length, await markets.CountAsync(value => ids.Contains(value.Id)));
     }
 
     [Theory]
@@ -40,7 +54,7 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
 
     private static Dictionary<string, string> Store(string name, int market = 56) => new()
     {
-        ["Name"] = name, ["MarketId"] = market.ToString(), ["BrandId"] = "49", ["Address"] = "Địa chỉ kiểm tra",
+        ["Name"] = name, ["MarketId"] = SeedGuid("Markets", market).ToString(), ["BrandId"] = SeedGuid("TeaBrands", 49).ToString(), ["Address"] = "Địa chỉ kiểm tra",
         ["Phone"] = "0901234567", ["Hours"] = "09:00–22:00", ["SortOrder"] = "10000", ["CountryOrder"] = "10000", ["CityOrder"] = "10000", ["IsPublished"] = "false"
     };
     private async Task<StoreEntry?> Find(string name)
@@ -56,14 +70,14 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
         var fields = Store("Store " + Guid.NewGuid().ToString("N"));
         Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, "/Admin/Stores/Create", fields, Image)).StatusCode);
         var value = (await Find(fields["Name"]))!;
-        Assert.True(value.Id >= 10000); Assert.False(value.IsPublished);
+        Assert.NotEqual(Guid.Empty, value.Id); Assert.False(value.IsPublished);
         Assert.Equal(Image, await admin.GetByteArrayAsync(value.Photo));
         using var client = Anonymous(factory);
-        Assert.DoesNotContain(value.Name, await client.GetStringAsync("/Home/Store?c=56"));
+        Assert.DoesNotContain(value.Name, await client.GetStringAsync($"/Home/Store?c={SeedGuid("Markets", 56)}"));
         fields["Id"] = value.Id.ToString(); fields["Revision"] = value.Revision.ToString(); fields["IsPublished"] = "true";
         fields["CountryOrder"] = "0";
         Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Stores/Edit/{value.Id}", fields)).StatusCode);
-        Assert.Contains(value.Name, await client.GetStringAsync("/Home/Store?c=56"));
+        Assert.Contains(value.Name, await client.GetStringAsync($"/Home/Store?c={SeedGuid("Markets", 56)}"));
         fields["Address"] = "Stale overwrite";
         Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, $"/Admin/Stores/Edit/{value.Id}", fields)).StatusCode);
         Assert.NotEqual("Stale overwrite", (await Find(value.Name))!.Address);
@@ -80,8 +94,8 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
     public async Task InvalidStoreDataIsRejected(string scenario)
     {
         using var admin = await Login(factory); var fields = Store("Invalid " + Guid.NewGuid().ToString("N"));
-        if (scenario == "city") fields["CityId"] = "71"; // Singapore city with Vietnam country
-        if (scenario == "brand") fields["BrandId"] = "254"; // brand not assigned to Vietnam
+        if (scenario == "city") fields["CityId"] = SeedGuid("StoreCities", 71).ToString(); // Singapore city with Vietnam country
+        if (scenario == "brand") fields["BrandId"] = SeedGuid("TeaBrands", 254).ToString(); // brand not assigned to Vietnam
         if (scenario == "url") fields["NavigationUrl"] = "javascript:alert(1)";
         var image = scenario == "image" ? "<script>bad</script>"u8.ToArray() : null;
         Assert.Equal(HttpStatusCode.BadRequest, (await Post(admin, "/Admin/Stores/Create", fields, image)).StatusCode);
@@ -92,9 +106,9 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
     public async Task GeographyCanBeCreatedEditedAndDeletedAndReferencesAreProtected()
     {
         using var admin = await Login(factory); var name = "Market " + Guid.NewGuid().ToString("N");
-        var fields = new Dictionary<string, string> { ["Kind"] = "countries", ["Name"] = name, ["SortOrder"] = "1000", ["BrandIds"] = "49", ["SocialLinks"] = "Website | https://example.test/" };
+        var fields = new Dictionary<string, string> { ["Kind"] = "countries", ["Name"] = name, ["SortOrder"] = "1000", ["BrandIds"] = SeedGuid("TeaBrands", 49).ToString(), ["SocialLinks"] = "Website | https://example.test/" };
         Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, "/Admin/Geography/Create?kind=countries", fields)).StatusCode);
-        int id;
+        Guid id;
         using (var scope = factory.Services.CreateScope())
             id = (await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Markets.SingleAsync(value => value.Name == name)).Id;
         fields["Id"] = id.ToString(); fields["Revision"] = "1"; fields["Name"] += " updated";
@@ -103,7 +117,7 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
         Assert.Contains(fields["Name"], await client.GetStringAsync($"/Home/Store?c={id}"));
         Assert.Contains("https://example.test/", await client.GetStringAsync($"/Home/Store?c={id}"));
         Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Geography/Delete/{id}?kind=countries", new() { ["kind"] = "countries" })).StatusCode);
-        Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, "/Admin/Geography/Delete/56?kind=countries", new() { ["kind"] = "countries" })).StatusCode);
-        Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, "/Admin/Geography/Delete/49?kind=brands", new() { ["kind"] = "brands" })).StatusCode);
+        Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, $"/Admin/Geography/Delete/{SeedGuid("Markets", 56)}?kind=countries", new() { ["kind"] = "countries" })).StatusCode);
+        Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, $"/Admin/Geography/Delete/{SeedGuid("TeaBrands", 49)}?kind=brands", new() { ["kind"] = "brands" })).StatusCode);
     }
 }

@@ -18,8 +18,10 @@ public static class StoreCatalog
 
 // Shapes used to read the original catalog for database migrations.
 public record StoreSnapshot(string CapturedOn, SeedCountry[] Countries, SeedLocation[] Locations,
-    StoreBrand[] Brands, SeedBranch[] Stores);
+    SeedBrand[] Brands, SeedBranch[] Stores);
 public record SeedCountry(int Id, string Name, int[] BrandIds, StoreSocialLink[] SocialLinks, int[] StoreIds);
 public record SeedLocation(int Id, int CountryId, string Name, int[] StoreIds);
 public record SeedBranch(int Id, string Name, string Phone, string Hours, string Address,
     int CountryId, int LocationId, int BrandId, string Logo, string Photo, string NavigationUrl);
+
+public record SeedBrand(int Id, string Name);

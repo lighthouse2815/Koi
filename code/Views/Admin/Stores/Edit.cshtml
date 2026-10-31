@@ -1,7 +1,7 @@
 @model StoreEditViewModel
-@{ var editing = Model.Id > 0; ViewData["Title"] = editing ? "Sửa cửa hàng" : "Thêm cửa hàng"; }
+@{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = editing ? "Sửa cửa hàng" : "Thêm cửa hàng"; }
 <div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh sách cửa hàng</a></div>
-<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (int?)null)" method="post" enctype="multipart/form-data" class="editor">
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor">
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
 <div asp-validation-summary="All" class="validation" role="alert"></div>
 <div class="editor-columns"><div class="card">

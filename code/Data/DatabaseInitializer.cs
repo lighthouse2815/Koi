@@ -21,13 +21,13 @@ public static class DatabaseInitializer
                 var email = configuration["Admin:Email"];
                 var password = configuration["Admin:Password"];
                 if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password)) return;
-                var roles = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                var users = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-                if (!await roles.RoleExistsAsync("Admin")) EnsureSuccess(await roles.CreateAsync(new IdentityRole("Admin")));
+                var roles = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+                var users = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser<Guid>>>();
+                if (!await roles.RoleExistsAsync("Admin")) EnsureSuccess(await roles.CreateAsync(new IdentityRole<Guid>("Admin")));
                 var user = await users.FindByEmailAsync(email);
                 if (user == null)
                 {
-                    user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = true };
+                    user = new IdentityUser<Guid> { UserName = email, Email = email, EmailConfirmed = true };
                     EnsureSuccess(await users.CreateAsync(user, password));
                 }
                 if (!await users.IsInRoleAsync(user, "Admin")) EnsureSuccess(await users.AddToRoleAsync(user, "Admin"));

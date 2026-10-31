@@ -7,6 +7,8 @@ namespace Koi.Web.Tests;
 
 internal static class AdminTestClient
 {
+    public static Guid SeedGuid(string table, int id) => Guid.ParseExact(
+        Convert.ToHexString(System.Security.Cryptography.MD5.HashData(System.Text.Encoding.UTF8.GetBytes(table)))[..24] + $"{id:x8}", "N");
     public static readonly byte[] Image = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jP1cAAAAASUVORK5CYII=");
     public static HttpClient Anonymous(NewsApplicationFactory factory) => factory.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
     public static async Task<string> Token(HttpClient client, string url)

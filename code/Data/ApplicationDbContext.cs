@@ -1,11 +1,18 @@
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using Koi.Web.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Data;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : IdentityDbContext<
+        IdentityUser<Guid>, IdentityRole<Guid>, Guid, UserClaim,
+        IdentityUserRole<Guid>, IdentityUserLogin<Guid>, RoleClaim, IdentityUserToken<Guid>>(options)
 {
     public DbSet<NewsArticle> NewsArticles => Set<NewsArticle>();
     public DbSet<Market> Markets => Set<Market>();
@@ -21,29 +28,31 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.Entity<UserClaim>().HasKey(value => value.Id);
+        builder.Entity<UserClaim>().Property(value => value.Id).ValueGeneratedOnAdd();
+        builder.Entity<RoleClaim>().HasKey(value => value.Id);
+        builder.Entity<RoleClaim>().Property(value => value.Id).ValueGeneratedOnAdd();
         builder.Entity<MarketBrand>().HasKey(value => new { value.MarketId, value.BrandId });
         builder.Entity<StoreEntry>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<StoreEntry>().HasOne(value => value.City).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<StoreEntry>().HasOne(value => value.Brand).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<StoreCity>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<StoreEntry>().HasIndex(value => new { value.IsPublished, value.MarketId, value.CityId, value.BrandId });
-        builder.Entity<Market>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
-        builder.Entity<StoreCity>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
-        builder.Entity<TeaBrand>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
-        builder.Entity<StoreEntry>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
         builder.Entity<MenuEntry>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<MenuEntry>().HasIndex(value => new { value.MarketId, value.IsPublished, value.SortOrder });
         builder.Entity<Drink>().HasOne(value => value.Category).WithMany(value => value.Drinks).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.IsPublished, value.SortOrder });
-        builder.Entity<DrinkCategory>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
-        builder.Entity<Drink>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
-        builder.Entity<FeaturedDrink>().Property(value => value.Id).HasIdentityOptions(startValue: 10000);
         var articles = builder.Entity<NewsArticle>();
-        articles.Property(article => article.Id).HasIdentityOptions(startValue: 10000);
         articles.HasIndex(article => new { article.IsPublished, article.Date });
         articles.HasIndex(article => article.IsFeatured).IsUnique().HasFilter("\"IsFeatured\" = TRUE");
         using var stream = typeof(ApplicationDbContext).Assembly.GetManifestResourceStream("Koi.Web.Data.NewsSeed.json")
             ?? throw new InvalidOperationException("News seed data is missing.");
-        articles.HasData(JsonSerializer.Deserialize<NewsArticle[]>(stream, new JsonSerializerOptions(JsonSerializerDefaults.Web))!);
+        var seed = JsonNode.Parse(stream)!.AsArray();
+        var prefix = Convert.ToHexString(MD5.HashData(Encoding.UTF8.GetBytes("NewsArticles")))[..24];
+        foreach (var item in seed)
+        {
+            item!["id"] = Guid.ParseExact($"{prefix}{item["id"]!.GetValue<int>():x8}", "N").ToString();
+        }
+        articles.HasData(JsonSerializer.Deserialize<NewsArticle[]>(seed.ToJsonString(), new JsonSerializerOptions(JsonSerializerDefaults.Web))!);
     }
 }

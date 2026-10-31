@@ -8,14 +8,14 @@ namespace Koi.Web.Services;
 
 public class MenuAdminService(ApplicationDbContext database, ImageUploads uploads, ILogger<MenuAdminService> logger)
 {
-    public async Task<AdminMenusViewModel> GetListAsync(int marketId) => new(
-        await database.Menus.AsNoTracking().Include(value => value.Market).Where(value => marketId == 0 || value.MarketId == marketId)
+    public async Task<AdminMenusViewModel> GetListAsync(Guid marketId) => new(
+        await database.Menus.AsNoTracking().Include(value => value.Market).Where(value => marketId == Guid.Empty || value.MarketId == marketId)
             .OrderBy(value => value.Market.SortOrder).ThenBy(value => value.MarketId).ThenBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync(),
         await Markets(), marketId);
 
     public async Task<MenuEditViewModel> CreateAsync() => new() { Markets = await Markets() };
 
-    public async Task<MenuEditViewModel?> GetEditAsync(int id)
+    public async Task<MenuEditViewModel?> GetEditAsync(Guid id)
     {
         var value = await database.Menus.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new MenuEditViewModel { Id = id, Revision = value.Revision, LabelVi = value.LabelVi,
@@ -23,7 +23,7 @@ public class MenuAdminService(ApplicationDbContext database, ImageUploads upload
             CurrentImage = value.File, Markets = await Markets() };
     }
 
-    public async Task<SaveResult> SaveAsync(MenuEditViewModel model, int? id, ModelStateDictionary modelState)
+    public async Task<SaveResult> SaveAsync(MenuEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
         var value = id.HasValue ? await database.Menus.SingleOrDefaultAsync(value => value.Id == id) : new MenuEntry();
         if (value == null) return SaveResult.NotFound;
@@ -52,13 +52,13 @@ public class MenuAdminService(ApplicationDbContext database, ImageUploads upload
         uploads.Rollback(uploaded); model.Markets = await Markets(); return result;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(int id)
+    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
     {
         var value = await database.Menus.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DeleteContentViewModel(id, value.Label);
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var value = await database.Menus.FindAsync(id);
         if (value == null) return false;

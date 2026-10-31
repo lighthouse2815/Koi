@@ -8,9 +8,9 @@ namespace Koi.Web.Controllers.Admin;
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class DrinksController(DrinkAdminService drinks) : Controller
 {
-    public async Task<IActionResult> Index(string? search, int categoryId = 0, int page = 1) => View(await drinks.GetListAsync(search, categoryId, page));
+    public async Task<IActionResult> Index(string? search, Guid categoryId = default, int page = 1) => View(await drinks.GetListAsync(search, categoryId, page));
     public async Task<IActionResult> Create() => View("Edit", await drinks.CreateAsync());
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(Guid id)
     {
         var model = await drinks.GetEditAsync(id);
         return model == null ? NotFound() : View(model);
@@ -18,9 +18,9 @@ public class DrinksController(DrinkAdminService drinks) : Controller
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
     public Task<IActionResult> Create(DrinkEditViewModel model) => Save(model, null);
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
-    public Task<IActionResult> Edit(int id, DrinkEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
+    public Task<IActionResult> Edit(Guid id, DrinkEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
 
-    private async Task<IActionResult> Save(DrinkEditViewModel model, int? id)
+    private async Task<IActionResult> Save(DrinkEditViewModel model, Guid? id)
     {
         var result = await drinks.SaveAsync(model, id, ModelState);
         if (result == SaveResult.NotFound) return NotFound();
@@ -38,13 +38,13 @@ public class DrinksController(DrinkAdminService drinks) : Controller
         return View("Edit", model);
     }
 
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var model = await drinks.GetDeleteAsync(id);
         return model == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", model);
     }
     [HttpPost, ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         if (!await drinks.DeleteAsync(id)) return NotFound();
         TempData["Status"] = "Đã xóa đồ uống.";

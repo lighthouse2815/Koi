@@ -22,7 +22,7 @@ public class GeographyController(GeographyAdminService geography) : Controller
         return View("Edit", model);
     }
 
-    public async Task<IActionResult> Edit(int id, string kind = "countries")
+    public async Task<IActionResult> Edit(Guid id, string kind = "countries")
     {
         var model = await geography.GetEditAsync(id, kind);
         if (model == null) return NotFound();
@@ -32,9 +32,9 @@ public class GeographyController(GeographyAdminService geography) : Controller
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
     public Task<IActionResult> Create(GeographyEditViewModel model) => Save(model, null);
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
-    public Task<IActionResult> Edit(int id, GeographyEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
+    public Task<IActionResult> Edit(Guid id, GeographyEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
 
-    private async Task<IActionResult> Save(GeographyEditViewModel model, int? id)
+    private async Task<IActionResult> Save(GeographyEditViewModel model, Guid? id)
     {
         var result = await geography.SaveAsync(model, id, ModelState);
         if (result == SaveResult.BadRequest) return BadRequest();
@@ -54,13 +54,13 @@ public class GeographyController(GeographyAdminService geography) : Controller
         return View("Edit", model);
     }
 
-    public async Task<IActionResult> Delete(int id, string kind = "countries")
+    public async Task<IActionResult> Delete(Guid id, string kind = "countries")
     {
         var model = await geography.GetDeleteAsync(id, kind);
         return model == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", model);
     }
     [HttpPost, ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(int id, string kind)
+    public async Task<IActionResult> DeleteConfirmed(Guid id, string kind)
     {
         var model = await geography.GetDeleteAsync(id, kind);
         if (model == null) return NotFound();

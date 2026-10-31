@@ -9,10 +9,10 @@ public class MenuEditViewModel
 {
     [StringLength(200)] public string? LabelVi { get; set; }
 
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int Revision { get; set; }
     [Required, StringLength(200)] public string Label { get; set; } = "";
-    [Range(1, int.MaxValue)] public int MarketId { get; set; }
+    public Guid MarketId { get; set; }
     [Range(0, 100000)] public int SortOrder { get; set; }
     public bool IsPublished { get; set; } = true;
     public IFormFile? ImageUpload { get; set; }
@@ -20,4 +20,4 @@ public class MenuEditViewModel
     [BindNever, ValidateNever] public SelectList Markets { get; set; } = null!;
 }
 
-public record AdminMenusViewModel(MenuEntry[] Menus, SelectList Markets, int MarketId);
+public record AdminMenusViewModel(MenuEntry[] Menus, SelectList Markets, Guid MarketId);

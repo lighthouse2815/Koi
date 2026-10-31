@@ -8,11 +8,11 @@ namespace Koi.Web.Services;
 
 public class StoreAdminService(ApplicationDbContext database, ImageUploads uploads, ILogger<StoreAdminService> logger)
 {
-    public async Task<AdminStoresViewModel> GetListAsync(string? search, int marketId = 0, int page = 1)
+    public async Task<AdminStoresViewModel> GetListAsync(string? search, Guid marketId = default, int page = 1)
     {
         search = search?.Trim();
         if (search?.Length > 200) search = search[..200];
-        var query = database.Stores.AsNoTracking().Where(value => marketId == 0 || value.MarketId == marketId);
+        var query = database.Stores.AsNoTracking().Where(value => marketId == Guid.Empty || value.MarketId == marketId);
         if (!string.IsNullOrEmpty(search)) query = query.Where(value => EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.Address, $"%{search}%") || EF.Functions.ILike(value.NameVi, $"%{search}%") || EF.Functions.ILike(value.AddressVi, $"%{search}%"));
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 20d));
         page = Math.Clamp(page, 1, pages);
@@ -23,7 +23,7 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
 
     public Task<StoreEditViewModel> CreateAsync() => Options(new StoreEditViewModel());
 
-    public async Task<StoreEditViewModel?> GetEditAsync(int id)
+    public async Task<StoreEditViewModel?> GetEditAsync(Guid id)
     {
         var value = await database.Stores.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : await Options(new StoreEditViewModel
@@ -35,7 +35,7 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
         });
     }
 
-    public async Task<SaveResult> SaveAsync(StoreEditViewModel model, int? id, ModelStateDictionary modelState)
+    public async Task<SaveResult> SaveAsync(StoreEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
         var value = id.HasValue ? await database.Stores.SingleOrDefaultAsync(value => value.Id == id) : new StoreEntry();
         if (value == null) return SaveResult.NotFound;
@@ -75,13 +75,13 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
         await Options(model); return result;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(int id)
+    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
     {
         var value = await database.Stores.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DeleteContentViewModel(id, value.Name);
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var value = await database.Stores.FindAsync(id);
         if (value == null) return false;

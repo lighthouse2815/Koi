@@ -22,7 +22,7 @@ public class NewsAdminService(ApplicationDbContext database, ImageUploads upload
         return new AdminNewsViewModel(articles, search, page, pageCount);
     }
 
-    public async Task<NewsEditViewModel?> GetEditAsync(int id)
+    public async Task<NewsEditViewModel?> GetEditAsync(Guid id)
     {
         var article = await database.NewsArticles.AsNoTracking().SingleOrDefaultAsync(article => article.Id == id);
         return article == null ? null : new NewsEditViewModel
@@ -35,7 +35,7 @@ public class NewsAdminService(ApplicationDbContext database, ImageUploads upload
         };
     }
 
-    public async Task<SaveResult> SaveAsync(NewsEditViewModel model, int? id, ModelStateDictionary modelState)
+    public async Task<SaveResult> SaveAsync(NewsEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
         var article = id.HasValue ? await database.NewsArticles.SingleOrDefaultAsync(article => article.Id == id) : new NewsArticle();
         if (article == null) return SaveResult.NotFound;
@@ -105,10 +105,10 @@ public class NewsAdminService(ApplicationDbContext database, ImageUploads upload
         }
     }
 
-    public Task<NewsArticle?> GetArticleAsync(int id) =>
+    public Task<NewsArticle?> GetArticleAsync(Guid id) =>
         database.NewsArticles.AsNoTracking().SingleOrDefaultAsync(article => article.Id == id);
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var article = await database.NewsArticles.FindAsync(id);
         if (article == null) return false;

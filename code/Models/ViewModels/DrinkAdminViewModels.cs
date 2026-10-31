@@ -11,10 +11,10 @@ public class DrinkEditViewModel
     [StringLength(150)] public string? RegionVi { get; set; }
     [StringLength(4000)] public string? DescriptionVi { get; set; }
 
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int Revision { get; set; }
     [Required, StringLength(250)] public string Name { get; set; } = "";
-    [Range(1, int.MaxValue)] public int CategoryId { get; set; }
+    public Guid CategoryId { get; set; }
     [StringLength(150)] public string? Region { get; set; }
     [StringLength(4000)] public string? Description { get; set; }
     [Range(0, 100000)] public int SortOrder { get; set; }
@@ -29,7 +29,7 @@ public class DrinkCategoryEditViewModel
 {
     [StringLength(200)] public string? NameVi { get; set; }
 
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int Revision { get; set; }
     [Required, StringLength(200)] public string Name { get; set; } = "";
     [Range(0, 100000)] public int SortOrder { get; set; }
@@ -52,7 +52,7 @@ public class FeaturedDrinkEditViewModel
     [StringLength(250)] public string? NameVi { get; set; }
     [StringLength(150)] public string? RegionVi { get; set; }
 
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int Revision { get; set; }
     [Required, StringLength(250)] public string Name { get; set; } = "";
     [StringLength(150)] public string? Region { get; set; }
@@ -64,4 +64,4 @@ public class FeaturedDrinkEditViewModel
     [BindNever, ValidateNever] public string? CurrentBackground { get; set; }
 }
 
-public record AdminDrinksViewModel(Drink[] Drinks, SelectList Categories, int CategoryId, string? Search, int Page, int PageCount);
+public record AdminDrinksViewModel(Drink[] Drinks, SelectList Categories, Guid CategoryId, string? Search, int Page, int PageCount);

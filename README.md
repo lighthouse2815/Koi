@@ -33,6 +33,13 @@ dotnet publish Koi.Web.csproj --configuration Release --output ./artifacts/publi
 
 Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration nạp dữ liệu News, Store, Menu và đồ uống ban đầu một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
 
+### Chuyển ID sang Guid
+
+Các khóa chính và khóa ngoại của nội dung và ASP.NET Identity dùng `Guid` (`uuid` trong PostgreSQL). Migration `ConvertIdsToGuid` chuyển dữ liệu và quan hệ hiện có trong cùng transaction, kể cả tài khoản, mật khẩu đã băm và claim; ID Identity đã có dạng GUID được giữ nguyên. ID số của dữ liệu cũ được chuyển nhất quán để giữ thứ tự, còn bản ghi mới dùng GUID do EF Core tạo.
+
+Trước khi áp dụng lên database đang sử dụng, hãy sao lưu và kiểm tra bản sao: migration không hỗ trợ chuyển ngược tự động vì các GUID mới không thể quy đổi an toàn về ID số. Các URL chứa ID số cũ, chẳng hạn `/Home/NewsDetail/7931`, không còn hoạt động; dùng liên kết GUID mới trên website. Các tài khoản có ID cũ không phải GUID cần đăng nhập lại.
+
+
 ## Deploy riêng FE lên Cloudflare Pages
 
 Bản FE đã xuất sẵn tại [`fe-demo`](fe-demo/README.md), có giao diện VI/EN, animation và dữ liệu công khai hiện tại. Cloudflare Pages chỉ cần phục vụ thư mục này, không cần .NET hoặc PostgreSQL.

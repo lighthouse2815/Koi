@@ -9,7 +9,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
 {
     public Task<DrinkCategory[]> GetListAsync() => database.DrinkCategories.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
 
-    public async Task<DrinkCategoryEditViewModel?> GetEditAsync(int id)
+    public async Task<DrinkCategoryEditViewModel?> GetEditAsync(Guid id)
     {
         var value = await database.DrinkCategories.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DrinkCategoryEditViewModel { Id = id, Revision = value.Revision, NameVi = value.NameVi, Name = value.Name,
@@ -17,7 +17,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
             CurrentImage = value.Image, CurrentIcon = value.Icon, CurrentHomeImage = value.HomeImage, CurrentHomeIcon = value.HomeIcon };
     }
 
-    public async Task<SaveResult> SaveAsync(DrinkCategoryEditViewModel model, int? id, ModelStateDictionary modelState)
+    public async Task<SaveResult> SaveAsync(DrinkCategoryEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
         var value = id.HasValue ? await database.DrinkCategories.SingleOrDefaultAsync(value => value.Id == id) : new DrinkCategory();
         if (value == null) return SaveResult.NotFound;
@@ -58,13 +58,13 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
         uploaded.ForEach(uploads.Rollback); return result;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(int id)
+    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
     {
         var value = await database.DrinkCategories.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DeleteContentViewModel(id, value.Name);
     }
 
-    public async Task<SaveResult> DeleteAsync(int id, ModelStateDictionary modelState)
+    public async Task<SaveResult> DeleteAsync(Guid id, ModelStateDictionary modelState)
     {
         var value = await database.DrinkCategories.FindAsync(id);
         if (value == null) return SaveResult.NotFound;

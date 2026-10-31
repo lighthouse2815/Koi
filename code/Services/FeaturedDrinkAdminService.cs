@@ -9,14 +9,14 @@ public class FeaturedDrinkAdminService(ApplicationDbContext database, ImageUploa
 {
     public Task<FeaturedDrink[]> GetListAsync() => database.FeaturedDrinks.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
 
-    public async Task<FeaturedDrinkEditViewModel?> GetEditAsync(int id)
+    public async Task<FeaturedDrinkEditViewModel?> GetEditAsync(Guid id)
     {
         var value = await database.FeaturedDrinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new FeaturedDrinkEditViewModel { Id = id, Revision = value.Revision, NameVi = value.NameVi, RegionVi = value.RegionVi, Name = value.Name,
             Region = value.Region, IsPublished = value.IsPublished, SortOrder = value.SortOrder, CurrentImage = value.Image, CurrentBackground = value.BackgroundImage };
     }
 
-    public async Task<SaveResult> SaveAsync(FeaturedDrinkEditViewModel model, int? id, ModelStateDictionary modelState)
+    public async Task<SaveResult> SaveAsync(FeaturedDrinkEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
         var value = id.HasValue ? await database.FeaturedDrinks.SingleOrDefaultAsync(value => value.Id == id) : new FeaturedDrink();
         if (value == null) return SaveResult.NotFound; model.CurrentImage = value.Image; model.CurrentBackground = value.BackgroundImage;
@@ -47,13 +47,13 @@ public class FeaturedDrinkAdminService(ApplicationDbContext database, ImageUploa
         uploads.Rollback(uploaded); uploads.Rollback(uploadedBackground); return result;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(int id)
+    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
     {
         var value = await database.FeaturedDrinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DeleteContentViewModel(id, value.Name);
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var value = await database.FeaturedDrinks.FindAsync(id);
         if (value == null) return false;

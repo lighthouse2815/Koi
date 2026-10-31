@@ -6,7 +6,11 @@ namespace Koi.Web.Data;
 
 internal static class DrinkSeed
 {
-    private record Catalog(DrinkCategory[] Categories, FeaturedDrink[] Featured);
+    private record Catalog(SeedCategory[] Categories, SeedFeaturedDrink[] Featured);
+    private record SeedCategory(int Id, string Name, string Icon, string Image, string HomeImage, string HomeIcon,
+        bool ShowOnHome, int SortOrder, int HomeOrder, SeedDrink[] Drinks);
+    private record SeedDrink(int Id, string Name, string Region, string Description, string Image, int SortOrder);
+    private record SeedFeaturedDrink(int Id, string Name, string Region, string Image, string BackgroundImage, int SortOrder);
     public static void Insert(MigrationBuilder migration)
     {
         using var stream = typeof(DrinkSeed).Assembly.GetManifestResourceStream("Koi.Web.Data.DrinksSeed.json")

@@ -96,18 +96,18 @@ internal sealed class SiteExporter
                 await Write($"{language}/Home/NewsDetail/{article.Id}/index.html", Html(page));
             }
             var cards = await CaptureCards("Store", ".storeList > li", stores.Length, 9, language,
-                element => int.Parse(element.GetAttribute("data-store-id")!, CultureInfo.InvariantCulture));
+                element => Guid.Parse(element.GetAttribute("data-store-id")!));
             if (!cards.Keys.Order().SequenceEqual(stores.Select(value => value.Id).Order())) throw new InvalidOperationException("Dữ liệu cửa hàng trên web và database không khớp.");
             await WriteJson($"data/stores-{language}.json", new
             {
                 countries = countries.Select(value => new { value.Id, name = Select(value.Name, value.NameVi, language), brandIds = value.Brands.Select(brand => brand.BrandId), socialLinks = value.SocialLinks.OrderBy(link => link.SortOrder).Select(link => new { link.Label, link.Url }) }),
                 locations = cities.Select(value => new { value.Id, countryId = value.MarketId, name = Select(value.Name, value.NameVi, language) }),
                 brands = brands.Select(value => new { value.Id, name = Select(value.Name, value.NameVi, language) }),
-                stores = stores.Select(value => new { value.Id, countryId = value.MarketId, locationId = value.CityId ?? 0, value.BrandId, value.SortOrder, value.CountryOrder, locationOrder = value.CityOrder, html = cards[value.Id] }),
+                stores = stores.Select(value => new { value.Id, countryId = value.MarketId, locationId = value.CityId, value.BrandId, value.SortOrder, value.CountryOrder, locationOrder = value.CityOrder, html = cards[value.Id] }),
                 labels = Text(language, "All__text", "prev", "next", "Page {0} of {1}", "Store pages", "No stores match these filters. Choose another location or brand.")
             });
             var newsCards = await CaptureCards("News", ".newsList > li", listedNews.Length, 5, language, element =>
-                int.Parse(new Uri(source, element.QuerySelector("a")!.GetAttribute("href")!).AbsolutePath.TrimEnd('/').Split('/').Last(), CultureInfo.InvariantCulture));
+                Guid.Parse(new Uri(source, element.QuerySelector("a")!.GetAttribute("href")!).AbsolutePath.TrimEnd('/').Split('/').Last()));
             if (!newsCards.Keys.Order().SequenceEqual(listedNews.Select(value => value.Id).Order())) throw new InvalidOperationException("Dữ liệu News trên web và database không khớp.");
             await WriteJson($"data/news-{language}.json", new
             {
@@ -154,9 +154,9 @@ internal sealed class SiteExporter
         Console.WriteLine($"Đã xuất {files.Length} file vào fe-demo. Cloudflare Pages: None / exit 0 / fe-demo.");
     }
 
-    private async Task<ConcurrentDictionary<int, string>> CaptureCards(string action, string selector, int count, int size, string language, Func<IElement, int> getId)
+    private async Task<ConcurrentDictionary<Guid, string>> CaptureCards(string action, string selector, int count, int size, string language, Func<IElement, Guid> getId)
     {
-        var cards = new ConcurrentDictionary<int, string>();
+        var cards = new ConcurrentDictionary<Guid, string>();
         await Parallel.ForEachAsync(Enumerable.Range(1, Math.Max(1, (int)Math.Ceiling(count / (double)size))),
             new ParallelOptions { MaxDegreeOfParallelism = 4 }, async (number, _) =>
             {

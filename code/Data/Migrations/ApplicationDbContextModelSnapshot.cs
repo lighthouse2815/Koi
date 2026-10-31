@@ -22,17 +22,58 @@ namespace Koi.Web.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Koi.Web.Data.RoleClaim", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Koi.Web.Data.UserClaim", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
             modelBuilder.Entity("Koi.Web.Models.Drink", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("Id"), 10000L, null, null, null, null, null);
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -88,12 +129,9 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.DrinkCategory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("Id"), 10000L, null, null, null, null, null);
+                        .HasColumnType("uuid");
 
                     b.Property<string>("HomeIcon")
                         .IsRequired()
@@ -148,12 +186,9 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.FeaturedDrink", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("Id"), 10000L, null, null, null, null, null);
+                        .HasColumnType("uuid");
 
                     b.Property<string>("BackgroundImage")
                         .IsRequired()
@@ -202,12 +237,9 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.Market", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("Id"), 10000L, null, null, null, null, null);
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -233,11 +265,11 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.MarketBrand", b =>
                 {
-                    b.Property<int>("MarketId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("MarketId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("BrandId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BrandId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("MarketId", "BrandId");
 
@@ -248,19 +280,17 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.MarketSocialLink", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Label")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<int>("MarketId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("MarketId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("SortOrder")
                         .HasColumnType("integer");
@@ -279,11 +309,9 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.MenuEntry", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("File")
                         .IsRequired()
@@ -303,8 +331,8 @@ namespace Koi.Web.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<int>("MarketId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("MarketId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Revision")
                         .IsConcurrencyToken()
@@ -322,12 +350,9 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.NewsArticle", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("Id"), 10000L, null, null, null, null, null);
+                        .HasColumnType("uuid");
 
                     b.Property<string>("BannerImage")
                         .IsRequired()
@@ -404,7 +429,7 @@ namespace Koi.Web.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 2782,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00000ade"),
                             BannerImage = "/images/pages/upload_image/news/news_1_4026_4141.jpg",
                             BodyHtml = "\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">\"Clock in\"&nbsp;isn't just the start of a daily routine — it's also a way to mark a memorable journey.<br>\n        From clocking in at work, to collecting footprints around the world, these two meanings quietly meet at KOI.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">Today, KOI Group has expanded to 17&nbsp;countries and over 700 stores worldwide.<br>\n        Wherever you travel, we hope you’ll come across KOI on your journey, enjoy the familiar taste of home, and feel the warmth of an old friend by your side.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">To celebrate KOI Group’s 20th Anniversary in 2026, we are launching the Global Limited Magnet Badge Collection Challenge!<br>\n        Each participating country features a unique cultural magnet badge design. Travel with your magnet badges, take photos, clock-in, and collect them to complete your KOI world travel map — and stand a chance to win USD 2,000!</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><strong>Campaign Period: </strong>2026/1/1 – 2026/12/31</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><strong>Participating Countries:</strong><br>\n        All KOI stores located in Singapore, Indonesia, Cambodia, Vietnam, Thailand, Malaysia, the Philippines, Bangladesh, Laos, Brunei, China, Japan, the United Arab Emirates, and France, together with KOI Group sub-brand FIFTYLAN stores in the United States,&nbsp;Canada and Australia.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">⭐ <strong>Level 1 — Tea Specialist</strong><br>\n        Collect 3 different country magnet badges to unlock the Tea Specialist level.<br>\n        ⚠️For every 3 magnet badges collected, you may redeem 1 drink at any store under KOI Group worldwide with the drink card included in the packaging (no size or topping restrictions). Drink cards must be surrendered to the store after redemption.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">⭐⭐ <strong>Level 2 — Global Tea Artisan</strong><br>\n        Collect 8 different country magnet badges and be among the first 20 participants to receive 50 KOI Group drink vouchers.<br>\n        ⚠️Redemption requirement:<br>\n        For each country collected, you must provide a photo of yourself holding the country’s magnet badge in front of a KOI Group store in that respective country. Both the store and magnet badge must be clearly identifiable.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">⭐⭐⭐ <strong>Level 3 — Golden Flavor Grandmaster</strong><br>\n        Collect 12 or more different country magnet badges and be among the first 5 participants to win USD 2,000 in cash.<br>\n        ⚠️Redemption requirement:<br>\n        For each country collected, you must provide a photo of yourself holding the country’s magnet badge in front of a KOI Group store in that respective country. Both the store and magnet badge must be clearly identifiable.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><strong>Terms &amp; Conditions:</strong><br><span style=\"font-size:14px\">This campaign is organized by KOI </span></span><span style=\"font-size:14px\">CAFÉ GROUP (S) PTE. LTD. (the “Organizer”). Participation in this campaign constitutes acceptance of the following terms and conditions:</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:14px\">1. Campaign Period:<br>\n        January 1, 2026 – December 31, 2026. Late submissions will not be accepted.<br>\n        2. Submission Requirements (Global Tea Artisan&nbsp;&amp; Golden Flavor Grandmaster):<br>\n        - All proof photos must be submitted by December 31, 2026 to: events@koicafe.com<br>\n        - If a photo is unclear, incomplete, or disputed, the Organizer reserves the right to request additional information or reject eligibility.<br>\n        3. Travel Companions:<br>\n        Participants traveling together must individually purchase magnet badges and submit their own photo proof in order to qualify.<br>\n        4. KOI Group Drink Voucher Reward (Global Tea Artisan):<br>\n        The Organizer will issue drink vouchers based on the participant’s country of residence, or provide an equivalent reward where applicable.<br>\n        5. Cash Reward (Golden Flavor Grandmaster):<br>\n        - USD 2,000 (Tax withholding shall be handled in accordance with the laws and regulations of each country. Withholding tax and other statutory deductions will be directly deducted from the bonus amount.)<br>\n        - The Organizer reserves the right to adjust reward distribution in accordance with currency, taxation, or regulatory requirements.<br>\n        6. Fair Participation:<br>\n        - Any falsified, duplicated, borrowed, or otherwise improper submissions will result in disqualification.<br>\n        - Participants are solely responsible for ensuring their submitted photos and information do not infringe on any third-party rights.<br>\n        7. Organizer Rights:<br>\n        - The Organizer reserves the right to amend, suspend, or terminate this campaign, and final announcements shall prevail.<br>\n        - By participating, you consent to providing submitted photos and information for marketing and promotional use by the Organizer.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:14px\">8.&nbsp;Magnet Badge Availability and Supply Notice：Availability of country-specific magnet badges is limited and subject to individual store inventory. The Organizer does not guarantee continuous availability at all stores throughout the promotion period and shall not provide reservations, restocking guarantees, or any form of compensation in the event that purchase is temporarily unavailable due to inventory depletion, logistics delays, local regulations, force majeure, or other operational factors.</span></p>\n    ",
                             BodyHtmlVi = "",
@@ -422,7 +447,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 7931,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00001efb"),
                             BannerImage = "",
                             BodyHtml = "\n     <p>Every cup of tea carries a promise of consistency.&nbsp;<br>\n       From rigorous ingredient testing to the precise control of every brewing step, every detail is carefully validated and standardized.<br>\n       Where precision meets dedication, a familiar taste transcends time and distance, remaining the same wherever you are in the world.</p>\n     <p><br>\n       Since 2006, this commitment has never changed.<br>\n       This is KOI.</p>\n    ",
                             BodyHtmlVi = "",
@@ -441,7 +466,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 7299,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00001c83"),
                             BannerImage = "",
                             BodyHtml = "\n     <p>At KOI, every choice begins at the source.<br>\n       In the mountains, ingredients are raised with time and nurtured by nature. From the earth, they are carefully refined and held to the highest standards, transformed into something that brings a quiet moment of delight.<br>\n       When these journeys come together, balance is created — not by chance, but by choice.</p>\n     <p>&nbsp;</p>\n     <p>Since 2006, this commitment has never changed.<br>\n       This is KOI.</p>\n    ",
                             BodyHtmlVi = "",
@@ -460,7 +485,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 5289,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e000014a9"),
                             BannerImage = "",
                             BodyHtml = "\n     <p style=\"margin-left:0cm; margin-right:0cm; text-align:justify\"><span style=\"font-size:16px\">We are delighted to announce the opening of FIFTYLAN Australia at Westfield Sydney, located in the heart of one of the world’s most vibrant cities.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm; text-align:justify\"><span style=\"font-size:10.5pt\"><span style=\"font-size:16px\">Surrounded by Sydney’s iconic cityscape—where modern architecture meets coastal energy—our new store offers a welcoming space to pause, refresh, and enjoy a thoughtfully crafted cup of tea. Whether you are exploring the city, heading to work, or taking a moment for yourself, FIFTYLAN is here to be part of your daily rhythm.</span></span><br><br><strong><span style=\"font-size:12.0pt\"><span style=\"color:black\">Westfield Sydney</span></span></strong><br><span style=\"font-size:12.0pt\"><span style=\"color:black\">Ground Floor, Shop 44G, Westfield, 450 George St, Sydney NSW 2000, Australia</span></span><span style=\"font-size:10.5pt\"> </span></p>\n    ",
                             BodyHtmlVi = "",
@@ -479,7 +504,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 5253,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00001485"),
                             BannerImage = "/images/pages/upload_image/news/news_1_1752_6518.jpg",
                             BodyHtml = "\n     <p>In a city where sunshine, greenery, and sea breezes meet,<br>\n       KOI Brunei officially opens its doors.<br>\n       With a familiar cup of tea, we invite you to embrace Brunei’s relaxed rhythm.<br>\n       Whether for a quiet break or a moment together,<br>\n       it all begins with this cup — your KOI moment.<br><br><strong>Amber Hills Store​​​</strong><br>\n       12:00-22:00<br>\n       Unit No. 1 , Ground Floor, Block A<br>\n       AMBER HILL, Simpang 127-12, Jalan Lebuh Raya Tungku<br>\n       erected on Lot No. 03143, Kampung Pengkalan Gadong<br>\n       Mukim Gadong B, Bandar Seri Begawan BE3719<br>\n       Negara Brunei Darussalam</p>\n    ",
                             BodyHtmlVi = "",
@@ -498,7 +523,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 2092,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e0000082c"),
                             BannerImage = "",
                             BodyHtml = "\n     <p><img alt=\"\" src=\"/images/pages/source/Winner%20Post.jpg\" loading=\"lazy\"></p>\n     <p>Thank you to all participants for your enthusiastic participation! We received over 100 vibrant and creative submissions, each one as precious as Ｇold to us.<br>\n       After careful evaluation, we have selected one Grand Prize Winner and five Honorable&nbsp;Entries.</p>\n     <p>We appreciate everyone who has been part of this Bubbling&nbsp;Golden Era&nbsp;with us. Let’s continue moving forward together and create even more wonderful moments!</p>\n    ",
                             BodyHtmlVi = "",
@@ -516,7 +541,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 1155,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00000483"),
                             BannerImage = "",
                             BodyHtml = "\n     <p style=\"margin-left:0cm; margin-right:0cm\"><img alt=\"\" src=\"/images/pages/upload_image/news/news_634.png\" loading=\"lazy\"></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\">&nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">A shining journey of golden years, filled with achievements and “Thélicious”memories. Every moment of laughter and joy is like our Golden Bubbles, solid and full. Thank YOU for creating brilliance with us.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><br><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Competition Overview:</strong></span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Design a 2026 KOI20th anniversary logo centered around \"A Bubbling Golden Era\".</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Deadline: February 28, 2025</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Eligibility: Open to KOI fans worldwide. Participants may submit multiple entries, individually or in teams.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Design Requirements: Design style is open; hand-drawing, digital art, and any format <strong>except AI-generated images </strong>are welcome.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Submission Format: JPG format, A4 size (21cm x 29.7cm) or larger, with a minimum resolution of 300dpi. Submit entries to events@koicafe.com.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Email Title Format: KOI20_LOGO_Your Name_Country</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><br><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Selection Process:</strong></span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Selection Date: March 2025</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Evaluation Criteria: Theme relevance 40%, originality 30%, and expressiveness 30%</span></span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Prizes:</strong></span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Announcement of Winners: March 2025</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Gold Dot Award: One winner will receive 200 KOI drink vouchers and a trophy.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Honorable Award: Up to five winners will receive 20 KOI drink vouchers, exclusive gifts, and certificates.</span></span></p>\n     <p><br><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Contest Declaration：</strong></span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">1. The entries submitted must be the original works of the entrants and do not infringe any patents, copyrights, trademarks, and other intellectual property rights of anyone else. The entries have not been published in newspapers, magazines, websites, and other media, has not applied for patents or registered copyrights, has not participated in other competitions, and has not entered commercial channels in any form. The organizer shall not bear the legal responsibility arising from the infringement of the rights of others (or units) by the work, and the legal responsibility shall be borne by the participant.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">2. The copyright of the winning entries belongs to the organizer, and it has exclusive ownership including but not limited to the following ways to exercise copyright: enjoy the right to redesign, produce, sell, display, and publicize the work plan, and the winning participants must fill in the \"Work Copyright Ownership Agreement”.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">3. If the entry does not meet the judging criteria, the prize will be vacant.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">4. The organizer reserves the right of final interpretation of this event.</span></span></p>\n    ",
                             BodyHtmlVi = "",
@@ -534,7 +559,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00000007"),
                             BannerImage = "/images/pages/upload_image/news/news_18.jpg",
                             BodyHtml = "\n     <p>Welcome to the brand-new official website of KOI, where innovation and fun come together, just like our Golden Bubbles—delicious, plump, and full of vitality!<br>\n       Please do take your time to savor this delightful experience and explore the unique charm that belongs to KOI!</p>\n    ",
                             BodyHtmlVi = "",
@@ -552,7 +577,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 514,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00000202"),
                             BannerImage = "",
                             BodyHtml = "\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"color:null\"><span style=\"font-size:12pt\">Brewing tea with sincerity and dedication, we light up the sparks of surprise in life through every cup of KOI. </span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"color:null\"><span style=\"font-size:12pt\">Built on carefully selected ingredients and perseverance to perfection, we create a delicate blend of aroma and taste with precision in each sip.</span></span></p>\n     <p><span style=\"color:null\"><span style=\"font-size:12.0pt\">With our warm and passionate service, we make your every visit at KOI a delightful and unforgettable&nbsp;one.</span></span><br>\n       &nbsp;</p>\n    ",
                             BodyHtmlVi = "",
@@ -571,7 +596,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 513,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00000201"),
                             BannerImage = "",
                             BodyHtml = "\n    ",
                             BodyHtmlVi = "",
@@ -590,7 +615,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 512,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00000200"),
                             BannerImage = "",
                             BodyHtml = "\n    ",
                             BodyHtmlVi = "",
@@ -609,7 +634,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 8,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e00000008"),
                             BannerImage = "",
                             BodyHtml = "\n    ",
                             BodyHtmlVi = "",
@@ -628,7 +653,7 @@ namespace Koi.Web.Data.Migrations
                         },
                         new
                         {
-                            Id = 508,
+                            Id = new Guid("b6c32d11-6903-af1b-83ff-3c0e000001fc"),
                             BannerImage = "",
                             BodyHtml = "\n     <p><img alt=\"\" src=\"/images/pages/upload_image/news/news_634.png\" loading=\"lazy\"></p>\n    ",
                             BodyHtmlVi = "",
@@ -648,15 +673,12 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("Id"), 10000L, null, null, null, null, null);
-
-                    b.Property<int>("MarketId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("MarketId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -684,12 +706,9 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.StoreEntry", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("Id"), 10000L, null, null, null, null, null);
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -701,11 +720,11 @@ namespace Koi.Web.Data.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
-                    b.Property<int>("BrandId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BrandId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int?>("CityId")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("CityId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("CityOrder")
                         .HasColumnType("integer");
@@ -726,8 +745,8 @@ namespace Koi.Web.Data.Migrations
                     b.Property<bool>("IsPublished")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("MarketId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("MarketId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -776,12 +795,9 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.TeaBrand", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("Id"), 10000L, null, null, null, null, null);
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Logo")
                         .IsRequired()
@@ -810,10 +826,11 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("TeaBrands");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -836,35 +853,11 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser<System.Guid>", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -925,32 +918,7 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("text");
@@ -961,9 +929,8 @@ namespace Koi.Web.Data.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -972,13 +939,13 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -987,10 +954,10 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("text");
@@ -1004,6 +971,24 @@ namespace Koi.Web.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Koi.Web.Data.RoleClaim", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Koi.Web.Data.UserClaim", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Koi.Web.Models.Drink", b =>
@@ -1095,51 +1080,33 @@ namespace Koi.Web.Data.Migrations
                     b.Navigation("Market");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser<System.Guid>", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser<System.Guid>", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser<System.Guid>", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

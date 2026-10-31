@@ -7,7 +7,7 @@ public class NewsArticle
     [StringLength(300)] public string TitleVi { get; set; } = "";
     [StringLength(200000)] public string BodyHtmlVi { get; set; } = "";
 
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     [MaxLength(300)] public string Title { get; set; } = "";
     [MaxLength(10)] public string Category { get; set; } = "NEWS";
     public DateOnly Date { get; set; }

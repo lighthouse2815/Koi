@@ -24,14 +24,14 @@ public class LocalizationApplicationTests(NewsApplicationFactory factory) : ICla
         using var client = Anonymous(factory); var cover = await Page(client, "/");
         Assert.Equal(2, cover.QuerySelectorAll(".cover-languages form").Length);
         Assert.Contains("TIẾNG VIỆT", cover.Body!.TextContent); Assert.DoesNotContain("中文", cover.Body.TextContent);
-        var response = await Language(client, "vi", "/Home/Store?c=56&s=109&page=2");
+        var response = await Language(client, "vi", $"/Home/Store?c={SeedGuid("Markets", 56)}&s={SeedGuid("StoreCities", 109)}&page=2");
         Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
-        Assert.Equal("/Home/Store?c=56&s=109&page=2", response.Headers.Location!.ToString());
-        var page = await Page(client, "/Home/Store?c=56");
+        Assert.Equal($"/Home/Store?c={SeedGuid("Markets", 56)}&s={SeedGuid("StoreCities", 109)}&page=2", response.Headers.Location!.ToString());
+        var page = await Page(client, $"/Home/Store?c={SeedGuid("Markets", 56)}");
         Assert.Equal("vi", page.DocumentElement.GetAttribute("lang")); Assert.Contains("CỬA HÀNG", page.QuerySelector("h1")!.TextContent);
         Assert.Contains("VIỆT NAM", page.Body!.TextContent); Assert.Contains("Hà Nội", page.Body.TextContent);
         Assert.Equal(HttpStatusCode.Redirect, (await Language(client, "en")).StatusCode);
-        page = await Page(client, "/Home/Store?c=56");
+        page = await Page(client, $"/Home/Store?c={SeedGuid("Markets", 56)}");
         Assert.Equal("en", page.DocumentElement.GetAttribute("lang")); Assert.Contains("STORE", page.QuerySelector("h1")!.TextContent);
         Assert.Contains("VIETNAM", page.Body!.TextContent);
     }
@@ -71,8 +71,8 @@ public class LocalizationApplicationTests(NewsApplicationFactory factory) : ICla
     public async Task ImportedVietnameseNewsAndDrinksKeepTheirEnglishVersions()
     {
         using var client = Anonymous(factory);
-        var english = await Page(client, "/Home/NewsDetail/7931?culture=en");
-        var vietnamese = await Page(client, "/Home/NewsDetail/7931?culture=vi");
+        var english = await Page(client, $"/Home/NewsDetail/{SeedGuid("NewsArticles", 7931)}?culture=en");
+        var vietnamese = await Page(client, $"/Home/NewsDetail/{SeedGuid("NewsArticles", 7931)}?culture=vi");
         Assert.Equal("With Care", english.QuerySelector("h1")!.TextContent);
         Assert.Equal("Bằng sự tận tâm", vietnamese.QuerySelector("h1")!.TextContent);
         Assert.Contains("Mỗi ly trà", vietnamese.QuerySelector(".detail-area")!.TextContent);
@@ -93,7 +93,7 @@ public class LocalizationApplicationTests(NewsApplicationFactory factory) : ICla
             ["Category"] = "NEWS", ["Date"] = "2026-10-31", ["IsPublished"] = "true"
         }, Image);
         Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
-        int id;
+        Guid id;
         using (var scope = factory.Services.CreateScope())
         {
             var article = await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().NewsArticles.SingleAsync(value => value.Title == title);
@@ -114,16 +114,16 @@ public class LocalizationApplicationTests(NewsApplicationFactory factory) : ICla
         using var admin = await Login(factory); var name = "LocaleDrink " + Guid.NewGuid().ToString("N");
         Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, "/Admin/Drinks/Create", new()
         {
-            ["Name"] = name, ["NameVi"] = "Trà thử tiếng Việt", ["DescriptionVi"] = "Mô tả tiếng Việt", ["RegionVi"] = "Việt Nam", ["CategoryId"] = "45", ["IsPublished"] = "true"
+            ["Name"] = name, ["NameVi"] = "Trà thử tiếng Việt", ["DescriptionVi"] = "Mô tả tiếng Việt", ["RegionVi"] = "Việt Nam", ["CategoryId"] = SeedGuid("DrinkCategories", 45).ToString(), ["IsPublished"] = "true"
         })).StatusCode);
-        int id;
+        Guid id;
         using (var scope = factory.Services.CreateScope())
             id = (await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Drinks.SingleAsync(value => value.Name == name)).Id;
         using var client = Anonymous(factory);
         Assert.Contains("Trà thử tiếng Việt", (await Page(client, "/Home/OurTea?culture=vi")).QuerySelector(".drinkWrapList")!.TextContent);
         Assert.Contains(name, (await Page(admin, "/Admin/Drinks?search=" + Uri.EscapeDataString("Trà thử tiếng Việt"))).Body!.TextContent);
         Assert.Contains(name, (await Page(client, "/Home/OurTea?culture=en")).QuerySelector(".drinkWrapList")!.TextContent);
-        var fields = new Dictionary<string, string> { ["Id"] = id.ToString(), ["Revision"] = "1", ["Name"] = name, ["CategoryId"] = "45", ["IsPublished"] = "true" };
+        var fields = new Dictionary<string, string> { ["Id"] = id.ToString(), ["Revision"] = "1", ["Name"] = name, ["CategoryId"] = SeedGuid("DrinkCategories", 45).ToString(), ["IsPublished"] = "true" };
         Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Drinks/Edit/{id}", fields)).StatusCode);
         Assert.Contains(name, (await Page(client, "/Home/OurTea?culture=vi")).QuerySelector(".drinkWrapList")!.TextContent);
         Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Drinks/Delete/{id}", new())).StatusCode);

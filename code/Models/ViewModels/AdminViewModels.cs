@@ -17,7 +17,7 @@ public class NewsEditViewModel
     [StringLength(300)] public string? TitleVi { get; set; }
     [StringLength(200000)] public string? BodyHtmlVi { get; set; }
 
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int Revision { get; set; }
     [Required(ErrorMessage = "Nhập tiêu đề."), StringLength(300)]
     public string Title { get; set; } = "";
