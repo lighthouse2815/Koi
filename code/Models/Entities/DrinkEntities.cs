@@ -52,5 +52,3 @@ public class FeaturedDrink
     [Range(0, 100000)] public int SortOrder { get; set; }
     [ConcurrencyCheck] public int Revision { get; set; } = 1;
 }
-
-public record OurTeaViewModel(DrinkCategory[] Categories, FeaturedDrink[] Featured);
