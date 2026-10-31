@@ -755,6 +755,9 @@ namespace Koi.Web.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("AcceptsOrders")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(2000)
