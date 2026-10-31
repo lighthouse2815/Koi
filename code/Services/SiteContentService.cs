@@ -69,10 +69,9 @@ public class SiteContentService(ApplicationDbContext database)
         var stores = await query.OrderBy(value => s != 0 ? value.CityOrder : c != 0 ? value.CountryOrder : value.SortOrder)
             .ThenBy(value => value.Id).Skip((page - 1) * pageSize).Take(pageSize)
             .Select(value => new StoreBranch(value.Id, SiteText.Select(value.Name, value.NameVi), value.Phone, SiteText.Select(value.Hours, value.HoursVi), SiteText.Select(value.Address, value.AddressVi),
-                value.MarketId, value.CityId ?? 0, value.BrandId, value.Brand.Logo, value.Photo, value.NavigationUrl)).ToArrayAsync();
-        return new StoreViewModel(markets.Select(value => new StoreCountry(value.Id, SiteText.Select(value.Name, value.NameVi),
-                value.Brands.Select(value => value.BrandId).ToArray(), [], [])).ToArray(),
-            cities.Select(value => new StoreLocation(value.Id, value.MarketId, SiteText.Select(value.Name, value.NameVi), [])).ToArray(),
+                value.BrandId, value.Brand.Logo, value.Photo, value.NavigationUrl)).ToArrayAsync();
+        return new StoreViewModel(markets.Select(value => new StoreCountry(value.Id, SiteText.Select(value.Name, value.NameVi))).ToArray(),
+            cities.Select(value => new StoreLocation(value.Id, SiteText.Select(value.Name, value.NameVi))).ToArray(),
             brands.Select(value => new StoreBrand(value.Id, SiteText.Select(value.Name, value.NameVi))).ToArray(), stores,
             country?.SocialLinks.OrderBy(value => value.SortOrder).Select(value => new StoreSocialLink(value.Url, value.Label)).ToArray() ?? [],
             c, s, b, page, pages);
