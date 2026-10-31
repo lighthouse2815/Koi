@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Koi.Web.Tests;
 
+[Collection("Shop brand settings")]
 public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFixture<NewsApplicationFactory>
 {
     [Fact]
