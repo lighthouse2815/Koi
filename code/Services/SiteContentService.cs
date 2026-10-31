@@ -49,6 +49,7 @@ public class SiteContentService(ApplicationDbContext database)
 
     public async Task<StoreViewModel> GetStoresAsync(Guid c = default, Guid s = default, Guid b = default, int page = 1)
     {
+        var shopBrandId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.BrandId).SingleAsync();
         var markets = await database.Markets.AsNoTracking().Include(value => value.Brands).Include(value => value.SocialLinks)
             .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).AsSplitQuery().ToArrayAsync();
         var country = markets.FirstOrDefault(value => value.Id == c);
@@ -58,10 +59,10 @@ public class SiteContentService(ApplicationDbContext database)
         var city = cities.FirstOrDefault(value => value.Id == s);
         s = city?.Id ?? Guid.Empty;
         var brandIds = country?.Brands.Select(value => value.BrandId).ToArray();
-        var brands = await database.TeaBrands.AsNoTracking().Where(value => brandIds == null || brandIds.Contains(value.Id))
+        var brands = await database.TeaBrands.AsNoTracking().Where(value => (brandIds == null || brandIds.Contains(value.Id)) && (!shopBrandId.HasValue || value.Id == shopBrandId))
             .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         if (!brands.Any(value => value.Id == b)) b = Guid.Empty;
-        var query = database.Stores.AsNoTracking().Where(value => value.IsPublished && (c == Guid.Empty || value.MarketId == c)
+        var query = database.Stores.AsNoTracking().Where(value => value.IsPublished && (!shopBrandId.HasValue || value.BrandId == shopBrandId) && (c == Guid.Empty || value.MarketId == c)
             && (s == Guid.Empty || value.CityId == s) && (b == Guid.Empty || value.BrandId == b));
         const int pageSize = 9;
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / (double)pageSize));
