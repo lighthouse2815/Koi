@@ -33,6 +33,16 @@ dotnet publish Koi.Web.csproj --configuration Release --output ./artifacts/publi
 
 Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration nạp dữ liệu News, Store, Menu và đồ uống ban đầu một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
 
+### Thiết lập đặt hàng cho chuỗi chi nhánh
+
+1. Khởi động lại ứng dụng để áp dụng các migration mới trong môi trường Development, sau đó đăng nhập `/Admin`.
+2. Vào **Bán hàng**, chọn thương hiệu của chuỗi. Chỉ các chi nhánh của thương hiệu đã chọn mới xuất hiện trên trang cửa hàng và có thể nhận đơn; dữ liệu cũ vẫn được giữ. Khi chưa chọn thương hiệu, trang giới thiệu giữ dữ liệu cũ và không thể mở chi nhánh nhận đơn.
+3. Trên trang **Bán hàng**, tìm chi nhánh và bật nhận đơn; đặt giá chung cho các đồ uống muốn bán. Đồ uống và danh mục phải được xuất bản. Giá để trống có nghĩa là món chưa bán.
+4. Trong **Kích cỡ và topping**, tạo các lựa chọn và giá cộng thêm. Nếu có kích cỡ đang bật, khách phải chọn một cỡ. Đường và đá có ba mức: bình thường, ít hoặc không.
+5. Khách đặt món tại `/Order/Index`, chọn nhận ở chi nhánh hoặc giao hàng và cung cấp số điện thoại. Trang **Đơn hàng** trong quản trị cho phép xem theo chi nhánh và chuyển trạng thái đơn.
+
+Giá đang dùng đồng Việt Nam và dùng chung cho mọi chi nhánh. Đơn được lưu trong PostgreSQL; nhân viên cần theo dõi trang quản trị để liên hệ xác nhận, và phí giao hàng được thỏa thuận riêng. Chưa có cổng thanh toán trực tuyến hoặc gửi thông báo tự động. Giỏ hàng dùng session trong bộ nhớ, có thể mất khi ứng dụng khởi động lại; màn hình đặt hàng hiện dùng tiếng Việt. Bản FE tĩnh `fe-demo` không hỗ trợ đặt hàng.
+
 ### Chuyển ID sang Guid
 
 Các khóa của nội dung, user và role dùng `Guid` (`uuid` trong PostgreSQL). ID riêng của user claim và role claim dùng `int` theo mặc định của ASP.NET Identity. Migration `ConvertIdsToGuid` chuyển dữ liệu và quan hệ hiện có trong cùng transaction, kể cả tài khoản, mật khẩu đã băm và claim; ID Identity đã có dạng GUID được giữ nguyên. ID số của dữ liệu cũ được chuyển nhất quán để giữ thứ tự, còn bản ghi mới dùng GUID do EF Core tạo.
@@ -61,7 +71,8 @@ Bản FE đã xuất sẵn tại [`fe-demo`](fe-demo/README.md), có giao diện
 - **Quản trị News:** đăng nhập/đăng xuất bằng ASP.NET Core Identity; tìm kiếm, phân trang, thêm/sửa/xóa, xem trước cả bản nháp và tải ảnh JPG/PNG/WebP tối đa 5 MB. Bản nháp chỉ quản trị viên xem được. Có kiểm tra dữ liệu phía server, chống CSRF, loại mã HTML không an toàn và phát hiện sửa đè từ bản cũ.
 - **Store:** PostgreSQL lưu 1.211 mục cửa hàng ban đầu, giữ thứ tự riêng toàn bộ/quốc gia/khu vực. Quản trị tìm kiếm, lọc, phân trang, thêm/sửa/xóa, ảnh, xuất bản và phát hiện sửa đè. Có quản trị quốc gia, khu vực, thương hiệu/logo và liên kết mạng xã hội; kiểm tra quan hệ trước khi lưu và chặn xóa dữ liệu đang được sử dụng.
 - **Đồ uống:** PostgreSQL lưu 54 món, 7 danh mục và 4 mục New Drinks ban đầu. Quản trị thêm/sửa/xóa, mô tả/khu vực/ảnh, thứ tự, xuất bản, ảnh và biểu tượng danh mục, thẻ trang chủ và nền New Drinks. Our Tea và carousel danh mục trang chủ đọc database. Danh mục ẩn sẽ ẩn toàn bộ món bên trong và thẻ trang chủ.
-- **Contact:** giữ giao diện không gửi form theo yêu cầu. Không có đặt hàng/thanh toán trong phạm vi website giới thiệu này.
+- **Đặt hàng:** khách chọn chi nhánh, tùy chọn đồ uống và gửi đơn; quản trị viên cấu hình bán hàng và xử lý đơn. Thanh toán khi nhận hàng, chưa tích hợp thanh toán trực tuyến.
+- **Contact:** giữ giao diện không gửi form theo yêu cầu.
 
 Ảnh tải lên lưu trong `wwwroot/uploads`, không đưa vào Git hoặc bản publish. Khi triển khai cần giữ thư mục uploads riêng cùng với dữ liệu PostgreSQL. Xóa bài viết chỉ xóa bản ghi, giữ các ảnh đã lưu.
 
@@ -106,7 +117,7 @@ Các trang nội dung đã dựng local, có bản tiếng Việt/tiếng Anh v�
 | Contact | `/Home/Contact` | Tiêu đề trượt lên, chuyển mờ giữa Contact/Business Partnership, ảnh Overseas trên desktop và các trường nhập/chọn dùng điều khiển gốc của trình duyệt |
 | Menu | `/Home/Menu` | Đường kẻ mở ngang, tiêu đề/danh sách trượt lên và 22 thực đơn của 17 quốc gia mở trong tab mới |
 
-Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Các nút Menu trên Our Tea, footer và gấu nổi mở `/Home/Menu`; ảnh thực đơn cũng được lưu local. Chưa có đặt hàng hoặc gửi form; News, Store, Menu và đồ uống đã dùng PostgreSQL, các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
+Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Các nút Menu trên Our Tea, footer và gấu nổi mở `/Home/Menu`; ảnh thực đơn cũng được lưu local. Contact chưa gửi form; News, Store, Menu, đồ uống và đơn hàng dùng PostgreSQL, các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
 Các trang nội dung trong bảng đã được duyệt, gồm cả Menu. Phần giao diện đã hoàn tất trong phạm vi các trang này; Contact giữ chế độ xem trước theo yêu cầu, không gửi form.
 
