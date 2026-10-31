@@ -449,3 +449,9 @@ html:has(.our-teaWrap) { scroll-padding-top: 0; }
 @media (prefers-reduced-motion: reduce) {
     .our-teaWrap .drinkList-pic { position: sticky; bottom: 0; margin-left: auto; visibility: visible; }
 }
+
+/* Let the section contain its title, rotating image and drink controls on short screens. */
+.our-teaWrap .new-drinkWrap { height: auto; min-height: 100svh; }
+@media (max-width: 639px) {
+    .our-teaWrap .new-drinkWrap { min-height: 667px; }
+}

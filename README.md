@@ -278,3 +278,11 @@ Trang bìa thay lựa chọn tiếng Trung bằng **TIẾNG VIỆT**, giữ **EN
 Tên riêng thương hiệu, địa chỉ cửa hàng tại nước ngoài và ảnh thực đơn/poster gốc được giữ nguyên; có thể nhập tên/địa chỉ tiếng Việt riêng trong quản trị. Video và các hình nhận diện thương hiệu vẫn dùng tài nguyên đã duyệt. Contact tiếp tục không gửi form.
 
 Kiểm tra phiên bản song ngữ: build/publish Release; 59 test tích hợp trên PostgreSQL mới, gồm chọn ngôn ngữ/CSRF, giữ URL và bộ lọc, chặn chuyển hướng ngoài, nội dung dịch từ máy chủ, lưu hai ngôn ngữ và HTML an toàn. Đã kiểm tra 13 trang ở 1440/390px, điều khiển animation và chuyển ngôn ngữ; ảnh xem trước: [trang chọn ngôn ngữ](docs/preview/languages-1440.png) · [Our Tea tiếng Việt](docs/preview/ourtea-vi-1440.png) · [Contact trên mobile](docs/preview/contact-vi-390.png).
+
+## Cửa sổ laptop nhỏ và responsive
+
+Phần bìa và các cảnh giữ màn hình tính kích thước theo chiều cao cửa sổ: nút điều khiển không lọt dưới màn hình, ảnh/chữ O thu cùng tỷ lệ, thẻ đồ uống giữ đủ tên và khoảng cách với nút chuyển. Menu vừa cả chiều rộng lẫn chiều cao. About và New Drinks tự giãn theo nội dung; mô tả lịch sử dùng cơ chế autoHeight có sẵn của Swiper. Bìa Precision vừa vùng nhìn khi được giữ trong lúc cuộn.
+
+Ma trận kiểm tra gồm 15 URL, VI/EN và 11 kích thước: 360×640, 390×844, 844×390, 768×1024, 1024×600, 1093×550, 1280×600, 1366×650, 1536×720, 1440×900, 1920×1080. Kiểm tra hồi quy còn bổ sung 1280×800 và 1440×850, nội dung bị cắt, nút chuyển đồ uống, menu, chín slide lịch sử, thay đổi kích thước khi đang cuộn và giảm chuyển động; mã kiểm tra nằm tại [tests/browser](tests/browser/README.md).
+
+Ảnh sau khi sửa: [đồ uống ở cửa sổ laptop 1366×650](docs/preview/laptop-drinks-1366x650.png) · [lịch sử About ở 844×390](docs/preview/about-history-844x390.png).
