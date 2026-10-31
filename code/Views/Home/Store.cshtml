@@ -20,24 +20,10 @@
 <div class="content-page store-page-content" id="home">
 <div class="storeWrap menu-pin">
     <div class="head-area">
-        <h1 class="en">@T["STORE"] <span class="note">700+</span></h1>
+        <h1 class="en">@T["STORE"] <span class="note">@T["VIETNAM"]</span></h1>
     </div>
     <div class="storeListWrap flex-container align-justify">
         <nav class="storeCat-area" aria-label="@T["Filter stores"]">
-            <div class="storeCat-inner">
-                <div class="store" id="store-country">@T["(Country)"]</div>
-                <ul class="storeCatList" aria-labelledby="store-country">
-                    <li class="@(Model.CountryId == Guid.Empty ? "current" : null)">
-                        <a asp-action="Store" class="flex-container align-middle" aria-current="@(Model.CountryId == Guid.Empty ? "true" : null)"><span class="dot"></span><span class="title">@T["All__text"]</span></a>
-                    </li>
-                    @foreach (var country in Model.Countries)
-                    {
-                        <li class="@(Model.CountryId == country.Id ? "current" : null)">
-                            <a asp-action="Store" asp-route-c="@country.Id" class="flex-container align-middle" aria-current="@(Model.CountryId == country.Id ? "true" : null)"><span class="dot"></span><span class="title">@country.Name</span></a>
-                        </li>
-                    }
-                </ul>
-            </div>
                 <div class="storeCat-inner">
                     <div class="store" id="store-location">@T["(Location)"]</div>
                     <ul class="storeCatList" aria-labelledby="store-location">
@@ -52,20 +38,6 @@
                         }
                     </ul>
                 </div>
-            <div class="storeCat-inner">
-                <div class="store" id="store-brand">@T["(Brand)"]</div>
-                <ul class="storeCatList" aria-labelledby="store-brand">
-                    <li class="@(Model.BrandId == Guid.Empty ? "current" : null)">
-                        <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" class="flex-container align-middle" aria-current="@(Model.BrandId == Guid.Empty ? "true" : null)"><span class="dot"></span><span class="title">@T["All__text"]</span></a>
-                    </li>
-                    @foreach (var brand in Model.Brands)
-                    {
-                        <li class="@(Model.BrandId == brand.Id ? "current" : null)">
-                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@brand.Id" class="flex-container align-middle" aria-current="@(Model.BrandId == brand.Id ? "true" : null)"><span class="dot"></span><span class="title">@brand.Name</span></a>
-                        </li>
-                    }
-                </ul>
-            </div>
         </nav>
         <div class="storeList-area">
             <ul class="store-socialList flex-container align-right" aria-label="@T["Country social media"]">
@@ -136,7 +108,7 @@
             </ul>
             @if (Model.Stores.Count == 0)
             {
-                <p class="store-empty" role="status">@T["No stores match these filters. Choose another location or brand."]</p>
+                <p class="store-empty" role="status">@T["No stores match these filters. Choose another location."]</p>
             }
             @if (Model.PageCount > 1)
             {

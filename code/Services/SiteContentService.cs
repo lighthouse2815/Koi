@@ -49,7 +49,9 @@ public class SiteContentService(ApplicationDbContext database)
 
     public async Task<StoreViewModel> GetStoresAsync(Guid c = default, Guid s = default, Guid b = default, int page = 1)
     {
-        var shopBrandId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.BrandId).SingleAsync();
+        var shop = await database.ShopSettings.AsNoTracking().SingleAsync(value => value.Id == 1);
+        var shopBrandId = shop.BrandId;
+        if (shop.MarketId.HasValue) c = shop.MarketId.Value;
         var markets = await database.Markets.AsNoTracking().Include(value => value.Brands).Include(value => value.SocialLinks)
             .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).AsSplitQuery().ToArrayAsync();
         var country = markets.FirstOrDefault(value => value.Id == c);
@@ -80,7 +82,8 @@ public class SiteContentService(ApplicationDbContext database)
 
     public async Task<MenuViewModel> GetMenusAsync()
     {
-        var menus = await database.Menus.AsNoTracking().Where(value => value.IsPublished).Include(value => value.Market)
+        var marketId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.MarketId).SingleAsync();
+        var menus = await database.Menus.AsNoTracking().Where(value => value.IsPublished && (!marketId.HasValue || value.MarketId == marketId)).Include(value => value.Market)
             .OrderBy(value => value.Market.SortOrder).ThenBy(value => value.MarketId).ThenBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         return new MenuViewModel(menus.GroupBy(value => value.MarketId).Select(group =>
             new MenuCountry(SiteText.Select(group.First().Market.Name, group.First().Market.NameVi), group.Select(value => new MenuDocument(SiteText.Select(value.Label, value.LabelVi), value.File)).ToArray())).ToArray());

@@ -16,9 +16,12 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
     {
         using var client = Anonymous(factory);
         var snapshot = StoreCatalog.Snapshot;
-        var queries = new List<(string Url, Guid[] Ids)> { ("/Home/Store", snapshot.Stores.Take(9).Select(value => SeedGuid("Stores", value.Id)).ToArray()) };
-        queries.AddRange(snapshot.Countries.Select(value => ($"/Home/Store?c={SeedGuid("Markets", value.Id)}", value.StoreIds.Take(9).Select(id => SeedGuid("Stores", id)).ToArray())));
-        queries.AddRange(snapshot.Locations.Select(value => ($"/Home/Store?c={SeedGuid("Markets", value.CountryId)}&s={SeedGuid("StoreCities", value.Id)}", value.StoreIds.Take(9).Select(id => SeedGuid("Stores", id)).ToArray())));
+        var chainBrand = snapshot.Brands.Single(value => value.Name == "KOI Thé").Id;
+        var vietnam = snapshot.Countries.Single(value => value.Name == "VIETNAM");
+        var branchIds = snapshot.Stores.Where(value => value.BrandId == chainBrand && value.CountryId == vietnam.Id).Select(value => value.Id).ToHashSet();
+        var firstPage = vietnam.StoreIds.Where(branchIds.Contains).Take(9).Select(id => SeedGuid("Stores", id)).ToArray();
+        var queries = new List<(string Url, Guid[] Ids)> { ("/Home/Store", firstPage), ($"/Home/Store?c={SeedGuid("Markets", 51)}", firstPage) };
+        queries.AddRange(snapshot.Locations.Where(value => value.CountryId == vietnam.Id).Select(value => ($"/Home/Store?s={SeedGuid("StoreCities", value.Id)}", value.StoreIds.Where(branchIds.Contains).Take(9).Select(id => SeedGuid("Stores", id)).ToArray())));
         foreach (var (url, ids) in queries)
         {
             var document = await new HtmlParser().ParseDocumentAsync(await client.GetStringAsync(url));
@@ -31,13 +34,8 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
     {
         using var client = Anonymous(factory);
         var page = await new HtmlParser().ParseDocumentAsync(await client.GetStringAsync("/Home/About"));
-        var ids = page.QuerySelectorAll("a[href*=\"/Home/Store?c=\"]")
-            .Select(value => new Uri("http://localhost" + value.GetAttribute("href")).Query[3..])
-            .Select(Guid.Parse).Distinct().ToArray();
-        Assert.NotEmpty(ids);
-        using var scope = factory.Services.CreateScope();
-        var markets = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Markets;
-        Assert.Equal(ids.Length, await markets.CountAsync(value => ids.Contains(value.Id)));
+        Assert.NotNull(page.QuerySelector("a[href=\"/Home/Store\"]"));
+        Assert.Empty(page.QuerySelectorAll("a[href*=\"/Home/Store?c=\"]"));
     }
 
     [Theory]
@@ -114,8 +112,9 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
         fields["Id"] = id.ToString(); fields["Revision"] = "1"; fields["Name"] += " updated";
         Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Geography/Edit/{id}?kind=countries", fields)).StatusCode);
         using var client = Anonymous(factory);
-        Assert.Contains(fields["Name"], await client.GetStringAsync($"/Home/Store?c={id}"));
-        Assert.Contains("https://example.test/", await client.GetStringAsync($"/Home/Store?c={id}"));
+        Assert.DoesNotContain(fields["Name"], await client.GetStringAsync($"/Home/Store?c={id}"));
+        using (var scope = factory.Services.CreateScope())
+            Assert.Contains((await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Markets.Include(value => value.SocialLinks).SingleAsync(value => value.Id == id)).SocialLinks, link => link.Url == "https://example.test/");
         Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Geography/Delete/{id}?kind=countries", new() { ["kind"] = "countries" })).StatusCode);
         Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, $"/Admin/Geography/Delete/{SeedGuid("Markets", 56)}?kind=countries", new() { ["kind"] = "countries" })).StatusCode);
         Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, $"/Admin/Geography/Delete/{SeedGuid("TeaBrands", 49)}?kind=brands", new() { ["kind"] = "brands" })).StatusCode);

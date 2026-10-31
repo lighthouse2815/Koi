@@ -96,30 +96,6 @@
         showIngredient(0);
         watchAutoplay(backgroundSlider);
 
-        const brands = [...about.querySelectorAll('.brandmap > li')];
-        const maps = [...about.querySelectorAll('.brandmapList > li')];
-        let brandIndex = 0;
-        const selectBrand = index => {
-            brandIndex = (index + brands.length) % brands.length;
-            brands.forEach((item, i) => {
-                item.classList.toggle('current', i === brandIndex);
-                item.setAttribute('aria-pressed', String(i === brandIndex));
-            });
-            maps.forEach((item, i) => item.hidden = i !== brandIndex);
-        };
-        brands.forEach((item, index) => {
-            item.setAttribute('aria-label', ['KOI Thé', 'KOI Thé Express', 'FIFTYLAN', 'KOI Café', 'Signature KOI', 'KOI PLUS'][index]);
-            activate(item, () => selectBrand(index));
-        });
-        ['prev', 'next'].forEach((direction, index) => {
-            const button = about.querySelector('.brandmapWrap .' + direction);
-            button.setAttribute('aria-label', index ? window.koiText('Next brand') : window.koiText('Previous brand'));
-            activate(button, () => selectBrand(brandIndex + (index ? 1 : -1)));
-        });
-        selectBrand(0);
-        const countrySelect = about.querySelector('.country-select');
-        activate(countrySelect.querySelector('.current'), () => countrySelect.classList.toggle('open'));
-
         const history = about.querySelector('.about-event');
         const yearSlider = new Swiper(history.querySelector('.history-year'), { effect: 'fade', fadeEffect: { crossFade: true }, speed: 700, autoHeight: true, allowTouchMove: false });
         const descriptionSlider = new Swiper(history.querySelector('.history-description'), { effect: 'fade', fadeEffect: { crossFade: true }, speed: 700, autoHeight: true, allowTouchMove: false });
@@ -364,10 +340,6 @@
                         onToggle: trigger => about.querySelector('.about-info-preview').classList.toggle('is-not-show', trigger.isActive || trigger.progress === 1) }
                 });
             }
-            gsap.fromTo('.about-brandmap .title .overflow .en', { yPercent: 100, rotation: 10 }, {
-                yPercent: 0, rotation: 0, duration: 1, ease: 'power2.out',
-                scrollTrigger: { trigger: '.about-brandmap', start: 'top 80%', toggleActions: 'play none play reverse' }
-            });
             if (context.conditions.desktop) {
                 const header = document.querySelector('.site-header');
                 ScrollTrigger.create({ trigger: '.about-event', start: 'top 1px', end: 'bottom top', onToggle: self => header.classList.toggle('header-light', self.isActive) });

@@ -11,11 +11,12 @@ public class GeographyAdminService(ApplicationDbContext database, ImageUploads u
     public async Task<GeographyIndexViewModel?> GetListAsync(string kind = "countries")
     {
         if (!ValidKind(kind)) return null;
+        var shopMarketId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.MarketId).SingleAsync();
         var rows = kind switch
         {
             "countries" => await database.Markets.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id)
                 .Select(value => new GeographyRow(value.Id, value.Name, "", value.SortOrder)).ToArrayAsync(),
-            "cities" => await database.StoreCities.AsNoTracking().OrderBy(value => value.Market.SortOrder).ThenBy(value => value.SortOrder).ThenBy(value => value.Id)
+            "cities" => await database.StoreCities.AsNoTracking().Where(value => !shopMarketId.HasValue || value.MarketId == shopMarketId).OrderBy(value => value.Market.SortOrder).ThenBy(value => value.SortOrder).ThenBy(value => value.Id)
                 .Select(value => new GeographyRow(value.Id, value.Name, value.Market.Name, value.SortOrder)).ToArrayAsync(),
             _ => await database.TeaBrands.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id)
                 .Select(value => new GeographyRow(value.Id, value.Name, "", value.SortOrder)).ToArrayAsync()
@@ -152,6 +153,8 @@ public class GeographyAdminService(ApplicationDbContext database, ImageUploads u
     public static string Title(string kind) => kind switch { "countries" => "Quốc gia", "cities" => "Khu vực", _ => "Thương hiệu" };
     private async Task<GeographyEditViewModel> Options(GeographyEditViewModel model)
     {
+        var shopMarketId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.MarketId).SingleAsync();
+        if (model.Kind == "cities" && model.MarketId == Guid.Empty && shopMarketId.HasValue) model.MarketId = shopMarketId.Value;
         model.Markets = new SelectList(await database.Markets.AsNoTracking().OrderBy(value => value.SortOrder).ToArrayAsync(), "Id", "Name");
         model.Brands = await database.TeaBrands.AsNoTracking().OrderBy(value => value.SortOrder).ToArrayAsync(); return model;
     }

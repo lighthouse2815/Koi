@@ -31,3 +31,7 @@ html:has(.content-motion) { scroll-behavior: auto; }
 @media (prefers-reduced-motion: reduce) {
     .content-page *, .content-page *::before, .content-page *::after { animation: none !important; transition: none !important; }
 }
+
+.about-branches { padding: clamp(3rem, 8vw, 7rem) 1.5rem; text-align: center; }
+.about-branches h2 { margin-bottom: 1rem; }
+.about-branches a { text-decoration: underline; }

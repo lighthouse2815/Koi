@@ -14,7 +14,7 @@
     <fieldset><legend>Thương hiệu tại quốc gia</legend>@foreach (var brand in Model.Brands) { <label class="check"><input type="checkbox" name="BrandIds" value="@brand.Id" checked="@Model.BrandIds.Contains(brand.Id)" /> @brand.Name</label> }</fieldset>
     <label asp-for="SocialLinks">Liên kết mạng xã hội / website</label><textarea asp-for="SocialLinks" rows="6" maxlength="10000"></textarea><p class="help">Mỗi dòng: Tên liên kết | https://dia-chi. Ví dụ: Facebook | https://www.facebook.com/koithevietnam</p>
 }
-@if (Model.Kind == "cities") { <label asp-for="MarketId">Quốc gia</label><select asp-for="MarketId" asp-items="Model.Markets" required><option value="">Chọn quốc gia</option></select> }
+@if (Model.Kind == "cities") { <input asp-for="MarketId" type="hidden" /> }
 @if (Model.Kind == "brands")
 {
     <label asp-for="ImageUpload">Logo thương hiệu</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Logo hiện tại" /> }

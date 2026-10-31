@@ -8,12 +8,15 @@ namespace Koi.Web.Services;
 
 public class MenuAdminService(ApplicationDbContext database, ImageUploads uploads, ILogger<MenuAdminService> logger)
 {
-    public async Task<AdminMenusViewModel> GetListAsync(Guid marketId) => new(
-        await database.Menus.AsNoTracking().Include(value => value.Market).Where(value => marketId == Guid.Empty || value.MarketId == marketId)
+    public async Task<AdminMenusViewModel> GetListAsync(Guid marketId)
+    {
+        var shopMarketId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.MarketId).SingleAsync();
+        return new(await database.Menus.AsNoTracking().Include(value => value.Market).Where(value => !shopMarketId.HasValue || value.MarketId == shopMarketId)
             .OrderBy(value => value.Market.SortOrder).ThenBy(value => value.MarketId).ThenBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync(),
-        await Markets(), marketId);
+            await Markets(), shopMarketId ?? Guid.Empty);
+    }
 
-    public async Task<MenuEditViewModel> CreateAsync() => new() { Markets = await Markets() };
+    public async Task<MenuEditViewModel> CreateAsync() => new() { MarketId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.MarketId).SingleAsync() ?? Guid.Empty, Markets = await Markets() };
 
     public async Task<MenuEditViewModel?> GetEditAsync(Guid id)
     {

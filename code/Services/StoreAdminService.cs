@@ -12,7 +12,9 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
     {
         search = search?.Trim();
         if (search?.Length > 200) search = search[..200];
-        var query = database.Stores.AsNoTracking().Where(value => marketId == Guid.Empty || value.MarketId == marketId);
+        var shop = await database.ShopSettings.AsNoTracking().SingleAsync(value => value.Id == 1);
+        var query = database.Stores.AsNoTracking().Where(value => (!shop.MarketId.HasValue || value.MarketId == shop.MarketId)
+            && (!shop.BrandId.HasValue || value.BrandId == shop.BrandId) && (marketId == Guid.Empty || value.MarketId == marketId));
         if (!string.IsNullOrEmpty(search)) query = query.Where(value => EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.Address, $"%{search}%") || EF.Functions.ILike(value.NameVi, $"%{search}%") || EF.Functions.ILike(value.AddressVi, $"%{search}%"));
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 20d));
         page = Math.Clamp(page, 1, pages);
@@ -40,6 +42,9 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
         var value = id.HasValue ? await database.Stores.SingleOrDefaultAsync(value => value.Id == id) : new StoreEntry();
         if (value == null) return SaveResult.NotFound;
         model.CurrentImage = value.Photo;
+        var shop = await database.ShopSettings.AsNoTracking().SingleAsync(value => value.Id == 1);
+        if ((shop.MarketId.HasValue && model.MarketId != shop.MarketId) || (shop.BrandId.HasValue && model.BrandId != shop.BrandId))
+            modelState.AddModelError("", "Chi nhánh phải thuộc chuỗi KOI Thé tại Việt Nam.");
         if (!await database.Markets.AnyAsync(value => value.Id == model.MarketId)) modelState.AddModelError(nameof(model.MarketId), "Chọn quốc gia hợp lệ.");
         if (model.CityId.HasValue && !await database.StoreCities.AnyAsync(value => value.Id == model.CityId && value.MarketId == model.MarketId))
             modelState.AddModelError(nameof(model.CityId), "Khu vực phải thuộc quốc gia đã chọn.");
@@ -92,8 +97,11 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
 
     private async Task<StoreEditViewModel> Options(StoreEditViewModel model)
     {
-        model.Markets = new SelectList(await database.Markets.AsNoTracking().OrderBy(value => value.SortOrder).ToArrayAsync(), "Id", "Name");
-        model.Cities = await database.StoreCities.AsNoTracking().Include(value => value.Market).OrderBy(value => value.SortOrder).ToArrayAsync();
+        var shop = await database.ShopSettings.AsNoTracking().SingleAsync(value => value.Id == 1);
+        if (model.MarketId == Guid.Empty && shop.MarketId.HasValue) model.MarketId = shop.MarketId.Value;
+        if (model.BrandId == Guid.Empty && shop.BrandId.HasValue) model.BrandId = shop.BrandId.Value;
+        model.Markets = new SelectList(await database.Markets.AsNoTracking().Where(value => !shop.MarketId.HasValue || value.Id == shop.MarketId).OrderBy(value => value.SortOrder).ToArrayAsync(), "Id", "Name");
+        model.Cities = await database.StoreCities.AsNoTracking().Include(value => value.Market).Where(value => !shop.MarketId.HasValue || value.MarketId == shop.MarketId).OrderBy(value => value.SortOrder).ToArrayAsync();
         model.Brands = new SelectList(await database.TeaBrands.AsNoTracking().OrderBy(value => value.SortOrder).ToArrayAsync(), "Id", "Name");
         return model;
     }

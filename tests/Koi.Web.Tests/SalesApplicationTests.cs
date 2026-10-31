@@ -25,7 +25,7 @@ public class SalesApplicationTests(NewsApplicationFactory factory) : IClassFixtu
         {
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             var category = await db.DrinkCategories.FirstAsync();
-            var original = await db.Stores.AsNoTracking().FirstAsync();
+            var original = await db.Stores.AsNoTracking().FirstAsync(value => value.Market.Name == "VIETNAM" && value.Brand.Name == "KOI Thé");
             var drink = new Drink { Name = "Giá kiểm thử " + Guid.NewGuid(), CategoryId = category.Id };
             var branch = new StoreEntry { Name = "Chi nhánh kiểm thử " + Guid.NewGuid(), MarketId = original.MarketId, BrandId = original.BrandId };
             db.AddRange(drink, branch);
@@ -59,7 +59,7 @@ public class SalesApplicationTests(NewsApplicationFactory factory) : IClassFixtu
             previous = (await db.ShopSettings.FindAsync(1))!.BrandId;
             var brands = await db.TeaBrands.OrderBy(value => value.Id).Take(2).ToArrayAsync();
             brandId = brands[0].Id; otherBrandId = brands[1].Id;
-            var marketId = (await db.Markets.FirstAsync()).Id;
+            var marketId = (await db.Markets.SingleAsync(value => value.Name == "VIETNAM")).Id;
             var first = new StoreEntry { Name = firstName, BrandId = brandId, MarketId = marketId, AcceptsOrders = true };
             var second = new StoreEntry { Name = secondName, BrandId = otherBrandId, MarketId = marketId, AcceptsOrders = true };
             db.AddRange(first, second); await db.SaveChangesAsync(); firstId = first.Id; secondId = second.Id;

@@ -20,7 +20,7 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
         using (var scope = factory.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            var original = await db.Stores.AsNoTracking().FirstAsync();
+            var original = await db.Stores.AsNoTracking().FirstAsync(value => value.Market.Name == "VIETNAM" && value.Brand.Name == "KOI Thé");
             var category = new DrinkCategory { Name = "Danh mục " + Guid.NewGuid(), Image = "test", IsPublished = true };
             var branch = new StoreEntry { Name = "Chi nhánh đặt hàng " + Guid.NewGuid(), Address = "Địa chỉ kiểm thử", MarketId = original.MarketId, BrandId = original.BrandId, AcceptsOrders = true, IsPublished = true };
             var drink = new Drink { Name = "Trà thử nghiệm " + Guid.NewGuid(), Category = category, Price = 40000, IsPublished = true };
@@ -69,7 +69,7 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
         using (var scope = factory.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            var source = await db.Stores.AsNoTracking().FirstAsync();
+            var source = await db.Stores.AsNoTracking().FirstAsync(value => value.Market.Name == "VIETNAM" && value.Brand.Name == "KOI Thé");
             var category = new DrinkCategory { Name = "Danh mục lựa chọn " + Guid.NewGuid(), Image = "test" };
             var drink = new Drink { Name = "Trà lựa chọn " + Guid.NewGuid(), Category = category, Price = 30000 };
             var branch = new StoreEntry { Name = "Chi nhánh lựa chọn " + Guid.NewGuid(), Address = "Địa chỉ", MarketId = source.MarketId, BrandId = source.BrandId, AcceptsOrders = true };

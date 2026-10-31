@@ -16,10 +16,11 @@ public class MenuApplicationTests(NewsApplicationFactory factory) : IClassFixtur
     {
         using var client = Anonymous(factory);
         var document = await new HtmlParser().ParseDocumentAsync(await client.GetStringAsync("/Home/Menu"));
-        Assert.Equal(MenuCatalog.Countries.Select(value => value.Name), document.QuerySelectorAll(".menu-inner h2").Select(value => value.TextContent.Trim()));
+        var countries = MenuCatalog.Countries.Where(value => value.Name == "VIETNAM").ToArray();
+        Assert.Equal(countries.Select(value => value.Name), document.QuerySelectorAll(".menu-inner h2").Select(value => value.TextContent.Trim()));
         var links = document.QuerySelectorAll(".linkList a");
-        Assert.Equal(MenuCatalog.Countries.SelectMany(value => value.Menus).Select(value => value.Label), links.Select(value => value.QuerySelector(".store")!.TextContent));
-        Assert.Equal(MenuCatalog.Countries.SelectMany(value => value.Menus).Select(value => "/menus/" + value.File), links.Select(value => value.GetAttribute("href")));
+        Assert.Equal(countries.SelectMany(value => value.Menus).Select(value => value.Label), links.Select(value => value.QuerySelector(".store")!.TextContent));
+        Assert.Equal(countries.SelectMany(value => value.Menus).Select(value => "/menus/" + value.File), links.Select(value => value.GetAttribute("href")));
         Assert.All(links, value => Assert.Equal("_blank", value.GetAttribute("target")));
     }
 

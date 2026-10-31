@@ -12,7 +12,7 @@ internal sealed class SalesTestBrand(NewsApplicationFactory factory, Guid? previ
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var settings = await db.ShopSettings.FindAsync(1) ?? throw new InvalidOperationException("Thiếu cấu hình cửa hàng.");
         var previous = settings.BrandId;
-        settings.BrandId = (await db.Stores.AsNoTracking().FirstAsync()).BrandId;
+        settings.BrandId = (await db.Stores.AsNoTracking().FirstAsync(value => value.MarketId == settings.MarketId && value.BrandId == settings.BrandId)).BrandId;
         await db.SaveChangesAsync();
         return new SalesTestBrand(factory, previous);
     }

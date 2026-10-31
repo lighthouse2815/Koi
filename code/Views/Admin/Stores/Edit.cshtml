@@ -1,33 +1,31 @@
 @model StoreEditViewModel
-@{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = editing ? "Sửa cửa hàng" : "Thêm cửa hàng"; }
-<div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh sách cửa hàng</a></div>
+@{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = editing ? "Sửa chi nhánh" : "Thêm chi nhánh"; }
+<div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh sách chi nhánh</a></div>
 <form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor">
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
 <div asp-validation-summary="All" class="validation" role="alert"></div>
 <div class="editor-columns"><div class="card">
 <fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>
-<label asp-for="NameVi">Tên cửa hàng tiếng Việt</label><input asp-for="NameVi" maxlength="300" />
+<label asp-for="NameVi">Tên chi nhánh tiếng Việt</label><input asp-for="NameVi" maxlength="300" />
 <label asp-for="AddressVi">Địa chỉ tiếng Việt</label><textarea asp-for="AddressVi" rows="4" maxlength="2000"></textarea>
 <label asp-for="HoursVi">Giờ mở cửa tiếng Việt</label><input asp-for="HoursVi" maxlength="500" />
 </fieldset>
 
-<label asp-for="Name">Tên cửa hàng</label><input asp-for="Name" required maxlength="300" />
-<label asp-for="MarketId">Quốc gia</label><select asp-for="MarketId" asp-items="Model.Markets" required><option value="">Chọn quốc gia</option></select>
+<label asp-for="Name">Tên chi nhánh</label><input asp-for="Name" required maxlength="300" />
+<input asp-for="MarketId" type="hidden" /><input asp-for="BrandId" type="hidden" />
 <label asp-for="CityId">Khu vực</label><select asp-for="CityId"><option value="">Không phân khu vực</option>@foreach (var city in Model.Cities) { <option value="@city.Id" data-market="@city.MarketId">@city.Market.Name — @city.Name</option> }</select>
-<label asp-for="BrandId">Thương hiệu</label><select asp-for="BrandId" asp-items="Model.Brands" required><option value="">Chọn thương hiệu</option></select>
-<p class="help">Gán thương hiệu cho quốc gia trong mục Quốc gia trước khi thêm cửa hàng.</p>
 <label asp-for="Address">Địa chỉ</label><textarea asp-for="Address" rows="3" maxlength="2000"></textarea>
 <div class="field-row"><div><label asp-for="Phone">Điện thoại</label><input asp-for="Phone" maxlength="100" /></div><div><label asp-for="Hours">Giờ mở cửa</label><input asp-for="Hours" maxlength="500" /></div></div>
 <label asp-for="NavigationUrl">Liên kết chỉ đường</label><input asp-for="NavigationUrl" type="url" maxlength="2000" />
 </div><aside class="card">
-<label asp-for="ImageUpload">Ảnh cửa hàng</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }
+<label asp-for="ImageUpload">Ảnh chi nhánh</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }
 <input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" /><p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Để trống để giữ ảnh hiện tại.</p>
 <label class="check"><input asp-for="RemoveImage" /> Bỏ ảnh hiện tại</label>
 <label class="check"><input asp-for="IsPublished" /> Hiển thị trên website</label>
 <label asp-for="SortOrder">Thứ tự toàn bộ</label><input asp-for="SortOrder" type="number" min="0" max="1000000" />
-<label asp-for="CountryOrder">Thứ tự trong quốc gia</label><input asp-for="CountryOrder" type="number" min="0" max="1000000" />
+<input asp-for="CountryOrder" type="hidden" />
 <label asp-for="CityOrder">Thứ tự trong khu vực</label><input asp-for="CityOrder" type="number" min="0" max="1000000" />
-<p class="help">Số nhỏ hiển thị trước.</p><button type="submit" class="button">Lưu cửa hàng</button>
+<p class="help">Số nhỏ hiển thị trước.</p><button type="submit" class="button">Lưu chi nhánh</button>
 @if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }
 </aside></div></form>
 <script>
