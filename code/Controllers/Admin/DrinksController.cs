@@ -1,34 +1,19 @@
-using Koi.Web.Data;
 using Koi.Web.Models;
 using Koi.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
-public class DrinksController(ApplicationDbContext database, ImageUploads uploads, ILogger<DrinksController> logger) : Controller
+public class DrinksController(DrinkAdminService drinks) : Controller
 {
-    public async Task<IActionResult> Index(string? search, int categoryId = 0, int page = 1)
-    {
-        search = search?.Trim(); if (search?.Length > 200) search = search[..200];
-        var query = database.Drinks.AsNoTracking().Where(value => categoryId == 0 || value.CategoryId == categoryId);
-        if (!string.IsNullOrEmpty(search)) query = query.Where(value => (EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.NameVi, $"%{search}%")));
-        var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 20d)); page = Math.Clamp(page, 1, pages);
-        return View(new AdminDrinksViewModel(await query.Include(value => value.Category).OrderBy(value => value.Category.SortOrder)
-            .ThenBy(value => value.CategoryId).ThenBy(value => value.SortOrder).ThenBy(value => value.Id).Skip((page - 1) * 20).Take(20).ToArrayAsync(),
-            await Categories(), categoryId, search, page, pages));
-    }
-
-    public async Task<IActionResult> Create() => View("Edit", new DrinkEditViewModel { Categories = await Categories() });
+    public async Task<IActionResult> Index(string? search, int categoryId = 0, int page = 1) => View(await drinks.GetListAsync(search, categoryId, page));
+    public async Task<IActionResult> Create() => View("Edit", await drinks.CreateAsync());
     public async Task<IActionResult> Edit(int id)
     {
-        var value = await database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View(new DrinkEditViewModel { Id = id, Revision = value.Revision, NameVi = value.NameVi, RegionVi = value.RegionVi, DescriptionVi = value.DescriptionVi, Name = value.Name,
-            CategoryId = value.CategoryId, Region = value.Region, Description = value.Description, SortOrder = value.SortOrder,
-            IsPublished = value.IsPublished, CurrentImage = value.Image, Categories = await Categories() });
+        var model = await drinks.GetEditAsync(id);
+        return model == null ? NotFound() : View(model);
     }
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
     public Task<IActionResult> Create(DrinkEditViewModel model) => Save(model, null);
@@ -37,43 +22,32 @@ public class DrinksController(ApplicationDbContext database, ImageUploads upload
 
     private async Task<IActionResult> Save(DrinkEditViewModel model, int? id)
     {
-        var value = id.HasValue ? await database.Drinks.SingleOrDefaultAsync(value => value.Id == id) : new Drink();
-        if (value == null) return NotFound(); model.CurrentImage = value.Image;
-        if (!await database.DrinkCategories.AnyAsync(value => value.Id == model.CategoryId)) ModelState.AddModelError(nameof(model.CategoryId), "Chọn danh mục hợp lệ.");
-        var image = await uploads.ReadAsync(model.ImageUpload, ModelState, nameof(model.ImageUpload));
-        if (!ModelState.IsValid) { Response.StatusCode = 400; model.Categories = await Categories(); return View("Edit", model); }
-        string? uploaded = null;
-        try
+        var result = await drinks.SaveAsync(model, id, ModelState);
+        if (result == SaveResult.NotFound) return NotFound();
+        if (result == SaveResult.Success)
         {
-            if (image != null) value.Image = uploaded = await uploads.SaveAsync(image, "drinks");
-            else if (model.RemoveImage) value.Image = "";
-            value.Name = model.Name.Trim();
-            value.NameVi = model.NameVi?.Trim() ?? ""; value.RegionVi = model.RegionVi?.Trim() ?? ""; value.DescriptionVi = model.DescriptionVi?.Trim() ?? ""; value.CategoryId = model.CategoryId; value.Region = model.Region?.Trim() ?? "";
-            value.Description = model.Description?.Trim() ?? ""; value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
-            if (id == null) database.Drinks.Add(value);
-            else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
-            await database.SaveChangesAsync(); TempData["Status"] = "Đã lưu đồ uống.";
+            TempData["Status"] = "Đã lưu đồ uống.";
             return RedirectToAction(nameof(Index), new { categoryId = model.CategoryId });
         }
-        catch (DbUpdateConcurrencyException) { Response.StatusCode = 409; ModelState.AddModelError("", "Đồ uống đã thay đổi. Hãy tải lại trang trước khi lưu."); }
-        catch (Exception exception) when (exception is DbUpdateException or IOException)
+        Response.StatusCode = result switch
         {
-            logger.LogError(exception, "Could not save drink {Id}", id); Response.StatusCode = 503;
-            ModelState.AddModelError("", "Chưa lưu được đồ uống. Vui lòng thử lại.");
-        }
-        uploads.Rollback(uploaded); model.Categories = await Categories(); return View("Edit", model);
+            SaveResult.Invalid => StatusCodes.Status400BadRequest,
+            SaveResult.Conflict => StatusCodes.Status409Conflict,
+            _ => StatusCodes.Status503ServiceUnavailable
+        };
+        return View("Edit", model);
     }
 
     public async Task<IActionResult> Delete(int id)
     {
-        var value = await database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(id, value.Name));
+        var model = await drinks.GetDeleteAsync(id);
+        return model == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", model);
     }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var value = await database.Drinks.FindAsync(id); if (value == null) return NotFound();
-        database.Drinks.Remove(value); await database.SaveChangesAsync(); TempData["Status"] = "Đã xóa đồ uống."; return RedirectToAction(nameof(Index));
+        if (!await drinks.DeleteAsync(id)) return NotFound();
+        TempData["Status"] = "Đã xóa đồ uống.";
+        return RedirectToAction(nameof(Index));
     }
-    private async Task<SelectList> Categories() => new(await database.DrinkCategories.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync(), "Id", "Name");
 }
