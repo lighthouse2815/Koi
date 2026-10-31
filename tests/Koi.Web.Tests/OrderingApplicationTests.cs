@@ -57,4 +57,49 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         Assert.Contains("Nhập địa chỉ giao hàng", WebUtility.HtmlDecode(await response.Content.ReadAsStringAsync()));
     }
+    [Fact]
+    public async Task CustomizationsArePricedAndSavedForEachCup()
+    {
+        using var client = AdminTestClient.Anonymous(factory);
+        Guid branchId, drinkId, sizeId, toppingId;
+        using (var scope = factory.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var source = await db.Stores.AsNoTracking().FirstAsync();
+            var category = new DrinkCategory { Name = "Danh mục lựa chọn " + Guid.NewGuid(), Image = "test" };
+            var drink = new Drink { Name = "Trà lựa chọn " + Guid.NewGuid(), Category = category, Price = 30000 };
+            var branch = new StoreEntry { Name = "Chi nhánh lựa chọn " + Guid.NewGuid(), Address = "Địa chỉ", MarketId = source.MarketId, BrandId = source.BrandId, AcceptsOrders = true };
+            var size = new SaleOption { Name = "Lớn", Kind = SaleOptionKind.Size, ExtraPrice = 5000 };
+            var topping = new SaleOption { Name = "Trân châu", Kind = SaleOptionKind.Topping, ExtraPrice = 10000 };
+            db.AddRange(drink, branch, size, topping); await db.SaveChangesAsync();
+            branchId = branch.Id; drinkId = drink.Id; sizeId = size.Id; toppingId = topping.Id;
+        }
+        try
+        {
+            await AdminTestClient.Post(client, "/Order/SelectBranch", new() { ["storeId"] = branchId.ToString() }, tokenUrl: "/Admin/Account/Login");
+            var add = await AdminTestClient.Post(client, "/Order/Add", new() { ["id"] = drinkId.ToString(), ["quantity"] = "2", ["sizeId"] = sizeId.ToString(), ["toppingIds"] = toppingId.ToString(), ["sugar"] = "1", ["ice"] = "2" }, tokenUrl: "/Admin/Account/Login");
+            Assert.Equal(HttpStatusCode.Redirect, add.StatusCode);
+            var second = await AdminTestClient.Post(client, "/Order/Add", new() { ["id"] = drinkId.ToString(), ["quantity"] = "1", ["sizeId"] = sizeId.ToString() }, tokenUrl: "/Admin/Account/Login");
+            Assert.Equal(HttpStatusCode.Redirect, second.StatusCode);
+            var checkout = await AdminTestClient.Post(client, "/Order/Checkout", new() { ["Checkout.CustomerName"] = "Khách chọn món", ["Checkout.CustomerPhone"] = "0901234567", ["Checkout.Fulfillment"] = "0" }, tokenUrl: "/Admin/Account/Login");
+            Assert.Equal(HttpStatusCode.Redirect, checkout.StatusCode);
+            using var verify = factory.Services.CreateScope();
+            var db = verify.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var order = await db.Orders.Include(value => value.Items).SingleAsync(value => value.StoreId == branchId);
+            Assert.Equal(2, order.Items.Count);
+            var customized = order.Items.Single(value => value.Quantity == 2);
+            Assert.Equal(45000m, customized.UnitPrice);
+            Assert.Contains("Trân châu", customized.Customization);
+            Assert.Contains("Đường: Ít", customized.Customization);
+            Assert.Contains("Đá: Không", customized.Customization);
+            Assert.Equal(35000m, order.Items.Single(value => value.Quantity == 1).UnitPrice);
+        }
+        finally
+        {
+            using var scope = factory.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            await db.SaleOptions.Where(value => value.Id == sizeId || value.Id == toppingId).ExecuteUpdateAsync(update => update.SetProperty(value => value.IsActive, false));
+        }
+    }
+
 }

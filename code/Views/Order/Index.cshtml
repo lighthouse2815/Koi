@@ -14,12 +14,17 @@ else { <form asp-action="SelectBranch" method="post" class="inline-form"><label 
 <section class="order-card"><h2>2. Chọn đồ uống</h2>
 @if (Model.Drinks.Length == 0) { <p>Chưa có đồ uống được mở bán.</p> }
 <div class="drink-grid">@foreach (var drink in Model.Drinks) {
-<article class="drink-card"><h3>@(string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi)</h3><p>@drink.Price!.Value.ToString("N0", culture) đ</p><form asp-action="Add" method="post"><input type="hidden" name="id" value="@drink.Id" /><label>Số lượng <input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ</button></form></article>
+<article class="drink-card"><h3>@(string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi)</h3><p>@drink.Price!.Value.ToString("N0", culture) đ</p><form asp-action="Add" method="post"><input type="hidden" name="id" value="@drink.Id" />
+@if (Model.Sizes.Length > 0) { <label>Kích cỡ <select name="sizeId" required><option value="">Chọn cỡ</option>@foreach (var size in Model.Sizes) { <option value="@size.Id">@size.Name (+@size.ExtraPrice.ToString("N0", culture) đ)</option> }</select></label> }
+<label>Đường <select name="sugar"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label>
+<label>Đá <select name="ice"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label>
+@if (Model.Toppings.Length > 0) { <fieldset><legend>Topping (tối đa 5)</legend>@foreach (var topping in Model.Toppings) { <label><input type="checkbox" name="toppingIds" value="@topping.Id" /> @topping.Name (+@topping.ExtraPrice.ToString("N0", culture) đ)</label><br /> }</fieldset> }
+<label>Số lượng <input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ</button></form></article>
 }</div></section>
 }
 <section class="order-card"><h2>3. Giỏ hàng</h2>
 @if (Model.Lines.Count == 0) { <p>Giỏ hàng đang trống.</p> }
-else { @foreach (var line in Model.Lines) { <div class="cart-line"><span>@line.Name · @line.Price.ToString("N0", culture) đ</span><form asp-action="Update" method="post" class="inline-form"><input type="hidden" name="id" value="@line.DrinkId" /><label>Số lượng <input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label><button type="submit">Cập nhật</button><small>Nhập 0 để xóa</small></form></div> } <p><strong>Tạm tính: @Model.Total.ToString("N0", culture) đ</strong></p> }
+else { @foreach (var line in Model.Lines) { <div class="cart-line"><span>@line.Name · @line.Price.ToString("N0", culture) đ<br /><small>@line.Customization</small></span><form asp-action="Update" method="post" class="inline-form"><input type="hidden" name="id" value="@line.LineId" /><label>Số lượng <input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label><button type="submit">Cập nhật</button><small>Nhập 0 để xóa</small></form></div> } <p><strong>Tạm tính: @Model.Total.ToString("N0", culture) đ</strong></p> }
 </section>
 @if (Model.Branch != null && Model.Lines.Count > 0) {
 <section class="order-card"><h2>4. Thông tin nhận hàng</h2><form asp-action="Checkout" method="post" class="checkout-form">

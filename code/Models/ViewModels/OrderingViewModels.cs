@@ -10,15 +10,23 @@ public class ShoppingCart
 }
 public class CartItem
 {
+    public Guid LineId { get; set; } = Guid.NewGuid();
     public Guid DrinkId { get; set; }
+    public Guid? SizeId { get; set; }
+    public List<Guid> ToppingIds { get; set; } = [];
+    public int Sugar { get; set; }
+    public int Ice { get; set; }
+    public string Customization { get; set; } = "";
     public int Quantity { get; set; }
     public decimal Price { get; set; }
 }
-public record CartLine(Guid DrinkId, string Name, int Quantity, decimal Price);
+public record CartLine(Guid LineId, string Name, string Customization, int Quantity, decimal Price);
 public class OrderingPageViewModel
 {
     public StoreEntry[] Branches { get; set; } = [];
     public Drink[] Drinks { get; set; } = [];
+    public SaleOption[] Sizes { get; set; } = [];
+    public SaleOption[] Toppings { get; set; } = [];
     public ShoppingCart Cart { get; set; } = new();
     public StoreEntry? Branch { get; set; }
     public List<CartLine> Lines { get; set; } = [];
