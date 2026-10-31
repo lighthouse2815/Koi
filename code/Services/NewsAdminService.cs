@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public enum SaveResult { Success, NotFound, Invalid, Conflict, Unavailable }
-
 public class NewsAdminService(ApplicationDbContext database, ImageUploads uploads, ILogger<NewsAdminService> logger)
 {
     public async Task<AdminNewsViewModel> GetListAsync(string? search, int page = 1)
