@@ -10,9 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Koi.Web.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : IdentityDbContext<
-        IdentityUser<Guid>, IdentityRole<Guid>, Guid, UserClaim,
-        IdentityUserRole<Guid>, IdentityUserLogin<Guid>, RoleClaim, IdentityUserToken<Guid>>(options)
+    : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>(options)
 {
     public DbSet<NewsArticle> NewsArticles => Set<NewsArticle>();
     public DbSet<Market> Markets => Set<Market>();
@@ -28,10 +26,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<UserClaim>().HasKey(value => value.Id);
-        builder.Entity<UserClaim>().Property(value => value.Id).ValueGeneratedOnAdd();
-        builder.Entity<RoleClaim>().HasKey(value => value.Id);
-        builder.Entity<RoleClaim>().Property(value => value.Id).ValueGeneratedOnAdd();
         builder.Entity<MarketBrand>().HasKey(value => new { value.MarketId, value.BrandId });
         builder.Entity<StoreEntry>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<StoreEntry>().HasOne(value => value.City).WithMany().OnDelete(DeleteBehavior.Restrict);

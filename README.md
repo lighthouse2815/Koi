@@ -35,9 +35,9 @@ Development tự áp dụng migration và tạo tài khoản được cấu hìn
 
 ### Chuyển ID sang Guid
 
-Các khóa chính và khóa ngoại của nội dung và ASP.NET Identity dùng `Guid` (`uuid` trong PostgreSQL). Migration `ConvertIdsToGuid` chuyển dữ liệu và quan hệ hiện có trong cùng transaction, kể cả tài khoản, mật khẩu đã băm và claim; ID Identity đã có dạng GUID được giữ nguyên. ID số của dữ liệu cũ được chuyển nhất quán để giữ thứ tự, còn bản ghi mới dùng GUID do EF Core tạo.
+Các khóa của nội dung, user và role dùng `Guid` (`uuid` trong PostgreSQL). ID riêng của user claim và role claim dùng `int` theo mặc định của ASP.NET Identity. Migration `ConvertIdsToGuid` chuyển dữ liệu và quan hệ hiện có trong cùng transaction, kể cả tài khoản, mật khẩu đã băm và claim; ID Identity đã có dạng GUID được giữ nguyên. ID số của dữ liệu cũ được chuyển nhất quán để giữ thứ tự, còn bản ghi mới dùng GUID do EF Core tạo.
 
-Trước khi áp dụng lên database đang sử dụng, hãy sao lưu và kiểm tra bản sao: migration không hỗ trợ chuyển ngược tự động vì các GUID mới không thể quy đổi an toàn về ID số. Các URL chứa ID số cũ, chẳng hạn `/Home/NewsDetail/7931`, không còn hoạt động; dùng liên kết GUID mới trên website. Các tài khoản có ID cũ không phải GUID cần đăng nhập lại.
+Trước khi áp dụng lên database đang sử dụng, hãy sao lưu và kiểm tra bản sao: migration không hỗ trợ chuyển ngược tự động vì các GUID mới không thể quy đổi an toàn về ID số. Các URL chứa ID số cũ, chẳng hạn `/Home/NewsDetail/7931`, không còn hoạt động; dùng liên kết GUID mới trên website. Các tài khoản có ID cũ không phải GUID cần đăng nhập lại. Migration `UseDefaultIdentityClaims` giữ nội dung claim và đổi ID riêng của claim về số nguyên.
 
 
 ## Deploy riêng FE lên Cloudflare Pages

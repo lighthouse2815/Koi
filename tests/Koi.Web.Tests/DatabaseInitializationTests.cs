@@ -28,7 +28,7 @@ public class DatabaseInitializationTests(NewsApplicationFactory factory) : IClas
         Assert.Equal(1, await roles.Roles.CountAsync(value => value.Name == "Admin"));
     }
     [Fact]
-    public async Task IdentityUsesGuidKeysForUsersRolesAndClaims()
+    public async Task IdentityUsesGuidKeysForUsersAndRolesAndDefaultClaimKeys()
     {
         using var scope = factory.Services.CreateScope();
         var users = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser<Guid>>>();
@@ -46,10 +46,10 @@ public class DatabaseInitializationTests(NewsApplicationFactory factory) : IClas
         var roleClaim = new Claim("koi-test-role", "value");
         Assert.True((await users.AddClaimAsync(user, userClaim)).Succeeded);
         Assert.True((await roles.AddClaimAsync(role, roleClaim)).Succeeded);
-        var storedUserClaim = await database.Set<UserClaim>().AsNoTracking().SingleAsync(value => value.UserId == user.Id);
-        var storedRoleClaim = await database.Set<RoleClaim>().AsNoTracking().SingleAsync(value => value.RoleId == role.Id);
-        Assert.NotEqual(Guid.Empty, storedUserClaim.Id);
-        Assert.NotEqual(Guid.Empty, storedRoleClaim.Id);
+        var storedUserClaim = await database.Set<IdentityUserClaim<Guid>>().AsNoTracking().SingleAsync(value => value.UserId == user.Id);
+        var storedRoleClaim = await database.Set<IdentityRoleClaim<Guid>>().AsNoTracking().SingleAsync(value => value.RoleId == role.Id);
+        Assert.True(storedUserClaim.Id > 0);
+        Assert.True(storedRoleClaim.Id > 0);
         Assert.Contains(await users.GetClaimsAsync(user), value => value.Type == userClaim.Type && value.Value == userClaim.Value);
         Assert.Contains(await roles.GetClaimsAsync(role), value => value.Type == roleClaim.Type && value.Value == roleClaim.Value);
         Assert.True((await users.RemoveClaimAsync(user, userClaim)).Succeeded);
