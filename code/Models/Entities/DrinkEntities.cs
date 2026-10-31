@@ -4,10 +4,10 @@ namespace Koi.Web.Models;
 
 public class DrinkCategory
 {
+    public int Id { get; set; }
+
     [StringLength(200)]
     public string NameVi { get; set; } = "";
-
-    public int Id { get; set; }
 
     [Required, StringLength(200)]
     public string Name { get; set; } = "";
@@ -37,6 +37,8 @@ public class DrinkCategory
 
 public class Drink
 {
+    public int Id { get; set; }
+
     [StringLength(250)]
     public string NameVi { get; set; } = "";
 
@@ -46,7 +48,6 @@ public class Drink
     [StringLength(4000)]
     public string DescriptionVi { get; set; } = "";
 
-    public int Id { get; set; }
     public int CategoryId { get; set; }
     public DrinkCategory Category { get; set; } = null!;
 
@@ -71,13 +72,13 @@ public class Drink
 
 public class FeaturedDrink
 {
+    public int Id { get; set; }
+
     [StringLength(250)]
     public string NameVi { get; set; } = "";
 
     [StringLength(150)]
     public string RegionVi { get; set; } = "";
-
-    public int Id { get; set; }
 
     [Required, StringLength(250)]
     public string Name { get; set; } = "";
