@@ -23,6 +23,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Drink> Drinks => Set<Drink>();
     public DbSet<FeaturedDrink> FeaturedDrinks => Set<FeaturedDrink>();
     public DbSet<Order> Orders => Set<Order>();
+    public DbSet<SaleOption> SaleOptions => Set<SaleOption>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -39,6 +40,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.IsPublished, value.SortOrder });
         builder.Entity<Drink>().Property(value => value.Price).HasPrecision(12, 0);
         builder.Entity<OrderItem>().Property(value => value.UnitPrice).HasPrecision(12, 0);
+        builder.Entity<SaleOption>().Property(value => value.ExtraPrice).HasPrecision(12, 0);
         builder.Entity<Order>().HasOne(value => value.Store).WithMany().OnDelete(DeleteBehavior.SetNull);
         builder.Entity<Order>().HasIndex(value => new { value.Status, value.CreatedAt });
         var articles = builder.Entity<NewsArticle>();
