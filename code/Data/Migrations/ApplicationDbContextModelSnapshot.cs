@@ -758,9 +758,14 @@ namespace Koi.Web.Data.Migrations
                     b.Property<Guid?>("BrandId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("MarketId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
+
+                    b.HasIndex("MarketId");
 
                     b.ToTable("ShopSettings");
 
@@ -1204,7 +1209,14 @@ namespace Koi.Web.Data.Migrations
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Koi.Web.Models.Market", "Market")
+                        .WithMany()
+                        .HasForeignKey("MarketId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("Brand");
+
+                    b.Navigation("Market");
                 });
 
             modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
