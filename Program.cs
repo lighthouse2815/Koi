@@ -32,6 +32,7 @@ builder.Services.AddScoped<SiteContentService>();
 builder.Services.AddScoped<NewsAdminService>();
 builder.Services.AddScoped<MenuAdminService>();
 builder.Services.AddScoped<DrinkAdminService>();
+builder.Services.AddScoped<FeaturedDrinkAdminService>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Configure ConnectionStrings:DefaultConnection for PostgreSQL.")));
