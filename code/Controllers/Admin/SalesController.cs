@@ -62,7 +62,8 @@ public class SalesController(ApplicationDbContext database) : Controller
         var branch = await database.Stores.FindAsync(id);
         if (branch == null) return NotFound();
         var brandId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.BrandId).SingleAsync();
-        if (acceptsOrders && brandId.HasValue && branch.BrandId != brandId) return BadRequest("Chi nhánh không thuộc thương hiệu đã chọn.");
+        if (acceptsOrders && !brandId.HasValue) { TempData["Status"] = "Hãy chọn thương hiệu trước khi mở nhận đơn."; return RedirectToAction(nameof(Index), new { search, page }); }
+        if (acceptsOrders && branch.BrandId != brandId) return BadRequest("Chi nhánh không thuộc thương hiệu đã chọn.");
         if (branch.Revision != revision) { TempData["Status"] = "Chi nhánh đã thay đổi. Hãy tải lại và thử lại."; return RedirectToAction(nameof(Index), new { search, page }); }
         database.Entry(branch).Property(value => value.Revision).OriginalValue = revision;
         branch.AcceptsOrders = acceptsOrders;

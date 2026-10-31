@@ -13,6 +13,7 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
     [Fact]
     public async Task CheckoutRechecksPriceAndPersistsBranchAndOrderSnapshots()
     {
+        await using var brand = await SalesTestBrand.SelectFirst(factory);
         using var client = AdminTestClient.Anonymous(factory);
         _ = await client.GetAsync("/Order/Index");
         Guid branchId, drinkId;
@@ -52,6 +53,7 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
     [Fact]
     public async Task RejectsClosedBranchesAndRequiresAddressForDelivery()
     {
+        await using var brand = await SalesTestBrand.SelectFirst(factory);
         using var client = AdminTestClient.Anonymous(factory);
         Assert.Equal(HttpStatusCode.BadRequest, (await AdminTestClient.Post(client, "/Order/SelectBranch", new() { ["storeId"] = Guid.NewGuid().ToString() }, tokenUrl: "/Admin/Account/Login")).StatusCode);
         var response = await AdminTestClient.Post(client, "/Order/Checkout", new() { ["Checkout.CustomerName"] = "Test", ["Checkout.CustomerPhone"] = "0901234567", ["Checkout.Fulfillment"] = "1" }, tokenUrl: "/Admin/Account/Login");
@@ -61,6 +63,7 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
     [Fact]
     public async Task CustomizationsArePricedAndSavedForEachCup()
     {
+        await using var brand = await SalesTestBrand.SelectFirst(factory);
         using var client = AdminTestClient.Anonymous(factory);
         Guid branchId, drinkId, sizeId, toppingId;
         using (var scope = factory.Services.CreateScope())

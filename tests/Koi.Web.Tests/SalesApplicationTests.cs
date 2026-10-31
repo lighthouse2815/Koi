@@ -16,6 +16,7 @@ public class SalesApplicationTests(NewsApplicationFactory factory) : IClassFixtu
     [Fact]
     public async Task AdminCanSetPriceAndEnableABranchWithoutExposingSettings()
     {
+        await using var brand = await SalesTestBrand.SelectFirst(factory);
         using var anonymous = AdminTestClient.Anonymous(factory);
         Assert.Equal(HttpStatusCode.Redirect, (await anonymous.GetAsync("/Admin/Sales")).StatusCode);
         using var admin = await AdminTestClient.Login(factory);
