@@ -28,6 +28,7 @@ builder.Services.AddControllersWithViews(options => options.Filters.Add(new Auto
         options.AreaViewLocationFormats.Add("/code/Views/Shared/{0}.cshtml");
     });
 builder.Services.AddScoped<ImageUploads>();
+builder.Services.AddScoped<SiteContentService>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Configure ConnectionStrings:DefaultConnection for PostgreSQL.")));
