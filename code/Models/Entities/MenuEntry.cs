@@ -12,6 +12,6 @@ public class MenuEntry
     [Required, StringLength(200)] public string Label { get; set; } = "";
     [Required, StringLength(500)] public string File { get; set; } = "";
     public bool IsPublished { get; set; } = true;
-    [Range(0, 100000)] public int SortOrder { get; set; }
+    public int SortOrder { get; set; }
     [ConcurrencyCheck] public int Revision { get; set; } = 1;
 }

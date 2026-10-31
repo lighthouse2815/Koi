@@ -14,8 +14,8 @@ public class DrinkCategory
     [StringLength(500)] public string HomeIcon { get; set; } = "";
     public bool ShowOnHome { get; set; }
     public bool IsPublished { get; set; } = true;
-    [Range(0, 100000)] public int SortOrder { get; set; }
-    [Range(0, 100000)] public int HomeOrder { get; set; }
+    public int SortOrder { get; set; }
+    public int HomeOrder { get; set; }
     [ConcurrencyCheck] public int Revision { get; set; } = 1;
     public List<Drink> Drinks { get; set; } = [];
 }
@@ -34,7 +34,7 @@ public class Drink
     [StringLength(4000)] public string Description { get; set; } = "";
     [StringLength(500)] public string Image { get; set; } = "";
     public bool IsPublished { get; set; } = true;
-    [Range(0, 100000)] public int SortOrder { get; set; }
+    public int SortOrder { get; set; }
     [ConcurrencyCheck] public int Revision { get; set; } = 1;
 }
 
@@ -49,6 +49,6 @@ public class FeaturedDrink
     [Required, StringLength(500)] public string Image { get; set; } = "";
     [Required, StringLength(500)] public string BackgroundImage { get; set; } = "";
     public bool IsPublished { get; set; } = true;
-    [Range(0, 100000)] public int SortOrder { get; set; }
+    public int SortOrder { get; set; }
     [ConcurrencyCheck] public int Revision { get; set; } = 1;
 }

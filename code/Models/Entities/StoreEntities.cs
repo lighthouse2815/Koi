@@ -8,7 +8,7 @@ public class Market
 
     public int Id { get; set; }
     [Required, StringLength(100)] public string Name { get; set; } = "";
-    [Range(0, 100000)] public int SortOrder { get; set; }
+    public int SortOrder { get; set; }
     [ConcurrencyCheck] public int Revision { get; set; } = 1;
     public List<MarketBrand> Brands { get; set; } = [];
     public List<MarketSocialLink> SocialLinks { get; set; } = [];
@@ -40,7 +40,7 @@ public class StoreCity
     [Required, StringLength(150)] public string Name { get; set; } = "";
     public int MarketId { get; set; }
     public Market Market { get; set; } = null!;
-    [Range(0, 100000)] public int SortOrder { get; set; }
+    public int SortOrder { get; set; }
     [ConcurrencyCheck] public int Revision { get; set; } = 1;
 }
 
@@ -51,7 +51,7 @@ public class TeaBrand
     public int Id { get; set; }
     [Required, StringLength(150)] public string Name { get; set; } = "";
     [StringLength(500)] public string Logo { get; set; } = "";
-    [Range(0, 100000)] public int SortOrder { get; set; }
+    public int SortOrder { get; set; }
     [ConcurrencyCheck] public int Revision { get; set; } = 1;
 }
 
@@ -75,8 +75,8 @@ public class StoreEntry
     [StringLength(500)] public string Photo { get; set; } = "";
     [StringLength(2000)] public string NavigationUrl { get; set; } = "";
     public bool IsPublished { get; set; } = true;
-    [Range(0, 1000000)] public int SortOrder { get; set; }
-    [Range(0, 1000000)] public int CountryOrder { get; set; }
-    [Range(0, 1000000)] public int CityOrder { get; set; }
+    public int SortOrder { get; set; }
+    public int CountryOrder { get; set; }
+    public int CityOrder { get; set; }
     [ConcurrencyCheck] public int Revision { get; set; } = 1;
 }
