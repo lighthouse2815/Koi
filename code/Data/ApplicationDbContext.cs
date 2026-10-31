@@ -22,6 +22,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<DrinkCategory> DrinkCategories => Set<DrinkCategory>();
     public DbSet<Drink> Drinks => Set<Drink>();
     public DbSet<FeaturedDrink> FeaturedDrinks => Set<FeaturedDrink>();
+    public DbSet<Order> Orders => Set<Order>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -36,6 +37,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<MenuEntry>().HasIndex(value => new { value.MarketId, value.IsPublished, value.SortOrder });
         builder.Entity<Drink>().HasOne(value => value.Category).WithMany(value => value.Drinks).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.IsPublished, value.SortOrder });
+        builder.Entity<Drink>().Property(value => value.Price).HasPrecision(12, 0);
+        builder.Entity<OrderItem>().Property(value => value.UnitPrice).HasPrecision(12, 0);
+        builder.Entity<Order>().HasOne(value => value.Store).WithMany().OnDelete(DeleteBehavior.SetNull);
+        builder.Entity<Order>().HasIndex(value => new { value.Status, value.CreatedAt });
         var articles = builder.Entity<NewsArticle>();
         articles.HasIndex(article => new { article.IsPublished, article.Date });
         articles.HasIndex(article => article.IsFeatured).IsUnique().HasFilter("\"IsFeatured\" = TRUE");

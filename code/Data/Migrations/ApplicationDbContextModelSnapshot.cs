@@ -59,6 +59,10 @@ namespace Koi.Web.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
+                    b.Property<decimal?>("Price")
+                        .HasPrecision(12)
+                        .HasColumnType("numeric(12,0)");
+
                     b.Property<string>("Region")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -627,6 +631,91 @@ namespace Koi.Web.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Koi.Web.Models.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("CustomerPhone")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<int>("Fulfillment")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("StoreAddress")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<Guid?>("StoreId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("StoreName")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StoreId");
+
+                    b.HasIndex("Status", "CreatedAt");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Koi.Web.Models.OrderItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("DrinkName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasPrecision(12)
+                        .HasColumnType("numeric(12,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItem");
+                });
+
             modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1029,6 +1118,27 @@ namespace Koi.Web.Data.Migrations
                     b.Navigation("Market");
                 });
 
+            modelBuilder.Entity("Koi.Web.Models.Order", b =>
+                {
+                    b.HasOne("Koi.Web.Models.StoreEntry", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("Koi.Web.Models.OrderItem", b =>
+                {
+                    b.HasOne("Koi.Web.Models.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
                 {
                     b.HasOne("Koi.Web.Models.Market", "Market")
@@ -1127,6 +1237,11 @@ namespace Koi.Web.Data.Migrations
                     b.Navigation("Brands");
 
                     b.Navigation("SocialLinks");
+                });
+
+            modelBuilder.Entity("Koi.Web.Models.Order", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
