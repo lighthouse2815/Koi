@@ -483,3 +483,6 @@ $RECYCLE.BIN/
 
 # Runtime content uploaded through administration
 wwwroot/uploads/
+
+# Cloudflare local preview cache
+.wrangler/

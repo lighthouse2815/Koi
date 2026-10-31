@@ -13,7 +13,9 @@
     <EmbeddedResource Include="code/Data/DrinksSeed.json" LogicalName="Koi.Web.Data.DrinksSeed.json" />
     <EmbeddedResource Include="code/Data/VietnameseSeed.json" LogicalName="Koi.Web.Data.VietnameseSeed.json" />
     <Compile Remove="tests/**/*.cs" />
+    <Compile Remove="tools/**/*.cs" />
     <Content Remove="tests/**" />
+    <Content Remove="tools/**;fe-demo/**" />
     <Content Remove="wwwroot/uploads/**" />
   </ItemGroup>
 

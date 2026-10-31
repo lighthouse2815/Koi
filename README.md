@@ -33,6 +33,20 @@ dotnet publish Koi.Web.csproj --configuration Release --output ./artifacts/publi
 
 Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration nạp dữ liệu News, Store, Menu và đồ uống ban đầu một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
 
+## Deploy riêng FE lên Cloudflare Pages
+
+Bản FE đã xuất sẵn tại [`fe-demo`](fe-demo/README.md), có giao diện VI/EN, animation và dữ liệu công khai hiện tại. Cloudflare Pages chỉ cần phục vụ thư mục này, không cần .NET hoặc PostgreSQL.
+
+| Thiết lập | Giá trị |
+| --- | --- |
+| Production branch | `main` |
+| Framework preset | `None` |
+| Build command | `exit 0` |
+| Build output directory | `fe-demo` |
+| Root directory | Để trống |
+
+Đây là dữ liệu tại thời điểm xuất; khi sửa nội dung trong MVC cần [chạy lại công cụ xuất](tools/Koi.StaticExport/README.md) rồi commit/push bản mới. Quản trị không nằm trong FE; Contact tiếp tục không gửi form.
+
 ## MVC và quản trị đã triển khai
 
 - **Menu:** PostgreSQL lưu thực đơn theo quốc gia; quản trị thêm/sửa/xóa, thay ảnh, sắp xếp, bản nháp/xuất bản. Trang Menu đọc database và giữ cách mở ảnh trong tab mới.

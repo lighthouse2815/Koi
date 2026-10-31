@@ -1,0 +1,142 @@
+/* Page-specific layout adapted from the KOI Thé reference. */
+.newsWrap{padding:190px 90px 200px 110px}
+@media print, screen and (max-width: 99.99875em){.newsWrap{padding:120px 60px 100px}
+}
+@media print, screen and (max-width: 39.99875em){.newsWrap{padding:90px 20px 45px}
+}
+.newsWrap .head-area{position:relative;margin-bottom:-90px;overflow:hidden}
+@media print, screen and (max-width: 64.06125em){.newsWrap .head-area{margin-bottom:40px}
+}
+.newsWrap .head-area .en{width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;position:relative;font-family:"Red Hat Display",sans-serif;font-weight:900;letter-spacing:3px;font-size:335px;-webkit-transform-origin:left;-ms-transform-origin:left;transform-origin:left;-webkit-transform:translateY(100%) rotate(10deg);-ms-transform:translateY(100%) rotate(10deg);transform:translateY(100%) rotate(10deg)}
+@media print, screen and (max-width: 99.99875em){.newsWrap .head-area .en{font-size:300px}
+}
+@media print, screen and (max-width: 74.99875em){.newsWrap .head-area .en{font-size:25vw}
+}
+@media print, screen and (max-width: 39.99875em){.newsWrap .head-area .en{font-size:108px}
+}
+.newsWrap .top-news{position:relative;max-width:1570px;margin-top:-90px}
+@media print, screen and (max-width: 64.06125em){.newsWrap .top-news{margin-top:0;margin-bottom:90px}
+}
+@media print, screen and (max-width: 64.06125em){.newsWrap .top-news a{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}
+}
+.newsWrap .top-news a:hover .arrow{-webkit-transform:translateX(18px);-ms-transform:translateX(18px);transform:translateX(18px)}
+@media print, screen and (max-width: 64.06125em){.newsWrap .top-news a:hover .arrow{-webkit-transform:translateX(0px);-ms-transform:translateX(0px);transform:translateX(0px)}
+}
+.newsWrap .top-news a:hover .d{stroke:#ea5504}
+.newsWrap .top-news a:hover .e{fill:#ea5504}
+.newsWrap .top-news .article-area{position:relative}
+@media print, screen and (max-width: 64.06125em){.newsWrap .top-news .article-area{margin-bottom:26px}
+}
+.newsWrap .top-news .article-area .title{font-family:"Red Hat Display",sans-serif;font-size:40px;letter-spacing:1px;line-height:1.4;font-weight:700}
+@media print, screen and (max-width: 64.06125em){.newsWrap .top-news .article-area .title{font-size:23px}
+}
+.newsWrap .top-news .article-area .arrow{-webkit-transition:0.5s all;transition:0.5s all}
+.newsWrap .top-news .more{position:absolute;bottom:-140px;left:0}
+.newsWrap .top-news .more .d{fill:none;stroke:#0b0b0b;stroke-miterlimit:10;stroke-width:3px;-webkit-transition:0.5s all;transition:0.5s all}
+.newsWrap .top-news .more .e{fill:#0b0b0b;-webkit-transition:0.5s all;transition:0.5s all}
+@media print, screen and (max-width: 64.06125em){.newsWrap .top-news .more{bottom:auto;left:auto;right:0;top:0px;zoom:0.8}
+}
+.newsWrap .top-news .pic-area{position:relative}
+@media print, screen and (max-width: 64.06125em){.newsWrap .top-news .pic-area{width:100%}
+}
+.newsWrap .top-news .pic-area .cat{font-family:"Red Hat Display",sans-serif;font-size:16px;font-weight:500;color:#ea5504;margin-bottom:3px}
+.newsWrap .top-news .pic-area .date{font-family:"Red Hat Display",sans-serif;font-size:12px;font-style:italic;font-weight:400;color:#ea5504;margin-bottom:5px}
+.newsWrap .top-news .pic-area .pic{width:716px;height:402px}
+@media print, screen and (max-width: 99.99875em){.newsWrap .top-news .pic-area .pic{width:500px;height:auto;aspect-ratio:3.5/2}
+}
+@media print, screen and (max-width: 64.06125em){.newsWrap .top-news .pic-area .pic{width:100%}
+}
+.newsWrap .top-news .pic-area .pic img{width:100%;height:100%;-o-object-fit:cover;object-fit:cover}
+.newsWrap .newsListWrap{width:100%;margin-top:210px}
+@media print, screen and (max-width: 99.99875em){.newsWrap .newsListWrap{margin-top:160px}
+}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap{margin-top:0}
+}
+.newsWrap .newsListWrap .newsCatList{margin-right:140px}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsCatList{display:-webkit-box;display:-ms-flexbox;display:flex}
+}
+.newsWrap .newsListWrap .newsCatList li{margin-bottom:20px}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsCatList li{margin-bottom:10px;margin-right:10px}
+}
+.newsWrap .newsListWrap .newsCatList li .dot{width:10px;height:10px;background-color:#0b0b0b;border-radius:50%;margin-right:15px;opacity:0;-webkit-transition:0.5s all;transition:0.5s all}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsCatList li .dot{background-color:#ea5504;margin-right:5px}
+}
+.newsWrap .newsListWrap .newsCatList li .title{position:relative;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;font-size:18px;font-weight:900;font-family:"Red Hat Display",sans-serif;color:#0b1118;letter-spacing:1px;padding-bottom:1px}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsCatList li .title{font-size:17px}
+}
+.newsWrap .newsListWrap .newsCatList li .title::after{position:absolute;content:"";left:0;bottom:-3px;width:0%;height:5px;background-color:#0b0b0b;-webkit-transition:0.5s all;transition:0.5s all}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsCatList li .title::after{display:none}
+}
+.newsWrap .newsListWrap .newsCatList li.current .dot{opacity:1}
+.newsWrap .newsListWrap .newsCatList li.current .title::after{width:100%}
+.newsWrap .newsListWrap .newsCatList li:hover .dot{opacity:1}
+.newsWrap .newsListWrap .newsCatList li:hover .title::after{width:100%}
+.newsWrap .newsListWrap .newsList{width:100%;border-top:3px solid #0b0b0b}
+.newsWrap .newsListWrap .newsList .top-area{-webkit-box-flex:1;-ms-flex:1 1 0px;flex:1 1 0}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsList .top-area{-webkit-box-flex:initial;-ms-flex:initial;flex:initial}
+}
+.newsWrap .newsListWrap .newsList .top-area .cat{font-family:"Red Hat Display",sans-serif;font-size:16px;font-weight:500;color:#ea5504;margin-bottom:3px}
+.newsWrap .newsListWrap .newsList .top-area .date{font-family:"Red Hat Display",sans-serif;font-size:12px;font-style:italic;font-weight:500;color:#ea5504;margin-bottom:5px}
+.newsWrap .newsListWrap .newsList .title{-webkit-box-flex:5;-ms-flex:5 1 0px;flex:5 1 0;font-family:"Red Hat Display",sans-serif;font-size:20px;letter-spacing:1px;line-height:1.9;font-weight:600;-webkit-transition:0.5s all;transition:0.5s all}
+@media print, screen and (max-width: 99.99875em){.newsWrap .newsListWrap .newsList .title{-webkit-box-flex:6;-ms-flex:6 1 0px;flex:6 1 0}
+}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsList .title{-webkit-box-flex:initial;-ms-flex:initial;flex:initial;text-align:justify;line-height:1.7;letter-spacing:1px;margin-top:10px;max-width:480px}
+}
+@media print, screen and (max-width: 39.99875em){.newsWrap .newsListWrap .newsList .title{max-width:100%}
+}
+.newsWrap .newsListWrap .newsList .pic{position:relative;-webkit-box-flex:2;-ms-flex:2 1 0px;flex:2 1 0;max-width:144px;width:100%;-webkit-transition:0.5s ease-in;transition:0.5s ease-in;margin-right:200px}
+@media print, screen and (max-width: 99.99875em){.newsWrap .newsListWrap .newsList .pic{margin-right:100px}
+}
+@media print, screen and (max-width: 74.99875em){.newsWrap .newsListWrap .newsList .pic{margin-right:50px}
+}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsList .pic{-webkit-box-flex:initial;-ms-flex:initial;flex:initial;margin-right:0}
+}
+.newsWrap .newsListWrap .newsList .pic .pic-hover{position:absolute;left:-50px;top:-50px;bottom:-50px;right:-50px;opacity:0;-webkit-transition:0.5s ease-out;transition:0.5s ease-out;z-index:1}
+.newsWrap .newsListWrap .newsList li{width:100%;min-height:250px;border-bottom:1px solid #0b0b0b}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsList li{padding:28px 0}
+}
+.newsWrap .newsListWrap .newsList li a{width:100%}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .newsList li a{display:block}
+}
+.newsWrap .newsListWrap .newsList li:hover .title{color:#ea5406}
+.newsWrap .newsListWrap .news-inner{margin-bottom:60px}
+@media print, screen and (max-width: 64.06125em){.newsWrap .newsListWrap .news-inner{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
+}
+
+
+        @media print, screen and (max-width: 64.0613em) {
+        .newsWrap .newsListWrap .newsList .title {
+            text-align: left;
+        }
+
+    }
+
+
+    @media screen and (max-width: 63.9375em) {
+    }
+
+body:has(.newsWrap) { background: #fff; }
+.newsWrap { line-height: 1; }
+.newsWrap .head-area .en { transform: none; }
+.newsWrap time { display: block; }
+.newsWrap .news-mobile-summary { width: 100%; margin-bottom: 14px; }
+.newsWrap .newsListWrap .newsList .title { transition-property: color; }
+.newsWrap .top-news a:focus-visible .arrow { transform: translateX(18px); }
+.newsWrap .top-news a:focus-visible .d { stroke: #ea5504; }
+.newsWrap .top-news a:focus-visible .e { fill: #ea5504; }
+.newsWrap .newsListWrap .newsList a:focus-visible .title { color: #ea5406; }
+.newsWrap .news-pageWrap .prev,
+.newsWrap .news-pageWrap .next { font: 900 18px/1 'Red Hat Display', sans-serif; color: #0b0b0b; }
+.newsWrap .news-page { margin: 0 20px; font: 900 20px/1 'Red Hat Display', sans-serif; }
+.newsWrap .news-page li { position: relative; margin: 0 8px; }
+.newsWrap .news-page li:last-child { margin-right: 0; }
+.newsWrap .news-page li.current::after { position: absolute; content: ''; width: 12px; height: 12px; background: #f9eddd; left: 50%; top: -14px; transform: translateX(-50%); border-radius: 50%; border: 4px solid #0b1118; }
+.newsWrap .news-page li a { display: block; width: 100%; height: 100%; }
+@media (max-width: 1024px) {
+    .newsWrap .top-news a:focus-visible .arrow { transform: none; }
+    .newsWrap .news-pageWrap .prev,
+    .newsWrap .news-pageWrap .next { font: 600 14px/1 'Red Hat Display', sans-serif; }
+    .newsWrap .news-page { margin: 0 10px; font: 600 14px/1 'Red Hat Display', sans-serif; }
+    .newsWrap .news-page li { margin: 0 4px; }
+    .newsWrap .news-page li.current::after { width: 9px; height: 9px; border-width: 3px; top: -11px; }
+}

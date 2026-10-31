@@ -1,0 +1,74 @@
+.newsDetailWrap{padding:235px 90px 100px}
+@media print, screen and (max-width: 99.99875em){.newsDetailWrap{padding:180px 60px 80px}
+}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap{padding:105px 0px 50px}
+}
+.newsDetailWrap .banner-area{width:100%;margin-bottom:108px}
+@media print, screen and (max-width: 99.99875em){.newsDetailWrap .banner-area{width:100%;margin:0 auto 80px}
+}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap .banner-area{width:100%;margin-bottom:26px}
+}
+.newsDetailWrap .banner-area img{width:100%;height:100%;-o-object-fit:cover;object-fit:cover}
+.newsDetailWrap .banner-area .head-area{position:relative;margin-bottom:165px}
+@media print, screen and (max-width: 99.99875em){.newsDetailWrap .banner-area .head-area{margin-bottom:120px}
+}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap .banner-area .head-area{margin-bottom:27px;padding:0 60px}
+}
+@media print, screen and (max-width: 39.99875em){.newsDetailWrap .banner-area .head-area{padding:0 20px}
+}
+.newsDetailWrap .banner-area .info-area{position:absolute;left:0px;top:0px}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap .banner-area .info-area{position:static;margin-bottom:22px}
+}
+.newsDetailWrap .banner-area .info-area .cat{font-family:"Red Hat Display",sans-serif;font-size:16px;font-weight:500;color:#ea5504;margin-bottom:3px}
+.newsDetailWrap .banner-area .info-area .date{font-family:"Red Hat Display",sans-serif;font-size:12px;font-style:italic;font-weight:500;color:#ea5504;margin-bottom:5px}
+.newsDetailWrap .banner-area .title{position:relative;font-family:"Red Hat Display",sans-serif;font-size:48px;letter-spacing:2px;line-height:1.4;font-weight:600;width:100%;max-width:1250px;margin-left:auto}
+@media print, screen and (max-width: 99.99875em){.newsDetailWrap .banner-area .title{font-size:40px;max-width:900px}
+}
+@media print, screen and (max-width: 74.99875em){.newsDetailWrap .banner-area .title{max-width:750px}
+}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap .banner-area .title{position:static;font-size:30px;letter-spacing:1px;margin-left:0}
+}
+@media print, screen and (max-width: 39.99875em){.newsDetailWrap .banner-area .title{font-size:22px}
+}
+.newsDetailWrap .detailWrap{max-width:1250px;margin-left:auto}
+@media print, screen and (max-width: 99.99875em){.newsDetailWrap .detailWrap{max-width:900px}
+}
+@media print, screen and (max-width: 74.99875em){.newsDetailWrap .detailWrap{max-width:750px}
+}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap .detailWrap{margin:0;max-width:100%;padding:0 60px}
+}
+@media print, screen and (max-width: 39.99875em){.newsDetailWrap .detailWrap{padding:0 20px}
+}
+.newsDetailWrap .detailWrap .detail-area{font-family:"Noto Sans SC",sans-serif;font-size:18px;letter-spacing:2px;line-height:2;margin-bottom:40px}
+@media print, screen and (max-width: 99.99875em){.newsDetailWrap .detailWrap .detail-area{font-size:16px}
+}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap .detailWrap .detail-area{font-size:13px;letter-spacing:1px;line-height:1.8;text-align:justify}
+}
+.newsDetailWrap .detailWrap .pic{margin-top:35px}
+.newsDetailWrap .other-area{-webkit-box-align:end;-ms-flex-align:end;align-items:end}
+.newsDetailWrap .other-area .back #c>g{-webkit-transform:translateX(20px);-ms-transform:translateX(20px);transform:translateX(20px)}
+.newsDetailWrap .other-area .back .arrow{-webkit-transition:0.5s all;transition:0.5s all}
+.newsDetailWrap .other-area .back .d{fill:#0c131b;-webkit-transition:0.5s all;transition:0.5s all}
+.newsDetailWrap .other-area .back:hover .d{fill:#ea5504}
+.newsDetailWrap .other-area .back:hover .arrow{-webkit-transform:translateX(-20px);-ms-transform:translateX(-20px);transform:translateX(-20px)}
+.newsDetailWrap .share-area .title{font-family:"Red Hat Display",sans-serif;font-size:12px;font-style:italic;font-weight:400;color:#ea5504;margin-bottom:5px}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap .share-area .title{font-size:10px}
+}
+.newsDetailWrap .share-area .shareList li{margin-right:25px}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap .share-area .shareList li{margin-right:10px}
+}
+@media print, screen and (max-width: 64.06125em){.newsDetailWrap .share-area .shareList li svg{width:25px;height:25px}
+}
+.newsDetailWrap .share-area .shareList li .d{fill:#9e9e9f;-webkit-transition:0.5s all;transition:0.5s all}
+.newsDetailWrap .share-area .shareList li:hover .d{fill:#ea5406}
+.newsDetailWrap .share-area .shareList li:last-child{margin-right:0}
+
+body:has(.newsDetailWrap) { background: #fff; }
+.newsDetailWrap { line-height: 1; }
+.newsDetailWrap time { display: block; }
+.newsDetailWrap .banner iframe { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 0; }
+.newsDetailWrap .detail-area p { margin-bottom: 1.25em; }
+.newsDetailWrap .detail-area ul { padding-left: 1.5em; list-style: disc; }
+.newsDetailWrap .detail-area a { text-decoration: underline; overflow-wrap: anywhere; }
+.newsDetailWrap .article-share { font-size: 16px; border-bottom: 1px solid; padding: 10px 0 !important; }
+.newsDetailWrap .share-status { display: block; margin-top: 8px; font-size: 13px; }
