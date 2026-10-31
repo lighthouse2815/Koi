@@ -6,11 +6,11 @@
 <div class="editor-columns"><div class="card">
 <fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>
 <label asp-for="NameVi">Tên tiếng Việt</label><input asp-for="NameVi" maxlength="250" />
-<label asp-for="RegionVi">Khu vực tiếng Việt</label><input asp-for="RegionVi" maxlength="150" />
+<input asp-for="RegionVi" type="hidden" />
 </fieldset>
 
 <label asp-for="Name">Tên đồ uống / bộ sưu tập</label><input asp-for="Name" maxlength="250" required />
-<label asp-for="Region">Quốc gia / khu vực</label><input asp-for="Region" maxlength="150" />
+<input asp-for="Region" type="hidden" />
 <label asp-for="ImageUpload">Ảnh đồ uống</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }<input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
 <label asp-for="BackgroundUpload">Ảnh nền</label>@if (!string.IsNullOrEmpty(Model.CurrentBackground)) { <img class="current-image" src="@Model.CurrentBackground" alt="Ảnh nền hiện tại" /> }<input asp-for="BackgroundUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
 <p class="help">Mỗi ảnh JPG, PNG hoặc WebP tối đa 5 MB. Khi sửa, để trống để giữ ảnh cũ.</p>

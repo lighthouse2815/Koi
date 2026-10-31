@@ -6,13 +6,13 @@
 <div class="editor-columns"><div class="card">
 <fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>
 <label asp-for="NameVi">Tên đồ uống tiếng Việt</label><input asp-for="NameVi" maxlength="250" />
-<label asp-for="RegionVi">Khu vực tiếng Việt</label><input asp-for="RegionVi" maxlength="150" />
+<input asp-for="RegionVi" type="hidden" />
 <label asp-for="DescriptionVi">Mô tả tiếng Việt</label><textarea asp-for="DescriptionVi" rows="4" maxlength="4000"></textarea>
 </fieldset>
 
 <label asp-for="Name">Tên đồ uống</label><input asp-for="Name" maxlength="250" required />
 <label asp-for="CategoryId">Danh mục</label><select asp-for="CategoryId" asp-items="Model.Categories" required><option value="">Chọn danh mục</option></select>
-<label asp-for="Region">Quốc gia / khu vực</label><input asp-for="Region" maxlength="150" /><p class="help">Để trống nếu đồ uống dùng chung cho các thị trường.</p>
+<input asp-for="Region" type="hidden" />
 <label asp-for="Description">Mô tả</label><textarea asp-for="Description" rows="7" maxlength="4000"></textarea>
 </div><aside class="card">
 <label asp-for="ImageUpload">Ảnh đồ uống</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }

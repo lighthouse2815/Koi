@@ -36,7 +36,7 @@ Development tự áp dụng migration và tạo tài khoản được cấu hìn
 ### Thiết lập đặt hàng cho chuỗi chi nhánh
 
 1. Khởi động lại ứng dụng để áp dụng các migration mới trong môi trường Development, sau đó đăng nhập `/Admin`.
-2. Vào **Bán hàng**, chọn thương hiệu của chuỗi. Chỉ các chi nhánh của thương hiệu đã chọn mới xuất hiện trên trang cửa hàng và có thể nhận đơn; dữ liệu cũ vẫn được giữ. Khi chưa chọn thương hiệu, trang giới thiệu giữ dữ liệu cũ và không thể mở chi nhánh nhận đơn.
+2. Website dùng thương hiệu KOI Thé và các chi nhánh tại Việt Nam. Các dữ liệu cũ về thương hiệu và quốc gia khác vẫn được giữ trong database.
 3. Trên trang **Bán hàng**, tìm chi nhánh và bật nhận đơn; đặt giá chung cho các đồ uống muốn bán. Đồ uống và danh mục phải được xuất bản. Giá để trống có nghĩa là món chưa bán.
 4. Trong **Kích cỡ và topping**, tạo các lựa chọn và giá cộng thêm. Nếu có kích cỡ đang bật, khách phải chọn một cỡ. Đường và đá có ba mức: bình thường, ít hoặc không.
 5. Khách đặt món tại `/Order/Index`, chọn nhận ở chi nhánh hoặc giao hàng và cung cấp số điện thoại. Trang **Đơn hàng** trong quản trị cho phép xem theo chi nhánh và chuyển trạng thái đơn.
@@ -66,10 +66,10 @@ Bản FE đã xuất sẵn tại [`fe-demo`](fe-demo/README.md), có giao diện
 
 ## MVC và quản trị đã triển khai
 
-- **Menu:** PostgreSQL lưu thực đơn theo quốc gia; quản trị thêm/sửa/xóa, thay ảnh, sắp xếp, bản nháp/xuất bản. Trang Menu đọc database và giữ cách mở ảnh trong tab mới.
+- **Menu:** Quản trị thực đơn Việt Nam; trang Menu đọc database và mở ảnh trong tab mới.
 - **News:** PostgreSQL + EF Core lưu tiêu đề, danh mục, ngày, HTML, ảnh/video, bản nháp/xuất bản, tin nổi bật và lựa chọn hiển thị ở trang chủ. News, chi tiết tin và carousel tin trang chủ đều đọc database.
 - **Quản trị News:** đăng nhập/đăng xuất bằng ASP.NET Core Identity; tìm kiếm, phân trang, thêm/sửa/xóa, xem trước cả bản nháp và tải ảnh JPG/PNG/WebP tối đa 5 MB. Bản nháp chỉ quản trị viên xem được. Có kiểm tra dữ liệu phía server, chống CSRF, loại mã HTML không an toàn và phát hiện sửa đè từ bản cũ.
-- **Store:** PostgreSQL lưu 1.211 mục cửa hàng ban đầu, giữ thứ tự riêng toàn bộ/quốc gia/khu vực. Quản trị tìm kiếm, lọc, phân trang, thêm/sửa/xóa, ảnh, xuất bản và phát hiện sửa đè. Có quản trị quốc gia, khu vực, thương hiệu/logo và liên kết mạng xã hội; kiểm tra quan hệ trước khi lưu và chặn xóa dữ liệu đang được sử dụng.
+- **Chi nhánh:** Chỉ hiển thị và nhận đơn cho chi nhánh KOI Thé tại Việt Nam. Quản trị có thể tìm kiếm, thêm/sửa/xóa, quản lý ảnh và khu vực; dữ liệu cửa hàng cũ vẫn được giữ.
 - **Đồ uống:** PostgreSQL lưu 54 món, 7 danh mục và 4 mục New Drinks ban đầu. Quản trị thêm/sửa/xóa, mô tả/khu vực/ảnh, thứ tự, xuất bản, ảnh và biểu tượng danh mục, thẻ trang chủ và nền New Drinks. Our Tea và carousel danh mục trang chủ đọc database. Danh mục ẩn sẽ ẩn toàn bộ món bên trong và thẻ trang chủ.
 - **Đặt hàng:** khách chọn chi nhánh, tùy chọn đồ uống và gửi đơn; quản trị viên cấu hình bán hàng và xử lý đơn. Thanh toán khi nhận hàng, chưa tích hợp thanh toán trực tuyến.
 - **Contact:** giữ giao diện không gửi form theo yêu cầu.
@@ -104,7 +104,7 @@ Các trang nội dung đã dựng local, có bản tiếng Việt/tiếng Anh v�
 
 | Trang | URL | Tương tác |
 | --- | --- | --- |
-| About | `/Home/About` | Cảnh chữ KOI/ly trà, ảnh xoay khi cuộn ngang, nguyên liệu chuyển mờ tự động, dải ảnh lịch sử xếp chéo, bản đồ sáu thương hiệu |
+| About | `/Home/About` | Cảnh chữ KOI/ly trà, ảnh xoay khi cuộn ngang, nguyên liệu chuyển mờ tự động, dải ảnh lịch sử xếp chéo và liên kết chi nhánh Việt Nam |
 | Our Tea | `/Home/OurTea` | Dải ly và bốn nền chuyển động, New Drinks đồng bộ nền/ảnh, ảnh đồ uống đổi theo cuộn trên mobile |
 | Recruit | `/Home/Recruit` | Chữ hiện lần lượt, bảng lộ trình phát triển, ảnh đội ngũ theo thiết bị và bốn pha cuộn Apply NOW |
 | News | `/Home/News` | Tiêu đề xuất hiện theo mẫu, nút More chuyển động, danh sách responsive, lọc/phân trang và 13 bài chi tiết `/Home/NewsDetail/{id}` |
@@ -115,7 +115,7 @@ Các trang nội dung đã dựng local, có bản tiếng Việt/tiếng Anh v�
 | Connections | `/Home/Connections` | Ảnh bìa thu dần, OUR BELIEF hiện theo cuộn, ba nội dung cộng đồng chuyển mờ tự động và bảy thẻ IN ACTION cuộn vòng, căn giữa |
 | Store | `/Home/Store` | Tiêu đề trượt lên, lọc Country/Location/Brand, chín cửa hàng mỗi trang và hộp ảnh tròn hỗ trợ bàn phím/cảm ứng |
 | Contact | `/Home/Contact` | Tiêu đề trượt lên, chuyển mờ giữa Contact/Business Partnership, ảnh Overseas trên desktop và các trường nhập/chọn dùng điều khiển gốc của trình duyệt |
-| Menu | `/Home/Menu` | Đường kẻ mở ngang, tiêu đề/danh sách trượt lên và 22 thực đơn của 17 quốc gia mở trong tab mới |
+| Menu | `/Home/Menu` | Thực đơn Việt Nam mở trong tab mới |
 
 Trang bìa ở `/`; trang chủ ở `/Home/Index`. Header/footer đã nối tới các trang local và hiển thị đúng tên trang đang xem. Các nút Menu trên Our Tea, footer và gấu nổi mở `/Home/Menu`; ảnh thực đơn cũng được lưu local. Contact chưa gửi form; News, Store, Menu, đồ uống và đơn hàng dùng PostgreSQL, các liên kết ứng tuyển giữ cổng tuyển dụng/email gốc.
 
