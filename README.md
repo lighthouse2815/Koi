@@ -65,7 +65,7 @@ docker compose exec postgres createdb -U koi koi_tests
 dotnet test tests/Koi.Web.Tests/Koi.Web.Tests.csproj --configuration Release
 ```
 
-Có thể đặt `KOI_TEST_CONNECTION_STRING` để dùng một database kiểm thử khác có hậu tố `_tests`. Test không xóa/reset database website. Mật khẩu tài khoản test được tạo ngẫu nhiên; kiểm thử dùng thư mục uploads tạm. Nội dung 13 bài cũ đã được đối chiếu với bản Razor trước khi chuyển sang database.
+Có thể đặt `KOI_TEST_CONNECTION_STRING` để dùng một database kiểm thử khác có hậu tố `_tests`. Test không xóa/reset database website và giữ lại dữ liệu kiểm thử; khi chạy lại toàn bộ, dùng database kiểm thử mới nếu dữ liệu từ lượt trước ảnh hưởng thứ tự hiển thị. Mật khẩu tài khoản test được tạo ngẫu nhiên; kiểm thử dùng thư mục uploads tạm. Nội dung 13 bài cũ đã được đối chiếu với bản Razor trước khi chuyển sang database.
 
 ## Trang chủ
 
@@ -136,15 +136,19 @@ code/
 │   ├── Home/               # Giao diện công khai
 │   ├── Admin/              # Giao diện quản trị
 │   └── Shared/             # Layout, header, footer dùng chung
-├── Models/                 # Entity và ViewModel
+├── Models/
+│   ├── Entities/           # Dữ liệu và cấu hình ánh xạ database
+│   └── ViewModels/         # Dữ liệu và kiểm tra đầu vào cho View
 ├── Data/                   # DbContext, migration và dữ liệu ban đầu
 ├── Localization/           # Chọn nội dung theo ngôn ngữ
 ├── Resources/              # Tài nguyên tiếng Việt/tiếng Anh
-└── Services/               # Xử lý ảnh dùng chung
+└── Services/               # Truy vấn, nghiệp vụ quản trị và xử lý ảnh
 wwwroot/                    # CSS, JavaScript, ảnh, font và video
 Program.cs                  # Khởi động, routing và cấu hình View/localization
 Koi.Web.csproj              # Cấu hình build và tài nguyên nhúng
 ```
+
+Controller xử lý request, phản hồi và gọi service; service xử lý truy vấn, quy tắc nghiệp vụ và lưu dữ liệu. Entity giữ các trường và metadata cần cho EF Core; ViewModel phục vụ giao diện và kiểm tra đầu vào. Đăng nhập dùng trực tiếp `SignInManager` có sẵn của ASP.NET Core Identity. Dữ liệu catalog gốc dùng để khởi tạo migration nằm trong `Data/`.
 
 Phần quản trị vẫn dùng cơ chế Area và giữ URL `/Admin/...`. `Program.cs` tìm View tại `code/Views`, tài nguyên ngôn ngữ tại `code/Resources`; các đường dẫn layout/View dùng chung đã được cập nhật. View quản trị kế thừa `_ViewImports.cshtml` chung và dùng layout qua `code/Views/Admin/_ViewStart.cshtml`. Tên tài nguyên JSON nhúng được giữ cố định trong `Koi.Web.csproj` để migration và các bản cài đặt mới tiếp tục đọc được dữ liệu. Lệnh build, chạy, test và publish ở gốc project không thay đổi. Kiểm tra sau khi chuyển vào `code/`: build/publish Release đạt, 59 test trên PostgreSQL kiểm thử mới đạt; bản publish Production kiểm tra 27 URL công khai, 32 trang quản trị, 85 liên kết local, 307 tài nguyên và chuyển VI/EN ở desktop/mobile. Không có thay đổi model cần migration. Khi thêm migration mới, dùng `dotnet ef migrations add TenMigration --output-dir code/Data/Migrations --namespace Koi.Web.Data.Migrations` để đặt file đúng thư mục.
 
