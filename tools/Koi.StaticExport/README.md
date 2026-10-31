@@ -39,4 +39,4 @@ Các file kiểm tra được đặt ngoài output. `verify_export.py` dùng th�
 - Thẻ cửa hàng và tin tức cũng được chụp từ MVC; JavaScript chỉ chọn/sắp xếp các thẻ đã xuất, giữ thứ tự riêng theo quốc gia và khu vực.
 - Những script giao diện có sẵn chạy sau khi danh sách đã được dựng để sự kiện ảnh/modal và animation tiếp tục hoạt động.
 - Tài nguyên thường được sao chép từ `wwwroot`; ảnh upload chỉ sao chép khi được trang hoặc thẻ công khai sử dụng.
-- `fe-demo` và mã công cụ được loại khỏi nội dung publish MVC, nên hai bản chạy độc lập.
+- `fe-demo`, mã công cụ và các bản xuất tạm trong `artifacts` được loại khỏi nội dung publish MVC, nên hai bản chạy độc lập.

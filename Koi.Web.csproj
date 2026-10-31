@@ -15,7 +15,7 @@
     <Compile Remove="tests/**/*.cs" />
     <Compile Remove="tools/**/*.cs" />
     <Content Remove="tests/**" />
-    <Content Remove="tools/**;fe-demo/**" />
+    <Content Remove="tools/**;fe-demo/**;artifacts/**" />
     <Content Remove="wwwroot/uploads/**" />
   </ItemGroup>
 

@@ -122,7 +122,7 @@
 
         const history = about.querySelector('.about-event');
         const yearSlider = new Swiper(history.querySelector('.history-year'), { effect: 'fade', fadeEffect: { crossFade: true }, speed: 700, autoHeight: true, allowTouchMove: false });
-        const descriptionSlider = new Swiper(history.querySelector('.history-description'), { effect: 'fade', fadeEffect: { crossFade: true }, speed: 700, allowTouchMove: false });
+        const descriptionSlider = new Swiper(history.querySelector('.history-description'), { effect: 'fade', fadeEffect: { crossFade: true }, speed: 700, autoHeight: true, allowTouchMove: false });
         let historySlider;
         const desktop = matchMedia('(min-width: 1025px)');
         const smallScreen = matchMedia('(max-width: 639px)');
@@ -339,8 +339,9 @@
                 drinks.to('.drink-area li:nth-child(odd)', { y: 0, yPercent: -110 }, 0)
                     .to('.drink-area li:nth-child(even)', { y: 0, yPercent: 110 }, 0);
             } else {
-                drinks.to('.drink-area li:nth-child(odd)', { y: () => -innerHeight * (innerWidth > 640 ? 1.5 : 1.1) }, 0)
-                    .to('.drink-area li:nth-child(even)', { y: () => innerHeight * (innerWidth > 640 ? 1.5 : 1.1) }, 0);
+                const exitDistance = (_, element) => Math.max(innerHeight * (innerWidth > 640 ? 1.5 : 1.1), (innerHeight + element.offsetHeight) / 2 + 2);
+                drinks.to('.drink-area li:nth-child(odd)', { y: (index, element) => -exitDistance(index, element) }, 0)
+                    .to('.drink-area li:nth-child(even)', { y: exitDistance }, 0);
             }
             if (context.conditions.desktop) gsap.to('.drink-area .bg-change', { opacity: 1, scrollTrigger: { trigger: '.drink-area', start: 'top top', end: '55% top', scrub: true } });
             if (context.conditions.desktop) {

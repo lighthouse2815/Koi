@@ -631,6 +631,21 @@
 }
 @keyframes about-map-in { from { opacity: 0; } to { opacity: 1; } }
 
+/* Keep copy and controls inside flowing sections when the viewport is short. */
+.aboutWrap .about-ingredient { height: auto; min-height: 100svh; }
+.aboutWrap .about-ingredient .article-area { height: auto; }
+@media (min-width: 1025px) {
+    .aboutWrap .about-ingredient .pic-area { height: auto; align-self: stretch; }
+    .aboutWrap .about-ingredient .pic-area .triangle { position: absolute; left: 50%; top: 50%; margin: 0; transform: translate(-50%, -50%); }
+}
+@media (max-width: 1024px) {
+    .aboutWrap .about-infoWrap li { height: auto; min-height: 100svh; }
+    .aboutWrap .about-infoWrap li .pic-area { flex-shrink: 0; }
+    .aboutWrap .about-event { height: auto; min-height: 100svh; }
+    .aboutWrap .about-event .history-description { height: auto; min-height: 50px; }
+    .aboutWrap .about-event .arrow-area { position: static; width: auto; margin-top: 24px; padding: 0; }
+}
+
 @media screen and (min-width: 1280.02px) {
             .aboutWrap .about-brandmap .brandmapList .pin.japan {
                 right: 1.9453%;

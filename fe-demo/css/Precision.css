@@ -3,7 +3,7 @@
     }
 
 .precisionWrap{min-height:100vh;background-color:#fff;line-height:1}
-.precisionWrap .precision-hero{position:relative;width:100%;height:100vh;min-height:720px;overflow:hidden;font-family:'Red Hat Display', sans-serif;color:#fff}
+.precisionWrap .precision-hero{position:relative;width:100%;height:100svh;min-height:0;overflow:hidden;font-family:'Red Hat Display', sans-serif;color:#fff}
 .precisionWrap .precision-hero__bg{position:absolute;inset:0;z-index:1}
 .precisionWrap .precision-hero__bg img{display:block;width:100%;height:100%;-o-object-fit:cover;object-fit:cover}
 .precisionWrap .precision-hero__shade{position:absolute;inset:0;z-index:2;background:-webkit-gradient(linear, left bottom, left top, from(rgba(0,0,0,0.84)), color-stop(38%, rgba(0,0,0,0.56)), color-stop(72%, rgba(0,0,0,0.18)), to(rgba(0,0,0,0)));background:linear-gradient(to top, rgba(0,0,0,0.84) 0%, rgba(0,0,0,0.56) 38%, rgba(0,0,0,0.18) 72%, rgba(0,0,0,0) 100%);opacity:0;pointer-events:none;will-change:opacity}
@@ -41,7 +41,7 @@
 .precisionWrap .precision-hero__title .en{font-size:72px}
 .precisionWrap .precision-hero__scroll-text{right:7vw;width:42vw;font-size:16px}
 }
-@media screen and (max-width: 1024px){.precisionWrap .precision-hero{min-height:720px}
+@media screen and (max-width: 1024px){.precisionWrap .precision-hero{min-height:0}
 .precisionWrap .precision-hero__head{display:block;text-align:center}
 .precisionWrap .precision-hero__label{width:auto;margin:0 0 28px}
 .precisionWrap .precision-hero__title .en{font-size:42px;line-height:1.15;text-align:center}
