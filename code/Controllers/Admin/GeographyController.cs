@@ -78,7 +78,7 @@ public class GeographyController(ApplicationDbContext database, ImageUploads upl
             foreach (var line in (model.SocialLinks ?? "").Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
             {
                 var pair = line.Split('|', 2, StringSplitOptions.TrimEntries);
-                if (pair.Length != 2 || string.IsNullOrWhiteSpace(pair[0]) || pair[0].Length > 100 || pair[1].Length > 1000 || string.IsNullOrWhiteSpace(pair[1]) || !StoresController.SafeLink(pair[1]))
+                if (pair.Length != 2 || string.IsNullOrWhiteSpace(pair[0]) || pair[0].Length > 100 || pair[1].Length > 1000 || string.IsNullOrWhiteSpace(pair[1]) || !StoreAdminService.SafeLink(pair[1]))
                     ModelState.AddModelError(nameof(model.SocialLinks), "Mỗi dòng cần có dạng: Tên liên kết | https://dia-chi. Tên tối đa 100 ký tự, địa chỉ tối đa 1000 ký tự.");
                 else links.Add(new MarketSocialLink { Label = pair[0], Url = pair[1], SortOrder = links.Count });
             }
