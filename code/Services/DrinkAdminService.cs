@@ -25,7 +25,7 @@ public class DrinkAdminService(ApplicationDbContext database, ImageUploads uploa
     {
         var value = await database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DrinkEditViewModel { Id = id, Revision = value.Revision, Name = value.Name,
-            CategoryId = value.CategoryId, Region = value.Region, Description = value.Description, SortOrder = value.SortOrder,
+            CategoryId = value.CategoryId, Description = value.Description, SortOrder = value.SortOrder,
             IsPublished = value.IsPublished, CurrentImage = value.Image, Categories = await Categories() };
     }
 
@@ -43,12 +43,13 @@ public class DrinkAdminService(ApplicationDbContext database, ImageUploads uploa
             if (image != null) value.Image = uploaded = await uploads.SaveAsync(image, "drinks");
             else if (model.RemoveImage) value.Image = "";
             value.Name = model.Name.Trim();
-            value.CategoryId = model.CategoryId; value.Region = model.Region?.Trim() ?? "";
+            value.CategoryId = model.CategoryId;
             value.Description = model.Description?.Trim() ?? ""; value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
             if (id == null)
             {
                 var entry = database.Drinks.Add(value);
                 entry.Property("NameVi").CurrentValue = "";
+                entry.Property("Region").CurrentValue = "";
                 entry.Property("RegionVi").CurrentValue = "";
                 entry.Property("DescriptionVi").CurrentValue = "";
             }

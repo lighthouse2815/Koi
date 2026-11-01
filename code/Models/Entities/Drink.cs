@@ -12,9 +12,6 @@ public class Drink
     [Required, StringLength(250)]
     public string Name { get; set; } = "";
 
-    [StringLength(150)]
-    public string Region { get; set; } = "";
-
     [StringLength(4000)]
     public string Description { get; set; } = "";
 

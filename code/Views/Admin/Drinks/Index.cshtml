@@ -6,7 +6,7 @@
 <div class="table-wrap"><table><thead><tr><th>Đồ uống</th><th>Danh mục</th><th>Thứ tự</th><th>Hiển thị</th><th>Thao tác</th></tr></thead><tbody>
 @foreach (var drink in Model.Drinks)
 {
-    <tr><td><div class="article-cell"><img src="@(string.IsNullOrEmpty(drink.Image) ? drink.Category.Image : drink.Image)" alt="" loading="lazy" /><div><strong>@drink.Name</strong>@drink.Region</div></div></td><td>@drink.Category.Name</td><td>@drink.SortOrder</td><td>@(drink.IsPublished ? (drink.Category.IsPublished ? "Đã xuất bản" : "Danh mục đang ẩn") : "Bản nháp")</td><td><div class="row-actions"><a asp-action="Edit" asp-route-id="@drink.Id">Sửa</a><a asp-action="Delete" asp-route-id="@drink.Id">Xóa</a></div></td></tr>
+    <tr><td><div class="article-cell"><img src="@(string.IsNullOrEmpty(drink.Image) ? drink.Category.Image : drink.Image)" alt="" loading="lazy" /><div><strong>@drink.Name</strong></div></div></td><td>@drink.Category.Name</td><td>@drink.SortOrder</td><td>@(drink.IsPublished ? (drink.Category.IsPublished ? "Đã xuất bản" : "Danh mục đang ẩn") : "Bản nháp")</td><td><div class="row-actions"><a asp-action="Edit" asp-route-id="@drink.Id">Sửa</a><a asp-action="Delete" asp-route-id="@drink.Id">Xóa</a></div></td></tr>
 }
 </tbody></table></div>
 @if (Model.Drinks.Length == 0) { <p>Không tìm thấy đồ uống.</p> }

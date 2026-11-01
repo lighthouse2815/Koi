@@ -14,9 +14,6 @@ public class DrinkEditViewModel
     public string Name { get; set; } = "";
     public Guid CategoryId { get; set; }
 
-    [StringLength(150)]
-    public string? Region { get; set; }
-
     [StringLength(4000)]
     public string? Description { get; set; }
 

@@ -6,7 +6,6 @@
 <div class="editor-columns"><div class="card">
 <label asp-for="Name">Tên đồ uống</label><input asp-for="Name" maxlength="250" required />
 <label asp-for="CategoryId">Danh mục</label><select asp-for="CategoryId" asp-items="Model.Categories" required><option value="">Chọn danh mục</option></select>
-<input asp-for="Region" type="hidden" />
 <label asp-for="Description">Mô tả</label><textarea asp-for="Description" rows="7" maxlength="4000"></textarea>
 </div><aside class="card">
 <label asp-for="ImageUpload">Ảnh đồ uống</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }
