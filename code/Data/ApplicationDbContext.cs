@@ -53,6 +53,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<Order>().HasOne(value => value.Store).WithMany().OnDelete(DeleteBehavior.SetNull);
         builder.Entity<Order>().HasIndex(value => new { value.Status, value.CreatedAt });
         var articles = builder.Entity<NewsArticle>();
+        articles.Property(article => article.Category).HasConversion<string>().HasMaxLength(10);
         articles.Property<string>("TitleVi").HasMaxLength(300).IsRequired();
         articles.Property<string>("BodyHtmlVi").HasMaxLength(200000).IsRequired();
         articles.HasIndex(article => new { article.IsPublished, article.Date });

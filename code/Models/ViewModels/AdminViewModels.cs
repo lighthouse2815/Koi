@@ -21,8 +21,8 @@ public class NewsEditViewModel
     [Required(ErrorMessage = "Nhập tiêu đề."), StringLength(300)]
     public string Title { get; set; } = "";
 
-    [Required, RegularExpression("NEWS|MEDIA", ErrorMessage = "Chọn NEWS hoặc MEDIA.")]
-    public string Category { get; set; } = "NEWS";
+    [EnumDataType(typeof(NewsCategory), ErrorMessage = "Chọn NEWS hoặc MEDIA.")]
+    public NewsCategory Category { get; set; } = NewsCategory.NEWS;
 
     [Required(ErrorMessage = "Chọn ngày đăng."), DataType(DataType.Date)]
     public DateOnly? Date { get; set; } = DateOnly.FromDateTime(DateTime.Today);

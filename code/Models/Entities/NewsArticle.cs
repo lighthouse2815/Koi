@@ -1,6 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Koi.Web.Models;
+
+[JsonConverter(typeof(JsonStringEnumConverter<NewsCategory>))]
+public enum NewsCategory { NEWS, MEDIA }
 
 public class NewsArticle
 {
@@ -9,8 +13,7 @@ public class NewsArticle
     [MaxLength(300)]
     public string Title { get; set; } = "";
 
-    [MaxLength(10)]
-    public string Category { get; set; } = "NEWS";
+    public NewsCategory Category { get; set; } = NewsCategory.NEWS;
     public DateOnly Date { get; set; }
 
     [MaxLength(500)]

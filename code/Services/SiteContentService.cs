@@ -31,11 +31,12 @@ public class SiteContentService(ApplicationDbContext database)
     {
         category = category?.ToUpperInvariant();
         if (category is not ("NEWS" or "MEDIA")) category = null;
+        var categoryFilter = category == null ? (NewsCategory?)null : Enum.Parse<NewsCategory>(category);
         var published = database.NewsArticles.AsNoTracking().Where(article => article.IsPublished);
         var featured = await published.OrderByDescending(article => article.IsFeatured)
             .ThenByDescending(article => article.Date).ThenByDescending(article => article.Id).FirstOrDefaultAsync();
         var featuredId = featured?.Id ?? Guid.Empty;
-        var articles = published.Where(article => article.Id != featuredId && (category == null || article.Category == category));
+        var articles = published.Where(article => article.Id != featuredId && (categoryFilter == null || article.Category == categoryFilter));
         const int pageSize = 5;
         var pageCount = Math.Max(1, (int)Math.Ceiling(await articles.CountAsync() / (double)pageSize));
         page = Math.Clamp(page, 1, pageCount);

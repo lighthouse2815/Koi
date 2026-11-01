@@ -15,7 +15,7 @@
         <div class="top-news">
             <a asp-action="NewsDetail" asp-route-id="@featured.Id" class="flex-container align-middle align-justify">
                 <div class="pic-area hide-for-large">
-                    <div class="cat">@T[featured.Category]</div>
+                    <div class="cat">@T[featured.Category.ToString()]</div>
                     <time class="date" datetime="@featured.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(featured.Date))</time>
                     <div class="more" aria-hidden="true">@if (SiteText.IsVietnamese) { <span class="localized-control-text">@T["( More )"] ↗</span> }
                         <svg xmlns="http://www.w3.org/2000/svg" width="34.67" height="30.18" viewBox="0 0 34.67 30.18"><g class="arrow">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="pic-area">
-                    <div class="cat show-for-large">@T[featured.Category]</div>
+                    <div class="cat show-for-large">@T[featured.Category.ToString()]</div>
                     <time class="date show-for-large" datetime="@featured.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(featured.Date))</time>
                     <div class="pic"><img src="@featured.Image" alt="@T["Colourful KOI travel magnet badges"]" /></div>
                 </div>
@@ -66,14 +66,14 @@
                             <a asp-action="NewsDetail" asp-route-id="@article.Id" class="news-row flex-container align-middle">
                                 <div class="news-mobile-summary flex-container align-justify align-middle hide-for-large">
                                     <div class="top-area">
-                                        <div class="cat">@T[article.Category]</div>
+                                        <div class="cat">@T[article.Category.ToString()]</div>
                                         <time class="date" datetime="@article.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(article.Date))</time>
                                         <h2 class="title hide-for-large show-for-medium">@article.Title</h2>
                                     </div>
                                     <div class="pic"><img src="@article.Image" alt="" loading="lazy" /></div>
                                 </div>
                                 <div class="top-area show-for-large">
-                                    <div class="cat">@T[article.Category]</div>
+                                    <div class="cat">@T[article.Category.ToString()]</div>
                                     <time class="date" datetime="@article.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(article.Date))</time>
                                 </div>
                                 <h2 class="title show-for-large">@article.Title</h2>
