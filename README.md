@@ -76,15 +76,6 @@ Bản FE đã xuất sẵn tại [`fe-demo`](fe-demo/README.md), có giao diện
 
 Ảnh tải lên lưu trong `wwwroot/uploads`, không đưa vào Git hoặc bản publish. Khi triển khai cần giữ thư mục uploads riêng cùng với dữ liệu PostgreSQL. Xóa bài viết chỉ xóa bản ghi, giữ các ảnh đã lưu.
 
-Kiểm tra tích hợp dùng PostgreSQL riêng, tên database phải kết thúc bằng `_tests`. Với cấu hình local, tạo database kiểm thử một lần rồi chạy:
-
-```bash
-docker compose exec postgres createdb -U koi koi_tests
-dotnet test tests/Koi.Web.Tests/Koi.Web.Tests.csproj --configuration Release
-```
-
-Có thể đặt `KOI_TEST_CONNECTION_STRING` để dùng một database kiểm thử khác có hậu tố `_tests`. Test không xóa/reset database website và giữ lại dữ liệu kiểm thử; khi chạy lại toàn bộ, dùng database kiểm thử mới nếu dữ liệu từ lượt trước ảnh hưởng thứ tự hiển thị. Mật khẩu tài khoản test được tạo ngẫu nhiên; kiểm thử dùng thư mục uploads tạm. Nội dung 13 bài cũ đã được đối chiếu với bản Razor trước khi chuyển sang database.
-
 ## Trang chủ
 
 Các phần ghi chép và kiểm thử giao diện bên dưới phản ánh những phiên bản trước khi thu gọn phạm vi về Việt Nam; dữ liệu nước ngoài trong database đã được xóa theo yêu cầu.
@@ -307,6 +298,6 @@ Kiểm tra phiên bản song ngữ: build/publish Release; 59 test tích hợp t
 
 Phần bìa và các cảnh giữ màn hình tính kích thước theo chiều cao cửa sổ: nút điều khiển không lọt dưới màn hình, ảnh/chữ O thu cùng tỷ lệ, thẻ đồ uống giữ đủ tên và khoảng cách với nút chuyển. Menu vừa cả chiều rộng lẫn chiều cao. About và New Drinks tự giãn theo nội dung; mô tả lịch sử dùng cơ chế autoHeight có sẵn của Swiper. Bìa Precision vừa vùng nhìn khi được giữ trong lúc cuộn.
 
-Ma trận kiểm tra gồm 15 URL, VI/EN và 11 kích thước: 360×640, 390×844, 844×390, 768×1024, 1024×600, 1093×550, 1280×600, 1366×650, 1536×720, 1440×900, 1920×1080. Kiểm tra hồi quy còn bổ sung 1280×800 và 1440×850, nội dung bị cắt, nút chuyển đồ uống, menu, chín slide lịch sử, thay đổi kích thước khi đang cuộn và giảm chuyển động; mã kiểm tra nằm tại [tests/browser](tests/browser/README.md).
+Ma trận kiểm tra gồm 15 URL, VI/EN và 11 kích thước: 360×640, 390×844, 844×390, 768×1024, 1024×600, 1093×550, 1280×600, 1366×650, 1536×720, 1440×900, 1920×1080. Kiểm tra hồi quy còn bổ sung 1280×800 và 1440×850, nội dung bị cắt, nút chuyển đồ uống, menu, chín slide lịch sử, thay đổi kích thước khi đang cuộn và giảm chuyển động.
 
 Ảnh sau khi sửa: [đồ uống ở cửa sổ laptop 1366×650](docs/preview/laptop-drinks-1366x650.png) · [lịch sử About ở 844×390](docs/preview/about-history-844x390.png).
