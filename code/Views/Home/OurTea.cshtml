@@ -200,18 +200,20 @@
         }
         <section class="tea-catalog" id="tea-menu" aria-labelledby="tea-catalog-title">
             <header class="tea-catalog-heading">
-                <div><p class="tea-eyebrow">KOI THÉ · MENU</p><h2 id="tea-catalog-title">@(SiteText.IsVietnamese ? "Chọn món bạn yêu thích" : "Find your favourite")</h2><p>@(SiteText.IsVietnamese ? "Một chút trà, một chút niềm vui mỗi ngày." : "A little tea, a little joy for your day.")</p></div>
-                <a class="tea-all-menu" asp-controller="Order" asp-action="Index" asp-fragment="drinks">@(SiteText.IsVietnamese ? "Xem toàn bộ thực đơn" : "Explore the full menu") <span aria-hidden="true">↗</span></a>
+                <div><p class="tea-eyebrow">( YOUR DAILY BEAT. )</p><h2 id="tea-catalog-title"><span>@(SiteText.IsVietnamese ? "MỘT CHÚT TRÀ." : "A LITTLE TEA.")</span><em>@(SiteText.IsVietnamese ? "THẬT NHIỀU VUI." : "A LOT OF JOY.")</em></h2><p>@(SiteText.IsVietnamese ? "Chọn hương vị yêu thích, để KOI lo phần còn lại." : "Find your favourite. We'll take care of the rest.")</p></div>
+                <a class="tea-all-menu" asp-controller="Order" asp-action="Index" asp-fragment="drinks"><span>@(SiteText.IsVietnamese ? "Xem toàn bộ" : "Explore the full")<br />@(SiteText.IsVietnamese ? "thực đơn" : "menu")</span><span class="tea-button-arrow" aria-hidden="true">↗</span></a>
             </header>
             <nav class="tea-category-nav" aria-label="@(SiteText.IsVietnamese ? "Danh mục đồ uống" : "Drink categories")">
-                @foreach (var category in Model.Categories) { <a href="#@category.Id">@SiteText.Select(category.Name, category.NameVi)</a> }
+                @for (var index = 0; index < Model.Categories.Length; index++) { var category = Model.Categories[index]; <a href="#@category.Id"><span aria-hidden="true">@((index + 1).ToString("D2"))</span>@SiteText.Select(category.Name, category.NameVi)</a> }
             </nav>
             <ul class="drinkWrapList tea-categories">
-                @foreach (var category in Model.Categories)
+                @for (var categoryIndex = 0; categoryIndex < Model.Categories.Length; categoryIndex++)
                 {
+                    var category = Model.Categories[categoryIndex];
                     <li id="@category.Id" class="tea-category">
-                        <div class="tea-category-heading"><div class="title"><span class="tea-category-number">KOI THÉ /</span><h3 class="en">@SiteText.Select(category.Name, category.NameVi)</h3></div>
-                            <a class="tea-view-all" asp-controller="Order" asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks">@(SiteText.IsVietnamese ? "Xem tất cả sản phẩm" : "View all drinks") <span aria-hidden="true">↗</span></a>
+                        <div class="tea-category-rule" aria-hidden="true"></div>
+                        <div class="tea-category-heading"><div class="title"><span class="tea-category-number" aria-hidden="true">(@((categoryIndex + 1).ToString("D2")))</span><h3 class="en">@SiteText.Select(category.Name, category.NameVi)</h3></div>
+                            <a class="tea-view-all" asp-controller="Order" asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks">@(SiteText.IsVietnamese ? "Xem tất cả sản phẩm" : "View all drinks") <span class="tea-button-arrow" aria-hidden="true">↗</span></a>
                         </div>
                         <ul class="drinkList tea-products">
                             @foreach (var drink in category.Drinks.Take(4))
@@ -221,7 +223,7 @@
                                 <li class="tea-product" data-drink-id="@drink.Id">
                                     <div class="tea-product-image"><img src="@(hasImage ? drink.Image : category.Image)" alt="@name" loading="lazy" />@if (!hasImage) { <span>@(SiteText.IsVietnamese ? "Ảnh danh mục" : "Category image")</span> }</div>
                                     <div class="tea-product-details"><div class="en">@name</div><div class="content">@SiteText.Select(drink.Description, drink.DescriptionVi)</div>
-                                        @if (drink.Price > 0) { <div class="tea-product-bottom"><strong>@drink.Price.Value.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) đ</strong><a asp-controller="Order" asp-action="Index" asp-route-drinkId="@drink.Id" asp-fragment="drinks" aria-label="@(SiteText.IsVietnamese ? "Chọn " : "Choose ")@name">@(SiteText.IsVietnamese ? "Chọn món" : "Choose") <span aria-hidden="true">↗</span></a></div> }
+                                        @if (drink.Price > 0) { <div class="tea-product-bottom"><strong>@drink.Price.Value.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) đ</strong><a asp-controller="Order" asp-action="Index" asp-route-drinkId="@drink.Id" asp-fragment="drinks" aria-label="@(SiteText.IsVietnamese ? "Chọn món " : "Choose ")@name">@(SiteText.IsVietnamese ? "Chọn món" : "Choose") <span class="tea-button-arrow" aria-hidden="true">↗</span></a></div> }
                                         else { <p class="tea-unavailable">@(SiteText.IsVietnamese ? "Chưa mở bán" : "Not available")</p> }
                                     </div>
                                 </li>
@@ -242,4 +244,5 @@
 }
 @section Scripts {
     <script src="~/js/content-pages.js" asp-append-version="true" defer></script>
+    <script src="~/js/shop-motion.js" asp-append-version="true" defer></script>
 }

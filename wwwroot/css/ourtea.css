@@ -456,38 +456,56 @@ html:has(.our-teaWrap) { scroll-padding-top: 0; }
     .our-teaWrap .new-drinkWrap { min-height: 667px; }
 }
 
-/* Product browsing */
-.tea-catalog { background: #fbf5ea; color: #24221d; padding: clamp(64px, 8vw, 120px) clamp(20px, 6vw, 96px) 110px; font-family: "Red Hat Display", sans-serif; }
-.tea-catalog-heading, .tea-category-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
-.tea-catalog-heading { max-width: 1440px; margin: 0 auto 40px; }
-.tea-catalog-heading h2 { font-size: clamp(36px, 5vw, 72px); letter-spacing: -.04em; line-height: 1.04; max-width: 700px; margin: 12px 0 16px; }
-.tea-catalog-heading p:last-child { color: #70685b; font-size: 16px; }
-.tea-eyebrow, .tea-category-number { color: #c84918; font-size: 12px; font-weight: 800; letter-spacing: .14em; }
-.tea-all-menu, .tea-view-all { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; gap: 16px; font-size: 14px; font-weight: 800; }
-.tea-all-menu { border-radius: 100px; background: #174e3d; color: #fff; padding: 16px 22px; }
-.tea-all-menu:hover { background: #c84918; color: #fff; }
-.tea-category-nav { display: flex; gap: 8px; overflow-x: auto; max-width: 1440px; padding: 0 0 12px; margin: 0 auto 32px; }
-.tea-category-nav a { flex: 0 0 auto; border: 1px solid #d9cebd; border-radius: 99px; padding: 10px 15px; color: #4d473d; font-size: 12px; font-weight: 700; }
-.tea-category-nav a:hover, .tea-category-nav a:focus-visible { border-color: #174e3d; color: #174e3d; }
+/* Product browsing follows the site's cream, ink and orange palette. */
+.tea-catalog { position: relative; background: var(--cream); color: var(--ink); padding: clamp(70px, 9vw, 140px) clamp(20px, 5.5vw, 90px) 100px; font-family: "Red Hat Display", sans-serif; }
+.tea-catalog-heading, .tea-category-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; }
+.tea-catalog-heading { max-width: 1440px; margin: 0 auto 60px; align-items: center; }
+.tea-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .08em; margin-bottom: 24px; }
+.tea-catalog-heading h2 { font-size: clamp(40px, 5.9vw, 88px); font-weight: 900; letter-spacing: -.055em; line-height: 1.06; margin-bottom: 26px; }
+.tea-catalog-heading h2 span, .tea-catalog-heading h2 em { display: block; }
+.tea-catalog-heading h2 em { color: var(--orange); font-style: normal; }
+.tea-catalog-heading p:last-child { max-width: 500px; font-size: 16px; line-height: 1.6; }
+.tea-all-menu { flex: 0 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; width: clamp(146px, 15vw, 202px); aspect-ratio: 1; border: 1px solid var(--orange); border-radius: 50%; color: var(--ink); font-size: 16px; font-weight: 700; line-height: 1.25; text-align: center; transform: rotate(9deg); transition: background .3s, color .3s, transform .4s; }
+.tea-all-menu .tea-button-arrow { margin-top: 12px; width: 46px; height: 46px; background: var(--orange); color: white; font-size: 30px; }
+.tea-all-menu:hover, .tea-all-menu:focus-visible { background: var(--orange); color: white; transform: rotate(0); }
+.tea-all-menu:hover .tea-button-arrow { background: var(--cream); color: var(--ink); }
+.tea-category-nav { display: flex; gap: 0; overflow-x: auto; max-width: 1440px; padding: 18px 0; margin: 0 auto 26px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); scrollbar-width: thin; scrollbar-color: var(--orange) transparent; }
+.tea-category-nav a { flex: 0 0 auto; display: flex; gap: 8px; padding: 6px 24px; border-right: 1px solid #0d141b30; font-size: 12px; font-weight: 800; line-height: 1.3; transition: color .25s; }
+.tea-category-nav a:first-child { padding-left: 0; }
+.tea-category-nav a:last-child { border-right: 0; }
+.tea-category-nav a > span { font-size: 10px; font-weight: 500; }
+.tea-category-nav a:hover, .tea-category-nav a[aria-current] { color: #b64204; }
 .tea-categories { max-width: 1440px; margin: auto; }
-.tea-category { padding: 44px 0 55px; border-top: 1px solid #d9cebd; scroll-margin-top: 85px; }
-.tea-category-heading { margin-bottom: 25px; }
-.tea-category-heading h3 { margin-top: 8px; font-size: clamp(26px, 3vw, 42px); line-height: 1.12; letter-spacing: -.03em; }
-.tea-view-all { color: #174e3d; border-bottom: 1px solid #174e3d; padding: 10px 0; }
-.tea-products { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-.tea-product { min-width: 0; display: flex; flex-direction: column; background: #fff; border-radius: 12px; overflow: hidden; }
-.tea-product-image { position: relative; background: #eee6d9; aspect-ratio: 4 / 3; overflow: hidden; }
-.tea-product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
-.tea-product:hover .tea-product-image img { transform: scale(1.035); }
-.tea-product-image > span { position: absolute; left: 10px; bottom: 10px; border-radius: 4px; padding: 5px 7px; color: #383127; background: #fffdf3e8; font-size: 10px; }
-.tea-product-details { flex: 1; display: flex; flex-direction: column; padding: 20px; }
-.tea-product .en { font-size: clamp(17px, 1.5vw, 21px); font-weight: 800; line-height: 1.25; }
-.tea-product .content { color: #716b60; font-size: 13px; line-height: 1.55; margin-top: 10px; }
-.tea-product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 20px; }
-.tea-product-bottom strong { color: #a5451e; font-size: 15px; white-space: nowrap; }
-.tea-product-bottom a { border-radius: 99px; padding: 9px 12px; background: #f0f5ed; color: #174e3d; font-size: 13px; font-weight: 800; white-space: nowrap; }
-.tea-product-bottom a:hover { background: #174e3d; color: white; }
-.tea-unavailable { margin-top: auto; padding-top: 20px; color: #746d62; font-size: 13px; }
-@media (max-width: 1024px) { .tea-products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px) { .tea-catalog { padding: 64px 16px 80px; } .tea-catalog-heading { align-items: flex-start; flex-direction: column; } .tea-category-heading { align-items: flex-start; flex-direction: column; gap: 8px; } .tea-products { gap: 10px; } .tea-product-details { padding: 13px; } .tea-product .en { font-size: 16px; } .tea-product .content { font-size: 12px; } .tea-product-bottom { flex-wrap: wrap; } .tea-category { padding: 35px 0; } }
-@media (prefers-reduced-motion: reduce) { .tea-product-image img { transition: none; } }
+.tea-category { position: relative; padding: 48px 0 70px; scroll-margin-top: 100px; }
+.our-teaWrap .tea-categories > .tea-category { scroll-margin-top: 170px; }
+.tea-category-rule { height: 1px; background: #0d141b40; transform-origin: left; }
+.tea-category:first-child .tea-category-rule { background: transparent; }
+.tea-category-heading { margin: 34px 0; align-items: center; }
+.tea-category-heading .title { display: flex; gap: 18px; align-items: start; }
+.tea-category-number { color: #b64204; font-size: 13px; font-weight: 600; padding-top: 8px; }
+.tea-category-heading h3 { font-size: clamp(27px, 3vw, 43px); font-weight: 900; line-height: 1.1; letter-spacing: -.035em; }
+.tea-view-all { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 14px; font-size: 13px; font-weight: 700; }
+.tea-button-arrow { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--orange); color: var(--ink); font-size: 22px; font-weight: 500; transition: transform .3s, background .3s, color .3s; }
+.tea-view-all:hover .tea-button-arrow { transform: rotate(45deg); background: var(--orange); color: white; }
+.tea-products { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2.5vw, 38px); padding-bottom: 28px; }
+.tea-product { min-width: 0; display: flex; flex-direction: column; }
+.tea-product:nth-child(even) { margin-top: 38px; margin-bottom: -38px; }
+.tea-product-image { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 46% 46% 3px 3px; background: var(--peach); isolation: isolate; }
+.tea-product-image::after { content: ''; position: absolute; inset: 0; border: 1px solid #0d141b0c; border-radius: inherit; pointer-events: none; }
+.tea-product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .65s cubic-bezier(.2,.6,.25,1); }
+.tea-product:hover .tea-product-image img, .tea-product:focus-within .tea-product-image img { transform: scale(1.065); }
+.tea-product-image > span { position: absolute; left: 12px; bottom: 12px; padding: 5px 8px; color: var(--ink); background: #f9efe1eb; font-size: 10px; border-radius: 2px; }
+.tea-product-details { flex: 1; display: flex; flex-direction: column; padding: 22px 2px 0; }
+.tea-product .en { font-size: clamp(17px, 1.5vw, 23px); font-weight: 800; line-height: 1.25; letter-spacing: -.025em; }
+.tea-product .content { color: #605a50; font-size: 13px; line-height: 1.6; margin-top: 12px; }
+.tea-product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 23px; }
+.tea-product-bottom strong { color: #b64204; font-size: 17px; font-weight: 700; white-space: nowrap; }
+.tea-product-bottom a { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.tea-product-bottom a .tea-button-arrow { background: var(--orange); color: white; border: 0; }
+.tea-product-bottom a:hover .tea-button-arrow { transform: rotate(45deg); background: var(--ink); }
+.tea-unavailable { margin-top: auto; padding-top: 23px; color: #605a50; font-size: 13px; }
+.tea-catalog a:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+@media (max-width: 1024px) { .tea-products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; row-gap: 45px; } .tea-category-heading { align-items: start; } .tea-category-heading h3 { max-width: 450px; } }
+@media (max-width: 600px) { .tea-catalog { padding: 70px 20px 70px; } .tea-catalog-heading { align-items: start; flex-direction: column; gap: 28px; margin-bottom: 34px; } .tea-catalog-heading h2 { font-size: clamp(35px, 9.5vw, 56px); margin-bottom: 18px; } .tea-catalog-heading p:last-child { font-size: 14px; } .tea-eyebrow { margin-bottom: 18px; } .tea-all-menu { width: auto; aspect-ratio: auto; flex-direction: row; gap: 20px; border-radius: 60px; padding: 10px 14px 10px 22px; transform: none; font-size: 13px; text-align: left; } .tea-all-menu br { display: none; } .tea-all-menu .tea-button-arrow { margin-top: 0; width: 38px; height: 38px; font-size: 25px; } .tea-category-nav { padding: 13px 0; margin-bottom: 4px; } .tea-category-nav a { padding: 5px 16px; font-size: 11px; } .tea-category-heading { align-items: start; flex-direction: column; gap: 18px; margin: 25px 0; } .tea-category-heading .title { gap: 10px; } .tea-category-heading h3 { font-size: 27px; } .tea-category-number { padding-top: 5px; font-size: 11px; } .tea-view-all { align-self: end; font-size: 12px; } .tea-products { gap: 16px; row-gap: 34px; } .tea-product:nth-child(even) { margin-top: 25px; margin-bottom: -25px; } .tea-product-details { padding-top: 16px; } .tea-product .en { font-size: 16px; } .tea-product .content { font-size: 12px; line-height: 1.5; } .tea-product-bottom { align-items: start; flex-direction: column; padding-top: 16px; gap: 12px; } .tea-product-bottom strong { font-size: 16px; } .tea-category { padding: 28px 0 48px; } }
+@media (prefers-reduced-motion: reduce) { .tea-product-image img, .tea-all-menu, .tea-button-arrow { transition: none; } .tea-product:hover .tea-product-image img, .tea-product:focus-within .tea-product-image img { transform: none; } }
+@media (max-width: 1024px) { .our-teaWrap .tea-categories > .tea-category { scroll-margin-top: 90px; } }
