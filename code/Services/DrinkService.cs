@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class DrinkAdminService(
+public class DrinkService(
     ApplicationDbContext database,
     ImageUploads uploads,
-    ILogger<DrinkAdminService> logger
+    ILogger<DrinkService> logger
 )
 {
     public async Task<AdminDrinksViewModel> GetListAsync(

@@ -38,7 +38,7 @@ builder.Services.AddScoped<ImageUploads>();
 builder.Services.AddScoped<SiteContentService>();
 builder.Services.AddScoped<NewsAdminService>();
 builder.Services.AddScoped<MenuAdminService>();
-builder.Services.AddScoped<DrinkAdminService>();
+builder.Services.AddScoped<DrinkService>();
 builder.Services.AddScoped<FeaturedDrinkAdminService>();
 builder.Services.AddScoped<DrinkCategoryAdminService>();
 builder.Services.AddScoped<StoreAdminService>();

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
-public class DrinksController(DrinkAdminService drinks) : Controller
+public class DrinksController(DrinkService drinks) : Controller
 {
     public async Task<IActionResult> Index(string? search, Guid categoryId = default, int page = 1) => View(await drinks.GetListAsync(search, categoryId, page));
     public async Task<IActionResult> Create() => View("Edit", await drinks.CreateAsync());
