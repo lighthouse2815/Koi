@@ -78,7 +78,7 @@ public class LocalizationApplicationTests(NewsApplicationFactory factory) : ICla
         Assert.Contains("Mỗi ly trà", vietnamese.QuerySelector(".detail-area")!.TextContent);
         var tea = await Page(client, "/Home/OurTea?culture=vi");
         Assert.Contains("Trà sữa trân châu hoàng kim", tea.QuerySelector(".drinkWrapList")!.TextContent);
-        Assert.Equal(54, tea.QuerySelectorAll(".drinkWrapList .drinkList > li").Length);
+        Assert.Equal(28, tea.QuerySelectorAll(".drinkWrapList .drinkList > li").Length);
         Assert.Equal(4, tea.QuerySelectorAll(".new-drink > li").Length);
     }
 

@@ -142,7 +142,6 @@
     }
 
     const tea = page.querySelector('.our-teaWrap');
-    let selectCategory;
     if (tea) {
         if (window.gsap && window.ScrollToPlugin) gsap.registerPlugin(ScrollToPlugin);
         const newDrinks = [...tea.querySelectorAll('.new-drink > li')];
@@ -222,46 +221,8 @@
         }
         const explore = tea.querySelector('.scroll-down');
         explore.setAttribute('aria-label', window.koiText('Explore new drinks'));
-        activate(explore, () => (tea.querySelector('.new-drinkWrap') || tea.querySelector('.drinkWrap')).scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
-        const sections = [...tea.querySelectorAll('.drinkWrapList > li')];
-        const pictures = [...tea.querySelectorAll('.drinkList-pic > ul')];
-        const menuItems = [...tea.querySelectorAll('.drink-fixedList > li')];
-        selectCategory = (index, drink = 0) => {
-            sections.forEach((section, i) => {
-                section.classList.toggle('current', i === index);
-                section.querySelectorAll('.drinkList > li').forEach(item => item.classList.toggle('current', i === index && Number(item.dataset.drink) === drink));
-            });
-            menuItems.forEach((item, i) => { item.classList.toggle('current', i === index); item.style.opacity = String([1, .4, .2][Math.abs(i - index)] ?? .1); });
-            pictures.forEach((list, i) => {
-                list.classList.toggle('is-show', i === index);
-                const image = drink < list.children.length ? drink : 0;
-                [...list.children].forEach((item, j) => item.classList.toggle('is-show', j === image));
-            });
-        };
-        sections.forEach((section, index) => {
-            activate(section.querySelector('.title'), () => selectCategory(index));
-            section.querySelectorAll('.drinkList > li').forEach(item => {
-                const select = () => selectCategory(index, Number(item.dataset.drink));
-                activate(item, select);
-                item.addEventListener('pointerenter', () => { if (!mobile.matches) select(); });
-                item.addEventListener('focus', select);
-            });
-        });
-        const scrollCategory = index => {
-            selectCategory(index);
-            if (!reducedMotion.matches && window.ScrollToPlugin) {
-                gsap.to(window, { scrollTo: { y: sections[index], offsetY: mobile.matches ? 100 : 10, autoKill: true }, duration: 1.2, ease: 'power2.inOut' });
-            } else sections[index].scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' });
-        };
-        menuItems.forEach((item, index) => activate(item, () => scrollCategory(index)));
-        const select = tea.querySelector('.menu-select');
-        activate(select.querySelector('.current'), () => select.classList.toggle('open'));
-        select.querySelectorAll('[data-menu]').forEach(item => activate(item, () => {
-            select.querySelector('.current').textContent = item.textContent.trim();
-            select.classList.remove('open');
-            scrollCategory(Number(item.dataset.menu));
-        }));
-        selectCategory(0);
+        activate(explore, () => (tea.querySelector('.new-drinkWrap') || tea.querySelector('.tea-catalog')).scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
+
     }
 
     const impact = page.querySelector('.crmWrap');
@@ -348,21 +309,7 @@
         }
         if (tea) {
             gsap.fromTo('.our-teaWrap > .head-area > .inner .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, delay: 1, ease: 'power2.out' });
-            tea.querySelectorAll('.drinkWrapList > li').forEach((section, index) => {
-                ScrollTrigger.create({ trigger: section, start: context.conditions.desktop ? 'top 70%' : '20% 80%', end: context.conditions.desktop ? 'bottom 70%' : 'bottom 80%', onEnter: () => selectCategory(index), onEnterBack: () => selectCategory(index) });
-                if (!context.conditions.desktop) {
-                    section.querySelectorAll('.drinkList > li').forEach(item => {
-                        const select = () => selectCategory(index, Number(item.dataset.drink));
-                        ScrollTrigger.create({ trigger: item, start: 'top 70%', end: 'bottom 70%', onEnter: select, onEnterBack: select });
-                    });
-                }
-            });
-            ScrollTrigger.create({ trigger: '.drinkWrapList', start: 'top 70%', end: 'bottom 70%', onToggle: self => tea.querySelector('.drinkWrap').classList.toggle('catalog-active', self.isActive) });
-            cleanUpPage = () => tea.querySelector('.drinkWrap').classList.remove('catalog-active');
-            if (context.conditions.desktop) {
-                ScrollTrigger.create({ trigger: '.menu-drinkList', endTrigger: '.drinkWrap', start: 'top 10%', end: 'bottom 90%', pin: true, pinSpacing: false });
-                ScrollTrigger.create({ trigger: '.drinkList-pic', endTrigger: '.drinkWrap', start: 'top 39%', end: 'bottom 100%', pin: true, pinSpacing: false });
-            }
+
         }
         if (page.querySelector('.recruitWrap')) {
             const intro = gsap.timeline({ delay: 1, defaults: { duration: 1, ease: 'power2.out' } });

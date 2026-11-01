@@ -455,3 +455,39 @@ html:has(.our-teaWrap) { scroll-padding-top: 0; }
 @media (max-width: 639px) {
     .our-teaWrap .new-drinkWrap { min-height: 667px; }
 }
+
+/* Product browsing */
+.tea-catalog { background: #fbf5ea; color: #24221d; padding: clamp(64px, 8vw, 120px) clamp(20px, 6vw, 96px) 110px; font-family: "Red Hat Display", sans-serif; }
+.tea-catalog-heading, .tea-category-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+.tea-catalog-heading { max-width: 1440px; margin: 0 auto 40px; }
+.tea-catalog-heading h2 { font-size: clamp(36px, 5vw, 72px); letter-spacing: -.04em; line-height: 1.04; max-width: 700px; margin: 12px 0 16px; }
+.tea-catalog-heading p:last-child { color: #70685b; font-size: 16px; }
+.tea-eyebrow, .tea-category-number { color: #c84918; font-size: 12px; font-weight: 800; letter-spacing: .14em; }
+.tea-all-menu, .tea-view-all { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; gap: 16px; font-size: 14px; font-weight: 800; }
+.tea-all-menu { border-radius: 100px; background: #174e3d; color: #fff; padding: 16px 22px; }
+.tea-all-menu:hover { background: #c84918; color: #fff; }
+.tea-category-nav { display: flex; gap: 8px; overflow-x: auto; max-width: 1440px; padding: 0 0 12px; margin: 0 auto 32px; }
+.tea-category-nav a { flex: 0 0 auto; border: 1px solid #d9cebd; border-radius: 99px; padding: 10px 15px; color: #4d473d; font-size: 12px; font-weight: 700; }
+.tea-category-nav a:hover, .tea-category-nav a:focus-visible { border-color: #174e3d; color: #174e3d; }
+.tea-categories { max-width: 1440px; margin: auto; }
+.tea-category { padding: 44px 0 55px; border-top: 1px solid #d9cebd; scroll-margin-top: 85px; }
+.tea-category-heading { margin-bottom: 25px; }
+.tea-category-heading h3 { margin-top: 8px; font-size: clamp(26px, 3vw, 42px); line-height: 1.12; letter-spacing: -.03em; }
+.tea-view-all { color: #174e3d; border-bottom: 1px solid #174e3d; padding: 10px 0; }
+.tea-products { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.tea-product { min-width: 0; display: flex; flex-direction: column; background: #fff; border-radius: 12px; overflow: hidden; }
+.tea-product-image { position: relative; background: #eee6d9; aspect-ratio: 4 / 3; overflow: hidden; }
+.tea-product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.tea-product:hover .tea-product-image img { transform: scale(1.035); }
+.tea-product-image > span { position: absolute; left: 10px; bottom: 10px; border-radius: 4px; padding: 5px 7px; color: #383127; background: #fffdf3e8; font-size: 10px; }
+.tea-product-details { flex: 1; display: flex; flex-direction: column; padding: 20px; }
+.tea-product .en { font-size: clamp(17px, 1.5vw, 21px); font-weight: 800; line-height: 1.25; }
+.tea-product .content { color: #716b60; font-size: 13px; line-height: 1.55; margin-top: 10px; }
+.tea-product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 20px; }
+.tea-product-bottom strong { color: #a5451e; font-size: 15px; white-space: nowrap; }
+.tea-product-bottom a { border-radius: 99px; padding: 9px 12px; background: #f0f5ed; color: #174e3d; font-size: 13px; font-weight: 800; white-space: nowrap; }
+.tea-product-bottom a:hover { background: #174e3d; color: white; }
+.tea-unavailable { margin-top: auto; padding-top: 20px; color: #746d62; font-size: 13px; }
+@media (max-width: 1024px) { .tea-products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .tea-catalog { padding: 64px 16px 80px; } .tea-catalog-heading { align-items: flex-start; flex-direction: column; } .tea-category-heading { align-items: flex-start; flex-direction: column; gap: 8px; } .tea-products { gap: 10px; } .tea-product-details { padding: 13px; } .tea-product .en { font-size: 16px; } .tea-product .content { font-size: 12px; } .tea-product-bottom { flex-wrap: wrap; } .tea-category { padding: 35px 0; } }
+@media (prefers-reduced-motion: reduce) { .tea-product-image img { transition: none; } }

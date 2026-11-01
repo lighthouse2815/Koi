@@ -115,7 +115,7 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             var category = new DrinkCategory { Name = "Menu test " + Guid.NewGuid(), Image = "/images/category.jpg" };
             var first = new Drink { Name = "First " + Guid.NewGuid(), Category = category, Image = "/images/first.jpg", Price = 45000 };
-            var second = new Drink { Name = "Second " + Guid.NewGuid(), Category = category, Price = 30000 };
+            var second = new Drink { Name = "Second " + Guid.NewGuid(), Category = category, Price = null };
             var branch = new StoreEntry { Name = "Branch " + Guid.NewGuid(), AcceptsOrders = true };
             db.AddRange(first, second, branch); await db.SaveChangesAsync();
             categoryId = category.Id; branchId = branch.Id; firstId = first.Id; secondId = second.Id;
@@ -124,6 +124,7 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
         Assert.Contains(firstId.ToString(), categoryPage);
         Assert.Contains(secondId.ToString(), categoryPage);
         Assert.Contains("/images/category.jpg", categoryPage);
+        Assert.Contains("Chưa mở bán", WebUtility.HtmlDecode(categoryPage));
         var selectedPage = await client.GetStringAsync($"/Order/Index?drinkId={firstId}");
         Assert.Contains("/images/first.jpg", selectedPage);
         Assert.DoesNotContain(secondId.ToString(), selectedPage);

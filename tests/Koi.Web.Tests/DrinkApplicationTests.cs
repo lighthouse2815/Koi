@@ -22,18 +22,20 @@ public class DrinkApplicationTests(NewsApplicationFactory factory) : IClassFixtu
         var page = await new HtmlParser().ParseDocumentAsync(await client.GetStringAsync("/Home/OurTea"));
         var categories = seed.RootElement.GetProperty("categories").EnumerateArray().ToArray();
         Assert.Equal(7, categories.Length);
-        Assert.Equal(54, page.QuerySelectorAll(".drinkWrapList .drinkList > li").Length);
+        Assert.Equal(28, page.QuerySelectorAll(".drinkWrapList .drinkList > li").Length);
+        Assert.NotNull(page.QuerySelector("a.tea-all-menu[href^='/Order']"));
         foreach (var category in categories)
         {
             var section = page.QuerySelector($".drinkWrapList > li[id='{SeedGuid("DrinkCategories", category.GetProperty("id").GetInt32())}']")!;
             Assert.Equal(category.GetProperty("name").GetString(), section.QuerySelector(".title .en")!.TextContent);
             var rows = section.QuerySelectorAll(".drinkList > li"); var drinks = category.GetProperty("drinks").EnumerateArray().ToArray();
-            Assert.Equal(drinks.Length, rows.Length);
+            Assert.Equal(Math.Min(4, drinks.Length), rows.Length);
+            Assert.Contains("categoryId=", section.QuerySelector(".tea-view-all")!.GetAttribute("href"));
             for (var index = 0; index < rows.Length; index++)
             {
                 Assert.Equal(drinks[index].GetProperty("name").GetString(), rows[index].QuerySelector(".en")!.TextContent);
                 Assert.Equal(drinks[index].GetProperty("description").GetString(), rows[index].QuerySelector(".content")!.TextContent);
-                Assert.Equal(drinks[index].GetProperty("region").GetString(), rows[index].QuerySelector(".region")?.TextContent.TrimStart('/', ' ') ?? "");
+                Assert.False(string.IsNullOrWhiteSpace(rows[index].QuerySelector("img")!.GetAttribute("src")));
             }
         }
         Assert.Equal(4, page.QuerySelectorAll(".new-drink > li").Length);
