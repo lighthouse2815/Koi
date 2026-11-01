@@ -13,7 +13,7 @@ public class FeaturedDrinkAdminService(ApplicationDbContext database, ImageUploa
     {
         var value = await database.FeaturedDrinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new FeaturedDrinkEditViewModel { Id = id, Revision = value.Revision, Name = value.Name,
-            Region = value.Region, IsPublished = value.IsPublished, SortOrder = value.SortOrder, CurrentImage = value.Image, CurrentBackground = value.BackgroundImage };
+            IsPublished = value.IsPublished, SortOrder = value.SortOrder, CurrentImage = value.Image, CurrentBackground = value.BackgroundImage };
     }
 
     public async Task<SaveResult> SaveAsync(FeaturedDrinkEditViewModel model, Guid? id, ModelStateDictionary modelState)
@@ -32,13 +32,13 @@ public class FeaturedDrinkAdminService(ApplicationDbContext database, ImageUploa
             if (image != null) value.Image = uploaded = await uploads.SaveAsync(image, "featured-drinks");
             if (background != null) value.BackgroundImage = uploadedBackground = await uploads.SaveAsync(background, "featured-drinks");
             value.Name = model.Name.Trim();
-            value.Region = model.Region?.Trim() ?? "";
             value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
             if (id == null)
             {
                 var entry = database.FeaturedDrinks.Add(value);
                 entry.Property("NameVi").CurrentValue = "";
                 entry.Property("RegionVi").CurrentValue = "";
+                entry.Property("Region").CurrentValue = "";
             }
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); return SaveResult.Success;

@@ -9,9 +9,6 @@ public class FeaturedDrink
     [Required, StringLength(250)]
     public string Name { get; set; } = "";
 
-    [StringLength(150)]
-    public string Region { get; set; } = "";
-
     [Required, StringLength(500)]
     public string Image { get; set; } = "";
 

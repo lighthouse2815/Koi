@@ -63,9 +63,6 @@ public class FeaturedDrinkEditViewModel
     [Required, StringLength(250)]
     public string Name { get; set; } = "";
 
-    [StringLength(150)]
-    public string? Region { get; set; }
-
     [Range(0, 100000)]
     public int SortOrder { get; set; }
     public bool IsPublished { get; set; } = true;

@@ -191,7 +191,7 @@
                     @for (var index = 0; index < Model.Featured.Length; index++)
                     {
                         var item = Model.Featured[index];
-                        <li data-drink="@(index + 1)"><div class="inner">@if (!string.IsNullOrEmpty(item.Region)) { <div class="region">/ @item.Region</div> }<div class="en">@item.Name</div></div></li>
+                        <li data-drink="@(index + 1)"><div class="inner"><div class="en">@item.Name</div></div></li>
                     }
                 </ul><div class="tea-new-pagination"></div></div>
             </div>
