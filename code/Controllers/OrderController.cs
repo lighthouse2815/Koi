@@ -33,7 +33,7 @@ public class OrderController(ApplicationDbContext database) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(Guid id, int quantity = 1, Guid? sizeId = null, Guid[]? toppingIds = null, int sugar = 0, int ice = 0)
+    public async Task<IActionResult> Add(Guid id, int quantity = 1, Guid? sizeId = null, Guid[]? toppingIds = null, int sugar = 0, int ice = 0, Guid? categoryId = null, Guid? drinkId = null)
     {
         var cart = GetCart();
         if (!await database.Stores.AnyAsync(value => value.Id == cart.StoreId && value.IsPublished && value.AcceptsOrders)) { TempData["OrderMessage"] = "Hãy chọn chi nhánh đang nhận đơn."; return RedirectToAction(nameof(Index)); }
@@ -48,7 +48,7 @@ public class OrderController(ApplicationDbContext database) : Controller
         cart.Items.Add(new CartItem { DrinkId = drink.Id, Quantity = quantity, Price = drink.Price!.Value + (size?.ExtraPrice ?? 0) + toppings.Sum(value => value.ExtraPrice), SizeId = sizeId, ToppingIds = toppingIds.ToList(), Sugar = sugar, Ice = ice, Customization = Describe(size, toppings, sugar, ice) });
         SaveCart(cart);
         TempData["OrderMessage"] = "Đã thêm đồ uống vào giỏ hàng.";
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), null, new { categoryId, drinkId }, "drinks");
     }
 
     private static string Describe(SaleOption? size, SaleOption[] toppings, int sugar, int ice)
@@ -139,6 +139,8 @@ public class OrderController(ApplicationDbContext database) : Controller
         if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);
         else if (categoryId.HasValue) query = query.Where(value => value.CategoryId == categoryId);
         var drinks = await query.OrderBy(value => value.Category.SortOrder).ThenBy(value => value.SortOrder).ToArrayAsync();
+        var categories = await database.DrinkCategories.AsNoTracking().Where(value => value.IsPublished && value.Drinks.Any(drink => drink.IsPublished))
+            .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         var filterName = drinkId.HasValue ? null : categoryId.HasValue
             ? await database.DrinkCategories.AsNoTracking().Where(value => value.Id == categoryId && value.IsPublished).Select(value => value.NameVi != "" ? value.NameVi : value.Name).SingleOrDefaultAsync() : null;
         var options = await database.SaleOptions.AsNoTracking().Where(value => value.IsActive).OrderBy(value => value.Name).ToArrayAsync();
@@ -147,7 +149,7 @@ public class OrderController(ApplicationDbContext database) : Controller
         return new OrderingPageViewModel
         {
             Branches = branches, Branch = branches.FirstOrDefault(value => value.Id == cart.StoreId), Drinks = drinks, Cart = cart,
-            CategoryId = categoryId, DrinkId = drinkId, FilterName = filterName,
+            CategoryId = categoryId, DrinkId = drinkId, FilterName = filterName, Categories = categories,
             Sizes = options.Where(value => value.Kind == SaleOptionKind.Size).ToArray(), Toppings = options.Where(value => value.Kind == SaleOptionKind.Topping).ToArray(),
             Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (string.IsNullOrWhiteSpace(d.NameVi) ? d.Name : d.NameVi) : "Món không còn tồn tại", line.Customization, line.Quantity, line.Price)).ToList()
         };

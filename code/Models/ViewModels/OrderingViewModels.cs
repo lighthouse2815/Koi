@@ -27,6 +27,7 @@ public class OrderingPageViewModel
     public Guid? CategoryId { get; set; }
     public Guid? DrinkId { get; set; }
     public string? FilterName { get; set; }
+    public DrinkCategory[] Categories { get; set; } = [];
     public Drink[] Drinks { get; set; } = [];
     public SaleOption[] Sizes { get; set; } = [];
     public SaleOption[] Toppings { get; set; } = [];

@@ -135,6 +135,13 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
         Assert.Contains(firstId.ToString(), afterBranch);
         Assert.DoesNotContain(secondId.ToString(), afterBranch);
         Assert.Contains("/Order/Add", afterBranch);
+        var add = await AdminTestClient.Post(client, "/Order/Add", new() { ["id"] = firstId.ToString(), ["drinkId"] = firstId.ToString(), ["quantity"] = "1" }, tokenUrl: "/Admin/Account/Login");
+        Assert.Equal(HttpStatusCode.Redirect, add.StatusCode);
+        Assert.Contains($"drinkId={firstId}", add.Headers.Location!.ToString());
+        Assert.EndsWith("#drinks", add.Headers.Location.ToString());
+        var cartPage = await client.GetStringAsync(add.Headers.Location);
+        Assert.Contains("cart-line", cartPage);
+        Assert.DoesNotContain(secondId.ToString(), cartPage);
     }
 
 }
