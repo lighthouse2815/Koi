@@ -6,9 +6,6 @@ public class DrinkCategory
 {
     public Guid Id { get; set; }
 
-    [StringLength(200)]
-    public string NameVi { get; set; } = "";
-
     [Required, StringLength(200)]
     public string Name { get; set; } = "";
 
