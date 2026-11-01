@@ -53,6 +53,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<Order>().HasOne(value => value.Store).WithMany().OnDelete(DeleteBehavior.SetNull);
         builder.Entity<Order>().HasIndex(value => new { value.Status, value.CreatedAt });
         var articles = builder.Entity<NewsArticle>();
+        articles.Property<string>("TitleVi").HasMaxLength(300).IsRequired();
+        articles.Property<string>("BodyHtmlVi").HasMaxLength(200000).IsRequired();
         articles.HasIndex(article => new { article.IsPublished, article.Date });
         articles.HasIndex(article => article.IsFeatured).IsUnique().HasFilter("\"IsFeatured\" = TRUE");
         using var stream = typeof(ApplicationDbContext).Assembly.GetManifestResourceStream("Koi.Web.Data.NewsSeed.json")
@@ -63,6 +65,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         {
             item!["id"] = Guid.ParseExact($"{prefix}{item["id"]!.GetValue<int>():x8}", "N").ToString();
         }
-        articles.HasData(JsonSerializer.Deserialize<NewsArticle[]>(seed.ToJsonString(), new JsonSerializerOptions(JsonSerializerDefaults.Web))!);
+        var seedArticles = JsonSerializer.Deserialize<NewsArticle[]>(seed.ToJsonString(), new JsonSerializerOptions(JsonSerializerDefaults.Web))!;
+        articles.HasData(seedArticles.Select(article => new
+        {
+            article.Id, article.Title, article.Category, article.Date, article.Image, article.BannerImage,
+            article.HomeImage, article.VideoId, article.BodyHtml, article.IsPublished, article.IsFeatured,
+            article.ShowOnHome, article.HomeOrder, article.Revision, TitleVi = "", BodyHtmlVi = ""
+        }));
     }
 }
