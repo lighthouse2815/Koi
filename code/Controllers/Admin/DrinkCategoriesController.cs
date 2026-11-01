@@ -28,13 +28,20 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
         });
     }
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
-    public Task<IActionResult> Create(DrinkCategoryEditViewModel model) => Save(model, null);
+    public Task<IActionResult> Create(DrinkCategoryEditViewModel model) =>
+        HandleSaveAsync(categories.CreateAsync(model, ModelState), model);
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
-    public Task<IActionResult> Edit(Guid id, DrinkCategoryEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
+    public Task<IActionResult> Edit(Guid id, DrinkCategoryEditViewModel model) =>
+        id != model.Id
+            ? Task.FromResult<IActionResult>(BadRequest())
+            : HandleSaveAsync(categories.UpdateAsync(id, model, ModelState), model);
 
-    private async Task<IActionResult> Save(DrinkCategoryEditViewModel model, Guid? id)
+    private async Task<IActionResult> HandleSaveAsync(
+        Task<SaveResult> saveTask,
+        DrinkCategoryEditViewModel model
+    )
     {
-        var result = await categories.SaveAsync(model, id, ModelState);
+        var result = await saveTask;
         if (result == SaveResult.NotFound) return NotFound();
         if (result == SaveResult.Success)
         {
