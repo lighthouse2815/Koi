@@ -58,7 +58,7 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        var result = await categories.DeleteAsync(id, ModelState);
+        var result = await categories.DeleteAsync(id);
         if (result == SaveResult.NotFound) return NotFound();
         if (result == SaveResult.Conflict)
         {

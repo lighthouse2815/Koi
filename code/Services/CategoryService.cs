@@ -7,8 +7,7 @@ namespace Koi.Web.Services;
 
 public class CategoryService(
     ApplicationDbContext database,
-    ImageUploadService uploads,
-    ILogger<CategoryService> logger
+    ImageUploadService uploads
 )
 {
     public Task<Category[]> GetListAsync() =>
@@ -52,67 +51,37 @@ public class CategoryService(
         {
             return SaveResult.Invalid;
         }
-        var uploaded = new List<string>();
         async Task<string> SaveImage(ImageUpload? file, string current)
         {
             if (file == null)
                 return current;
-            var path = await uploads.SaveAsync(file, "categories");
-            uploaded.Add(path);
-            return path;
+            return await uploads.SaveAsync(file, "categories");
         }
-        var result = SaveResult.Conflict;
-        try
+        value.Image = await SaveImage(image, value.Image);
+        value.Icon = await SaveImage(icon, model.RemoveIcon ? "" : value.Icon);
+        value.Name = model.Name.Trim();
+        value.SortOrder = model.SortOrder;
+        value.ShowOnHome = model.ShowOnHome;
+        value.IsPublished = model.IsPublished;
+        if (id == null)
+            database.DrinkCategories.Add(value);
+        else
         {
-            value.Image = await SaveImage(image, value.Image);
-            value.Icon = await SaveImage(icon, model.RemoveIcon ? "" : value.Icon);
-            value.Name = model.Name.Trim();
-            value.SortOrder = model.SortOrder;
-            value.ShowOnHome = model.ShowOnHome;
-            value.IsPublished = model.IsPublished;
-            if (id == null)
-                database.DrinkCategories.Add(value);
-            else
-            {
-                database.Entry(value).Property(value => value.Revision).OriginalValue =
-                    model.Revision;
-                value.Revision++;
-            }
-            await database.SaveChangesAsync();
-            return SaveResult.Success;
+            database.Entry(value).Property(value => value.Revision).OriginalValue =
+                model.Revision;
+            value.Revision++;
         }
-        catch (DbUpdateConcurrencyException)
-        {
-            modelState.AddModelError("", "Danh mục đã thay đổi. Hãy tải lại trang trước khi lưu.");
-        }
-        catch (Exception exception) when (exception is DbUpdateException or IOException)
-        {
-            logger.LogError(exception, "Could not save drink category {Id}", id);
-            result = SaveResult.Unavailable;
-            modelState.AddModelError("", "Chưa lưu được danh mục. Vui lòng thử lại.");
-        }
-        uploaded.ForEach(uploads.Rollback);
-        return result;
+        await database.SaveChangesAsync();
+        return SaveResult.Success;
     }
 
-    public async Task<SaveResult> DeleteAsync(Guid id, ModelStateDictionary modelState)
+    public async Task<SaveResult> DeleteAsync(Guid id)
     {
         var value = await database.DrinkCategories.FindAsync(id);
         if (value == null)
             return SaveResult.NotFound;
-        try
-        {
-            database.DrinkCategories.Remove(value);
-            await database.SaveChangesAsync();
-        }
-        catch (DbUpdateException)
-        {
-            modelState.AddModelError(
-                "",
-                "Danh mục đang có đồ uống. Hãy chuyển hoặc xóa đồ uống trước, hoặc tắt hiển thị danh mục."
-            );
-            return SaveResult.Conflict;
-        }
+        database.DrinkCategories.Remove(value);
+        await database.SaveChangesAsync();
         return SaveResult.Success;
     }
 }
