@@ -7,7 +7,7 @@ namespace Koi.Web.Services;
 
 public class DrinkCategoryService(
     ApplicationDbContext database,
-    ImageUploads uploads,
+    ImageUploadService uploads,
     ILogger<DrinkCategoryService> logger
 )
 {

@@ -4,7 +4,7 @@ namespace Koi.Web.Services;
 
 public record ImageUpload(byte[] Bytes, string Extension);
 
-public class ImageUploads(IWebHostEnvironment environment)
+public class ImageUploadService(IWebHostEnvironment environment)
 {
     public async Task<ImageUpload?> ReadAsync(
         IFormFile? file,

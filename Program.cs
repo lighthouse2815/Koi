@@ -34,7 +34,7 @@ builder.Services.AddControllersWithViews(options => options.Filters.Add(new Auto
         options.AreaViewLocationFormats.Add("/code/Views/{2}/Shared/{0}.cshtml");
         options.AreaViewLocationFormats.Add("/code/Views/Shared/{0}.cshtml");
     });
-builder.Services.AddScoped<ImageUploads>();
+builder.Services.AddScoped<ImageUploadService>();
 builder.Services.AddScoped<SiteContentService>();
 builder.Services.AddScoped<NewsService>();
 builder.Services.AddScoped<MenuService>();

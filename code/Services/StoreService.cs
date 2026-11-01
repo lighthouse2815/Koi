@@ -7,7 +7,7 @@ namespace Koi.Web.Services;
 
 public class StoreService(
     ApplicationDbContext database,
-    ImageUploads uploads,
+    ImageUploadService uploads,
     ILogger<StoreService> logger
 )
 {

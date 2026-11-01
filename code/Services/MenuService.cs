@@ -7,7 +7,7 @@ namespace Koi.Web.Services;
 
 public class MenuService(
     ApplicationDbContext database,
-    ImageUploads uploads,
+    ImageUploadService uploads,
     ILogger<MenuService> logger
 )
 {

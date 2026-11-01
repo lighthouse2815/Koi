@@ -8,7 +8,7 @@ namespace Koi.Web.Services;
 
 public class NewsService(
     ApplicationDbContext database,
-    ImageUploads uploads,
+    ImageUploadService uploads,
     ILogger<NewsService> logger
 )
 {
