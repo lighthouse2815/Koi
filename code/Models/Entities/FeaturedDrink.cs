@@ -6,12 +6,6 @@ public class FeaturedDrink
 {
     public Guid Id { get; set; }
 
-    [StringLength(250)]
-    public string NameVi { get; set; } = "";
-
-    [StringLength(150)]
-    public string RegionVi { get; set; } = "";
-
     [Required, StringLength(250)]
     public string Name { get; set; } = "";
 
