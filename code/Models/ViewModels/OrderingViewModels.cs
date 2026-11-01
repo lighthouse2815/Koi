@@ -15,8 +15,6 @@ public class CartItem
     // Keep old cart selections detectable until customers replace them.
     public Guid? SizeId { get; set; }
     public List<Guid> ToppingIds { get; set; } = [];
-    public int Sugar { get; set; }
-    public int Ice { get; set; }
     public string Customization { get; set; } = "";
     public int Quantity { get; set; }
     public decimal Price { get; set; }

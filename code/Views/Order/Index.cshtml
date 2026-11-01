@@ -68,7 +68,6 @@
                                         <summary>Chọn món <span aria-hidden="true">+</span></summary>
                                         <form asp-action="Add" method="post">
                                             <input type="hidden" name="id" value="@drink.Id" /><input type="hidden" name="categoryId" value="@Model.CategoryId" /><input type="hidden" name="drinkId" value="@Model.DrinkId" />
-                                            <div class="drink-preferences"><label>Đường<select name="sugar"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label><label>Đá<select name="ice"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label></div>
                                             <label class="quantity-option">Số lượng<input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ <span aria-hidden="true">↗</span></button>
                                         </form>
                                     </details>
@@ -96,7 +95,7 @@
                     <div class="empty-cart"><img src="~/images/bear-head.svg" width="84" height="84" alt="" /><h3>Chờ một chút trà…</h3><p>Chọn món bạn thích.<br />Niềm vui sẽ ở ngay đây.</p></div>
                 } else {
                     <div class="cart-lines">@foreach (var line in Model.Lines) {
-                        <div class="cart-line"><div class="cart-line-title"><strong>@line.Name</strong><span>@((line.Price * line.Quantity).ToString("N0", culture)) đ</span></div><small>@line.Customization</small>
+                        <div class="cart-line"><div class="cart-line-title"><strong>@line.Name</strong><span>@((line.Price * line.Quantity).ToString("N0", culture)) đ</span></div>@if (!string.IsNullOrEmpty(line.Customization)) { <small>@line.Customization</small> }
                             <form asp-action="Update" method="post" class="cart-update"><input type="hidden" name="id" value="@line.LineId" /><label>Số lượng<input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label><button type="submit">Lưu</button></form><form asp-action="Update" method="post" class="cart-remove-action"><input type="hidden" name="id" value="@line.LineId" /><input type="hidden" name="quantity" value="0" /><button type="submit" class="cart-remove" aria-label="Xóa món @line.Name">Xóa món</button></form>
                         </div>
                     }</div>
