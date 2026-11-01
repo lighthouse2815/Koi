@@ -31,6 +31,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<StoreEntry>().HasIndex(value => new { value.IsPublished, value.CityId });
         builder.Entity<MenuEntry>().HasIndex(value => new { value.IsPublished, value.SortOrder });
         builder.Entity<Category>().ToTable("Category");
+        builder.Entity<Category>().Property<string>("HomeIcon").HasMaxLength(500).IsRequired();
         builder.Entity<Category>().Property<string>("HomeImage").HasMaxLength(500).IsRequired();
         builder.Entity<Category>().Property<string>("NameVi").HasMaxLength(200).IsRequired();
         builder.Entity<Drink>().HasOne(value => value.Category).WithMany(value => value.Drinks).OnDelete(DeleteBehavior.Restrict);

@@ -47,7 +47,6 @@ public class DrinkCategoryEditViewModel
     public bool IsPublished { get; set; } = true;
     public IFormFile? ImageUpload { get; set; }
     public IFormFile? IconUpload { get; set; }
-    public IFormFile? HomeIconUpload { get; set; }
     public bool RemoveIcon { get; set; }
 
     [BindNever, ValidateNever]
@@ -56,8 +55,6 @@ public class DrinkCategoryEditViewModel
     [BindNever, ValidateNever]
     public string? CurrentIcon { get; set; }
 
-    [BindNever, ValidateNever]
-    public string? CurrentHomeIcon { get; set; }
 }
 
 public class FeaturedDrinkEditViewModel

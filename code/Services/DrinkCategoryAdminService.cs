@@ -14,7 +14,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
         var value = await database.DrinkCategories.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DrinkCategoryEditViewModel { Id = id, Revision = value.Revision, Name = value.Name,
             IsPublished = value.IsPublished, ShowOnHome = value.ShowOnHome, SortOrder = value.SortOrder, HomeOrder = value.HomeOrder,
-            CurrentImage = value.Image, CurrentIcon = value.Icon, CurrentHomeIcon = value.HomeIcon };
+            CurrentImage = value.Image, CurrentIcon = value.Icon };
     }
 
     public async Task<SaveResult> SaveAsync(DrinkCategoryEditViewModel model, Guid? id, ModelStateDictionary modelState)
@@ -22,12 +22,10 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
         var value = id.HasValue ? await database.DrinkCategories.SingleOrDefaultAsync(value => value.Id == id) : new Category();
         if (value == null) return SaveResult.NotFound;
         model.CurrentImage = value.Image; model.CurrentIcon = value.Icon;
-        model.CurrentHomeIcon = value.HomeIcon;
         var image = await uploads.ReadAsync(model.ImageUpload, modelState, nameof(model.ImageUpload));
         var icon = await uploads.ReadAsync(model.IconUpload, modelState, nameof(model.IconUpload));
-        var homeIcon = await uploads.ReadAsync(model.HomeIconUpload, modelState, nameof(model.HomeIconUpload));
         if (image == null && string.IsNullOrEmpty(value.Image)) modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh chung cho danh mục.");
-        if (model.ShowOnHome && homeIcon == null && string.IsNullOrEmpty(value.HomeIcon)) modelState.AddModelError(nameof(model.HomeIconUpload), "Chọn biểu tượng thẻ trang chủ.");
+        if (model.ShowOnHome && icon == null && (model.RemoveIcon || string.IsNullOrEmpty(value.Icon))) modelState.AddModelError(nameof(model.IconUpload), "Chọn biểu tượng thẻ trang chủ.");
         if (!modelState.IsValid) { return SaveResult.Invalid; }
         var uploaded = new List<string>();
         async Task<string> SaveImage(ImageUpload? file, string current)
@@ -39,7 +37,6 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
         try
         {
             value.Image = await SaveImage(image, value.Image); value.Icon = await SaveImage(icon, model.RemoveIcon ? "" : value.Icon);
-            value.HomeIcon = await SaveImage(homeIcon, value.HomeIcon);
             value.Name = model.Name.Trim();
             value.SortOrder = model.SortOrder; value.HomeOrder = model.HomeOrder;
             value.ShowOnHome = model.ShowOnHome; value.IsPublished = model.IsPublished;
@@ -48,6 +45,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
                 var entry = database.DrinkCategories.Add(value);
                 entry.Property("NameVi").CurrentValue = "";
                 entry.Property("HomeImage").CurrentValue = "";
+                entry.Property("HomeIcon").CurrentValue = "";
             }
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); return SaveResult.Success;

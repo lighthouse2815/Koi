@@ -15,9 +15,6 @@ public class Category
     [Required, StringLength(500)]
     public string Image { get; set; } = "";
 
-    [StringLength(500)]
-    public string HomeIcon { get; set; } = "";
-
     public bool ShowOnHome { get; set; }
     public bool IsPublished { get; set; } = true;
     public int SortOrder { get; set; }
