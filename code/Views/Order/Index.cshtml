@@ -5,23 +5,21 @@
 <main class="order-page"><h1>Đặt đồ uống</h1><p>Chọn chi nhánh, thêm món và gửi đơn. Chi nhánh sẽ liên hệ xác nhận.</p>
 @if (TempData["OrderMessage"] is string message) { <p class="notice" role="status">@message</p> }
 <div asp-validation-summary="All" class="notice" role="alert"></div>
-<section class="order-card"><h2>1. Chọn chi nhánh</h2>
+<section class="order-card" id="branches"><h2>1. Chọn chi nhánh</h2>
 @if (Model.Branches.Length == 0) { <p>Hiện chưa có chi nhánh mở nhận đơn.</p> }
-else { <form asp-action="SelectBranch" method="post" class="inline-form"><label for="storeId">Chi nhánh</label><select id="storeId" name="storeId" required><option value="">Chọn chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.Cart.StoreId)">@branch.Name · @branch.Address</option> }</select><button type="submit">Chọn</button></form> }
+else { <form asp-action="SelectBranch" method="post" class="inline-form"><input type="hidden" name="categoryId" value="@Model.CategoryId" /><input type="hidden" name="drinkId" value="@Model.DrinkId" /><label for="storeId">Chi nhánh</label><select id="storeId" name="storeId" required><option value="">Chọn chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.Cart.StoreId)">@branch.Name · @branch.Address</option> }</select><button type="submit">Chọn</button></form> }
 @if (Model.Branch != null) { <p>Đang chọn: <strong>@Model.Branch.Name</strong> · @Model.Branch.Address</p> }
 </section>
-@if (Model.Branch != null) {
-<section class="order-card"><h2>2. Chọn đồ uống</h2>
+<section class="order-card" id="drinks"><div class="order-section-heading"><h2>2. @(Model.FilterName ?? (Model.DrinkId.HasValue ? "Món đã chọn" : "Thực đơn"))</h2>@if (Model.DrinkId.HasValue || Model.CategoryId.HasValue) { <a asp-action="Index" asp-fragment="drinks">Xem toàn bộ thực đơn →</a> }</div>
 @if (Model.Drinks.Length == 0) { <p>Chưa có đồ uống được mở bán.</p> }
 <div class="drink-grid">@foreach (var drink in Model.Drinks) {
-<article class="drink-card"><h3>@(string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi)</h3><p>@drink.Price!.Value.ToString("N0", culture) đ</p><form asp-action="Add" method="post"><input type="hidden" name="id" value="@drink.Id" />
+<article class="drink-card" data-drink-id="@drink.Id"><img class="order-drink-image" src="@(string.IsNullOrWhiteSpace(drink.Image) ? drink.Category.Image : drink.Image)" alt="@(string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi)" loading="lazy" />@if (string.IsNullOrWhiteSpace(drink.Image)) { <small>Ảnh danh mục</small> }<h3>@(string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi)</h3><p>@drink.Price!.Value.ToString("N0", culture) đ</p>@if (Model.Branch == null) { <a href="#branches">Chọn chi nhánh để đặt →</a> } else { <form asp-action="Add" method="post"><input type="hidden" name="id" value="@drink.Id" />
 @if (Model.Sizes.Length > 0) { <label>Kích cỡ <select name="sizeId" required><option value="">Chọn cỡ</option>@foreach (var size in Model.Sizes) { <option value="@size.Id">@size.Name (+@size.ExtraPrice.ToString("N0", culture) đ)</option> }</select></label> }
 <label>Đường <select name="sugar"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label>
 <label>Đá <select name="ice"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label>
 @if (Model.Toppings.Length > 0) { <fieldset><legend>Topping (tối đa 5)</legend>@foreach (var topping in Model.Toppings) { <label><input type="checkbox" name="toppingIds" value="@topping.Id" /> @topping.Name (+@topping.ExtraPrice.ToString("N0", culture) đ)</label><br /> }</fieldset> }
-<label>Số lượng <input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ</button></form></article>
+<label>Số lượng <input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ</button></form> }</article>
 }</div></section>
-}
 <section class="order-card"><h2>3. Giỏ hàng</h2>
 @if (Model.Lines.Count == 0) { <p>Giỏ hàng đang trống.</p> }
 else { @foreach (var line in Model.Lines) { <div class="cart-line"><span>@line.Name · @line.Price.ToString("N0", culture) đ<br /><small>@line.Customization</small></span><form asp-action="Update" method="post" class="inline-form"><input type="hidden" name="id" value="@line.LineId" /><label>Số lượng <input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label><button type="submit">Cập nhật</button><small>Nhập 0 để xóa</small></form></div> } <p><strong>Tạm tính: @Model.Total.ToString("N0", culture) đ</strong></p> }

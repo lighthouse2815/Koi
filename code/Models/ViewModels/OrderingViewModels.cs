@@ -24,6 +24,9 @@ public record CartLine(Guid LineId, string Name, string Customization, int Quant
 public class OrderingPageViewModel
 {
     public StoreEntry[] Branches { get; set; } = [];
+    public Guid? CategoryId { get; set; }
+    public Guid? DrinkId { get; set; }
+    public string? FilterName { get; set; }
     public Drink[] Drinks { get; set; } = [];
     public SaleOption[] Sizes { get; set; } = [];
     public SaleOption[] Toppings { get; set; } = [];

@@ -16,21 +16,20 @@ public class OrderController(ApplicationDbContext database) : Controller
     }
     private void SaveCart(ShoppingCart cart) => HttpContext.Session.SetString(CartKey, JsonSerializer.Serialize(cart));
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(Guid? categoryId, Guid? drinkId)
     {
-        var cart = GetCart();
-        var model = await Page(cart);
+        var model = await Page(GetCart(), categoryId, drinkId);
         return View(model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> SelectBranch(Guid storeId)
+    public async Task<IActionResult> SelectBranch(Guid storeId, Guid? categoryId, Guid? drinkId)
     {
         if (!await database.Stores.AnyAsync(value => value.Id == storeId && value.IsPublished && value.AcceptsOrders)) return BadRequest("Chi nhánh không nhận đơn.");
         var cart = GetCart();
         if (cart.StoreId != storeId) { cart.StoreId = storeId; cart.OrderId = Guid.NewGuid(); }
         SaveCart(cart);
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new { categoryId, drinkId });
     }
 
     [HttpPost]
@@ -133,16 +132,22 @@ public class OrderController(ApplicationDbContext database) : Controller
         return View((object)reference);
     }
 
-    private async Task<OrderingPageViewModel> Page(ShoppingCart cart)
+    private async Task<OrderingPageViewModel> Page(ShoppingCart cart, Guid? categoryId = null, Guid? drinkId = null)
     {
         var branches = await database.Stores.AsNoTracking().Where(value => value.IsPublished && value.AcceptsOrders).OrderBy(value => value.Name).ToArrayAsync();
-        var drinks = await database.Drinks.AsNoTracking().Include(value => value.Category).Where(value => value.IsPublished && value.Category.IsPublished && value.Price > 0).OrderBy(value => value.Category.SortOrder).ThenBy(value => value.SortOrder).ToArrayAsync();
+        var query = database.Drinks.AsNoTracking().Include(value => value.Category).Where(value => value.IsPublished && value.Category.IsPublished && value.Price > 0);
+        if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);
+        else if (categoryId.HasValue) query = query.Where(value => value.CategoryId == categoryId);
+        var drinks = await query.OrderBy(value => value.Category.SortOrder).ThenBy(value => value.SortOrder).ToArrayAsync();
+        var filterName = drinkId.HasValue ? null : categoryId.HasValue
+            ? await database.DrinkCategories.AsNoTracking().Where(value => value.Id == categoryId && value.IsPublished).Select(value => value.NameVi != "" ? value.NameVi : value.Name).SingleOrDefaultAsync() : null;
         var options = await database.SaleOptions.AsNoTracking().Where(value => value.IsActive).OrderBy(value => value.Name).ToArrayAsync();
         var ids = cart.Items.Select(line => line.DrinkId).ToArray();
         var allCartDrinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id)).ToDictionaryAsync(value => value.Id);
         return new OrderingPageViewModel
         {
             Branches = branches, Branch = branches.FirstOrDefault(value => value.Id == cart.StoreId), Drinks = drinks, Cart = cart,
+            CategoryId = categoryId, DrinkId = drinkId, FilterName = filterName,
             Sizes = options.Where(value => value.Kind == SaleOptionKind.Size).ToArray(), Toppings = options.Where(value => value.Kind == SaleOptionKind.Topping).ToArray(),
             Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (string.IsNullOrWhiteSpace(d.NameVi) ? d.Name : d.NameVi) : "Món không còn tồn tại", line.Customization, line.Quantity, line.Price)).ToList()
         };

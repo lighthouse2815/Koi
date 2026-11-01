@@ -105,4 +105,35 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
         }
     }
 
+    [Fact]
+    public async Task SelectedDrinkAndCategoryRemainVisibleAfterChoosingBranch()
+    {
+        using var client = AdminTestClient.Anonymous(factory);
+        Guid branchId, categoryId, firstId, secondId;
+        using (var scope = factory.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var category = new DrinkCategory { Name = "Menu test " + Guid.NewGuid(), Image = "/images/category.jpg" };
+            var first = new Drink { Name = "First " + Guid.NewGuid(), Category = category, Image = "/images/first.jpg", Price = 45000 };
+            var second = new Drink { Name = "Second " + Guid.NewGuid(), Category = category, Price = 30000 };
+            var branch = new StoreEntry { Name = "Branch " + Guid.NewGuid(), AcceptsOrders = true };
+            db.AddRange(first, second, branch); await db.SaveChangesAsync();
+            categoryId = category.Id; branchId = branch.Id; firstId = first.Id; secondId = second.Id;
+        }
+        var categoryPage = await client.GetStringAsync($"/Order/Index?categoryId={categoryId}");
+        Assert.Contains(firstId.ToString(), categoryPage);
+        Assert.Contains(secondId.ToString(), categoryPage);
+        Assert.Contains("/images/category.jpg", categoryPage);
+        var selectedPage = await client.GetStringAsync($"/Order/Index?drinkId={firstId}");
+        Assert.Contains("/images/first.jpg", selectedPage);
+        Assert.DoesNotContain(secondId.ToString(), selectedPage);
+        var response = await AdminTestClient.Post(client, "/Order/SelectBranch", new() { ["storeId"] = branchId.ToString(), ["drinkId"] = firstId.ToString() }, tokenUrl: "/Admin/Account/Login");
+        Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
+        Assert.Contains(firstId.ToString(), response.Headers.Location!.ToString());
+        var afterBranch = await client.GetStringAsync(response.Headers.Location);
+        Assert.Contains(firstId.ToString(), afterBranch);
+        Assert.DoesNotContain(secondId.ToString(), afterBranch);
+        Assert.Contains("/Order/Add", afterBranch);
+    }
+
 }
