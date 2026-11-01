@@ -40,12 +40,22 @@ public class OrderController(ApplicationDbContext database) : Controller
         var drink = await database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id && value.IsPublished && value.Category.IsPublished && value.Price > 0);
         toppingIds ??= [];
         if (drink == null || quantity < 1 || quantity > 20 || sugar is < 0 or > 2 || ice is < 0 or > 2 || toppingIds.Length > 5 || toppingIds.Distinct().Count() != toppingIds.Length) return BadRequest("Đồ uống hoặc lựa chọn không hợp lệ.");
-        if (cart.Items.Count >= 20) { TempData["OrderMessage"] = "Giỏ hàng chỉ hỗ trợ tối đa 20 lựa chọn."; return RedirectToAction(nameof(Index)); }
         var options = await database.SaleOptions.AsNoTracking().Where(value => value.IsActive).ToArrayAsync();
         var size = sizeId.HasValue ? options.SingleOrDefault(value => value.Id == sizeId && value.Kind == SaleOptionKind.Size) : null;
         var toppings = options.Where(value => toppingIds.Contains(value.Id) && value.Kind == SaleOptionKind.Topping).OrderBy(value => value.Name).ToArray();
         if ((options.Any(value => value.Kind == SaleOptionKind.Size) && size == null) || (sizeId.HasValue && size == null) || toppings.Length != toppingIds.Length) return BadRequest("Kích cỡ hoặc topping không hợp lệ.");
-        cart.Items.Add(new CartItem { DrinkId = drink.Id, Quantity = quantity, Price = drink.Price!.Value + (size?.ExtraPrice ?? 0) + toppings.Sum(value => value.ExtraPrice), SizeId = sizeId, ToppingIds = toppingIds.ToList(), Sugar = sugar, Ice = ice, Customization = Describe(size, toppings, sugar, ice) });
+        var existing = cart.Items.Find(line => line.DrinkId == id && line.SizeId == sizeId && line.Sugar == sugar && line.Ice == ice
+            && line.ToppingIds.Count == toppingIds.Length && line.ToppingIds.All(toppingIds.Contains));
+        if (existing != null)
+        {
+            if (existing.Quantity + quantity > 20) { TempData["OrderMessage"] = "Mỗi lựa chọn chỉ được đặt tối đa 20 ly."; return RedirectToAction(nameof(Index), new { categoryId, drinkId }); }
+            existing.Quantity += quantity;
+        }
+        else
+        {
+            if (cart.Items.Count >= 20) { TempData["OrderMessage"] = "Giỏ hàng chỉ hỗ trợ tối đa 20 lựa chọn."; return RedirectToAction(nameof(Index)); }
+            cart.Items.Add(new CartItem { DrinkId = drink.Id, Quantity = quantity, Price = drink.Price!.Value + (size?.ExtraPrice ?? 0) + toppings.Sum(value => value.ExtraPrice), SizeId = sizeId, ToppingIds = toppingIds.ToList(), Sugar = sugar, Ice = ice, Customization = Describe(size, toppings, sugar, ice) });
+        }
         SaveCart(cart);
         TempData["OrderMessage"] = "Đã thêm đồ uống vào giỏ hàng.";
         return RedirectToAction(nameof(Index), null, new { categoryId, drinkId }, "drinks");

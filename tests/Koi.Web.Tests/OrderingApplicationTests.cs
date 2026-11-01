@@ -83,6 +83,10 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
             await AdminTestClient.Post(client, "/Order/SelectBranch", new() { ["storeId"] = branchId.ToString() }, tokenUrl: "/Admin/Account/Login");
             var add = await AdminTestClient.Post(client, "/Order/Add", new() { ["id"] = drinkId.ToString(), ["quantity"] = "2", ["sizeId"] = sizeId.ToString(), ["toppingIds"] = toppingId.ToString(), ["sugar"] = "1", ["ice"] = "2" }, tokenUrl: "/Admin/Account/Login");
             Assert.Equal(HttpStatusCode.Redirect, add.StatusCode);
+            var repeat = await AdminTestClient.Post(client, "/Order/Add", new() { ["id"] = drinkId.ToString(), ["quantity"] = "1", ["sizeId"] = sizeId.ToString(), ["toppingIds"] = toppingId.ToString(), ["sugar"] = "1", ["ice"] = "2" }, tokenUrl: "/Admin/Account/Login");
+            Assert.Equal(HttpStatusCode.Redirect, repeat.StatusCode);
+            var overLimit = await AdminTestClient.Post(client, "/Order/Add", new() { ["id"] = drinkId.ToString(), ["quantity"] = "18", ["sizeId"] = sizeId.ToString(), ["toppingIds"] = toppingId.ToString(), ["sugar"] = "1", ["ice"] = "2" }, tokenUrl: "/Admin/Account/Login");
+            Assert.Contains("tối đa 20 ly", WebUtility.HtmlDecode(await client.GetStringAsync(overLimit.Headers.Location)));
             var second = await AdminTestClient.Post(client, "/Order/Add", new() { ["id"] = drinkId.ToString(), ["quantity"] = "1", ["sizeId"] = sizeId.ToString() }, tokenUrl: "/Admin/Account/Login");
             Assert.Equal(HttpStatusCode.Redirect, second.StatusCode);
             var checkout = await AdminTestClient.Post(client, "/Order/Checkout", new() { ["Checkout.CustomerName"] = "Khách chọn món", ["Checkout.CustomerPhone"] = "0901234567", ["Checkout.Fulfillment"] = "0" }, tokenUrl: "/Admin/Account/Login");
@@ -91,7 +95,7 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
             var db = verify.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             var order = await db.Orders.Include(value => value.Items).SingleAsync(value => value.StoreId == branchId);
             Assert.Equal(2, order.Items.Count);
-            var customized = order.Items.Single(value => value.Quantity == 2);
+            var customized = order.Items.Single(value => value.Quantity == 3);
             Assert.Equal(45000m, customized.UnitPrice);
             Assert.Contains("Trân châu", customized.Customization);
             Assert.Contains("Đường: Ít", customized.Customization);
