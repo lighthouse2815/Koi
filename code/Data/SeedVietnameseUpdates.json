@@ -1,0 +1,1836 @@
+[
+  {
+    "table": "Category",
+    "id": "da604c0a-66a9-0a9a-6a85-636e00000003",
+    "column": "Name",
+    "old": "AREA EXCLUSIVE",
+    "new": "HƯƠNG VỊ TỪNG VÙNG"
+  },
+  {
+    "table": "Category",
+    "id": "da604c0a-66a9-0a9a-6a85-636e0000002d",
+    "column": "Name",
+    "old": "CHEWY TEA",
+    "new": "TRÀ KÈM TOPPING"
+  },
+  {
+    "table": "Category",
+    "id": "da604c0a-66a9-0a9a-6a85-636e00000004",
+    "column": "Name",
+    "old": "FLAVORED TEA",
+    "new": "TRÀ NGUYÊN VỊ"
+  },
+  {
+    "table": "Category",
+    "id": "da604c0a-66a9-0a9a-6a85-636e0000002c",
+    "column": "Name",
+    "old": "SIGNATURE MACCHIATO",
+    "new": "MACCHIATO ĐẶC TRƯNG"
+  },
+  {
+    "table": "Category",
+    "id": "da604c0a-66a9-0a9a-6a85-636e00000005",
+    "column": "Name",
+    "old": "MILK TEA",
+    "new": "TRÀ SỮA"
+  },
+  {
+    "table": "Category",
+    "id": "da604c0a-66a9-0a9a-6a85-636e0000002b",
+    "column": "Name",
+    "old": "TEA LATTE",
+    "new": "TRÀ LATTE"
+  },
+  {
+    "table": "Category",
+    "id": "da604c0a-66a9-0a9a-6a85-636e00000006",
+    "column": "Name",
+    "old": "JUICE",
+    "new": "NƯỚC ÉP"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000001",
+    "column": "Name",
+    "old": "Berry Cheesy Green Milk Tea",
+    "new": "Lục trà sữa kem phô mai dâu"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000001",
+    "column": "Description",
+    "old": "Velvety cream cheese and fresh green tea topped with tangy-sweet berry jam create a delicate balance of savoury and sweet flavours.",
+    "new": "Kem phô mai mịn màng hòa cùng lục trà tươi và mứt quả mọng chua ngọt, tạo nên sự cân bằng tinh tế giữa vị béo mặn và ngọt dịu."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000002",
+    "column": "Name",
+    "old": "Gula Melaka Milk Tea",
+    "new": "Trà sữa đường thốt nốt"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000002",
+    "column": "Description",
+    "old": "Gula Melaka in KOI's signature milk tea creates a perfectly sweet and delightful sip.",
+    "new": "Đường thốt nốt Gula Melaka kết hợp với trà sữa đặc trưng của KOI, mang đến từng ngụm ngọt ngào đầy hấp dẫn."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000003",
+    "column": "Description",
+    "old": "Select Uji matcha latte, with its captivating green and white gradients, seems to be sending an invitation to an elegant tea ceremony.",
+    "new": "Matcha Uji tuyển chọn cùng những lớp sắc xanh và trắng cuốn hút gợi lời mời đến một buổi thưởng trà thanh nhã."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000004",
+    "column": "Name",
+    "old": "Crunchy Thai Tea",
+    "new": "Trà Thái topping giòn"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000004",
+    "column": "Description",
+    "old": "KOI's signature Thai milk tea combined with our special crunchy toppings is surely going to be a treat for your taste buds!",
+    "new": "Trà sữa Thái đặc trưng của KOI kết hợp cùng topping giòn đặc biệt, mang đến trải nghiệm thú vị cho vị giác."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000005",
+    "column": "Name",
+    "old": "Ribena Black Tea",
+    "new": "Hồng trà Ribena"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000005",
+    "column": "Description",
+    "old": "Tangy blackcurrant flavour blends with rich black tea to bring us back to the joy of childhood.",
+    "new": "Vị lý chua đen chua ngọt hòa cùng hồng trà đậm đà, gợi lại niềm vui tuổi thơ."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000006",
+    "column": "Name",
+    "old": "Oolong Sweetened Milk Tea",
+    "new": "Trà sữa ô long sữa đặc"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000006",
+    "column": "Description",
+    "old": "Condensed milk with KOI's signature Oolong milk tea is perfectly creamy and smooth.",
+    "new": "Sữa đặc kết hợp với trà sữa ô long đặc trưng của KOI, tạo nên vị béo ngậy và mượt mà."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000007",
+    "column": "Name",
+    "old": "Golden Bubble Milk Tea",
+    "new": "Trà sữa trân châu hoàng kim"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000007",
+    "column": "Description",
+    "old": "Using the classic Assam black tea as a base, velvety creamer and chewy golden bubbles are added to bring you KOI's signature milk tea.",
+    "new": "Hồng trà Assam cổ điển kết hợp bột kem béo mịn và trân châu hoàng kim dai mềm, tạo nên trà sữa KOI đặc trưng."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000008",
+    "column": "Name",
+    "old": "Ice Cream Black Tea",
+    "new": "Hồng trà kem"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000008",
+    "column": "Description",
+    "old": "Creamy vanilla ice cream and full-bodied black tea combined to become the the best summer treat!",
+    "new": "Kem vani béo mịn hòa cùng hồng trà đậm vị, trở thành món giải nhiệt tuyệt vời cho mùa hè."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000009",
+    "column": "Name",
+    "old": "Grass Jelly Green Milk Tea",
+    "new": "Lục trà sữa sương sáo"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000009",
+    "column": "Description",
+    "old": "Silky grass jelly paired with mellow green milk tea feels like a delightful dessert surprise.",
+    "new": "Sương sáo mềm mượt kết hợp cùng lục trà sữa dịu nhẹ, mang đến bất ngờ ngọt ngào như một món tráng miệng."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000a",
+    "column": "Name",
+    "old": "Taro Q Black Tea Latte",
+    "new": "Hồng trà latte Taro Q"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000a",
+    "column": "Description",
+    "old": "Fragrant Taro Q's texture pairs perfectly with our fresh milk tea for a delicious treat in every bite.",
+    "new": "Taro Q thơm dẻo hòa quyện cùng trà sữa tươi, mang đến cảm giác ngon miệng trong từng lần thưởng thức."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000b",
+    "column": "Name",
+    "old": "Aloe Vera Passion Fruit Green Tea",
+    "new": "Lục trà chanh dây nha đam"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000b",
+    "column": "Description",
+    "old": "Passion fruit green tea with juicy aloe vera chunks, enjoy a fun and refreshing summer-in-a-cup.",
+    "new": "Lục trà chanh dây kết hợp những miếng nha đam mọng nước, mang đến một mùa hè vui tươi, mát lành trong ly trà."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000c",
+    "column": "Name",
+    "old": "Konjac Oolong Milk Tea",
+    "new": "Trà sữa ô long thạch konjac"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000c",
+    "column": "Description",
+    "old": "Chewy konjac jelly is combined with our Oolong milk tea to satisfy and fill you up.",
+    "new": "Thạch konjac dai mềm kết hợp với trà sữa ô long, mang đến cảm giác thỏa thích và trọn vị."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000d",
+    "column": "Name",
+    "old": "Coconut Jelly Green Milk Tea",
+    "new": "Lục trà sữa thạch dừa"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000d",
+    "column": "Description",
+    "old": "Nibble on those gummy coconut jellies as you enjoy our signature green milk tea. Rich yet surprisingly refreshing.",
+    "new": "Vừa nhâm nhi thạch dừa dai ngon, vừa thưởng thức lục trà sữa đặc trưng: đậm vị mà vẫn mát lành."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000e",
+    "column": "Name",
+    "old": "Brown Konjac Milk Tea",
+    "new": "Trà sữa thạch konjac đường đen"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000e",
+    "column": "Description",
+    "old": "Brown sugar from the konjac jelly complements the creaminess of our milk tea. Definitely a sweet and delightful treat.",
+    "new": "Vị đường đen của thạch konjac làm nổi bật nét béo mịn của trà sữa, tạo nên món ngon ngọt ngào, hấp dẫn."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000f",
+    "column": "Name",
+    "old": "Jasmine Green Tea",
+    "new": "Lục trà lài"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000000f",
+    "column": "Description",
+    "old": "Green tea blends with a light touch of jasmine aroma, ready to soothe both your body and soul.",
+    "new": "Lục trà hòa cùng hương lài nhẹ nhàng, giúp cơ thể và tâm trí thư thái."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000010",
+    "column": "Name",
+    "old": "Assam Black Tea",
+    "new": "Hồng trà Assam"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000010",
+    "column": "Description",
+    "old": "Assam black tea is bold yet smooth, with malty notes and no bitterness.",
+    "new": "Hồng trà Assam đậm đà mà êm dịu, thoảng hương mạch nha và không đắng gắt."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000011",
+    "column": "Name",
+    "old": "Golden Oolong Tea",
+    "new": "Trà ô long hoàng kim"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000011",
+    "column": "Description",
+    "old": "Our Oolong tea has a caramel-like aroma and a rich aftertaste, reminiscent of sipping from a mountain spring.",
+    "new": "Ô long có hương thơm gợi caramel và hậu vị sâu, mang cảm giác trong lành như thưởng thức dòng nước suối trên núi."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000012",
+    "column": "Name",
+    "old": "Honey Green Tea",
+    "new": "Lục trà mật ong"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000012",
+    "column": "Description",
+    "old": "Smooth blend of sweet honey and refreshing green tea, perfectly balanced for a rich yet enjoyable sip.",
+    "new": "Mật ong ngọt dịu hòa với lục trà thanh mát theo tỷ lệ cân bằng, cho từng ngụm đậm hương mà dễ uống."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000013",
+    "column": "Name",
+    "old": "Lychee Black Tea",
+    "new": "Hồng trà vải"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000013",
+    "column": "Description",
+    "old": "Rich lychee aroma blends with smooth black tea, creating a delightful moment where the fragrance of fruit and tea intertwine, as if you're in a lychee orchard.",
+    "new": "Hương vải nồng nàn kết hợp hồng trà êm dịu, để hương trái cây và hương trà đan xen như đang dạo giữa vườn vải."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000014",
+    "column": "Name",
+    "old": "Fresh Lemon Green Tea",
+    "new": "Lục trà chanh tươi"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000014",
+    "column": "Description",
+    "old": "Zesty lemon pairs with refreshing green tea, the perfect thirst-quenching choice.",
+    "new": "Chanh tươi chua dịu kết hợp lục trà thanh mát, là lựa chọn giải khát lý tưởng."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000015",
+    "column": "Name",
+    "old": "No.8 Green Tea",
+    "new": "Lục trà số 8"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000015",
+    "column": "Description",
+    "old": "Every sip filled with a delightful surprise of sweet and tangy notes of calamansi and plum in the aromatic green tea.",
+    "new": "Mỗi ngụm lục trà thơm là bất ngờ thú vị từ vị chua ngọt của tắc và xí muội."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000016",
+    "column": "Name",
+    "old": "Passion Fruit Green Tea",
+    "new": "Lục trà chanh dây"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000016",
+    "column": "Description",
+    "old": "The perfect fusion of vibrant passion fruit and fragrant green tea brings a burst of tropical flavors to life.",
+    "new": "Chanh dây tươi tắn kết hợp cùng lục trà thơm dịu, đánh thức hương vị nhiệt đới."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000017",
+    "column": "Name",
+    "old": "Black Tea Macchiato",
+    "new": "Hồng trà Macchiato"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000017",
+    "column": "Description",
+    "old": "Bold black tea blends with our specially crafted, velvety cream foam for a smooth and satisfying experience.",
+    "new": "Hồng trà đậm vị hòa cùng lớp kem sữa mịn được pha chế riêng, tạo nên trải nghiệm mượt mà, trọn vẹn."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000018",
+    "column": "Name",
+    "old": "Oolong Tea Macchiato",
+    "new": "Ô long Macchiato"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000018",
+    "column": "Description",
+    "old": "Smooth and velvety cream foam pairs beautifully with the elegant notes of our toasty Oolong tea, delivering a distinct and refined tea indulgence.",
+    "new": "Lớp kem sữa mịn kết hợp với hương ô long rang thanh nhã, mang đến trải nghiệm trà riêng biệt và tinh tế."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000019",
+    "column": "Name",
+    "old": "Caramel Black Tea Macchiato",
+    "new": "Hồng trà caramel Macchiato"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000019",
+    "column": "Description",
+    "old": "Scrumptious caramel seamlessly blends with our rich black tea, topped with a layer of silky cream foam.",
+    "new": "Caramel thơm ngọt hòa quyện trong hồng trà đậm vị, phủ bên trên lớp kem sữa mềm mịn."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001a",
+    "column": "Name",
+    "old": "Lychee Black Tea Macchiato",
+    "new": "Hồng trà vải Macchiato"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001a",
+    "column": "Description",
+    "old": "Fragrant lychee harmonizes well with bold black tea, while the cream foam adds a smooth and layered finish.",
+    "new": "Hương vải hòa cùng hồng trà đậm đà; lớp kem sữa làm hậu vị thêm mượt mà và nhiều tầng hương."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001b",
+    "column": "Name",
+    "old": "Peach Green Tea Macchiato",
+    "new": "Lục trà đào Macchiato"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001b",
+    "column": "Description",
+    "old": "Sweet peach mingles with soothing green tea, topped with milky cream foam for a light yet rich treat.",
+    "new": "Đào ngọt kết hợp lục trà thanh dịu và kem sữa, tạo nên thức uống nhẹ nhàng mà tròn vị."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001c",
+    "column": "Name",
+    "old": "Passion Fruit Green Tea Macchiato",
+    "new": "Lục trà chanh dây Macchiato"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001c",
+    "column": "Description",
+    "old": "Tropical passion fruit combined with fragrant green tea, topped with velvety cream foam for a tangy and refreshing double delight!",
+    "new": "Chanh dây nhiệt đới kết hợp lục trà thơm và kem sữa mịn, nhân đôi vị chua dịu, mát lành."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001d",
+    "column": "Name",
+    "old": "Mango Oolong Tea Macchiato",
+    "new": "Ô long xoài Macchiato"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001d",
+    "column": "Description",
+    "old": "Mango is paired with delicate Oolong tea and velvety cream foam for to bring about a sophisticated sensation.",
+    "new": "Xoài kết hợp ô long thanh nhã và lớp kem sữa mịn, mang đến cảm nhận hài hòa, tinh tế."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001e",
+    "column": "Description",
+    "old": "Double the sweetness and double the joy with classic Ovaltine and our signature creamy macchiato foam.",
+    "new": "Nhân đôi vị ngọt và niềm vui với Ovaltine quen thuộc cùng lớp kem Macchiato đặc trưng."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001f",
+    "column": "Name",
+    "old": "Green Milk Tea",
+    "new": "Lục trà sữa"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000001f",
+    "column": "Description",
+    "old": "Refreshing yet creamy, our green milk tea is delicate yet harmonised which may leave you craving for more!",
+    "new": "Thanh mát mà béo mịn, lục trà sữa có hương vị nhẹ nhàng, hài hòa khiến bạn muốn thưởng thức thêm."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000020",
+    "column": "Name",
+    "old": "Oolong Milk Tea",
+    "new": "Trà sữa ô long"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000020",
+    "column": "Description",
+    "old": "Roasted Oolong tea mingles with creamy milk. Each sip is full of happiness unveiling layers of rich flavour.",
+    "new": "Ô long rang hòa cùng vị sữa béo mịn. Mỗi ngụm đều mở ra những tầng hương vị và niềm vui."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000021",
+    "column": "Name",
+    "old": "Hazelnut Milk Tea",
+    "new": "Trà sữa hạt phỉ"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000021",
+    "column": "Description",
+    "old": "Fragrant hazelnut blends with creamy milk tea for an autumnal experience that warms both heart and soul.",
+    "new": "Hạt phỉ thơm hòa với trà sữa béo mịn, gợi cảm giác ấm áp, dễ chịu của mùa thu."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000022",
+    "column": "Name",
+    "old": "Caramel Milk Tea",
+    "new": "Trà sữa caramel"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000022",
+    "column": "Description",
+    "old": "Sweetness of caramel in our rich milk tea is irresistibly charming.",
+    "new": "Vị ngọt caramel trong trà sữa đậm đà tạo nên sức hút khó cưỡng."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000023",
+    "column": "Name",
+    "old": "Honey Milk Tea",
+    "new": "Trà sữa mật ong"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000023",
+    "column": "Description",
+    "old": "Sweet honey meets creamy milk tea, like a gentle touch of sunshine on a cozy day.",
+    "new": "Mật ong ngọt dịu gặp trà sữa béo mịn, nhẹ nhàng như tia nắng trong ngày ấm áp."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000024",
+    "column": "Description",
+    "old": "Smooth blend of malt and creamy milk for a delightful flavor you won't want to miss.",
+    "new": "Mạch nha hòa cùng sữa béo mịn, tạo nên hương vị hấp dẫn không thể bỏ lỡ."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000025",
+    "column": "Name",
+    "old": "Chocolate Milk",
+    "new": "Sữa chocolate"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000025",
+    "column": "Description",
+    "old": "Perfect treat for chocoholics seeking for a creamy and sinful chocolate sensation in every sip.",
+    "new": "Món ngon dành cho người yêu chocolate, mang đến vị chocolate béo mịn, đậm đà trong từng ngụm."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000026",
+    "column": "Description",
+    "old": "The intense cocoa notes play off the creamy milk in perfect harmony, like watching a ballet unfold in every sip.",
+    "new": "Cacao đậm vị hòa quyện cùng sữa béo mịn theo cách hài hòa như một điệu múa trong từng ngụm."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000027",
+    "column": "Name",
+    "old": "Black Tea Latte",
+    "new": "Hồng trà latte"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000027",
+    "column": "Description",
+    "old": "Rich and smooth black tea with fresh milk feels balanced and satifisfying in every sip.",
+    "new": "Hồng trà đậm đà, êm dịu kết hợp sữa tươi, tạo nên vị cân bằng và trọn vẹn."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000028",
+    "column": "Name",
+    "old": "Green Tea Latte",
+    "new": "Lục trà latte"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000028",
+    "column": "Description",
+    "old": "Refreshing green tea and sweet fresh milk blows like a springtime breeze.",
+    "new": "Lục trà thanh mát và sữa tươi ngọt dịu mang cảm giác nhẹ nhàng như gió xuân."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000029",
+    "column": "Name",
+    "old": "Oolong Tea Latte",
+    "new": "Ô long latte"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000029",
+    "column": "Description",
+    "old": "Delicate and roasted Oolong tea with sweet fresh milk offers a complex, yet refined flavor.",
+    "new": "Ô long rang tinh tế kết hợp sữa tươi ngọt dịu, tạo nên nhiều tầng hương vị thanh nhã."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002a",
+    "column": "Name",
+    "old": "Matcha Latte",
+    "new": "Matcha latte"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002a",
+    "column": "Description",
+    "old": "Slightly bitter matcha blends flawlessly with fresh milk to give you an elegant and exquisite tea moment.",
+    "new": "Matcha hơi đắng hòa quyện cùng sữa tươi, mang đến khoảnh khắc thưởng trà tao nhã."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002b",
+    "column": "Name",
+    "old": "Hazelnut Black Tea Latte",
+    "new": "Hồng trà latte hạt phỉ"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002b",
+    "column": "Description",
+    "old": "Nutty hazelnut and aromatic milk tea form a unique and comforting flavor profile.",
+    "new": "Hương hạt phỉ và trà sữa thơm tạo nên hương vị riêng biệt, ấm áp."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002c",
+    "column": "Name",
+    "old": "Caramel Black Tea Latte",
+    "new": "Hồng trà latte caramel"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002c",
+    "column": "Description",
+    "old": "Sweet caramel, rich black tea, and smooth milk collide in a beautiful medley of flavors.",
+    "new": "Caramel ngọt, hồng trà đậm và sữa mịn hòa thành bản phối hương vị hài hòa."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002d",
+    "column": "Name",
+    "old": "Cacao Barry Latte",
+    "new": "Cacao Barry latte"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002d",
+    "column": "Description",
+    "old": "Bold cocoa and sweet fresh milk deliver a graceful and sophisticated taste.",
+    "new": "Cacao đậm cùng sữa tươi ngọt dịu mang đến hương vị thanh lịch, tinh tế."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002e",
+    "column": "Name",
+    "old": "Brown Sugar Black Tea Latte",
+    "new": "Hồng trà latte đường đen"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002e",
+    "column": "Description",
+    "old": "Smoky Okinawan-style brown sugar pairs with smooth milk tea brings a captivating and irresistible flavor.",
+    "new": "Đường đen kiểu Okinawa với hương khói nhẹ kết hợp trà sữa mượt mà, tạo nên vị ngon cuốn hút."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002f",
+    "column": "Name",
+    "old": "Ice Honey",
+    "new": "Mật ong đá"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb0000002f",
+    "column": "Description",
+    "old": "Aromatic honey invites you to enjoy a refreshing and soothing moment together!",
+    "new": "Hương mật ong thơm dịu mời bạn tận hưởng phút giây mát lành và thư thái."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000030",
+    "column": "Name",
+    "old": "Fresh Lemon Juice",
+    "new": "Nước chanh tươi"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000030",
+    "column": "Description",
+    "old": "Freshly squeezed lemon juice offers a tart and refreshing thirst-quencher.",
+    "new": "Nước chanh vắt tươi chua dịu, giúp giải khát và làm mát cơ thể."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000031",
+    "column": "Name",
+    "old": "Fresh Lime Juice",
+    "new": "Nước tắc tươi"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000031",
+    "column": "Description",
+    "old": "Sweet and tangy, freshly pressed calamansi juice is your perfect summer companion.",
+    "new": "Nước tắc vắt tươi chua ngọt là bạn đồng hành lý tưởng cho mùa hè."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000032",
+    "column": "Name",
+    "old": "No.8 Juice",
+    "new": "Nước ép số 8"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000032",
+    "column": "Description",
+    "old": "Calamansi is combined with plum juice to bring about a zesty yet interestingly savoury summer treat.",
+    "new": "Tắc kết hợp xí muội, tạo nên thức uống mùa hè chua dịu và có vị mặn nhẹ thú vị."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000033",
+    "column": "Name",
+    "old": "Honey Lemon Lime Juice",
+    "new": "Chanh tắc mật ong"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000033",
+    "column": "Description",
+    "old": "Fresh fruit juice and sweet honey, your perfect refreshment for hot weather.",
+    "new": "Nước trái cây tươi cùng mật ong ngọt dịu, lựa chọn giải khát lý tưởng trong ngày nóng."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000034",
+    "column": "Name",
+    "old": "Lemon Plum Juice",
+    "new": "Chanh xí muội"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000034",
+    "column": "Description",
+    "old": "Plum with fresh lemon, sweet and sour like the taste of love?",
+    "new": "Xí muội kết hợp chanh tươi, chua ngọt như hương vị của tình yêu."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000035",
+    "column": "Name",
+    "old": "Lemon Yakult Juice",
+    "new": "Chanh Yakult"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000035",
+    "column": "Description",
+    "old": "Citrusy and light fusion of lemon and Yakult energizes you all day long.",
+    "new": "Chanh thanh nhẹ kết hợp Yakult, tiếp thêm sức sống cho cả ngày."
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000036",
+    "column": "Name",
+    "old": "Mango Yakult Juice",
+    "new": "Xoài Yakult"
+  },
+  {
+    "table": "Drinks",
+    "id": "0c96179d-f583-4759-b90e-e5cb00000036",
+    "column": "Description",
+    "old": "Fruity mango and Yakult creates a dreamy blend with refreshing burst of tropical flavour.",
+    "new": "Xoài thơm kết hợp Yakult tạo nên vị nhiệt đới đầy tươi mát."
+  },
+  {
+    "table": "FeaturedDrinks",
+    "id": "8393e90d-a08c-22a8-24a4-856c00000001",
+    "column": "Name",
+    "old": "Shiranui Tangerine",
+    "new": "Quýt Shiranui"
+  },
+  {
+    "table": "FeaturedDrinks",
+    "id": "8393e90d-a08c-22a8-24a4-856c00000002",
+    "column": "Name",
+    "old": "Handmade Taro Series",
+    "new": "Bộ sưu tập khoai môn thủ công"
+  },
+  {
+    "table": "FeaturedDrinks",
+    "id": "8393e90d-a08c-22a8-24a4-856c00000003",
+    "column": "Name",
+    "old": "Matcha Series",
+    "new": "Bộ sưu tập Matcha"
+  },
+  {
+    "table": "FeaturedDrinks",
+    "id": "8393e90d-a08c-22a8-24a4-856c00000004",
+    "column": "Name",
+    "old": "Longjing Tea Series",
+    "new": "Bộ sưu tập trà Long Tỉnh"
+  },
+  {
+    "table": "StoreCities",
+    "id": "17b4123f-a3e6-f0a7-de92-f50f00000116",
+    "column": "Name",
+    "old": "Hue",
+    "new": "Huế"
+  },
+  {
+    "table": "StoreCities",
+    "id": "17b4123f-a3e6-f0a7-de92-f50f00000110",
+    "column": "Name",
+    "old": "Da Lat",
+    "new": "Đà Lạt"
+  },
+  {
+    "table": "StoreCities",
+    "id": "17b4123f-a3e6-f0a7-de92-f50f000000ad",
+    "column": "Name",
+    "old": "Khanh Hoa",
+    "new": "Khánh Hòa"
+  },
+  {
+    "table": "StoreCities",
+    "id": "17b4123f-a3e6-f0a7-de92-f50f000000ac",
+    "column": "Name",
+    "old": "Quang Ninh",
+    "new": "Quảng Ninh"
+  },
+  {
+    "table": "StoreCities",
+    "id": "17b4123f-a3e6-f0a7-de92-f50f0000006f",
+    "column": "Name",
+    "old": "Haiphong",
+    "new": "Hải Phòng"
+  },
+  {
+    "table": "StoreCities",
+    "id": "17b4123f-a3e6-f0a7-de92-f50f0000006e",
+    "column": "Name",
+    "old": "Binh Duong",
+    "new": "Bình Dương"
+  },
+  {
+    "table": "StoreCities",
+    "id": "17b4123f-a3e6-f0a7-de92-f50f0000006d",
+    "column": "Name",
+    "old": "Ha Noi",
+    "new": "Hà Nội"
+  },
+  {
+    "table": "StoreCities",
+    "id": "17b4123f-a3e6-f0a7-de92-f50f0000006c",
+    "column": "Name",
+    "old": "Da Nang",
+    "new": "Đà Nẵng"
+  },
+  {
+    "table": "StoreCities",
+    "id": "17b4123f-a3e6-f0a7-de92-f50f0000006b",
+    "column": "Name",
+    "old": "Ho Chi Minh",
+    "new": "Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001a",
+    "column": "Address",
+    "old": "No. 38 Phan Trung Street, Quarter 28, Tam Hiep Ward, Dong Nai City, Vietnam",
+    "new": "Số 38 đường Phan Trung, khu phố 28, phường Tam Hiệp, thành phố Đồng Nai, Việt Nam"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001b",
+    "column": "Name",
+    "old": "Trung Hoa",
+    "new": "Trung Hòa"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001b",
+    "column": "Address",
+    "old": "No. 05 Trung Hoa Street, Yen Hoa Ward, Ha Noi City, Vietnam",
+    "new": "Số 05 đường Trung Hòa, phường Yên Hòa, thành phố Hà Nội, Việt Nam"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001c",
+    "column": "Name",
+    "old": "Ba Trieu",
+    "new": "Bà Triệu"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001c",
+    "column": "Address",
+    "old": "No. 31 Ba Trieu Street, Cua Nam Ward, Ha Noi City, Vietnam",
+    "new": "Số 31 đường Bà Triệu, phường Cửa Nam, thành phố Hà Nội, Việt Nam"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001d",
+    "column": "Name",
+    "old": "Aeon Mall Hue",
+    "new": "AEON Mall Huế"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001d",
+    "column": "Address",
+    "old": "Lot T133, 1st Floor, Aeon Mall Hue, No. 08 Vo Nguyen Giap Street, An Dong Ward, Hue City, Vietnam",
+    "new": "Lô T133, tầng 1, AEON Mall Huế, số 08 đường Võ Nguyên Giáp, phường An Đông, thành phố Huế, Việt Nam"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001e",
+    "column": "Name",
+    "old": "Le Loi",
+    "new": "Lê Lợi"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001e",
+    "column": "Address",
+    "old": "86 Le Loi Street, Thuan Hoa Ward, Hue City, Vietnam",
+    "new": "86 đường Lê Lợi, phường Thuận Hóa, thành phố Huế, Việt Nam"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001f",
+    "column": "Name",
+    "old": "Nguyen Van Thoai",
+    "new": "Nguyễn Văn Thoại"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000001f",
+    "column": "Address",
+    "old": "151–151A Nguyen Van Thoai Street, An Hai Ward, Da Nang City, Vietnam",
+    "new": "151–151A đường Nguyễn Văn Thoại, phường An Hải, thành phố Đà Nẵng, Việt Nam"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000001cc",
+    "column": "Address",
+    "old": "400 Tan Son Nhi Street, Tan Son Nhi Ward, Ho Chi Minh City",
+    "new": "400 đường Tân Sơn Nhì, phường Tân Sơn Nhì, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000001cd",
+    "column": "Name",
+    "old": "Tran Phu",
+    "new": "Trần Phú"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000001cd",
+    "column": "Address",
+    "old": "30 Tran Phu Street, Xuan Huong Ward, Da Lat City, Lam Dong Province",
+    "new": "30 đường Trần Phú, phường Xuân Hương, thành phố Đà Lạt, tỉnh Lâm Đồng"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000001ce",
+    "column": "Name",
+    "old": "Rerpublic Plaza",
+    "new": "Republic Plaza"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000001ce",
+    "column": "Address",
+    "old": "Ground Floor, Republic Plaza Building, 18E Cong Hoa Street, Tan Son Nhat Ward, Ho Chi Minh City",
+    "new": "Tầng trệt, tòa nhà Republic Plaza, 18E đường Cộng Hòa, phường Tân Sơn Nhất, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000001cf",
+    "column": "Address",
+    "old": "Unit B1-31B, Basement Level 1 – Hanoi Centre Shopping Mall, 175 Nguyen Thai Hoc Street, O Cho Dua Ward, Hanoi",
+    "new": "Gian B1-31B, tầng hầm B1, trung tâm thương mại Hanoi Centre, 175 đường Nguyễn Thái Học, phường Ô Chợ Dừa, Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000001d0",
+    "column": "Address",
+    "old": "Street No. 1 – Mixed-Use Residential and Commercial Complex (Riviera Point Residential Area), Tan My Ward, Ho Chi Minh City",
+    "new": "Đường số 1, khu dân cư Riviera Point, phường Tân Mỹ, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000347",
+    "column": "Address",
+    "old": "136 Ho Tung Mau, Bac Tu Liem Ward, Hanoi City",
+    "new": "136 Hồ Tùng Mậu, phường Bắc Từ Liêm, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000348",
+    "column": "Name",
+    "old": "Nguyen Duc Canh",
+    "new": "Nguyễn Đức Cảnh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000348",
+    "column": "Address",
+    "old": "26 Nguyen Duc Canh, Le Chan Ward, Hai Phong City",
+    "new": "26 Nguyễn Đức Cảnh, phường Lê Chân, thành phố Hải Phòng"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000349",
+    "column": "Name",
+    "old": "Nguyen Van Cu",
+    "new": "Nguyễn Văn Cừ"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000349",
+    "column": "Address",
+    "old": "544 Nguyen Van Cu, Bo De Ward, Hanoi City",
+    "new": "544 Nguyễn Văn Cừ, phường Bồ Đề, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000034a",
+    "column": "Name",
+    "old": "Pham Ngoc Thach",
+    "new": "Phạm Ngọc Thạch"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000034a",
+    "column": "Address",
+    "old": "13-14 B7 Pham Ngoc Thach, Kim Lien Ward, Hanoi City",
+    "new": "13-14 B7 Phạm Ngọc Thạch, phường Kim Liên, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000034b",
+    "column": "Name",
+    "old": "Hoang Quoc Viet",
+    "new": "Hoàng Quốc Việt"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000034b",
+    "column": "Address",
+    "old": "34 Hoang Quoc Viet, Nghia Do Ward, Hanoi City",
+    "new": "34 Hoàng Quốc Việt, phường Nghĩa Đô, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000034c",
+    "column": "Name",
+    "old": "Nguyen Van Luong",
+    "new": "Nguyễn Văn Luông"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000034c",
+    "column": "Address",
+    "old": "249A1-249A2 Nguyen Van Luong, Binh Phu Ward, Ho Chi Minh City",
+    "new": "249A1-249A2 Nguyễn Văn Luông, phường Bình Phú, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000356",
+    "column": "Name",
+    "old": "Le Thanh Ton",
+    "new": "Lê Thánh Tôn"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000356",
+    "column": "Address",
+    "old": "No. 15 Le Thanh Ton, Loc Tho Ward, Nha Trang City, Khanh Hoa Province",
+    "new": "Số 15 Lê Thánh Tôn, phường Lộc Thọ, thành phố Nha Trang, tỉnh Khánh Hòa"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000357",
+    "column": "Address",
+    "old": "Lot CP.B1.K05, Capital Place, No.29 Lieu Giai Street, Ngoc Khanh Ward, Ba Dinh District, Hanoi City",
+    "new": "Lô CP.B1.K05, Capital Place, số 29 đường Liễu Giai, phường Ngọc Khánh, quận Ba Đình, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000358",
+    "column": "Address",
+    "old": "Block B10, 1st Floor, Syrena Shopping Centre, No.51 Xuan Dieu, Tay Ho Ward, Ha Noi City",
+    "new": "Gian B10, tầng 1, trung tâm thương mại Syrena, số 51 Xuân Diệu, phường Tây Hồ, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000359",
+    "column": "Name",
+    "old": "Nguyen Van Loc",
+    "new": "Nguyễn Văn Lộc"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000359",
+    "column": "Address",
+    "old": "No.23 LK6C-12, European Overseas Vietnamese Village, Mo Lao New Urban Area, Nguyen Van Loc Street, Mo Lao Ward, Ha Dong District, Hanoi City",
+    "new": "Số 23 LK6C-12, làng Việt kiều châu Âu, khu đô thị mới Mỗ Lao, đường Nguyễn Văn Lộc, phường Mỗ Lao, quận Hà Đông, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000035a",
+    "column": "Address",
+    "old": "Townhouse No. SH4-7, 25 Thang 4 Street, Bach Dang Ward, Ha Long City, Quang Ninh Province",
+    "new": "Nhà phố số SH4-7, đường 25 Tháng 4, phường Bạch Đằng, thành phố Hạ Long, tỉnh Quảng Ninh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000035b",
+    "column": "Name",
+    "old": "Nguyen Gia Tri",
+    "new": "Nguyễn Gia Trí"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000035b",
+    "column": "Address",
+    "old": "No. 168 Nguyen Gia Tri, Thanh My Tay Ward, Ho Chi Minh City",
+    "new": "Số 168 Nguyễn Gia Trí, phường Thạnh Mỹ Tây, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000035c",
+    "column": "Address",
+    "old": "No.2.0.06 Ground Floor & 1st Floor, Podium Block P2, Zone A6 (Alnata Plus – Celadon City), No. 02 Tan Thanh Street, Tan Son Nhi Ward, Ho Chi Minh City",
+    "new": "Số 2.0.06, tầng trệt và tầng 1, khối đế P2, khu A6 (Alnata Plus – Celadon City), số 02 đường Tân Thành, phường Tân Sơn Nhì, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000035d",
+    "column": "Name",
+    "old": "Xuan Thuy",
+    "new": "Xuân Thủy"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000035d",
+    "column": "Address",
+    "old": "No. 16 Quoc Huong Street, Thao Dien Ward, Thu Duc City, Ho Chi Minh City",
+    "new": "Số 16 đường Quốc Hương, phường Thảo Điền, thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000035e",
+    "column": "Name",
+    "old": "Ta Quang Buu",
+    "new": "Tạ Quang Bửu"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000035e",
+    "column": "Address",
+    "old": "No. 837A Ta Quang Buu Street, Chanh Hung Ward, Ho Chi Minh City",
+    "new": "Số 837A đường Tạ Quang Bửu, phường Chánh Hưng, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000003ee",
+    "column": "Name",
+    "old": "Tran Duy Hung",
+    "new": "Trần Duy Hưng"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000003ee",
+    "column": "Address",
+    "old": "No. 119 Tran Duy Hung, Trung Hoa ward, Cau Giay district, Hanoi",
+    "new": "Số 119 Trần Duy Hưng, phường Trung Hòa, quận Cầu Giấy, Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000003f1",
+    "column": "Name",
+    "old": "Trung Nhi",
+    "new": "Trưng Nhị"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000003f1",
+    "column": "Address",
+    "old": "19 Trung Nhi, Ward 1, Vung Tau City",
+    "new": "19 Trưng Nhị, phường 1, thành phố Vũng Tàu"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000003f3",
+    "column": "Name",
+    "old": "Cau Giay TOGO",
+    "new": "Cầu Giấy TOGO"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000003f3",
+    "column": "Address",
+    "old": "No. 377 Cau Giay Street, Group 11, Dich Vong Ward, Cau Giay District, Hanoi City",
+    "new": "Số 377 đường Cầu Giấy, tổ 11, phường Dịch Vọng, quận Cầu Giấy, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000003f7",
+    "column": "Name",
+    "old": "Su Van Hanh",
+    "new": "Sư Vạn Hạnh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000003f7",
+    "column": "Address",
+    "old": "790 Su Van Hanh, Ward 12, District 10, Ho Chi Minh City",
+    "new": "790 Sư Vạn Hạnh, phường 12, quận 10, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000402",
+    "column": "Name",
+    "old": "Nguyen Son",
+    "new": "Nguyễn Sơn"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000402",
+    "column": "Address",
+    "old": "12 Nguyen Son, Phu Tho Hoa Ward, Tan Phu District, Ho Chi Minh City",
+    "new": "12 Nguyễn Sơn, phường Phú Thọ Hòa, quận Tân Phú, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000408",
+    "column": "Name",
+    "old": "Tran Hung Dao",
+    "new": "Trần Hưng Đạo"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000408",
+    "column": "Address",
+    "old": "469 Tran Hung Dao, An Hai, Tay, Son Tra, Da Nang City",
+    "new": "469 Trần Hưng Đạo, An Hải Tây, Sơn Trà, thành phố Đà Nẵng"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000409",
+    "column": "Address",
+    "old": "No. 1.19, 1st Floor, Building S2.05, Area A - Phuoc Thien Park and Residential Project, No. 512 Nguyen Xien Street, Long Hoa Quarter, Long Thanh My Ward, Thu Duc City, Ho Chi Minh City",
+    "new": "Số 1.19, tầng 1, tòa S2.05, khu A – dự án công viên và khu dân cư Phước Thiện, số 512 đường Nguyễn Xiển, khu phố Long Hòa, phường Long Thạnh Mỹ, thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000040e",
+    "column": "Name",
+    "old": "Hoang Thanh Tower",
+    "new": "Hoàng Thành Tower"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000040e",
+    "column": "Address",
+    "old": "Room 02, 1st Floor, Hoang Thanh Building, 114 Mai Hac De, Le Dai Hanh Ward, Hai Ba Trung District, Hanoi City",
+    "new": "Phòng 02, tầng 1, tòa nhà Hoàng Thành, 114 Mai Hắc Đế, phường Lê Đại Hành, quận Hai Bà Trưng, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000412",
+    "column": "Name",
+    "old": "Lotte Mall Ha Noi",
+    "new": "Lotte Mall Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000412",
+    "column": "Address",
+    "old": "No. 1-65, 1st Floor, Lotte Mall Hanoi Commercial Center, No. 272 ??Vo Chi Cong Street - Phu Thuong Ward, Tay Ho District, Hanoi City",
+    "new": "Số 1-65, tầng 1, trung tâm thương mại Lotte Mall Hà Nội, số 272 đường Võ Chí Công, phường Phú Thượng, quận Tây Hồ, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000417",
+    "column": "Name",
+    "old": "Midtown Phu My Hung",
+    "new": "Midtown Phú Mỹ Hưng"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000417",
+    "column": "Address",
+    "old": "Shop 16, Lot M8, Phu My Hung Quarter - Midtown, Tan Phu Ward, District 7, Ho Chi Minh City",
+    "new": "Cửa hàng 16, lô M8, khu Phú Mỹ Hưng – Midtown, phường Tân Phú, quận 7, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000425",
+    "column": "Name",
+    "old": "Hau Giang",
+    "new": "Hậu Giang"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000425",
+    "column": "Address",
+    "old": "176B Hau Giang, Ward 6, District 6, Ho Chi Minh City",
+    "new": "176B Hậu Giang, phường 6, quận 6, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000042a",
+    "column": "Name",
+    "old": "AEON Long Bien",
+    "new": "AEON Long Biên"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000042a",
+    "column": "Address",
+    "old": "Lot T149, 1st Floor, AEONMALL Long Bien Shopping Center, No. 27 Co Linh Street, Long Bien Ward, Long Bien District, Hanoi City",
+    "new": "Lô T149, tầng 1, trung tâm thương mại AEON Mall Long Biên, số 27 đường Cổ Linh, phường Long Biên, quận Long Biên, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000042f",
+    "column": "Name",
+    "old": "Thao Dien",
+    "new": "Thảo Điền"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000042f",
+    "column": "Address",
+    "old": "29 Thao Dien, Thao Dien Ward, District 2, Ho Chi Minh City",
+    "new": "29 Thảo Điền, phường Thảo Điền, quận 2, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000436",
+    "column": "Name",
+    "old": "Aeon Le Chan",
+    "new": "AEON Lê Chân"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000436",
+    "column": "Address",
+    "old": "Lot T101, 1st Floor, AEONMALL HAI PHONG LE CHAN Shopping Center, No. 10 Vo Nguyen Giap, Kenh Duong Ward, Le Chan District, Hai Phong City",
+    "new": "Lô T101, tầng 1, trung tâm thương mại AEON Mall Hải Phòng Lê Chân, số 10 Võ Nguyên Giáp, phường Kênh Dương, quận Lê Chân, thành phố Hải Phòng"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000043d",
+    "column": "Name",
+    "old": "AEON Binh Duong",
+    "new": "AEON Bình Dương"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000043d",
+    "column": "Address",
+    "old": "Lot G46, Ground Floor, Aeon Mall - Binh Duong Canary, No. 01, Binh Duong Boulevard, Binh Giao Quarter, Thuan Giao Ward, Thuan An City, Binh Duong Province",
+    "new": "Lô G46, tầng trệt, AEON Mall Bình Dương Canary, số 01 đại lộ Bình Dương, khu phố Bình Giao, phường Thuận Giao, thành phố Thuận An, tỉnh Bình Dương"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000440",
+    "column": "Address",
+    "old": "TN-K3-K4, Vincom Trade Center, Vincom Mega Mall Times City building",
+    "new": "TN-K3-K4, trung tâm thương mại Vincom, tòa nhà Vincom Mega Mall Times City"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000447",
+    "column": "Name",
+    "old": "Binh Duong Square",
+    "new": "Bình Dương Square"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000447",
+    "column": "Address",
+    "old": "Apartment SH 7 - Biconsi Tower, Street 01, Binh Duong Square Commercial Center, Phu Loi Ward, Thu Dau Mot City, Binh Duong Province",
+    "new": "Căn SH 7 – Biconsi Tower, đường số 01, trung tâm thương mại Bình Dương Square, phường Phú Lợi, thành phố Thủ Dầu Một, tỉnh Bình Dương"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000449",
+    "column": "Name",
+    "old": "Vincom Pham Ngoc Thach",
+    "new": "Vincom Phạm Ngọc Thạch"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000449",
+    "column": "Address",
+    "old": "L1-16, Vincom Trade Center, Vincom Center Pham Ngoc Thach Building - Hanoi (",
+    "new": "L1-16, trung tâm thương mại Vincom Center Phạm Ngọc Thạch, Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000044c",
+    "column": "Address",
+    "old": "B1-R3-K4B, Vincom Mega Mall Royal City Building, No. 72A Nguyen Trai Street, Thuong Dinh Ward, Thanh Xuan District, Hanoi",
+    "new": "B1-R3-K4B, tòa nhà Vincom Mega Mall Royal City, số 72A đường Nguyễn Trãi, phường Thượng Đình, quận Thanh Xuân, Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000044f",
+    "column": "Name",
+    "old": "Bau Cat",
+    "new": "Bàu Cát"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000044f",
+    "column": "Address",
+    "old": "172-174 Bau Cat, Ward 14, Tan Binh District, City. Ho Chi Minh",
+    "new": "172-174 Bàu Cát, phường 14, quận Tân Bình, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000454",
+    "column": "Name",
+    "old": "Aeon Mall Ha Dong",
+    "new": "AEON Mall Hà Đông"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000454",
+    "column": "Address",
+    "old": "T145-1, AEONMALL HA DONG CENTER, Hoang Van Thu Residential Group, Duong Noi Ward, Ha Dong District, Hanoi City",
+    "new": "T145-1, trung tâm AEON Mall Hà Đông, tổ dân phố Hoàng Văn Thụ, phường Dương Nội, quận Hà Đông, thành phố Hà Nội"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000457",
+    "column": "Name",
+    "old": "Crecsent Mall",
+    "new": "Crescent Mall"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000457",
+    "column": "Address",
+    "old": "GF-54, Crescent Mall Phase 2, Ton Dat Tien Street, Tan Phu Ward, District 7, Ho Chi Minh City",
+    "new": "GF-54, Crescent Mall giai đoạn 2, đường Tôn Dật Tiên, phường Tân Phú, quận 7, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000045d",
+    "column": "Name",
+    "old": "Nguyen Van Linh",
+    "new": "Nguyễn Văn Linh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000045d",
+    "column": "Address",
+    "old": "87 Nguyen Van Linh, Nam Duong, Hai Chau District, City. Da Nang",
+    "new": "87 Nguyễn Văn Linh, Nam Dương, quận Hải Châu, thành phố Đà Nẵng"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000045f",
+    "column": "Name",
+    "old": "Aeon Mall Tan Phu",
+    "new": "AEON Mall Tân Phú"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000045f",
+    "column": "Address",
+    "old": "1st Floor, F70, 1st Floor AEON Mall Tan Phu, 30 Bo Bao Tan Thang, Son Ky Ward, Tan Phu District, Ho Chi Minh City",
+    "new": "Tầng 1, F70, AEON Mall Tân Phú, 30 Bờ Bao Tân Thắng, phường Sơn Kỳ, quận Tân Phú, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000463",
+    "column": "Name",
+    "old": "Vincom Dong Khoi",
+    "new": "Vincom Đồng Khởi"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000463",
+    "column": "Address",
+    "old": "B3-08-09, No. 72 Le Thanh Ton and 45A Ly Tu Trong, Ben Nghe Ward, District 1, Ho Chi Minh City.",
+    "new": "B3-08-09, số 72 Lê Thánh Tôn và 45A Lý Tự Trọng, phường Bến Nghé, quận 1, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000467",
+    "column": "Name",
+    "old": "Nguyen Tri Phuong",
+    "new": "Nguyễn Tri Phương"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000467",
+    "column": "Address",
+    "old": "266 Nguyen Tri Phuong, Ward 04, District 10, Ho Chi Minh City",
+    "new": "266 Nguyễn Tri Phương, phường 04, quận 10, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000046b",
+    "column": "Address",
+    "old": "88 Song Hanh, An Phu Ward, District 2, Ho Chi Minh City",
+    "new": "88 Song Hành, phường An Phú, quận 2, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000046f",
+    "column": "Name",
+    "old": "Vo Van Ngan",
+    "new": "Võ Văn Ngân"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000046f",
+    "column": "Address",
+    "old": "372 Vo Van Ngan, Binh Tho Ward, Thu Duc District, Ho Chi Minh City",
+    "new": "372 Võ Văn Ngân, phường Bình Thọ, quận Thủ Đức, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000473",
+    "column": "Name",
+    "old": "Go Vap",
+    "new": "Gò Vấp"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000473",
+    "column": "Address",
+    "old": "L6.2 City Land Residential Area, Phan Van Tri Street, Ward 5, Go Vap District, Ho Chi Minh City",
+    "new": "L6.2 khu dân cư City Land, đường Phan Văn Trị, phường 5, quận Gò Vấp, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000477",
+    "column": "Address",
+    "old": "137 Cu Lao, Ward 2, Phu Nhuan District, Ho Chi Minh City",
+    "new": "137 Cù Lao, phường 2, quận Phú Nhuận, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000047b",
+    "column": "Name",
+    "old": "Phan Xich Long",
+    "new": "Phan Xích Long"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000047b",
+    "column": "Address",
+    "old": "119-121 Phan Xich Long, Ward 1, Phu Nhuan District, Ho Chi Minh City",
+    "new": "119-121 Phan Xích Long, phường 1, quận Phú Nhuận, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000047f",
+    "column": "Address",
+    "old": "235 Nguyen Van Cu, Nguyen Cu Trinh Ward, District 1, Ho Chi Minh City",
+    "new": "235 Nguyễn Văn Cừ, phường Nguyễn Cư Trinh, quận 1, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000483",
+    "column": "Name",
+    "old": "Cao Thang",
+    "new": "Cao Thắng"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000483",
+    "column": "Address",
+    "old": "46-48 Cao Thang, Ward 5, District 3, Ho Chi Minh City",
+    "new": "46-48 Cao Thắng, phường 5, quận 3, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000487",
+    "column": "Name",
+    "old": "Nguyen Duc Canh",
+    "new": "Nguyễn Đức Cảnh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000487",
+    "column": "Address",
+    "old": "157 Nguyen Duc Canh, Tan Phong Ward, District 7, Ho Chi Minh City",
+    "new": "157 Nguyễn Đức Cảnh, phường Tân Phong, quận 7, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000048b",
+    "column": "Name",
+    "old": "Phan Xich Long TOGO 1",
+    "new": "Phan Xích Long TOGO 1"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000048b",
+    "column": "Address",
+    "old": "137 Cu Lao, Ward 2, Phu Nhuan District, Ho Chi Minh City",
+    "new": "137 Cù Lao, phường 2, quận Phú Nhuận, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000048f",
+    "column": "Name",
+    "old": "Lotte Mart District 7",
+    "new": "Lotte Mart Quận 7"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000048f",
+    "column": "Address",
+    "old": "Lotte 1F-31, Lotte Mart NSG, No. 569, Nguyen Huu Tho, Tan Hung Ward, District 7, Ho Chi Minh City",
+    "new": "Lotte 1F-31, Lotte Mart NSG, số 569 Nguyễn Hữu Thọ, phường Tân Hưng, quận 7, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000493",
+    "column": "Address",
+    "old": "L1-01, Pearl Plaza, No. 561A Dien Bien Phu, Ward 25, Binh Thanh District, Ho Chi Minh City",
+    "new": "L1-01, Pearl Plaza, số 561A Điện Biên Phủ, phường 25, quận Bình Thạnh, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb00000496",
+    "column": "Address",
+    "old": "108-110 Ho Tung Mau, Ben Nghe Ward, District 1, Ho Chi Minh City",
+    "new": "108-110 Hồ Tùng Mậu, phường Bến Nghé, quận 1, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000049a",
+    "column": "Name",
+    "old": "Aeon Mall Binh Tan",
+    "new": "AEON Mall Bình Tân"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000049a",
+    "column": "Address",
+    "old": "Aeon Mall Binh Tan, No. 01 Street 17A, Binh Tri Dong B Ward, Binh Tan District, Ho Chi Minh City",
+    "new": "AEON Mall Bình Tân, số 01 đường 17A, phường Bình Trị Đông B, quận Bình Tân, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000049e",
+    "column": "Name",
+    "old": "Vincom District 2",
+    "new": "Vincom Quận 2"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb0000049e",
+    "column": "Address",
+    "old": "161 Vo Nguyen Giap, Thao Dien Ward, City. Thu Duc, Ho Chi Minh City",
+    "new": "161 Võ Nguyên Giáp, phường Thảo Điền, thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "Stores",
+    "id": "821b8ee6-937c-ec96-c30f-dafb000004a5",
+    "column": "Address",
+    "old": "01-16, 1st Floor, Area F, SC Vivo City, 1058 Nguyen Van Linh, Quarter 1, Tan Phong Ward, District 7, Ho Chi Minh City",
+    "new": "01-16, tầng 1, khu F, SC Vivo City, 1058 Nguyễn Văn Linh, khu phố 1, phường Tân Phong, quận 7, Thành phố Hồ Chí Minh"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000ade",
+    "column": "Title",
+    "old": "“CLOCK IN the world with KOI” Global Magnet Badge Collection Challenge",
+    "new": "“Check-in cùng KOI khắp thế giới” — Thử thách sưu tập huy hiệu nam châm toàn cầu"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000ade",
+    "column": "BodyHtml",
+    "old": "\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">\"Clock in\"&nbsp;isn't just the start of a daily routine — it's also a way to mark a memorable journey.<br>\n        From clocking in at work, to collecting footprints around the world, these two meanings quietly meet at KOI.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">Today, KOI Group has expanded to 17&nbsp;countries and over 700 stores worldwide.<br>\n        Wherever you travel, we hope you’ll come across KOI on your journey, enjoy the familiar taste of home, and feel the warmth of an old friend by your side.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">To celebrate KOI Group’s 20th Anniversary in 2026, we are launching the Global Limited Magnet Badge Collection Challenge!<br>\n        Each participating country features a unique cultural magnet badge design. Travel with your magnet badges, take photos, clock-in, and collect them to complete your KOI world travel map — and stand a chance to win USD 2,000!</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><strong>Campaign Period: </strong>2026/1/1 – 2026/12/31</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><strong>Participating Countries:</strong><br>\n        All KOI stores located in Singapore, Indonesia, Cambodia, Vietnam, Thailand, Malaysia, the Philippines, Bangladesh, Laos, Brunei, China, Japan, the United Arab Emirates, and France, together with KOI Group sub-brand FIFTYLAN stores in the United States,&nbsp;Canada and Australia.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">⭐ <strong>Level 1 — Tea Specialist</strong><br>\n        Collect 3 different country magnet badges to unlock the Tea Specialist level.<br>\n        ⚠️For every 3 magnet badges collected, you may redeem 1 drink at any store under KOI Group worldwide with the drink card included in the packaging (no size or topping restrictions). Drink cards must be surrendered to the store after redemption.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">⭐⭐ <strong>Level 2 — Global Tea Artisan</strong><br>\n        Collect 8 different country magnet badges and be among the first 20 participants to receive 50 KOI Group drink vouchers.<br>\n        ⚠️Redemption requirement:<br>\n        For each country collected, you must provide a photo of yourself holding the country’s magnet badge in front of a KOI Group store in that respective country. Both the store and magnet badge must be clearly identifiable.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">⭐⭐⭐ <strong>Level 3 — Golden Flavor Grandmaster</strong><br>\n        Collect 12 or more different country magnet badges and be among the first 5 participants to win USD 2,000 in cash.<br>\n        ⚠️Redemption requirement:<br>\n        For each country collected, you must provide a photo of yourself holding the country’s magnet badge in front of a KOI Group store in that respective country. Both the store and magnet badge must be clearly identifiable.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><strong>Terms &amp; Conditions:</strong><br><span style=\"font-size:14px\">This campaign is organized by KOI </span></span><span style=\"font-size:14px\">CAFÉ GROUP (S) PTE. LTD. (the “Organizer”). Participation in this campaign constitutes acceptance of the following terms and conditions:</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:14px\">1. Campaign Period:<br>\n        January 1, 2026 – December 31, 2026. Late submissions will not be accepted.<br>\n        2. Submission Requirements (Global Tea Artisan&nbsp;&amp; Golden Flavor Grandmaster):<br>\n        - All proof photos must be submitted by December 31, 2026 to: events@koicafe.com<br>\n        - If a photo is unclear, incomplete, or disputed, the Organizer reserves the right to request additional information or reject eligibility.<br>\n        3. Travel Companions:<br>\n        Participants traveling together must individually purchase magnet badges and submit their own photo proof in order to qualify.<br>\n        4. KOI Group Drink Voucher Reward (Global Tea Artisan):<br>\n        The Organizer will issue drink vouchers based on the participant’s country of residence, or provide an equivalent reward where applicable.<br>\n        5. Cash Reward (Golden Flavor Grandmaster):<br>\n        - USD 2,000 (Tax withholding shall be handled in accordance with the laws and regulations of each country. Withholding tax and other statutory deductions will be directly deducted from the bonus amount.)<br>\n        - The Organizer reserves the right to adjust reward distribution in accordance with currency, taxation, or regulatory requirements.<br>\n        6. Fair Participation:<br>\n        - Any falsified, duplicated, borrowed, or otherwise improper submissions will result in disqualification.<br>\n        - Participants are solely responsible for ensuring their submitted photos and information do not infringe on any third-party rights.<br>\n        7. Organizer Rights:<br>\n        - The Organizer reserves the right to amend, suspend, or terminate this campaign, and final announcements shall prevail.<br>\n        - By participating, you consent to providing submitted photos and information for marketing and promotional use by the Organizer.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:14px\">8.&nbsp;Magnet Badge Availability and Supply Notice：Availability of country-specific magnet badges is limited and subject to individual store inventory. The Organizer does not guarantee continuous availability at all stores throughout the promotion period and shall not provide reservations, restocking guarantees, or any form of compensation in the event that purchase is temporarily unavailable due to inventory depletion, logistics delays, local regulations, force majeure, or other operational factors.</span></p>\n    ",
+    "new": "\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">“Check-in” không chỉ là khởi đầu một ngày làm việc mà còn là cách ghi dấu một hành trình đáng nhớ.<br>Từ chấm công mỗi ngày đến lưu dấu chân trên khắp thế giới, hai ý nghĩa ấy gặp nhau tại KOI.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">Đến nay, Tập đoàn KOI đã hiện diện tại 17 quốc gia với hơn 700 cửa hàng trên toàn cầu.<br>Dù đi đến đâu, chúng tôi hy vọng bạn sẽ gặp KOI trên hành trình, thưởng thức hương vị quen thuộc như ở nhà và cảm nhận sự ấm áp của một người bạn cũ.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">Nhân kỷ niệm 20 năm Tập đoàn KOI vào năm 2026, chúng tôi ra mắt Thử thách sưu tập huy hiệu nam châm phiên bản giới hạn toàn cầu!<br>Mỗi quốc gia tham gia có một mẫu huy hiệu nam châm mang nét văn hóa riêng. Hãy mang huy hiệu đi du lịch, chụp ảnh, check-in và sưu tập để hoàn thành bản đồ hành trình KOI, cùng cơ hội nhận 2.000 USD!</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><strong>Thời gian chương trình:</strong>2026/1/1 – 2026/12/31</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><strong>Quốc gia tham gia:</strong><br>Tất cả cửa hàng KOI tại Singapore, Indonesia, Campuchia, Việt Nam, Thái Lan, Malaysia, Philippines, Bangladesh, Lào, Brunei, Trung Quốc, Nhật Bản, Các Tiểu vương quốc Ả Rập Thống nhất và Pháp; cùng các cửa hàng FIFTYLAN thuộc Tập đoàn KOI tại Hoa Kỳ, Canada và Úc.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">⭐ <strong>Cấp 1 — Chuyên gia trà</strong><br>Sưu tập huy hiệu của 3 quốc gia khác nhau để mở khóa cấp Chuyên gia trà.<br>⚠️Với mỗi 3 huy hiệu đã sưu tập, bạn có thể dùng thẻ đồ uống trong bao bì để đổi 1 thức uống tại bất kỳ cửa hàng nào thuộc Tập đoàn KOI trên thế giới (không giới hạn kích cỡ hoặc topping). Cửa hàng sẽ thu lại thẻ sau khi đổi.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">⭐⭐ <strong>Cấp 2 — Nghệ nhân trà toàn cầu</strong><br>Sưu tập huy hiệu của 8 quốc gia khác nhau và trở thành một trong 20 người đầu tiên để nhận 50 phiếu đồ uống của Tập đoàn KOI.<br>⚠️Điều kiện nhận thưởng:<br>Với mỗi quốc gia đã sưu tập, bạn phải cung cấp ảnh bản thân cầm huy hiệu của quốc gia đó trước một cửa hàng thuộc Tập đoàn KOI tại chính quốc gia ấy. Cả cửa hàng và huy hiệu phải được nhìn thấy rõ.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\">⭐⭐⭐ <strong>Cấp 3 — Bậc thầy hương vị hoàng kim</strong><br>Sưu tập huy hiệu của ít nhất 12 quốc gia khác nhau và trở thành một trong 5 người đầu tiên để nhận 2.000 USD tiền mặt.<br>⚠️Điều kiện nhận thưởng:<br>Với mỗi quốc gia đã sưu tập, bạn phải cung cấp ảnh bản thân cầm huy hiệu của quốc gia đó trước một cửa hàng thuộc Tập đoàn KOI tại chính quốc gia ấy. Cả cửa hàng và huy hiệu phải được nhìn thấy rõ.</span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><strong>Điều khoản và điều kiện:</strong><br><span style=\"font-size:14px\">Chương trình do KOI</span></span><span style=\"font-size:14px\">CAFÉ GROUP (S) PTE. LTD. (“Ban tổ chức”) tổ chức. Việc tham gia đồng nghĩa với việc chấp thuận các điều khoản và điều kiện sau:</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:14px\">1. Thời gian chương trình:<br>Từ ngày 01/01/2026 đến ngày 31/12/2026. Không tiếp nhận hồ sơ gửi muộn.<br>2. Yêu cầu gửi hồ sơ (Nghệ nhân trà toàn cầu và Bậc thầy hương vị hoàng kim):<br>- Gửi toàn bộ ảnh minh chứng trước ngày 31/12/2026 đến: events@koicafe.com<br>- Nếu ảnh không rõ, thiếu thông tin hoặc có tranh chấp, Ban tổ chức có quyền yêu cầu bổ sung hoặc từ chối công nhận tư cách nhận thưởng.<br>3. Người đồng hành:<br>Những người cùng đi phải tự mua huy hiệu và gửi ảnh minh chứng riêng để đủ điều kiện tham gia.<br>4. Phần thưởng phiếu đồ uống Tập đoàn KOI (Nghệ nhân trà toàn cầu):<br>Ban tổ chức phát phiếu đồ uống theo quốc gia cư trú của người tham gia, hoặc cung cấp phần thưởng tương đương khi áp dụng.<br>5. Phần thưởng tiền mặt (Bậc thầy hương vị hoàng kim):<br>- 2.000 USD (Việc khấu trừ thuế được thực hiện theo pháp luật và quy định của từng quốc gia. Thuế khấu trừ và các khoản bắt buộc khác được trừ trực tiếp vào tiền thưởng.)<br>- Ban tổ chức có quyền điều chỉnh cách trao thưởng theo yêu cầu về tiền tệ, thuế hoặc quy định liên quan.<br>6. Tham gia công bằng:<br>- Hồ sơ giả mạo, trùng lặp, đi mượn hoặc không hợp lệ dưới hình thức khác sẽ bị loại.<br>- Người tham gia tự chịu trách nhiệm bảo đảm ảnh và thông tin đã gửi không xâm phạm quyền của bên thứ ba.<br>7. Quyền của Ban tổ chức:<br>- Ban tổ chức có quyền sửa đổi, tạm dừng hoặc kết thúc chương trình; thông báo cuối cùng được ưu tiên áp dụng.<br>- Khi tham gia, bạn đồng ý cho Ban tổ chức sử dụng ảnh và thông tin đã gửi cho mục đích tiếp thị, quảng bá.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:14px\">8. Thông báo về số lượng và nguồn cung huy hiệu: Huy hiệu theo quốc gia có số lượng giới hạn, tùy thuộc tồn kho từng cửa hàng. Ban tổ chức không bảo đảm luôn có hàng tại mọi cửa hàng trong suốt chương trình và không nhận giữ hàng, cam kết bổ sung hoặc bồi thường nếu tạm thời không mua được do hết hàng, chậm vận chuyển, quy định địa phương, bất khả kháng hoặc yếu tố vận hành khác.</span></p>\n    "
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00001efb",
+    "column": "Title",
+    "old": "With Care",
+    "new": "Bằng sự tận tâm"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00001efb",
+    "column": "BodyHtml",
+    "old": "\n     <p>Every cup of tea carries a promise of consistency.&nbsp;<br>\n       From rigorous ingredient testing to the precise control of every brewing step, every detail is carefully validated and standardized.<br>\n       Where precision meets dedication, a familiar taste transcends time and distance, remaining the same wherever you are in the world.</p>\n     <p><br>\n       Since 2006, this commitment has never changed.<br>\n       This is KOI.</p>\n    ",
+    "new": "\n     <p>Mỗi ly trà mang theo lời hứa về chất lượng đồng nhất.<br>Từ kiểm nghiệm nguyên liệu nghiêm ngặt đến kiểm soát chính xác từng bước pha trà, mọi chi tiết đều được xác nhận và tiêu chuẩn hóa cẩn thận.<br>Khi sự chuẩn xác gặp lòng tận tâm, hương vị quen thuộc vượt qua thời gian và khoảng cách, giữ nguyên dù bạn ở bất cứ nơi đâu trên thế giới.</p>\n     <p><br>Từ năm 2006, cam kết ấy chưa từng thay đổi.<br>Đó là KOI.</p>\n    "
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00001c83",
+    "column": "Title",
+    "old": "From Nature",
+    "new": "Từ thiên nhiên"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00001c83",
+    "column": "BodyHtml",
+    "old": "\n     <p>At KOI, every choice begins at the source.<br>\n       In the mountains, ingredients are raised with time and nurtured by nature. From the earth, they are carefully refined and held to the highest standards, transformed into something that brings a quiet moment of delight.<br>\n       When these journeys come together, balance is created — not by chance, but by choice.</p>\n     <p>&nbsp;</p>\n     <p>Since 2006, this commitment has never changed.<br>\n       This is KOI.</p>\n    ",
+    "new": "\n     <p>Tại KOI, mọi lựa chọn đều bắt đầu từ nguồn gốc.<br>Giữa núi đồi, nguyên liệu trưởng thành theo thời gian và được thiên nhiên nuôi dưỡng. Từ đất lành, chúng được chắt lọc cẩn thận theo tiêu chuẩn cao nhất, trở thành điều mang đến khoảnh khắc an yên.<br>Khi những hành trình ấy gặp nhau, sự cân bằng được tạo nên — bằng lựa chọn, không phải ngẫu nhiên.</p>\n     <p>&nbsp;</p>\n     <p>Từ năm 2006, cam kết ấy chưa từng thay đổi.<br>Đó là KOI.</p>\n    "
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e000014a9",
+    "column": "Title",
+    "old": "FIFTYLAN Opens in Sydney",
+    "new": "FIFTYLAN khai trương tại Sydney"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e000014a9",
+    "column": "BodyHtml",
+    "old": "\n     <p style=\"margin-left:0cm; margin-right:0cm; text-align:justify\"><span style=\"font-size:16px\">We are delighted to announce the opening of FIFTYLAN Australia at Westfield Sydney, located in the heart of one of the world’s most vibrant cities.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm; text-align:justify\"><span style=\"font-size:10.5pt\"><span style=\"font-size:16px\">Surrounded by Sydney’s iconic cityscape—where modern architecture meets coastal energy—our new store offers a welcoming space to pause, refresh, and enjoy a thoughtfully crafted cup of tea. Whether you are exploring the city, heading to work, or taking a moment for yourself, FIFTYLAN is here to be part of your daily rhythm.</span></span><br><br><strong><span style=\"font-size:12.0pt\"><span style=\"color:black\">Westfield Sydney</span></span></strong><br><span style=\"font-size:12.0pt\"><span style=\"color:black\">Ground Floor, Shop 44G, Westfield, 450 George St, Sydney NSW 2000, Australia</span></span><span style=\"font-size:10.5pt\"> </span></p>\n    ",
+    "new": "\n     <p style=\"margin-left:0cm; margin-right:0cm; text-align:justify\"><span style=\"font-size:16px\">Chúng tôi vui mừng thông báo FIFTYLAN Úc khai trương tại Westfield Sydney, ngay trung tâm một trong những thành phố sôi động nhất thế giới.</span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm; text-align:justify\"><span style=\"font-size:10.5pt\"><span style=\"font-size:16px\">Giữa khung cảnh đặc trưng của Sydney, nơi kiến trúc hiện đại gặp sức sống miền biển, cửa hàng mới mang đến không gian thân thiện để nghỉ chân, nạp năng lượng và thưởng thức ly trà được chăm chút. Dù khám phá thành phố, trên đường đi làm hay dành chút thời gian cho bản thân, FIFTYLAN luôn sẵn sàng góp nhịp vào ngày của bạn.</span></span><br><br><strong><span style=\"font-size:12.0pt\"><span style=\"color:black\">Westfield Sydney</span></span></strong><br><span style=\"font-size:12.0pt\"><span style=\"color:black\">Ground Floor, Shop 44G, Westfield, 450 George St, Sydney NSW 2000, Australia</span></span><span style=\"font-size:10.5pt\"> </span></p>\n    "
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00001485",
+    "column": "Title",
+    "old": "KOI Brunei, It All Starts with This Cup",
+    "new": "KOI Brunei — Tất cả bắt đầu từ ly trà này"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00001485",
+    "column": "BodyHtml",
+    "old": "\n     <p>In a city where sunshine, greenery, and sea breezes meet,<br>\n       KOI Brunei officially opens its doors.<br>\n       With a familiar cup of tea, we invite you to embrace Brunei’s relaxed rhythm.<br>\n       Whether for a quiet break or a moment together,<br>\n       it all begins with this cup — your KOI moment.<br><br><strong>Amber Hills Store​​​</strong><br>\n       12:00-22:00<br>\n       Unit No. 1 , Ground Floor, Block A<br>\n       AMBER HILL, Simpang 127-12, Jalan Lebuh Raya Tungku<br>\n       erected on Lot No. 03143, Kampung Pengkalan Gadong<br>\n       Mukim Gadong B, Bandar Seri Begawan BE3719<br>\n       Negara Brunei Darussalam</p>\n    ",
+    "new": "\n     <p>Giữa thành phố có nắng, cây xanh và gió biển giao hòa,<br>KOI Brunei chính thức mở cửa.<br>Với ly trà quen thuộc, chúng tôi mời bạn cảm nhận nhịp sống thư thái của Brunei.<br>Dù là phút nghỉ yên tĩnh hay khoảnh khắc bên nhau,<br>tất cả đều bắt đầu từ ly trà này — khoảnh khắc KOI của bạn.<br><br><strong>Cửa hàng Amber Hills</strong><br>\n       12:00-22:00<br>\n       Unit No. 1 , Ground Floor, Block A<br>\n       AMBER HILL, Simpang 127-12, Jalan Lebuh Raya Tungku<br>\n       erected on Lot No. 03143, Kampung Pengkalan Gadong<br>\n       Mukim Gadong B, Bandar Seri Begawan BE3719<br>\n       Negara Brunei Darussalam</p>\n    "
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e0000082c",
+    "column": "Title",
+    "old": "KOI20 Gold Dot Award Design Competition Results",
+    "new": "Kết quả cuộc thi thiết kế KOI20 Gold Dot Award"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e0000082c",
+    "column": "BodyHtml",
+    "old": "\n     <p><img alt=\"\" src=\"/images/pages/source/Winner%20Post.jpg\" loading=\"lazy\"></p>\n     <p>Thank you to all participants for your enthusiastic participation! We received over 100 vibrant and creative submissions, each one as precious as Ｇold to us.<br>\n       After careful evaluation, we have selected one Grand Prize Winner and five Honorable&nbsp;Entries.</p>\n     <p>We appreciate everyone who has been part of this Bubbling&nbsp;Golden Era&nbsp;with us. Let’s continue moving forward together and create even more wonderful moments!</p>\n    ",
+    "new": "\n     <p><img alt=\"\" src=\"/images/pages/source/Winner%20Post.jpg\" loading=\"lazy\"></p>\n     <p>Cảm ơn sự tham gia nhiệt tình của tất cả các bạn! Chúng tôi nhận được hơn 100 tác phẩm sáng tạo, đầy sức sống; mỗi tác phẩm đều quý giá như vàng.<br>Sau quá trình đánh giá kỹ lưỡng, chúng tôi đã chọn một Giải Nhất và năm tác phẩm xuất sắc.</p>\n     <p>Cảm ơn tất cả những ai đã đồng hành cùng KOI trong kỷ nguyên hoàng kim. Hãy tiếp tục tiến bước cùng nhau và tạo thêm những khoảnh khắc tuyệt vời!</p>\n    "
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000483",
+    "column": "Title",
+    "old": "KOI20 Gold Dot Award Design Competition",
+    "new": "Cuộc thi thiết kế KOI20 Gold Dot Award"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000483",
+    "column": "BodyHtml",
+    "old": "\n     <p style=\"margin-left:0cm; margin-right:0cm\"><img alt=\"\" src=\"/images/pages/upload_image/news/news_634.png\" loading=\"lazy\"></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\">&nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">A shining journey of golden years, filled with achievements and “Thélicious”memories. Every moment of laughter and joy is like our Golden Bubbles, solid and full. Thank YOU for creating brilliance with us.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><br><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Competition Overview:</strong></span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Design a 2026 KOI20th anniversary logo centered around \"A Bubbling Golden Era\".</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Deadline: February 28, 2025</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Eligibility: Open to KOI fans worldwide. Participants may submit multiple entries, individually or in teams.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Design Requirements: Design style is open; hand-drawing, digital art, and any format <strong>except AI-generated images </strong>are welcome.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Submission Format: JPG format, A4 size (21cm x 29.7cm) or larger, with a minimum resolution of 300dpi. Submit entries to events@koicafe.com.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Email Title Format: KOI20_LOGO_Your Name_Country</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><br><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Selection Process:</strong></span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Selection Date: March 2025</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Evaluation Criteria: Theme relevance 40%, originality 30%, and expressiveness 30%</span></span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Prizes:</strong></span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Announcement of Winners: March 2025</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Gold Dot Award: One winner will receive 200 KOI drink vouchers and a trophy.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">-Honorable Award: Up to five winners will receive 20 KOI drink vouchers, exclusive gifts, and certificates.</span></span></p>\n     <p><br><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Contest Declaration：</strong></span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">1. The entries submitted must be the original works of the entrants and do not infringe any patents, copyrights, trademarks, and other intellectual property rights of anyone else. The entries have not been published in newspapers, magazines, websites, and other media, has not applied for patents or registered copyrights, has not participated in other competitions, and has not entered commercial channels in any form. The organizer shall not bear the legal responsibility arising from the infringement of the rights of others (or units) by the work, and the legal responsibility shall be borne by the participant.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">2. The copyright of the winning entries belongs to the organizer, and it has exclusive ownership including but not limited to the following ways to exercise copyright: enjoy the right to redesign, produce, sell, display, and publicize the work plan, and the winning participants must fill in the \"Work Copyright Ownership Agreement”.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">3. If the entry does not meet the judging criteria, the prize will be vacant.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">4. The organizer reserves the right of final interpretation of this event.</span></span></p>\n    ",
+    "new": "\n     <p style=\"margin-left:0cm; margin-right:0cm\"><img alt=\"\" src=\"/images/pages/upload_image/news/news_634.png\" loading=\"lazy\"></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\">&nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">Hành trình những năm tháng hoàng kim rực rỡ, đầy thành tựu và kỷ niệm đậm vị trà. Mỗi phút giây cười vui giống như trân châu hoàng kim, tròn đầy và bền chắc. Cảm ơn BẠN đã cùng chúng tôi tạo nên những điều rạng rỡ.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><br><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Tổng quan cuộc thi:</strong></span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Thiết kế logo kỷ niệm 20 năm KOI vào năm 2026 với chủ đề “A Bubbling Golden Era”.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Hạn chót: ngày 28/02/2025</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Đối tượng: người yêu KOI trên toàn thế giới. Có thể gửi nhiều tác phẩm, dự thi cá nhân hoặc theo nhóm.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Yêu cầu thiết kế: tự do phong cách; chấp nhận vẽ tay, thiết kế kỹ thuật số và các hình thức khác,<strong>ngoại trừ hình ảnh do AI tạo</strong>.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Định dạng: JPG, kích thước A4 (21 cm × 29,7 cm) trở lên, độ phân giải tối thiểu 300 dpi. Gửi tác phẩm đến events@koicafe.com.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Tiêu đề email: KOI20_LOGO_Họ tên_Quốc gia</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><br><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Quy trình xét chọn:</strong></span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Thời gian xét chọn: tháng 03/2025</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Tiêu chí: phù hợp chủ đề 40%, sáng tạo 30%, biểu đạt 30%</span></span><br>\n       &nbsp;</p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Giải thưởng:</strong></span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Công bố kết quả: tháng 03/2025</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Gold Dot Award: một người thắng nhận 200 phiếu đồ uống KOI và một cúp.</span></span></p>\n     <p><span style=\"font-size:12pt\"><span style=\"color:black\">- Giải tác phẩm xuất sắc: tối đa năm người thắng, mỗi người nhận 20 phiếu đồ uống KOI, quà tặng độc quyền và giấy chứng nhận.</span></span></p>\n     <p><br><span style=\"font-size:12pt\"><span style=\"color:black\"><strong>Tuyên bố cuộc thi:</strong></span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">1. Tác phẩm phải do người dự thi sáng tạo, không xâm phạm bằng sáng chế, bản quyền, nhãn hiệu hoặc quyền sở hữu trí tuệ của người khác. Tác phẩm chưa đăng trên báo, tạp chí, website hoặc phương tiện truyền thông; chưa nộp đơn sáng chế hay đăng ký bản quyền; chưa tham gia cuộc thi khác hoặc thương mại hóa dưới bất kỳ hình thức nào. Ban tổ chức không chịu trách nhiệm pháp lý về việc tác phẩm xâm phạm quyền của cá nhân hoặc tổ chức khác; người dự thi tự chịu trách nhiệm.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">2. Bản quyền tác phẩm đoạt giải thuộc Ban tổ chức, bao gồm quyền sở hữu độc quyền và quyền thiết kế lại, sản xuất, kinh doanh, trưng bày, quảng bá tác phẩm. Người đoạt giải phải ký “Thỏa thuận chuyển giao quyền sở hữu bản quyền tác phẩm”.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">3. Nếu không có tác phẩm đáp ứng tiêu chí đánh giá, giải thưởng sẽ được để trống.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:12pt\"><span style=\"color:black\">4. Ban tổ chức có quyền giải thích cuối cùng đối với sự kiện.</span></span></p>\n    "
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000007",
+    "column": "Title",
+    "old": "Welcome to the brand-new official website! Feel free to explore and experience the unique charm of KOI!",
+    "new": "Chào mừng đến với website KOI mới! Khám phá nét cuốn hút riêng của KOI!"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000007",
+    "column": "BodyHtml",
+    "old": "\n     <p>Welcome to the brand-new official website of KOI, where innovation and fun come together, just like our Golden Bubbles—delicious, plump, and full of vitality!<br>\n       Please do take your time to savor this delightful experience and explore the unique charm that belongs to KOI!</p>\n    ",
+    "new": "\n     <p>Chào mừng đến với website chính thức mới của KOI, nơi sự đổi mới và niềm vui hội tụ như trân châu hoàng kim: thơm ngon, tròn đầy và tràn sức sống!<br>Hãy dành thời gian tận hưởng trải nghiệm thú vị và khám phá nét cuốn hút riêng của KOI!</p>\n    "
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000202",
+    "column": "Title",
+    "old": "2024 Company Video-Your Daily Beat",
+    "new": "Video doanh nghiệp 2024 — Nhịp vui mỗi ngày"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000202",
+    "column": "BodyHtml",
+    "old": "\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"color:null\"><span style=\"font-size:12pt\">Brewing tea with sincerity and dedication, we light up the sparks of surprise in life through every cup of KOI. </span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"color:null\"><span style=\"font-size:12pt\">Built on carefully selected ingredients and perseverance to perfection, we create a delicate blend of aroma and taste with precision in each sip.</span></span></p>\n     <p><span style=\"color:null\"><span style=\"font-size:12.0pt\">With our warm and passionate service, we make your every visit at KOI a delightful and unforgettable&nbsp;one.</span></span><br>\n       &nbsp;</p>\n    ",
+    "new": "\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"color:null\"><span style=\"font-size:12pt\">Pha trà bằng sự chân thành và tận tâm, chúng tôi thắp lên những bất ngờ trong cuộc sống qua từng ly KOI.</span></span></p>\n     <p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"color:null\"><span style=\"font-size:12pt\">Từ nguyên liệu được tuyển chọn đến nỗ lực hoàn thiện không ngừng, chúng tôi kết hợp tinh tế hương thơm và vị ngon bằng sự chuẩn xác trong từng ngụm.</span></span></p>\n     <p><span style=\"color:null\"><span style=\"font-size:12.0pt\">Với phong cách phục vụ nồng nhiệt và chân thành, chúng tôi mong mỗi lần bạn đến KOI đều trở thành trải nghiệm vui tươi, đáng nhớ.</span></span><br>\n       &nbsp;</p>\n    "
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000201",
+    "column": "Title",
+    "old": "Trademark Transformation Part3：New Beat of Vibrancy.",
+    "new": "Đổi mới thương hiệu, phần 3: Nhịp điệu mới đầy sức sống"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000200",
+    "column": "Title",
+    "old": "Trademark Transformation Part2：What does our new logo represent?",
+    "new": "Đổi mới thương hiệu, phần 2: Logo mới mang ý nghĩa gì?"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e00000008",
+    "column": "Title",
+    "old": "Trademark Transformation Part1：Where we begin?",
+    "new": "Đổi mới thương hiệu, phần 1: Nơi câu chuyện bắt đầu"
+  },
+  {
+    "table": "NewsArticles",
+    "id": "b6c32d11-6903-af1b-83ff-3c0e000001fc",
+    "column": "Title",
+    "old": "A new Beat of vibrancy",
+    "new": "Nhịp điệu mới đầy sức sống"
+  }
+]

@@ -10,6 +10,7 @@
   <ItemGroup>
     <EmbeddedResource Include="code/Data/Stores.json" LogicalName="Koi.Web.Data.Stores.json" />
     <EmbeddedResource Include="code/Data/NewsSeed.json" LogicalName="Koi.Web.Data.NewsSeed.json" />
+    <EmbeddedResource Include="code/Data/SeedVietnameseUpdates.json" LogicalName="Koi.Web.Data.SeedVietnameseUpdates.json" />
     <EmbeddedResource Include="code/Data/DrinksSeed.json" LogicalName="Koi.Web.Data.DrinksSeed.json" />
     <Compile Remove="tests/**/*.cs" />
     <Compile Remove="tools/**/*.cs" />

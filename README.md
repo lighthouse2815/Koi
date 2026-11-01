@@ -33,7 +33,7 @@ dotnet build Koi.sln --configuration Release
 dotnet publish Koi.Web.csproj --configuration Release --output ./artifacts/publish
 ```
 
-Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration khởi tạo nạp dữ liệu mẫu News, Store, Menu và đồ uống một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Bộ migration này chỉ dành cho database mới, không áp dụng lên database dùng chuỗi migration cũ. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
+Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration khởi tạo nạp dữ liệu mẫu tiếng Việt cho tin tức, chi nhánh, thực đơn và đồ uống một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Migration chuyển seed cũ sang tiếng Việt chỉ cập nhật trường còn giữ giá trị mẫu, không ghi đè nội dung đã sửa trong quản trị. Bộ migration này chỉ dành cho database mới, không áp dụng lên database dùng chuỗi migration cũ. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
 
 ### Thiết lập đặt hàng cho chuỗi chi nhánh
 

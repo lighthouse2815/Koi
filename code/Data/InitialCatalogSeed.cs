@@ -32,15 +32,13 @@ internal static class InitialCatalogSeed
                 [Id("FeaturedDrinks", drink.Id), drink.Name, drink.Image, drink.BackgroundImage, drink.SortOrder, true, 1]);
 
         var snapshot = StoreCatalog.Snapshot;
-        var vietnam = snapshot.Countries.Single(country => country.Name == "VIETNAM");
-        var brand = snapshot.Brands.Single(value => value.Name == "KOI Thé");
-        foreach (var (city, order) in snapshot.Locations.Select((value, index) => (value, index)).Where(item => item.value.CountryId == vietnam.Id))
+        foreach (var (city, order) in snapshot.Locations.Select((value, index) => (value, index)))
             migration.InsertData("StoreCities", ["Id", "Name", "SortOrder", "Revision"], [Id("StoreCities", city.Id), city.Name, order, 1]);
-        foreach (var store in snapshot.Stores.Where(value => value.CountryId == vietnam.Id && value.BrandId == brand.Id))
+        foreach (var store in snapshot.Stores)
             migration.InsertData("Stores", ["Id", "Name", "Phone", "Hours", "Address", "CityId", "Photo", "NavigationUrl", "AcceptsOrders", "IsPublished", "SortOrder", "Revision"],
                 [Id("Stores", store.Id), store.Name, store.Phone, store.Hours, store.Address, store.LocationId == 0 ? null! : Id("StoreCities", store.LocationId), store.Photo, store.NavigationUrl, false, true, store.Id, 1]);
 
-        var menus = MenuCatalog.Countries.Single(country => country.Name == "VIETNAM").Menus;
+        var menus = MenuCatalog.Documents;
         for (var order = 0; order < menus.Count; order++)
             migration.InsertData("Menus", ["Id", "Label", "File", "SortOrder", "IsPublished", "Revision"],
                 [Id("Menus", order + 1), menus[order].Label, "/menus/" + menus[order].File, order, true, 1]);

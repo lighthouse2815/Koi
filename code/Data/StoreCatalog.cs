@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Koi.Web.Models;
 
 namespace Koi.Web.Data;
 
@@ -16,12 +15,8 @@ public static class StoreCatalog
     }
 }
 
-// Shapes used to read the original catalog for database migrations.
-public record StoreSnapshot(string CapturedOn, SeedCountry[] Countries, SeedLocation[] Locations,
-    SeedBrand[] Brands, SeedBranch[] Stores);
-public record SeedCountry(int Id, string Name, int[] BrandIds, StoreSocialLink[] SocialLinks, int[] StoreIds);
-public record SeedLocation(int Id, int CountryId, string Name, int[] StoreIds);
+// Shapes used to load the initial Vietnamese branch catalog.
+public record StoreSnapshot(SeedLocation[] Locations, SeedBranch[] Stores);
+public record SeedLocation(int Id, string Name);
 public record SeedBranch(int Id, string Name, string Phone, string Hours, string Address,
-    int CountryId, int LocationId, int BrandId, string Logo, string Photo, string NavigationUrl);
-
-public record SeedBrand(int Id, string Name);
+    int LocationId, string Photo, string NavigationUrl);

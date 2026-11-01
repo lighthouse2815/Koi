@@ -2,60 +2,51 @@
   "categories": [
     {
       "id": 3,
-      "name": "AREA EXCLUSIVE",
+      "name": "HƯƠNG VỊ TỪNG VÙNG",
       "icon": "",
       "image": "/images/pages/upload_image/ourtea/ourtea_657.jpg",
-      "homeImage": "",
-      "homeIcon": "",
       "showOnHome": false,
       "sortOrder": 0,
-      "homeOrder": 0,
       "drinks": [
         {
           "id": 1,
-          "name": "Berry Cheesy Green Milk Tea",
-          "region": "CHINA",
-          "description": "Velvety cream cheese and fresh green tea topped with tangy-sweet berry jam create a delicate balance of savoury and sweet flavours.",
+          "name": "Lục trà sữa kem phô mai dâu",
+          "description": "Kem phô mai mịn màng hòa cùng lục trà tươi và mứt quả mọng chua ngọt, tạo nên sự cân bằng tinh tế giữa vị béo mặn và ngọt dịu.",
           "image": "/images/pages/upload_image/ourtea/ourtea_218.jpg",
           "sortOrder": 0
         },
         {
           "id": 2,
-          "name": "Gula Melaka Milk Tea",
-          "region": "MALAYSIA",
-          "description": "Gula Melaka in KOI's signature milk tea creates a perfectly sweet and delightful sip.",
+          "name": "Trà sữa đường thốt nốt",
+          "description": "Đường thốt nốt Gula Melaka kết hợp với trà sữa đặc trưng của KOI, mang đến từng ngụm ngọt ngào đầy hấp dẫn.",
           "image": "/images/pages/upload_image/ourtea/ourtea_628.jpg",
           "sortOrder": 1
         },
         {
           "id": 3,
           "name": "Uji Matcha Latte",
-          "region": "JAPAN",
-          "description": "Select Uji matcha latte, with its captivating green and white gradients, seems to be sending an invitation to an elegant tea ceremony.",
+          "description": "Matcha Uji tuyển chọn cùng những lớp sắc xanh và trắng cuốn hút gợi lời mời đến một buổi thưởng trà thanh nhã.",
           "image": "/images/pages/upload_image/ourtea/ourtea_219.jpg",
           "sortOrder": 2
         },
         {
           "id": 4,
-          "name": "Crunchy Thai Tea",
-          "region": "THAILAND",
-          "description": "KOI's signature Thai milk tea combined with our special crunchy toppings is surely going to be a treat for your taste buds!",
+          "name": "Trà Thái topping giòn",
+          "description": "Trà sữa Thái đặc trưng của KOI kết hợp cùng topping giòn đặc biệt, mang đến trải nghiệm thú vị cho vị giác.",
           "image": "/images/pages/upload_image/ourtea/ourtea_656.jpg",
           "sortOrder": 3
         },
         {
           "id": 5,
-          "name": "Ribena Black Tea",
-          "region": "SINGAPORE",
-          "description": "Tangy blackcurrant flavour blends with rich black tea to bring us back to the joy of childhood.",
+          "name": "Hồng trà Ribena",
+          "description": "Vị lý chua đen chua ngọt hòa cùng hồng trà đậm đà, gợi lại niềm vui tuổi thơ.",
           "image": "/images/pages/upload_image/ourtea/ourtea_623.jpg",
           "sortOrder": 4
         },
         {
           "id": 6,
-          "name": "Oolong Sweetened Milk Tea",
-          "region": "VIETNAM",
-          "description": "Condensed milk with KOI's signature Oolong milk tea is perfectly creamy and smooth.",
+          "name": "Trà sữa ô long sữa đặc",
+          "description": "Sữa đặc kết hợp với trà sữa ô long đặc trưng của KOI, tạo nên vị béo ngậy và mượt mà.",
           "image": "/images/pages/upload_image/ourtea/ourtea_629.jpg",
           "sortOrder": 5
         }
@@ -63,76 +54,65 @@
     },
     {
       "id": 45,
-      "name": "CHEWY TEA",
+      "name": "TRÀ KÈM TOPPING",
       "icon": "/images/pages/upload_file/ourtea/ourtea_213.svg",
       "image": "/images/pages/upload_image/ourtea/ourtea_221.jpg",
-      "homeImage": "/images/drink-chewy.jpg",
-      "homeIcon": "/images/icon-chewy.svg",
       "showOnHome": true,
       "sortOrder": 1,
-      "homeOrder": 1,
       "drinks": [
         {
           "id": 7,
-          "name": "Golden Bubble Milk Tea",
-          "region": "",
-          "description": "Using the classic Assam black tea as a base, velvety creamer and chewy golden bubbles are added to bring you KOI's signature milk tea.",
+          "name": "Trà sữa trân châu hoàng kim",
+          "description": "Hồng trà Assam cổ điển kết hợp bột kem béo mịn và trân châu hoàng kim dai mềm, tạo nên trà sữa KOI đặc trưng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_221.jpg",
           "sortOrder": 0
         },
         {
           "id": 8,
-          "name": "Ice Cream Black Tea",
-          "region": "",
-          "description": "Creamy vanilla ice cream and full-bodied black tea combined to become the the best summer treat!",
+          "name": "Hồng trà kem",
+          "description": "Kem vani béo mịn hòa cùng hồng trà đậm vị, trở thành món giải nhiệt tuyệt vời cho mùa hè.",
           "image": "/images/pages/upload_image/ourtea/ourtea_223.jpg",
           "sortOrder": 1
         },
         {
           "id": 9,
-          "name": "Grass Jelly Green Milk Tea",
-          "region": "",
-          "description": "Silky grass jelly paired with mellow green milk tea feels like a delightful dessert surprise.",
+          "name": "Lục trà sữa sương sáo",
+          "description": "Sương sáo mềm mượt kết hợp cùng lục trà sữa dịu nhẹ, mang đến bất ngờ ngọt ngào như một món tráng miệng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_225.jpg",
           "sortOrder": 2
         },
         {
           "id": 10,
-          "name": "Taro Q Black Tea Latte",
-          "region": "",
-          "description": "Fragrant Taro Q's texture pairs perfectly with our fresh milk tea for a delicious treat in every bite.",
+          "name": "Hồng trà latte Taro Q",
+          "description": "Taro Q thơm dẻo hòa quyện cùng trà sữa tươi, mang đến cảm giác ngon miệng trong từng lần thưởng thức.",
           "image": "/images/pages/upload_image/ourtea/ourtea_227.jpg",
           "sortOrder": 3
         },
         {
           "id": 11,
-          "name": "Aloe Vera Passion Fruit Green Tea",
-          "region": "",
-          "description": "Passion fruit green tea with juicy aloe vera chunks, enjoy a fun and refreshing summer-in-a-cup.",
+          "name": "Lục trà chanh dây nha đam",
+          "description": "Lục trà chanh dây kết hợp những miếng nha đam mọng nước, mang đến một mùa hè vui tươi, mát lành trong ly trà.",
           "image": "",
           "sortOrder": 4
         },
         {
           "id": 12,
-          "name": "Konjac Oolong Milk Tea",
-          "region": "",
-          "description": "Chewy konjac jelly is combined with our Oolong milk tea to satisfy and fill you up.",
+          "name": "Trà sữa ô long thạch konjac",
+          "description": "Thạch konjac dai mềm kết hợp với trà sữa ô long, mang đến cảm giác thỏa thích và trọn vị.",
           "image": "",
           "sortOrder": 5
         },
         {
           "id": 13,
-          "name": "Coconut Jelly Green Milk Tea",
-          "region": "",
-          "description": "Nibble on those gummy coconut jellies as you enjoy our signature green milk tea. Rich yet surprisingly refreshing.",
+          "name": "Lục trà sữa thạch dừa",
+          "description": "Vừa nhâm nhi thạch dừa dai ngon, vừa thưởng thức lục trà sữa đặc trưng: đậm vị mà vẫn mát lành.",
           "image": "",
           "sortOrder": 6
         },
         {
           "id": 14,
-          "name": "Brown Konjac Milk Tea",
-          "region": "",
-          "description": "Brown sugar from the konjac jelly complements the creaminess of our milk tea. Definitely a sweet and delightful treat.",
+          "name": "Trà sữa thạch konjac đường đen",
+          "description": "Vị đường đen của thạch konjac làm nổi bật nét béo mịn của trà sữa, tạo nên món ngon ngọt ngào, hấp dẫn.",
           "image": "",
           "sortOrder": 7
         }
@@ -140,76 +120,65 @@
     },
     {
       "id": 4,
-      "name": "FLAVORED TEA",
+      "name": "TRÀ NGUYÊN VỊ",
       "icon": "/images/pages/upload_file/ourtea/ourtea_187.svg",
       "image": "/images/pages/upload_image/ourtea/ourtea_107.jpg",
-      "homeImage": "/images/drink-flavored.jpg",
-      "homeIcon": "/images/icon-flavored.svg",
       "showOnHome": true,
       "sortOrder": 2,
-      "homeOrder": 2,
       "drinks": [
         {
           "id": 15,
-          "name": "Jasmine Green Tea",
-          "region": "",
-          "description": "Green tea blends with a light touch of jasmine aroma, ready to soothe both your body and soul.",
+          "name": "Lục trà lài",
+          "description": "Lục trà hòa cùng hương lài nhẹ nhàng, giúp cơ thể và tâm trí thư thái.",
           "image": "/images/pages/upload_image/ourtea/ourtea_228.jpg",
           "sortOrder": 0
         },
         {
           "id": 16,
-          "name": "Assam Black Tea",
-          "region": "",
-          "description": "Assam black tea is bold yet smooth, with malty notes and no bitterness.",
+          "name": "Hồng trà Assam",
+          "description": "Hồng trà Assam đậm đà mà êm dịu, thoảng hương mạch nha và không đắng gắt.",
           "image": "/images/pages/upload_image/ourtea/ourtea_230.jpg",
           "sortOrder": 1
         },
         {
           "id": 17,
-          "name": "Golden Oolong Tea",
-          "region": "",
-          "description": "Our Oolong tea has a caramel-like aroma and a rich aftertaste, reminiscent of sipping from a mountain spring.",
+          "name": "Trà ô long hoàng kim",
+          "description": "Ô long có hương thơm gợi caramel và hậu vị sâu, mang cảm giác trong lành như thưởng thức dòng nước suối trên núi.",
           "image": "/images/pages/upload_image/ourtea/ourtea_232.jpg",
           "sortOrder": 2
         },
         {
           "id": 18,
-          "name": "Honey Green Tea",
-          "region": "",
-          "description": "Smooth blend of sweet honey and refreshing green tea, perfectly balanced for a rich yet enjoyable sip.",
+          "name": "Lục trà mật ong",
+          "description": "Mật ong ngọt dịu hòa với lục trà thanh mát theo tỷ lệ cân bằng, cho từng ngụm đậm hương mà dễ uống.",
           "image": "/images/pages/upload_image/ourtea/ourtea_233.jpg",
           "sortOrder": 3
         },
         {
           "id": 19,
-          "name": "Lychee Black Tea",
-          "region": "",
-          "description": "Rich lychee aroma blends with smooth black tea, creating a delightful moment where the fragrance of fruit and tea intertwine, as if you're in a lychee orchard.",
+          "name": "Hồng trà vải",
+          "description": "Hương vải nồng nàn kết hợp hồng trà êm dịu, để hương trái cây và hương trà đan xen như đang dạo giữa vườn vải.",
           "image": "/images/pages/upload_image/ourtea/ourtea_234.jpg",
           "sortOrder": 4
         },
         {
           "id": 20,
-          "name": "Fresh Lemon Green Tea",
-          "region": "",
-          "description": "Zesty lemon pairs with refreshing green tea, the perfect thirst-quenching choice.",
+          "name": "Lục trà chanh tươi",
+          "description": "Chanh tươi chua dịu kết hợp lục trà thanh mát, là lựa chọn giải khát lý tưởng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_235.jpg",
           "sortOrder": 5
         },
         {
           "id": 21,
-          "name": "No.8 Green Tea",
-          "region": "",
-          "description": "Every sip filled with a delightful surprise of sweet and tangy notes of calamansi and plum in the aromatic green tea.",
+          "name": "Lục trà số 8",
+          "description": "Mỗi ngụm lục trà thơm là bất ngờ thú vị từ vị chua ngọt của tắc và xí muội.",
           "image": "",
           "sortOrder": 6
         },
         {
           "id": 22,
-          "name": "Passion Fruit Green Tea",
-          "region": "",
-          "description": "The perfect fusion of vibrant passion fruit and fragrant green tea brings a burst of tropical flavors to life.",
+          "name": "Lục trà chanh dây",
+          "description": "Chanh dây tươi tắn kết hợp cùng lục trà thơm dịu, đánh thức hương vị nhiệt đới.",
           "image": "",
           "sortOrder": 7
         }
@@ -217,76 +186,65 @@
     },
     {
       "id": 44,
-      "name": "SIGNATURE MACCHIATO",
+      "name": "MACCHIATO ĐẶC TRƯNG",
       "icon": "/images/pages/upload_file/ourtea/ourtea_190.svg",
       "image": "/images/pages/upload_image/ourtea/ourtea_156.jpg",
-      "homeImage": "/images/drink-macchiato.jpg",
-      "homeIcon": "/images/icon-macchiato.svg",
       "showOnHome": true,
       "sortOrder": 3,
-      "homeOrder": 3,
       "drinks": [
         {
           "id": 23,
-          "name": "Black Tea Macchiato",
-          "region": "",
-          "description": "Bold black tea blends with our specially crafted, velvety cream foam for a smooth and satisfying experience.",
+          "name": "Hồng trà Macchiato",
+          "description": "Hồng trà đậm vị hòa cùng lớp kem sữa mịn được pha chế riêng, tạo nên trải nghiệm mượt mà, trọn vẹn.",
           "image": "/images/pages/upload_image/ourtea/ourtea_237.jpg",
           "sortOrder": 0
         },
         {
           "id": 24,
-          "name": "Oolong Tea Macchiato",
-          "region": "",
-          "description": "Smooth and velvety cream foam pairs beautifully with the elegant notes of our toasty Oolong tea, delivering a distinct and refined tea indulgence.",
+          "name": "Ô long Macchiato",
+          "description": "Lớp kem sữa mịn kết hợp với hương ô long rang thanh nhã, mang đến trải nghiệm trà riêng biệt và tinh tế.",
           "image": "/images/pages/upload_image/ourtea/ourtea_239.jpg",
           "sortOrder": 1
         },
         {
           "id": 25,
-          "name": "Caramel Black Tea Macchiato",
-          "region": "",
-          "description": "Scrumptious caramel seamlessly blends with our rich black tea, topped with a layer of silky cream foam.",
+          "name": "Hồng trà caramel Macchiato",
+          "description": "Caramel thơm ngọt hòa quyện trong hồng trà đậm vị, phủ bên trên lớp kem sữa mềm mịn.",
           "image": "/images/pages/upload_image/ourtea/ourtea_240.jpg",
           "sortOrder": 2
         },
         {
           "id": 26,
-          "name": "Lychee Black Tea Macchiato",
-          "region": "",
-          "description": "Fragrant lychee harmonizes well with bold black tea, while the cream foam adds a smooth and layered finish.",
+          "name": "Hồng trà vải Macchiato",
+          "description": "Hương vải hòa cùng hồng trà đậm đà; lớp kem sữa làm hậu vị thêm mượt mà và nhiều tầng hương.",
           "image": "/images/pages/upload_image/ourtea/ourtea_241.jpg",
           "sortOrder": 3
         },
         {
           "id": 27,
-          "name": "Peach Green Tea Macchiato",
-          "region": "",
-          "description": "Sweet peach mingles with soothing green tea, topped with milky cream foam for a light yet rich treat.",
+          "name": "Lục trà đào Macchiato",
+          "description": "Đào ngọt kết hợp lục trà thanh dịu và kem sữa, tạo nên thức uống nhẹ nhàng mà tròn vị.",
           "image": "/images/pages/upload_image/ourtea/ourtea_243.jpg",
           "sortOrder": 4
         },
         {
           "id": 28,
-          "name": "Passion Fruit Green Tea Macchiato",
-          "region": "",
-          "description": "Tropical passion fruit combined with fragrant green tea, topped with velvety cream foam for a tangy and refreshing double delight!",
+          "name": "Lục trà chanh dây Macchiato",
+          "description": "Chanh dây nhiệt đới kết hợp lục trà thơm và kem sữa mịn, nhân đôi vị chua dịu, mát lành.",
           "image": "",
           "sortOrder": 5
         },
         {
           "id": 29,
-          "name": "Mango Oolong Tea Macchiato",
-          "region": "",
-          "description": "Mango is paired with delicate Oolong tea and velvety cream foam for to bring about a sophisticated sensation.",
+          "name": "Ô long xoài Macchiato",
+          "description": "Xoài kết hợp ô long thanh nhã và lớp kem sữa mịn, mang đến cảm nhận hài hòa, tinh tế.",
           "image": "",
           "sortOrder": 6
         },
         {
           "id": 30,
           "name": "Ovaltine Macchiato",
-          "region": "",
-          "description": "Double the sweetness and double the joy with classic Ovaltine and our signature creamy macchiato foam.",
+          "description": "Nhân đôi vị ngọt và niềm vui với Ovaltine quen thuộc cùng lớp kem Macchiato đặc trưng.",
           "image": "",
           "sortOrder": 7
         }
@@ -294,76 +252,65 @@
     },
     {
       "id": 5,
-      "name": "MILK TEA",
+      "name": "TRÀ SỮA",
       "icon": "/images/pages/upload_file/ourtea/ourtea_188.svg",
       "image": "/images/pages/upload_image/ourtea/ourtea_61.jpg",
-      "homeImage": "/images/drink-milk.jpg",
-      "homeIcon": "/images/icon-milk.svg",
       "showOnHome": true,
       "sortOrder": 4,
-      "homeOrder": 4,
       "drinks": [
         {
           "id": 31,
-          "name": "Green Milk Tea",
-          "region": "",
-          "description": "Refreshing yet creamy, our green milk tea is delicate yet harmonised which may leave you craving for more!",
+          "name": "Lục trà sữa",
+          "description": "Thanh mát mà béo mịn, lục trà sữa có hương vị nhẹ nhàng, hài hòa khiến bạn muốn thưởng thức thêm.",
           "image": "/images/pages/upload_image/ourtea/ourtea_567.jpg",
           "sortOrder": 0
         },
         {
           "id": 32,
-          "name": "Oolong Milk Tea",
-          "region": "",
-          "description": "Roasted Oolong tea mingles with creamy milk. Each sip is full of happiness unveiling layers of rich flavour.",
+          "name": "Trà sữa ô long",
+          "description": "Ô long rang hòa cùng vị sữa béo mịn. Mỗi ngụm đều mở ra những tầng hương vị và niềm vui.",
           "image": "/images/pages/upload_image/ourtea/ourtea_570.jpg",
           "sortOrder": 1
         },
         {
           "id": 33,
-          "name": "Hazelnut Milk Tea",
-          "region": "",
-          "description": "Fragrant hazelnut blends with creamy milk tea for an autumnal experience that warms both heart and soul.",
+          "name": "Trà sữa hạt phỉ",
+          "description": "Hạt phỉ thơm hòa với trà sữa béo mịn, gợi cảm giác ấm áp, dễ chịu của mùa thu.",
           "image": "/images/pages/upload_image/ourtea/ourtea_572.jpg",
           "sortOrder": 2
         },
         {
           "id": 34,
-          "name": "Caramel Milk Tea",
-          "region": "",
-          "description": "Sweetness of caramel in our rich milk tea is irresistibly charming.",
+          "name": "Trà sữa caramel",
+          "description": "Vị ngọt caramel trong trà sữa đậm đà tạo nên sức hút khó cưỡng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_573.jpg",
           "sortOrder": 3
         },
         {
           "id": 35,
-          "name": "Honey Milk Tea",
-          "region": "",
-          "description": "Sweet honey meets creamy milk tea, like a gentle touch of sunshine on a cozy day.",
+          "name": "Trà sữa mật ong",
+          "description": "Mật ong ngọt dịu gặp trà sữa béo mịn, nhẹ nhàng như tia nắng trong ngày ấm áp.",
           "image": "/images/pages/upload_image/ourtea/ourtea_574.jpg",
           "sortOrder": 4
         },
         {
           "id": 36,
           "name": "Ovaltine",
-          "region": "",
-          "description": "Smooth blend of malt and creamy milk for a delightful flavor you won't want to miss.",
+          "description": "Mạch nha hòa cùng sữa béo mịn, tạo nên hương vị hấp dẫn không thể bỏ lỡ.",
           "image": "",
           "sortOrder": 5
         },
         {
           "id": 37,
-          "name": "Chocolate Milk",
-          "region": "",
-          "description": "Perfect treat for chocoholics seeking for a creamy and sinful chocolate sensation in every sip.",
+          "name": "Sữa chocolate",
+          "description": "Món ngon dành cho người yêu chocolate, mang đến vị chocolate béo mịn, đậm đà trong từng ngụm.",
           "image": "",
           "sortOrder": 6
         },
         {
           "id": 38,
           "name": "Cacao Barry",
-          "region": "",
-          "description": "The intense cocoa notes play off the creamy milk in perfect harmony, like watching a ballet unfold in every sip.",
+          "description": "Cacao đậm vị hòa quyện cùng sữa béo mịn theo cách hài hòa như một điệu múa trong từng ngụm.",
           "image": "",
           "sortOrder": 7
         }
@@ -371,76 +318,65 @@
     },
     {
       "id": 43,
-      "name": "TEA LATTE",
+      "name": "TRÀ LATTE",
       "icon": "/images/pages/upload_file/ourtea/ourtea_189.svg",
       "image": "/images/pages/upload_image/ourtea/ourtea_575.jpg",
-      "homeImage": "/images/drink-latte.jpg",
-      "homeIcon": "/images/icon-latte.svg",
       "showOnHome": true,
       "sortOrder": 5,
-      "homeOrder": 5,
       "drinks": [
         {
           "id": 39,
-          "name": "Black Tea Latte",
-          "region": "",
-          "description": "Rich and smooth black tea with fresh milk feels balanced and satifisfying in every sip.",
+          "name": "Hồng trà latte",
+          "description": "Hồng trà đậm đà, êm dịu kết hợp sữa tươi, tạo nên vị cân bằng và trọn vẹn.",
           "image": "/images/pages/upload_image/ourtea/ourtea_575.jpg",
           "sortOrder": 0
         },
         {
           "id": 40,
-          "name": "Green Tea Latte",
-          "region": "",
-          "description": "Refreshing green tea and sweet fresh milk blows like a springtime breeze.",
+          "name": "Lục trà latte",
+          "description": "Lục trà thanh mát và sữa tươi ngọt dịu mang cảm giác nhẹ nhàng như gió xuân.",
           "image": "/images/pages/upload_image/ourtea/ourtea_577.jpg",
           "sortOrder": 1
         },
         {
           "id": 41,
-          "name": "Oolong Tea Latte",
-          "region": "",
-          "description": "Delicate and roasted Oolong tea with sweet fresh milk offers a complex, yet refined flavor.",
+          "name": "Ô long latte",
+          "description": "Ô long rang tinh tế kết hợp sữa tươi ngọt dịu, tạo nên nhiều tầng hương vị thanh nhã.",
           "image": "/images/pages/upload_image/ourtea/ourtea_579.jpg",
           "sortOrder": 2
         },
         {
           "id": 42,
-          "name": "Matcha Latte",
-          "region": "",
-          "description": "Slightly bitter matcha blends flawlessly with fresh milk to give you an elegant and exquisite tea moment.",
+          "name": "Matcha latte",
+          "description": "Matcha hơi đắng hòa quyện cùng sữa tươi, mang đến khoảnh khắc thưởng trà tao nhã.",
           "image": "/images/pages/upload_image/ourtea/ourtea_652.jpg",
           "sortOrder": 3
         },
         {
           "id": 43,
-          "name": "Hazelnut Black Tea Latte",
-          "region": "",
-          "description": "Nutty hazelnut and aromatic milk tea form a unique and comforting flavor profile.",
+          "name": "Hồng trà latte hạt phỉ",
+          "description": "Hương hạt phỉ và trà sữa thơm tạo nên hương vị riêng biệt, ấm áp.",
           "image": "",
           "sortOrder": 4
         },
         {
           "id": 44,
-          "name": "Caramel Black Tea Latte",
-          "region": "",
-          "description": "Sweet caramel, rich black tea, and smooth milk collide in a beautiful medley of flavors.",
+          "name": "Hồng trà latte caramel",
+          "description": "Caramel ngọt, hồng trà đậm và sữa mịn hòa thành bản phối hương vị hài hòa.",
           "image": "",
           "sortOrder": 5
         },
         {
           "id": 45,
-          "name": "Cacao Barry Latte",
-          "region": "",
-          "description": "Bold cocoa and sweet fresh milk deliver a graceful and sophisticated taste.",
+          "name": "Cacao Barry latte",
+          "description": "Cacao đậm cùng sữa tươi ngọt dịu mang đến hương vị thanh lịch, tinh tế.",
           "image": "",
           "sortOrder": 6
         },
         {
           "id": 46,
-          "name": "Brown Sugar Black Tea Latte",
-          "region": "",
-          "description": "Smoky Okinawan-style brown sugar pairs with smooth milk tea brings a captivating and irresistible flavor.",
+          "name": "Hồng trà latte đường đen",
+          "description": "Đường đen kiểu Okinawa với hương khói nhẹ kết hợp trà sữa mượt mà, tạo nên vị ngon cuốn hút.",
           "image": "",
           "sortOrder": 7
         }
@@ -448,76 +384,65 @@
     },
     {
       "id": 6,
-      "name": "JUICE",
+      "name": "NƯỚC ÉP",
       "icon": "/images/pages/upload_file/ourtea/ourtea_191.svg",
       "image": "/images/pages/upload_image/ourtea/ourtea_62.jpg",
-      "homeImage": "/images/drink-juice.jpg",
-      "homeIcon": "/images/icon-juice.svg",
       "showOnHome": true,
       "sortOrder": 6,
-      "homeOrder": 6,
       "drinks": [
         {
           "id": 47,
-          "name": "Ice Honey",
-          "region": "",
-          "description": "Aromatic honey invites you to enjoy a refreshing and soothing moment together!",
+          "name": "Mật ong đá",
+          "description": "Hương mật ong thơm dịu mời bạn tận hưởng phút giây mát lành và thư thái.",
           "image": "/images/pages/upload_image/ourtea/ourtea_583.jpg",
           "sortOrder": 0
         },
         {
           "id": 48,
-          "name": "Fresh Lemon Juice",
-          "region": "",
-          "description": "Freshly squeezed lemon juice offers a tart and refreshing thirst-quencher.",
+          "name": "Nước chanh tươi",
+          "description": "Nước chanh vắt tươi chua dịu, giúp giải khát và làm mát cơ thể.",
           "image": "/images/pages/upload_image/ourtea/ourtea_584.jpg",
           "sortOrder": 1
         },
         {
           "id": 49,
-          "name": "Fresh Lime Juice",
-          "region": "",
-          "description": "Sweet and tangy, freshly pressed calamansi juice is your perfect summer companion.",
+          "name": "Nước tắc tươi",
+          "description": "Nước tắc vắt tươi chua ngọt là bạn đồng hành lý tưởng cho mùa hè.",
           "image": "/images/pages/upload_image/ourtea/ourtea_585.jpg",
           "sortOrder": 2
         },
         {
           "id": 50,
-          "name": "No.8 Juice",
-          "region": "",
-          "description": "Calamansi is combined with plum juice to bring about a zesty yet interestingly savoury summer treat.",
+          "name": "Nước ép số 8",
+          "description": "Tắc kết hợp xí muội, tạo nên thức uống mùa hè chua dịu và có vị mặn nhẹ thú vị.",
           "image": "/images/pages/upload_image/ourtea/ourtea_586.jpg",
           "sortOrder": 3
         },
         {
           "id": 51,
-          "name": "Honey Lemon Lime Juice",
-          "region": "",
-          "description": "Fresh fruit juice and sweet honey, your perfect refreshment for hot weather.",
+          "name": "Chanh tắc mật ong",
+          "description": "Nước trái cây tươi cùng mật ong ngọt dịu, lựa chọn giải khát lý tưởng trong ngày nóng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_587.jpg",
           "sortOrder": 4
         },
         {
           "id": 52,
-          "name": "Lemon Plum Juice",
-          "region": "",
-          "description": "Plum with fresh lemon, sweet and sour like the taste of love?",
+          "name": "Chanh xí muội",
+          "description": "Xí muội kết hợp chanh tươi, chua ngọt như hương vị của tình yêu.",
           "image": "/images/pages/upload_image/ourtea/ourtea_588.jpg",
           "sortOrder": 5
         },
         {
           "id": 53,
-          "name": "Lemon Yakult Juice",
-          "region": "",
-          "description": "Citrusy and light fusion of lemon and Yakult energizes you all day long.",
+          "name": "Chanh Yakult",
+          "description": "Chanh thanh nhẹ kết hợp Yakult, tiếp thêm sức sống cho cả ngày.",
           "image": "/images/pages/upload_image/ourtea/ourtea_589.jpg",
           "sortOrder": 6
         },
         {
           "id": 54,
-          "name": "Mango Yakult Juice",
-          "region": "",
-          "description": "Fruity mango and Yakult creates a dreamy blend with refreshing burst of tropical flavour.",
+          "name": "Xoài Yakult",
+          "description": "Xoài thơm kết hợp Yakult tạo nên vị nhiệt đới đầy tươi mát.",
           "image": "",
           "sortOrder": 7
         }
@@ -527,32 +452,28 @@
   "featured": [
     {
       "id": 1,
-      "name": "Shiranui Tangerine",
-      "region": "Japan",
+      "name": "Quýt Shiranui",
       "image": "/images/pages/upload_image/maintea/maintea_1_4513_6009.jpg",
       "backgroundImage": "/images/pages/upload_image/maintea/maintea_1_7241_527.jpg",
       "sortOrder": 0
     },
     {
       "id": 2,
-      "name": "Handmade Taro Series",
-      "region": "Indonesia",
+      "name": "Bộ sưu tập khoai môn thủ công",
       "image": "/images/pages/upload_image/maintea/maintea_1_3582_1591.jpg",
       "backgroundImage": "/images/pages/upload_image/maintea/maintea_1_7015_9849.jpg",
       "sortOrder": 1
     },
     {
       "id": 3,
-      "name": "Matcha Series",
-      "region": "Singapore",
+      "name": "Bộ sưu tập Matcha",
       "image": "/images/pages/upload_image/maintea/maintea_880_4599_867.jpg",
       "backgroundImage": "/images/pages/upload_image/maintea/maintea_879_6786_5695.jpg",
       "sortOrder": 2
     },
     {
       "id": 4,
-      "name": "Longjing Tea Series",
-      "region": "Malaysia",
+      "name": "Bộ sưu tập trà Long Tỉnh",
       "image": "/images/pages/upload_image/maintea/maintea_1_9592_7179.jpg",
       "backgroundImage": "/images/pages/upload_image/maintea/maintea_1_1747_2497.jpg",
       "sortOrder": 3
