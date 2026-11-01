@@ -11,12 +11,14 @@ dotnet restore Koi.sln
 dotnet tool restore
 # Lần đầu: sao chép .env.example thành .env và đặt POSTGRES_PASSWORD.
 docker compose up -d --wait
+# Tạo database mới một lần; không dùng database cũ.
+docker compose exec postgres createdb -U koi koi_new
 ```
 
 Cấu hình kết nối và tài khoản quản trị đầu tiên bằng User Secrets (thay các giá trị YOUR_ trước khi chạy):
 
 ```bash
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=127.0.0.1;Port=55432;Database=koi;Username=koi;Password=YOUR_POSTGRES_PASSWORD" --project Koi.Web.csproj
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=127.0.0.1;Port=55432;Database=koi_new;Username=koi;Password=YOUR_POSTGRES_PASSWORD" --project Koi.Web.csproj
 dotnet user-secrets set "Admin:Email" "YOUR_ADMIN_EMAIL" --project Koi.Web.csproj
 dotnet user-secrets set "Admin:Password" "YOUR_ADMIN_PASSWORD" --project Koi.Web.csproj
 dotnet run --project Koi.Web.csproj
@@ -31,23 +33,22 @@ dotnet build Koi.sln --configuration Release
 dotnet publish Koi.Web.csproj --configuration Release --output ./artifacts/publish
 ```
 
-Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration nạp dữ liệu News, Store, Menu và đồ uống ban đầu một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
+Development tự áp dụng migration và tạo tài khoản được cấu hình nếu chưa có. Migration khởi tạo nạp dữ liệu mẫu News, Store, Menu và đồ uống một lần; dữ liệu chỉnh sửa không bị nạp lại khi khởi động. Bộ migration này chỉ dành cho database mới, không áp dụng lên database dùng chuỗi migration cũ. Production mặc định không khởi tạo database: cung cấp `ConnectionStrings__DefaultConnection`, áp dụng migration bằng `dotnet ef database update`, hoặc bật `Database__Initialize=true` trong lần khởi tạo có `Admin__Email`/`Admin__Password`. Sau đó tắt cờ khởi tạo. Các biến môi trường tương ứng được hỗ trợ khi triển khai; không đưa mật khẩu vào `appsettings.json`.
 
 ### Thiết lập đặt hàng cho chuỗi chi nhánh
 
 1. Khởi động lại ứng dụng để áp dụng các migration mới trong môi trường Development, sau đó đăng nhập `/Admin`.
-2. Website dùng thương hiệu KOI Thé và các chi nhánh tại Việt Nam. Dữ liệu chi nhánh và thực đơn nước ngoài đã được xóa khỏi database; sáu cửa hàng KOI Café Việt Nam được lưu riêng trong bảng `ArchivedVietnamStores`.
+2. Website dùng thương hiệu KOI Thé và dữ liệu mẫu các chi nhánh tại Việt Nam.
 3. Trên trang **Bán hàng**, tìm chi nhánh và bật nhận đơn; đặt giá chung cho các đồ uống muốn bán. Đồ uống và danh mục phải được xuất bản. Giá để trống có nghĩa là món chưa bán.
 4. Khách đặt món tại `/Order/Index`, chọn nhận ở chi nhánh hoặc giao hàng và cung cấp số điện thoại. Trang **Đơn hàng** trong quản trị cho phép xem theo chi nhánh và chuyển trạng thái đơn.
 
 Giá đang dùng đồng Việt Nam và dùng chung cho mọi chi nhánh. Đơn được lưu trong PostgreSQL; nhân viên cần theo dõi trang quản trị để liên hệ xác nhận, và phí giao hàng được thỏa thuận riêng. Chưa có cổng thanh toán trực tuyến hoặc gửi thông báo tự động. Giỏ hàng dùng session trong bộ nhớ, có thể mất khi ứng dụng khởi động lại; màn hình đặt hàng hiện dùng tiếng Việt. Bản FE tĩnh `fe-demo` không hỗ trợ đặt hàng.
 
-### Chuyển ID sang Guid
+### ID và database mới
 
-Các khóa của nội dung, user và role dùng `Guid` (`uuid` trong PostgreSQL). ID riêng của user claim và role claim dùng `int` theo mặc định của ASP.NET Identity. Migration `ConvertIdsToGuid` chuyển dữ liệu và quan hệ hiện có trong cùng transaction, kể cả tài khoản, mật khẩu đã băm và claim; ID Identity đã có dạng GUID được giữ nguyên. ID số của dữ liệu cũ được chuyển nhất quán để giữ thứ tự, còn bản ghi mới dùng GUID do EF Core tạo.
+Các khóa của nội dung, user và role dùng `Guid` (`uuid` trong PostgreSQL); ID riêng của user claim và role claim dùng `int` theo mặc định của ASP.NET Identity. Database mới được tạo từ migration `InitialCreate`; dữ liệu mẫu có ID cố định để liên kết nhất quán.
 
-Trước khi áp dụng lên database đang sử dụng, hãy sao lưu và kiểm tra bản sao: migration không hỗ trợ chuyển ngược tự động vì các GUID mới không thể quy đổi an toàn về ID số. Các URL chứa ID số cũ, chẳng hạn `/Home/NewsDetail/7931`, không còn hoạt động; dùng liên kết GUID mới trên website. Các tài khoản có ID cũ không phải GUID cần đăng nhập lại. Migration `UseDefaultIdentityClaims` giữ nội dung claim và đổi ID riêng của claim về số nguyên.
-
+Chuỗi migration cũ đã được thay thế và không dùng để nâng cấp database cũ. Tạo database mới theo hướng dẫn ở trên; dữ liệu từ database cũ không được tự động chuyển sang.
 
 ## Deploy riêng FE lên Cloudflare Pages
 
@@ -288,10 +289,9 @@ Trang bìa thay lựa chọn tiếng Trung bằng **TIẾNG VIỆT**, giữ **EN
 - `code/Resources/Localization/SiteText.vi.resx`: bản dịch giao diện, nội dung các trang tĩnh và nhãn tương tác.
 - `code/Resources/Localization/SiteText.resx`: nội dung tiếng Anh tương ứng; các khóa chỉ khác hoa/thường được phân biệt bằng hậu tố `__text`.
 - `code/Localization/SiteText.cs`: xác định ngôn ngữ và định dạng ngày.
-- Giao diện chuyển VI/EN; nội dung từ database dùng các trường gốc như `Name` và `Title` ở cả hai ngôn ngữ. Các cột nội dung tiếng Việt cũ được giữ nguyên trong database nhưng không còn xuất hiện trên form quản trị.
-- Migration thêm cột tiếng Việt, giữ dữ liệu tiếng Anh; nhập một lần bản dịch 13 bài News, 54 món, 7 danh mục, 4 mục New Drinks và tên quốc gia/khu vực. HTML tiếng Việt được làm sạch như nội dung tiếng Anh. Tìm kiếm quản trị News, đồ uống và cửa hàng nhận cả nội dung gốc lẫn tiếng Việt.
+- Giao diện chuyển VI/EN; nội dung từ database dùng các trường gốc như `Name` và `Title` ở cả hai ngôn ngữ. Database mới không có các cột nội dung tiếng Việt riêng.
 
-Tên riêng thương hiệu, địa chỉ cửa hàng tại nước ngoài và ảnh thực đơn/poster gốc được giữ nguyên; có thể nhập tên/địa chỉ tiếng Việt riêng trong quản trị. Video và các hình nhận diện thương hiệu vẫn dùng tài nguyên đã duyệt. Contact tiếp tục không gửi form.
+Tên riêng thương hiệu và ảnh thực đơn/poster gốc được giữ nguyên. Video và các hình nhận diện thương hiệu vẫn dùng tài nguyên đã duyệt. Contact tiếp tục không gửi form.
 
 Kiểm tra phiên bản song ngữ: build/publish Release; 59 test tích hợp trên PostgreSQL mới, gồm chọn ngôn ngữ/CSRF, giữ URL và bộ lọc, chặn chuyển hướng ngoài, nội dung dịch từ máy chủ, lưu hai ngôn ngữ và HTML an toàn. Đã kiểm tra 13 trang ở 1440/390px, điều khiển animation và chuyển ngôn ngữ; ảnh xem trước: [trang chọn ngôn ngữ](docs/preview/languages-1440.png) · [Our Tea tiếng Việt](docs/preview/ourtea-vi-1440.png) · [Contact trên mobile](docs/preview/contact-vi-390.png).
 

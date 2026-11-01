@@ -41,13 +41,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
             value.SortOrder = model.SortOrder;
             value.ShowOnHome = model.ShowOnHome; value.IsPublished = model.IsPublished;
             if (id == null)
-            {
-                var entry = database.DrinkCategories.Add(value);
-                entry.Property("NameVi").CurrentValue = "";
-                entry.Property("HomeImage").CurrentValue = "";
-                entry.Property("HomeIcon").CurrentValue = "";
-                entry.Property("HomeOrder").CurrentValue = 0;
-            }
+                database.DrinkCategories.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); return SaveResult.Success;
         }

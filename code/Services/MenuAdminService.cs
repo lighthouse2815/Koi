@@ -32,7 +32,7 @@ public class MenuAdminService(ApplicationDbContext database, ImageUploads upload
             if (image != null) value.File = uploaded = await uploads.SaveAsync(image, "menus");
             value.Label = model.Label.Trim();
             value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
-            if (id == null) database.Menus.Add(value).Property("LabelVi").CurrentValue = "";
+            if (id == null) database.Menus.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); return SaveResult.Success;
         }

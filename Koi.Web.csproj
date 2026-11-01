@@ -11,7 +11,6 @@
     <EmbeddedResource Include="code/Data/Stores.json" LogicalName="Koi.Web.Data.Stores.json" />
     <EmbeddedResource Include="code/Data/NewsSeed.json" LogicalName="Koi.Web.Data.NewsSeed.json" />
     <EmbeddedResource Include="code/Data/DrinksSeed.json" LogicalName="Koi.Web.Data.DrinksSeed.json" />
-    <EmbeddedResource Include="code/Data/VietnameseSeed.json" LogicalName="Koi.Web.Data.VietnameseSeed.json" />
     <Compile Remove="tests/**/*.cs" />
     <Compile Remove="tools/**/*.cs" />
     <Content Remove="tests/**" />

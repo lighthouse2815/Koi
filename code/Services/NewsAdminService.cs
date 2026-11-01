@@ -78,11 +78,7 @@ public class NewsAdminService(ApplicationDbContext database, ImageUploads upload
             article.ShowOnHome = model.ShowOnHome;
             article.HomeOrder = model.HomeOrder;
             if (id == null)
-            {
-                var entry = database.NewsArticles.Add(article);
-                entry.Property("TitleVi").CurrentValue = "";
-                entry.Property("BodyHtmlVi").CurrentValue = "";
-            }
+                database.NewsArticles.Add(article);
             else
             {
                 database.Entry(article).Property(value => value.Revision).OriginalValue = model.Revision;

@@ -34,12 +34,7 @@ public class FeaturedDrinkAdminService(ApplicationDbContext database, ImageUploa
             value.Name = model.Name.Trim();
             value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
             if (id == null)
-            {
-                var entry = database.FeaturedDrinks.Add(value);
-                entry.Property("NameVi").CurrentValue = "";
-                entry.Property("RegionVi").CurrentValue = "";
-                entry.Property("Region").CurrentValue = "";
-            }
+                database.FeaturedDrinks.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); return SaveResult.Success;
         }

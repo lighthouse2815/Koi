@@ -35,7 +35,7 @@ public class GeographyAdminService(ApplicationDbContext database, ILogger<Geogra
         if (!modelState.IsValid) return SaveResult.Invalid;
         city.Name = model.Name.Trim();
         city.SortOrder = model.SortOrder;
-        if (id == null) database.StoreCities.Add(city).Property("NameVi").CurrentValue = "";
+        if (id == null) database.StoreCities.Add(city);
         else { database.Entry(city).Property(value => value.Revision).OriginalValue = model.Revision; city.Revision++; }
         try { await database.SaveChangesAsync(); return SaveResult.Success; }
         catch (DbUpdateConcurrencyException) { modelState.AddModelError("", "Dữ liệu đã thay đổi. Hãy tải lại trang sửa trước khi lưu."); return SaveResult.Conflict; }

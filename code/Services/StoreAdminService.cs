@@ -57,11 +57,7 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
             value.NavigationUrl = model.NavigationUrl?.Trim() ?? ""; value.IsPublished = model.IsPublished;
             value.SortOrder = model.SortOrder;
             if (id == null)
-            {
-                var entry = database.Stores.Add(value);
-                entry.Property("CountryOrder").CurrentValue = 0;
-                entry.Property("CityOrder").CurrentValue = 0;
-            }
+                database.Stores.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync();
             return SaveResult.Success;

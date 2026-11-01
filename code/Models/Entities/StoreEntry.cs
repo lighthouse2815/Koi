@@ -4,15 +4,6 @@ namespace Koi.Web.Models;
 
 public class StoreEntry
 {
-    [StringLength(300)]
-    public string NameVi { get; set; } = "";
-
-    [StringLength(2000)]
-    public string AddressVi { get; set; } = "";
-
-    [StringLength(500)]
-    public string HoursVi { get; set; } = "";
-
     public Guid Id { get; set; }
 
     [Required, StringLength(300)]
