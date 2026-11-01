@@ -35,17 +35,12 @@ public class OrderController(ApplicationDbContext database) : Controller
     [HttpPost]
     public async Task<IActionResult> Add(Guid id, int quantity = 1, Guid? sizeId = null, Guid[]? toppingIds = null, int sugar = 0, int ice = 0, Guid? categoryId = null, Guid? drinkId = null)
     {
+        if (sizeId.HasValue || toppingIds is { Length: > 0 }) return BadRequest("Kích cỡ và topping không còn được hỗ trợ. Vui lòng tải lại trang.");
         var cart = GetCart();
         if (!await database.Stores.AnyAsync(value => value.Id == cart.StoreId && value.IsPublished && value.AcceptsOrders)) { TempData["OrderMessage"] = "Hãy chọn chi nhánh đang nhận đơn."; return RedirectToAction(nameof(Index)); }
         var drink = await database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id && value.IsPublished && value.Category.IsPublished && value.Price > 0);
-        toppingIds ??= [];
-        if (drink == null || quantity < 1 || quantity > 20 || sugar is < 0 or > 2 || ice is < 0 or > 2 || toppingIds.Length > 5 || toppingIds.Distinct().Count() != toppingIds.Length) return BadRequest("Đồ uống hoặc lựa chọn không hợp lệ.");
-        var options = await database.SaleOptions.AsNoTracking().Where(value => value.IsActive).ToArrayAsync();
-        var size = sizeId.HasValue ? options.SingleOrDefault(value => value.Id == sizeId && value.Kind == SaleOptionKind.Size) : null;
-        var toppings = options.Where(value => toppingIds.Contains(value.Id) && value.Kind == SaleOptionKind.Topping).OrderBy(value => value.Name).ToArray();
-        if ((options.Any(value => value.Kind == SaleOptionKind.Size) && size == null) || (sizeId.HasValue && size == null) || toppings.Length != toppingIds.Length) return BadRequest("Kích cỡ hoặc topping không hợp lệ.");
-        var existing = cart.Items.Find(line => line.DrinkId == id && line.SizeId == sizeId && line.Sugar == sugar && line.Ice == ice
-            && line.ToppingIds.Count == toppingIds.Length && line.ToppingIds.All(toppingIds.Contains));
+        if (drink == null || quantity < 1 || quantity > 20 || sugar is < 0 or > 2 || ice is < 0 or > 2) return BadRequest("Đồ uống hoặc lựa chọn không hợp lệ.");
+        var existing = cart.Items.Find(line => line.DrinkId == id && line.SizeId == null && line.ToppingIds.Count == 0 && line.Sugar == sugar && line.Ice == ice);
         if (existing != null)
         {
             if (existing.Quantity + quantity > 20) { TempData["OrderMessage"] = "Mỗi lựa chọn chỉ được đặt tối đa 20 ly."; return RedirectToAction(nameof(Index), new { categoryId, drinkId }); }
@@ -54,17 +49,17 @@ public class OrderController(ApplicationDbContext database) : Controller
         else
         {
             if (cart.Items.Count >= 20) { TempData["OrderMessage"] = "Giỏ hàng chỉ hỗ trợ tối đa 20 lựa chọn."; return RedirectToAction(nameof(Index)); }
-            cart.Items.Add(new CartItem { DrinkId = drink.Id, Quantity = quantity, Price = drink.Price!.Value + (size?.ExtraPrice ?? 0) + toppings.Sum(value => value.ExtraPrice), SizeId = sizeId, ToppingIds = toppingIds.ToList(), Sugar = sugar, Ice = ice, Customization = Describe(size, toppings, sugar, ice) });
+            cart.Items.Add(new CartItem { DrinkId = drink.Id, Quantity = quantity, Price = drink.Price!.Value, Sugar = sugar, Ice = ice, Customization = Describe(sugar, ice) });
         }
         SaveCart(cart);
         TempData["OrderMessage"] = "Đã thêm đồ uống vào giỏ hàng.";
         return RedirectToAction(nameof(Index), null, new { categoryId, drinkId }, "drinks");
     }
 
-    private static string Describe(SaleOption? size, SaleOption[] toppings, int sugar, int ice)
+    private static string Describe(int sugar, int ice)
     {
         var levels = new[] { "Bình thường", "Ít", "Không" };
-        return string.Join(" · ", new[] { size == null ? null : $"Cỡ: {size.Name}", $"Đường: {levels[sugar]}", $"Đá: {levels[ice]}", toppings.Length == 0 ? null : $"Topping: {string.Join(", ", toppings.Select(value => value.Name))}" }.Where(value => value != null));
+        return $"Đường: {levels[sugar]} · Đá: {levels[ice]}";
     }
 
     [HttpPost]
@@ -91,21 +86,18 @@ public class OrderController(ApplicationDbContext database) : Controller
         var ids = cart.Items.Select(value => value.DrinkId).ToArray();
         var drinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id) && value.IsPublished && value.Category.IsPublished && value.Price > 0).ToDictionaryAsync(value => value.Id);
         if (drinks.Count != ids.Distinct().Count()) ModelState.AddModelError("", "Có món không còn được bán. Vui lòng xóa món đó khỏi giỏ hàng.");
-        var options = await database.SaleOptions.AsNoTracking().Where(value => value.IsActive).ToArrayAsync();
         var changed = false;
         foreach (var line in cart.Items)
         {
-            var size = line.SizeId.HasValue ? options.SingleOrDefault(value => value.Id == line.SizeId && value.Kind == SaleOptionKind.Size) : null;
-            var toppings = options.Where(value => line.ToppingIds.Contains(value.Id) && value.Kind == SaleOptionKind.Topping).OrderBy(value => value.Name).ToArray();
-            if ((options.Any(value => value.Kind == SaleOptionKind.Size) && size == null) || (line.SizeId.HasValue && size == null) || toppings.Length != line.ToppingIds.Count)
+            if (line.SizeId.HasValue || line.ToppingIds.Count > 0)
             {
-                ModelState.AddModelError("", "Kích cỡ hoặc topping không còn được bán. Vui lòng xóa món và chọn lại.");
+                ModelState.AddModelError("", "Kích cỡ và topping không còn được hỗ trợ. Vui lòng xóa món cũ và chọn lại.");
                 continue;
             }
             if (drinks.TryGetValue(line.DrinkId, out var drink))
             {
-                var price = drink.Price!.Value + (size?.ExtraPrice ?? 0) + toppings.Sum(value => value.ExtraPrice);
-                var description = Describe(size, toppings, line.Sugar, line.Ice);
+                var price = drink.Price!.Value;
+                var description = Describe(line.Sugar, line.Ice);
                 if (price != line.Price || description != line.Customization) { line.Price = price; line.Customization = description; changed = true; }
             }
         }
@@ -159,7 +151,6 @@ public class OrderController(ApplicationDbContext database) : Controller
             .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         var filterName = drinkId.HasValue ? null : categoryId.HasValue
             ? await database.DrinkCategories.AsNoTracking().Where(value => value.Id == categoryId && value.IsPublished).Select(value => value.Name).SingleOrDefaultAsync() : null;
-        var options = await database.SaleOptions.AsNoTracking().Where(value => value.IsActive).OrderBy(value => value.Name).ToArrayAsync();
         var ids = cart.Items.Select(line => line.DrinkId).ToArray();
         var allCartDrinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id)).ToDictionaryAsync(value => value.Id);
         return new OrderingPageViewModel
@@ -167,7 +158,6 @@ public class OrderController(ApplicationDbContext database) : Controller
             Branches = branches, Branch = branches.FirstOrDefault(value => value.Id == cart.StoreId), Drinks = drinks, Cart = cart,
             CategoryId = categoryId, DrinkId = drinkId, FilterName = filterName, Categories = categories,
             Page = page, DrinkCount = drinkCount, HasMoreDrinks = page < pageCount,
-            Sizes = options.Where(value => value.Kind == SaleOptionKind.Size).ToArray(), Toppings = options.Where(value => value.Kind == SaleOptionKind.Topping).ToArray(),
             Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (d.Name) : "Món không còn tồn tại", line.Customization, line.Quantity, line.Price)).ToList()
         };
     }

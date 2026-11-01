@@ -88,10 +88,6 @@ summary::-webkit-details-marker { display: none; }
 .drink-customize label { display: grid; gap: 5px; }
 .drink-customize select { width: 100%; font-size: 11px; padding: 9px 6px; }
 .drink-preferences { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.drink-customize fieldset { border: 1px solid var(--line); border-radius: 5px; padding: 8px; margin: 0; }
-.drink-customize fieldset legend { padding: 0 4px; }
-.drink-customize label.topping-option { display: flex; gap: 5px; align-items: start; padding: 4px 0; }
-.topping-option small { display: block; color: #726552; margin-top: 3px; }
 .drink-customize .quantity-option { display: flex; align-items: center; justify-content: space-between; }
 .quantity-option input { width: 62px; font-size: 12px; padding: 7px; }
 .drink-customize button { width: 100%; padding: 10px; font-size: 11px; gap: 6px; }

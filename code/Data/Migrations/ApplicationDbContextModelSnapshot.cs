@@ -651,32 +651,6 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("OrderItem");
                 });
 
-            modelBuilder.Entity("Koi.Web.Models.SaleOption", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("ExtraPrice")
-                        .HasPrecision(12)
-                        .HasColumnType("numeric(12,0)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("Kind")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SaleOptions");
-                });
-
             modelBuilder.Entity("Koi.Web.Models.ShopSettings", b =>
                 {
                     b.Property<int>("Id")

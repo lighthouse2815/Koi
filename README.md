@@ -38,7 +38,7 @@ Development tự áp dụng migration và tạo tài khoản được cấu hìn
 1. Khởi động lại ứng dụng để áp dụng các migration mới trong môi trường Development, sau đó đăng nhập `/Admin`.
 2. Website dùng thương hiệu KOI Thé và các chi nhánh tại Việt Nam. Dữ liệu chi nhánh và thực đơn nước ngoài đã được xóa khỏi database; sáu cửa hàng KOI Café Việt Nam được lưu riêng trong bảng `ArchivedVietnamStores`.
 3. Trên trang **Bán hàng**, tìm chi nhánh và bật nhận đơn; đặt giá chung cho các đồ uống muốn bán. Đồ uống và danh mục phải được xuất bản. Giá để trống có nghĩa là món chưa bán.
-4. Trong **Kích cỡ và topping**, tạo các lựa chọn và giá cộng thêm. Nếu có kích cỡ đang bật, khách phải chọn một cỡ. Đường và đá có ba mức: bình thường, ít hoặc không.
+4. Khách có thể chọn mức đường và đá: bình thường, ít hoặc không.
 5. Khách đặt món tại `/Order/Index`, chọn nhận ở chi nhánh hoặc giao hàng và cung cấp số điện thoại. Trang **Đơn hàng** trong quản trị cho phép xem theo chi nhánh và chuyển trạng thái đơn.
 
 Giá đang dùng đồng Việt Nam và dùng chung cho mọi chi nhánh. Đơn được lưu trong PostgreSQL; nhân viên cần theo dõi trang quản trị để liên hệ xác nhận, và phí giao hàng được thỏa thuận riêng. Chưa có cổng thanh toán trực tuyến hoặc gửi thông báo tự động. Giỏ hàng dùng session trong bộ nhớ, có thể mất khi ứng dụng khởi động lại; màn hình đặt hàng hiện dùng tiếng Việt. Bản FE tĩnh `fe-demo` không hỗ trợ đặt hàng.

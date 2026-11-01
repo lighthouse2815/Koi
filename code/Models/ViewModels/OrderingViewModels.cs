@@ -12,6 +12,7 @@ public class CartItem
 {
     public Guid LineId { get; set; } = Guid.NewGuid();
     public Guid DrinkId { get; set; }
+    // Keep old cart selections detectable until customers replace them.
     public Guid? SizeId { get; set; }
     public List<Guid> ToppingIds { get; set; } = [];
     public int Sugar { get; set; }
@@ -32,8 +33,6 @@ public class OrderingPageViewModel
     public int Page { get; set; } = 1;
     public int DrinkCount { get; set; }
     public bool HasMoreDrinks { get; set; }
-    public SaleOption[] Sizes { get; set; } = [];
-    public SaleOption[] Toppings { get; set; } = [];
     public ShoppingCart Cart { get; set; } = new();
     public StoreEntry? Branch { get; set; }
     public List<CartLine> Lines { get; set; } = [];

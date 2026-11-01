@@ -1,8 +1,0 @@
-@model SaleOption[]
-@{ ViewData["Title"] = "Kích cỡ và topping"; }
-<div class="page-heading"><h1>Kích cỡ và topping</h1><a asp-controller="Sales" asp-action="Index">← Thiết lập bán hàng</a></div>
-<section class="card"><p>Kích cỡ và topping dùng chung cho các món. Giá cộng thêm tính trên mỗi ly; khi có kích cỡ đang bật, khách cần chọn một kích cỡ.</p>
-<h2>Thêm lựa chọn</h2><form asp-action="Save" method="post"><label>Tên <input name="name" maxlength="100" required /></label> <label>Loại <select name="kind"><option value="0">Kích cỡ</option><option value="1">Topping</option></select></label> <label>Giá cộng thêm (đồng) <input name="extraPrice" type="number" min="0" max="999999999" step="1" value="0" required /></label> <input type="hidden" name="isActive" value="true" /><button type="submit">Thêm</button></form></section>
-<section class="card"><h2>Lựa chọn hiện có</h2>
-@foreach (var option in Model) { <form asp-action="Save" method="post"><input type="hidden" name="id" value="@option.Id" /><label>Tên <input name="name" value="@option.Name" maxlength="100" required /></label> <label>Loại <select name="kind"><option value="0" selected="@(option.Kind == SaleOptionKind.Size)">Kích cỡ</option><option value="1" selected="@(option.Kind == SaleOptionKind.Topping)">Topping</option></select></label> <label>Giá cộng thêm <input name="extraPrice" type="number" min="0" max="999999999" step="1" value="@option.ExtraPrice" required /></label> <label><input type="checkbox" name="isActive" value="true" checked="@option.IsActive" /> Đang bán</label><input type="hidden" name="isActive" value="false" /> <button type="submit">Lưu</button></form><hr /> }
-</section>

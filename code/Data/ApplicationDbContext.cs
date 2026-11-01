@@ -21,7 +21,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Drink> Drinks => Set<Drink>();
     public DbSet<FeaturedDrink> FeaturedDrinks => Set<FeaturedDrink>();
     public DbSet<Order> Orders => Set<Order>();
-    public DbSet<SaleOption> SaleOptions => Set<SaleOption>();
     public DbSet<ShopSettings> ShopSettings => Set<ShopSettings>();
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -49,7 +48,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<Drink>().Property(value => value.Price).HasPrecision(12, 0);
         builder.Entity<OrderItem>().HasOne(value => value.Drink).WithMany().OnDelete(DeleteBehavior.SetNull);
         builder.Entity<OrderItem>().Property(value => value.UnitPrice).HasPrecision(12, 0);
-        builder.Entity<SaleOption>().Property(value => value.ExtraPrice).HasPrecision(12, 0);
         builder.Entity<ShopSettings>().HasData(new ShopSettings { Id = 1 });
         builder.Entity<Order>().HasOne(value => value.Store).WithMany().OnDelete(DeleteBehavior.SetNull);
         builder.Entity<Order>().HasIndex(value => new { value.Status, value.CreatedAt });

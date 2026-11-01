@@ -68,9 +68,7 @@
                                         <summary>Chọn món <span aria-hidden="true">+</span></summary>
                                         <form asp-action="Add" method="post">
                                             <input type="hidden" name="id" value="@drink.Id" /><input type="hidden" name="categoryId" value="@Model.CategoryId" /><input type="hidden" name="drinkId" value="@Model.DrinkId" />
-                                            @if (Model.Sizes.Length > 0) { <label>Kích cỡ<select name="sizeId" required><option value="">Chọn cỡ</option>@foreach (var size in Model.Sizes) { <option value="@size.Id">@size.Name (+@size.ExtraPrice.ToString("N0", culture) đ)</option> }</select></label> }
                                             <div class="drink-preferences"><label>Đường<select name="sugar"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label><label>Đá<select name="ice"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label></div>
-                                            @if (Model.Toppings.Length > 0) { <fieldset><legend>Topping (tối đa 5)</legend>@foreach (var topping in Model.Toppings) { <label class="topping-option"><input type="checkbox" name="toppingIds" value="@topping.Id" /><span>@topping.Name <small>+@topping.ExtraPrice.ToString("N0", culture) đ</small></span></label> }</fieldset> }
                                             <label class="quantity-option">Số lượng<input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ <span aria-hidden="true">↗</span></button>
                                         </form>
                                     </details>
