@@ -16,9 +16,6 @@ public class Category
     public string Image { get; set; } = "";
 
     [StringLength(500)]
-    public string HomeImage { get; set; } = "";
-
-    [StringLength(500)]
     public string HomeIcon { get; set; } = "";
 
     public bool ShowOnHome { get; set; }
