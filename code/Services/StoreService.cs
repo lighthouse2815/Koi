@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class StoreAdminService(
+public class StoreService(
     ApplicationDbContext database,
     ImageUploads uploads,
-    ILogger<StoreAdminService> logger
+    ILogger<StoreService> logger
 )
 {
     public async Task<AdminStoresViewModel> GetListAsync(string? search, int page = 1)
