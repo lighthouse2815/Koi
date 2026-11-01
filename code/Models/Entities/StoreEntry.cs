@@ -37,7 +37,6 @@ public class StoreEntry
     public bool AcceptsOrders { get; set; }
     public bool IsPublished { get; set; } = true;
     public int SortOrder { get; set; }
-    public int CountryOrder { get; set; }
     public int CityOrder { get; set; }
 
     [ConcurrencyCheck]

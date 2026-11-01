@@ -16,7 +16,6 @@
 <label class="check"><input asp-for="RemoveImage" /> Bỏ ảnh hiện tại</label>
 <label class="check"><input asp-for="IsPublished" /> Hiển thị trên website</label>
 <label asp-for="SortOrder">Thứ tự toàn bộ</label><input asp-for="SortOrder" type="number" min="0" max="1000000" />
-<input asp-for="CountryOrder" type="hidden" />
 <label asp-for="CityOrder">Thứ tự trong khu vực</label><input asp-for="CityOrder" type="number" min="0" max="1000000" />
 <p class="help">Số nhỏ hiển thị trước.</p><button type="submit" class="button">Lưu chi nhánh</button>
 @if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }

@@ -98,7 +98,7 @@ internal sealed class SiteExporter
             await WriteJson($"data/stores-{language}.json", new
             {
                 locations = cities.Select(value => new { value.Id, name = value.Name }),
-                stores = stores.Select(value => new { value.Id, locationId = value.CityId, value.CountryOrder, locationOrder = value.CityOrder, html = cards[value.Id] }),
+                stores = stores.Select(value => new { value.Id, locationId = value.CityId, countryOrder = value.SortOrder, locationOrder = value.CityOrder, html = cards[value.Id] }),
                 labels = Text(language, "All__text", "prev", "next", "Page {0} of {1}", "Store pages", "No stores match these filters. Choose another location.")
             });
             var newsCards = await CaptureCards("News", ".newsList > li", listedNews.Length, 5, language, element =>
