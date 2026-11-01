@@ -32,6 +32,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<MenuEntry>().HasIndex(value => new { value.IsPublished, value.SortOrder });
         builder.Entity<Drink>().HasOne(value => value.Category).WithMany(value => value.Drinks).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.IsPublished, value.SortOrder });
+        // Preserve legacy database columns without exposing them on the entity.
+        builder.Entity<Drink>().Property<string>("NameVi").HasMaxLength(250).IsRequired();
+        builder.Entity<Drink>().Property<string>("RegionVi").HasMaxLength(150).IsRequired();
+        builder.Entity<Drink>().Property<string>("DescriptionVi").HasMaxLength(4000).IsRequired();
         builder.Entity<Drink>().Property(value => value.Price).HasPrecision(12, 0);
         builder.Entity<OrderItem>().Property(value => value.UnitPrice).HasPrecision(12, 0);
         builder.Entity<SaleOption>().Property(value => value.ExtraPrice).HasPrecision(12, 0);

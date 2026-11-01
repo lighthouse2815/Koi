@@ -6,15 +6,6 @@ public class Drink
 {
     public Guid Id { get; set; }
 
-    [StringLength(250)]
-    public string NameVi { get; set; } = "";
-
-    [StringLength(150)]
-    public string RegionVi { get; set; } = "";
-
-    [StringLength(4000)]
-    public string DescriptionVi { get; set; } = "";
-
     public Guid CategoryId { get; set; }
     public DrinkCategory Category { get; set; } = null!;
 

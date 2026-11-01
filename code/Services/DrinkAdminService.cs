@@ -45,7 +45,13 @@ public class DrinkAdminService(ApplicationDbContext database, ImageUploads uploa
             value.Name = model.Name.Trim();
             value.CategoryId = model.CategoryId; value.Region = model.Region?.Trim() ?? "";
             value.Description = model.Description?.Trim() ?? ""; value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
-            if (id == null) database.Drinks.Add(value);
+            if (id == null)
+            {
+                var entry = database.Drinks.Add(value);
+                entry.Property("NameVi").CurrentValue = "";
+                entry.Property("RegionVi").CurrentValue = "";
+                entry.Property("DescriptionVi").CurrentValue = "";
+            }
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); return SaveResult.Success;
         }
