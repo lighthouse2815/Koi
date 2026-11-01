@@ -4,9 +4,6 @@ namespace Koi.Web.Models;
 
 public class StoreCity
 {
-    [StringLength(150)]
-    public string NameVi { get; set; } = "";
-
     public Guid Id { get; set; }
 
     [Required, StringLength(150)]

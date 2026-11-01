@@ -24,6 +24,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.Entity<StoreCity>().Property<string>("NameVi").HasMaxLength(150).IsRequired();
         builder.Entity<StoreEntry>().HasOne(value => value.City).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<StoreEntry>().HasIndex(value => new { value.IsPublished, value.CityId });
         builder.Entity<MenuEntry>().Property<string>("LabelVi").HasMaxLength(200).IsRequired();
