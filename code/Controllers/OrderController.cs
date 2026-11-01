@@ -117,7 +117,7 @@ public class OrderController(ApplicationDbContext database) : Controller
             CustomerName = checkout.CustomerName.Trim(), CustomerPhone = checkout.CustomerPhone.Trim(),
             Fulfillment = checkout.Fulfillment, DeliveryAddress = checkout.Fulfillment == FulfillmentMethod.Delivery ? checkout.DeliveryAddress!.Trim() : "",
             Note = checkout.Note?.Trim() ?? "",
-            Items = cart.Items.Select(line => new OrderItem { DrinkName = drinks[line.DrinkId].Name, Customization = line.Customization, UnitPrice = line.Price, Quantity = line.Quantity }).ToList()
+            Items = cart.Items.Select(line => new OrderItem { DrinkId = line.DrinkId, DrinkName = drinks[line.DrinkId].Name, Customization = line.Customization, UnitPrice = line.Price, Quantity = line.Quantity }).ToList()
         };
         if (!await database.Orders.AnyAsync(value => value.Id == order.Id))
         {

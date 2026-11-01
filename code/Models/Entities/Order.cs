@@ -27,6 +27,8 @@ public class OrderItem
     public Guid Id { get; set; }
     public Guid OrderId { get; set; }
     public Order Order { get; set; } = null!;
+    public Guid? DrinkId { get; set; }
+    public Drink? Drink { get; set; }
     [Required, StringLength(250)] public string DrinkName { get; set; } = "";
     [StringLength(2000)] public string Customization { get; set; } = "";
     public decimal UnitPrice { get; set; }

@@ -624,6 +624,9 @@ namespace Koi.Web.Data.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
+                    b.Property<Guid?>("DrinkId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("DrinkName")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -640,6 +643,8 @@ namespace Koi.Web.Data.Migrations
                         .HasColumnType("numeric(12,0)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DrinkId");
 
                     b.HasIndex("OrderId");
 
@@ -1061,11 +1066,18 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.OrderItem", b =>
                 {
+                    b.HasOne("Koi.Web.Models.Drink", "Drink")
+                        .WithMany()
+                        .HasForeignKey("DrinkId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("Koi.Web.Models.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Drink");
 
                     b.Navigation("Order");
                 });

@@ -47,6 +47,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<FeaturedDrink>().Property<string>("Region").HasMaxLength(150).IsRequired();
         builder.Entity<FeaturedDrink>().Property<string>("RegionVi").HasMaxLength(150).IsRequired();
         builder.Entity<Drink>().Property(value => value.Price).HasPrecision(12, 0);
+        builder.Entity<OrderItem>().HasOne(value => value.Drink).WithMany().OnDelete(DeleteBehavior.SetNull);
         builder.Entity<OrderItem>().Property(value => value.UnitPrice).HasPrecision(12, 0);
         builder.Entity<SaleOption>().Property(value => value.ExtraPrice).HasPrecision(12, 0);
         builder.Entity<ShopSettings>().HasData(new ShopSettings { Id = 1 });
