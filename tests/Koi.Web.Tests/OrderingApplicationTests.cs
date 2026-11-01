@@ -13,16 +13,14 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
     [Fact]
     public async Task CheckoutRechecksPriceAndPersistsBranchAndOrderSnapshots()
     {
-        await using var brand = await SalesTestBrand.SelectFirst(factory);
         using var client = AdminTestClient.Anonymous(factory);
         _ = await client.GetAsync("/Order/Index");
         Guid branchId, drinkId;
         using (var scope = factory.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            var original = await db.Stores.AsNoTracking().FirstAsync(value => value.Market.Name == "VIETNAM" && value.Brand.Name == "KOI Thé");
             var category = new DrinkCategory { Name = "Danh mục " + Guid.NewGuid(), Image = "test", IsPublished = true };
-            var branch = new StoreEntry { Name = "Chi nhánh đặt hàng " + Guid.NewGuid(), Address = "Địa chỉ kiểm thử", MarketId = original.MarketId, BrandId = original.BrandId, AcceptsOrders = true, IsPublished = true };
+            var branch = new StoreEntry { Name = "Chi nhánh đặt hàng " + Guid.NewGuid(), Address = "Địa chỉ kiểm thử", AcceptsOrders = true, IsPublished = true };
             var drink = new Drink { Name = "Trà thử nghiệm " + Guid.NewGuid(), Category = category, Price = 40000, IsPublished = true };
             db.AddRange(branch, drink); await db.SaveChangesAsync(); branchId = branch.Id; drinkId = drink.Id;
         }
@@ -57,7 +55,6 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
     [Fact]
     public async Task RejectsClosedBranchesAndRequiresAddressForDelivery()
     {
-        await using var brand = await SalesTestBrand.SelectFirst(factory);
         using var client = AdminTestClient.Anonymous(factory);
         Assert.Equal(HttpStatusCode.BadRequest, (await AdminTestClient.Post(client, "/Order/SelectBranch", new() { ["storeId"] = Guid.NewGuid().ToString() }, tokenUrl: "/Admin/Account/Login")).StatusCode);
         var response = await AdminTestClient.Post(client, "/Order/Checkout", new() { ["Checkout.CustomerName"] = "Test", ["Checkout.CustomerPhone"] = "0901234567", ["Checkout.Fulfillment"] = "1" }, tokenUrl: "/Admin/Account/Login");
@@ -67,16 +64,14 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
     [Fact]
     public async Task CustomizationsArePricedAndSavedForEachCup()
     {
-        await using var brand = await SalesTestBrand.SelectFirst(factory);
         using var client = AdminTestClient.Anonymous(factory);
         Guid branchId, drinkId, sizeId, toppingId;
         using (var scope = factory.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            var source = await db.Stores.AsNoTracking().FirstAsync(value => value.Market.Name == "VIETNAM" && value.Brand.Name == "KOI Thé");
             var category = new DrinkCategory { Name = "Danh mục lựa chọn " + Guid.NewGuid(), Image = "test" };
             var drink = new Drink { Name = "Trà lựa chọn " + Guid.NewGuid(), Category = category, Price = 30000 };
-            var branch = new StoreEntry { Name = "Chi nhánh lựa chọn " + Guid.NewGuid(), Address = "Địa chỉ", MarketId = source.MarketId, BrandId = source.BrandId, AcceptsOrders = true };
+            var branch = new StoreEntry { Name = "Chi nhánh lựa chọn " + Guid.NewGuid(), Address = "Địa chỉ", AcceptsOrders = true };
             var size = new SaleOption { Name = "Lớn", Kind = SaleOptionKind.Size, ExtraPrice = 5000 };
             var topping = new SaleOption { Name = "Trân châu", Kind = SaleOptionKind.Topping, ExtraPrice = 10000 };
             db.AddRange(drink, branch, size, topping); await db.SaveChangesAsync();

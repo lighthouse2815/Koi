@@ -11,30 +11,20 @@ namespace Koi.Web.Tests;
 public class BranchScopeTests(NewsApplicationFactory factory) : IClassFixture<NewsApplicationFactory>
 {
     [Fact]
-    public async Task OtherMarketsCannotBeManagedThroughDirectUrls()
+    public async Task ArchivedVietnamStoresAreNotAvailableForManagementOrOrdering()
     {
         using var admin = await AdminTestClient.Login(factory);
-        Guid foreignStoreId, foreignMenuId, foreignMarketId;
+        using var customer = AdminTestClient.Anonymous(factory);
+        Guid archivedId;
         using (var scope = factory.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            var settings = await db.ShopSettings.SingleAsync();
-            var foreignMarket = new Market { Name = "Thị trường kiểm thử " + Guid.NewGuid() };
-            var store = new StoreEntry { Name = "Chi nhánh kiểm thử", Market = foreignMarket, BrandId = settings.BrandId!.Value };
-            var menu = new MenuEntry { Label = "Thực đơn kiểm thử", File = "/test.png", Market = foreignMarket };
-            db.AddRange(store, menu);
-            await db.SaveChangesAsync();
-            foreignStoreId = store.Id; foreignMenuId = menu.Id; foreignMarketId = foreignMarket.Id;
+            archivedId = await db.Database.SqlQuery<Guid>($"SELECT \"Id\" AS \"Value\" FROM \"ArchivedVietnamStores\" LIMIT 1").SingleAsync();
         }
-        Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync($"/Admin/Stores/Edit/{foreignStoreId}")).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync($"/Admin/Stores/Delete/{foreignStoreId}")).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync($"/Admin/Menus/Edit/{foreignMenuId}")).StatusCode);
-        Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync($"/Admin/Menus/Delete/{foreignMenuId}")).StatusCode);
-        var result = await AdminTestClient.Post(admin, "/Admin/Menus/Create", new() { ["Label"] = "Invalid foreign menu", ["MarketId"] = foreignMarketId.ToString() }, AdminTestClient.Image, "/Admin/Menus/Create");
-        Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
-        using var verify = factory.Services.CreateScope();
-        var database = verify.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        Assert.True(await database.Stores.AnyAsync(value => value.Id == foreignStoreId));
-        Assert.True(await database.Menus.AnyAsync(value => value.Id == foreignMenuId));
+        Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync($"/Admin/Stores/Edit/{archivedId}")).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync($"/Admin/Stores/Delete/{archivedId}")).StatusCode);
+        var denied = await AdminTestClient.Post(customer, "/Order/SelectBranch", new() { ["storeId"] = archivedId.ToString() }, tokenUrl: "/Admin/Account/Login");
+        Assert.Equal(HttpStatusCode.BadRequest, denied.StatusCode);
     }
+
 }

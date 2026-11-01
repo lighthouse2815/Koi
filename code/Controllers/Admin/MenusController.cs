@@ -27,7 +27,7 @@ public class MenusController(MenuAdminService menus) : Controller
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu thực đơn.";
-            return RedirectToAction(nameof(Index), new { marketId = model.MarketId });
+            return RedirectToAction(nameof(Index));
         }
         Response.StatusCode = result switch
         {

@@ -13,9 +13,7 @@ public class SalesController(ApplicationDbContext database) : Controller
     {
         search = search?.Trim();
         if (search?.Length > 100) search = search[..100];
-        var shop = await database.ShopSettings.AsNoTracking().SingleAsync(value => value.Id == 1);
-        var brandId = shop.BrandId;
-        var branches = database.Stores.AsNoTracking().Where(value => value.IsPublished && (brandId == null || value.BrandId == brandId) && (shop.MarketId == null || value.MarketId == shop.MarketId));
+        var branches = database.Stores.AsNoTracking().Where(value => value.IsPublished);
         if (!string.IsNullOrEmpty(search))
             branches = branches.Where(value => EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.Address, $"%{search}%"));
         var pageCount = Math.Max(1, (int)Math.Ceiling(await branches.CountAsync() / 20d));
@@ -23,21 +21,9 @@ public class SalesController(ApplicationDbContext database) : Controller
         return View(new SalesSettingsViewModel
         {
             Drinks = await database.Drinks.AsNoTracking().Include(value => value.Category).OrderBy(value => value.Category.SortOrder).ThenBy(value => value.SortOrder).ToArrayAsync(),
-            Branches = await branches.Include(value => value.Market).Include(value => value.Brand).Include(value => value.City).OrderBy(value => value.Name).ThenBy(value => value.Id).Skip((page - 1) * 20).Take(20).ToArrayAsync(),
-            Brands = await database.TeaBrands.AsNoTracking().OrderBy(value => value.Name).ToArrayAsync(), BrandId = brandId,
+            Branches = await branches.Include(value => value.City).OrderBy(value => value.Name).ThenBy(value => value.Id).Skip((page - 1) * 20).Take(20).ToArrayAsync(),
             Search = search, Page = page, PageCount = pageCount
         });
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Brand(Guid brandId)
-    {
-        if (!await database.TeaBrands.AnyAsync(value => value.Id == brandId)) return BadRequest("Thương hiệu không hợp lệ.");
-        var settings = await database.ShopSettings.SingleAsync(value => value.Id == 1);
-        settings.BrandId = brandId;
-        await database.SaveChangesAsync();
-        TempData["Status"] = "Đã chọn thương hiệu. Chỉ chi nhánh thuộc thương hiệu này nhận đơn; cấu hình chi nhánh cũ vẫn được giữ.";
-        return RedirectToAction(nameof(Index));
     }
 
     [HttpPost]
@@ -62,10 +48,6 @@ public class SalesController(ApplicationDbContext database) : Controller
     {
         var branch = await database.Stores.FindAsync(id);
         if (branch == null) return NotFound();
-        var shop = await database.ShopSettings.AsNoTracking().SingleAsync(value => value.Id == 1);
-        var brandId = shop.BrandId;
-        if (acceptsOrders && (!brandId.HasValue || !shop.MarketId.HasValue)) { TempData["Status"] = "Hãy chọn thương hiệu trước khi mở nhận đơn."; return RedirectToAction(nameof(Index), new { search, page }); }
-        if (acceptsOrders && (branch.BrandId != brandId || branch.MarketId != shop.MarketId)) return BadRequest("Chi nhánh không thuộc chuỗi tại Việt Nam.");
         if (branch.Revision != revision) { TempData["Status"] = "Chi nhánh đã thay đổi. Hãy tải lại và thử lại."; return RedirectToAction(nameof(Index), new { search, page }); }
         database.Entry(branch).Property(value => value.Revision).OriginalValue = revision;
         branch.AcceptsOrders = acceptsOrders;
@@ -81,8 +63,6 @@ public class SalesSettingsViewModel
 {
     public Koi.Web.Models.Drink[] Drinks { get; set; } = [];
     public Koi.Web.Models.StoreEntry[] Branches { get; set; } = [];
-    public Koi.Web.Models.TeaBrand[] Brands { get; set; } = [];
-    public Guid? BrandId { get; set; }
     public string? Search { get; set; }
     public int Page { get; set; }
     public int PageCount { get; set; }

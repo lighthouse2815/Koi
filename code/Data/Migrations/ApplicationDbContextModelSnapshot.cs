@@ -195,78 +195,6 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("FeaturedDrinks");
                 });
 
-            modelBuilder.Entity("Koi.Web.Models.Market", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("NameVi")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<int>("Revision")
-                        .IsConcurrencyToken()
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Markets");
-                });
-
-            modelBuilder.Entity("Koi.Web.Models.MarketBrand", b =>
-                {
-                    b.Property<Guid>("MarketId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BrandId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("MarketId", "BrandId");
-
-                    b.HasIndex("BrandId");
-
-                    b.ToTable("MarketBrands");
-                });
-
-            modelBuilder.Entity("Koi.Web.Models.MarketSocialLink", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<Guid>("MarketId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MarketId");
-
-                    b.ToTable("MarketSocialLink");
-                });
-
             modelBuilder.Entity("Koi.Web.Models.MenuEntry", b =>
                 {
                     b.Property<Guid>("Id")
@@ -291,9 +219,6 @@ namespace Koi.Web.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<Guid>("MarketId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Revision")
                         .IsConcurrencyToken()
                         .HasColumnType("integer");
@@ -303,7 +228,7 @@ namespace Koi.Web.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MarketId", "IsPublished", "SortOrder");
+                    b.HasIndex("IsPublished", "SortOrder");
 
                     b.ToTable("Menus");
                 });
@@ -755,34 +680,63 @@ namespace Koi.Web.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid?>("BrandId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Logo")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
-                    b.Property<Guid?>("MarketId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("NameVi")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("MarketId");
 
                     b.ToTable("ShopSettings");
 
                     b.HasData(
                         new
                         {
-                            Id = 1
+                            Id = 1,
+                            Logo = "",
+                            Name = "",
+                            NameVi = ""
                         });
+                });
+
+            modelBuilder.Entity("Koi.Web.Models.SocialLink", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SocialLinks");
                 });
 
             modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("MarketId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -803,8 +757,6 @@ namespace Koi.Web.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MarketId");
 
                     b.ToTable("StoreCities");
                 });
@@ -828,9 +780,6 @@ namespace Koi.Web.Data.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
-                    b.Property<Guid>("BrandId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid?>("CityId")
                         .HasColumnType("uuid");
 
@@ -852,9 +801,6 @@ namespace Koi.Web.Data.Migrations
 
                     b.Property<bool>("IsPublished")
                         .HasColumnType("boolean");
-
-                    b.Property<Guid>("MarketId")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -890,48 +836,11 @@ namespace Koi.Web.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
-
                     b.HasIndex("CityId");
 
-                    b.HasIndex("MarketId");
-
-                    b.HasIndex("IsPublished", "MarketId", "CityId", "BrandId");
+                    b.HasIndex("IsPublished", "CityId");
 
                     b.ToTable("Stores");
-                });
-
-            modelBuilder.Entity("Koi.Web.Models.TeaBrand", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Logo")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<string>("NameVi")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<int>("Revision")
-                        .IsConcurrencyToken()
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TeaBrands");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -1140,47 +1049,6 @@ namespace Koi.Web.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Koi.Web.Models.MarketBrand", b =>
-                {
-                    b.HasOne("Koi.Web.Models.TeaBrand", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Koi.Web.Models.Market", "Market")
-                        .WithMany("Brands")
-                        .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
-
-                    b.Navigation("Market");
-                });
-
-            modelBuilder.Entity("Koi.Web.Models.MarketSocialLink", b =>
-                {
-                    b.HasOne("Koi.Web.Models.Market", "Market")
-                        .WithMany("SocialLinks")
-                        .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Market");
-                });
-
-            modelBuilder.Entity("Koi.Web.Models.MenuEntry", b =>
-                {
-                    b.HasOne("Koi.Web.Models.Market", "Market")
-                        .WithMany()
-                        .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Market");
-                });
-
             modelBuilder.Entity("Koi.Web.Models.Order", b =>
                 {
                     b.HasOne("Koi.Web.Models.StoreEntry", "Store")
@@ -1202,58 +1070,14 @@ namespace Koi.Web.Data.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Koi.Web.Models.ShopSettings", b =>
-                {
-                    b.HasOne("Koi.Web.Models.TeaBrand", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Koi.Web.Models.Market", "Market")
-                        .WithMany()
-                        .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Brand");
-
-                    b.Navigation("Market");
-                });
-
-            modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
-                {
-                    b.HasOne("Koi.Web.Models.Market", "Market")
-                        .WithMany()
-                        .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Market");
-                });
-
             modelBuilder.Entity("Koi.Web.Models.StoreEntry", b =>
                 {
-                    b.HasOne("Koi.Web.Models.TeaBrand", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Koi.Web.Models.StoreCity", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Koi.Web.Models.Market", "Market")
-                        .WithMany()
-                        .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
-
                     b.Navigation("City");
-
-                    b.Navigation("Market");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -1310,13 +1134,6 @@ namespace Koi.Web.Data.Migrations
             modelBuilder.Entity("Koi.Web.Models.DrinkCategory", b =>
                 {
                     b.Navigation("Drinks");
-                });
-
-            modelBuilder.Entity("Koi.Web.Models.Market", b =>
-                {
-                    b.Navigation("Brands");
-
-                    b.Navigation("SocialLinks");
                 });
 
             modelBuilder.Entity("Koi.Web.Models.Order", b =>

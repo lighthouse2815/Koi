@@ -63,10 +63,8 @@ internal sealed class SiteExporter
         var featuredId = articles.FirstOrDefault()?.Id;
         var listedNews = articles.Where(value => value.Id != featuredId).OrderByDescending(value => value.Date).ThenByDescending(value => value.Id).ToArray();
         var stores = await database.Stores.AsNoTracking().Where(value => value.IsPublished).OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
-        var countries = await database.Markets.AsNoTracking().Include(value => value.Brands).Include(value => value.SocialLinks)
-            .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).AsSplitQuery().ToArrayAsync();
         var cities = await database.StoreCities.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
-        var brands = await database.TeaBrands.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
+        var socialLinks = await database.SocialLinks.AsNoTracking().OrderBy(value => value.SortOrder).ToArrayAsync();
         var counts = new
         {
             news = articles.Length, stores = stores.Length,
@@ -100,11 +98,10 @@ internal sealed class SiteExporter
             if (!cards.Keys.Order().SequenceEqual(stores.Select(value => value.Id).Order())) throw new InvalidOperationException("Dữ liệu cửa hàng trên web và database không khớp.");
             await WriteJson($"data/stores-{language}.json", new
             {
-                countries = countries.Select(value => new { value.Id, name = Select(value.Name, value.NameVi, language), brandIds = value.Brands.Select(brand => brand.BrandId), socialLinks = value.SocialLinks.OrderBy(link => link.SortOrder).Select(link => new { link.Label, link.Url }) }),
-                locations = cities.Select(value => new { value.Id, countryId = value.MarketId, name = Select(value.Name, value.NameVi, language) }),
-                brands = brands.Select(value => new { value.Id, name = Select(value.Name, value.NameVi, language) }),
-                stores = stores.Select(value => new { value.Id, countryId = value.MarketId, locationId = value.CityId, value.BrandId, value.SortOrder, value.CountryOrder, locationOrder = value.CityOrder, html = cards[value.Id] }),
-                labels = Text(language, "All__text", "prev", "next", "Page {0} of {1}", "Store pages", "No stores match these filters. Choose another location or brand.")
+                locations = cities.Select(value => new { value.Id, name = Select(value.Name, value.NameVi, language) }),
+                socialLinks = socialLinks.Select(value => new { value.Label, value.Url }),
+                stores = stores.Select(value => new { value.Id, locationId = value.CityId, value.CountryOrder, locationOrder = value.CityOrder, html = cards[value.Id] }),
+                labels = Text(language, "All__text", "prev", "next", "Page {0} of {1}", "Store pages", "No stores match these filters. Choose another location.")
             });
             var newsCards = await CaptureCards("News", ".newsList > li", listedNews.Length, 5, language, element =>
                 Guid.Parse(new Uri(source, element.QuerySelector("a")!.GetAttribute("href")!).AbsolutePath.TrimEnd('/').Split('/').Last()));
@@ -184,6 +181,7 @@ internal sealed class SiteExporter
 
     private void Prepare(IDocument page, string language, string path, bool isCover = false)
     {
+        foreach (var link in page.QuerySelectorAll("a[href^='/Order']")) link.Remove();
         foreach (var input in page.QuerySelectorAll("input[name=__RequestVerificationToken]")) input.Remove();
         foreach (var form in page.QuerySelectorAll("form.language-switcher, .cover-languages form"))
         {

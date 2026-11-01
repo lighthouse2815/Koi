@@ -28,12 +28,12 @@
                     <div class="store" id="store-location">@T["(Location)"]</div>
                     <ul class="storeCatList" aria-labelledby="store-location">
                         <li class="@(Model.LocationId == Guid.Empty ? "current" : null)">
-                            <a asp-action="Store" asp-route-c="@Model.CountryId" class="flex-container align-middle" aria-current="@(Model.LocationId == Guid.Empty ? "true" : null)"><span class="dot"></span><span class="title">@T["All__text"]</span></a>
+                            <a asp-action="Store" class="flex-container align-middle" aria-current="@(Model.LocationId == Guid.Empty ? "true" : null)"><span class="dot"></span><span class="title">@T["All__text"]</span></a>
                         </li>
                         @foreach (var location in Model.Locations)
                         {
                             <li class="@(Model.LocationId == location.Id ? "current" : null)">
-                                <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@location.Id" class="flex-container align-middle" aria-current="@(Model.LocationId == location.Id ? "true" : null)"><span class="dot"></span><span class="title">@location.Name</span></a>
+                                <a asp-action="Store" asp-route-s="@location.Id" class="flex-container align-middle" aria-current="@(Model.LocationId == location.Id ? "true" : null)"><span class="dot"></span><span class="title">@location.Name</span></a>
                             </li>
                         }
                     </ul>
@@ -59,7 +59,7 @@
             <ul class="storeList" aria-label="@T["Stores"]">
                 @foreach (var store in Model.Stores)
                 {
-                    var brandName = Model.Brands.FirstOrDefault(brand => brand.Id == store.BrandId)?.Name ?? "KOI";
+                    var brandName = Model.ShopName;
                     var phone = new string(store.Phone.Where(character => char.IsAsciiDigit(character) || character == '+').ToArray());
                     var isDialable = phone.Count(char.IsAsciiDigit) is >= 5 and <= 15 && phone.Count(character => character == '+') <= 1;
                     <li data-store-id="@store.Id">
@@ -116,7 +116,7 @@
                     <div class="prev">
                         @if (Model.Page > 1)
                         {
-                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@(Model.Page - 1)" rel="prev">@T["prev"]</a>
+                            <a asp-action="Store" asp-route-s="@Model.LocationId" asp-route-page="@(Model.Page - 1)" rel="prev">@T["prev"]</a>
                         }
                     </div>
                     <ul class="store-page flex-container align-center-middle">
@@ -127,13 +127,13 @@
                             {
                                 <li class="ellipsis" aria-hidden="true">…</li>
                             }
-                            <li class="@(number == Model.Page ? "current" : null)"><a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@number" aria-label="@T["Page {0} of {1}", number, Model.PageCount]" aria-current="@(number == Model.Page ? "page" : null)">@number</a></li>
+                            <li class="@(number == Model.Page ? "current" : null)"><a asp-action="Store" asp-route-s="@Model.LocationId" asp-route-page="@number" aria-label="@T["Page {0} of {1}", number, Model.PageCount]" aria-current="@(number == Model.Page ? "page" : null)">@number</a></li>
                         }
                     </ul>
                     <div class="next">
                         @if (Model.Page < Model.PageCount)
                         {
-                            <a asp-action="Store" asp-route-c="@Model.CountryId" asp-route-s="@Model.LocationId" asp-route-b="@Model.BrandId" asp-route-page="@(Model.Page + 1)" rel="next">@T["next"]</a>
+                            <a asp-action="Store" asp-route-s="@Model.LocationId" asp-route-page="@(Model.Page + 1)" rel="next">@T["next"]</a>
                         }
                     </div>
                 </nav>

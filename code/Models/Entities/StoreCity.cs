@@ -11,8 +11,6 @@ public class StoreCity
 
     [Required, StringLength(150)]
     public string Name { get; set; } = "";
-    public Guid MarketId { get; set; }
-    public Market Market { get; set; } = null!;
     public int SortOrder { get; set; }
 
     [ConcurrencyCheck]

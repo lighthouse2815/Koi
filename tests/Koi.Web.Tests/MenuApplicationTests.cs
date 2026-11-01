@@ -45,13 +45,13 @@ public class MenuApplicationTests(NewsApplicationFactory factory) : IClassFixtur
     }
 
     [Theory]
-    [InlineData("country")]
+    [InlineData("missing-label")]
     [InlineData("missing-image")]
     [InlineData("invalid-image")]
     public async Task InvalidMenusAreNotSaved(string scenario)
     {
         using var admin = await Login(factory);
-        var fields = new Dictionary<string, string> { ["Label"] = "Invalid " + Guid.NewGuid().ToString("N"), ["MarketId"] = scenario == "country" ? Guid.NewGuid().ToString() : SeedGuid("Markets", 56).ToString() };
+        var fields = new Dictionary<string, string> { ["Label"] = scenario == "missing-label" ? "" : "Invalid " + Guid.NewGuid().ToString("N") };
         var image = scenario == "missing-image" ? null : scenario == "invalid-image" ? "<script>bad</script>"u8.ToArray() : Image;
         Assert.Equal(HttpStatusCode.BadRequest, (await Post(admin, "/Admin/Menus/Create", fields, image)).StatusCode);
         Assert.Null(await Find(fields["Label"]));

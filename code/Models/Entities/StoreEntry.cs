@@ -26,12 +26,8 @@ public class StoreEntry
 
     [StringLength(2000)]
     public string Address { get; set; } = "";
-    public Guid MarketId { get; set; }
-    public Market Market { get; set; } = null!;
     public Guid? CityId { get; set; }
     public StoreCity? City { get; set; }
-    public Guid BrandId { get; set; }
-    public TeaBrand Brand { get; set; } = null!;
 
     [StringLength(500)]
     public string Photo { get; set; } = "";

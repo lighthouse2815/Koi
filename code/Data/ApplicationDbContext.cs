@@ -13,11 +13,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>(options)
 {
     public DbSet<NewsArticle> NewsArticles => Set<NewsArticle>();
-    public DbSet<Market> Markets => Set<Market>();
     public DbSet<StoreCity> StoreCities => Set<StoreCity>();
-    public DbSet<TeaBrand> TeaBrands => Set<TeaBrand>();
+    public DbSet<SocialLink> SocialLinks => Set<SocialLink>();
     public DbSet<StoreEntry> Stores => Set<StoreEntry>();
-    public DbSet<MarketBrand> MarketBrands => Set<MarketBrand>();
     public DbSet<MenuEntry> Menus => Set<MenuEntry>();
     public DbSet<DrinkCategory> DrinkCategories => Set<DrinkCategory>();
     public DbSet<Drink> Drinks => Set<Drink>();
@@ -29,21 +27,14 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<MarketBrand>().HasKey(value => new { value.MarketId, value.BrandId });
-        builder.Entity<StoreEntry>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<StoreEntry>().HasOne(value => value.City).WithMany().OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<StoreEntry>().HasOne(value => value.Brand).WithMany().OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<StoreCity>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<StoreEntry>().HasIndex(value => new { value.IsPublished, value.MarketId, value.CityId, value.BrandId });
-        builder.Entity<MenuEntry>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<MenuEntry>().HasIndex(value => new { value.MarketId, value.IsPublished, value.SortOrder });
+        builder.Entity<StoreEntry>().HasIndex(value => new { value.IsPublished, value.CityId });
+        builder.Entity<MenuEntry>().HasIndex(value => new { value.IsPublished, value.SortOrder });
         builder.Entity<Drink>().HasOne(value => value.Category).WithMany(value => value.Drinks).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.IsPublished, value.SortOrder });
         builder.Entity<Drink>().Property(value => value.Price).HasPrecision(12, 0);
         builder.Entity<OrderItem>().Property(value => value.UnitPrice).HasPrecision(12, 0);
         builder.Entity<SaleOption>().Property(value => value.ExtraPrice).HasPrecision(12, 0);
-        builder.Entity<ShopSettings>().HasOne(value => value.Brand).WithMany().OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<ShopSettings>().HasOne(value => value.Market).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<ShopSettings>().HasData(new ShopSettings { Id = 1 });
         builder.Entity<Order>().HasOne(value => value.Store).WithMany().OnDelete(DeleteBehavior.SetNull);
         builder.Entity<Order>().HasIndex(value => new { value.Status, value.CreatedAt });

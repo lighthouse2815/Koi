@@ -51,14 +51,10 @@
 
     async function stores() {
         const data = await read('stores');
-        const country = data.countries.find(value => value.id === guid(get('c')));
-        const locations = data.locations.filter(value => value.countryId === country?.id);
-        const city = locations.find(value => value.id === guid(get('s')));
-        const brands = data.brands.filter(value => !country || country.brandIds.includes(value.id));
-        const brand = brands.find(value => value.id === guid(get('b')));
-        const state = { c: country?.id || '', s: city?.id || '', b: brand?.id || '' };
-        const results = data.stores.filter(value => (!state.c || value.countryId === state.c) && (!state.s || value.locationId === state.s) && (!state.b || value.brandId === state.b))
-            .sort((a, b) => (state.s ? a.locationOrder - b.locationOrder : state.c ? a.countryOrder - b.countryOrder : a.sortOrder - b.sortOrder) || a.id.localeCompare(b.id));
+        const city = data.locations.find(value => value.id === guid(get('s')));
+        const state = { s: city?.id || '' };
+        const results = data.stores.filter(value => !state.s || value.locationId === state.s)
+            .sort((a, b) => (state.s ? a.locationOrder - b.locationOrder : a.countryOrder - b.countryOrder) || a.id.localeCompare(b.id));
         const pages = Math.max(1, Math.ceil(results.length / 9));
         const page = Math.min(pages, Math.max(1, integer(get('page'), 1)));
         const filters = [...document.querySelectorAll('.storeCatList')];
@@ -71,11 +67,9 @@
                 link.append(create('span', 'dot'), create('span', 'title', value.name)); item.append(link); container.append(item);
             });
         };
-        filter(filters[0], data.countries, state.c, {}, 'c');
-        filter(filters[1], locations, state.s, { c: state.c }, 's');
-        filter(filters[2], brands, state.b, { c: state.c, s: state.s }, 'b');
+        filter(filters[0], data.locations, state.s, {}, 's');
         const socials = document.querySelector('.store-socialList'); socials.replaceChildren();
-        (country?.socialLinks || []).forEach(value => {
+        (data.socialLinks || []).forEach(value => {
             const icon = ['Instagram', 'Facebook'].includes(value.label) ? value.label.toLowerCase() : null;
             const item = create('li', icon ? '' : 'custom'); const link = anchor(value.url, icon ? null : value.label);
             link.target = '_blank'; link.rel = 'noopener noreferrer'; link.setAttribute('aria-label', value.label);
@@ -84,7 +78,7 @@
         });
         const list = document.querySelector('.storeList'); list.innerHTML = results.slice((page - 1) * 9, page * 9).map(value => value.html).join('');
         document.querySelector('.store-empty')?.remove();
-        if (!results.length) { const empty = create('p', 'store-empty', data.labels['No stores match these filters. Choose another location or brand.']); empty.setAttribute('role', 'status'); list.after(empty); }
+        if (!results.length) { const empty = create('p', 'store-empty', data.labels['No stores match these filters. Choose another location.']); empty.setAttribute('role', 'status'); list.after(empty); }
         let pagination = document.querySelector('.store-pageWrap');
         if (pages === 1) pagination?.remove();
         else {

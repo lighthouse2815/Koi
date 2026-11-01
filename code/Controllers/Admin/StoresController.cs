@@ -27,7 +27,7 @@ public class StoresController(StoreAdminService stores) : Controller
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu cửa hàng.";
-            return RedirectToAction(nameof(Index), new { marketId = model.MarketId });
+            return RedirectToAction(nameof(Index));
         }
         Response.StatusCode = result switch
         {

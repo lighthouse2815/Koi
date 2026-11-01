@@ -9,7 +9,6 @@
 </fieldset>
 <label asp-for="Name">Tên</label><input asp-for="Name" required maxlength="150" />
 <label asp-for="SortOrder">Thứ tự</label><input asp-for="SortOrder" type="number" min="0" max="100000" />
-<input asp-for="MarketId" type="hidden" />
 <p><button type="submit" class="button">Lưu dữ liệu</button></p>
 @if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id" asp-route-kind="@Model.Kind">Tải lại bản mới nhất</a> }
 </form>

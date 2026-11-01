@@ -1,49 +1,40 @@
 using Koi.Web.Data;
 using Koi.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
 public class MenuAdminService(ApplicationDbContext database, ImageUploads uploads, ILogger<MenuAdminService> logger)
 {
-    public async Task<AdminMenusViewModel> GetListAsync(Guid marketId)
-    {
-        var shopMarketId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.MarketId).SingleAsync();
-        return new(await database.Menus.AsNoTracking().Include(value => value.Market).Where(value => !shopMarketId.HasValue || value.MarketId == shopMarketId)
-            .OrderBy(value => value.Market.SortOrder).ThenBy(value => value.MarketId).ThenBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync(),
-            await Markets(), shopMarketId ?? Guid.Empty);
-    }
+    public async Task<AdminMenusViewModel> GetListAsync(Guid marketId) => new(
+        await database.Menus.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync());
 
-    public async Task<MenuEditViewModel> CreateAsync() => new() { MarketId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.MarketId).SingleAsync() ?? Guid.Empty, Markets = await Markets() };
+    public Task<MenuEditViewModel> CreateAsync() => Task.FromResult(new MenuEditViewModel());
 
     public async Task<MenuEditViewModel?> GetEditAsync(Guid id)
     {
-        var value = await ShopMenus().AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
+        var value = await database.Menus.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new MenuEditViewModel { Id = id, Revision = value.Revision, LabelVi = value.LabelVi,
-            Label = value.Label, MarketId = value.MarketId, SortOrder = value.SortOrder, IsPublished = value.IsPublished,
-            CurrentImage = value.File, Markets = await Markets() };
+            Label = value.Label, SortOrder = value.SortOrder, IsPublished = value.IsPublished,
+            CurrentImage = value.File };
     }
 
     public async Task<SaveResult> SaveAsync(MenuEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
-        var value = id.HasValue ? await ShopMenus().SingleOrDefaultAsync(value => value.Id == id) : new MenuEntry();
+        var value = id.HasValue ? await database.Menus.SingleOrDefaultAsync(value => value.Id == id) : new MenuEntry();
         if (value == null) return SaveResult.NotFound;
         model.CurrentImage = value.File;
-        var shopMarketId = await database.ShopSettings.AsNoTracking().Where(value => value.Id == 1).Select(value => value.MarketId).SingleAsync();
-        if (shopMarketId.HasValue && model.MarketId != shopMarketId) modelState.AddModelError(nameof(model.MarketId), "Thực đơn phải thuộc Việt Nam.");
-        if (!await database.Markets.AnyAsync(value => value.Id == model.MarketId)) modelState.AddModelError(nameof(model.MarketId), "Chọn quốc gia hợp lệ.");
         var image = await uploads.ReadAsync(model.ImageUpload, modelState, nameof(model.ImageUpload));
         if (id == null && image == null) modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh thực đơn.");
-        if (!modelState.IsValid) { model.Markets = await Markets(); return SaveResult.Invalid; }
+        if (!modelState.IsValid) return SaveResult.Invalid;
         string? uploaded = null;
         var result = SaveResult.Conflict;
         try
         {
             if (image != null) value.File = uploaded = await uploads.SaveAsync(image, "menus");
             value.Label = model.Label.Trim();
-            value.LabelVi = model.LabelVi?.Trim() ?? ""; value.MarketId = model.MarketId; value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
+            value.LabelVi = model.LabelVi?.Trim() ?? ""; value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
             if (id == null) database.Menus.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); return SaveResult.Success;
@@ -54,25 +45,22 @@ public class MenuAdminService(ApplicationDbContext database, ImageUploads upload
             logger.LogError(exception, "Could not save menu {Id}", id); result = SaveResult.Unavailable;
             modelState.AddModelError("", "Chưa lưu được thực đơn. Vui lòng thử lại.");
         }
-        uploads.Rollback(uploaded); model.Markets = await Markets(); return result;
+        uploads.Rollback(uploaded); return result;
     }
 
     public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
     {
-        var value = await ShopMenus().AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
+        var value = await database.Menus.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DeleteContentViewModel(id, value.Label);
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        var value = await ShopMenus().SingleOrDefaultAsync(value => value.Id == id);
+        var value = await database.Menus.SingleOrDefaultAsync(value => value.Id == id);
         if (value == null) return false;
         database.Menus.Remove(value);
         await database.SaveChangesAsync();
         return true;
     }
 
-    private IQueryable<MenuEntry> ShopMenus() => database.Menus.Where(menu => database.ShopSettings.Any(shop => shop.Id == 1 && (!shop.MarketId.HasValue || shop.MarketId == menu.MarketId)));
-
-    private async Task<SelectList> Markets() => new(await database.Markets.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync(), "Id", "Name");
 }

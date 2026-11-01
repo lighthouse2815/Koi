@@ -86,14 +86,14 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
 
     [Theory]
     [InlineData("city")]
-    [InlineData("brand")]
+    [InlineData("unknown-city")]
     [InlineData("url")]
     [InlineData("image")]
     public async Task InvalidStoreDataIsRejected(string scenario)
     {
         using var admin = await Login(factory); var fields = Store("Invalid " + Guid.NewGuid().ToString("N"));
         if (scenario == "city") fields["CityId"] = SeedGuid("StoreCities", 71).ToString(); // Singapore city with Vietnam country
-        if (scenario == "brand") fields["BrandId"] = SeedGuid("TeaBrands", 254).ToString(); // brand not assigned to Vietnam
+        if (scenario == "unknown-city") fields["CityId"] = Guid.NewGuid().ToString();
         if (scenario == "url") fields["NavigationUrl"] = "javascript:alert(1)";
         var image = scenario == "image" ? "<script>bad</script>"u8.ToArray() : null;
         Assert.Equal(HttpStatusCode.BadRequest, (await Post(admin, "/Admin/Stores/Create", fields, image)).StatusCode);

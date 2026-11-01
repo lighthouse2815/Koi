@@ -7,7 +7,7 @@
 <div asp-validation-summary="All" class="notice" role="alert"></div>
 <section class="order-card"><h2>1. Chọn chi nhánh</h2>
 @if (Model.Branches.Length == 0) { <p>Hiện chưa có chi nhánh mở nhận đơn.</p> }
-else { <form asp-action="SelectBranch" method="post" class="inline-form"><label for="storeId">Chi nhánh</label><select id="storeId" name="storeId" required><option value="">Chọn chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.Cart.StoreId)">@branch.Name · @branch.Address · @branch.Market.Name</option> }</select><button type="submit">Chọn</button></form> }
+else { <form asp-action="SelectBranch" method="post" class="inline-form"><label for="storeId">Chi nhánh</label><select id="storeId" name="storeId" required><option value="">Chọn chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.Cart.StoreId)">@branch.Name · @branch.Address</option> }</select><button type="submit">Chọn</button></form> }
 @if (Model.Branch != null) { <p>Đang chọn: <strong>@Model.Branch.Name</strong> · @Model.Branch.Address</p> }
 </section>
 @if (Model.Branch != null) {

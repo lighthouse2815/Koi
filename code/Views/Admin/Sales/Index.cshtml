@@ -1,9 +1,6 @@
 @model Koi.Web.Controllers.Admin.SalesSettingsViewModel
 @{ ViewData["Title"] = "Thiết lập bán hàng"; }
 <div class="page-heading"><h1>Thiết lập bán hàng</h1><a asp-controller="SaleOptions" asp-action="Index">Kích cỡ và topping</a></div>
-@if (!Model.BrandId.HasValue) { <section class="card"><h2>Thương hiệu của chuỗi</h2><p>Chọn một thương hiệu để giới hạn website và chi nhánh nhận đơn. Dữ liệu các thương hiệu khác được giữ lại.</p>
-<form asp-action="Brand" method="post"><label for="brandId">Thương hiệu</label><select name="brandId" id="brandId" required><option value="">Chọn thương hiệu</option>@foreach (var brand in Model.Brands) { <option value="@brand.Id" selected="@(brand.Id == Model.BrandId)">@brand.Name</option> }</select> <button type="submit">Chọn thương hiệu</button></form>
-@if (!Model.BrandId.HasValue) { <p>Chưa chọn thương hiệu: dữ liệu cửa hàng trước đây vẫn được hiển thị, nhưng chưa thể mở chi nhánh nhận đơn.</p> }</section> }
 <section class="card">
 <h2>Giá đồ uống dùng chung</h2><p>Chỉ món đã xuất bản, thuộc danh mục hiển thị và có giá mới nhận đặt hàng. Để trống giá để ngừng bán.</p>
 <table><thead><tr><th>Đồ uống</th><th>Danh mục</th><th>Giá (đồng)</th></tr></thead><tbody>

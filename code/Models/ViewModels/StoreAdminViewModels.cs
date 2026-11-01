@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Koi.Web.Models;
 
@@ -30,9 +29,7 @@ public class StoreEditViewModel
 
     [StringLength(2000)]
     public string? Address { get; set; }
-    public Guid MarketId { get; set; }
     public Guid? CityId { get; set; }
-    public Guid BrandId { get; set; }
 
     [StringLength(2000)]
     public string? NavigationUrl { get; set; }
@@ -53,20 +50,13 @@ public class StoreEditViewModel
     public string? CurrentImage { get; set; }
 
     [BindNever, ValidateNever]
-    public SelectList Markets { get; set; } = null!;
-
-    [BindNever, ValidateNever]
     public StoreCity[] Cities { get; set; } = [];
 
-    [BindNever, ValidateNever]
-    public SelectList Brands { get; set; } = null!;
 }
 
 public record AdminStoresViewModel(
     StoreEntry[] Stores,
-    SelectList Markets,
     string? Search,
-    Guid MarketId,
     int Page,
     int PageCount
 );
@@ -87,7 +77,6 @@ public class GeographyEditViewModel
 
     [Range(0, 100000)]
     public int SortOrder { get; set; }
-    public Guid MarketId { get; set; }
 
 }
 

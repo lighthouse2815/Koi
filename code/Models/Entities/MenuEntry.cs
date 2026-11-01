@@ -8,8 +8,6 @@ public class MenuEntry
     public string LabelVi { get; set; } = "";
 
     public Guid Id { get; set; }
-    public Guid MarketId { get; set; }
-    public Market Market { get; set; } = null!;
 
     [Required, StringLength(200)]
     public string Label { get; set; } = "";
