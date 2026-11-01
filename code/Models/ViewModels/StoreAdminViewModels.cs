@@ -79,8 +79,8 @@ public class GeographyEditViewModel
     public Guid Id { get; set; }
     public int Revision { get; set; }
 
-    [Required, RegularExpression("countries|cities|brands")]
-    public string Kind { get; set; } = "countries";
+    [Required, RegularExpression("cities")]
+    public string Kind { get; set; } = "cities";
 
     [Required, StringLength(150)]
     public string Name { get; set; } = "";
@@ -88,21 +88,7 @@ public class GeographyEditViewModel
     [Range(0, 100000)]
     public int SortOrder { get; set; }
     public Guid MarketId { get; set; }
-    public Guid[] BrandIds { get; set; } = [];
 
-    [StringLength(10000)]
-    public string? SocialLinks { get; set; }
-    public IFormFile? ImageUpload { get; set; }
-    public bool RemoveImage { get; set; }
-
-    [BindNever, ValidateNever]
-    public string? CurrentImage { get; set; }
-
-    [BindNever, ValidateNever]
-    public SelectList Markets { get; set; } = null!;
-
-    [BindNever, ValidateNever]
-    public TeaBrand[] Brands { get; set; } = [];
 }
 
 public record GeographyRow(Guid Id, string Name, string Detail, int SortOrder);

@@ -8,13 +8,13 @@ namespace Koi.Web.Controllers.Admin;
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class GeographyController(GeographyAdminService geography) : Controller
 {
-    public async Task<IActionResult> Index(string kind = "countries")
+    public async Task<IActionResult> Index(string kind = "cities")
     {
         var model = await geography.GetListAsync(kind);
         return model == null ? NotFound() : View(model);
     }
 
-    public async Task<IActionResult> Create(string kind = "countries")
+    public async Task<IActionResult> Create(string kind = "cities")
     {
         var model = await geography.CreateAsync(kind);
         if (model == null) return NotFound();
@@ -22,7 +22,7 @@ public class GeographyController(GeographyAdminService geography) : Controller
         return View("Edit", model);
     }
 
-    public async Task<IActionResult> Edit(Guid id, string kind = "countries")
+    public async Task<IActionResult> Edit(Guid id, string kind = "cities")
     {
         var model = await geography.GetEditAsync(id, kind);
         if (model == null) return NotFound();
@@ -54,7 +54,7 @@ public class GeographyController(GeographyAdminService geography) : Controller
         return View("Edit", model);
     }
 
-    public async Task<IActionResult> Delete(Guid id, string kind = "countries")
+    public async Task<IActionResult> Delete(Guid id, string kind = "cities")
     {
         var model = await geography.GetDeleteAsync(id, kind);
         return model == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", model);

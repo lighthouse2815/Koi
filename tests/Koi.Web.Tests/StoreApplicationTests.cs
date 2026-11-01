@@ -101,22 +101,24 @@ public class StoreApplicationTests(NewsApplicationFactory factory) : IClassFixtu
     }
 
     [Fact]
-    public async Task GeographyCanBeCreatedEditedAndDeletedAndReferencesAreProtected()
+    public async Task VietnamAreasCanBeManagedAndReferencesAreProtected()
     {
-        using var admin = await Login(factory); var name = "Market " + Guid.NewGuid().ToString("N");
-        var fields = new Dictionary<string, string> { ["Kind"] = "countries", ["Name"] = name, ["SortOrder"] = "1000", ["BrandIds"] = SeedGuid("TeaBrands", 49).ToString(), ["SocialLinks"] = "Website | https://example.test/" };
-        Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, "/Admin/Geography/Create?kind=countries", fields)).StatusCode);
+        using var admin = await Login(factory);
+        var fields = new Dictionary<string, string> { ["Kind"] = "cities", ["Name"] = "Khu vực " + Guid.NewGuid(), ["MarketId"] = SeedGuid("Markets", 56).ToString(), ["SortOrder"] = "1000" };
+        Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, "/Admin/Geography/Create?kind=cities", fields)).StatusCode);
         Guid id;
         using (var scope = factory.Services.CreateScope())
-            id = (await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Markets.SingleAsync(value => value.Name == name)).Id;
+            id = (await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().StoreCities.SingleAsync(value => value.Name == fields["Name"])).Id;
         fields["Id"] = id.ToString(); fields["Revision"] = "1"; fields["Name"] += " updated";
-        Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Geography/Edit/{id}?kind=countries", fields)).StatusCode);
-        using var client = Anonymous(factory);
-        Assert.DoesNotContain(fields["Name"], await client.GetStringAsync($"/Home/Store?c={id}"));
-        using (var scope = factory.Services.CreateScope())
-            Assert.Contains((await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Markets.Include(value => value.SocialLinks).SingleAsync(value => value.Id == id)).SocialLinks, link => link.Url == "https://example.test/");
-        Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Geography/Delete/{id}?kind=countries", new() { ["kind"] = "countries" })).StatusCode);
-        Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, $"/Admin/Geography/Delete/{SeedGuid("Markets", 56)}?kind=countries", new() { ["kind"] = "countries" })).StatusCode);
-        Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, $"/Admin/Geography/Delete/{SeedGuid("TeaBrands", 49)}?kind=brands", new() { ["kind"] = "brands" })).StatusCode);
+        Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Geography/Edit/{id}?kind=cities", fields)).StatusCode);
+        var branch = Store("Chi nhánh " + Guid.NewGuid()); branch["CityId"] = id.ToString();
+        Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, "/Admin/Stores/Create", branch)).StatusCode);
+        var stored = (await Find(branch["Name"]))!;
+        Assert.Equal(HttpStatusCode.Conflict, (await Post(admin, $"/Admin/Geography/Delete/{id}?kind=cities", new() { ["kind"] = "cities" })).StatusCode);
+        Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Stores/Delete/{stored.Id}", new())).StatusCode);
+        Assert.Equal(HttpStatusCode.Redirect, (await Post(admin, $"/Admin/Geography/Delete/{id}?kind=cities", new() { ["kind"] = "cities" })).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync("/Admin/Geography?kind=countries")).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync("/Admin/Geography?kind=brands")).StatusCode);
     }
+
 }
