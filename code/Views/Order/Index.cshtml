@@ -1,8 +1,8 @@
 @model OrderingPageViewModel
 @{ Layout = null; var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); }
 <!doctype html><html lang="vi"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Đặt đồ uống · KOI Thé</title><link rel="stylesheet" href="~/css/ordering.css" asp-append-version="true" /></head><body>
-<header class="order-header"><a asp-controller="Home" asp-action="Index">KOI THÉ</a><a asp-controller="Home" asp-action="Store">Xem chi nhánh</a></header>
-<main class="order-page"><h1>Đặt đồ uống</h1><p>Chọn chi nhánh, thêm món và gửi đơn. Chi nhánh sẽ liên hệ xác nhận.</p>
+<header class="order-header"><a asp-controller="Home" asp-action="Index" aria-label="Trang chủ KOI Thé"><img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" /></a><nav aria-label="Điều hướng đặt hàng"><a asp-controller="Home" asp-action="OurTea">Trà của KOI ↗</a><a asp-controller="Home" asp-action="Store">Chi nhánh ↗</a><a href="#cart">Giỏ hàng (@Model.Cart.Items.Sum(item => item.Quantity))</a></nav></header>
+<main class="order-page"><div class="order-intro"><p class="order-eyebrow">( YOUR DAILY BEAT. )</p><h1>MÓN BẠN THÍCH.<br /><em>KOI MỜI BẠN CHỌN.</em></h1><p>Chọn chi nhánh, thêm món và gửi đơn. Chi nhánh sẽ liên hệ xác nhận.</p><a href="#drinks" class="order-explore">Khám phá thực đơn <span aria-hidden="true">↓</span></a></div>
 @if (TempData["OrderMessage"] is string message) { <p class="notice" role="status">@message</p> }
 <div asp-validation-summary="All" class="notice" role="alert"></div>
 <section class="order-card" id="branches"><h2>1. Chọn chi nhánh</h2>
@@ -20,7 +20,7 @@ else { <form asp-action="SelectBranch" method="post" class="inline-form"><input 
 @if (Model.Toppings.Length > 0) { <fieldset><legend>Topping (tối đa 5)</legend>@foreach (var topping in Model.Toppings) { <label><input type="checkbox" name="toppingIds" value="@topping.Id" /> @topping.Name (+@topping.ExtraPrice.ToString("N0", culture) đ)</label><br /> }</fieldset> }
 <label>Số lượng <input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ</button></form> }</article>
 }</div></section>
-<section class="order-card"><h2>3. Giỏ hàng</h2>
+<section class="order-card" id="cart"><h2>3. Giỏ hàng</h2>
 @if (Model.Lines.Count == 0) { <p>Giỏ hàng đang trống.</p> }
 else { @foreach (var line in Model.Lines) { <div class="cart-line"><span>@line.Name · @line.Price.ToString("N0", culture) đ<br /><small>@line.Customization</small></span><form asp-action="Update" method="post" class="inline-form"><input type="hidden" name="id" value="@line.LineId" /><label>Số lượng <input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label><button type="submit">Cập nhật</button><small>Nhập 0 để xóa</small></form></div> } <p><strong>Tạm tính: @Model.Total.ToString("N0", culture) đ</strong></p> }
 </section>
@@ -33,4 +33,4 @@ else { @foreach (var line in Model.Lines) { <div class="cart-line"><span>@line.N
 <label asp-for="Checkout.Note">Ghi chú</label><textarea asp-for="Checkout.Note" maxlength="1000"></textarea>
 <p>Thanh toán khi nhận hàng. Phí giao hàng, nếu có, được chi nhánh xác nhận trước.</p><button type="submit">Gửi đơn hàng</button></form></section>
 }
-</main></body></html>
+</main><footer class="order-footer"><span>YOUR DAILY BEAT.</span><a asp-controller="Home" asp-action="OurTea">Tiếp tục khám phá KOI ↗</a></footer><script src="~/lib/gsap/gsap.min.js" defer></script><script src="~/lib/gsap/ScrollTrigger.min.js" defer></script><script src="~/js/shop-motion.js" asp-append-version="true" defer></script></body></html>
