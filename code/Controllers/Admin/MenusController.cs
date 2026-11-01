@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
-public class MenusController(MenuAdminService menus) : Controller
+public class MenusController(MenuService menus) : Controller
 {
     public async Task<IActionResult> Index() => View(await menus.GetListAsync());
     public IActionResult Create() => View("Edit", new MenuEditViewModel());

@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class MenuAdminService(
+public class MenuService(
     ApplicationDbContext database,
     ImageUploads uploads,
-    ILogger<MenuAdminService> logger
+    ILogger<MenuService> logger
 )
 {
     public async Task<AdminMenusViewModel> GetListAsync() =>
