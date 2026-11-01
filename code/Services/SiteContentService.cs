@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class SiteContentService(ApplicationDbContext database)
+public class SiteContentService(ApplicationDbContext database, IConfiguration configuration)
 {
     public async Task<HomeViewModel> GetHomeAsync()
     {
@@ -49,7 +49,8 @@ public class SiteContentService(ApplicationDbContext database)
 
     public async Task<StoreViewModel> GetStoresAsync(Guid c = default, Guid s = default, Guid b = default, int page = 1)
     {
-        var shop = await database.ShopSettings.AsNoTracking().SingleAsync(value => value.Id == 1);
+        var brandName = configuration["Brand:Name"] ?? throw new InvalidOperationException("Configure Brand:Name.");
+        var brandLogo = configuration["Brand:Logo"] ?? throw new InvalidOperationException("Configure Brand:Logo.");
         var cities = await database.StoreCities.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         if (!cities.Any(value => value.Id == s)) s = Guid.Empty;
         var query = database.Stores.AsNoTracking().Where(value => value.IsPublished && (s == Guid.Empty || value.CityId == s));
@@ -59,9 +60,9 @@ public class SiteContentService(ApplicationDbContext database)
         var rows = await query.OrderBy(value => s != Guid.Empty ? value.CityOrder : value.CountryOrder).ThenBy(value => value.Id)
             .Skip((page - 1) * pageSize).Take(pageSize).ToArrayAsync();
         var stores = rows.Select(value => new StoreBranch(value.Id, value.Name, value.Phone,
-            value.Hours, value.Address, shop.Logo, value.Photo, value.NavigationUrl)).ToArray();
+            value.Hours, value.Address, brandLogo, value.Photo, value.NavigationUrl)).ToArray();
         var links = await database.SocialLinks.AsNoTracking().OrderBy(value => value.SortOrder).Select(value => new StoreSocialLink(value.Url, value.Label)).ToArrayAsync();
-        return new StoreViewModel(cities.Select(value => new StoreLocation(value.Id, value.Name)).ToArray(), stores, links, shop.Name, s, page, pages);
+        return new StoreViewModel(cities.Select(value => new StoreLocation(value.Id, value.Name)).ToArray(), stores, links, brandName, s, page, pages);
     }
 
     public async Task<MenuViewModel> GetMenusAsync()

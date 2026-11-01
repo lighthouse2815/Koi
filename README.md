@@ -259,6 +259,8 @@ MVC đồ uống đã kiểm tra: 43 test tích hợp đạt; so sánh đủ tê
 
 ## Cập nhật nội dung
 
+Tên và logo thương hiệu trên trang chi nhánh được cấu hình bằng `Brand:Name` và `Brand:Logo` trong `appsettings.json`; có thể ghi đè qua biến môi trường `Brand__Name` và `Brand__Logo`.
+
 | Nội dung | Đường dẫn quản trị |
 | --- | --- |
 | Tin tức | `/Admin/News` |

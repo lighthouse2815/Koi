@@ -651,43 +651,6 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("OrderItem");
                 });
 
-            modelBuilder.Entity("Koi.Web.Models.ShopSettings", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Logo")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<string>("NameVi")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ShopSettings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Logo = "",
-                            Name = "",
-                            NameVi = ""
-                        });
-                });
-
             modelBuilder.Entity("Koi.Web.Models.SocialLink", b =>
                 {
                     b.Property<Guid>("Id")
