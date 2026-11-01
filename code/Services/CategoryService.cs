@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class DrinkCategoryService(
+public class CategoryService(
     ApplicationDbContext database,
     ImageUploadService uploads,
-    ILogger<DrinkCategoryService> logger
+    ILogger<CategoryService> logger
 )
 {
     public Task<Category[]> GetListAsync() =>
