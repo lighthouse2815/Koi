@@ -18,25 +18,8 @@ public class CategoryService(
             .ThenBy(value => value.Id)
             .ToArrayAsync();
 
-    public async Task<DrinkCategoryEditViewModel?> GetEditAsync(Guid id)
-    {
-        var value = await database
-            .DrinkCategories.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null
-            ? null
-            : new DrinkCategoryEditViewModel
-            {
-                Id = id,
-                Revision = value.Revision,
-                Name = value.Name,
-                IsPublished = value.IsPublished,
-                ShowOnHome = value.ShowOnHome,
-                SortOrder = value.SortOrder,
-                CurrentImage = value.Image,
-                CurrentIcon = value.Icon,
-            };
-    }
+    public Task<Category?> GetByIdAsync(Guid id) =>
+        database.DrinkCategories.AsNoTracking().SingleOrDefaultAsync(category => category.Id == id);
 
     public async Task<SaveResult> SaveAsync(
         DrinkCategoryEditViewModel model,
@@ -110,14 +93,6 @@ public class CategoryService(
         }
         uploaded.ForEach(uploads.Rollback);
         return result;
-    }
-
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
-    {
-        var value = await database
-            .DrinkCategories.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? null : new DeleteContentViewModel(id, value.Name);
     }
 
     public async Task<SaveResult> DeleteAsync(Guid id, ModelStateDictionary modelState)

@@ -12,8 +12,20 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
     public IActionResult Create() => View("Edit", new DrinkCategoryEditViewModel());
     public async Task<IActionResult> Edit(Guid id)
     {
-        var model = await categories.GetEditAsync(id);
-        return model == null ? NotFound() : View(model);
+        var category = await categories.GetByIdAsync(id);
+        if (category == null)
+            return NotFound();
+        return View(new DrinkCategoryEditViewModel
+        {
+            Id = category.Id,
+            Revision = category.Revision,
+            Name = category.Name,
+            IsPublished = category.IsPublished,
+            ShowOnHome = category.ShowOnHome,
+            SortOrder = category.SortOrder,
+            CurrentImage = category.Image,
+            CurrentIcon = category.Icon
+        });
     }
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
     public Task<IActionResult> Create(DrinkCategoryEditViewModel model) => Save(model, null);
@@ -40,8 +52,8 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
 
     public async Task<IActionResult> Delete(Guid id)
     {
-        var model = await categories.GetDeleteAsync(id);
-        return model == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", model);
+        var category = await categories.GetByIdAsync(id);
+        return category == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(category.Id, category.Name));
     }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -50,10 +62,10 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
         if (result == SaveResult.NotFound) return NotFound();
         if (result == SaveResult.Conflict)
         {
-            var model = await categories.GetDeleteAsync(id);
-            if (model == null) return NotFound();
+            var category = await categories.GetByIdAsync(id);
+            if (category == null) return NotFound();
             Response.StatusCode = StatusCodes.Status409Conflict;
-            return View("~/code/Views/Admin/Shared/Delete.cshtml", model);
+            return View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(category.Id, category.Name));
         }
         TempData["Status"] = "Đã xóa danh mục đồ uống.";
         return RedirectToAction(nameof(Index));
