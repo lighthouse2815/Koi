@@ -61,8 +61,7 @@ public class SiteContentService(ApplicationDbContext database, IConfiguration co
             .Skip((page - 1) * pageSize).Take(pageSize).ToArrayAsync();
         var stores = rows.Select(value => new StoreBranch(value.Id, value.Name, value.Phone,
             value.Hours, value.Address, brandLogo, value.Photo, value.NavigationUrl)).ToArray();
-        var links = await database.SocialLinks.AsNoTracking().OrderBy(value => value.SortOrder).Select(value => new StoreSocialLink(value.Url, value.Label)).ToArrayAsync();
-        return new StoreViewModel(cities.Select(value => new StoreLocation(value.Id, value.Name)).ToArray(), stores, links, brandName, s, page, pages);
+        return new StoreViewModel(cities.Select(value => new StoreLocation(value.Id, value.Name)).ToArray(), stores, brandName, s, page, pages);
     }
 
     public async Task<MenuViewModel> GetMenusAsync()

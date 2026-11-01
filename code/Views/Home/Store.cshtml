@@ -41,20 +41,8 @@
         </nav>
         <div class="storeList-area">
             <ul class="store-socialList flex-container align-right" aria-label="@T["Country social media"]">
-                @foreach (var social in Model.SocialLinks)
-                {
-                    var icon = social.Label is "Instagram" or "Facebook" ? social.Label.ToLowerInvariant() : null;
-                    <li class="@(icon == null ? "custom" : null)"><a href="@social.Url" target="_blank" rel="noopener noreferrer" aria-label="@social.Label">
-                        @if (icon != null)
-                        {
-                            <img src="/images/pages/en/images/store-@(icon).svg" width="36" height="36" alt="" />
-                        }
-                        else
-                        {
-                            @social.Label
-                        }
-                    </a></li>
-                }
+                <li><a href="https://www.instagram.com/koithevietnam/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="/images/pages/en/images/store-instagram.svg" width="36" height="36" alt="" /></a></li>
+                <li><a href="https://www.facebook.com/KOI-Th%C3%A9-Vietnam-1113353828678015/?fref=ts" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="/images/pages/en/images/store-facebook.svg" width="36" height="36" alt="" /></a></li>
             </ul>
             <ul class="storeList" aria-label="@T["Stores"]">
                 @foreach (var store in Model.Stores)

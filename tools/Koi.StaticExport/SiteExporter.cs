@@ -64,7 +64,6 @@ internal sealed class SiteExporter
         var listedNews = articles.Where(value => value.Id != featuredId).OrderByDescending(value => value.Date).ThenByDescending(value => value.Id).ToArray();
         var stores = await database.Stores.AsNoTracking().Where(value => value.IsPublished).OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         var cities = await database.StoreCities.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
-        var socialLinks = await database.SocialLinks.AsNoTracking().OrderBy(value => value.SortOrder).ToArrayAsync();
         var counts = new
         {
             news = articles.Length, stores = stores.Length,
@@ -99,7 +98,6 @@ internal sealed class SiteExporter
             await WriteJson($"data/stores-{language}.json", new
             {
                 locations = cities.Select(value => new { value.Id, name = value.Name }),
-                socialLinks = socialLinks.Select(value => new { value.Label, value.Url }),
                 stores = stores.Select(value => new { value.Id, locationId = value.CityId, value.CountryOrder, locationOrder = value.CityOrder, html = cards[value.Id] }),
                 labels = Text(language, "All__text", "prev", "next", "Page {0} of {1}", "Store pages", "No stores match these filters. Choose another location.")
             });

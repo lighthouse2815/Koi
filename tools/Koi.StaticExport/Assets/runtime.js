@@ -68,14 +68,6 @@
             });
         };
         filter(filters[0], data.locations, state.s, {}, 's');
-        const socials = document.querySelector('.store-socialList'); socials.replaceChildren();
-        (data.socialLinks || []).forEach(value => {
-            const icon = ['Instagram', 'Facebook'].includes(value.label) ? value.label.toLowerCase() : null;
-            const item = create('li', icon ? '' : 'custom'); const link = anchor(value.url, icon ? null : value.label);
-            link.target = '_blank'; link.rel = 'noopener noreferrer'; link.setAttribute('aria-label', value.label);
-            if (icon) { const image = create('img'); image.src = '/images/pages/en/images/store-' + icon + '.svg'; image.width = image.height = 36; image.alt = ''; link.append(image); }
-            item.append(link); socials.append(item);
-        });
         const list = document.querySelector('.storeList'); list.innerHTML = results.slice((page - 1) * 9, page * 9).map(value => value.html).join('');
         document.querySelector('.store-empty')?.remove();
         if (!results.length) { const empty = create('p', 'store-empty', data.labels['No stores match these filters. Choose another location.']); empty.setAttribute('role', 'status'); list.after(empty); }

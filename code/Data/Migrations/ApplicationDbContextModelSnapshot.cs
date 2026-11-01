@@ -651,30 +651,6 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("OrderItem");
                 });
 
-            modelBuilder.Entity("Koi.Web.Models.SocialLink", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SocialLinks");
-                });
-
             modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
                 {
                     b.Property<Guid>("Id")

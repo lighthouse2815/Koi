@@ -14,7 +14,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<NewsArticle> NewsArticles => Set<NewsArticle>();
     public DbSet<StoreCity> StoreCities => Set<StoreCity>();
-    public DbSet<SocialLink> SocialLinks => Set<SocialLink>();
     public DbSet<StoreEntry> Stores => Set<StoreEntry>();
     public DbSet<MenuEntry> Menus => Set<MenuEntry>();
     public DbSet<Category> DrinkCategories => Set<Category>();
