@@ -10,8 +10,6 @@ public class MenuAdminService(ApplicationDbContext database, ImageUploads upload
     public async Task<AdminMenusViewModel> GetListAsync() => new(
         await database.Menus.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync());
 
-    public Task<MenuEditViewModel> CreateAsync() => Task.FromResult(new MenuEditViewModel());
-
     public async Task<MenuEditViewModel?> GetEditAsync(Guid id)
     {
         var value = await database.Menus.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
