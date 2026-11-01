@@ -12,7 +12,6 @@
 </div><aside class="card">
 <label class="check"><input asp-for="IsPublished" /> Hiển thị danh mục và đồ uống bên trong</label>
 <label class="check"><input asp-for="ShowOnHome" /> Hiển thị thẻ trên trang chủ</label>
-<label asp-for="SortOrder">Thứ tự ở Our Tea</label><input asp-for="SortOrder" type="number" min="0" max="100000" />
-<label asp-for="HomeOrder">Thứ tự trên trang chủ</label><input asp-for="HomeOrder" type="number" min="0" max="100000" /><p class="help">Số nhỏ hiển thị trước.</p>
+<label asp-for="SortOrder">Thứ tự hiển thị</label><input asp-for="SortOrder" type="number" min="0" max="100000" />
 <button class="button" type="submit">Lưu danh mục</button>@if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }
 </aside></div></form>

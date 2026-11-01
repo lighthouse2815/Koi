@@ -13,7 +13,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
     {
         var value = await database.DrinkCategories.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DrinkCategoryEditViewModel { Id = id, Revision = value.Revision, Name = value.Name,
-            IsPublished = value.IsPublished, ShowOnHome = value.ShowOnHome, SortOrder = value.SortOrder, HomeOrder = value.HomeOrder,
+            IsPublished = value.IsPublished, ShowOnHome = value.ShowOnHome, SortOrder = value.SortOrder,
             CurrentImage = value.Image, CurrentIcon = value.Icon };
     }
 
@@ -38,7 +38,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
         {
             value.Image = await SaveImage(image, value.Image); value.Icon = await SaveImage(icon, model.RemoveIcon ? "" : value.Icon);
             value.Name = model.Name.Trim();
-            value.SortOrder = model.SortOrder; value.HomeOrder = model.HomeOrder;
+            value.SortOrder = model.SortOrder;
             value.ShowOnHome = model.ShowOnHome; value.IsPublished = model.IsPublished;
             if (id == null)
             {
@@ -46,6 +46,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
                 entry.Property("NameVi").CurrentValue = "";
                 entry.Property("HomeImage").CurrentValue = "";
                 entry.Property("HomeIcon").CurrentValue = "";
+                entry.Property("HomeOrder").CurrentValue = 0;
             }
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); return SaveResult.Success;

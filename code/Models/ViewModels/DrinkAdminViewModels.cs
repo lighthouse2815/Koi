@@ -41,8 +41,6 @@ public class DrinkCategoryEditViewModel
     [Range(0, 100000)]
     public int SortOrder { get; set; }
 
-    [Range(0, 100000)]
-    public int HomeOrder { get; set; }
     public bool ShowOnHome { get; set; }
     public bool IsPublished { get; set; } = true;
     public IFormFile? ImageUpload { get; set; }

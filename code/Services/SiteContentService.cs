@@ -13,7 +13,7 @@ public class SiteContentService(ApplicationDbContext database)
             .OrderBy(article => article.HomeOrder).ThenByDescending(article => article.Date)
             .Take(6).ToArrayAsync();
         var categories = await database.DrinkCategories.AsNoTracking().Where(value => value.IsPublished && value.ShowOnHome)
-            .OrderBy(value => value.HomeOrder).ThenBy(value => value.Id).ToArrayAsync();
+            .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         return new HomeViewModel(news, categories);
     }
 
