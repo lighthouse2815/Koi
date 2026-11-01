@@ -39,7 +39,7 @@ builder.Services.AddScoped<SiteContentService>();
 builder.Services.AddScoped<NewsAdminService>();
 builder.Services.AddScoped<MenuAdminService>();
 builder.Services.AddScoped<DrinkService>();
-builder.Services.AddScoped<FeaturedDrinkAdminService>();
+builder.Services.AddScoped<FeaturedDrinkService>();
 builder.Services.AddScoped<DrinkCategoryService>();
 builder.Services.AddScoped<StoreAdminService>();
 builder.Services.AddScoped<GeographyAdminService>();
