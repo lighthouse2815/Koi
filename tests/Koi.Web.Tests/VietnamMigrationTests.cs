@@ -19,7 +19,9 @@ public class VietnamMigrationTests(NewsApplicationFactory factory) : IClassFixtu
         var vietnam = AdminTestClient.SeedGuid("Markets", 56);
         Assert.False(await database.Markets.AnyAsync(value => value.Id == singapore));
         Assert.True(await database.Markets.AnyAsync(value => value.Id == vietnam));
-        Assert.Equal(6, await database.Stores.CountAsync(value => value.MarketId == vietnam && value.Brand.Name == "KOI Café"));
+        var archived = await database.Database.SqlQuery<int>($"SELECT COUNT(*)::int AS \"Value\" FROM \"ArchivedVietnamStores\" WHERE \"BrandData\"->>'Name' = 'KOI Café'").SingleAsync();
+        Assert.Equal(6, archived);
+        Assert.False(await database.Stores.AnyAsync(value => value.MarketId == vietnam && value.Brand.Name == "KOI Café"));
         Assert.True(await database.Stores.AnyAsync(value => value.MarketId == vietnam && value.Brand.Name == "KOI Thé"));
         Assert.True(await database.Menus.AnyAsync(value => value.MarketId == vietnam));
     }
