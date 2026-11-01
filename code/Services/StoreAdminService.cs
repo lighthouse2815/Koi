@@ -12,7 +12,7 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
         search = search?.Trim();
         if (search?.Length > 200) search = search[..200];
         var query = database.Stores.AsNoTracking();
-        if (!string.IsNullOrEmpty(search)) query = query.Where(value => EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.Address, $"%{search}%") || EF.Functions.ILike(value.NameVi, $"%{search}%") || EF.Functions.ILike(value.AddressVi, $"%{search}%"));
+        if (!string.IsNullOrEmpty(search)) query = query.Where(value => EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.Address, $"%{search}%"));
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 20d));
         page = Math.Clamp(page, 1, pages);
         var rows = await query.Include(value => value.City)
@@ -27,7 +27,7 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
         var value = await database.Stores.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : await Options(new StoreEditViewModel
         {
-            Id = value.Id, Revision = value.Revision, NameVi = value.NameVi, AddressVi = value.AddressVi, HoursVi = value.HoursVi, Name = value.Name, Phone = value.Phone, Hours = value.Hours,
+            Id = value.Id, Revision = value.Revision, Name = value.Name, Phone = value.Phone, Hours = value.Hours,
             Address = value.Address, CityId = value.CityId,
             NavigationUrl = value.NavigationUrl, IsPublished = value.IsPublished, SortOrder = value.SortOrder,
             CountryOrder = value.CountryOrder, CityOrder = value.CityOrder, CurrentImage = value.Photo
@@ -51,7 +51,7 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
             if (image != null) value.Photo = uploaded = await uploads.SaveAsync(image, "stores");
             else if (model.RemoveImage) value.Photo = "";
             value.Name = model.Name.Trim();
-            value.NameVi = model.NameVi?.Trim() ?? ""; value.AddressVi = model.AddressVi?.Trim() ?? ""; value.HoursVi = model.HoursVi?.Trim() ?? ""; value.Address = model.Address?.Trim() ?? "";
+            value.Address = model.Address?.Trim() ?? "";
             value.Phone = model.Phone?.Trim() ?? ""; value.Hours = model.Hours?.Trim() ?? "";
             value.CityId = model.CityId;
             value.NavigationUrl = model.NavigationUrl?.Trim() ?? ""; value.IsPublished = model.IsPublished;

@@ -5,12 +5,6 @@
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
 <div asp-validation-summary="All" class="validation" role="alert"></div>
 <div class="editor-columns"><div class="card">
-<fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>
-<label asp-for="NameVi">Tên chi nhánh tiếng Việt</label><input asp-for="NameVi" maxlength="300" />
-<label asp-for="AddressVi">Địa chỉ tiếng Việt</label><textarea asp-for="AddressVi" rows="4" maxlength="2000"></textarea>
-<label asp-for="HoursVi">Giờ mở cửa tiếng Việt</label><input asp-for="HoursVi" maxlength="500" />
-</fieldset>
-
 <label asp-for="Name">Tên chi nhánh</label><input asp-for="Name" required maxlength="300" />
 <label asp-for="CityId">Khu vực</label><select asp-for="CityId"><option value="">Không phân khu vực</option>@foreach (var city in Model.Cities) { <option value="@city.Id">@city.Name</option> }</select>
 <label asp-for="Address">Địa chỉ</label><textarea asp-for="Address" rows="3" maxlength="2000"></textarea>

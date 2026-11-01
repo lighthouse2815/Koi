@@ -117,7 +117,7 @@ public class OrderController(ApplicationDbContext database) : Controller
             CustomerName = checkout.CustomerName.Trim(), CustomerPhone = checkout.CustomerPhone.Trim(),
             Fulfillment = checkout.Fulfillment, DeliveryAddress = checkout.Fulfillment == FulfillmentMethod.Delivery ? checkout.DeliveryAddress!.Trim() : "",
             Note = checkout.Note?.Trim() ?? "",
-            Items = cart.Items.Select(line => new OrderItem { DrinkName = string.IsNullOrWhiteSpace(drinks[line.DrinkId].NameVi) ? drinks[line.DrinkId].Name : drinks[line.DrinkId].NameVi, Customization = line.Customization, UnitPrice = line.Price, Quantity = line.Quantity }).ToList()
+            Items = cart.Items.Select(line => new OrderItem { DrinkName = drinks[line.DrinkId].Name, Customization = line.Customization, UnitPrice = line.Price, Quantity = line.Quantity }).ToList()
         };
         if (!await database.Orders.AnyAsync(value => value.Id == order.Id))
         {
@@ -158,7 +158,7 @@ public class OrderController(ApplicationDbContext database) : Controller
         var categories = await database.DrinkCategories.AsNoTracking().Where(value => value.IsPublished && value.Drinks.Any(drink => drink.IsPublished))
             .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         var filterName = drinkId.HasValue ? null : categoryId.HasValue
-            ? await database.DrinkCategories.AsNoTracking().Where(value => value.Id == categoryId && value.IsPublished).Select(value => value.NameVi != "" ? value.NameVi : value.Name).SingleOrDefaultAsync() : null;
+            ? await database.DrinkCategories.AsNoTracking().Where(value => value.Id == categoryId && value.IsPublished).Select(value => value.Name).SingleOrDefaultAsync() : null;
         var options = await database.SaleOptions.AsNoTracking().Where(value => value.IsActive).OrderBy(value => value.Name).ToArrayAsync();
         var ids = cart.Items.Select(line => line.DrinkId).ToArray();
         var allCartDrinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id)).ToDictionaryAsync(value => value.Id);
@@ -168,7 +168,7 @@ public class OrderController(ApplicationDbContext database) : Controller
             CategoryId = categoryId, DrinkId = drinkId, FilterName = filterName, Categories = categories,
             Page = page, DrinkCount = drinkCount, HasMoreDrinks = page < pageCount,
             Sizes = options.Where(value => value.Kind == SaleOptionKind.Size).ToArray(), Toppings = options.Where(value => value.Kind == SaleOptionKind.Topping).ToArray(),
-            Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (string.IsNullOrWhiteSpace(d.NameVi) ? d.Name : d.NameVi) : "Món không còn tồn tại", line.Customization, line.Quantity, line.Price)).ToList()
+            Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (d.Name) : "Món không còn tồn tại", line.Customization, line.Quantity, line.Price)).ToList()
         };
     }
 }

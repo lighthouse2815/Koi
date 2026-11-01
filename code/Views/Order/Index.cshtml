@@ -46,18 +46,18 @@
                 <nav class="order-category-nav" aria-label="Danh mục đồ uống">
                     <a asp-action="Index" asp-fragment="drinks" aria-current="@(!Model.CategoryId.HasValue && !Model.DrinkId.HasValue ? "page" : null)"><span aria-hidden="true">✳</span> Tất cả</a>
                     @foreach (var category in Model.Categories) {
-                        <a asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks" aria-current="@(category.Id == Model.CategoryId ? "page" : null)">@(string.IsNullOrWhiteSpace(category.NameVi) ? category.Name : category.NameVi)</a>
+                        <a asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks" aria-current="@(category.Id == Model.CategoryId ? "page" : null)">@(category.Name)</a>
                     }
                 </nav>
                 <div class="drink-results" data-menu-results>
                 <div class="drink-grid">
                     @foreach (var drink in Model.Drinks) {
-                        var name = string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi;
+                        var name = drink.Name;
                         var hasImage = !string.IsNullOrWhiteSpace(drink.Image);
                         <article class="drink-card" data-drink-id="@drink.Id">
                             <div class="drink-visual"><img class="order-drink-image" src="@(hasImage ? drink.Image : drink.Category.Image)" alt="@name" loading="lazy" />@if (!hasImage) { <small>Ảnh danh mục</small> }</div>
                             <div class="drink-card-content">
-                                <p class="drink-category-label">@(string.IsNullOrWhiteSpace(drink.Category.NameVi) ? drink.Category.Name : drink.Category.NameVi)</p>
+                                <p class="drink-category-label">@(drink.Category.Name)</p>
                                 <h3>@name</h3>
                                 <div class="drink-buy-row"><p class="drink-price">@(drink.Price > 0 ? drink.Price.Value.ToString("N0", culture) + " đ" : "Chưa mở bán")</p>
                                     @if (!(drink.Price > 0)) { <span class="unavailable-label">Tạm ngưng</span> }

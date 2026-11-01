@@ -295,8 +295,8 @@ Trang bìa thay lựa chọn tiếng Trung bằng **TIẾNG VIỆT**, giữ **EN
 
 - `code/Resources/Localization/SiteText.vi.resx`: bản dịch giao diện, nội dung các trang tĩnh và nhãn tương tác.
 - `code/Resources/Localization/SiteText.resx`: nội dung tiếng Anh tương ứng; các khóa chỉ khác hoa/thường được phân biệt bằng hậu tố `__text`.
-- `code/Localization/SiteText.cs`: chọn trường nội dung theo ngôn ngữ và định dạng ngày.
-- Các form quản trị có nhóm **Nội dung tiếng Việt** cho tin tức, đồ uống, danh mục, New Drinks, thực đơn, quốc gia/khu vực/thương hiệu và cửa hàng. Để trống một trường tiếng Việt sẽ hiển thị nội dung gốc.
+- `code/Localization/SiteText.cs`: xác định ngôn ngữ và định dạng ngày.
+- Giao diện chuyển VI/EN; nội dung từ database dùng các trường gốc như `Name` và `Title` ở cả hai ngôn ngữ. Các cột nội dung tiếng Việt cũ được giữ nguyên trong database nhưng không còn xuất hiện trên form quản trị.
 - Migration thêm cột tiếng Việt, giữ dữ liệu tiếng Anh; nhập một lần bản dịch 13 bài News, 54 món, 7 danh mục, 4 mục New Drinks và tên quốc gia/khu vực. HTML tiếng Việt được làm sạch như nội dung tiếng Anh. Tìm kiếm quản trị News, đồ uống và cửa hàng nhận cả nội dung gốc lẫn tiếng Việt.
 
 Tên riêng thương hiệu, địa chỉ cửa hàng tại nước ngoài và ảnh thực đơn/poster gốc được giữ nguyên; có thể nhập tên/địa chỉ tiếng Việt riêng trong quản trị. Video và các hình nhận diện thương hiệu vẫn dùng tài nguyên đã duyệt. Contact tiếp tục không gửi form.

@@ -4,11 +4,6 @@
 <form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor">
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" /><div asp-validation-summary="All" class="validation" role="alert"></div>
 <div class="editor-columns"><div class="card">
-<fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>
-<label asp-for="NameVi">Tên tiếng Việt</label><input asp-for="NameVi" maxlength="250" />
-<input asp-for="RegionVi" type="hidden" />
-</fieldset>
-
 <label asp-for="Name">Tên đồ uống / bộ sưu tập</label><input asp-for="Name" maxlength="250" required />
 <input asp-for="Region" type="hidden" />
 <label asp-for="ImageUpload">Ảnh đồ uống</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }<input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />

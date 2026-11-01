@@ -4,12 +4,6 @@
 <form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor">
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" /><div asp-validation-summary="All" class="validation" role="alert"></div>
 <div class="editor-columns"><div class="card">
-<fieldset><legend>Nội dung tiếng Việt</legend><p class="help">Để trống để dùng nội dung gốc. Nội dung tiếng Anh được giữ riêng.</p>
-<label asp-for="NameVi">Tên đồ uống tiếng Việt</label><input asp-for="NameVi" maxlength="250" />
-<input asp-for="RegionVi" type="hidden" />
-<label asp-for="DescriptionVi">Mô tả tiếng Việt</label><textarea asp-for="DescriptionVi" rows="4" maxlength="4000"></textarea>
-</fieldset>
-
 <label asp-for="Name">Tên đồ uống</label><input asp-for="Name" maxlength="250" required />
 <label asp-for="CategoryId">Danh mục</label><select asp-for="CategoryId" asp-items="Model.Categories" required><option value="">Chọn danh mục</option></select>
 <input asp-for="Region" type="hidden" />

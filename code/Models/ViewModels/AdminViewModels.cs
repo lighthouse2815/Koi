@@ -15,12 +15,6 @@ public class LoginViewModel
 
 public class NewsEditViewModel
 {
-    [StringLength(300)]
-    public string? TitleVi { get; set; }
-
-    [StringLength(200000)]
-    public string? BodyHtmlVi { get; set; }
-
     public Guid Id { get; set; }
     public int Revision { get; set; }
 

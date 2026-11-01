@@ -5,7 +5,7 @@
 <h2>Giá đồ uống dùng chung</h2><p>Chỉ món đã xuất bản, thuộc danh mục hiển thị và có giá mới nhận đặt hàng. Để trống giá để ngừng bán.</p>
 <table><thead><tr><th>Đồ uống</th><th>Danh mục</th><th>Giá (đồng)</th></tr></thead><tbody>
 @foreach (var drink in Model.Drinks) {
-<tr><td>@(string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi) @(!drink.IsPublished || !drink.Category.IsPublished ? "(đang ẩn)" : "")</td><td>@drink.Category.Name</td><td>
+<tr><td>@(drink.Name) @(!drink.IsPublished || !drink.Category.IsPublished ? "(đang ẩn)" : "")</td><td>@drink.Category.Name</td><td>
 <form asp-action="Price" method="post"><input type="hidden" name="id" value="@drink.Id" /><input type="hidden" name="revision" value="@drink.Revision" /><input name="price" type="number" min="1" max="999999999" step="1" value="@drink.Price" aria-label="Giá @drink.Name" /><button type="submit">Lưu giá</button></form>
 </td></tr>
 }

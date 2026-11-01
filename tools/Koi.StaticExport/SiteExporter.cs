@@ -98,7 +98,7 @@ internal sealed class SiteExporter
             if (!cards.Keys.Order().SequenceEqual(stores.Select(value => value.Id).Order())) throw new InvalidOperationException("Dữ liệu cửa hàng trên web và database không khớp.");
             await WriteJson($"data/stores-{language}.json", new
             {
-                locations = cities.Select(value => new { value.Id, name = Select(value.Name, value.NameVi, language) }),
+                locations = cities.Select(value => new { value.Id, name = value.Name }),
                 socialLinks = socialLinks.Select(value => new { value.Label, value.Url }),
                 stores = stores.Select(value => new { value.Id, locationId = value.CityId, value.CountryOrder, locationOrder = value.CityOrder, html = cards[value.Id] }),
                 labels = Text(language, "All__text", "prev", "next", "Page {0} of {1}", "Store pages", "No stores match these filters. Choose another location.")
@@ -245,7 +245,6 @@ internal sealed class SiteExporter
     }
 
     private Dictionary<string, string> Text(string language, params string[] keys) => keys.ToDictionary(key => key, key => labels.GetString(key, CultureInfo.GetCultureInfo(language)) ?? key);
-    private static string Select(string english, string vietnamese, string language) => language == "vi" && !string.IsNullOrWhiteSpace(vietnamese) ? vietnamese : english;
     private static string Html(IDocument page) => "<!DOCTYPE html>\n" + Regex.Replace(page.DocumentElement.OuterHtml, "[ \\t]+(?=\\r?$)", "", RegexOptions.Multiline) + "\n";
     private async Task Write(string relative, string content)
     {

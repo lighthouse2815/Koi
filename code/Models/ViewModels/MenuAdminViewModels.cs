@@ -6,9 +6,6 @@ namespace Koi.Web.Models;
 
 public class MenuEditViewModel
 {
-    [StringLength(200)]
-    public string? LabelVi { get; set; }
-
     public Guid Id { get; set; }
     public int Revision { get; set; }
 

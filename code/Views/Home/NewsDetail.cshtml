@@ -1,6 +1,6 @@
 @model NewsArticle
 @{
-    ViewData["Title"] = SiteText.Select(Model.Title, Model.TitleVi);
+    ViewData["Title"] = Model.Title;
     Layout = "~/code/Views/Shared/_Layout.cshtml";
 }
 @section Styles {
@@ -16,7 +16,7 @@
     <div class="banner-area">
         <div class="head-area">
             <div class="info-area"><div class="cat">@T[Model.Category]</div><div class="date">(@SiteText.Date(Model.Date))</div></div>
-            <h1 class="title">@SiteText.Select(Model.Title, Model.TitleVi)</h1>
+            <h1 class="title">@Model.Title</h1>
         </div>
         <div class="banner">
             @if (!string.IsNullOrEmpty(Model.BannerImage))
@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="detailWrap">
-        <div class="detail-area">@Html.Raw(SiteText.Select(Model.BodyHtml, Model.BodyHtmlVi))</div>
+        <div class="detail-area">@Html.Raw(Model.BodyHtml)</div>
 <div class="other-area flex-container align-justify"><a href="/Home/News" aria-label="@T["Back to news"]">
       <div class="back">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">←</span>@T["( Back )"]</span> }
        <svg class="show-for-large" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="90" height="74.44" viewBox="0 0 90 74.44"><g data-name="layout">

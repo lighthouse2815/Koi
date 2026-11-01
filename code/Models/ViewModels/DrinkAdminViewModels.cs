@@ -7,15 +7,6 @@ namespace Koi.Web.Models;
 
 public class DrinkEditViewModel
 {
-    [StringLength(250)]
-    public string? NameVi { get; set; }
-
-    [StringLength(150)]
-    public string? RegionVi { get; set; }
-
-    [StringLength(4000)]
-    public string? DescriptionVi { get; set; }
-
     public Guid Id { get; set; }
     public int Revision { get; set; }
 
@@ -44,9 +35,6 @@ public class DrinkEditViewModel
 
 public class DrinkCategoryEditViewModel
 {
-    [StringLength(200)]
-    public string? NameVi { get; set; }
-
     public Guid Id { get; set; }
     public int Revision { get; set; }
 
@@ -81,12 +69,6 @@ public class DrinkCategoryEditViewModel
 
 public class FeaturedDrinkEditViewModel
 {
-    [StringLength(250)]
-    public string? NameVi { get; set; }
-
-    [StringLength(150)]
-    public string? RegionVi { get; set; }
-
     public Guid Id { get; set; }
     public int Revision { get; set; }
 

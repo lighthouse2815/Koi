@@ -12,7 +12,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
     public async Task<DrinkCategoryEditViewModel?> GetEditAsync(Guid id)
     {
         var value = await database.DrinkCategories.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? null : new DrinkCategoryEditViewModel { Id = id, Revision = value.Revision, NameVi = value.NameVi, Name = value.Name,
+        return value == null ? null : new DrinkCategoryEditViewModel { Id = id, Revision = value.Revision, Name = value.Name,
             IsPublished = value.IsPublished, ShowOnHome = value.ShowOnHome, SortOrder = value.SortOrder, HomeOrder = value.HomeOrder,
             CurrentImage = value.Image, CurrentIcon = value.Icon, CurrentHomeImage = value.HomeImage, CurrentHomeIcon = value.HomeIcon };
     }
@@ -43,7 +43,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
             value.Image = await SaveImage(image, value.Image); value.Icon = await SaveImage(icon, model.RemoveIcon ? "" : value.Icon);
             value.HomeImage = await SaveImage(homeImage, value.HomeImage); value.HomeIcon = await SaveImage(homeIcon, value.HomeIcon);
             value.Name = model.Name.Trim();
-            value.NameVi = model.NameVi?.Trim() ?? ""; value.SortOrder = model.SortOrder; value.HomeOrder = model.HomeOrder;
+            value.SortOrder = model.SortOrder; value.HomeOrder = model.HomeOrder;
             value.ShowOnHome = model.ShowOnHome; value.IsPublished = model.IsPublished;
             if (id == null) database.DrinkCategories.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }

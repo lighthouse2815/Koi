@@ -24,7 +24,7 @@ public class GeographyAdminService(ApplicationDbContext database, ILogger<Geogra
         if (kind != "cities") return null;
         var city = await database.StoreCities.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return city == null ? null : new GeographyEditViewModel { Id = city.Id, Revision = city.Revision, Kind = kind,
-            Name = city.Name, NameVi = city.NameVi, SortOrder = city.SortOrder };
+            Name = city.Name, SortOrder = city.SortOrder };
     }
 
     public async Task<SaveResult> SaveAsync(GeographyEditViewModel model, Guid? id, ModelStateDictionary modelState)
@@ -34,7 +34,6 @@ public class GeographyAdminService(ApplicationDbContext database, ILogger<Geogra
         if (city == null) return SaveResult.NotFound;
         if (!modelState.IsValid) return SaveResult.Invalid;
         city.Name = model.Name.Trim();
-        city.NameVi = model.NameVi?.Trim() ?? "";
         city.SortOrder = model.SortOrder;
         if (id == null) database.StoreCities.Add(city);
         else { database.Entry(city).Property(value => value.Revision).OriginalValue = model.Revision; city.Revision++; }

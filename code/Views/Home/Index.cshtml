@@ -88,11 +88,11 @@
         {
             <a class="drink-card" href="@Url.Action("OurTea", "Home")#@drink.Id">
                 <div class="drink-photo">
-                    <img src="@drink.HomeImage" alt="@SiteText.Select(drink.Name, drink.NameVi) collection" width="600" height="600" loading="lazy" />
+                    <img src="@drink.HomeImage" alt="@drink.Name collection" width="600" height="600" loading="lazy" />
                     <img class="drink-photo-circle" src="@drink.HomeImage" alt="" width="600" height="600" loading="lazy" aria-hidden="true" />
                     <span class="drink-view-more" aria-hidden="true">@T["VIEW"]<br />@T["MORE ↗"]</span>
                 </div>
-                <h3><img src="@drink.HomeIcon" alt="" width="32" height="44" loading="lazy" />@SiteText.Select(drink.Name, drink.NameVi)<span aria-hidden="true">↗</span></h3>
+                <h3><img src="@drink.HomeIcon" alt="" width="32" height="44" loading="lazy" />@drink.Name<span aria-hidden="true">↗</span></h3>
             </a>
         }
     </div>
@@ -115,8 +115,8 @@
                 var article = Model.News[index];
                 <article class="news-slide" id="news-@(index + 1)" aria-roledescription="slide" aria-label="@(index + 1) of @Model.News.Count" hidden="@(index > 0)">
                     <a asp-action="NewsDetail" asp-route-id="@article.Id" class="news-link">
-                        <img class="news-image" src="@(string.IsNullOrEmpty(article.HomeImage) ? article.Image : article.HomeImage)" alt="@SiteText.Select(article.Title, article.TitleVi)" width="840" height="520" loading="lazy" />
-                        <div class="news-copy"><time datetime="@article.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(article.Date))</time><h3>@SiteText.Select(article.Title, article.TitleVi)</h3><span class="news-more"><span aria-hidden="true">→</span>@T["( More )"]</span></div>
+                        <img class="news-image" src="@(string.IsNullOrEmpty(article.HomeImage) ? article.Image : article.HomeImage)" alt="@article.Title" width="840" height="520" loading="lazy" />
+                        <div class="news-copy"><time datetime="@article.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(article.Date))</time><h3>@article.Title</h3><span class="news-more"><span aria-hidden="true">→</span>@T["( More )"]</span></div>
                     </a>
                 </article>
             }

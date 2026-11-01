@@ -1,5 +1,4 @@
 using Koi.Web.Data;
-using Koi.Web.Localization;
 using Koi.Web.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,16 +57,16 @@ public class SiteContentService(ApplicationDbContext database)
         page = Math.Clamp(page, 1, pages);
         var rows = await query.OrderBy(value => s != Guid.Empty ? value.CityOrder : value.CountryOrder).ThenBy(value => value.Id)
             .Skip((page - 1) * pageSize).Take(pageSize).ToArrayAsync();
-        var stores = rows.Select(value => new StoreBranch(value.Id, SiteText.Select(value.Name, value.NameVi), value.Phone,
-            SiteText.Select(value.Hours, value.HoursVi), SiteText.Select(value.Address, value.AddressVi), shop.Logo, value.Photo, value.NavigationUrl)).ToArray();
+        var stores = rows.Select(value => new StoreBranch(value.Id, value.Name, value.Phone,
+            value.Hours, value.Address, shop.Logo, value.Photo, value.NavigationUrl)).ToArray();
         var links = await database.SocialLinks.AsNoTracking().OrderBy(value => value.SortOrder).Select(value => new StoreSocialLink(value.Url, value.Label)).ToArrayAsync();
-        return new StoreViewModel(cities.Select(value => new StoreLocation(value.Id, SiteText.Select(value.Name, value.NameVi))).ToArray(), stores, links, SiteText.Select(shop.Name, shop.NameVi), s, page, pages);
+        return new StoreViewModel(cities.Select(value => new StoreLocation(value.Id, value.Name)).ToArray(), stores, links, shop.Name, s, page, pages);
     }
 
     public async Task<MenuViewModel> GetMenusAsync()
     {
         var menus = await database.Menus.AsNoTracking().Where(value => value.IsPublished).OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
-        return new MenuViewModel(menus.Select(value => new MenuDocument(SiteText.Select(value.Label, value.LabelVi), value.File)).ToArray());
+        return new MenuViewModel(menus.Select(value => new MenuDocument(value.Label, value.File)).ToArray());
     }
 
     public Task<NewsArticle?> GetArticleAsync(Guid id, bool publishedOnly) =>

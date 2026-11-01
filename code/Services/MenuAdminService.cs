@@ -15,8 +15,7 @@ public class MenuAdminService(ApplicationDbContext database, ImageUploads upload
     public async Task<MenuEditViewModel?> GetEditAsync(Guid id)
     {
         var value = await database.Menus.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? null : new MenuEditViewModel { Id = id, Revision = value.Revision, LabelVi = value.LabelVi,
-            Label = value.Label, SortOrder = value.SortOrder, IsPublished = value.IsPublished,
+        return value == null ? null : new MenuEditViewModel { Id = id, Revision = value.Revision, Label = value.Label, SortOrder = value.SortOrder, IsPublished = value.IsPublished,
             CurrentImage = value.File };
     }
 
@@ -34,7 +33,7 @@ public class MenuAdminService(ApplicationDbContext database, ImageUploads upload
         {
             if (image != null) value.File = uploaded = await uploads.SaveAsync(image, "menus");
             value.Label = model.Label.Trim();
-            value.LabelVi = model.LabelVi?.Trim() ?? ""; value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
+            value.SortOrder = model.SortOrder; value.IsPublished = model.IsPublished;
             if (id == null) database.Menus.Add(value);
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync(); return SaveResult.Success;

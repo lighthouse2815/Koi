@@ -13,7 +13,7 @@ public class NewsAdminService(ApplicationDbContext database, ImageUploads upload
         search = search?.Trim();
         if (search?.Length > 200) search = search[..200];
         var query = database.NewsArticles.AsNoTracking();
-        if (!string.IsNullOrEmpty(search)) query = query.Where(article => (EF.Functions.ILike(article.Title, $"%{search}%") || EF.Functions.ILike(article.TitleVi, $"%{search}%")));
+        if (!string.IsNullOrEmpty(search)) query = query.Where(article => (EF.Functions.ILike(article.Title, $"%{search}%")));
         const int pageSize = 20;
         var pageCount = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / (double)pageSize));
         page = Math.Clamp(page, 1, pageCount);
@@ -27,7 +27,7 @@ public class NewsAdminService(ApplicationDbContext database, ImageUploads upload
         var article = await database.NewsArticles.AsNoTracking().SingleOrDefaultAsync(article => article.Id == id);
         return article == null ? null : new NewsEditViewModel
         {
-            Id = article.Id, Revision = article.Revision, TitleVi = article.TitleVi, BodyHtmlVi = article.BodyHtmlVi, Title = article.Title, Category = article.Category,
+            Id = article.Id, Revision = article.Revision, Title = article.Title, Category = article.Category,
             Date = article.Date, BodyHtml = article.BodyHtml, CurrentImage = article.Image,
             VideoUrl = article.VideoId == null ? null : $"https://www.youtube.com/embed/{article.VideoId}",
             IsPublished = article.IsPublished, IsFeatured = article.IsFeatured,
@@ -65,8 +65,8 @@ public class NewsAdminService(ApplicationDbContext database, ImageUploads upload
                 article.HomeImage = "";
             }
             article.Title = model.Title.Trim();
-            article.TitleVi = model.TitleVi?.Trim() ?? "";
-            article.BodyHtmlVi = sanitizer.Sanitize(model.BodyHtmlVi ?? "").Trim();
+
+
             article.Category = model.Category;
             article.Date = model.Date!.Value;
             if (article.VideoId != null && videoId == null && string.IsNullOrEmpty(article.BannerImage))
