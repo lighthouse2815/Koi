@@ -7,7 +7,7 @@ namespace Koi.Web.Services;
 
 public class MenuAdminService(ApplicationDbContext database, ImageUploads uploads, ILogger<MenuAdminService> logger)
 {
-    public async Task<AdminMenusViewModel> GetListAsync(Guid marketId) => new(
+    public async Task<AdminMenusViewModel> GetListAsync() => new(
         await database.Menus.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync());
 
     public Task<MenuEditViewModel> CreateAsync() => Task.FromResult(new MenuEditViewModel());

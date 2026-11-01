@@ -7,7 +7,7 @@ namespace Koi.Web.Services;
 
 public class StoreAdminService(ApplicationDbContext database, ImageUploads uploads, ILogger<StoreAdminService> logger)
 {
-    public async Task<AdminStoresViewModel> GetListAsync(string? search, Guid marketId = default, int page = 1)
+    public async Task<AdminStoresViewModel> GetListAsync(string? search, int page = 1)
     {
         search = search?.Trim();
         if (search?.Length > 200) search = search[..200];

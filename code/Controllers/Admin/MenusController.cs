@@ -8,7 +8,7 @@ namespace Koi.Web.Controllers.Admin;
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class MenusController(MenuAdminService menus) : Controller
 {
-    public async Task<IActionResult> Index(Guid marketId = default) => View(await menus.GetListAsync(marketId));
+    public async Task<IActionResult> Index() => View(await menus.GetListAsync());
     public async Task<IActionResult> Create() => View("Edit", await menus.CreateAsync());
     public async Task<IActionResult> Edit(Guid id)
     {

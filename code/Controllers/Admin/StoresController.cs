@@ -8,7 +8,7 @@ namespace Koi.Web.Controllers.Admin;
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class StoresController(StoreAdminService stores) : Controller
 {
-    public async Task<IActionResult> Index(string? search, Guid marketId = default, int page = 1) => View(await stores.GetListAsync(search, marketId, page));
+    public async Task<IActionResult> Index(string? search, int page = 1) => View(await stores.GetListAsync(search, page));
     public async Task<IActionResult> Create() => View("Edit", await stores.CreateAsync());
     public async Task<IActionResult> Edit(Guid id)
     {
