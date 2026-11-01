@@ -30,7 +30,7 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
             Id = value.Id, Revision = value.Revision, Name = value.Name, Phone = value.Phone, Hours = value.Hours,
             Address = value.Address, CityId = value.CityId,
             NavigationUrl = value.NavigationUrl, IsPublished = value.IsPublished, SortOrder = value.SortOrder,
-            CityOrder = value.CityOrder, CurrentImage = value.Photo
+            CurrentImage = value.Photo
         });
     }
 
@@ -55,8 +55,13 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
             value.Phone = model.Phone?.Trim() ?? ""; value.Hours = model.Hours?.Trim() ?? "";
             value.CityId = model.CityId;
             value.NavigationUrl = model.NavigationUrl?.Trim() ?? ""; value.IsPublished = model.IsPublished;
-            value.SortOrder = model.SortOrder; value.CityOrder = model.CityOrder;
-            if (id == null) database.Stores.Add(value).Property("CountryOrder").CurrentValue = 0;
+            value.SortOrder = model.SortOrder;
+            if (id == null)
+            {
+                var entry = database.Stores.Add(value);
+                entry.Property("CountryOrder").CurrentValue = 0;
+                entry.Property("CityOrder").CurrentValue = 0;
+            }
             else { database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision; value.Revision++; }
             await database.SaveChangesAsync();
             return SaveResult.Success;

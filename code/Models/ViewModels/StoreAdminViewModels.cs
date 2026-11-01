@@ -29,8 +29,6 @@ public class StoreEditViewModel
     [Range(0, 1000000)]
     public int SortOrder { get; set; } = 10000;
 
-    [Range(0, 1000000)]
-    public int CityOrder { get; set; } = 10000;
     public IFormFile? ImageUpload { get; set; }
     public bool RemoveImage { get; set; }
 
