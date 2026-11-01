@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
-public class NewsController(NewsAdminService news) : Controller
+public class NewsController(NewsService news) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Index(string? search, int page = 1) => View(await news.GetListAsync(search, page));

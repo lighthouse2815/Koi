@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class NewsAdminService(
+public class NewsService(
     ApplicationDbContext database,
     ImageUploads uploads,
-    ILogger<NewsAdminService> logger
+    ILogger<NewsService> logger
 )
 {
     public async Task<AdminNewsViewModel> GetListAsync(string? search, int page = 1)
