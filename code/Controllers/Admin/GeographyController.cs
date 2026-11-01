@@ -62,12 +62,12 @@ public class GeographyController(GeographyAdminService geography) : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id, string kind)
     {
-        var model = await geography.GetDeleteAsync(id, kind);
-        if (model == null) return NotFound();
         var result = await geography.DeleteAsync(id, kind, ModelState);
         if (result == SaveResult.NotFound) return NotFound();
         if (result == SaveResult.Conflict)
         {
+            var model = await geography.GetDeleteAsync(id, kind);
+            if (model == null) return NotFound();
             Response.StatusCode = StatusCodes.Status409Conflict;
             return View("~/code/Views/Admin/Shared/Delete.cshtml", model);
         }

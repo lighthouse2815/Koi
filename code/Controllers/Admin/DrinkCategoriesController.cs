@@ -46,12 +46,12 @@ public class DrinkCategoriesController(DrinkCategoryAdminService categories) : C
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        var model = await categories.GetDeleteAsync(id);
-        if (model == null) return NotFound();
         var result = await categories.DeleteAsync(id, ModelState);
         if (result == SaveResult.NotFound) return NotFound();
         if (result == SaveResult.Conflict)
         {
+            var model = await categories.GetDeleteAsync(id);
+            if (model == null) return NotFound();
             Response.StatusCode = StatusCodes.Status409Conflict;
             return View("~/code/Views/Admin/Shared/Delete.cshtml", model);
         }
