@@ -55,7 +55,7 @@ public class HomeController(SiteContentService site) : Controller
         return View("NewsDetail", article);
     }
 
-    public async Task<IActionResult> Store(Guid c = default, Guid s = default, Guid b = default, int page = 1) => View(await site.GetStoresAsync(c, s, b, page));
+    public async Task<IActionResult> Store(Guid s = default, int page = 1) => View(await site.GetStoresAsync(s, page));
 
     public IActionResult Impact()
     {

@@ -47,7 +47,7 @@ public class SiteContentService(ApplicationDbContext database, IConfiguration co
             category, page, pageCount);
     }
 
-    public async Task<StoreViewModel> GetStoresAsync(Guid c = default, Guid s = default, Guid b = default, int page = 1)
+    public async Task<StoreViewModel> GetStoresAsync(Guid s = default, int page = 1)
     {
         var brandName = configuration["Brand:Name"] ?? throw new InvalidOperationException("Configure Brand:Name.");
         var brandLogo = configuration["Brand:Logo"] ?? throw new InvalidOperationException("Configure Brand:Logo.");
