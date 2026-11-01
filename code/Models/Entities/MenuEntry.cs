@@ -4,9 +4,6 @@ namespace Koi.Web.Models;
 
 public class MenuEntry
 {
-    [StringLength(200)]
-    public string LabelVi { get; set; } = "";
-
     public Guid Id { get; set; }
 
     [Required, StringLength(200)]

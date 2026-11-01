@@ -29,6 +29,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         base.OnModelCreating(builder);
         builder.Entity<StoreEntry>().HasOne(value => value.City).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<StoreEntry>().HasIndex(value => new { value.IsPublished, value.CityId });
+        builder.Entity<MenuEntry>().Property<string>("LabelVi").HasMaxLength(200).IsRequired();
         builder.Entity<MenuEntry>().HasIndex(value => new { value.IsPublished, value.SortOrder });
         builder.Entity<Category>().ToTable("Category");
         builder.Entity<Category>().Property<int>("HomeOrder");
