@@ -7,7 +7,7 @@ namespace Koi.Web.Services;
 
 public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploads uploads, ILogger<DrinkCategoryAdminService> logger)
 {
-    public Task<DrinkCategory[]> GetListAsync() => database.DrinkCategories.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
+    public Task<Category[]> GetListAsync() => database.DrinkCategories.AsNoTracking().OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
 
     public async Task<DrinkCategoryEditViewModel?> GetEditAsync(Guid id)
     {
@@ -19,7 +19,7 @@ public class DrinkCategoryAdminService(ApplicationDbContext database, ImageUploa
 
     public async Task<SaveResult> SaveAsync(DrinkCategoryEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
-        var value = id.HasValue ? await database.DrinkCategories.SingleOrDefaultAsync(value => value.Id == id) : new DrinkCategory();
+        var value = id.HasValue ? await database.DrinkCategories.SingleOrDefaultAsync(value => value.Id == id) : new Category();
         if (value == null) return SaveResult.NotFound;
         model.CurrentImage = value.Image; model.CurrentIcon = value.Icon;
         model.CurrentHomeImage = value.HomeImage; model.CurrentHomeIcon = value.HomeIcon;

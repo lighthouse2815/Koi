@@ -1,3 +1,3 @@
 namespace Koi.Web.Models;
 
-public record OurTeaViewModel(DrinkCategory[] Categories, FeaturedDrink[] Featured);
+public record OurTeaViewModel(Category[] Categories, FeaturedDrink[] Featured);

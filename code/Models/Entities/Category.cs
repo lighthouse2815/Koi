@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Koi.Web.Models;
 
-public class DrinkCategory
+public class Category
 {
     public Guid Id { get; set; }
 

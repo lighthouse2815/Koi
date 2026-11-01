@@ -7,7 +7,7 @@ public class Drink
     public Guid Id { get; set; }
 
     public Guid CategoryId { get; set; }
-    public DrinkCategory Category { get; set; } = null!;
+    public Category Category { get; set; } = null!;
 
     [Required, StringLength(250)]
     public string Name { get; set; } = "";

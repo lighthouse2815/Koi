@@ -17,7 +17,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<SocialLink> SocialLinks => Set<SocialLink>();
     public DbSet<StoreEntry> Stores => Set<StoreEntry>();
     public DbSet<MenuEntry> Menus => Set<MenuEntry>();
-    public DbSet<DrinkCategory> DrinkCategories => Set<DrinkCategory>();
+    public DbSet<Category> DrinkCategories => Set<Category>();
     public DbSet<Drink> Drinks => Set<Drink>();
     public DbSet<FeaturedDrink> FeaturedDrinks => Set<FeaturedDrink>();
     public DbSet<Order> Orders => Set<Order>();
@@ -30,7 +30,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<StoreEntry>().HasOne(value => value.City).WithMany().OnDelete(DeleteBehavior.Restrict);
         builder.Entity<StoreEntry>().HasIndex(value => new { value.IsPublished, value.CityId });
         builder.Entity<MenuEntry>().HasIndex(value => new { value.IsPublished, value.SortOrder });
-        builder.Entity<DrinkCategory>().Property<string>("NameVi").HasMaxLength(200).IsRequired();
+        builder.Entity<Category>().ToTable("Category");
+        builder.Entity<Category>().Property<string>("NameVi").HasMaxLength(200).IsRequired();
         builder.Entity<Drink>().HasOne(value => value.Category).WithMany(value => value.Drinks).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.IsPublished, value.SortOrder });
         // Preserve legacy database columns without exposing them on the entity.
