@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class GeographyAdminService(
+public class GeographyService(
     ApplicationDbContext database,
-    ILogger<GeographyAdminService> logger
+    ILogger<GeographyService> logger
 )
 {
     public async Task<GeographyIndexViewModel?> GetListAsync(string kind = "cities")

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
-public class GeographyController(GeographyAdminService geography) : Controller
+public class GeographyController(GeographyService geography) : Controller
 {
     public async Task<IActionResult> Index(string kind = "cities")
     {
@@ -18,7 +18,7 @@ public class GeographyController(GeographyAdminService geography) : Controller
     {
         var model = await geography.CreateAsync(kind);
         if (model == null) return NotFound();
-        ViewData["KindTitle"] = GeographyAdminService.Title(kind);
+        ViewData["KindTitle"] = GeographyService.Title(kind);
         return View("Edit", model);
     }
 
@@ -26,7 +26,7 @@ public class GeographyController(GeographyAdminService geography) : Controller
     {
         var model = await geography.GetEditAsync(id, kind);
         if (model == null) return NotFound();
-        ViewData["KindTitle"] = GeographyAdminService.Title(kind);
+        ViewData["KindTitle"] = GeographyService.Title(kind);
         return View(model);
     }
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
@@ -50,7 +50,7 @@ public class GeographyController(GeographyAdminService geography) : Controller
             SaveResult.Conflict => StatusCodes.Status409Conflict,
             _ => StatusCodes.Status503ServiceUnavailable
         };
-        ViewData["KindTitle"] = GeographyAdminService.Title(model.Kind);
+        ViewData["KindTitle"] = GeographyService.Title(model.Kind);
         return View("Edit", model);
     }
 
