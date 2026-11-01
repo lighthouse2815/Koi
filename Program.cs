@@ -40,7 +40,7 @@ builder.Services.AddScoped<NewsAdminService>();
 builder.Services.AddScoped<MenuAdminService>();
 builder.Services.AddScoped<DrinkService>();
 builder.Services.AddScoped<FeaturedDrinkAdminService>();
-builder.Services.AddScoped<DrinkCategoryAdminService>();
+builder.Services.AddScoped<DrinkCategoryService>();
 builder.Services.AddScoped<StoreAdminService>();
 builder.Services.AddScoped<GeographyAdminService>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(

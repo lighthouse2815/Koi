@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
-public class DrinkCategoriesController(DrinkCategoryAdminService categories) : Controller
+public class DrinkCategoriesController(DrinkCategoryService categories) : Controller
 {
     public async Task<IActionResult> Index() => View(await categories.GetListAsync());
     public IActionResult Create() => View("Edit", new DrinkCategoryEditViewModel());
