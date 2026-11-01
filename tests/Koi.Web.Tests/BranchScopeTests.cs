@@ -1,5 +1,6 @@
 using System.Net;
 using Koi.Web.Data;
+using Koi.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -18,9 +19,12 @@ public class BranchScopeTests(NewsApplicationFactory factory) : IClassFixture<Ne
         {
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             var settings = await db.ShopSettings.SingleAsync();
-            var store = await db.Stores.AsNoTracking().FirstAsync(value => value.MarketId != settings.MarketId);
-            var menu = await db.Menus.AsNoTracking().FirstAsync(value => value.MarketId != settings.MarketId);
-            foreignStoreId = store.Id; foreignMenuId = menu.Id; foreignMarketId = menu.MarketId;
+            var foreignMarket = new Market { Name = "Thị trường kiểm thử " + Guid.NewGuid() };
+            var store = new StoreEntry { Name = "Chi nhánh kiểm thử", Market = foreignMarket, BrandId = settings.BrandId!.Value };
+            var menu = new MenuEntry { Label = "Thực đơn kiểm thử", File = "/test.png", Market = foreignMarket };
+            db.AddRange(store, menu);
+            await db.SaveChangesAsync();
+            foreignStoreId = store.Id; foreignMenuId = menu.Id; foreignMarketId = foreignMarket.Id;
         }
         Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync($"/Admin/Stores/Edit/{foreignStoreId}")).StatusCode);
         Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync($"/Admin/Stores/Delete/{foreignStoreId}")).StatusCode);
