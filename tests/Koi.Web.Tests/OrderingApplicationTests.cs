@@ -1,4 +1,5 @@
 using System.Net;
+using AngleSharp.Html.Parser;
 using Koi.Web.Data;
 using Koi.Web.Models;
 using Microsoft.EntityFrameworkCore;
@@ -142,6 +143,59 @@ public class OrderingApplicationTests(NewsApplicationFactory factory) : IClassFi
         var cartPage = await client.GetStringAsync(add.Headers.Location);
         Assert.Contains("cart-line", cartPage);
         Assert.DoesNotContain(secondId.ToString(), cartPage);
+    }
+
+    [Fact]
+    public async Task MenuBatchesKeepCategoryAndBranchWithoutRepeatingDrinks()
+    {
+        using var client = AdminTestClient.Anonymous(factory);
+        Guid categoryId, branchId;
+        Guid[] expectedIds;
+        using (var scope = factory.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var category = new DrinkCategory { Name = "Cuộn thực đơn " + Guid.NewGuid(), Image = "/images/category.jpg" };
+            var branch = new StoreEntry { Name = "Chi nhánh cuộn " + Guid.NewGuid(), AcceptsOrders = true };
+            var drinks = Enumerable.Range(1, 26).Select(index => new Drink
+            {
+                Name = "Trà cuộn " + index, Category = category, Price = 45000, SortOrder = 0
+            }).ToArray();
+            db.AddRange(drinks);
+            db.AddRange(branch, new Drink { Name = "Món nháp", Category = category, IsPublished = false });
+            await db.SaveChangesAsync();
+            categoryId = category.Id; branchId = branch.Id; expectedIds = drinks.Select(value => value.Id).ToArray();
+        }
+        await AdminTestClient.Post(client, "/Order/SelectBranch", new() { ["storeId"] = branchId.ToString(), ["categoryId"] = categoryId.ToString() }, tokenUrl: "/Admin/Account/Login");
+        var parser = new HtmlParser();
+        var first = await parser.ParseDocumentAsync(await client.GetStringAsync($"/Order/Index?categoryId={categoryId}"));
+        Assert.Equal("26", first.QuerySelector(".menu-result-count")!.TextContent);
+        var seen = new List<Guid>();
+        var current = first;
+        Guid laterDrinkId = default;
+        for (var batch = 1; batch <= 3; batch++)
+        {
+            var cards = current.QuerySelectorAll(".drink-card");
+            Assert.Equal(batch < 3 ? 12 : 2, cards.Length);
+            Assert.All(cards, card => Assert.NotNull(card.QuerySelector("form[action='/Order/Add']")));
+            seen.AddRange(cards.Select(card => Guid.Parse(card.GetAttribute("data-drink-id")!)));
+            if (batch == 2) laterDrinkId = Guid.Parse(cards[0].GetAttribute("data-drink-id")!);
+            var next = current.QuerySelector(".menu-load-more");
+            if (batch == 3) { Assert.Null(next); break; }
+            var url = next!.GetAttribute("href")!;
+            Assert.Contains($"categoryId={categoryId}", url);
+            Assert.Contains($"page={batch + 1}", url);
+            current = await parser.ParseDocumentAsync(await client.GetStringAsync(url));
+        }
+        Assert.Equal(26, seen.Distinct().Count());
+        Assert.Equal(expectedIds.Order(), seen.Order());
+        var repeated = await parser.ParseDocumentAsync(await client.GetStringAsync($"/Order/Index?categoryId={categoryId}"));
+        Assert.Equal(first.QuerySelectorAll(".drink-card").Select(card => card.GetAttribute("data-drink-id")),
+            repeated.QuerySelectorAll(".drink-card").Select(card => card.GetAttribute("data-drink-id")));
+        var add = await AdminTestClient.Post(client, "/Order/Add", new() { ["id"] = laterDrinkId.ToString(), ["categoryId"] = categoryId.ToString() }, tokenUrl: "/Admin/Account/Login");
+        Assert.Equal(HttpStatusCode.Redirect, add.StatusCode);
+        Assert.Contains($"categoryId={categoryId}", add.Headers.Location!.ToString());
+        var cart = await parser.ParseDocumentAsync(await client.GetStringAsync(add.Headers.Location));
+        Assert.Single(cart.QuerySelectorAll(".cart-line"));
     }
 
 }

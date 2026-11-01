@@ -41,7 +41,7 @@
     </details>
     <div class="order-workspace" id="drinks">
         <section class="order-catalog" aria-labelledby="menu-title">
-            <div class="order-section-heading"><div><p class="section-kicker">THE KOI MENU</p><h2 id="menu-title">@(Model.FilterName ?? (Model.DrinkId.HasValue ? "Món bạn đã chọn" : "Tất cả đồ uống"))<span class="menu-result-count">@Model.Drinks.Length</span></h2></div>@if (Model.DrinkId.HasValue || Model.CategoryId.HasValue) { <a asp-action="Index" asp-fragment="drinks">Xem toàn bộ thực đơn ↗</a> }</div>
+            <div class="order-section-heading"><div><p class="section-kicker">THE KOI MENU</p><h2 id="menu-title">@(Model.FilterName ?? (Model.DrinkId.HasValue ? "Món bạn đã chọn" : "Tất cả đồ uống"))<span class="menu-result-count">@Model.DrinkCount</span></h2></div>@if (Model.DrinkId.HasValue || Model.CategoryId.HasValue) { <a asp-action="Index" asp-fragment="drinks">Xem toàn bộ thực đơn ↗</a> }</div>
             <div class="menu-browser">
                 <nav class="order-category-nav" aria-label="Danh mục đồ uống">
                     <a asp-action="Index" asp-fragment="drinks" aria-current="@(!Model.CategoryId.HasValue && !Model.DrinkId.HasValue ? "page" : null)"><span aria-hidden="true">✳</span> Tất cả</a>
@@ -49,6 +49,7 @@
                         <a asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks" aria-current="@(category.Id == Model.CategoryId ? "page" : null)">@(string.IsNullOrWhiteSpace(category.NameVi) ? category.Name : category.NameVi)</a>
                     }
                 </nav>
+                <div class="drink-results" data-menu-results>
                 <div class="drink-grid">
                     @foreach (var drink in Model.Drinks) {
                         var name = string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi;
@@ -78,6 +79,15 @@
                         </article>
                     }
                     @if (Model.Drinks.Length == 0) { <div class="menu-empty"><p>Chưa có đồ uống trong danh mục này.</p><a asp-action="Index" asp-fragment="drinks">Khám phá thực đơn ↗</a></div> }
+                </div>
+                @if (Model.DrinkCount > 0) {
+                    <div class="menu-scroll" data-menu-scroll>
+                        <p class="menu-load-status" role="status">@(Model.HasMoreDrinks ? "Cuộn xuống để khám phá thêm món." : "Bạn đã xem hết đồ uống rồi.")</p>
+                        @if (Model.HasMoreDrinks) {
+                            <a class="menu-load-more" asp-action="Index" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId" asp-route-page="@(Model.Page + 1)" asp-fragment="drinks" rel="next">Xem thêm đồ uống <span aria-hidden="true">↓</span></a>
+                        }
+                    </div>
+                }
                 </div>
             </div>
         </section>
@@ -114,4 +124,5 @@
 <footer class="order-footer"><span>YOUR DAILY BEAT.</span><a asp-controller="Home" asp-action="OurTea">Tiếp tục khám phá KOI ↗</a></footer>
 <a href="#cart" class="mobile-cart-link"><span>Giỏ hàng · @itemCount món</span><strong>@Model.Total.ToString("N0", culture) đ ↗</strong></a>
 <script src="~/lib/gsap/gsap.min.js" defer></script><script src="~/lib/gsap/ScrollTrigger.min.js" defer></script><script src="~/js/shop-motion.js" asp-append-version="true" defer></script>
+<script src="~/js/order-menu.js" asp-append-version="true" defer></script>
 </body></html>

@@ -29,6 +29,9 @@ public class OrderingPageViewModel
     public string? FilterName { get; set; }
     public DrinkCategory[] Categories { get; set; } = [];
     public Drink[] Drinks { get; set; } = [];
+    public int Page { get; set; } = 1;
+    public int DrinkCount { get; set; }
+    public bool HasMoreDrinks { get; set; }
     public SaleOption[] Sizes { get; set; } = [];
     public SaleOption[] Toppings { get; set; } = [];
     public ShoppingCart Cart { get; set; } = new();

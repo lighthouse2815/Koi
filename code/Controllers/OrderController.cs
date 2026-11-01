@@ -16,9 +16,9 @@ public class OrderController(ApplicationDbContext database) : Controller
     }
     private void SaveCart(ShoppingCart cart) => HttpContext.Session.SetString(CartKey, JsonSerializer.Serialize(cart));
 
-    public async Task<IActionResult> Index(Guid? categoryId, Guid? drinkId)
+    public async Task<IActionResult> Index(Guid? categoryId, Guid? drinkId, int page = 1)
     {
-        var model = await Page(GetCart(), categoryId, drinkId);
+        var model = await Page(GetCart(), categoryId, drinkId, page);
         return View(model);
     }
 
@@ -132,13 +132,19 @@ public class OrderController(ApplicationDbContext database) : Controller
         return View((object)reference);
     }
 
-    private async Task<OrderingPageViewModel> Page(ShoppingCart cart, Guid? categoryId = null, Guid? drinkId = null)
+    private async Task<OrderingPageViewModel> Page(ShoppingCart cart, Guid? categoryId = null, Guid? drinkId = null, int page = 1)
     {
         var branches = await database.Stores.AsNoTracking().Where(value => value.IsPublished && value.AcceptsOrders).OrderBy(value => value.Name).ToArrayAsync();
         var query = database.Drinks.AsNoTracking().Include(value => value.Category).Where(value => value.IsPublished && value.Category.IsPublished);
         if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);
         else if (categoryId.HasValue) query = query.Where(value => value.CategoryId == categoryId);
-        var drinks = await query.OrderBy(value => value.Category.SortOrder).ThenBy(value => value.SortOrder).ToArrayAsync();
+        const int pageSize = 12;
+        var drinkCount = await query.CountAsync();
+        var pageCount = Math.Max(1, (int)Math.Ceiling(drinkCount / (double)pageSize));
+        page = Math.Clamp(page, 1, pageCount);
+        var drinks = await query.OrderBy(value => value.Category.SortOrder).ThenBy(value => value.CategoryId)
+            .ThenBy(value => value.SortOrder).ThenBy(value => value.Id)
+            .Skip((page - 1) * pageSize).Take(pageSize).ToArrayAsync();
         var categories = await database.DrinkCategories.AsNoTracking().Where(value => value.IsPublished && value.Drinks.Any(drink => drink.IsPublished))
             .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         var filterName = drinkId.HasValue ? null : categoryId.HasValue
@@ -150,6 +156,7 @@ public class OrderController(ApplicationDbContext database) : Controller
         {
             Branches = branches, Branch = branches.FirstOrDefault(value => value.Id == cart.StoreId), Drinks = drinks, Cart = cart,
             CategoryId = categoryId, DrinkId = drinkId, FilterName = filterName, Categories = categories,
+            Page = page, DrinkCount = drinkCount, HasMoreDrinks = page < pageCount,
             Sizes = options.Where(value => value.Kind == SaleOptionKind.Size).ToArray(), Toppings = options.Where(value => value.Kind == SaleOptionKind.Topping).ToArray(),
             Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (string.IsNullOrWhiteSpace(d.NameVi) ? d.Name : d.NameVi) : "Món không còn tồn tại", line.Customization, line.Quantity, line.Price)).ToList()
         };

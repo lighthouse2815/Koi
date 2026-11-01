@@ -19,7 +19,7 @@
 
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
-    gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', context => {
         const reveal = (elements, trigger) => gsap.fromTo(elements,
             { autoAlpha: 0, y: 45 },
             { autoAlpha: 1, y: 0, duration: .8, stagger: .09, ease: 'power3.out', clearProps: 'opacity,visibility,transform',
@@ -44,6 +44,12 @@
             order.querySelectorAll('.order-card').forEach(panel => reveal(panel, panel));
             order.querySelectorAll('.drink-card').forEach(card => reveal(card, card));
         }
+        const revealMore = event => context.add(() => {
+            event.detail.cards.forEach(card => reveal(card, card));
+            ScrollTrigger.refresh();
+        });
+        order?.addEventListener('menu:loaded', revealMore);
         document.fonts.ready.then(() => ScrollTrigger.refresh());
+        return () => order?.removeEventListener('menu:loaded', revealMore);
     });
 })();
