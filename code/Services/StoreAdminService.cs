@@ -27,7 +27,7 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
 
     public async Task<StoreEditViewModel?> GetEditAsync(Guid id)
     {
-        var value = await database.Stores.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
+        var value = await ShopStores().AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : await Options(new StoreEditViewModel
         {
             Id = value.Id, Revision = value.Revision, NameVi = value.NameVi, AddressVi = value.AddressVi, HoursVi = value.HoursVi, Name = value.Name, Phone = value.Phone, Hours = value.Hours,
@@ -39,7 +39,7 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
 
     public async Task<SaveResult> SaveAsync(StoreEditViewModel model, Guid? id, ModelStateDictionary modelState)
     {
-        var value = id.HasValue ? await database.Stores.SingleOrDefaultAsync(value => value.Id == id) : new StoreEntry();
+        var value = id.HasValue ? await ShopStores().SingleOrDefaultAsync(value => value.Id == id) : new StoreEntry();
         if (value == null) return SaveResult.NotFound;
         model.CurrentImage = value.Photo;
         var shop = await database.ShopSettings.AsNoTracking().SingleAsync(value => value.Id == 1);
@@ -82,18 +82,21 @@ public class StoreAdminService(ApplicationDbContext database, ImageUploads uploa
 
     public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
     {
-        var value = await database.Stores.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
+        var value = await ShopStores().AsNoTracking().SingleOrDefaultAsync(value => value.Id == id);
         return value == null ? null : new DeleteContentViewModel(id, value.Name);
     }
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        var value = await database.Stores.FindAsync(id);
+        var value = await ShopStores().SingleOrDefaultAsync(value => value.Id == id);
         if (value == null) return false;
         database.Stores.Remove(value);
         await database.SaveChangesAsync();
         return true;
     }
+
+    private IQueryable<StoreEntry> ShopStores() => database.Stores.Where(store => database.ShopSettings.Any(shop => shop.Id == 1
+        && (!shop.MarketId.HasValue || shop.MarketId == store.MarketId) && (!shop.BrandId.HasValue || shop.BrandId == store.BrandId)));
 
     private async Task<StoreEditViewModel> Options(StoreEditViewModel model)
     {
