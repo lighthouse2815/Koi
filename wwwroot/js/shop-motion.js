@@ -42,6 +42,7 @@
         if (order) {
             reveal(order.querySelector('.order-intro'), order);
             order.querySelectorAll('.order-card').forEach(panel => reveal(panel, panel));
+            order.querySelectorAll('.drink-card').forEach(card => reveal(card, card));
         }
         document.fonts.ready.then(() => ScrollTrigger.refresh());
     });

@@ -1,36 +1,117 @@
 @model OrderingPageViewModel
-@{ Layout = null; var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); }
-<!doctype html><html lang="vi"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Đặt đồ uống · KOI Thé</title><link rel="stylesheet" href="~/css/ordering.css" asp-append-version="true" /></head><body>
-<header class="order-header"><a asp-controller="Home" asp-action="Index" aria-label="Trang chủ KOI Thé"><img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" /></a><nav aria-label="Điều hướng đặt hàng"><a asp-controller="Home" asp-action="OurTea">Trà của KOI ↗</a><a asp-controller="Home" asp-action="Store">Chi nhánh ↗</a><a href="#cart">Giỏ hàng (@Model.Cart.Items.Sum(item => item.Quantity))</a></nav></header>
-<main class="order-page"><div class="order-intro"><p class="order-eyebrow">( YOUR DAILY BEAT. )</p><h1>MÓN BẠN THÍCH.<br /><em>KOI MỜI BẠN CHỌN.</em></h1><p>Chọn chi nhánh, thêm món và gửi đơn. Chi nhánh sẽ liên hệ xác nhận.</p><a href="#drinks" class="order-explore">Khám phá thực đơn <span aria-hidden="true">↓</span></a></div>
-@if (TempData["OrderMessage"] is string message) { <p class="notice" role="status">@message</p> }
-<div asp-validation-summary="All" class="notice" role="alert"></div>
-<section class="order-card" id="branches"><h2>1. Chọn chi nhánh</h2>
-@if (Model.Branches.Length == 0) { <p>Hiện chưa có chi nhánh mở nhận đơn.</p> }
-else { <form asp-action="SelectBranch" method="post" class="inline-form"><input type="hidden" name="categoryId" value="@Model.CategoryId" /><input type="hidden" name="drinkId" value="@Model.DrinkId" /><label for="storeId">Chi nhánh</label><select id="storeId" name="storeId" required><option value="">Chọn chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.Cart.StoreId)">@branch.Name · @branch.Address</option> }</select><button type="submit">Chọn</button></form> }
-@if (Model.Branch != null) { <p>Đang chọn: <strong>@Model.Branch.Name</strong> · @Model.Branch.Address</p> }
-</section>
-<section class="order-card" id="drinks"><div class="order-section-heading"><h2>2. @(Model.FilterName ?? (Model.DrinkId.HasValue ? "Món đã chọn" : "Thực đơn"))</h2>@if (Model.DrinkId.HasValue || Model.CategoryId.HasValue) { <a asp-action="Index" asp-fragment="drinks">Xem toàn bộ thực đơn →</a> }</div>
-@if (Model.Drinks.Length == 0) { <p>Chưa có đồ uống được mở bán.</p> }
-<div class="drink-grid">@foreach (var drink in Model.Drinks) {
-<article class="drink-card" data-drink-id="@drink.Id"><img class="order-drink-image" src="@(string.IsNullOrWhiteSpace(drink.Image) ? drink.Category.Image : drink.Image)" alt="@(string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi)" loading="lazy" />@if (string.IsNullOrWhiteSpace(drink.Image)) { <small>Ảnh danh mục</small> }<h3>@(string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi)</h3>@if (drink.Price > 0) { <p>@drink.Price.Value.ToString("N0", culture) đ</p> } else { <p>Chưa mở bán</p> }@if (!(drink.Price > 0)) { <span>Chưa thể đặt món này</span> } else if (Model.Branch == null) { <a href="#branches">Chọn chi nhánh để đặt →</a> } else { <form asp-action="Add" method="post"><input type="hidden" name="id" value="@drink.Id" />
-@if (Model.Sizes.Length > 0) { <label>Kích cỡ <select name="sizeId" required><option value="">Chọn cỡ</option>@foreach (var size in Model.Sizes) { <option value="@size.Id">@size.Name (+@size.ExtraPrice.ToString("N0", culture) đ)</option> }</select></label> }
-<label>Đường <select name="sugar"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label>
-<label>Đá <select name="ice"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label>
-@if (Model.Toppings.Length > 0) { <fieldset><legend>Topping (tối đa 5)</legend>@foreach (var topping in Model.Toppings) { <label><input type="checkbox" name="toppingIds" value="@topping.Id" /> @topping.Name (+@topping.ExtraPrice.ToString("N0", culture) đ)</label><br /> }</fieldset> }
-<label>Số lượng <input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ</button></form> }</article>
-}</div></section>
-<section class="order-card" id="cart"><h2>3. Giỏ hàng</h2>
-@if (Model.Lines.Count == 0) { <p>Giỏ hàng đang trống.</p> }
-else { @foreach (var line in Model.Lines) { <div class="cart-line"><span>@line.Name · @line.Price.ToString("N0", culture) đ<br /><small>@line.Customization</small></span><form asp-action="Update" method="post" class="inline-form"><input type="hidden" name="id" value="@line.LineId" /><label>Số lượng <input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label><button type="submit">Cập nhật</button><small>Nhập 0 để xóa</small></form></div> } <p><strong>Tạm tính: @Model.Total.ToString("N0", culture) đ</strong></p> }
-</section>
-@if (Model.Branch != null && Model.Lines.Count > 0) {
-<section class="order-card"><h2>4. Thông tin nhận hàng</h2><form asp-action="Checkout" method="post" class="checkout-form">
-<label asp-for="Checkout.CustomerName">Họ tên</label><input asp-for="Checkout.CustomerName" required maxlength="150" /><span asp-validation-for="Checkout.CustomerName"></span>
-<label asp-for="Checkout.CustomerPhone">Số điện thoại</label><input asp-for="Checkout.CustomerPhone" type="tel" required maxlength="30" /><span asp-validation-for="Checkout.CustomerPhone"></span>
-<label asp-for="Checkout.Fulfillment">Cách nhận hàng</label><select asp-for="Checkout.Fulfillment"><option value="0">Nhận tại chi nhánh</option><option value="1">Giao hàng</option></select>
-<label asp-for="Checkout.DeliveryAddress">Địa chỉ giao hàng (bắt buộc nếu chọn giao hàng)</label><input asp-for="Checkout.DeliveryAddress" maxlength="2000" /><span asp-validation-for="Checkout.DeliveryAddress"></span>
-<label asp-for="Checkout.Note">Ghi chú</label><textarea asp-for="Checkout.Note" maxlength="1000"></textarea>
-<p>Thanh toán khi nhận hàng. Phí giao hàng, nếu có, được chi nhánh xác nhận trước.</p><button type="submit">Gửi đơn hàng</button></form></section>
+@{
+    Layout = null;
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var itemCount = Model.Cart.Items.Sum(item => item.Quantity);
 }
-</main><footer class="order-footer"><span>YOUR DAILY BEAT.</span><a asp-controller="Home" asp-action="OurTea">Tiếp tục khám phá KOI ↗</a></footer><script src="~/lib/gsap/gsap.min.js" defer></script><script src="~/lib/gsap/ScrollTrigger.min.js" defer></script><script src="~/js/shop-motion.js" asp-append-version="true" defer></script></body></html>
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thực đơn · KOI Thé</title>
+    <link rel="icon" href="~/images/favicon.png" />
+    <link rel="stylesheet" href="~/css/ordering.css" asp-append-version="true" />
+</head>
+<body class="menu-shop">
+<header class="order-header">
+    <a asp-controller="Home" asp-action="Index" aria-label="Trang chủ KOI Thé"><img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" /></a>
+    <nav aria-label="Điều hướng đặt hàng"><a asp-controller="Home" asp-action="OurTea">Trà của KOI ↗</a><a asp-controller="Home" asp-action="Store">Chi nhánh ↗</a><a href="#cart">Giỏ hàng <span class="cart-count">@itemCount</span></a></nav>
+</header>
+<main class="order-page">
+    <div class="order-intro menu-intro">
+        <div><p class="order-eyebrow">( FRESHLY BREWED. JUST FOR YOU. )</p><h1>HÔM NAY,<br /><em>BẠN UỐNG GÌ?</em></h1></div>
+        <p>Trà thơm, vị quen.<br />Chọn một chút vui cho ngày của bạn.</p>
+    </div>
+    @if (TempData["OrderMessage"] is string message) { <p class="notice" role="status">@message</p> }
+    <div asp-validation-summary="All" class="notice" role="alert"></div>
+    <details class="branch-picker" id="branches" open="@(Model.Branch == null)">
+        <summary><span class="branch-symbol" aria-hidden="true">↗</span><span><small>CHI NHÁNH CỦA BẠN</small><strong>@(Model.Branch?.Name ?? "Chọn nơi chuẩn bị món cho bạn")</strong>@if (Model.Branch != null) { <span class="branch-address">@Model.Branch.Address</span> }</span><span class="branch-change">@(Model.Branch == null ? "Chọn chi nhánh" : "Thay đổi") <span aria-hidden="true">⌄</span></span></summary>
+        <div class="branch-picker-content">
+            @if (Model.Branches.Length == 0) { <p>Hiện chưa có chi nhánh mở nhận đơn.</p> }
+            else {
+                <form asp-action="SelectBranch" method="post" class="inline-form">
+                    <input type="hidden" name="categoryId" value="@Model.CategoryId" /><input type="hidden" name="drinkId" value="@Model.DrinkId" />
+                    <label for="storeId">Chi nhánh nhận đơn</label>
+                    <select id="storeId" name="storeId" required><option value="">Chọn chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.Cart.StoreId)">@branch.Name · @branch.Address</option> }</select>
+                    <button type="submit">Xác nhận <span aria-hidden="true">↗</span></button>
+                </form>
+            }
+        </div>
+    </details>
+    <div class="order-workspace" id="drinks">
+        <section class="order-catalog" aria-labelledby="menu-title">
+            <div class="order-section-heading"><div><p class="section-kicker">THE KOI MENU</p><h2 id="menu-title">@(Model.FilterName ?? (Model.DrinkId.HasValue ? "Món bạn đã chọn" : "Tất cả đồ uống"))<span class="menu-result-count">@Model.Drinks.Length</span></h2></div>@if (Model.DrinkId.HasValue || Model.CategoryId.HasValue) { <a asp-action="Index" asp-fragment="drinks">Xem toàn bộ thực đơn ↗</a> }</div>
+            <div class="menu-browser">
+                <nav class="order-category-nav" aria-label="Danh mục đồ uống">
+                    <a asp-action="Index" asp-fragment="drinks" aria-current="@(!Model.CategoryId.HasValue && !Model.DrinkId.HasValue ? "page" : null)"><span aria-hidden="true">✳</span> Tất cả</a>
+                    @foreach (var category in Model.Categories) {
+                        <a asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks" aria-current="@(category.Id == Model.CategoryId ? "page" : null)">@(string.IsNullOrWhiteSpace(category.NameVi) ? category.Name : category.NameVi)</a>
+                    }
+                </nav>
+                <div class="drink-grid">
+                    @foreach (var drink in Model.Drinks) {
+                        var name = string.IsNullOrWhiteSpace(drink.NameVi) ? drink.Name : drink.NameVi;
+                        var hasImage = !string.IsNullOrWhiteSpace(drink.Image);
+                        <article class="drink-card" data-drink-id="@drink.Id">
+                            <div class="drink-visual"><img class="order-drink-image" src="@(hasImage ? drink.Image : drink.Category.Image)" alt="@name" loading="lazy" />@if (!hasImage) { <small>Ảnh danh mục</small> }</div>
+                            <div class="drink-card-content">
+                                <p class="drink-category-label">@(string.IsNullOrWhiteSpace(drink.Category.NameVi) ? drink.Category.Name : drink.Category.NameVi)</p>
+                                <h3>@name</h3>
+                                <div class="drink-buy-row"><p class="drink-price">@(drink.Price > 0 ? drink.Price.Value.ToString("N0", culture) + " đ" : "Chưa mở bán")</p>
+                                    @if (!(drink.Price > 0)) { <span class="unavailable-label">Tạm ngưng</span> }
+                                    else if (Model.Branch == null) { <a class="drink-branch-link" asp-action="Index" asp-route-drinkId="@drink.Id" asp-fragment="branches" aria-label="Chọn món @name"><span aria-hidden="true">+</span> Chọn món</a> }
+                                </div>
+                                @if (drink.Price > 0 && Model.Branch != null) {
+                                    <details class="drink-customize" open="@(Model.DrinkId == drink.Id)">
+                                        <summary>Chọn món <span aria-hidden="true">+</span></summary>
+                                        <form asp-action="Add" method="post">
+                                            <input type="hidden" name="id" value="@drink.Id" /><input type="hidden" name="categoryId" value="@Model.CategoryId" /><input type="hidden" name="drinkId" value="@Model.DrinkId" />
+                                            @if (Model.Sizes.Length > 0) { <label>Kích cỡ<select name="sizeId" required><option value="">Chọn cỡ</option>@foreach (var size in Model.Sizes) { <option value="@size.Id">@size.Name (+@size.ExtraPrice.ToString("N0", culture) đ)</option> }</select></label> }
+                                            <div class="drink-preferences"><label>Đường<select name="sugar"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label><label>Đá<select name="ice"><option value="0">Bình thường</option><option value="1">Ít</option><option value="2">Không</option></select></label></div>
+                                            @if (Model.Toppings.Length > 0) { <fieldset><legend>Topping (tối đa 5)</legend>@foreach (var topping in Model.Toppings) { <label class="topping-option"><input type="checkbox" name="toppingIds" value="@topping.Id" /><span>@topping.Name <small>+@topping.ExtraPrice.ToString("N0", culture) đ</small></span></label> }</fieldset> }
+                                            <label class="quantity-option">Số lượng<input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ <span aria-hidden="true">↗</span></button>
+                                        </form>
+                                    </details>
+                                }
+                            </div>
+                        </article>
+                    }
+                    @if (Model.Drinks.Length == 0) { <div class="menu-empty"><p>Chưa có đồ uống trong danh mục này.</p><a asp-action="Index" asp-fragment="drinks">Khám phá thực đơn ↗</a></div> }
+                </div>
+            </div>
+        </section>
+        <aside class="order-sidebar" aria-labelledby="cart-title">
+            <section class="order-cart" id="cart">
+                <div class="cart-heading"><h2 id="cart-title">Món của bạn</h2><span class="cart-count">@itemCount</span></div>
+                @if (Model.Lines.Count == 0) {
+                    <div class="empty-cart"><img src="~/images/bear-head.svg" width="84" height="84" alt="" /><h3>Chờ một chút trà…</h3><p>Chọn món bạn thích.<br />Niềm vui sẽ ở ngay đây.</p></div>
+                } else {
+                    <div class="cart-lines">@foreach (var line in Model.Lines) {
+                        <div class="cart-line"><div class="cart-line-title"><strong>@line.Name</strong><span>@((line.Price * line.Quantity).ToString("N0", culture)) đ</span></div><small>@line.Customization</small>
+                            <form asp-action="Update" method="post" class="cart-update"><input type="hidden" name="id" value="@line.LineId" /><label>Số lượng<input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label><button type="submit">Lưu</button></form><form asp-action="Update" method="post" class="cart-remove-action"><input type="hidden" name="id" value="@line.LineId" /><input type="hidden" name="quantity" value="0" /><button type="submit" class="cart-remove" aria-label="Xóa món @line.Name">Xóa món</button></form>
+                        </div>
+                    }</div>
+                }
+                <div class="cart-total"><span>Tạm tính</span><strong>@Model.Total.ToString("N0", culture) đ</strong></div>
+                <p class="cart-payment-note">Thanh toán khi nhận hàng.<br />Phí giao hàng được chi nhánh xác nhận riêng.</p>
+                @if (Model.Branch != null && Model.Lines.Count > 0) { <a href="#checkout" class="checkout-link">Thông tin nhận hàng <span aria-hidden="true">↗</span></a> }
+                else { <p class="cart-helper">@(Model.Branch == null ? "Chọn chi nhánh để bắt đầu đặt món." : "Thêm đồ uống để tiếp tục.")</p> }
+            </section>
+            @if (Model.Branch != null && Model.Lines.Count > 0) {
+                <section class="checkout-panel" id="checkout"><p class="section-kicker">ALMOST THERE.</p><h2>Gửi một chút vui.</h2><form asp-action="Checkout" method="post" class="checkout-form">
+                    <label asp-for="Checkout.CustomerName">Họ tên</label><input asp-for="Checkout.CustomerName" required maxlength="150" autocomplete="name" /><span asp-validation-for="Checkout.CustomerName"></span>
+                    <label asp-for="Checkout.CustomerPhone">Số điện thoại</label><input asp-for="Checkout.CustomerPhone" type="tel" required maxlength="30" autocomplete="tel" /><span asp-validation-for="Checkout.CustomerPhone"></span>
+                    <label asp-for="Checkout.Fulfillment">Cách nhận hàng</label><select asp-for="Checkout.Fulfillment"><option value="0">Nhận tại chi nhánh</option><option value="1">Giao hàng</option></select>
+                    <label asp-for="Checkout.DeliveryAddress">Địa chỉ giao hàng</label><input asp-for="Checkout.DeliveryAddress" maxlength="2000" autocomplete="street-address" /><span asp-validation-for="Checkout.DeliveryAddress"></span><small>Bắt buộc nếu chọn giao hàng.</small>
+                    <label asp-for="Checkout.Note">Ghi chú</label><textarea asp-for="Checkout.Note" maxlength="1000"></textarea>
+                    <button type="submit">Gửi đơn hàng <span aria-hidden="true">↗</span></button>
+                </form></section>
+            }
+        </aside>
+    </div>
+</main>
+<footer class="order-footer"><span>YOUR DAILY BEAT.</span><a asp-controller="Home" asp-action="OurTea">Tiếp tục khám phá KOI ↗</a></footer>
+<a href="#cart" class="mobile-cart-link"><span>Giỏ hàng · @itemCount món</span><strong>@Model.Total.ToString("N0", culture) đ ↗</strong></a>
+<script src="~/lib/gsap/gsap.min.js" defer></script><script src="~/lib/gsap/ScrollTrigger.min.js" defer></script><script src="~/js/shop-motion.js" asp-append-version="true" defer></script>
+</body></html>
