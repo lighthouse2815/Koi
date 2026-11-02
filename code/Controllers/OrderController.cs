@@ -140,10 +140,10 @@ public class OrderController(ApplicationDbContext database) : Controller
         var drinks = await query.OrderBy(value => value.Category.SortOrder).ThenBy(value => value.CategoryId)
             .ThenBy(value => value.SortOrder).ThenBy(value => value.Id)
             .Skip((page - 1) * pageSize).Take(pageSize).ToArrayAsync();
-        var categories = await database.DrinkCategories.AsNoTracking().Where(value => value.IsPublished && value.Drinks.Any(drink => drink.IsPublished))
+        var categories = await database.Categories.AsNoTracking().Where(value => value.IsPublished && value.Drinks.Any(drink => drink.IsPublished))
             .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         var filterName = drinkId.HasValue ? null : categoryId.HasValue
-            ? await database.DrinkCategories.AsNoTracking().Where(value => value.Id == categoryId && value.IsPublished).Select(value => value.Name).SingleOrDefaultAsync() : null;
+            ? await database.Categories.AsNoTracking().Where(value => value.Id == categoryId && value.IsPublished).Select(value => value.Name).SingleOrDefaultAsync() : null;
         var ids = cart.Items.Select(line => line.DrinkId).ToArray();
         var allCartDrinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id)).ToDictionaryAsync(value => value.Id);
         return new OrderingPageViewModel

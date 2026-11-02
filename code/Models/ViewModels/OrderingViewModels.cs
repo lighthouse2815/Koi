@@ -22,7 +22,7 @@ public class CartItem
 public record CartLine(Guid LineId, string Name, string Customization, int Quantity, decimal Price);
 public class OrderingPageViewModel
 {
-    public StoreEntry[] Branches { get; set; } = [];
+    public Store[] Branches { get; set; } = [];
     public Guid? CategoryId { get; set; }
     public Guid? DrinkId { get; set; }
     public string? FilterName { get; set; }
@@ -32,7 +32,7 @@ public class OrderingPageViewModel
     public int DrinkCount { get; set; }
     public bool HasMoreDrinks { get; set; }
     public ShoppingCart Cart { get; set; } = new();
-    public StoreEntry? Branch { get; set; }
+    public Store? Branch { get; set; }
     public List<CartLine> Lines { get; set; } = [];
     public CheckoutViewModel Checkout { get; set; } = new();
     public decimal Total => Lines.Sum(value => value.Price * value.Quantity);

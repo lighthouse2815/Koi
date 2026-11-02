@@ -46,7 +46,7 @@ public class MenuService(
     {
         var value = id.HasValue
             ? await database.Menus.SingleOrDefaultAsync(value => value.Id == id)
-            : new MenuEntry();
+            : new Menu();
         if (value == null)
             return SaveResult.NotFound;
         model.CurrentImage = value.File;

@@ -47,7 +47,7 @@ public class OrdersController(ApplicationDbContext database) : Controller
 public class OrderListViewModel
 {
     public Order[] Orders { get; set; } = [];
-    public StoreEntry[] Branches { get; set; } = [];
+    public Store[] Branches { get; set; } = [];
     public Guid? StoreId { get; set; }
     public OrderStatus? Status { get; set; }
     public int Page { get; set; }

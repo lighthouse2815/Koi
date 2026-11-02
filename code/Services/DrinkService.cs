@@ -101,7 +101,7 @@ public class DrinkService(
         if (value == null)
             return SaveResult.NotFound;
         model.CurrentImage = value.Image;
-        if (!await database.DrinkCategories.AnyAsync(value => value.Id == model.CategoryId))
+        if (!await database.Categories.AnyAsync(value => value.Id == model.CategoryId))
             modelState.AddModelError(nameof(model.CategoryId), "Chọn danh mục hợp lệ.");
         var image = await uploads.ReadAsync(
             model.ImageUpload,
@@ -155,7 +155,7 @@ public class DrinkService(
     private async Task<SelectList> Categories() =>
         new(
             await database
-                .DrinkCategories.AsNoTracking()
+                .Categories.AsNoTracking()
                 .OrderBy(value => value.SortOrder)
                 .ThenBy(value => value.Id)
                 .ToArrayAsync(),

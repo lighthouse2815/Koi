@@ -41,7 +41,7 @@ public class StoreEditViewModel
 }
 
 public record AdminStoresViewModel(
-    StoreEntry[] Stores,
+    Store[] Stores,
     string? Search,
     int Page,
     int PageCount

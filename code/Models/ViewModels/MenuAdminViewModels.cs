@@ -22,4 +22,4 @@ public class MenuEditViewModel
 
 }
 
-public record AdminMenusViewModel(MenuEntry[] Menus);
+public record AdminMenusViewModel(Menu[] Menus);

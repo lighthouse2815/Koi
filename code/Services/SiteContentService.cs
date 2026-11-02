@@ -16,7 +16,7 @@ public class SiteContentService(ApplicationDbContext database, IConfiguration co
             .Take(6)
             .ToArrayAsync();
         var categories = await database
-            .DrinkCategories.AsNoTracking()
+            .Categories.AsNoTracking()
             .Where(value => value.IsPublished && value.ShowOnHome)
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
@@ -27,7 +27,7 @@ public class SiteContentService(ApplicationDbContext database, IConfiguration co
     public async Task<OurTeaViewModel> GetOurTeaAsync()
     {
         var categories = await database
-            .DrinkCategories.AsNoTracking()
+            .Categories.AsNoTracking()
             .Where(value => value.IsPublished)
             .Include(value =>
                 value

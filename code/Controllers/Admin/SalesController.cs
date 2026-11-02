@@ -62,7 +62,7 @@ public class SalesController(ApplicationDbContext database) : Controller
 public class SalesSettingsViewModel
 {
     public Koi.Web.Models.Drink[] Drinks { get; set; } = [];
-    public Koi.Web.Models.StoreEntry[] Branches { get; set; } = [];
+    public Koi.Web.Models.Store[] Branches { get; set; } = [];
     public string? Search { get; set; }
     public int Page { get; set; }
     public int PageCount { get; set; }

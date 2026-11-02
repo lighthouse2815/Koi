@@ -69,7 +69,7 @@ public class StoreService(
     {
         var value = id.HasValue
             ? await database.Stores.SingleOrDefaultAsync(value => value.Id == id)
-            : new StoreEntry();
+            : new Store();
         if (value == null)
             return SaveResult.NotFound;
         model.CurrentImage = value.Photo;
