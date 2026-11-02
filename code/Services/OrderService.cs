@@ -16,6 +16,62 @@ public class OrderService(ApplicationDbContext database)
     }
     public void SaveCart(ISession session, ShoppingCart cart) => session.SetString(CartKey, JsonSerializer.Serialize(cart));
 
+    public async Task<bool> SelectBranchAsync(ISession session, Guid storeId)
+    {
+        if (!await BranchAcceptsOrdersAsync(storeId)) return false;
+        var cart = GetCart(session);
+        if (cart.StoreId != storeId) { cart.StoreId = storeId; cart.OrderId = Guid.NewGuid(); }
+        SaveCart(session, cart);
+        return true;
+    }
+
+    public async Task<(string Status, string Message)> AddAsync(ISession session, Guid id, int quantity, Guid? sizeId, Guid[]? toppingIds, int? sugar, int? ice)
+    {
+        if (sizeId.HasValue || toppingIds is { Length: > 0 } || sugar.HasValue || ice.HasValue)
+            return ("bad", "Các lựa chọn cũ không còn được hỗ trợ. Vui lòng tải lại trang.");
+        var cart = GetCart(session);
+        if (!await BranchAcceptsOrdersAsync(cart.StoreId)) return ("branch", "Hãy chọn chi nhánh đang nhận đơn.");
+        var drink = await GetAvailableDrinkAsync(id);
+        if (drink == null || quantity < 1 || quantity > 20) return ("bad", "Đồ uống hoặc lựa chọn không hợp lệ.");
+        var existing = cart.Items.Find(line => line.DrinkId == id && line.SizeId == null && line.ToppingIds.Count == 0 && string.IsNullOrEmpty(line.Customization));
+        if (existing != null)
+        {
+            if (existing.Quantity + quantity > 20) return ("quantity", "Mỗi lựa chọn chỉ được đặt tối đa 20 ly.");
+            existing.Quantity += quantity;
+        }
+        else
+        {
+            if (cart.Items.Count >= 20) return ("full", "Giỏ hàng chỉ hỗ trợ tối đa 20 lựa chọn.");
+            cart.Items.Add(new CartItem { DrinkId = drink.Id, Quantity = quantity, Price = drink.Price!.Value });
+        }
+        SaveCart(session, cart);
+        return ("success", "Đã thêm đồ uống vào giỏ hàng.");
+    }
+
+    public string Update(ISession session, Guid id, int quantity)
+    {
+        var cart = GetCart(session);
+        var line = cart.Items.Find(value => value.LineId == id);
+        if (line == null) return "missing";
+        if (quantity < 0 || quantity > 20) return "invalid";
+        if (quantity == 0) cart.Items.Remove(line); else line.Quantity = quantity;
+        SaveCart(session, cart);
+        return "success";
+    }
+
+    public void CompleteCheckout(ISession session, Guid orderId)
+    {
+        session.Remove(CartKey);
+        session.SetString("order-reference", orderId.ToString());
+    }
+
+    public string? TakeOrderReference(ISession session)
+    {
+        var reference = session.GetString("order-reference");
+        session.Remove("order-reference");
+        return reference;
+    }
+
     public Task<bool> BranchAcceptsOrdersAsync(Guid id) =>
         database.Stores.AnyAsync(value => value.Id == id && value.IsPublished && value.AcceptsOrders);
 
