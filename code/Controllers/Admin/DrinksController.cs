@@ -16,18 +16,28 @@ public class DrinksController(DrinkService drinks) : Controller
         return model == null ? NotFound() : View(model);
     }
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
-    public Task<IActionResult> Create(DrinkEditViewModel model) => Save(model, null);
+    public Task<IActionResult> Create(DrinkEditViewModel model) =>
+        Save(model, drinks.CreateAsync(model, ModelState));
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
-    public Task<IActionResult> Edit(Guid id, DrinkEditViewModel model) => id != model.Id ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
+    public Task<IActionResult> Edit(Guid id, DrinkEditViewModel model) =>
+        id != model.Id
+            ? Task.FromResult<IActionResult>(BadRequest())
+            : Save(model, drinks.UpdateAsync(id, model, ModelState));
 
-    private async Task<IActionResult> Save(DrinkEditViewModel model, Guid? id)
+    private async Task<IActionResult> Save(
+        DrinkEditViewModel model,
+        Task<SaveResult> saveTask)
     {
-        var result = await drinks.SaveAsync(model, id, ModelState);
-        if (result == SaveResult.NotFound) return NotFound();
+        var result = await saveTask;
+        if (result == SaveResult.NotFound)
+            return NotFound();
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu đồ uống.";
-            return RedirectToAction(nameof(Index), new { categoryId = model.CategoryId });
+            return RedirectToAction(nameof(Index), new
+            {
+                categoryId = model.CategoryId
+            });
         }
         Response.StatusCode = result switch
         {
@@ -46,7 +56,8 @@ public class DrinksController(DrinkService drinks) : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        if (!await drinks.DeleteAsync(id)) return NotFound();
+        if (!await drinks.DeleteAsync(id))
+            return NotFound();
         TempData["Status"] = "Đã xóa đồ uống.";
         return RedirectToAction(nameof(Index));
     }

@@ -19,15 +19,25 @@ public class DrinkService(
     )
     {
         search = search?.Trim();
+
         if (search?.Length > 200)
+        {
             search = search[..200];
+        }
+
         var query = database
             .Drinks.AsNoTracking()
             .Where(value => categoryId == Guid.Empty || value.CategoryId == categoryId);
+
         if (!string.IsNullOrEmpty(search))
-            query = query.Where(value => (EF.Functions.ILike(value.Name, $"%{search}%")));
+        {
+            query = query.Where(value => EF.Functions.ILike(value.Name, $"%{search}%"));
+        }
+
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 20d));
+
         page = Math.Clamp(page, 1, pages);
+
         return new AdminDrinksViewModel(
             await query
                 .Include(value => value.Category)
@@ -60,6 +70,7 @@ public class DrinkService(
             {
                 Id = id,
                 Revision = value.Revision,
+
                 Name = value.Name,
                 CategoryId = value.CategoryId,
                 Description = value.Description,
@@ -70,7 +81,16 @@ public class DrinkService(
             };
     }
 
-    public async Task<SaveResult> SaveAsync(
+    public Task<SaveResult> CreateAsync(
+        DrinkEditViewModel model,
+        ModelStateDictionary modelState) => SaveCoreAsync(model, null, modelState);
+
+    public Task<SaveResult> UpdateAsync(
+        Guid id,
+        DrinkEditViewModel model,
+        ModelStateDictionary modelState) => SaveCoreAsync(model, id, modelState);
+
+    private async Task<SaveResult> SaveCoreAsync(
         DrinkEditViewModel model,
         Guid? id,
         ModelStateDictionary modelState
@@ -103,6 +123,7 @@ public class DrinkService(
             else if (model.RemoveImage)
                 value.Image = "";
             value.Name = model.Name.Trim();
+
             value.CategoryId = model.CategoryId;
             value.Description = model.Description?.Trim() ?? "";
             value.SortOrder = model.SortOrder;
