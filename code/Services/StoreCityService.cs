@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class GeographyService(
+public class StoreCityService(
     ApplicationDbContext database
 )
 {

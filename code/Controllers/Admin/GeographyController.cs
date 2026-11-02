@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
-public class GeographyController(GeographyService geography) : Controller
+public class GeographyController(StoreCityService geography) : Controller
 {
     public async Task<IActionResult> Index(string kind = "cities")
     {
@@ -17,16 +17,18 @@ public class GeographyController(GeographyService geography) : Controller
     public async Task<IActionResult> Create(string kind = "cities")
     {
         var model = await geography.CreateAsync(kind);
-        if (model == null) return NotFound();
-        ViewData["KindTitle"] = GeographyService.Title(kind);
+        if (model == null)
+            return NotFound();
+        ViewData["KindTitle"] = StoreCityService.Title(kind);
         return View("Edit", model);
     }
 
     public async Task<IActionResult> Edit(Guid id, string kind = "cities")
     {
         var model = await geography.GetEditAsync(id, kind);
-        if (model == null) return NotFound();
-        ViewData["KindTitle"] = GeographyService.Title(kind);
+        if (model == null)
+            return NotFound();
+        ViewData["KindTitle"] = StoreCityService.Title(kind);
         return View(model);
     }
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
@@ -37,12 +39,17 @@ public class GeographyController(GeographyService geography) : Controller
     private async Task<IActionResult> Save(GeographyEditViewModel model, Guid? id)
     {
         var result = await geography.SaveAsync(model, id, ModelState);
-        if (result == SaveResult.BadRequest) return BadRequest();
-        if (result == SaveResult.NotFound) return NotFound();
+        if (result == SaveResult.BadRequest)
+            return BadRequest();
+        if (result == SaveResult.NotFound)
+            return NotFound();
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu dữ liệu.";
-            return RedirectToAction(nameof(Index), new { kind = model.Kind });
+            return RedirectToAction(nameof(Index), new
+            {
+                kind = model.Kind
+            });
         }
         Response.StatusCode = result switch
         {
@@ -50,7 +57,7 @@ public class GeographyController(GeographyService geography) : Controller
             SaveResult.Conflict => StatusCodes.Status409Conflict,
             _ => StatusCodes.Status503ServiceUnavailable
         };
-        ViewData["KindTitle"] = GeographyService.Title(model.Kind);
+        ViewData["KindTitle"] = StoreCityService.Title(model.Kind);
         return View("Edit", model);
     }
 
@@ -63,15 +70,20 @@ public class GeographyController(GeographyService geography) : Controller
     public async Task<IActionResult> DeleteConfirmed(Guid id, string kind)
     {
         var result = await geography.DeleteAsync(id, kind, ModelState);
-        if (result == SaveResult.NotFound) return NotFound();
+        if (result == SaveResult.NotFound)
+            return NotFound();
         if (result == SaveResult.Conflict)
         {
             var model = await geography.GetDeleteAsync(id, kind);
-            if (model == null) return NotFound();
+            if (model == null)
+                return NotFound();
             Response.StatusCode = StatusCodes.Status409Conflict;
             return View("~/code/Views/Admin/Shared/Delete.cshtml", model);
         }
         TempData["Status"] = "Đã xóa dữ liệu.";
-        return RedirectToAction(nameof(Index), new { kind });
+        return RedirectToAction(nameof(Index), new
+        {
+            kind
+        });
     }
 }

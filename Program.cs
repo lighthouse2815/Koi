@@ -42,7 +42,7 @@ builder.Services.AddScoped<DrinkService>();
 builder.Services.AddScoped<FeaturedDrinkService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<StoreService>();
-builder.Services.AddScoped<GeographyService>();
+builder.Services.AddScoped<StoreCityService>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Configure ConnectionStrings:DefaultConnection for PostgreSQL.")));
