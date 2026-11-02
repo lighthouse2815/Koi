@@ -3,12 +3,48 @@ using Koi.Web.Data;
 using Koi.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Koi.Web.Services;
 
-public class OrderService(ApplicationDbContext database)
+public class OrderService(ApplicationDbContext database, IDataProtectionProvider protection)
 {
     private const string CartKey = "shopping-cart";
+    private const string HistoryCookie = "Koi.OrderHistory";
+
+    private List<Guid> ReadHistory(HttpRequest request)
+    {
+        if (!request.Cookies.TryGetValue(HistoryCookie, out var value)) return [];
+        try
+        {
+            var json = protection.CreateProtector(HistoryCookie).Unprotect(value);
+            return JsonSerializer.Deserialize<List<Guid>>(json) ?? [];
+        }
+        catch (Exception ex) when (ex is System.Security.Cryptography.CryptographicException or JsonException)
+        {
+            return [];
+        }
+    }
+
+    public void RememberOrder(HttpContext context, Guid orderId)
+    {
+        var ids = ReadHistory(context.Request);
+        ids.Remove(orderId);
+        ids.Insert(0, orderId);
+        var value = protection.CreateProtector(HistoryCookie).Protect(JsonSerializer.Serialize(ids.Take(30)));
+        context.Response.Cookies.Append(HistoryCookie, value, new CookieOptions
+        {
+            HttpOnly = true, Secure = context.Request.IsHttps, SameSite = SameSiteMode.Lax,
+            IsEssential = true, MaxAge = TimeSpan.FromDays(365)
+        });
+    }
+
+    public async Task<Order[]> GetHistoryAsync(HttpRequest request)
+    {
+        var ids = ReadHistory(request);
+        return await database.Orders.AsNoTracking().Include(order => order.Items)
+            .Where(order => ids.Contains(order.Id)).OrderByDescending(order => order.CreatedAt).ToArrayAsync();
+    }
     public ShoppingCart GetCart(ISession session)
     {
         var value = session.GetString(CartKey);

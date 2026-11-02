@@ -16,7 +16,7 @@
 <body class="menu-shop">
 <header class="order-header">
     <a asp-controller="Home" asp-action="Index" aria-label="Trang chủ KOI Thé"><img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" /></a>
-    <nav aria-label="Điều hướng đặt hàng"><a asp-controller="Home" asp-action="OurTea">Trà của KOI ↗</a><a asp-controller="Home" asp-action="Store">Chi nhánh ↗</a><a href="#cart">Giỏ hàng <span class="cart-count">@itemCount</span></a></nav>
+    <nav aria-label="Điều hướng đặt hàng"><a asp-action="History">Đơn đã mua</a><a asp-controller="Home" asp-action="OurTea">Trà của KOI ↗</a><a asp-controller="Home" asp-action="Store">Chi nhánh ↗</a><a href="#cart">Giỏ hàng <span class="cart-count">@itemCount</span></a></nav>
 </header>
 <main class="order-page">
     <div class="order-intro menu-intro">

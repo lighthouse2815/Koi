@@ -52,6 +52,7 @@ public class OrderController(OrderService orders) : Controller
             return View("Index", model);
         }
         orders.CompleteCheckout(HttpContext.Session, cart.OrderId);
+        orders.RememberOrder(HttpContext, cart.OrderId);
         return RedirectToAction(nameof(Complete));
     }
 
@@ -61,5 +62,7 @@ public class OrderController(OrderService orders) : Controller
         if (reference == null) return RedirectToAction(nameof(Index));
         return View((object)reference);
     }
+
+    public async Task<IActionResult> History() => View(await orders.GetHistoryAsync(Request));
 
 }
