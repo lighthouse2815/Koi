@@ -1,12 +1,13 @@
 using System.Text.Json;
 using Koi.Web.Data;
 using Koi.Web.Models;
+using Koi.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Controllers;
 
-public class OrderController(ApplicationDbContext database) : Controller
+public class OrderController(ApplicationDbContext database, OrderService orders) : Controller
 {
     private const string CartKey = "shopping-cart";
     private ShoppingCart GetCart()
@@ -18,7 +19,7 @@ public class OrderController(ApplicationDbContext database) : Controller
 
     public async Task<IActionResult> Index(Guid? categoryId, Guid? drinkId, int page = 1)
     {
-        var model = await Page(GetCart(), categoryId, drinkId, page);
+        var model = await orders.GetPageAsync(GetCart(), categoryId, drinkId, page);
         return View(model);
     }
 
@@ -95,7 +96,7 @@ public class OrderController(ApplicationDbContext database) : Controller
             }
         }
         if (changed) { SaveCart(cart); ModelState.AddModelError("", "Giá đã thay đổi. Vui lòng kiểm tra lại giỏ hàng và xác nhận đặt hàng lần nữa."); }
-        if (!ModelState.IsValid) { Response.StatusCode = 400; var model = await Page(cart); model.Checkout = checkout; return View("Index", model); }
+        if (!ModelState.IsValid) { Response.StatusCode = 400; var model = await orders.GetPageAsync(cart); model.Checkout = checkout; return View("Index", model); }
         var order = new Order
         {
             Id = cart.OrderId, StoreId = branch!.Id, StoreName = branch.Name, StoreAddress = branch.Address,
@@ -127,31 +128,4 @@ public class OrderController(ApplicationDbContext database) : Controller
         return View((object)reference);
     }
 
-    private async Task<OrderingPageViewModel> Page(ShoppingCart cart, Guid? categoryId = null, Guid? drinkId = null, int page = 1)
-    {
-        var branches = await database.Stores.AsNoTracking().Where(value => value.IsPublished && value.AcceptsOrders).OrderBy(value => value.Name).ToArrayAsync();
-        var query = database.Drinks.AsNoTracking().Include(value => value.Category).Where(value => value.IsPublished && value.Category.IsPublished);
-        if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);
-        else if (categoryId.HasValue) query = query.Where(value => value.CategoryId == categoryId);
-        const int pageSize = 12;
-        var drinkCount = await query.CountAsync();
-        var pageCount = Math.Max(1, (int)Math.Ceiling(drinkCount / (double)pageSize));
-        page = Math.Clamp(page, 1, pageCount);
-        var drinks = await query.OrderBy(value => value.Category.SortOrder).ThenBy(value => value.CategoryId)
-            .ThenBy(value => value.SortOrder).ThenBy(value => value.Id)
-            .Skip((page - 1) * pageSize).Take(pageSize).ToArrayAsync();
-        var categories = await database.Categories.AsNoTracking().Where(value => value.IsPublished && value.Drinks.Any(drink => drink.IsPublished))
-            .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
-        var filterName = drinkId.HasValue ? null : categoryId.HasValue
-            ? await database.Categories.AsNoTracking().Where(value => value.Id == categoryId && value.IsPublished).Select(value => value.Name).SingleOrDefaultAsync() : null;
-        var ids = cart.Items.Select(line => line.DrinkId).ToArray();
-        var allCartDrinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id)).ToDictionaryAsync(value => value.Id);
-        return new OrderingPageViewModel
-        {
-            Branches = branches, Branch = branches.FirstOrDefault(value => value.Id == cart.StoreId), Drinks = drinks, Cart = cart,
-            CategoryId = categoryId, DrinkId = drinkId, FilterName = filterName, Categories = categories,
-            Page = page, DrinkCount = drinkCount, HasMoreDrinks = page < pageCount,
-            Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (d.Name) : "Món không còn tồn tại", line.Customization, line.Quantity, line.Price)).ToList()
-        };
-    }
 }
