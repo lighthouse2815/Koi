@@ -8,8 +8,7 @@ namespace Koi.Web.Services;
 
 public class DrinkService(
     ApplicationDbContext database,
-    ImageUploadService uploads,
-    ILogger<DrinkService> logger
+    ImageUploadService uploads
 )
 {
     public async Task<AdminDrinksViewModel> GetListAsync(
@@ -114,44 +113,25 @@ public class DrinkService(
             model.Categories = await Categories();
             return SaveResult.Invalid;
         }
-        string? uploaded = null;
-        var result = SaveResult.Conflict;
-        try
-        {
-            if (image != null)
-                value.Image = uploaded = await uploads.SaveAsync(image, "drinks");
-            else if (model.RemoveImage)
-                value.Image = "";
-            value.Name = model.Name.Trim();
+        if (image != null)
+            value.Image = await uploads.SaveAsync(image, "drinks");
+        else if (model.RemoveImage)
+            value.Image = "";
+        value.Name = model.Name.Trim();
 
-            value.CategoryId = model.CategoryId;
-            value.Description = model.Description?.Trim() ?? "";
-            value.SortOrder = model.SortOrder;
-            value.IsPublished = model.IsPublished;
-            if (id == null)
-                database.Drinks.Add(value);
-            else
-            {
-                database.Entry(value).Property(value => value.Revision).OriginalValue =
-                    model.Revision;
-                value.Revision++;
-            }
-            await database.SaveChangesAsync();
-            return SaveResult.Success;
-        }
-        catch (DbUpdateConcurrencyException)
+        value.CategoryId = model.CategoryId;
+        value.Description = model.Description?.Trim() ?? "";
+        value.SortOrder = model.SortOrder;
+        value.IsPublished = model.IsPublished;
+        if (id == null)
+            database.Drinks.Add(value);
+        else
         {
-            modelState.AddModelError("", "Đồ uống đã thay đổi. Hãy tải lại trang trước khi lưu.");
+            database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision;
+            value.Revision++;
         }
-        catch (Exception exception) when (exception is DbUpdateException or IOException)
-        {
-            logger.LogError(exception, "Could not save drink {Id}", id);
-            result = SaveResult.Unavailable;
-            modelState.AddModelError("", "Chưa lưu được đồ uống. Vui lòng thử lại.");
-        }
-        uploads.Rollback(uploaded);
-        model.Categories = await Categories();
-        return result;
+        await database.SaveChangesAsync();
+        return SaveResult.Success;
     }
 
     public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
