@@ -7,8 +7,7 @@ namespace Koi.Web.Services;
 
 public class FeaturedDrinkService(
     ApplicationDbContext database,
-    ImageUploadService uploads,
-    ILogger<FeaturedDrinkService> logger
+    ImageUploadService uploads
 )
 {
     public Task<FeaturedDrink[]> GetListAsync() =>
@@ -29,6 +28,7 @@ public class FeaturedDrinkService(
             {
                 Id = id,
                 Revision = value.Revision,
+
                 Name = value.Name,
                 IsPublished = value.IsPublished,
                 SortOrder = value.SortOrder,
@@ -68,45 +68,23 @@ public class FeaturedDrinkService(
         {
             return SaveResult.Invalid;
         }
-        string? uploaded = null,
-            uploadedBackground = null;
-        var result = SaveResult.Conflict;
-        try
+        if (image != null)
+            value.Image = await uploads.SaveAsync(image, "featured-drinks");
+        if (background != null)
+            value.BackgroundImage = await uploads.SaveAsync(background, "featured-drinks");
+        value.Name = model.Name.Trim();
+
+        value.SortOrder = model.SortOrder;
+        value.IsPublished = model.IsPublished;
+        if (id == null)
+            database.FeaturedDrinks.Add(value);
+        else
         {
-            if (image != null)
-                value.Image = uploaded = await uploads.SaveAsync(image, "featured-drinks");
-            if (background != null)
-                value.BackgroundImage = uploadedBackground = await uploads.SaveAsync(
-                    background,
-                    "featured-drinks"
-                );
-            value.Name = model.Name.Trim();
-            value.SortOrder = model.SortOrder;
-            value.IsPublished = model.IsPublished;
-            if (id == null)
-                database.FeaturedDrinks.Add(value);
-            else
-            {
-                database.Entry(value).Property(value => value.Revision).OriginalValue =
-                    model.Revision;
-                value.Revision++;
-            }
-            await database.SaveChangesAsync();
-            return SaveResult.Success;
+            database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision;
+            value.Revision++;
         }
-        catch (DbUpdateConcurrencyException)
-        {
-            modelState.AddModelError("", "Mục này đã thay đổi. Hãy tải lại trang trước khi lưu.");
-        }
-        catch (Exception exception) when (exception is DbUpdateException or IOException)
-        {
-            logger.LogError(exception, "Could not save featured drink {Id}", id);
-            result = SaveResult.Unavailable;
-            modelState.AddModelError("", "Chưa lưu được mục New Drinks. Vui lòng thử lại.");
-        }
-        uploads.Rollback(uploaded);
-        uploads.Rollback(uploadedBackground);
-        return result;
+        await database.SaveChangesAsync();
+        return SaveResult.Success;
     }
 
     public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
