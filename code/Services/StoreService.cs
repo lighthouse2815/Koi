@@ -7,8 +7,7 @@ namespace Koi.Web.Services;
 
 public class StoreService(
     ApplicationDbContext database,
-    ImageUploadService uploads,
-    ILogger<StoreService> logger
+    ImageUploadService uploads
 )
 {
     public async Task<AdminStoresViewModel> GetListAsync(string? search, int page = 1)
@@ -48,6 +47,7 @@ public class StoreService(
                 {
                     Id = value.Id,
                     Revision = value.Revision,
+
                     Name = value.Name,
                     Phone = value.Phone,
                     Hours = value.Hours,
@@ -93,46 +93,28 @@ public class StoreService(
             await Options(model);
             return SaveResult.Invalid;
         }
-        string? uploaded = null;
-        var result = SaveResult.Conflict;
-        try
+        if (image != null)
+            value.Photo = await uploads.SaveAsync(image, "stores");
+        else if (model.RemoveImage)
+            value.Photo = "";
+        value.Name = model.Name.Trim();
+
+        value.Address = model.Address?.Trim() ?? "";
+        value.Phone = model.Phone?.Trim() ?? "";
+        value.Hours = model.Hours?.Trim() ?? "";
+        value.CityId = model.CityId;
+        value.NavigationUrl = model.NavigationUrl?.Trim() ?? "";
+        value.IsPublished = model.IsPublished;
+        value.SortOrder = model.SortOrder;
+        if (id == null)
+            database.Stores.Add(value);
+        else
         {
-            if (image != null)
-                value.Photo = uploaded = await uploads.SaveAsync(image, "stores");
-            else if (model.RemoveImage)
-                value.Photo = "";
-            value.Name = model.Name.Trim();
-            value.Address = model.Address?.Trim() ?? "";
-            value.Phone = model.Phone?.Trim() ?? "";
-            value.Hours = model.Hours?.Trim() ?? "";
-            value.CityId = model.CityId;
-            value.NavigationUrl = model.NavigationUrl?.Trim() ?? "";
-            value.IsPublished = model.IsPublished;
-            value.SortOrder = model.SortOrder;
-            if (id == null)
-                database.Stores.Add(value);
-            else
-            {
-                database.Entry(value).Property(value => value.Revision).OriginalValue =
-                    model.Revision;
-                value.Revision++;
-            }
-            await database.SaveChangesAsync();
-            return SaveResult.Success;
+            database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision;
+            value.Revision++;
         }
-        catch (DbUpdateConcurrencyException)
-        {
-            modelState.AddModelError("", "Dữ liệu đã thay đổi. Hãy tải lại trang trước khi lưu.");
-        }
-        catch (Exception exception) when (exception is DbUpdateException or IOException)
-        {
-            logger.LogError(exception, "Could not save store {StoreId}", id);
-            result = SaveResult.Unavailable;
-            modelState.AddModelError("", "Chưa lưu được cửa hàng. Vui lòng thử lại.");
-        }
-        uploads.Rollback(uploaded);
-        await Options(model);
-        return result;
+        await database.SaveChangesAsync();
+        return SaveResult.Success;
     }
 
     public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
