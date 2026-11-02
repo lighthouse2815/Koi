@@ -9,7 +9,7 @@ internal static class InitialCatalogSeed
 {
     private record Catalog(SeedCategory[] Categories, SeedFeaturedDrink[] Featured);
     private record SeedCategory(int Id, string Name, string Icon, string Image, bool ShowOnHome, int SortOrder, SeedDrink[] Drinks);
-    private record SeedDrink(int Id, string Name, string Description, string Image, int SortOrder);
+    private record SeedDrink(int Id, string Name, string Description, string Image, int SortOrder, decimal Price);
     private record SeedFeaturedDrink(int Id, string Name, string Image, string BackgroundImage, int SortOrder);
 
     public static void Insert(MigrationBuilder migration)
@@ -25,7 +25,7 @@ internal static class InitialCatalogSeed
                 [categoryId, category.Name, category.Icon, category.Image, category.ShowOnHome, true, category.SortOrder, 1]);
             foreach (var drink in category.Drinks)
                 migration.InsertData("Drinks", ["Id", "CategoryId", "Name", "Description", "Image", "Price", "SortOrder", "IsPublished", "Revision"],
-                    [Id("Drinks", drink.Id), categoryId, drink.Name, drink.Description, drink.Image, 45000m, drink.SortOrder, true, 1]);
+                    [Id("Drinks", drink.Id), categoryId, drink.Name, drink.Description, drink.Image, drink.Price, drink.SortOrder, true, 1]);
         }
         foreach (var drink in catalog.Featured)
             migration.InsertData("FeaturedDrinks", ["Id", "Name", "Image", "BackgroundImage", "SortOrder", "IsPublished", "Revision"],

@@ -13,42 +13,48 @@
           "name": "Lục trà sữa kem phô mai dâu",
           "description": "Kem phô mai mịn màng hòa cùng lục trà tươi và mứt quả mọng chua ngọt, tạo nên sự cân bằng tinh tế giữa vị béo mặn và ngọt dịu.",
           "image": "/images/pages/upload_image/ourtea/ourtea_218.jpg",
-          "sortOrder": 0
+          "sortOrder": 0,
+          "price": 35000
         },
         {
           "id": 2,
           "name": "Trà sữa đường thốt nốt",
           "description": "Đường thốt nốt Gula Melaka kết hợp với trà sữa đặc trưng của KOI, mang đến từng ngụm ngọt ngào đầy hấp dẫn.",
           "image": "/images/pages/upload_image/ourtea/ourtea_628.jpg",
-          "sortOrder": 1
+          "sortOrder": 1,
+          "price": 39000
         },
         {
           "id": 3,
           "name": "Uji Matcha Latte",
           "description": "Matcha Uji tuyển chọn cùng những lớp sắc xanh và trắng cuốn hút gợi lời mời đến một buổi thưởng trà thanh nhã.",
           "image": "/images/pages/upload_image/ourtea/ourtea_219.jpg",
-          "sortOrder": 2
+          "sortOrder": 2,
+          "price": 42000
         },
         {
           "id": 4,
           "name": "Trà Thái topping giòn",
           "description": "Trà sữa Thái đặc trưng của KOI kết hợp cùng topping giòn đặc biệt, mang đến trải nghiệm thú vị cho vị giác.",
           "image": "/images/pages/upload_image/ourtea/ourtea_656.jpg",
-          "sortOrder": 3
+          "sortOrder": 3,
+          "price": 45000
         },
         {
           "id": 5,
           "name": "Hồng trà Ribena",
           "description": "Vị lý chua đen chua ngọt hòa cùng hồng trà đậm đà, gợi lại niềm vui tuổi thơ.",
           "image": "/images/pages/upload_image/ourtea/ourtea_623.jpg",
-          "sortOrder": 4
+          "sortOrder": 4,
+          "price": 49000
         },
         {
           "id": 6,
           "name": "Trà sữa ô long sữa đặc",
           "description": "Sữa đặc kết hợp với trà sữa ô long đặc trưng của KOI, tạo nên vị béo ngậy và mượt mà.",
           "image": "/images/pages/upload_image/ourtea/ourtea_629.jpg",
-          "sortOrder": 5
+          "sortOrder": 5,
+          "price": 55000
         }
       ]
     },
@@ -65,56 +71,64 @@
           "name": "Trà sữa trân châu hoàng kim",
           "description": "Hồng trà Assam cổ điển kết hợp bột kem béo mịn và trân châu hoàng kim dai mềm, tạo nên trà sữa KOI đặc trưng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_221.jpg",
-          "sortOrder": 0
+          "sortOrder": 0,
+          "price": 59000
         },
         {
           "id": 8,
           "name": "Hồng trà kem",
           "description": "Kem vani béo mịn hòa cùng hồng trà đậm vị, trở thành món giải nhiệt tuyệt vời cho mùa hè.",
           "image": "/images/pages/upload_image/ourtea/ourtea_223.jpg",
-          "sortOrder": 1
+          "sortOrder": 1,
+          "price": 35000
         },
         {
           "id": 9,
           "name": "Lục trà sữa sương sáo",
           "description": "Sương sáo mềm mượt kết hợp cùng lục trà sữa dịu nhẹ, mang đến bất ngờ ngọt ngào như một món tráng miệng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_225.jpg",
-          "sortOrder": 2
+          "sortOrder": 2,
+          "price": 39000
         },
         {
           "id": 10,
           "name": "Hồng trà latte Taro Q",
           "description": "Taro Q thơm dẻo hòa quyện cùng trà sữa tươi, mang đến cảm giác ngon miệng trong từng lần thưởng thức.",
           "image": "/images/pages/upload_image/ourtea/ourtea_227.jpg",
-          "sortOrder": 3
+          "sortOrder": 3,
+          "price": 42000
         },
         {
           "id": 11,
           "name": "Lục trà chanh dây nha đam",
           "description": "Lục trà chanh dây kết hợp những miếng nha đam mọng nước, mang đến một mùa hè vui tươi, mát lành trong ly trà.",
           "image": "",
-          "sortOrder": 4
+          "sortOrder": 4,
+          "price": 45000
         },
         {
           "id": 12,
           "name": "Trà sữa ô long thạch konjac",
           "description": "Thạch konjac dai mềm kết hợp với trà sữa ô long, mang đến cảm giác thỏa thích và trọn vị.",
           "image": "",
-          "sortOrder": 5
+          "sortOrder": 5,
+          "price": 49000
         },
         {
           "id": 13,
           "name": "Lục trà sữa thạch dừa",
           "description": "Vừa nhâm nhi thạch dừa dai ngon, vừa thưởng thức lục trà sữa đặc trưng: đậm vị mà vẫn mát lành.",
           "image": "",
-          "sortOrder": 6
+          "sortOrder": 6,
+          "price": 55000
         },
         {
           "id": 14,
           "name": "Trà sữa thạch konjac đường đen",
           "description": "Vị đường đen của thạch konjac làm nổi bật nét béo mịn của trà sữa, tạo nên món ngon ngọt ngào, hấp dẫn.",
           "image": "",
-          "sortOrder": 7
+          "sortOrder": 7,
+          "price": 59000
         }
       ]
     },
@@ -131,56 +145,64 @@
           "name": "Lục trà lài",
           "description": "Lục trà hòa cùng hương lài nhẹ nhàng, giúp cơ thể và tâm trí thư thái.",
           "image": "/images/pages/upload_image/ourtea/ourtea_228.jpg",
-          "sortOrder": 0
+          "sortOrder": 0,
+          "price": 35000
         },
         {
           "id": 16,
           "name": "Hồng trà Assam",
           "description": "Hồng trà Assam đậm đà mà êm dịu, thoảng hương mạch nha và không đắng gắt.",
           "image": "/images/pages/upload_image/ourtea/ourtea_230.jpg",
-          "sortOrder": 1
+          "sortOrder": 1,
+          "price": 39000
         },
         {
           "id": 17,
           "name": "Trà ô long hoàng kim",
           "description": "Ô long có hương thơm gợi caramel và hậu vị sâu, mang cảm giác trong lành như thưởng thức dòng nước suối trên núi.",
           "image": "/images/pages/upload_image/ourtea/ourtea_232.jpg",
-          "sortOrder": 2
+          "sortOrder": 2,
+          "price": 42000
         },
         {
           "id": 18,
           "name": "Lục trà mật ong",
           "description": "Mật ong ngọt dịu hòa với lục trà thanh mát theo tỷ lệ cân bằng, cho từng ngụm đậm hương mà dễ uống.",
           "image": "/images/pages/upload_image/ourtea/ourtea_233.jpg",
-          "sortOrder": 3
+          "sortOrder": 3,
+          "price": 45000
         },
         {
           "id": 19,
           "name": "Hồng trà vải",
           "description": "Hương vải nồng nàn kết hợp hồng trà êm dịu, để hương trái cây và hương trà đan xen như đang dạo giữa vườn vải.",
           "image": "/images/pages/upload_image/ourtea/ourtea_234.jpg",
-          "sortOrder": 4
+          "sortOrder": 4,
+          "price": 49000
         },
         {
           "id": 20,
           "name": "Lục trà chanh tươi",
           "description": "Chanh tươi chua dịu kết hợp lục trà thanh mát, là lựa chọn giải khát lý tưởng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_235.jpg",
-          "sortOrder": 5
+          "sortOrder": 5,
+          "price": 55000
         },
         {
           "id": 21,
           "name": "Lục trà số 8",
           "description": "Mỗi ngụm lục trà thơm là bất ngờ thú vị từ vị chua ngọt của tắc và xí muội.",
           "image": "",
-          "sortOrder": 6
+          "sortOrder": 6,
+          "price": 59000
         },
         {
           "id": 22,
           "name": "Lục trà chanh dây",
           "description": "Chanh dây tươi tắn kết hợp cùng lục trà thơm dịu, đánh thức hương vị nhiệt đới.",
           "image": "",
-          "sortOrder": 7
+          "sortOrder": 7,
+          "price": 35000
         }
       ]
     },
@@ -197,56 +219,64 @@
           "name": "Hồng trà Macchiato",
           "description": "Hồng trà đậm vị hòa cùng lớp kem sữa mịn được pha chế riêng, tạo nên trải nghiệm mượt mà, trọn vẹn.",
           "image": "/images/pages/upload_image/ourtea/ourtea_237.jpg",
-          "sortOrder": 0
+          "sortOrder": 0,
+          "price": 39000
         },
         {
           "id": 24,
           "name": "Ô long Macchiato",
           "description": "Lớp kem sữa mịn kết hợp với hương ô long rang thanh nhã, mang đến trải nghiệm trà riêng biệt và tinh tế.",
           "image": "/images/pages/upload_image/ourtea/ourtea_239.jpg",
-          "sortOrder": 1
+          "sortOrder": 1,
+          "price": 42000
         },
         {
           "id": 25,
           "name": "Hồng trà caramel Macchiato",
           "description": "Caramel thơm ngọt hòa quyện trong hồng trà đậm vị, phủ bên trên lớp kem sữa mềm mịn.",
           "image": "/images/pages/upload_image/ourtea/ourtea_240.jpg",
-          "sortOrder": 2
+          "sortOrder": 2,
+          "price": 45000
         },
         {
           "id": 26,
           "name": "Hồng trà vải Macchiato",
           "description": "Hương vải hòa cùng hồng trà đậm đà; lớp kem sữa làm hậu vị thêm mượt mà và nhiều tầng hương.",
           "image": "/images/pages/upload_image/ourtea/ourtea_241.jpg",
-          "sortOrder": 3
+          "sortOrder": 3,
+          "price": 49000
         },
         {
           "id": 27,
           "name": "Lục trà đào Macchiato",
           "description": "Đào ngọt kết hợp lục trà thanh dịu và kem sữa, tạo nên thức uống nhẹ nhàng mà tròn vị.",
           "image": "/images/pages/upload_image/ourtea/ourtea_243.jpg",
-          "sortOrder": 4
+          "sortOrder": 4,
+          "price": 55000
         },
         {
           "id": 28,
           "name": "Lục trà chanh dây Macchiato",
           "description": "Chanh dây nhiệt đới kết hợp lục trà thơm và kem sữa mịn, nhân đôi vị chua dịu, mát lành.",
           "image": "",
-          "sortOrder": 5
+          "sortOrder": 5,
+          "price": 59000
         },
         {
           "id": 29,
           "name": "Ô long xoài Macchiato",
           "description": "Xoài kết hợp ô long thanh nhã và lớp kem sữa mịn, mang đến cảm nhận hài hòa, tinh tế.",
           "image": "",
-          "sortOrder": 6
+          "sortOrder": 6,
+          "price": 35000
         },
         {
           "id": 30,
           "name": "Ovaltine Macchiato",
           "description": "Nhân đôi vị ngọt và niềm vui với Ovaltine quen thuộc cùng lớp kem Macchiato đặc trưng.",
           "image": "",
-          "sortOrder": 7
+          "sortOrder": 7,
+          "price": 39000
         }
       ]
     },
@@ -263,56 +293,64 @@
           "name": "Lục trà sữa",
           "description": "Thanh mát mà béo mịn, lục trà sữa có hương vị nhẹ nhàng, hài hòa khiến bạn muốn thưởng thức thêm.",
           "image": "/images/pages/upload_image/ourtea/ourtea_567.jpg",
-          "sortOrder": 0
+          "sortOrder": 0,
+          "price": 42000
         },
         {
           "id": 32,
           "name": "Trà sữa ô long",
           "description": "Ô long rang hòa cùng vị sữa béo mịn. Mỗi ngụm đều mở ra những tầng hương vị và niềm vui.",
           "image": "/images/pages/upload_image/ourtea/ourtea_570.jpg",
-          "sortOrder": 1
+          "sortOrder": 1,
+          "price": 45000
         },
         {
           "id": 33,
           "name": "Trà sữa hạt phỉ",
           "description": "Hạt phỉ thơm hòa với trà sữa béo mịn, gợi cảm giác ấm áp, dễ chịu của mùa thu.",
           "image": "/images/pages/upload_image/ourtea/ourtea_572.jpg",
-          "sortOrder": 2
+          "sortOrder": 2,
+          "price": 49000
         },
         {
           "id": 34,
           "name": "Trà sữa caramel",
           "description": "Vị ngọt caramel trong trà sữa đậm đà tạo nên sức hút khó cưỡng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_573.jpg",
-          "sortOrder": 3
+          "sortOrder": 3,
+          "price": 55000
         },
         {
           "id": 35,
           "name": "Trà sữa mật ong",
           "description": "Mật ong ngọt dịu gặp trà sữa béo mịn, nhẹ nhàng như tia nắng trong ngày ấm áp.",
           "image": "/images/pages/upload_image/ourtea/ourtea_574.jpg",
-          "sortOrder": 4
+          "sortOrder": 4,
+          "price": 59000
         },
         {
           "id": 36,
           "name": "Ovaltine",
           "description": "Mạch nha hòa cùng sữa béo mịn, tạo nên hương vị hấp dẫn không thể bỏ lỡ.",
           "image": "",
-          "sortOrder": 5
+          "sortOrder": 5,
+          "price": 35000
         },
         {
           "id": 37,
           "name": "Sữa chocolate",
           "description": "Món ngon dành cho người yêu chocolate, mang đến vị chocolate béo mịn, đậm đà trong từng ngụm.",
           "image": "",
-          "sortOrder": 6
+          "sortOrder": 6,
+          "price": 39000
         },
         {
           "id": 38,
           "name": "Cacao Barry",
           "description": "Cacao đậm vị hòa quyện cùng sữa béo mịn theo cách hài hòa như một điệu múa trong từng ngụm.",
           "image": "",
-          "sortOrder": 7
+          "sortOrder": 7,
+          "price": 42000
         }
       ]
     },
@@ -329,56 +367,64 @@
           "name": "Hồng trà latte",
           "description": "Hồng trà đậm đà, êm dịu kết hợp sữa tươi, tạo nên vị cân bằng và trọn vẹn.",
           "image": "/images/pages/upload_image/ourtea/ourtea_575.jpg",
-          "sortOrder": 0
+          "sortOrder": 0,
+          "price": 45000
         },
         {
           "id": 40,
           "name": "Lục trà latte",
           "description": "Lục trà thanh mát và sữa tươi ngọt dịu mang cảm giác nhẹ nhàng như gió xuân.",
           "image": "/images/pages/upload_image/ourtea/ourtea_577.jpg",
-          "sortOrder": 1
+          "sortOrder": 1,
+          "price": 49000
         },
         {
           "id": 41,
           "name": "Ô long latte",
           "description": "Ô long rang tinh tế kết hợp sữa tươi ngọt dịu, tạo nên nhiều tầng hương vị thanh nhã.",
           "image": "/images/pages/upload_image/ourtea/ourtea_579.jpg",
-          "sortOrder": 2
+          "sortOrder": 2,
+          "price": 55000
         },
         {
           "id": 42,
           "name": "Matcha latte",
           "description": "Matcha hơi đắng hòa quyện cùng sữa tươi, mang đến khoảnh khắc thưởng trà tao nhã.",
           "image": "/images/pages/upload_image/ourtea/ourtea_652.jpg",
-          "sortOrder": 3
+          "sortOrder": 3,
+          "price": 59000
         },
         {
           "id": 43,
           "name": "Hồng trà latte hạt phỉ",
           "description": "Hương hạt phỉ và trà sữa thơm tạo nên hương vị riêng biệt, ấm áp.",
           "image": "",
-          "sortOrder": 4
+          "sortOrder": 4,
+          "price": 35000
         },
         {
           "id": 44,
           "name": "Hồng trà latte caramel",
           "description": "Caramel ngọt, hồng trà đậm và sữa mịn hòa thành bản phối hương vị hài hòa.",
           "image": "",
-          "sortOrder": 5
+          "sortOrder": 5,
+          "price": 39000
         },
         {
           "id": 45,
           "name": "Cacao Barry latte",
           "description": "Cacao đậm cùng sữa tươi ngọt dịu mang đến hương vị thanh lịch, tinh tế.",
           "image": "",
-          "sortOrder": 6
+          "sortOrder": 6,
+          "price": 42000
         },
         {
           "id": 46,
           "name": "Hồng trà latte đường đen",
           "description": "Đường đen kiểu Okinawa với hương khói nhẹ kết hợp trà sữa mượt mà, tạo nên vị ngon cuốn hút.",
           "image": "",
-          "sortOrder": 7
+          "sortOrder": 7,
+          "price": 45000
         }
       ]
     },
@@ -395,56 +441,64 @@
           "name": "Mật ong đá",
           "description": "Hương mật ong thơm dịu mời bạn tận hưởng phút giây mát lành và thư thái.",
           "image": "/images/pages/upload_image/ourtea/ourtea_583.jpg",
-          "sortOrder": 0
+          "sortOrder": 0,
+          "price": 49000
         },
         {
           "id": 48,
           "name": "Nước chanh tươi",
           "description": "Nước chanh vắt tươi chua dịu, giúp giải khát và làm mát cơ thể.",
           "image": "/images/pages/upload_image/ourtea/ourtea_584.jpg",
-          "sortOrder": 1
+          "sortOrder": 1,
+          "price": 55000
         },
         {
           "id": 49,
           "name": "Nước tắc tươi",
           "description": "Nước tắc vắt tươi chua ngọt là bạn đồng hành lý tưởng cho mùa hè.",
           "image": "/images/pages/upload_image/ourtea/ourtea_585.jpg",
-          "sortOrder": 2
+          "sortOrder": 2,
+          "price": 59000
         },
         {
           "id": 50,
           "name": "Nước ép số 8",
           "description": "Tắc kết hợp xí muội, tạo nên thức uống mùa hè chua dịu và có vị mặn nhẹ thú vị.",
           "image": "/images/pages/upload_image/ourtea/ourtea_586.jpg",
-          "sortOrder": 3
+          "sortOrder": 3,
+          "price": 35000
         },
         {
           "id": 51,
           "name": "Chanh tắc mật ong",
           "description": "Nước trái cây tươi cùng mật ong ngọt dịu, lựa chọn giải khát lý tưởng trong ngày nóng.",
           "image": "/images/pages/upload_image/ourtea/ourtea_587.jpg",
-          "sortOrder": 4
+          "sortOrder": 4,
+          "price": 39000
         },
         {
           "id": 52,
           "name": "Chanh xí muội",
           "description": "Xí muội kết hợp chanh tươi, chua ngọt như hương vị của tình yêu.",
           "image": "/images/pages/upload_image/ourtea/ourtea_588.jpg",
-          "sortOrder": 5
+          "sortOrder": 5,
+          "price": 42000
         },
         {
           "id": 53,
           "name": "Chanh Yakult",
           "description": "Chanh thanh nhẹ kết hợp Yakult, tiếp thêm sức sống cho cả ngày.",
           "image": "/images/pages/upload_image/ourtea/ourtea_589.jpg",
-          "sortOrder": 6
+          "sortOrder": 6,
+          "price": 45000
         },
         {
           "id": 54,
           "name": "Xoài Yakult",
           "description": "Xoài thơm kết hợp Yakult tạo nên vị nhiệt đới đầy tươi mát.",
           "image": "",
-          "sortOrder": 7
+          "sortOrder": 7,
+          "price": 49000
         }
       ]
     }
