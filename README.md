@@ -22,7 +22,6 @@ Mở **Terminal** tại thư mục gốc của project, tức thư mục chứa 
 2. Khôi phục package và chạy ứng dụng:
 
    ```bash
-   dotnet restore Koi.sln
    dotnet run
    ```
 
