@@ -8,8 +8,7 @@ namespace Koi.Web.Services;
 
 public class NewsService(
     ApplicationDbContext database,
-    ImageUploadService uploads,
-    ILogger<NewsService> logger
+    ImageUploadService uploads
 )
 {
     public async Task<AdminNewsViewModel> GetListAsync(string? search, int page = 1)
@@ -19,7 +18,7 @@ public class NewsService(
             search = search[..200];
         var query = database.NewsArticles.AsNoTracking();
         if (!string.IsNullOrEmpty(search))
-            query = query.Where(article => (EF.Functions.ILike(article.Title, $"%{search}%")));
+            query = query.Where(article => EF.Functions.ILike(article.Title, $"%{search}%"));
         const int pageSize = 20;
         var pageCount = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / (double)pageSize));
         page = Math.Clamp(page, 1, pageCount);
@@ -43,6 +42,7 @@ public class NewsService(
             {
                 Id = article.Id,
                 Revision = article.Revision,
+
                 Title = article.Title,
                 Category = article.Category,
                 Date = article.Date,
@@ -92,66 +92,39 @@ public class NewsService(
         {
             return SaveResult.Invalid;
         }
-        string? uploadedFile = null;
         await using var transaction = await database.Database.BeginTransactionAsync();
-        try
+        if (image != null)
         {
-            if (image != null)
-            {
-                uploadedFile = await uploads.SaveAsync(image, "news");
-                article.Image = article.BannerImage = uploadedFile;
-                article.HomeImage = "";
-            }
-            article.Title = model.Title.Trim();
+            var uploadedFile = await uploads.SaveAsync(image, "news");
+            article.Image = article.BannerImage = uploadedFile;
+            article.HomeImage = "";
+        }
+        article.Title = model.Title.Trim();
 
-            article.Category = model.Category;
-            article.Date = model.Date!.Value;
-            if (
-                article.VideoId != null
-                && videoId == null
-                && string.IsNullOrEmpty(article.BannerImage)
-            )
-                article.BannerImage = article.Image;
-            article.VideoId = videoId;
-            article.BodyHtml = body;
-            article.IsPublished = model.IsPublished;
-            article.IsFeatured = model.IsFeatured;
-            article.ShowOnHome = model.ShowOnHome;
-            article.HomeOrder = model.HomeOrder;
-            if (id == null)
-                database.NewsArticles.Add(article);
-            else
-            {
-                database.Entry(article).Property(value => value.Revision).OriginalValue =
-                    model.Revision;
-                article.Revision++;
-            }
-            if (article.IsFeatured)
-                await database
-                    .NewsArticles.Where(other => other.IsFeatured && other.Id != article.Id)
-                    .ExecuteUpdateAsync(update =>
-                        update.SetProperty(other => other.IsFeatured, false)
-                    );
-            await database.SaveChangesAsync();
-            await transaction.CommitAsync();
-            return SaveResult.Success;
-        }
-        catch (DbUpdateConcurrencyException)
+        article.Category = model.Category;
+        article.Date = model.Date!.Value;
+        if (article.VideoId != null && videoId == null && string.IsNullOrEmpty(article.BannerImage))
+            article.BannerImage = article.Image;
+        article.VideoId = videoId;
+        article.BodyHtml = body;
+        article.IsPublished = model.IsPublished;
+        article.IsFeatured = model.IsFeatured;
+        article.ShowOnHome = model.ShowOnHome;
+        article.HomeOrder = model.HomeOrder;
+        if (id == null)
+            database.NewsArticles.Add(article);
+        else
         {
-            modelState.AddModelError(
-                "",
-                "Bài viết đã được thay đổi. Hãy tải lại trang sửa trước khi lưu tiếp."
-            );
-            uploads.Rollback(uploadedFile);
-            return SaveResult.Conflict;
+            database.Entry(article).Property(value => value.Revision).OriginalValue = model.Revision;
+            article.Revision++;
         }
-        catch (Exception exception) when (exception is DbUpdateException or IOException)
-        {
-            logger.LogError(exception, "Could not save news article {ArticleId}", id);
-            modelState.AddModelError("", "Chưa lưu được bài viết. Vui lòng thử lại.");
-            uploads.Rollback(uploadedFile);
-            return SaveResult.Unavailable;
-        }
+        if (article.IsFeatured)
+            await database.NewsArticles
+                .Where(other => other.IsFeatured && other.Id != article.Id)
+                .ExecuteUpdateAsync(update => update.SetProperty(other => other.IsFeatured, false));
+        await database.SaveChangesAsync();
+        await transaction.CommitAsync();
+        return SaveResult.Success;
     }
 
     public Task<NewsArticle?> GetArticleAsync(Guid id) =>
