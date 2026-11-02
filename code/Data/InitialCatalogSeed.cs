@@ -24,8 +24,8 @@ internal static class InitialCatalogSeed
             migration.InsertData("Category", ["Id", "Name", "Icon", "Image", "ShowOnHome", "IsPublished", "SortOrder", "Revision"],
                 [categoryId, category.Name, category.Icon, category.Image, category.ShowOnHome, true, category.SortOrder, 1]);
             foreach (var drink in category.Drinks)
-                migration.InsertData("Drinks", ["Id", "CategoryId", "Name", "Description", "Image", "SortOrder", "IsPublished", "Revision"],
-                    [Id("Drinks", drink.Id), categoryId, drink.Name, drink.Description, drink.Image, drink.SortOrder, true, 1]);
+                migration.InsertData("Drinks", ["Id", "CategoryId", "Name", "Description", "Image", "Price", "SortOrder", "IsPublished", "Revision"],
+                    [Id("Drinks", drink.Id), categoryId, drink.Name, drink.Description, drink.Image, 45000m, drink.SortOrder, true, 1]);
         }
         foreach (var drink in catalog.Featured)
             migration.InsertData("FeaturedDrinks", ["Id", "Name", "Image", "BackgroundImage", "SortOrder", "IsPublished", "Revision"],
@@ -36,7 +36,7 @@ internal static class InitialCatalogSeed
             migration.InsertData("StoreCities", ["Id", "Name", "SortOrder", "Revision"], [Id("StoreCities", city.Id), city.Name, order, 1]);
         foreach (var store in snapshot.Stores)
             migration.InsertData("Stores", ["Id", "Name", "Phone", "Hours", "Address", "CityId", "Photo", "NavigationUrl", "AcceptsOrders", "IsPublished", "SortOrder", "Revision"],
-                [Id("Stores", store.Id), store.Name, store.Phone, store.Hours, store.Address, store.LocationId == 0 ? null! : Id("StoreCities", store.LocationId), store.Photo, store.NavigationUrl, false, true, store.Id, 1]);
+                [Id("Stores", store.Id), store.Name, store.Phone, store.Hours, store.Address, store.LocationId == 0 ? null! : Id("StoreCities", store.LocationId), store.Photo, store.NavigationUrl, true, true, store.Id, 1]);
 
         var menus = MenuCatalog.Documents;
         for (var order = 0; order < menus.Count; order++)
