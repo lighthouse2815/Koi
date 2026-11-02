@@ -1,6 +1,0 @@
-.cover-languages>span{display:contents}
-.language-switcher a{font:inherit;color:inherit;padding:3px 0;text-decoration:none}
-.language-switcher a[aria-current]{text-decoration:underline;text-underline-offset:4px;font-weight:800}
-.language-switcher a:focus-visible{outline:2px solid currentColor;outline-offset:4px}
-html.static-loading .storeListWrap,html.static-loading .newsListWrap{visibility:hidden}
-.static-error{margin:30px auto;padding:20px;max-width:700px;background:#fff4df;color:#142027;border:1px solid #b83c00;font:16px/1.6 Arial,sans-serif}

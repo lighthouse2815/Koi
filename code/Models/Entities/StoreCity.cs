@@ -8,6 +8,7 @@ public class StoreCity
 
     [Required, StringLength(150)]
     public string Name { get; set; } = "";
+    
     public int SortOrder { get; set; }
 
     [ConcurrencyCheck]

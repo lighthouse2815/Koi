@@ -25,15 +25,7 @@ Mở **Terminal** tại thư mục gốc của project, tức thư mục chứa 
    dotnet run
    ```
 
-Giữ Terminal đang chạy ứng dụng. Mở trình duyệt tại `http://localhost:5118`; trang quản trị nằm tại `http://localhost:5118/Admin`.
+Mở trình duyệt tại `http://localhost:5118`; trang quản trị nằm tại `http://localhost:5118/Admin`.
 
-Đăng nhập quản trị bằng `admin@koi.local` / `KoiDev@2026!`. Connection string và tài khoản này đã có sẵn trong `appsettings.Development.json`.
+Đăng nhập quản trị bằng `admin@koi.local` / `KoiDev@2026!`.
 
-Trong môi trường Development, ứng dụng tự chạy migration và nạp dữ liệu mẫu tiếng Việt. Không dùng cấu hình này cho production.
-
-## Kiểm tra và phát hành
-
-```bash
-dotnet build Koi.sln --configuration Release
-dotnet publish Koi.Web.csproj --configuration Release --output ./artifacts/publish
-```

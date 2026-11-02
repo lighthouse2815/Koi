@@ -23,7 +23,8 @@ public class StoresController(StoreService stores) : Controller
     private async Task<IActionResult> Save(StoreEditViewModel model, Guid? id)
     {
         var result = await stores.SaveAsync(model, id, ModelState);
-        if (result == SaveResult.NotFound) return NotFound();
+        if (result == SaveResult.NotFound)
+            return NotFound();
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu cửa hàng.";
@@ -46,7 +47,8 @@ public class StoresController(StoreService stores) : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        if (!await stores.DeleteAsync(id)) return NotFound();
+        if (!await stores.DeleteAsync(id))
+            return NotFound();
         TempData["Status"] = "Đã xóa cửa hàng.";
         return RedirectToAction(nameof(Index));
     }

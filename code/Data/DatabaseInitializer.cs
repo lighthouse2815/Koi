@@ -20,17 +20,20 @@ public static class DatabaseInitializer
                 await database.Database.MigrateAsync();
                 var email = configuration["Admin:Email"];
                 var password = configuration["Admin:Password"];
-                if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password)) return;
+                if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                    return;
                 var roles = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
                 var users = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser<Guid>>>();
-                if (!await roles.RoleExistsAsync("Admin")) EnsureSuccess(await roles.CreateAsync(new IdentityRole<Guid>("Admin")));
+                if (!await roles.RoleExistsAsync("Admin"))
+                    EnsureSuccess(await roles.CreateAsync(new IdentityRole<Guid>("Admin")));
                 var user = await users.FindByEmailAsync(email);
                 if (user == null)
                 {
                     user = new IdentityUser<Guid> { UserName = email, Email = email, EmailConfirmed = true };
                     EnsureSuccess(await users.CreateAsync(user, password));
                 }
-                if (!await users.IsInRoleAsync(user, "Admin")) EnsureSuccess(await users.AddToRoleAsync(user, "Admin"));
+                if (!await users.IsInRoleAsync(user, "Admin"))
+                    EnsureSuccess(await users.AddToRoleAsync(user, "Admin"));
             }
             finally
             {
@@ -45,6 +48,7 @@ public static class DatabaseInitializer
 
     private static void EnsureSuccess(IdentityResult result)
     {
-        if (!result.Succeeded) throw new InvalidOperationException(string.Join(" ", result.Errors.Select(error => error.Description)));
+        if (!result.Succeeded)
+            throw new InvalidOperationException(string.Join(" ", result.Errors.Select(error => error.Description)));
     }
 }

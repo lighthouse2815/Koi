@@ -11,35 +11,34 @@ public class CategoryService(
 )
 {
     public Task<Category[]> GetListAsync() =>
-        database
-            .DrinkCategories.AsNoTracking()
-            .OrderBy(value => value.SortOrder)
-            .ThenBy(value => value.Id)
-            .ToArrayAsync();
+        database.Categories
+                .AsNoTracking()
+                .OrderBy(value => value.SortOrder)
+                .ThenBy(value => value.Id)
+                .ToArrayAsync();
 
+   
     public Task<Category?> GetByIdAsync(Guid id) =>
-        database.DrinkCategories.AsNoTracking().SingleOrDefaultAsync(category => category.Id == id);
+        database.Categories.AsNoTracking().SingleOrDefaultAsync(category => category.Id == id);
 
     public async Task<SaveResult> CreateAsync(
-        DrinkCategoryEditViewModel model,
-        ModelStateDictionary modelState
-    )
+        CategoryEditViewModel model,
+        ModelStateDictionary modelState)
     {
         var category = new Category();
         if (!await ApplyChangesAsync(category, model, modelState))
             return SaveResult.Invalid;
-        database.DrinkCategories.Add(category);
+        database.Categories.Add(category);
         await database.SaveChangesAsync();
         return SaveResult.Success;
     }
 
     public async Task<SaveResult> UpdateAsync(
         Guid id,
-        DrinkCategoryEditViewModel model,
-        ModelStateDictionary modelState
-    )
+        CategoryEditViewModel model,
+        ModelStateDictionary modelState)
     {
-        var category = await database.DrinkCategories.SingleOrDefaultAsync(category => category.Id == id);
+        var category = await database.Categories.SingleOrDefaultAsync(category => category.Id == id);
         if (category == null)
             return SaveResult.NotFound;
         if (!await ApplyChangesAsync(category, model, modelState))
@@ -52,9 +51,8 @@ public class CategoryService(
 
     private async Task<bool> ApplyChangesAsync(
         Category category,
-        DrinkCategoryEditViewModel model,
-        ModelStateDictionary modelState
-    )
+        CategoryEditViewModel model,
+        ModelStateDictionary modelState)
     {
         model.CurrentImage = category.Image;
         model.CurrentIcon = category.Icon;
@@ -73,7 +71,9 @@ public class CategoryService(
         )
             modelState.AddModelError(nameof(model.IconUpload), "Chọn biểu tượng thẻ trang chủ.");
         if (!modelState.IsValid)
+        {
             return false;
+        }
         async Task<string> SaveImage(ImageUpload? file, string current)
         {
             if (file == null)
@@ -83,17 +83,22 @@ public class CategoryService(
         category.Image = await SaveImage(image, category.Image);
         category.Icon = await SaveImage(icon, model.RemoveIcon ? "" : category.Icon);
         category.Name = model.Name.Trim();
+
         category.SortOrder = model.SortOrder;
         category.ShowOnHome = model.ShowOnHome;
         category.IsPublished = model.IsPublished;
         return true;
     }
+
     public async Task<SaveResult> DeleteAsync(Guid id)
     {
-        var value = await database.DrinkCategories.FindAsync(id);
+        var value = await database.Categories.FindAsync(id);
+
         if (value == null)
+        {
             return SaveResult.NotFound;
-        database.DrinkCategories.Remove(value);
+        }
+        database.Categories.Remove(value);
         await database.SaveChangesAsync();
         return SaveResult.Success;
     }

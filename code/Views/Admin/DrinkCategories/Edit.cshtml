@@ -1,4 +1,4 @@
-@model DrinkCategoryEditViewModel
+@model CategoryEditViewModel
 @{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = editing ? "Sửa danh mục" : "Thêm danh mục"; }
 <div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh mục đồ uống</a></div>
 <form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor">

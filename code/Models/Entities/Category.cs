@@ -16,9 +16,11 @@ public class Category
     public string Image { get; set; } = "";
 
     public bool ShowOnHome { get; set; }
-    public bool IsPublished { get; set; } = true;
-    public int SortOrder { get; set; }
 
+    public bool IsPublished { get; set; } = true;
+
+    public int SortOrder { get; set; }
+    
     [ConcurrencyCheck]
     public int Revision { get; set; } = 1;
 

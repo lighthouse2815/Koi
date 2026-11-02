@@ -14,9 +14,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<NewsArticle> NewsArticles => Set<NewsArticle>();
     public DbSet<StoreCity> StoreCities => Set<StoreCity>();
-    public DbSet<StoreEntry> Stores => Set<StoreEntry>();
-    public DbSet<MenuEntry> Menus => Set<MenuEntry>();
-    public DbSet<Category> DrinkCategories => Set<Category>();
+    public DbSet<Store> Stores => Set<Store>();
+    public DbSet<Menu> Menus => Set<Menu>();
+    public DbSet<Category> Categories => Set<Category>();
     public DbSet<Drink> Drinks => Set<Drink>();
     public DbSet<FeaturedDrink> FeaturedDrinks => Set<FeaturedDrink>();
     public DbSet<Order> Orders => Set<Order>();
@@ -24,9 +24,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<StoreEntry>().HasOne(value => value.City).WithMany().OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<StoreEntry>().HasIndex(value => new { value.IsPublished, value.CityId });
-        builder.Entity<MenuEntry>().HasIndex(value => new { value.IsPublished, value.SortOrder });
+        builder.Entity<Store>().HasOne(value => value.City).WithMany().OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<Store>().HasIndex(value => new { value.IsPublished, value.CityId });
+        builder.Entity<Menu>().HasIndex(value => new { value.IsPublished, value.SortOrder });
         builder.Entity<Category>().ToTable("Category");
         builder.Entity<Drink>().HasOne(value => value.Category).WithMany(value => value.Drinks).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.IsPublished, value.SortOrder });

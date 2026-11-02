@@ -12,7 +12,8 @@ public class HomeController(SiteContentService site) : Controller
     [HttpPost]
     public IActionResult Language(string culture, string? returnUrl)
     {
-        if (culture is not ("vi" or "en")) return BadRequest();
+        if (culture is not ("vi" or "en"))
+            return BadRequest();
         Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
             CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
             new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1), IsEssential = true, HttpOnly = true, Secure = Request.IsHttps, SameSite = SameSiteMode.Lax });
@@ -50,7 +51,8 @@ public class HomeController(SiteContentService site) : Controller
     public async Task<IActionResult> NewsPreview(Guid id)
     {
         var article = await site.GetArticleAsync(id, publishedOnly: false);
-        if (article == null) return NotFound();
+        if (article == null)
+            return NotFound();
         ViewData["IsAdminPreview"] = true;
         return View("NewsDetail", article);
     }

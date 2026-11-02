@@ -21,6 +21,7 @@ public class Drink
     public decimal? Price { get; set; }
 
     public bool IsPublished { get; set; } = true;
+    
     public int SortOrder { get; set; }
 
     [ConcurrencyCheck]

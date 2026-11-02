@@ -14,6 +14,7 @@ public class NewsArticle
     public string Title { get; set; } = "";
 
     public NewsCategory Category { get; set; } = NewsCategory.NEWS;
+
     public DateOnly Date { get; set; }
 
     [MaxLength(500)]
@@ -27,10 +28,15 @@ public class NewsArticle
 
     [MaxLength(11)]
     public string? VideoId { get; set; }
+
     public string BodyHtml { get; set; } = "";
+
     public bool IsPublished { get; set; } = true;
+
     public bool IsFeatured { get; set; }
+
     public bool ShowOnHome { get; set; }
+    
     public int HomeOrder { get; set; }
 
     [ConcurrencyCheck]

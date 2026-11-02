@@ -23,7 +23,8 @@ public class MenusController(MenuService menus) : Controller
     private async Task<IActionResult> Save(MenuEditViewModel model, Guid? id)
     {
         var result = await menus.SaveAsync(model, id, ModelState);
-        if (result == SaveResult.NotFound) return NotFound();
+        if (result == SaveResult.NotFound)
+            return NotFound();
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu thực đơn.";
@@ -46,7 +47,8 @@ public class MenusController(MenuService menus) : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        if (!await menus.DeleteAsync(id)) return NotFound();
+        if (!await menus.DeleteAsync(id))
+            return NotFound();
         TempData["Status"] = "Đã xóa thực đơn.";
         return RedirectToAction(nameof(Index));
     }

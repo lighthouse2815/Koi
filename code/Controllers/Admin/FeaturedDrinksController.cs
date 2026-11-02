@@ -23,7 +23,8 @@ public class FeaturedDrinksController(FeaturedDrinkService drinks) : Controller
     private async Task<IActionResult> Save(FeaturedDrinkEditViewModel model, Guid? id)
     {
         var result = await drinks.SaveAsync(model, id, ModelState);
-        if (result == SaveResult.NotFound) return NotFound();
+        if (result == SaveResult.NotFound)
+            return NotFound();
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu mục New Drinks.";
@@ -46,7 +47,8 @@ public class FeaturedDrinksController(FeaturedDrinkService drinks) : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        if (!await drinks.DeleteAsync(id)) return NotFound();
+        if (!await drinks.DeleteAsync(id))
+            return NotFound();
         TempData["Status"] = "Đã xóa mục New Drinks.";
         return RedirectToAction(nameof(Index));
     }

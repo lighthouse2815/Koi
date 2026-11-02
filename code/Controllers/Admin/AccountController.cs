@@ -14,10 +14,14 @@ public class AccountController(SignInManager<IdentityUser<Guid>> signInManager) 
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
-        if (!ModelState.IsValid) return View(model);
+        if (!ModelState.IsValid)
+            return View(model);
         var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
         if (result.Succeeded)
-            return LocalRedirect(Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl! : Url.Action("Index", "News", new { area = "Admin" })!);
+            return LocalRedirect(Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl! : Url.Action("Index", "News", new
+            {
+                area = "Admin"
+            })!);
         ModelState.AddModelError("", result.IsLockedOut ? "Tài khoản tạm khóa. Vui lòng thử lại sau 5 phút." : "Email hoặc mật khẩu không đúng.");
         return View(model);
     }

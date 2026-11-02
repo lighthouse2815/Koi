@@ -34,7 +34,8 @@ public class NewsController(NewsService news) : Controller
     private async Task<IActionResult> Save(NewsEditViewModel model, Guid? id)
     {
         var status = await news.SaveAsync(model, id, ModelState);
-        if (status == SaveResult.NotFound) return NotFound();
+        if (status == SaveResult.NotFound)
+            return NotFound();
         if (status == SaveResult.Success)
         {
             TempData["Status"] = id.HasValue ? "Đã cập nhật bài viết." : "Đã thêm bài viết.";
@@ -59,7 +60,8 @@ public class NewsController(NewsService news) : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        if (!await news.DeleteAsync(id)) return NotFound();
+        if (!await news.DeleteAsync(id))
+            return NotFound();
         TempData["Status"] = "Đã xóa bài viết.";
         return RedirectToAction(nameof(Index));
     }

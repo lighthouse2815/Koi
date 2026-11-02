@@ -9,13 +9,13 @@ namespace Koi.Web.Controllers.Admin;
 public class DrinkCategoriesController(CategoryService categories) : Controller
 {
     public async Task<IActionResult> Index() => View(await categories.GetListAsync());
-    public IActionResult Create() => View("Edit", new DrinkCategoryEditViewModel());
+    public IActionResult Create() => View("Edit", new CategoryEditViewModel());
     public async Task<IActionResult> Edit(Guid id)
     {
         var category = await categories.GetByIdAsync(id);
         if (category == null)
             return NotFound();
-        return View(new DrinkCategoryEditViewModel
+        return View(new CategoryEditViewModel
         {
             Id = category.Id,
             Revision = category.Revision,
@@ -28,21 +28,21 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
         });
     }
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
-    public Task<IActionResult> Create(DrinkCategoryEditViewModel model) =>
+    public Task<IActionResult> Create(CategoryEditViewModel model) =>
         HandleSaveAsync(categories.CreateAsync(model, ModelState), model);
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
-    public Task<IActionResult> Edit(Guid id, DrinkCategoryEditViewModel model) =>
+    public Task<IActionResult> Edit(Guid id, CategoryEditViewModel model) =>
         id != model.Id
             ? Task.FromResult<IActionResult>(BadRequest())
             : HandleSaveAsync(categories.UpdateAsync(id, model, ModelState), model);
 
     private async Task<IActionResult> HandleSaveAsync(
         Task<SaveResult> saveTask,
-        DrinkCategoryEditViewModel model
-    )
+        CategoryEditViewModel model)
     {
         var result = await saveTask;
-        if (result == SaveResult.NotFound) return NotFound();
+        if (result == SaveResult.NotFound)
+            return NotFound();
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu danh mục đồ uống.";
@@ -66,11 +66,13 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         var result = await categories.DeleteAsync(id);
-        if (result == SaveResult.NotFound) return NotFound();
+        if (result == SaveResult.NotFound)
+            return NotFound();
         if (result == SaveResult.Conflict)
         {
             var category = await categories.GetByIdAsync(id);
-            if (category == null) return NotFound();
+            if (category == null)
+                return NotFound();
             Response.StatusCode = StatusCodes.Status409Conflict;
             return View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(category.Id, category.Name));
         }
