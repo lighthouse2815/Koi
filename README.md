@@ -23,7 +23,7 @@ Mở **Terminal** tại thư mục gốc của project, tức thư mục chứa 
 
    ```bash
    dotnet restore Koi.sln
-   dotnet run --project Koi.Web.csproj
+   dotnet run
    ```
 
 Giữ Terminal đang chạy ứng dụng. Mở trình duyệt tại `http://localhost:5118`; trang quản trị nằm tại `http://localhost:5118/Admin`.
