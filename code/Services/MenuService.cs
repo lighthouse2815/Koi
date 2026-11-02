@@ -7,8 +7,7 @@ namespace Koi.Web.Services;
 
 public class MenuService(
     ApplicationDbContext database,
-    ImageUploadService uploads,
-    ILogger<MenuService> logger
+    ImageUploadService uploads
 )
 {
     public async Task<AdminMenusViewModel> GetListAsync() =>
@@ -31,6 +30,7 @@ public class MenuService(
             {
                 Id = id,
                 Revision = value.Revision,
+
                 Label = value.Label,
                 SortOrder = value.SortOrder,
                 IsPublished = value.IsPublished,
@@ -58,39 +58,24 @@ public class MenuService(
         if (id == null && image == null)
             modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh thực đơn.");
         if (!modelState.IsValid)
+        {
             return SaveResult.Invalid;
-        string? uploaded = null;
-        var result = SaveResult.Conflict;
-        try
-        {
-            if (image != null)
-                value.File = uploaded = await uploads.SaveAsync(image, "menus");
-            value.Label = model.Label.Trim();
-            value.SortOrder = model.SortOrder;
-            value.IsPublished = model.IsPublished;
-            if (id == null)
-                database.Menus.Add(value);
-            else
-            {
-                database.Entry(value).Property(value => value.Revision).OriginalValue =
-                    model.Revision;
-                value.Revision++;
-            }
-            await database.SaveChangesAsync();
-            return SaveResult.Success;
         }
-        catch (DbUpdateConcurrencyException)
+        if (image != null)
+            value.File = await uploads.SaveAsync(image, "menus");
+        value.Label = model.Label.Trim();
+
+        value.SortOrder = model.SortOrder;
+        value.IsPublished = model.IsPublished;
+        if (id == null)
+            database.Menus.Add(value);
+        else
         {
-            modelState.AddModelError("", "Thực đơn đã thay đổi. Hãy tải lại trang trước khi lưu.");
+            database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision;
+            value.Revision++;
         }
-        catch (Exception exception) when (exception is DbUpdateException or IOException)
-        {
-            logger.LogError(exception, "Could not save menu {Id}", id);
-            result = SaveResult.Unavailable;
-            modelState.AddModelError("", "Chưa lưu được thực đơn. Vui lòng thử lại.");
-        }
-        uploads.Rollback(uploaded);
-        return result;
+        await database.SaveChangesAsync();
+        return SaveResult.Success;
     }
 
     public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
