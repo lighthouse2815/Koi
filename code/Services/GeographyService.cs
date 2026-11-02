@@ -6,8 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Koi.Web.Services;
 
 public class GeographyService(
-    ApplicationDbContext database,
-    ILogger<GeographyService> logger
+    ApplicationDbContext database
 )
 {
     public async Task<GeographyIndexViewModel?> GetListAsync(string kind = "cities")
@@ -71,25 +70,8 @@ public class GeographyService(
             database.Entry(city).Property(value => value.Revision).OriginalValue = model.Revision;
             city.Revision++;
         }
-        try
-        {
-            await database.SaveChangesAsync();
-            return SaveResult.Success;
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            modelState.AddModelError(
-                "",
-                "Dữ liệu đã thay đổi. Hãy tải lại trang sửa trước khi lưu."
-            );
-            return SaveResult.Conflict;
-        }
-        catch (DbUpdateException exception)
-        {
-            logger.LogError(exception, "Could not save city {Id}", id);
-            modelState.AddModelError("", "Chưa lưu được dữ liệu. Vui lòng thử lại.");
-            return SaveResult.Unavailable;
-        }
+        await database.SaveChangesAsync();
+        return SaveResult.Success;
     }
 
     public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id, string kind)
@@ -109,17 +91,9 @@ public class GeographyService(
         var city = await database.StoreCities.SingleOrDefaultAsync(value => value.Id == id);
         if (city == null)
             return SaveResult.NotFound;
-        try
-        {
-            database.StoreCities.Remove(city);
-            await database.SaveChangesAsync();
-            return SaveResult.Success;
-        }
-        catch (DbUpdateException)
-        {
-            modelState.AddModelError("", "Khu vực đang được sử dụng bởi chi nhánh.");
-            return SaveResult.Conflict;
-        }
+        database.StoreCities.Remove(city);
+        await database.SaveChangesAsync();
+        return SaveResult.Success;
     }
 
     public static string Title(string kind) => "Khu vực";
