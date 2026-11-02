@@ -10,20 +10,14 @@
 
 ## Cách chạy
 
-1. Tạo file `.env` từ `.env.example` và đặt mật khẩu PostgreSQL:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Khởi động PostgreSQL và tạo database mới:
+1. Khởi động PostgreSQL và tạo database mới:
 
    ```bash
    docker compose up -d --wait
    docker compose exec postgres createdb -U koi koi_new
    ```
 
-3. Khôi phục package và chạy ứng dụng:
+2. Khôi phục package và chạy ứng dụng:
 
    ```bash
    dotnet restore Koi.sln
