@@ -23,10 +23,9 @@
    docker compose exec postgres createdb -U koi koi_new
    ```
 
-3. Cấu hình connection string và tài khoản quản trị bằng User Secrets:
+3. Tạo tài khoản quản trị bằng User Secrets:
 
    ```bash
-   dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=127.0.0.1;Port=55432;Database=koi_new;Username=koi;Password=YOUR_POSTGRES_PASSWORD" --project Koi.Web.csproj
    dotnet user-secrets set "Admin:Email" "admin@example.com" --project Koi.Web.csproj
    dotnet user-secrets set "Admin:Password" "YOUR_ADMIN_PASSWORD" --project Koi.Web.csproj
    ```
@@ -38,7 +37,7 @@
    dotnet run --project Koi.Web.csproj
    ```
 
-Mở `http://localhost:5118`. Trang quản trị nằm tại `http://localhost:5118/Admin`.
+Connection string Development đã có sẵn trong `appsettings.Development.json` với database `koi_new`, user `koi` và mật khẩu phát triển `koi`. Mở `http://localhost:5118`. Trang quản trị nằm tại `http://localhost:5118/Admin`.
 
 Trong môi trường Development, ứng dụng tự chạy migration và nạp dữ liệu mẫu tiếng Việt. Không đưa mật khẩu, User Secrets hoặc file `.env` vào Git.
 
