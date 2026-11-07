@@ -20,7 +20,6 @@ public class DrinkEditViewModel
     [Range(0, 100000)]
     public int SortOrder { get; set; }
     public bool IsPublished { get; set; } = true;
-    public IFormFile? ImageUpload { get; set; }
     public string? ImageUploadId { get; set; }
     public bool RemoveImage { get; set; }
 

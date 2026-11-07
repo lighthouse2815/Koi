@@ -1,16 +1,18 @@
 @model DrinkEditViewModel
 @{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = editing ? "Sửa đồ uống" : "Thêm đồ uống"; }
 <div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh sách đồ uống</a></div>
-<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor" data-upload-folder="drinks">
+<noscript><p class="validation">Vui lòng bật JavaScript để sử dụng biểu mẫu này.</p></noscript>
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" class="editor" data-upload-folder="drinks">
+<fieldset class="upload-fields" disabled>
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" /><div asp-validation-summary="All" class="validation" role="alert"></div>
 <div class="editor-columns"><div class="card">
 <label asp-for="Name">Tên đồ uống</label><input asp-for="Name" maxlength="250" required />
 <label asp-for="CategoryId">Danh mục</label><select asp-for="CategoryId" asp-items="Model.Categories" required><option value="">Chọn danh mục</option></select>
 <label asp-for="Description">Mô tả</label><textarea asp-for="Description" rows="7" maxlength="4000"></textarea>
 </div><aside class="card">
-<label asp-for="ImageUpload">Ảnh đồ uống</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }
-<input asp-for="ImageUploadId" type="hidden" /><input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" /><p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Không có ảnh riêng sẽ dùng ảnh chung của danh mục.</p>
+<label for="ImageUpload">Ảnh đồ uống</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }
+<input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" /><p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Không có ảnh riêng sẽ dùng ảnh chung của danh mục.</p>
 <label class="check"><input asp-for="RemoveImage" /> Bỏ ảnh riêng</label><label class="check"><input asp-for="IsPublished" /> Hiển thị trên website</label>
 <label asp-for="SortOrder">Thứ tự trong danh mục</label><input asp-for="SortOrder" type="number" min="0" max="100000" /><p class="help">Số nhỏ hiển thị trước.</p>
 <button class="button" type="submit">Lưu đồ uống</button>@if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }
-</aside></div></form>
+</aside></div></fieldset></form>

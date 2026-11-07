@@ -17,9 +17,7 @@ public class CategoryEditViewModel
 
     public bool ShowOnHome { get; set; }
     public bool IsPublished { get; set; } = true;
-    public IFormFile? ImageUpload { get; set; }
     public string? ImageUploadId { get; set; }
-    public IFormFile? IconUpload { get; set; }
     public string? IconUploadId { get; set; }
     public bool RemoveIcon { get; set; }
 

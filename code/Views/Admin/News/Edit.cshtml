@@ -4,7 +4,9 @@
     ViewData["Title"] = editing ? "Sửa bài viết" : "Thêm bài viết";
 }
 <div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh sách tin</a></div>
-<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor" data-upload-folder="news">
+<noscript><p class="validation">Vui lòng bật JavaScript để sử dụng biểu mẫu này.</p></noscript>
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" class="editor" data-upload-folder="news">
+<fieldset class="upload-fields" disabled>
     <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
     <div asp-validation-summary="All" class="validation" role="alert"></div>
     <div class="editor-columns">
@@ -16,9 +18,9 @@
             <textarea asp-for="BodyHtml" rows="22" maxlength="200000" required class="content-editor" spellcheck="false"></textarea>
         </div>
         <aside class="card">
-            <label asp-for="ImageUpload">Ảnh đại diện</label>
+            <label for="ImageUpload">Ảnh đại diện</label>
             @if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }
-            <input asp-for="ImageUploadId" type="hidden" /><input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+            <input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
             <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Khi sửa, để trống để giữ ảnh cũ.</p>
             <label asp-for="VideoUrl">Video YouTube</label><input asp-for="VideoUrl" type="url" maxlength="500" />
             <p class="help">Dán liên kết YouTube; để trống để dùng ảnh bìa.</p>
@@ -31,4 +33,4 @@
             @if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }
         </aside>
     </div>
-</form>
+</fieldset></form>

@@ -4,7 +4,7 @@
         let submitting = false;
 
         for (const input of inputs) {
-            const uploaded = form.elements[`${input.name}Id`];
+            const uploaded = form.elements[`${input.id}Id`];
             const required = input.required;
             if (uploaded.value) input.required = false;
             input.addEventListener('change', () => {
@@ -12,6 +12,8 @@
                 input.required = required;
             });
         }
+
+        form.querySelector('fieldset.upload-fields').disabled = false;
 
         form.addEventListener('submit', async event => {
             if (submitting) return;
@@ -47,7 +49,7 @@
                     if (!response.ok) throw new Error('Không thể tải ảnh lên Cloudinary. Vui lòng thử lại.');
                     const result = await response.json();
                     if (result.public_id !== config.publicId) throw new Error('Ảnh tải lên không hợp lệ.');
-                    form.elements[`${input.name}Id`].value = result.public_id;
+                    form.elements[`${input.id}Id`].value = result.public_id;
                     input.value = '';
                     input.required = false;
                 }

@@ -15,9 +15,7 @@ public class FeaturedDrinkEditViewModel
     [Range(0, 100000)]
     public int SortOrder { get; set; }
     public bool IsPublished { get; set; } = true;
-    public IFormFile? ImageUpload { get; set; }
     public string? ImageUploadId { get; set; }
-    public IFormFile? BackgroundUpload { get; set; }
     public string? BackgroundUploadId { get; set; }
 
     [BindNever, ValidateNever]

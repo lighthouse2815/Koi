@@ -83,10 +83,8 @@ public class StoreService(
                 nameof(model.NavigationUrl),
                 "Nhập liên kết HTTPS hoặc HTTP hợp lệ."
             );
-        var image = await uploads.ReadAsync(
-            model.ImageUpload,
-            modelState,
-            nameof(model.ImageUpload), model.ImageUploadId, "stores"
+        var image = await uploads.GetImageUrlAsync(
+            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "stores"
         );
         if (!modelState.IsValid)
         {
@@ -94,7 +92,7 @@ public class StoreService(
             return SaveResult.Invalid;
         }
         if (image != null)
-            value.Photo = await uploads.SaveAsync(image, "stores");
+            value.Photo = image;
         else if (model.RemoveImage)
             value.Photo = "";
         value.Name = model.Name.Trim();

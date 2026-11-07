@@ -103,10 +103,8 @@ public class DrinkService(
         model.CurrentImage = value.Image;
         if (!await database.Categories.AnyAsync(value => value.Id == model.CategoryId))
             modelState.AddModelError(nameof(model.CategoryId), "Chọn danh mục hợp lệ.");
-        var image = await uploads.ReadAsync(
-            model.ImageUpload,
-            modelState,
-            nameof(model.ImageUpload), model.ImageUploadId, "drinks"
+        var image = await uploads.GetImageUrlAsync(
+            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "drinks"
         );
         if (!modelState.IsValid)
         {
@@ -114,7 +112,7 @@ public class DrinkService(
             return SaveResult.Invalid;
         }
         if (image != null)
-            value.Image = await uploads.SaveAsync(image, "drinks");
+            value.Image = image;
         else if (model.RemoveImage)
             value.Image = "";
         value.Name = model.Name.Trim();

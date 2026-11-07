@@ -81,13 +81,11 @@ public class NewsService(
         var body = sanitizer.Sanitize(model.BodyHtml ?? "").Trim();
         if (string.IsNullOrWhiteSpace(body))
             modelState.AddModelError(nameof(model.BodyHtml), "Nhập nội dung bài viết.");
-        var image = await uploads.ReadAsync(
-            model.ImageUpload,
-            modelState,
-            nameof(model.ImageUpload), model.ImageUploadId, "news"
+        var image = await uploads.GetImageUrlAsync(
+            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "news"
         );
         if (id == null && image == null)
-            modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh cho bài viết.");
+            modelState.AddModelError(nameof(model.ImageUploadId), "Chọn ảnh cho bài viết.");
         if (!modelState.IsValid)
         {
             return SaveResult.Invalid;
@@ -95,7 +93,7 @@ public class NewsService(
         await using var transaction = await database.Database.BeginTransactionAsync();
         if (image != null)
         {
-            var uploadedFile = await uploads.SaveAsync(image, "news");
+            var uploadedFile = image;
             article.Image = article.BannerImage = uploadedFile;
             article.HomeImage = "";
         }

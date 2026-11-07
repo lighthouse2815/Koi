@@ -21,7 +21,6 @@ public class NewsEditViewModel
 
     [StringLength(500)]
     public string? VideoUrl { get; set; }
-    public IFormFile? ImageUpload { get; set; }
     public string? ImageUploadId { get; set; }
     public string? CurrentImage { get; set; }
     public bool IsPublished { get; set; } = true;

@@ -50,19 +50,17 @@ public class MenuService(
         if (value == null)
             return SaveResult.NotFound;
         model.CurrentImage = value.File;
-        var image = await uploads.ReadAsync(
-            model.ImageUpload,
-            modelState,
-            nameof(model.ImageUpload), model.ImageUploadId, "menus"
+        var image = await uploads.GetImageUrlAsync(
+            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "menus"
         );
         if (id == null && image == null)
-            modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh thực đơn.");
+            modelState.AddModelError(nameof(model.ImageUploadId), "Chọn ảnh thực đơn.");
         if (!modelState.IsValid)
         {
             return SaveResult.Invalid;
         }
         if (image != null)
-            value.File = await uploads.SaveAsync(image, "menus");
+            value.File = image;
         value.Label = model.Label.Trim();
 
         value.SortOrder = model.SortOrder;

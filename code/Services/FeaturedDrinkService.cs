@@ -50,28 +50,24 @@ public class FeaturedDrinkService(
             return SaveResult.NotFound;
         model.CurrentImage = value.Image;
         model.CurrentBackground = value.BackgroundImage;
-        var image = await uploads.ReadAsync(
-            model.ImageUpload,
-            modelState,
-            nameof(model.ImageUpload), model.ImageUploadId, "featured-drinks"
+        var image = await uploads.GetImageUrlAsync(
+            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "featured-drinks"
         );
-        var background = await uploads.ReadAsync(
-            model.BackgroundUpload,
-            modelState,
-            nameof(model.BackgroundUpload), model.BackgroundUploadId, "featured-drinks"
+        var background = await uploads.GetImageUrlAsync(
+            model.BackgroundUploadId, modelState, nameof(model.BackgroundUploadId), "featured-drinks"
         );
         if (image == null && string.IsNullOrEmpty(value.Image))
-            modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh đồ uống.");
+            modelState.AddModelError(nameof(model.ImageUploadId), "Chọn ảnh đồ uống.");
         if (background == null && string.IsNullOrEmpty(value.BackgroundImage))
-            modelState.AddModelError(nameof(model.BackgroundUpload), "Chọn ảnh nền.");
+            modelState.AddModelError(nameof(model.BackgroundUploadId), "Chọn ảnh nền.");
         if (!modelState.IsValid)
         {
             return SaveResult.Invalid;
         }
         if (image != null)
-            value.Image = await uploads.SaveAsync(image, "featured-drinks");
+            value.Image = image;
         if (background != null)
-            value.BackgroundImage = await uploads.SaveAsync(background, "featured-drinks");
+            value.BackgroundImage = background;
         value.Name = model.Name.Trim();
 
         value.SortOrder = model.SortOrder;

@@ -78,23 +78,23 @@ public class CategoryService(
         CategoryEditViewModel model,
         ModelStateDictionary modelState)
     {
-        var image = await uploads.ReadAsync(model.ImageUpload, modelState, nameof(model.ImageUpload), model.ImageUploadId, "categories");
-        var icon = await uploads.ReadAsync(model.IconUpload, modelState, nameof(model.IconUpload), model.IconUploadId, "categories");
+        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, modelState, nameof(model.ImageUploadId), "categories");
+        var icon = await uploads.GetImageUrlAsync(model.IconUploadId, modelState, nameof(model.IconUploadId), "categories");
         if (image == null && string.IsNullOrEmpty(category.Image))
-            modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh chung cho danh mục.");
+            modelState.AddModelError(nameof(model.ImageUploadId), "Chọn ảnh chung cho danh mục.");
         if (
             model.ShowOnHome
             && icon == null
             && (model.RemoveIcon || string.IsNullOrEmpty(category.Icon))
         )
-            modelState.AddModelError(nameof(model.IconUpload), "Chọn biểu tượng thẻ trang chủ.");
+            modelState.AddModelError(nameof(model.IconUploadId), "Chọn biểu tượng thẻ trang chủ.");
         if (!modelState.IsValid)
             return false;
 
         if (image != null)
-            category.Image = await uploads.SaveAsync(image, "categories");
+            category.Image = image;
         if (icon != null)
-            category.Icon = await uploads.SaveAsync(icon, "categories");
+            category.Icon = icon;
         else if (model.RemoveIcon)
             category.Icon = "";
         return true;
