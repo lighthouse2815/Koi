@@ -1,7 +1,7 @@
 @model StoreEditViewModel
 @{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = editing ? "Sửa chi nhánh" : "Thêm chi nhánh"; }
 <div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh sách chi nhánh</a></div>
-<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor">
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor" data-upload-folder="stores">
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
 <div asp-validation-summary="All" class="validation" role="alert"></div>
 <div class="editor-columns"><div class="card">
@@ -12,7 +12,7 @@
 <label asp-for="NavigationUrl">Liên kết chỉ đường</label><input asp-for="NavigationUrl" type="url" maxlength="2000" />
 </div><aside class="card">
 <label asp-for="ImageUpload">Ảnh chi nhánh</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }
-<input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" /><p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Để trống để giữ ảnh hiện tại.</p>
+<input asp-for="ImageUploadId" type="hidden" /><input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" /><p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Để trống để giữ ảnh hiện tại.</p>
 <label class="check"><input asp-for="RemoveImage" /> Bỏ ảnh hiện tại</label>
 <label class="check"><input asp-for="IsPublished" /> Hiển thị trên website</label>
 <label asp-for="SortOrder">Thứ tự hiển thị</label><input asp-for="SortOrder" type="number" min="0" max="1000000" />

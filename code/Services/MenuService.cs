@@ -53,7 +53,7 @@ public class MenuService(
         var image = await uploads.ReadAsync(
             model.ImageUpload,
             modelState,
-            nameof(model.ImageUpload)
+            nameof(model.ImageUpload), model.ImageUploadId, "menus"
         );
         if (id == null && image == null)
             modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh thực đơn.");

@@ -30,6 +30,7 @@ public class StoreEditViewModel
     public int SortOrder { get; set; } = 10000;
 
     public IFormFile? ImageUpload { get; set; }
+    public string? ImageUploadId { get; set; }
     public bool RemoveImage { get; set; }
 
     [BindNever, ValidateNever]

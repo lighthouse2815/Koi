@@ -86,7 +86,7 @@ public class StoreService(
         var image = await uploads.ReadAsync(
             model.ImageUpload,
             modelState,
-            nameof(model.ImageUpload)
+            nameof(model.ImageUpload), model.ImageUploadId, "stores"
         );
         if (!modelState.IsValid)
         {

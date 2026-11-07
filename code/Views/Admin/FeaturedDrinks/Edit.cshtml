@@ -1,12 +1,12 @@
 @model FeaturedDrinkEditViewModel
 @{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = editing ? "Sửa New Drinks" : "Thêm New Drinks"; }
 <div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← New Drinks</a></div>
-<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor">
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" enctype="multipart/form-data" class="editor" data-upload-folder="featured-drinks">
 <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" /><div asp-validation-summary="All" class="validation" role="alert"></div>
 <div class="editor-columns"><div class="card">
 <label asp-for="Name">Tên đồ uống / bộ sưu tập</label><input asp-for="Name" maxlength="250" required />
-<label asp-for="ImageUpload">Ảnh đồ uống</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }<input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
-<label asp-for="BackgroundUpload">Ảnh nền</label>@if (!string.IsNullOrEmpty(Model.CurrentBackground)) { <img class="current-image" src="@Model.CurrentBackground" alt="Ảnh nền hiện tại" /> }<input asp-for="BackgroundUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
+<label asp-for="ImageUpload">Ảnh đồ uống</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }<input asp-for="ImageUploadId" type="hidden" /><input asp-for="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
+<label asp-for="BackgroundUpload">Ảnh nền</label>@if (!string.IsNullOrEmpty(Model.CurrentBackground)) { <img class="current-image" src="@Model.CurrentBackground" alt="Ảnh nền hiện tại" /> }<input asp-for="BackgroundUploadId" type="hidden" /><input asp-for="BackgroundUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
 <p class="help">Mỗi ảnh JPG, PNG hoặc WebP tối đa 5 MB. Khi sửa, để trống để giữ ảnh cũ.</p>
 </div><aside class="card">
 <label class="check"><input asp-for="IsPublished" /> Hiển thị trên Our Tea</label>

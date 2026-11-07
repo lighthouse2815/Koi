@@ -84,7 +84,7 @@ public class NewsService(
         var image = await uploads.ReadAsync(
             model.ImageUpload,
             modelState,
-            nameof(model.ImageUpload)
+            nameof(model.ImageUpload), model.ImageUploadId, "news"
         );
         if (id == null && image == null)
             modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh cho bài viết.");

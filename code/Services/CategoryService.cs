@@ -78,8 +78,8 @@ public class CategoryService(
         CategoryEditViewModel model,
         ModelStateDictionary modelState)
     {
-        var image = await uploads.ReadAsync(model.ImageUpload, modelState, nameof(model.ImageUpload));
-        var icon = await uploads.ReadAsync(model.IconUpload, modelState, nameof(model.IconUpload));
+        var image = await uploads.ReadAsync(model.ImageUpload, modelState, nameof(model.ImageUpload), model.ImageUploadId, "categories");
+        var icon = await uploads.ReadAsync(model.IconUpload, modelState, nameof(model.IconUpload), model.IconUploadId, "categories");
         if (image == null && string.IsNullOrEmpty(category.Image))
             modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh chung cho danh mục.");
         if (

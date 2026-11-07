@@ -106,7 +106,7 @@ public class DrinkService(
         var image = await uploads.ReadAsync(
             model.ImageUpload,
             modelState,
-            nameof(model.ImageUpload)
+            nameof(model.ImageUpload), model.ImageUploadId, "drinks"
         );
         if (!modelState.IsValid)
         {

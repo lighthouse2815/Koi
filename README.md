@@ -35,6 +35,8 @@ dotnet user-secrets set "Cloudinary:ApiSecret" "<api-secret>"
 
 Trong môi trường triển khai, có thể dùng các biến môi trường `Cloudinary__CloudName`, `Cloudinary__ApiKey` và `Cloudinary__ApiSecret`. Ảnh đã lưu trước đó vẫn sử dụng đường dẫn hiện có; các file trong `wwwroot/uploads` cần được giữ lại.
 
+Khi bật JavaScript, các biểu mẫu quản trị tải ảnh trực tiếp từ trình duyệt lên Cloudinary. Server cấp chữ ký và dùng Cloudinary Admin API kiểm tra ảnh trước khi lưu. Khi tắt JavaScript, biểu mẫu tiếp tục tải ảnh qua server. Ảnh đã tải lên nhưng biểu mẫu không được lưu có thể còn trong Cloudinary và cần được dọn dẹp khi phù hợp.
+
 Mở trình duyệt tại `http://localhost:5118`; trang quản trị nằm tại `http://localhost:5118/Admin`.
 
 Đăng nhập quản trị bằng `admin@koi.local` / `KoiDev@2026!`.

@@ -53,12 +53,12 @@ public class FeaturedDrinkService(
         var image = await uploads.ReadAsync(
             model.ImageUpload,
             modelState,
-            nameof(model.ImageUpload)
+            nameof(model.ImageUpload), model.ImageUploadId, "featured-drinks"
         );
         var background = await uploads.ReadAsync(
             model.BackgroundUpload,
             modelState,
-            nameof(model.BackgroundUpload)
+            nameof(model.BackgroundUpload), model.BackgroundUploadId, "featured-drinks"
         );
         if (image == null && string.IsNullOrEmpty(value.Image))
             modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh đồ uống.");
