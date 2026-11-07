@@ -63,11 +63,22 @@ public class CategoryService(
             value.Id != category.Id && value.Name.Trim().ToLower() == model.Name.Trim().ToLower()))
             throw new AppException(ErrorCode.CATEGORY_NAME_EXISTS);
 
-        var image = await uploads.ReadAsync(
-            model.ImageUpload,
-            modelState,
-            nameof(model.ImageUpload)
-        );
+        if (!await ApplyImagesAsync(category, model, modelState))
+            return false;
+
+        category.Name = model.Name.Trim();
+        category.SortOrder = model.SortOrder;
+        category.ShowOnHome = model.ShowOnHome;
+        category.IsPublished = model.IsPublished;
+        return true;
+    }
+
+    private async Task<bool> ApplyImagesAsync(
+        Category category,
+        CategoryEditViewModel model,
+        ModelStateDictionary modelState)
+    {
+        var image = await uploads.ReadAsync(model.ImageUpload, modelState, nameof(model.ImageUpload));
         var icon = await uploads.ReadAsync(model.IconUpload, modelState, nameof(model.IconUpload));
         if (image == null && string.IsNullOrEmpty(category.Image))
             modelState.AddModelError(nameof(model.ImageUpload), "Chọn ảnh chung cho danh mục.");
@@ -78,22 +89,14 @@ public class CategoryService(
         )
             modelState.AddModelError(nameof(model.IconUpload), "Chọn biểu tượng thẻ trang chủ.");
         if (!modelState.IsValid)
-        {
             return false;
-        }
-        async Task<string> SaveImage(ImageUpload? file, string current)
-        {
-            if (file == null)
-                return current;
-            return await uploads.SaveAsync(file, "categories");
-        }
-        category.Image = await SaveImage(image, category.Image);
-        category.Icon = await SaveImage(icon, model.RemoveIcon ? "" : category.Icon);
-        category.Name = model.Name.Trim();
 
-        category.SortOrder = model.SortOrder;
-        category.ShowOnHome = model.ShowOnHome;
-        category.IsPublished = model.IsPublished;
+        if (image != null)
+            category.Image = await uploads.SaveAsync(image, "categories");
+        if (icon != null)
+            category.Icon = await uploads.SaveAsync(icon, "categories");
+        else if (model.RemoveIcon)
+            category.Icon = "";
         return true;
     }
 
