@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin"), CategoryNameConflictFilter]
-public class DrinkCategoriesController(CategoryService categories) : Controller
+public class CategoryController(CategoryService categories) : Controller
 {
     public async Task<IActionResult> Index() => View(await categories.GetListAsync());
     public IActionResult Create() => View("Edit", new CategoryEditViewModel());

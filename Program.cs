@@ -82,6 +82,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.MapControllerRoute(
+    "legacy-drink-categories", "Admin/DrinkCategories/{action=Index}/{id?}",
+    new { area = "Admin", controller = "Category" })
+    .Add(endpoint => endpoint.Metadata.Add(new Microsoft.AspNetCore.Routing.SuppressLinkGenerationMetadata()));
 app.MapControllerRoute("areas", "{area:exists}/{controller=News}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
