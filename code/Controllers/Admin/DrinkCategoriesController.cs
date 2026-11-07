@@ -37,8 +37,6 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
         CategoryEditViewModel model)
     {
         var result = await saveTask;
-        if (result == SaveResult.NotFound)
-            return NotFound();
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu danh mục đồ uống.";

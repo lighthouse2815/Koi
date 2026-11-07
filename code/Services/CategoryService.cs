@@ -42,9 +42,9 @@ public class CategoryService(
         CategoryEditViewModel model,
         ModelStateDictionary modelState)
     {
-        var category = await database.Categories.SingleOrDefaultAsync(category => category.Id == model.Id);
-        if (category == null)
-            return SaveResult.NotFound;
+        var category = await database.Categories
+            .SingleOrDefaultAsync(category => category.Id == model.Id)
+            ?? throw new AppException(ErrorCode.CATEGORY_NOT_FOUND);
         if (!await ApplyChangesAsync(category, model, modelState))
             return SaveResult.Invalid;
         database.Entry(category).Property(category => category.Revision).OriginalValue = model.Revision;
