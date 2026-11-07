@@ -13,6 +13,8 @@ public class AppExceptionMiddleware(RequestDelegate next)
         catch (AppException exception) when (!context.Response.HasStarted)
         {
             context.Response.StatusCode = exception.Error.StatusCode;
+            context.Response.ContentType = "text/plain; charset=utf-8";
+            await context.Response.WriteAsync(exception.Error.Message);
         }
     }
 }

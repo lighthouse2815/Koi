@@ -3,6 +3,7 @@ using Koi.Web.Exceptions;
 using Koi.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace Koi.Web.Services;
 
@@ -93,16 +94,28 @@ public class CategoryService(
         return true;
     }
 
-    public async Task<SaveResult> DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        var value = await database.Categories.FindAsync(id);
+        var category = await database.Categories.FindAsync(id)
+            ?? throw new AppException(ErrorCode.CATEGORY_NOT_FOUND);
 
-        if (value == null)
+        database.Categories.Remove(category);
+        try
         {
-            return SaveResult.NotFound;
+            await database.SaveChangesAsync();
         }
-        database.Categories.Remove(value);
-        await database.SaveChangesAsync();
-        return SaveResult.Success;
+        catch (DbUpdateConcurrencyException)
+        {
+            throw new AppException(ErrorCode.CATEGORY_CHANGED);
+        }
+        catch (DbUpdateException exception) when (
+            exception.InnerException is PostgresException
+            {
+                SqlState: PostgresErrorCodes.ForeignKeyViolation,
+                ConstraintName: "FK_Drinks_Category_CategoryId"
+            })
+        {
+            throw new AppException(ErrorCode.CATEGORY_HAS_DRINKS);
+        }
     }
 }

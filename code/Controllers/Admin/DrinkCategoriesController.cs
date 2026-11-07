@@ -61,15 +61,7 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        var result = await categories.DeleteAsync(id);
-        if (result == SaveResult.NotFound)
-            return NotFound();
-        if (result == SaveResult.Conflict)
-        {
-            var category = await categories.GetByIdAsync(id);
-            Response.StatusCode = StatusCodes.Status409Conflict;
-            return View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(category.Id, category.Name));
-        }
+        await categories.DeleteAsync(id);
         TempData["Status"] = "Đã xóa danh mục đồ uống.";
         return RedirectToAction(nameof(Index));
     }
