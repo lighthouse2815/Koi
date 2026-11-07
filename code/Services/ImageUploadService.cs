@@ -52,8 +52,8 @@ public class ImageUploadService(IConfiguration configuration)
             apiKey = configuration["Cloudinary:ApiKey"],
             timestamp,
             publicId,
-            allowedFormats = "jpg,jpeg,png,webp",
-            overwrite = "false",
+            allowedFormats = parameters["allowed_formats"],
+            overwrite = parameters["overwrite"],
             signature = cloudinary.Api.SignParameters(parameters)
         };
     }
@@ -67,5 +67,4 @@ public class ImageUploadService(IConfiguration configuration)
             throw new InvalidOperationException("Cần cấu hình Cloudinary trước khi tải ảnh lên.");
         return new Cloudinary(new Account(cloudName, apiKey, apiSecret));
     }
-
 }
