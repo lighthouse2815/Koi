@@ -21,5 +21,3 @@ public class MenuEditViewModel
     public string? CurrentImage { get; set; }
 
 }
-
-public record AdminMenusViewModel(Menu[] Menus);

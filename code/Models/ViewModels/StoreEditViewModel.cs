@@ -39,32 +39,3 @@ public class StoreEditViewModel
     public StoreCity[] Cities { get; set; } = [];
 
 }
-
-public record AdminStoresViewModel(
-    Store[] Stores,
-    string? Search,
-    int Page,
-    int PageCount
-);
-
-public class GeographyEditViewModel
-{
-    public Guid Id { get; set; }
-    public int Revision { get; set; }
-
-    [Required, RegularExpression("cities")]
-    public string Kind { get; set; } = "cities";
-
-    [Required, StringLength(150)]
-    public string Name { get; set; } = "";
-
-    [Range(0, 100000)]
-    public int SortOrder { get; set; }
-
-}
-
-public record GeographyRow(Guid Id, string Name, string Detail, int SortOrder);
-
-public record GeographyIndexViewModel(string Kind, string Title, GeographyRow[] Rows);
-
-public record DeleteContentViewModel(Guid Id, string Name, string? Kind = null);
