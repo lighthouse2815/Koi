@@ -1,10 +1,12 @@
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Koi.Web.Services;
 
 public record ImageUpload(byte[] Bytes, string Extension);
 
-public class ImageUploadService(IWebHostEnvironment environment)
+public class ImageUploadService(IWebHostEnvironment environment, IConfiguration configuration)
 {
     public async Task<ImageUpload?> ReadAsync(
         IFormFile? file,
@@ -45,21 +47,22 @@ public class ImageUploadService(IWebHostEnvironment environment)
 
     public async Task<string> SaveAsync(ImageUpload image, string folder)
     {
-        var directory = Path.Combine(environment.WebRootPath, "uploads", folder);
-        Directory.CreateDirectory(directory);
-        var name = Guid.NewGuid().ToString("N") + image.Extension;
-        var path = Path.Combine(directory, name);
-        try
+        var cloudName = configuration["Cloudinary:CloudName"];
+        var apiKey = configuration["Cloudinary:ApiKey"];
+        var apiSecret = configuration["Cloudinary:ApiSecret"];
+        if (string.IsNullOrWhiteSpace(cloudName) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(apiSecret))
+            throw new InvalidOperationException("Cần cấu hình Cloudinary trước khi tải ảnh lên.");
+
+        var cloudinary = new Cloudinary(new Account(cloudName, apiKey, apiSecret));
+        using var stream = new MemoryStream(image.Bytes);
+        var result = await cloudinary.UploadAsync(new ImageUploadParams
         {
-            await File.WriteAllBytesAsync(path, image.Bytes);
-        }
-        catch
-        {
-            if (File.Exists(path))
-                File.Delete(path);
-            throw;
-        }
-        return $"/uploads/{folder}/{name}";
+            File = new FileDescription("image" + image.Extension, stream),
+            Folder = $"koi/{folder}"
+        });
+        if (result.Error != null || result.SecureUrl == null)
+            throw new InvalidOperationException("Không thể tải ảnh lên Cloudinary.");
+        return result.SecureUrl.AbsoluteUri;
     }
 
     // Only roll back a newly created upload after a failed save. Existing media may be shared.

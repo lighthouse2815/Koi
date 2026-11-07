@@ -25,6 +25,16 @@ Mở **Terminal** tại thư mục gốc của project, tức thư mục chứa 
    dotnet run
    ```
 
+Để tải ảnh mới lên Cloudinary, cấu hình thông tin tài khoản bằng user secrets trước khi chạy ứng dụng:
+
+```bash
+dotnet user-secrets set "Cloudinary:CloudName" "<cloud-name>"
+dotnet user-secrets set "Cloudinary:ApiKey" "<api-key>"
+dotnet user-secrets set "Cloudinary:ApiSecret" "<api-secret>"
+```
+
+Trong môi trường triển khai, có thể dùng các biến môi trường `Cloudinary__CloudName`, `Cloudinary__ApiKey` và `Cloudinary__ApiSecret`. Ảnh đã lưu trước đó vẫn sử dụng đường dẫn hiện có; các file trong `wwwroot/uploads` cần được giữ lại.
+
 Mở trình duyệt tại `http://localhost:5118`; trang quản trị nằm tại `http://localhost:5118/Admin`.
 
 Đăng nhập quản trị bằng `admin@koi.local` / `KoiDev@2026!`.
