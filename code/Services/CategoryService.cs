@@ -38,11 +38,10 @@ public class CategoryService(
     }
 
     public async Task<SaveResult> UpdateAsync(
-        Guid id,
         CategoryEditViewModel model,
         ModelStateDictionary modelState)
     {
-        var category = await database.Categories.SingleOrDefaultAsync(category => category.Id == id);
+        var category = await database.Categories.SingleOrDefaultAsync(category => category.Id == model.Id);
         if (category == null)
             return SaveResult.NotFound;
         if (!await ApplyChangesAsync(category, model, modelState))

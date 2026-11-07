@@ -29,10 +29,8 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
     public Task<IActionResult> Create(CategoryEditViewModel model) =>
         HandleSaveAsync(categories.CreateAsync(model, ModelState), model);
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
-    public Task<IActionResult> Edit(Guid id, CategoryEditViewModel model) =>
-        id != model.Id
-            ? Task.FromResult<IActionResult>(BadRequest())
-            : HandleSaveAsync(categories.UpdateAsync(id, model, ModelState), model);
+    public Task<IActionResult> Edit([FromForm] CategoryEditViewModel model) =>
+        HandleSaveAsync(categories.UpdateAsync(model, ModelState), model);
 
     private async Task<IActionResult> HandleSaveAsync(
         Task<SaveResult> saveTask,
