@@ -1,4 +1,5 @@
 using Koi.Web.Data;
+using Koi.Web.Exceptions;
 using Koi.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,11 @@ public class CategoryService(
                 .ToArrayAsync();
 
    
-    public Task<Category?> GetByIdAsync(Guid id) =>
-        database.Categories.AsNoTracking().SingleOrDefaultAsync(category => category.Id == id);
+    public async Task<Category> GetByIdAsync(Guid id) =>
+        await database.Categories
+            .AsNoTracking()
+            .SingleOrDefaultAsync(category => category.Id == id)
+        ?? throw new AppException(ErrorCode.CATEGORY_NOT_FOUND);
 
     public async Task<SaveResult> CreateAsync(
         CategoryEditViewModel model,

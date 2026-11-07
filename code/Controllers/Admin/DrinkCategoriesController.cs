@@ -13,8 +13,6 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
     public async Task<IActionResult> Edit(Guid id)
     {
         var category = await categories.GetByIdAsync(id);
-        if (category == null)
-            return NotFound();
         return View(new CategoryEditViewModel
         {
             Id = category.Id,
@@ -60,7 +58,7 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
     public async Task<IActionResult> Delete(Guid id)
     {
         var category = await categories.GetByIdAsync(id);
-        return category == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(category.Id, category.Name));
+        return View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(category.Id, category.Name));
     }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -71,8 +69,6 @@ public class DrinkCategoriesController(CategoryService categories) : Controller
         if (result == SaveResult.Conflict)
         {
             var category = await categories.GetByIdAsync(id);
-            if (category == null)
-                return NotFound();
             Response.StatusCode = StatusCodes.Status409Conflict;
             return View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(category.Id, category.Name));
         }

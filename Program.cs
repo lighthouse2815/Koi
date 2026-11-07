@@ -1,4 +1,5 @@
 using Koi.Web.Data;
+using Koi.Web.Middleware;
 using Koi.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -71,6 +72,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+app.UseMiddleware<AppExceptionMiddleware>();
 app.UseStaticFiles();
 app.UseRequestLocalization();
 app.UseRouting();
