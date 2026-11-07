@@ -1,11 +1,12 @@
 using Koi.Web.Models;
+using Koi.Web.Filters;
 using Koi.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Koi.Web.Controllers.Admin;
 
-[Area("Admin"), Authorize(Roles = "Admin")]
+[Area("Admin"), Authorize(Roles = "Admin"), CategoryNameConflictFilter]
 public class DrinkCategoriesController(CategoryService categories) : Controller
 {
     public async Task<IActionResult> Index() => View(await categories.GetListAsync());

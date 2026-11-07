@@ -59,6 +59,10 @@ public class CategoryService(
     {
         model.CurrentImage = category.Image;
         model.CurrentIcon = category.Icon;
+        if (!string.IsNullOrWhiteSpace(model.Name) && await database.Categories.AnyAsync(value =>
+            value.Id != category.Id && value.Name.Trim().ToLower() == model.Name.Trim().ToLower()))
+            throw new AppException(ErrorCode.CATEGORY_NAME_EXISTS);
+
         var image = await uploads.ReadAsync(
             model.ImageUpload,
             modelState,
