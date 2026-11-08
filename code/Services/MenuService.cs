@@ -1,6 +1,6 @@
 using Koi.Web.Data;
+using Koi.Web.Exceptions;
 using Koi.Web.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
@@ -19,69 +19,37 @@ public class MenuService(
                 .ToArrayAsync()
         );
 
-    public async Task<MenuEditViewModel?> GetEditAsync(Guid id)
+    public async Task CreateAsync(MenuEditViewModel model)
     {
-        var value = await database
-            .Menus.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null
-            ? null
-            : new MenuEditViewModel
-            {
-                Id = id,
-                Revision = value.Revision,
+        var menu = new Menu();
+        await ApplyChangesAsync(menu, model);
+        if (string.IsNullOrEmpty(menu.File))
+            throw new AppException(ErrorCode.MENU_IMAGE_REQUIRED);
 
-                Label = value.Label,
-                SortOrder = value.SortOrder,
-                IsPublished = value.IsPublished,
-                CurrentImage = value.File,
-            };
-    }
-
-    public async Task<SaveResult> SaveAsync(
-        MenuEditViewModel model,
-        Guid? id,
-        ModelStateDictionary modelState
-    )
-    {
-        var value = id.HasValue
-            ? await database.Menus.SingleOrDefaultAsync(value => value.Id == id)
-            : new Menu();
-        if (value == null)
-            return SaveResult.NotFound;
-        model.CurrentImage = value.File;
-        var image = await uploads.GetImageUrlAsync(
-            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "menus"
-        );
-        if (id == null && image == null)
-            modelState.AddModelError(nameof(model.ImageUploadId), "Chọn ảnh thực đơn.");
-        if (!modelState.IsValid)
-        {
-            return SaveResult.Invalid;
-        }
-        if (image != null)
-            value.File = image;
-        value.Label = model.Label.Trim();
-
-        value.SortOrder = model.SortOrder;
-        value.IsPublished = model.IsPublished;
-        if (id == null)
-            database.Menus.Add(value);
-        else
-        {
-            database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision;
-            value.Revision++;
-        }
+        database.Menus.Add(menu);
         await database.SaveChangesAsync();
-        return SaveResult.Success;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
+    public async Task UpdateAsync(Guid id, MenuEditViewModel model)
     {
-        var value = await database
-            .Menus.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? null : new DeleteContentViewModel(id, value.Label);
+        var menu = await database.Menus.FindAsync(id)
+            ?? throw new AppException(ErrorCode.MENU_NOT_FOUND);
+
+        await ApplyChangesAsync(menu, model);
+        database.Entry(menu).Property(value => value.Revision).OriginalValue = model.Revision;
+        menu.Revision++;
+        await database.SaveChangesAsync();
+    }
+
+    private async Task ApplyChangesAsync(Menu menu, MenuEditViewModel model)
+    {
+        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "menus");
+        if (image != null)
+            menu.File = image;
+
+        menu.Label = model.Label.Trim();
+        menu.SortOrder = model.SortOrder;
+        menu.IsPublished = model.IsPublished;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

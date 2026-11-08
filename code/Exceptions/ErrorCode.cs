@@ -26,6 +26,12 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode FEATURED_DRINK_BACKGROUND_REQUIRED =
         new("FEATURED_DRINK_BACKGROUND_REQUIRED", "Chọn ảnh nền.", StatusCodes.Status400BadRequest);
 
+    public static readonly ErrorCode MENU_NOT_FOUND =
+        new("MENU_NOT_FOUND", "Không tìm thấy thực đơn.", StatusCodes.Status404NotFound);
+
+    public static readonly ErrorCode MENU_IMAGE_REQUIRED =
+        new("MENU_IMAGE_REQUIRED", "Chọn ảnh thực đơn.", StatusCodes.Status400BadRequest);
+
     public static readonly ErrorCode CATEGORY_NOT_FOUND =
         new("CATEGORY_NOT_FOUND", "Không tìm thấy danh mục.", StatusCodes.Status404NotFound);
 
