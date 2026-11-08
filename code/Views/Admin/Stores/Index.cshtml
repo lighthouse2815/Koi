@@ -1,17 +1,40 @@
 @model AdminStoresViewModel
 @{ ViewData["Title"] = "Quản lý chi nhánh"; }
-<div class="page-heading"><h1>Quản lý chi nhánh</h1><a asp-action="Create" class="button">+ Thêm chi nhánh</a></div>
+<div class="page-heading">
+    <h1>Quản lý chi nhánh</h1><a asp-action="Create" class="button">+ Thêm chi nhánh</a>
+</div>
 <p><a asp-controller="Geography" asp-route-kind="cities">Quản lý khu vực</a></p>
-<form method="get" class="search"><label for="search">Tên hoặc địa chỉ</label><input id="search" name="search" value="@Model.Search" maxlength="200" /><p><button class="button secondary">Tìm kiếm</button></p></form>
-<div class="table-wrap"><table><thead><tr><th>Chi nhánh</th><th>Khu vực</th><th>Hiển thị</th><th>Thao tác</th></tr></thead><tbody>
-@foreach (var store in Model.Stores)
-{
-    <tr><td><strong>@store.Name</strong><br />@store.Address</td><td>@(store.City?.Name ?? "Việt Nam")</td><td>@(store.IsPublished ? "Đã xuất bản" : "Bản nháp")</td><td><div class="row-actions"><a asp-action="Edit" asp-route-id="@store.Id">Sửa</a><a asp-action="Delete" asp-route-id="@store.Id">Xóa</a></div></td></tr>
-}
-</tbody></table></div>
+<form method="get" class="search"><label for="search">Tên hoặc địa chỉ</label><input id="search" name="search" value="@Model.Search" maxlength="200" />
+    <p><button class="button secondary">Tìm kiếm</button></p>
+</form>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Chi nhánh</th>
+                <th>Khu vực</th>
+                <th>Hiển thị</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var store in Model.Stores)
+            {
+                <tr>
+                    <td><strong>@store.Name</strong><br />@store.Address</td>
+                    <td>@(store.City?.Name ?? "Việt Nam")</td>
+                    <td>@(store.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
+                    <td>
+                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@store.Id">Sửa</a><a asp-action="Delete" asp-route-id="@store.Id">Xóa</a></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 @if (Model.Stores.Length == 0) { <p>Không tìm thấy chi nhánh.</p> }
 <nav class="pagination" aria-label="Phân trang">
-@if (Model.Page > 1) { <a asp-route-page="@(Model.Page - 1)" asp-route-search="@Model.Search">← Trước</a> }
-<span>Trang @Model.Page / @Model.PageCount</span>
-@if (Model.Page < Model.PageCount) { <a asp-route-page="@(Model.Page + 1)" asp-route-search="@Model.Search">Sau →</a> }
+    @if (Model.Page > 1) { <a asp-route-page="@(Model.Page - 1)" asp-route-search="@Model.Search">← Trước</a> }
+    <span>Trang @Model.Page / @Model.PageCount</span>
+    @if (Model.Page < Model.PageCount) { <a asp-route-page="@(Model.Page + 1)" asp-route-search="@Model.Search">Sau →</a> }
 </nav>

@@ -1,12 +1,38 @@
 @model Koi.Web.Controllers.Admin.OrderListViewModel
 @{ ViewData["Title"] = "Đơn hàng"; var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); }
-<div class="page-heading"><h1>Đơn hàng</h1></div>
-<section class="card"><form method="get"><label for="storeId">Chi nhánh</label><select id="storeId" name="storeId"><option value="">Tất cả chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.StoreId)">@branch.Name · @branch.Address</option> }</select><label for="status">Trạng thái</label><select id="status" name="status"><option value="">Tất cả</option>@foreach (OrderStatus status in Enum.GetValues<OrderStatus>()) { <option value="@((int)status)" selected="@(status == Model.Status)">@(status switch { OrderStatus.New => "Mới", OrderStatus.Preparing => "Đang chuẩn bị", OrderStatus.Completed => "Hoàn thành", _ => "Đã hủy" })</option> }</select><button type="submit">Lọc</button></form>
-<table><thead><tr><th>Thời gian (UTC)</th><th>Chi nhánh</th><th>Khách hàng</th><th>Tổng tiền món</th><th>Trạng thái</th><th></th></tr></thead><tbody>
-@foreach (var order in Model.Orders) { <tr><td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td><td>@order.StoreName</td><td>@order.CustomerName</td><td>@order.Items.Sum(value => value.UnitPrice * value.Quantity).ToString("N0", culture) đ</td><td>@(order.Status switch { OrderStatus.New => "Mới", OrderStatus.Preparing => "Đang chuẩn bị", OrderStatus.Completed => "Hoàn thành", _ => "Đã hủy" })</td><td><a asp-action="Details" asp-route-id="@order.Id">Xem đơn</a></td></tr> }
-</tbody></table>
-@if (Model.Orders.Length == 0) { <p>Không có đơn hàng phù hợp.</p> }
-<p>Trang @Model.Page / @Model.PageCount</p>
-@if (Model.Page > 1) { <a asp-action="Index" asp-route-storeId="@Model.StoreId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page - 1)">← Trước</a> }
-@if (Model.Page < Model.PageCount) { <a asp-action="Index" asp-route-storeId="@Model.StoreId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page + 1)">Sau →</a> }
+<div class="page-heading">
+    <h1>Đơn hàng</h1>
+</div>
+<section class="card">
+    <form method="get"><label for="storeId">Chi nhánh</label><select id="storeId" name="storeId">
+            <option value="">Tất cả chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.StoreId)">@branch.Name · @branch.Address</option> }
+        </select><label for="status">Trạng thái</label><select id="status" name="status">
+            <option value="">Tất cả</option>@foreach (OrderStatus status in Enum.GetValues<OrderStatus>()) { <option value="@((int)status)" selected="@(status == Model.Status)">@(status switch { OrderStatus.New => "Mới", OrderStatus.Preparing => "Đang chuẩn bị", OrderStatus.Completed => "Hoàn thành", _ => "Đã hủy" })</option> }
+        </select><button type="submit">Lọc</button></form>
+    <table>
+        <thead>
+            <tr>
+                <th>Thời gian (UTC)</th>
+                <th>Chi nhánh</th>
+                <th>Khách hàng</th>
+                <th>Tổng tiền món</th>
+                <th>Trạng thái</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders) { <tr>
+                    <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@order.StoreName</td>
+                    <td>@order.CustomerName</td>
+                    <td>@order.Items.Sum(value => value.UnitPrice * value.Quantity).ToString("N0", culture) đ</td>
+                    <td>@(order.Status switch { OrderStatus.New => "Mới", OrderStatus.Preparing => "Đang chuẩn bị", OrderStatus.Completed => "Hoàn thành", _ => "Đã hủy" })</td>
+                    <td><a asp-action="Details" asp-route-id="@order.Id">Xem đơn</a></td>
+                </tr> }
+        </tbody>
+    </table>
+    @if (Model.Orders.Length == 0) { <p>Không có đơn hàng phù hợp.</p> }
+    <p>Trang @Model.Page / @Model.PageCount</p>
+    @if (Model.Page > 1) { <a asp-action="Index" asp-route-storeId="@Model.StoreId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page - 1)">← Trước</a> }
+    @if (Model.Page < Model.PageCount) { <a asp-action="Index" asp-route-storeId="@Model.StoreId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page + 1)">Sau →</a> }
 </section>

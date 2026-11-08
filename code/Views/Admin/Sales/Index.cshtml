@@ -1,24 +1,57 @@
 @model Koi.Web.Controllers.Admin.SalesSettingsViewModel
 @{ ViewData["Title"] = "Thiết lập bán hàng"; }
-<div class="page-heading"><h1>Thiết lập bán hàng</h1></div>
+<div class="page-heading">
+    <h1>Thiết lập bán hàng</h1>
+</div>
 <section class="card">
-<h2>Giá đồ uống dùng chung</h2><p>Chỉ món đã xuất bản, thuộc danh mục hiển thị và có giá mới nhận đặt hàng. Để trống giá để ngừng bán.</p>
-<table><thead><tr><th>Đồ uống</th><th>Danh mục</th><th>Giá (đồng)</th></tr></thead><tbody>
-@foreach (var drink in Model.Drinks) {
-<tr><td>@(drink.Name) @(!drink.IsPublished || !drink.Category.IsPublished ? "(đang ẩn)" : "")</td><td>@drink.Category.Name</td><td>
-<form asp-action="Price" method="post"><input type="hidden" name="id" value="@drink.Id" /><input type="hidden" name="revision" value="@drink.Revision" /><input name="price" type="number" min="1" max="999999999" step="1" value="@drink.Price" aria-label="Giá @drink.Name" /><button type="submit">Lưu giá</button></form>
-</td></tr>
-}
-</tbody></table>
+    <h2>Giá đồ uống dùng chung</h2>
+    <p>Chỉ món đã xuất bản, thuộc danh mục hiển thị và có giá mới nhận đặt hàng. Để trống giá để ngừng bán.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Đồ uống</th>
+                <th>Danh mục</th>
+                <th>Giá (đồng)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var drink in Model.Drinks) {
+                <tr>
+                    <td>@(drink.Name) @(!drink.IsPublished || !drink.Category.IsPublished ? "(đang ẩn)" : "")</td>
+                    <td>@drink.Category.Name</td>
+                    <td>
+                        <form asp-action="Price" method="post"><input type="hidden" name="id" value="@drink.Id" /><input type="hidden" name="revision" value="@drink.Revision" /><input name="price" type="number" min="1" max="999999999" step="1" value="@drink.Price" aria-label="Giá @drink.Name" /><button type="submit">Lưu giá</button></form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </section>
-<section class="card"><h2>Chi nhánh nhận đơn</h2><p>Chọn các chi nhánh thuộc thương hiệu của bạn để mở nhận đơn.</p>
-<form method="get"><label for="search">Tìm tên hoặc địa chỉ</label><input id="search" name="search" value="@Model.Search" /><button type="submit">Tìm</button></form>
-<table><thead><tr><th>Chi nhánh</th><th>Khu vực</th><th>Nhận đơn</th></tr></thead><tbody>
-@foreach (var branch in Model.Branches) {
-<tr><td>@branch.Name<br />@branch.Address</td><td>@(branch.City?.Name ?? "Việt Nam")</td><td><form asp-action="Branch" method="post"><input type="hidden" name="id" value="@branch.Id" /><input type="hidden" name="revision" value="@branch.Revision" /><input type="hidden" name="search" value="@Model.Search" /><input type="hidden" name="page" value="@Model.Page" /><input type="hidden" name="acceptsOrders" value="@(!branch.AcceptsOrders ? "true" : "false")" /><button type="submit">@(branch.AcceptsOrders ? "Đang nhận · Tắt" : "Đang tắt · Mở")</button></form></td></tr>
-}
-</tbody></table>
-<p>Trang @Model.Page / @Model.PageCount</p>
-@if (Model.Page > 1) { <a asp-action="Index" asp-route-search="@Model.Search" asp-route-page="@(Model.Page - 1)">← Trước</a> }
-@if (Model.Page < Model.PageCount) { <a asp-action="Index" asp-route-search="@Model.Search" asp-route-page="@(Model.Page + 1)">Sau →</a> }
+<section class="card">
+    <h2>Chi nhánh nhận đơn</h2>
+    <p>Chọn các chi nhánh thuộc thương hiệu của bạn để mở nhận đơn.</p>
+    <form method="get"><label for="search">Tìm tên hoặc địa chỉ</label><input id="search" name="search" value="@Model.Search" /><button type="submit">Tìm</button></form>
+    <table>
+        <thead>
+            <tr>
+                <th>Chi nhánh</th>
+                <th>Khu vực</th>
+                <th>Nhận đơn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var branch in Model.Branches) {
+                <tr>
+                    <td>@branch.Name<br />@branch.Address</td>
+                    <td>@(branch.City?.Name ?? "Việt Nam")</td>
+                    <td>
+                        <form asp-action="Branch" method="post"><input type="hidden" name="id" value="@branch.Id" /><input type="hidden" name="revision" value="@branch.Revision" /><input type="hidden" name="search" value="@Model.Search" /><input type="hidden" name="page" value="@Model.Page" /><input type="hidden" name="acceptsOrders" value="@(!branch.AcceptsOrders ? "true" : "false")" /><button type="submit">@(branch.AcceptsOrders ? "Đang nhận · Tắt" : "Đang tắt · Mở")</button></form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>Trang @Model.Page / @Model.PageCount</p>
+    @if (Model.Page > 1) { <a asp-action="Index" asp-route-search="@Model.Search" asp-route-page="@(Model.Page - 1)">← Trước</a> }
+    @if (Model.Page < Model.PageCount) { <a asp-action="Index" asp-route-search="@Model.Search" asp-route-page="@(Model.Page + 1)">Sau →</a> }
 </section>

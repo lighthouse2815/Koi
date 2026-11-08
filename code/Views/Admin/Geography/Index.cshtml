@@ -1,8 +1,27 @@
 @model GeographyIndexViewModel
 @{ ViewData["Title"] = Model.Title; }
-<div class="page-heading"><h1>@Model.Title</h1><a asp-action="Create" asp-route-kind="@Model.Kind" class="button">+ Thêm</a></div>
+<div class="page-heading">
+    <h1>@Model.Title</h1><a asp-action="Create" asp-route-kind="@Model.Kind" class="button">+ Thêm</a>
+</div>
 <p><a asp-route-kind="cities">Khu vực</a> · <a asp-controller="Stores">Chi nhánh</a></p>
-<div class="table-wrap"><table><thead><tr><th>Tên</th><th>Thứ tự</th><th>Thao tác</th></tr></thead><tbody>
-@foreach (var row in Model.Rows) { <tr><td>@row.Name</td><td>@row.SortOrder</td><td><div class="row-actions"><a asp-action="Edit" asp-route-id="@row.Id" asp-route-kind="@Model.Kind">Sửa</a><a asp-action="Delete" asp-route-id="@row.Id" asp-route-kind="@Model.Kind">Xóa</a></div></td></tr> }
-</tbody></table></div>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Thứ tự</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Rows) { <tr>
+                    <td>@row.Name</td>
+                    <td>@row.SortOrder</td>
+                    <td>
+                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@row.Id" asp-route-kind="@Model.Kind">Sửa</a><a asp-action="Delete" asp-route-id="@row.Id" asp-route-kind="@Model.Kind">Xóa</a></div>
+                    </td>
+                </tr> }
+        </tbody>
+    </table>
+</div>
 @if (Model.Rows.Length == 0) { <p>Chưa có dữ liệu.</p> }

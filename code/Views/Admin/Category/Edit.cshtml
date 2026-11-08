@@ -1,19 +1,54 @@
 @model CategoryEditViewModel
-@{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = editing ? "Sửa danh mục" : "Thêm danh mục"; }
-<div class="page-heading"><h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh mục đồ uống</a></div>
-<noscript><p class="validation">Vui lòng bật JavaScript để sử dụng biểu mẫu này.</p></noscript>
+@{
+    var editing = Model.Id != Guid.Empty;
+    ViewData["Title"] = editing ? "Sửa danh mục" : "Thêm danh mục";
+}
+<div class="page-heading">
+    <h1>@ViewData["Title"]</h1>
+    <a asp-action="Index">← Danh mục đồ uống</a>
+</div>
+<noscript>
+    <p class="validation">Vui lòng bật JavaScript để sử dụng biểu mẫu này.</p>
+</noscript>
 <form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="" method="post" class="editor" data-upload-folder="categories">
-<fieldset class="upload-fields" disabled>
-<input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" /><div asp-validation-summary="All" class="validation" role="alert"></div>
-<div class="editor-columns"><div class="card">
-<label asp-for="Name">Tên danh mục</label><input asp-for="Name" maxlength="200" required />
-<label for="ImageUpload">Ảnh danh mục và thẻ trang chủ</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh danh mục" /> }<input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
-<label for="IconUpload">Biểu tượng danh mục trên trang chủ</label>@if (!string.IsNullOrEmpty(Model.CurrentIcon)) { <img class="current-icon" src="@Model.CurrentIcon" alt="Biểu tượng danh mục" /> }<input asp-for="IconUploadId" type="hidden" /><input id="IconUpload" type="file" accept="image/jpeg,image/png,image/webp" />
-<label class="check"><input asp-for="RemoveIcon" /> Bỏ biểu tượng danh mục</label>
-<p class="help">Mỗi ảnh JPG, PNG hoặc WebP tối đa 5 MB. Để trống để giữ ảnh hiện tại. Bật thẻ trang chủ cần có cả ảnh và biểu tượng thẻ.</p>
-</div><aside class="card">
-<label class="check"><input asp-for="IsPublished" /> Hiển thị danh mục và đồ uống bên trong</label>
-<label class="check"><input asp-for="ShowOnHome" /> Hiển thị thẻ trên trang chủ</label>
-<label asp-for="SortOrder">Thứ tự hiển thị</label><input asp-for="SortOrder" type="number" min="0" max="100000" />
-<button class="button" type="submit">Lưu danh mục</button>@if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }
-</aside></div></fieldset></form>
+    <fieldset class="upload-fields" disabled>
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="Revision" type="hidden" />
+        <div asp-validation-summary="All" class="validation" role="alert"></div>
+        <div class="editor-columns">
+            <div class="card">
+                <label asp-for="Name">Tên danh mục</label>
+                <input asp-for="Name" maxlength="200" required />
+
+                <label for="ImageUpload">Ảnh danh mục và thẻ trang chủ</label>
+                @if (!string.IsNullOrEmpty(Model.CurrentImage))
+                {
+                    <img class="current-image" src="@Model.CurrentImage" alt="Ảnh danh mục" />
+                }
+                <input asp-for="ImageUploadId" type="hidden" />
+                <input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" required="@(!editing)" />
+
+                <label for="IconUpload">Biểu tượng danh mục trên trang chủ</label>
+                @if (!string.IsNullOrEmpty(Model.CurrentIcon))
+                {
+                    <img class="current-icon" src="@Model.CurrentIcon" alt="Biểu tượng danh mục" />
+                }
+                <input asp-for="IconUploadId" type="hidden" />
+                <input id="IconUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                <label class="check"><input asp-for="RemoveIcon" /> Bỏ biểu tượng danh mục</label>
+                <p class="help">Mỗi ảnh JPG, PNG hoặc WebP tối đa 5 MB. Để trống để giữ ảnh hiện tại. Bật thẻ trang chủ cần có cả ảnh và biểu tượng thẻ.</p>
+            </div>
+            <aside class="card">
+                <label class="check"><input asp-for="IsPublished" /> Hiển thị danh mục và đồ uống bên trong</label>
+                <label class="check"><input asp-for="ShowOnHome" /> Hiển thị thẻ trên trang chủ</label>
+                <label asp-for="SortOrder">Thứ tự hiển thị</label>
+                <input asp-for="SortOrder" type="number" min="0" max="100000" />
+                <button class="button" type="submit">Lưu danh mục</button>
+                @if (editing)
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a>
+                }
+            </aside>
+        </div>
+    </fieldset>
+</form>
