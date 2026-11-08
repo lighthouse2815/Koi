@@ -1,8 +1,9 @@
 @model AdminStoresViewModel
 @{ ViewData["Title"] = "Quản lý chi nhánh"; }
 <div class="page-heading">
-    <h1>Quản lý chi nhánh</h1><a asp-action="Create" class="button">+ Thêm chi nhánh</a>
+    <h1>Quản lý chi nhánh</h1><button type="button" class="button" data-store-create>+ Thêm chi nhánh</button>
 </div>
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa chi nhánh.</p></noscript>
 <p><a asp-controller="Geography" asp-route-kind="cities">Quản lý khu vực</a></p>
 <form method="get" class="search"><label for="search">Tên hoặc địa chỉ</label><input id="search" name="search" value="@Model.Search" maxlength="200" />
     <p><button class="button secondary">Tìm kiếm</button></p>
@@ -25,7 +26,16 @@
                     <td>@(store.City?.Name ?? "Việt Nam")</td>
                     <td>@(store.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
-                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@store.Id">Sửa</a><a asp-action="Delete" asp-route-id="@store.Id" class="delete-link" data-name="@store.Name">Xóa</a></div>
+                        <div class="row-actions">
+                            <button type="button" class="link-button" data-store-edit
+                                    data-url="@Url.Action("Edit", new { id = store.Id })"
+                                    data-id="@store.Id" data-revision="@store.Revision" data-name="@store.Name"
+                                    data-city-id="@store.CityId" data-address="@store.Address" data-phone="@store.Phone"
+                                    data-hours="@store.Hours" data-navigation-url="@store.NavigationUrl"
+                                    data-sort-order="@store.SortOrder" data-is-published="@store.IsPublished.ToString().ToLowerInvariant()"
+                                    data-image="@store.Photo">Sửa</button>
+                            <a asp-action="Delete" asp-route-id="@store.Id" class="delete-link" data-name="@store.Name">Xóa</a>
+                        </div>
                     </td>
                 </tr>
             }
@@ -40,3 +50,5 @@
 </nav>
 
 <partial name="_DeleteDialog" />
+<partial name="Edit" model="new StoreEditViewModel { Cities = Model.Cities }" />
+<script src="~/js/store-editor.js" asp-append-version="true" defer></script>

@@ -1,6 +1,6 @@
 using Koi.Web.Data;
+using Koi.Web.Exceptions;
 using Koi.Web.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
@@ -30,97 +30,52 @@ public class StoreService(
             .Skip((page - 1) * 20)
             .Take(20)
             .ToArrayAsync();
-        return new AdminStoresViewModel(rows, search, page, pages);
+        var cities = await database.StoreCities.AsNoTracking()
+            .OrderBy(value => value.SortOrder)
+            .ToArrayAsync();
+        return new AdminStoresViewModel(rows, cities, search, page, pages);
     }
 
-    public Task<StoreEditViewModel> CreateAsync() => Options(new StoreEditViewModel());
-
-    public async Task<StoreEditViewModel?> GetEditAsync(Guid id)
+    public async Task CreateAsync(StoreEditViewModel model)
     {
-        var value = await database
-            .Stores.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null
-            ? null
-            : await Options(
-                new StoreEditViewModel
-                {
-                    Id = value.Id,
-                    Revision = value.Revision,
-
-                    Name = value.Name,
-                    Phone = value.Phone,
-                    Hours = value.Hours,
-                    Address = value.Address,
-                    CityId = value.CityId,
-                    NavigationUrl = value.NavigationUrl,
-                    IsPublished = value.IsPublished,
-                    SortOrder = value.SortOrder,
-                    CurrentImage = value.Photo,
-                }
-            );
-    }
-
-    public async Task<SaveResult> SaveAsync(
-        StoreEditViewModel model,
-        Guid? id,
-        ModelStateDictionary modelState
-    )
-    {
-        var value = id.HasValue
-            ? await database.Stores.SingleOrDefaultAsync(value => value.Id == id)
-            : new Store();
-        if (value == null)
-            return SaveResult.NotFound;
-        model.CurrentImage = value.Photo;
-        if (
-            model.CityId.HasValue
-            && !await database.StoreCities.AnyAsync(value => value.Id == model.CityId)
-        )
-            modelState.AddModelError(nameof(model.CityId), "Chọn khu vực hợp lệ.");
-        if (!SafeLink(model.NavigationUrl))
-            modelState.AddModelError(
-                nameof(model.NavigationUrl),
-                "Nhập liên kết HTTPS hoặc HTTP hợp lệ."
-            );
-        var image = await uploads.GetImageUrlAsync(
-            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "stores"
-        );
-        if (!modelState.IsValid)
-        {
-            await Options(model);
-            return SaveResult.Invalid;
-        }
-        if (image != null)
-            value.Photo = image;
-        else if (model.RemoveImage)
-            value.Photo = "";
-        value.Name = model.Name.Trim();
-
-        value.Address = model.Address?.Trim() ?? "";
-        value.Phone = model.Phone?.Trim() ?? "";
-        value.Hours = model.Hours?.Trim() ?? "";
-        value.CityId = model.CityId;
-        value.NavigationUrl = model.NavigationUrl?.Trim() ?? "";
-        value.IsPublished = model.IsPublished;
-        value.SortOrder = model.SortOrder;
-        if (id == null)
-            database.Stores.Add(value);
-        else
-        {
-            database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision;
-            value.Revision++;
-        }
+        var store = new Store();
+        await ApplyChangesAsync(store, model);
+        database.Stores.Add(store);
         await database.SaveChangesAsync();
-        return SaveResult.Success;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
+    public async Task UpdateAsync(Guid id, StoreEditViewModel model)
     {
-        var value = await database
-            .Stores.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? null : new DeleteContentViewModel(id, value.Name);
+        var store = await database.Stores.FindAsync(id)
+            ?? throw new AppException(ErrorCode.STORE_NOT_FOUND);
+
+        await ApplyChangesAsync(store, model);
+        database.Entry(store).Property(value => value.Revision).OriginalValue = model.Revision;
+        store.Revision++;
+        await database.SaveChangesAsync();
+    }
+
+    private async Task ApplyChangesAsync(Store store, StoreEditViewModel model)
+    {
+        if (model.CityId.HasValue && !await database.StoreCities.AnyAsync(value => value.Id == model.CityId))
+            throw new AppException(ErrorCode.STORE_CITY_INVALID);
+        if (!SafeLink(model.NavigationUrl))
+            throw new AppException(ErrorCode.STORE_LINK_INVALID);
+
+        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "stores");
+        if (image != null)
+            store.Photo = image;
+        else if (model.RemoveImage)
+            store.Photo = "";
+
+        store.Name = model.Name.Trim();
+        store.Address = model.Address?.Trim() ?? "";
+        store.Phone = model.Phone?.Trim() ?? "";
+        store.Hours = model.Hours?.Trim() ?? "";
+        store.CityId = model.CityId;
+        store.NavigationUrl = model.NavigationUrl?.Trim() ?? "";
+        store.IsPublished = model.IsPublished;
+        store.SortOrder = model.SortOrder;
     }
 
     public async Task<bool> DeleteAsync(Guid id)
@@ -131,15 +86,6 @@ public class StoreService(
         database.Stores.Remove(value);
         await database.SaveChangesAsync();
         return true;
-    }
-
-    private async Task<StoreEditViewModel> Options(StoreEditViewModel model)
-    {
-        model.Cities = await database
-            .StoreCities.AsNoTracking()
-            .OrderBy(value => value.SortOrder)
-            .ToArrayAsync();
-        return model;
     }
 
     internal static bool SafeLink(string? url) =>

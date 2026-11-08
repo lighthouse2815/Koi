@@ -1,38 +1,39 @@
 @model StoreEditViewModel
-@{ var editing = Model.Id != Guid.Empty; ViewData["Title"] = editing ? "Sửa chi nhánh" : "Thêm chi nhánh"; }
-<div class="page-heading">
-    <h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh sách chi nhánh</a>
-</div>
-<noscript>
-    <p class="validation">Vui lòng bật JavaScript để sử dụng biểu mẫu này.</p>
-</noscript>
-<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" class="editor" data-upload-folder="stores">
-    <fieldset class="upload-fields" disabled>
-        <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
-        <div asp-validation-summary="All" class="validation" role="alert"></div>
-        <div class="editor-columns">
-            <div class="card">
-                <label asp-for="Name">Tên chi nhánh</label><input asp-for="Name" required maxlength="300" />
-                <label asp-for="CityId">Khu vực</label><select asp-for="CityId">
-                    <option value="">Không phân khu vực</option>@foreach (var city in Model.Cities) { <option value="@city.Id">@city.Name</option> }
-                </select>
-                <label asp-for="Address">Địa chỉ</label><textarea asp-for="Address" rows="3" maxlength="2000"></textarea>
-                <div class="field-row">
-                    <div><label asp-for="Phone">Điện thoại</label><input asp-for="Phone" maxlength="100" /></div>
-                    <div><label asp-for="Hours">Giờ mở cửa</label><input asp-for="Hours" maxlength="500" /></div>
+
+<dialog id="store-editor" class="drink-editor" aria-labelledby="store-editor-title">
+    <div class="page-heading">
+        <h2 id="store-editor-title">Thêm chi nhánh</h2>
+        <button type="button" class="button secondary" data-store-cancel>Đóng</button>
+    </div>
+    <form asp-action="Create" method="post" class="editor" data-upload-folder="stores" data-ajax-save
+          data-create-url="@Url.Action("Create")">
+        <fieldset class="upload-fields" disabled>
+            <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
+            <div asp-validation-summary="All" class="validation" role="alert"></div>
+            <div class="editor-columns">
+                <div class="card">
+                    <label asp-for="Name">Tên chi nhánh</label><input asp-for="Name" required maxlength="300" />
+                    <label asp-for="CityId">Khu vực</label><select asp-for="CityId">
+                        <option value="">Không phân khu vực</option>@foreach (var city in Model.Cities) { <option value="@city.Id">@city.Name</option> }
+                    </select>
+                    <label asp-for="Address">Địa chỉ</label><textarea asp-for="Address" rows="3" maxlength="2000"></textarea>
+                    <div class="field-row">
+                        <div><label asp-for="Phone">Điện thoại</label><input asp-for="Phone" maxlength="100" /></div>
+                        <div><label asp-for="Hours">Giờ mở cửa</label><input asp-for="Hours" maxlength="500" /></div>
+                    </div>
+                    <label asp-for="NavigationUrl">Liên kết chỉ đường</label><input asp-for="NavigationUrl" type="url" maxlength="2000" />
                 </div>
-                <label asp-for="NavigationUrl">Liên kết chỉ đường</label><input asp-for="NavigationUrl" type="url" maxlength="2000" />
+                <aside class="card">
+                    <label for="ImageUpload">Ảnh chi nhánh</label><img class="current-image" alt="Ảnh hiện tại" hidden />
+                    <input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Để trống để giữ ảnh hiện tại.</p>
+                    <label class="check"><input asp-for="RemoveImage" /> Bỏ ảnh hiện tại</label>
+                    <label class="check"><input asp-for="IsPublished" /> Hiển thị trên website</label>
+                    <label asp-for="SortOrder">Thứ tự hiển thị</label><input asp-for="SortOrder" type="number" min="0" max="1000000" />
+                    <p class="help">Số nhỏ hiển thị trước.</p><button type="submit" class="button">Lưu chi nhánh</button>
+                    <a asp-action="Index" data-store-reload hidden>Tải lại bản mới nhất</a>
+                </aside>
             </div>
-            <aside class="card">
-                <label for="ImageUpload">Ảnh chi nhánh</label>@if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }
-                <input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
-                <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Để trống để giữ ảnh hiện tại.</p>
-                <label class="check"><input asp-for="RemoveImage" /> Bỏ ảnh hiện tại</label>
-                <label class="check"><input asp-for="IsPublished" /> Hiển thị trên website</label>
-                <label asp-for="SortOrder">Thứ tự hiển thị</label><input asp-for="SortOrder" type="number" min="0" max="1000000" />
-                <p class="help">Số nhỏ hiển thị trước.</p><button type="submit" class="button">Lưu chi nhánh</button>
-                @if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }
-            </aside>
-        </div>
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
+</dialog>

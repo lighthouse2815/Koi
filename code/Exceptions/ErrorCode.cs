@@ -32,6 +32,15 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode MENU_IMAGE_REQUIRED =
         new("MENU_IMAGE_REQUIRED", "Chọn ảnh thực đơn.", StatusCodes.Status400BadRequest);
 
+    public static readonly ErrorCode STORE_NOT_FOUND =
+        new("STORE_NOT_FOUND", "Không tìm thấy chi nhánh.", StatusCodes.Status404NotFound);
+
+    public static readonly ErrorCode STORE_CITY_INVALID =
+        new("STORE_CITY_INVALID", "Chọn khu vực hợp lệ.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode STORE_LINK_INVALID =
+        new("STORE_LINK_INVALID", "Nhập liên kết HTTPS hoặc HTTP hợp lệ.", StatusCodes.Status400BadRequest);
+
     public static readonly ErrorCode CATEGORY_NOT_FOUND =
         new("CATEGORY_NOT_FOUND", "Không tìm thấy danh mục.", StatusCodes.Status404NotFound);
 
