@@ -26,7 +26,9 @@
             if (uploaded.value) input.required = false;
             input.addEventListener('change', () => {
                 uploaded.value = '';
-                input.required = required;
+                input.required = input.dataset.requiredOnChange === undefined
+                    ? required
+                    : input.dataset.requiredOnChange === 'true';
             });
         }
 

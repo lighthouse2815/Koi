@@ -26,8 +26,10 @@
                 </nav>
             </div>
         </div>
-        <a asp-action="Create" class="button category-add"><span aria-hidden="true">+</span> Thêm danh mục</a>
+        <button type="button" class="button category-add" data-category-create><span aria-hidden="true">+</span> Thêm danh mục</button>
     </header>
+
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa danh mục.</p></noscript>
 
 <p class="category-scroll-hint">Vuốt ngang để xem thêm <span aria-hidden="true">→</span></p>
 <div class="table-wrap category-table-wrap" tabindex="0" aria-label="Bảng danh mục đồ uống">
@@ -121,7 +123,11 @@
                     <td><span class="category-home">@(category.ShowOnHome ? "Có · thứ tự " + category.SortOrder : "Không")</span></td>
                     <td>
                         <div class="row-actions category-actions">
-                            <a asp-action="Edit" asp-route-id="@category.Id" class="category-action category-action-edit"><svg aria-hidden="true"><use href="#category-icon-edit" /></svg>Sửa</a>
+                            <button type="button" class="category-action category-action-edit" data-category-edit
+                                    data-id="@category.Id" data-revision="@category.Revision" data-name="@category.Name"
+                                    data-sort-order="@category.SortOrder" data-is-published="@category.IsPublished.ToString().ToLowerInvariant()"
+                                    data-show-on-home="@category.ShowOnHome.ToString().ToLowerInvariant()"
+                                    data-image="@category.Image" data-icon="@category.Icon"><svg aria-hidden="true"><use href="#category-icon-edit" /></svg>Sửa</button>
                             <a asp-area="" asp-controller="Home" asp-action="OurTea" asp-fragment="@category.Id.ToString()" target="_blank" rel="noopener" class="category-action category-action-view"><svg aria-hidden="true"><use href="#category-icon-external" /></svg>Xem website</a>
                             <a asp-action="Delete" asp-route-id="@category.Id" class="delete-link category-action category-action-delete" data-name="@category.Name"><svg aria-hidden="true"><use href="#category-icon-trash" /></svg>Xóa</a>
                         </div>
@@ -135,4 +141,6 @@
 @if (Model.Count == 0) { <p class="category-empty">Chưa có danh mục.</p> }
 
 <partial name="_DeleteDialog" />
+<partial name="Edit" model="new CategoryEditViewModel()" />
+<script src="~/js/category-editor.js" asp-append-version="true" defer></script>
 </div>
