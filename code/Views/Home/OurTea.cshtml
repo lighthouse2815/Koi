@@ -225,6 +225,10 @@
                         <div class="tea-category-rule" aria-hidden="true"></div>
                         <div class="tea-category-heading">
                             <div class="title"><span class="tea-category-number" aria-hidden="true">(@((categoryIndex + 1).ToString("D2")))</span>
+                                @if (!string.IsNullOrWhiteSpace(category.Icon))
+                                {
+                                    <img class="tea-category-icon" src="@category.Icon" alt="" width="40" height="40" loading="lazy" />
+                                }
                                 <h3 class="en">@category.Name</h3>
                             </div>
                             <a class="tea-view-all" asp-controller="Order" asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks">@(SiteText.IsVietnamese ? "Xem tất cả sản phẩm" : "View all drinks") <span class="tea-button-arrow" aria-hidden="true">↗</span></a>
