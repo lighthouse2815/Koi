@@ -69,13 +69,13 @@ public class CategoryService(
         var icon = await uploads.GetImageUrlAsync(model.IconUploadId, "categories");
 
         if (image == null && string.IsNullOrEmpty(category.Image))
-            throw new AppException(ErrorCode.CATEGORY_INVALID with { Message = "Chọn ảnh chung cho danh mục." });
+            throw new AppException(ErrorCode.CATEGORY_IMAGE_REQUIRED);
         if (
             model.ShowOnHome
             && icon == null
             && (model.RemoveIcon || string.IsNullOrEmpty(category.Icon))
         )
-            throw new AppException(ErrorCode.CATEGORY_INVALID with { Message = "Chọn biểu tượng thẻ trang chủ." });
+            throw new AppException(ErrorCode.CATEGORY_ICON_REQUIRED);
 
         if (image != null)
             category.Image = image;

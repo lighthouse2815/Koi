@@ -20,6 +20,12 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode CATEGORY_INVALID =
         new("CATEGORY_INVALID", "Dữ liệu danh mục không hợp lệ.", StatusCodes.Status400BadRequest);
 
+    public static readonly ErrorCode CATEGORY_IMAGE_REQUIRED =
+        new("CATEGORY_IMAGE_REQUIRED", "Chọn ảnh chung cho danh mục.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode CATEGORY_ICON_REQUIRED =
+        new("CATEGORY_ICON_REQUIRED", "Chọn biểu tượng thẻ trang chủ.", StatusCodes.Status400BadRequest);
+
     public static readonly ErrorCode CATEGORY_HAS_DRINKS =
         new("CATEGORY_HAS_DRINKS", "Không thể xóa danh mục đang có đồ uống.", StatusCodes.Status409Conflict);
 
