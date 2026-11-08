@@ -16,12 +16,8 @@
 <footer class="site-footer" id="footer">
     <div class="footer-marquee" aria-hidden="true">
         <div class="footer-marquee-track" data-marquee-speed="120">
-            @for (var copy = 0; copy < 2; copy++)
-            {
-                <ul class="footer-marquee-letters">
-                    @for (var letter = 1; letter <= 13; letter++)
-                    {
-                        <li><img src="~/images/footer-@(letter).svg" alt="" /></li>
+            @for (var copy = 0; copy < 2; copy++) { <ul class="footer-marquee-letters">
+                    @for (var letter = 1; letter <= 13; letter++) { <li><img src="~/images/footer-@(letter).svg" alt="" /></li>
                     }
                 </ul>
                 <img class="footer-mobile-art" src="~/images/footer-wordmark.svg" width="2656" height="365" alt="" loading="lazy" />
@@ -57,6 +53,9 @@
                 <a asp-controller="Order" asp-action="Index">Đặt hàng</a>
             </div>
         </nav>
-        <div class="footer-copyright"><partial name="_LanguageSwitcher" /><p>© @DateTime.UtcNow.Year KOI CAFE GROUP (S) PTE LTD.<br />@T["All rights reserved."]</p></div>
+        <div class="footer-copyright">
+            <partial name="_LanguageSwitcher" />
+            <p>© @DateTime.UtcNow.Year KOI CAFE GROUP (S) PTE LTD.<br />@T["All rights reserved."]</p>
+        </div>
     </div>
 </footer>

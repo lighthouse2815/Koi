@@ -1,19 +1,36 @@
 @model Order[]
 @{ Layout = null; var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); }
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Đơn đã mua · KOI Thé</title><link rel="stylesheet" href="~/css/ordering.css" asp-append-version="true" /></head>
-<body>
-<header class="order-header"><a asp-controller="Home" asp-action="Index"><img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" /></a><a asp-action="Index">Đặt hàng ↗</a></header>
-<main class="order-page"><section class="order-intro"><p class="order-eyebrow">( YOUR ORDERS. )</p><h1>Đơn đã mua</h1><p>Các đơn đã đặt trên trình duyệt này.</p></section>
-@if (Model.Length == 0) { <p>Bạn chưa có đơn hàng nào trên trình duyệt này.</p> }
-@foreach (var order in Model)
-{
-    <article class="order-intro">
-        <h2>Đơn @order.Id</h2>
-        <p>@order.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm") · @order.StoreName</p>
-        <p>Trạng thái: @(order.Status switch { OrderStatus.New => "Mới đặt", OrderStatus.Preparing => "Đang chuẩn bị", OrderStatus.Completed => "Hoàn thành", OrderStatus.Cancelled => "Đã hủy", _ => "Không xác định" })</p>
-        <ul>@foreach (var item in order.Items) { <li>@item.DrinkName × @item.Quantity — @((item.UnitPrice * item.Quantity).ToString("N0", culture)) đ</li> }</ul>
-        <p><strong>Tổng: @order.Items.Sum(item => item.UnitPrice * item.Quantity).ToString("N0", culture) đ</strong></p>
-    </article>
-}
-<a class="order-explore" asp-action="Index">Tiếp tục đặt hàng ↗</a></main></body></html>
+<html lang="vi">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Đơn đã mua · KOI Thé</title>
+        <link rel="stylesheet" href="~/css/ordering.css" asp-append-version="true" />
+    </head>
+
+    <body>
+        <header class="order-header"><a asp-controller="Home" asp-action="Index"><img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" /></a><a asp-action="Index">Đặt hàng ↗</a></header>
+        <main class="order-page">
+            <section class="order-intro">
+                <p class="order-eyebrow">( YOUR ORDERS. )</p>
+                <h1>Đơn đã mua</h1>
+                <p>Các đơn đã đặt trên trình duyệt này.</p>
+            </section>
+            @if (Model.Length == 0) { <p>Bạn chưa có đơn hàng nào trên trình duyệt này.</p> }
+            @foreach (var order in Model)
+            {
+                <article class="order-intro">
+                    <h2>Đơn @order.Id</h2>
+                    <p>@order.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm") · @order.StoreName</p>
+                    <p>Trạng thái: @(order.Status switch { OrderStatus.New => "Mới đặt", OrderStatus.Preparing => "Đang chuẩn bị", OrderStatus.Completed => "Hoàn thành", OrderStatus.Cancelled => "Đã hủy", _ => "Không xác định" })</p>
+                    <ul>@foreach (var item in order.Items) { <li>@item.DrinkName × @item.Quantity — @((item.UnitPrice * item.Quantity).ToString("N0", culture)) đ</li> }</ul>
+                    <p><strong>Tổng: @order.Items.Sum(item => item.UnitPrice * item.Quantity).ToString("N0", culture) đ</strong></p>
+                </article>
+            }
+            <a class="order-explore" asp-action="Index">Tiếp tục đặt hàng ↗</a>
+        </main>
+    </body>
+
+</html>

@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>@ViewData["Title"] · KOI Admin</title>
-    <link rel="icon" href="~/images/favicon.png" />
-    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
-</head>
-<body>
-<header class="admin-header">
-    <a class="admin-brand" asp-area="Admin" asp-controller="News" asp-action="Index"><img src="~/images/logo.svg" width="150" height="32" alt="KOI Thé" /><span>Quản trị</span></a>
-    <nav aria-label="Điều hướng quản trị">
-        @if (User.IsInRole("Admin"))
-        {
-            <a asp-area="Admin" asp-controller="News" asp-action="Index">Tin tức</a>
-            <a asp-area="Admin" asp-controller="Stores" asp-action="Index">Chi nhánh</a>
-            <a asp-area="Admin" asp-controller="Menus" asp-action="Index">Thực đơn</a>
-            <a asp-area="Admin" asp-controller="Drinks" asp-action="Index">Đồ uống</a>
-            <a asp-area="Admin" asp-controller="Category" asp-action="Index">Danh mục đồ uống</a>
-            <a asp-area="Admin" asp-controller="Sales" asp-action="Index">Bán hàng</a>
-            <a asp-area="Admin" asp-controller="Orders" asp-action="Index">Đơn hàng</a>
-        }
-        <a asp-area="" asp-controller="Home" asp-action="Index" target="_blank" rel="noopener">Xem website ↗</a>
-        @if (User.IsInRole("Admin"))
-        {
-            <form asp-area="Admin" asp-controller="Account" asp-action="Logout" method="post"><button type="submit" class="link-button">Đăng xuất</button></form>
-        }
-    </nav>
-</header>
-<main class="admin-main">
-    @if (TempData["Status"] is string status)
-    {
-        <p class="status" role="status">@status</p>
-    }
-    @RenderBody()
-</main>
-<script src="~/js/admin-upload.js" asp-append-version="true" defer></script>
-</body>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex, nofollow" />
+        <title>@ViewData["Title"] · KOI Admin</title>
+        <link rel="icon" href="~/images/favicon.png" />
+        <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    </head>
+
+    <body>
+        <header class="admin-header">
+            <a class="admin-brand" asp-area="Admin" asp-controller="News" asp-action="Index"><img src="~/images/logo.svg" width="150" height="32" alt="KOI Thé" /><span>Quản trị</span></a>
+            <nav aria-label="Điều hướng quản trị">
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-area="Admin" asp-controller="News" asp-action="Index">Tin tức</a>
+                    <a asp-area="Admin" asp-controller="Stores" asp-action="Index">Chi nhánh</a>
+                    <a asp-area="Admin" asp-controller="Menus" asp-action="Index">Thực đơn</a>
+                    <a asp-area="Admin" asp-controller="Drinks" asp-action="Index">Đồ uống</a>
+                    <a asp-area="Admin" asp-controller="Category" asp-action="Index">Danh mục đồ uống</a>
+                    <a asp-area="Admin" asp-controller="Sales" asp-action="Index">Bán hàng</a>
+                    <a asp-area="Admin" asp-controller="Orders" asp-action="Index">Đơn hàng</a>
+                }
+                <a asp-area="" asp-controller="Home" asp-action="Index" target="_blank" rel="noopener">Xem website ↗</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <form asp-area="Admin" asp-controller="Account" asp-action="Logout" method="post"><button type="submit" class="link-button">Đăng xuất</button></form>
+                }
+            </nav>
+        </header>
+        <main class="admin-main">
+            @if (TempData["Status"] is string status)
+            {
+                <p class="status" role="status">@status</p>
+            }
+            @RenderBody()
+        </main>
+        <script src="~/js/admin-upload.js" asp-append-version="true" defer></script>
+    </body>
+
 </html>

@@ -15,10 +15,7 @@
     if (Context.GetRouteValue("action")?.ToString() == "Menu") currentUrl = Url.Action("OurTea", "Home");
     if (Context.GetRouteValue("action")?.ToString() is "Responsibility" or "Precision" or "People" or "Connections") currentUrl = Url.Action("Impact", "Home");
     var currentIndex = Array.FindIndex(pages, page => string.Equals(page.Url, currentUrl, StringComparison.OrdinalIgnoreCase));
-    if (currentIndex < 0) currentIndex = 0;
-    var current = pages[currentIndex];
-}
-<header class="site-header">
+    if (currentIndex < 0) currentIndex=0; var current=pages[currentIndex]; } <header class="site-header">
     <a class="current-page" href="@current.Url" aria-label="@T[current.Label], @T["Navigation page {0} of {1}", currentIndex + 1, 8]" aria-current="page">
         <img src="~/images/page-icon.svg" width="36" height="35" alt="" />
         <span class="page-marker" aria-hidden="true">▸</span>
@@ -53,5 +50,7 @@
             <a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)"><span>@T[navItem.Label]</span><span aria-hidden="true">↗</span></a>
         }
     </nav>
-    <div class="dialog-bottom"><span>@T["YOUR DAILY BEAT."]</span><a asp-controller="Order" asp-action="Index">Đặt hàng ↗</a><partial name="_LanguageSwitcher" /></div>
+    <div class="dialog-bottom"><span>@T["YOUR DAILY BEAT."]</span><a asp-controller="Order" asp-action="Index">Đặt hàng ↗</a>
+        <partial name="_LanguageSwitcher" />
+    </div>
 </dialog>
