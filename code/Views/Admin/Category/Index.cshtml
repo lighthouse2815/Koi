@@ -1,13 +1,96 @@
 @model IReadOnlyList<Category>
+
 @{ ViewData["Title"] = "Danh mục đồ uống"; }
-<div class="page-heading"><h1>Danh mục đồ uống</h1><a asp-action="Create" class="button">+ Thêm danh mục</a></div>
-<p><a asp-controller="Drinks">Đồ uống</a> · <a asp-controller="FeaturedDrinks">New Drinks</a></p>
-<div class="table-wrap"><table><thead><tr><th>Danh mục</th><th>Thứ tự</th><th>Ảnh</th><th>Biểu tượng</th><th>Hiển thị</th><th>Trang chủ</th><th>Thao tác</th></tr></thead><tbody>
-@foreach (var category in Model)
-{
-    <tr><td>@category.Name</td><td>@category.SortOrder</td><td>@if (!string.IsNullOrWhiteSpace(category.Image)) { <img class="category-thumbnail" src="@category.Image" alt="Ảnh @category.Name" loading="lazy" /> } else { <span>Chưa có</span> }</td><td>@if (!string.IsNullOrWhiteSpace(category.Icon)) { <img class="category-thumbnail category-thumbnail--icon" src="@category.Icon" alt="Biểu tượng @category.Name" loading="lazy" /> } else { <span>Chưa có</span> }</td><td>@(category.IsPublished ? "Đã xuất bản" : "Bản nháp")</td><td>@(category.ShowOnHome ? "Có · thứ tự " + category.SortOrder : "Không")</td><td><div class="row-actions"><a asp-action="Edit" asp-route-id="@category.Id">Sửa</a><a asp-area="" asp-controller="Home" asp-action="OurTea" asp-fragment="@category.Id.ToString()" target="_blank" rel="noopener">Xem website</a><a asp-action="Delete" asp-route-id="@category.Id" class="delete-link" data-name="@category.Name">Xóa</a></div></td></tr>
-}
-</tbody></table></div>
-@if (Model.Count == 0) { <p>Chưa có danh mục.</p> }
+
+<div class="category-page">
+    <svg class="category-icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <symbol id="category-icon-cup" viewBox="0 0 24 24"><path d="M4 9h13v4a6.5 6.5 0 0 1-13 0V9Zm13 1h1a3 3 0 0 1 0 6h-2M3 21h15M9 7c0-2 1-4 3-5m0 5c0-2 2-4 5-4-1 3-3 4-5 4Z" /></symbol>
+        <symbol id="category-icon-order" viewBox="0 0 24 24"><path d="M7 4v15m-3-3 3 3 3-3M17 20V5m-3 3 3-3 3 3" /></symbol>
+        <symbol id="category-icon-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 16l9 5 9-5" /></symbol>
+        <symbol id="category-icon-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="9" r="1"/><path d="m4 17 5-5 4 4 2-2 5 4"/></symbol>
+        <symbol id="category-icon-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+        <symbol id="category-icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3V10Z"/></symbol>
+        <symbol id="category-icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06-1.9 3.29-.08-.02a1.7 1.7 0 0 0-1.8.64l-.05.06h-3.8l-.03-.08a1.7 1.7 0 0 0-1.58-1.05 1.7 1.7 0 0 0-1.58 1.05l-.03.08h-3.8l-.05-.06a1.7 1.7 0 0 0-1.8-.64l-.08.02-1.9-3.29.06-.06A1.7 1.7 0 0 0 4.6 15l-.03-.07v-3.8l.03-.07A1.7 1.7 0 0 0 4.26 9.2l-.06-.06 1.9-3.29.08.02a1.7 1.7 0 0 0 1.8-.64l.05-.06h3.8l.03.08a1.7 1.7 0 0 0 3.16 0l.03-.08h3.8l.05.06a1.7 1.7 0 0 0 1.8.64l.08-.02 1.9 3.29-.06.06a1.7 1.7 0 0 0-.34 1.87l.03.07v3.8l-.03.07Z" transform="translate(-2 -1) scale(1.1)"/></symbol>
+        <symbol id="category-icon-edit" viewBox="0 0 24 24"><path d="m4 16 11-11 4 4L8 20H4v-4ZM13 7l4 4"/></symbol>
+        <symbol id="category-icon-external" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6-9 9M19 13v6H5V5h6"/></symbol>
+        <symbol id="category-icon-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v5m4-5v5"/></symbol>
+        <symbol id="category-icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    </svg>
+    <header class="category-heading">
+        <div class="category-heading-info">
+            <span class="category-heading-icon" aria-hidden="true"><svg><use href="#category-icon-cup" /></svg></span>
+            <div class="category-heading-copy">
+                <h1>Danh mục đồ uống</h1>
+                <nav class="category-related" aria-label="Quản lý đồ uống">
+                    <a asp-controller="Drinks">Đồ uống</a><span aria-hidden="true">·</span><a asp-controller="FeaturedDrinks">New Drinks</a>
+                </nav>
+            </div>
+        </div>
+        <a asp-action="Create" class="button category-add"><span aria-hidden="true">+</span> Thêm danh mục</a>
+    </header>
+
+<p class="category-scroll-hint">Vuốt ngang để xem thêm <span aria-hidden="true">→</span></p>
+<div class="table-wrap category-table-wrap" tabindex="0" aria-label="Bảng danh mục đồ uống">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"><span class="category-column"><svg aria-hidden="true"><use href="#category-icon-order" /></svg>Thứ tự</span></th>
+                <th scope="col"><span class="category-column"><svg aria-hidden="true"><use href="#category-icon-layers" /></svg>Danh mục</span></th>
+                <th scope="col"><span class="category-column"><svg aria-hidden="true"><use href="#category-icon-image" /></svg>Ảnh</span></th>
+                <th scope="col"><span class="category-column"><svg aria-hidden="true"><use href="#category-icon-cup" /></svg>Biểu tượng</span></th>
+                <th scope="col"><span class="category-column"><svg aria-hidden="true"><use href="#category-icon-eye" /></svg>Hiển thị</span></th>
+                <th scope="col"><span class="category-column"><svg aria-hidden="true"><use href="#category-icon-home" /></svg>Trang chủ</span></th>
+                <th scope="col"><span class="category-column"><svg aria-hidden="true"><use href="#category-icon-settings" /></svg>Thao tác</span></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td><span class="category-order">@category.SortOrder</span></td>
+                    <td class="category-name">@category.Name</td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(category.Image))
+                        {
+                            <img class="category-thumbnail" src="@category.Image" alt="Ảnh @category.Name" loading="lazy" />
+                        }
+                        else
+                        {
+                            <span class="category-missing">Chưa có</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(category.Icon))
+                        {
+                            <img class="category-thumbnail category-thumbnail--icon" src="@category.Icon" alt="Biểu tượng @category.Name" loading="lazy" />
+                        }
+                        else
+                        {
+                            <span class="category-missing">Chưa có</span>
+                        }
+                    </td>
+                    <td>
+                        <span class="category-publish @(category.IsPublished ? "is-published" : "is-draft")">
+                            @if (category.IsPublished) { <svg aria-hidden="true"><use href="#category-icon-check" /></svg> }
+                            @(category.IsPublished ? "Đã xuất bản" : "Bản nháp")
+                        </span>
+                    </td>
+                    <td><span class="category-home">@(category.ShowOnHome ? "Có · thứ tự " + category.SortOrder : "Không")</span></td>
+                    <td>
+                        <div class="row-actions category-actions">
+                            <a asp-action="Edit" asp-route-id="@category.Id" class="category-action category-action-edit"><svg aria-hidden="true"><use href="#category-icon-edit" /></svg>Sửa</a>
+                            <a asp-area="" asp-controller="Home" asp-action="OurTea" asp-fragment="@category.Id.ToString()" target="_blank" rel="noopener" class="category-action category-action-view"><svg aria-hidden="true"><use href="#category-icon-external" /></svg>Xem website</a>
+                            <a asp-action="Delete" asp-route-id="@category.Id" class="delete-link category-action category-action-delete" data-name="@category.Name"><svg aria-hidden="true"><use href="#category-icon-trash" /></svg>Xóa</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model.Count == 0) { <p class="category-empty">Chưa có danh mục.</p> }
 
 <partial name="_DeleteDialog" />
+</div>
