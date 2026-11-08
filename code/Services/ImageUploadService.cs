@@ -1,25 +1,10 @@
 using CloudinaryDotNet;
 using Koi.Web.Exceptions;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Koi.Web.Services;
 
 public class ImageUploadService(IConfiguration configuration)
 {
-    public async Task<string?> GetImageUrlAsync(
-        string? publicId, ModelStateDictionary errors, string field, string folder)
-    {
-        try
-        {
-            return await GetImageUrlAsync(publicId, folder);
-        }
-        catch (AppException exception) when (exception.Error.Code == ErrorCode.INVALID_IMAGE.Code)
-        {
-            errors.AddModelError(field, exception.Error.Message);
-            return null;
-        }
-    }
-
     public async Task<string?> GetImageUrlAsync(string? publicId, string folder)
     {
         if (string.IsNullOrWhiteSpace(publicId))
