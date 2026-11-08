@@ -1,6 +1,6 @@
 using Koi.Web.Data;
+using Koi.Web.Exceptions;
 using Koi.Web.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
@@ -17,78 +17,43 @@ public class FeaturedDrinkService(
             .ThenBy(value => value.Id)
             .ToArrayAsync();
 
-    public async Task<FeaturedDrinkEditViewModel?> GetEditAsync(Guid id)
+    public async Task CreateAsync(FeaturedDrinkEditViewModel model)
     {
-        var value = await database
-            .FeaturedDrinks.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null
-            ? null
-            : new FeaturedDrinkEditViewModel
-            {
-                Id = id,
-                Revision = value.Revision,
-
-                Name = value.Name,
-                IsPublished = value.IsPublished,
-                SortOrder = value.SortOrder,
-                CurrentImage = value.Image,
-                CurrentBackground = value.BackgroundImage,
-            };
-    }
-
-    public async Task<SaveResult> SaveAsync(
-        FeaturedDrinkEditViewModel model,
-        Guid? id,
-        ModelStateDictionary modelState
-    )
-    {
-        var value = id.HasValue
-            ? await database.FeaturedDrinks.SingleOrDefaultAsync(value => value.Id == id)
-            : new FeaturedDrink();
-        if (value == null)
-            return SaveResult.NotFound;
-        model.CurrentImage = value.Image;
-        model.CurrentBackground = value.BackgroundImage;
-        var image = await uploads.GetImageUrlAsync(
-            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "featured-drinks"
-        );
-        var background = await uploads.GetImageUrlAsync(
-            model.BackgroundUploadId, modelState, nameof(model.BackgroundUploadId), "featured-drinks"
-        );
-        if (image == null && string.IsNullOrEmpty(value.Image))
-            modelState.AddModelError(nameof(model.ImageUploadId), "Chọn ảnh đồ uống.");
-        if (background == null && string.IsNullOrEmpty(value.BackgroundImage))
-            modelState.AddModelError(nameof(model.BackgroundUploadId), "Chọn ảnh nền.");
-        if (!modelState.IsValid)
-        {
-            return SaveResult.Invalid;
-        }
-        if (image != null)
-            value.Image = image;
-        if (background != null)
-            value.BackgroundImage = background;
-        value.Name = model.Name.Trim();
-
-        value.SortOrder = model.SortOrder;
-        value.IsPublished = model.IsPublished;
-        if (id == null)
-            database.FeaturedDrinks.Add(value);
-        else
-        {
-            database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision;
-            value.Revision++;
-        }
+        var drink = new FeaturedDrink();
+        await ApplyChangesAsync(drink, model);
+        database.FeaturedDrinks.Add(drink);
         await database.SaveChangesAsync();
-        return SaveResult.Success;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
+    public async Task UpdateAsync(Guid id, FeaturedDrinkEditViewModel model)
     {
-        var value = await database
-            .FeaturedDrinks.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? null : new DeleteContentViewModel(id, value.Name);
+        var drink = await database.FeaturedDrinks.FindAsync(id)
+            ?? throw new AppException(ErrorCode.FEATURED_DRINK_NOT_FOUND);
+
+        await ApplyChangesAsync(drink, model);
+        database.Entry(drink).Property(value => value.Revision).OriginalValue = model.Revision;
+        drink.Revision++;
+        await database.SaveChangesAsync();
+    }
+
+    private async Task ApplyChangesAsync(FeaturedDrink drink, FeaturedDrinkEditViewModel model)
+    {
+        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "featured-drinks");
+        var background = await uploads.GetImageUrlAsync(model.BackgroundUploadId, "featured-drinks");
+
+        if (image == null && string.IsNullOrEmpty(drink.Image))
+            throw new AppException(ErrorCode.FEATURED_DRINK_IMAGE_REQUIRED);
+        if (background == null && string.IsNullOrEmpty(drink.BackgroundImage))
+            throw new AppException(ErrorCode.FEATURED_DRINK_BACKGROUND_REQUIRED);
+
+        if (image != null)
+            drink.Image = image;
+        if (background != null)
+            drink.BackgroundImage = background;
+
+        drink.Name = model.Name.Trim();
+        drink.SortOrder = model.SortOrder;
+        drink.IsPublished = model.IsPublished;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

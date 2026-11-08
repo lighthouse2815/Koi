@@ -17,6 +17,15 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode DRINK_CATEGORY_INVALID =
         new("DRINK_CATEGORY_INVALID", "Chọn danh mục hợp lệ.", StatusCodes.Status400BadRequest);
 
+    public static readonly ErrorCode FEATURED_DRINK_NOT_FOUND =
+        new("FEATURED_DRINK_NOT_FOUND", "Không tìm thấy mục New Drinks.", StatusCodes.Status404NotFound);
+
+    public static readonly ErrorCode FEATURED_DRINK_IMAGE_REQUIRED =
+        new("FEATURED_DRINK_IMAGE_REQUIRED", "Chọn ảnh đồ uống.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode FEATURED_DRINK_BACKGROUND_REQUIRED =
+        new("FEATURED_DRINK_BACKGROUND_REQUIRED", "Chọn ảnh nền.", StatusCodes.Status400BadRequest);
+
     public static readonly ErrorCode CATEGORY_NOT_FOUND =
         new("CATEGORY_NOT_FOUND", "Không tìm thấy danh mục.", StatusCodes.Status404NotFound);
 
