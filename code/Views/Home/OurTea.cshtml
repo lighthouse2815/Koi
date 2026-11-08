@@ -218,7 +218,16 @@
                 <a class="tea-all-menu" asp-controller="Order" asp-action="Index" asp-fragment="drinks"><span>@(SiteText.IsVietnamese ? "Xem toàn bộ" : "Explore the full")<br />@(SiteText.IsVietnamese ? "thực đơn" : "menu")</span><span class="tea-button-arrow" aria-hidden="true">↗</span></a>
             </header>
             <nav class="tea-category-nav" aria-label="@(SiteText.IsVietnamese ? "Danh mục đồ uống" : "Drink categories")">
-                @for (var index = 0; index < Model.Categories.Length; index++) { var category=Model.Categories[index]; <a href="#@category.Id"><span aria-hidden="true">@((index + 1).ToString("D2"))</span>@category.Name</a> }
+                @foreach (var category in Model.Categories)
+                {
+                    <a href="#@category.Id">
+                        @if (!string.IsNullOrWhiteSpace(category.Icon))
+                        {
+                            <img src="@category.Icon" alt="" width="24" height="24" loading="lazy" />
+                        }
+                        @category.Name
+                    </a>
+                }
             </nav>
             <ul class="drinkWrapList tea-categories">
                 @for (var categoryIndex = 0; categoryIndex < Model.Categories.Length; categoryIndex++) { var category=Model.Categories[categoryIndex]; <li id="@category.Id" class="tea-category">
