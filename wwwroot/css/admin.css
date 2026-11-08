@@ -5,3 +5,7 @@
 fieldset.upload-fields{border:0;margin:0;padding:0;min-width:0}
 .category-thumbnail{display:block;width:64px;height:56px;object-fit:cover;border-radius:5px}
 .category-thumbnail--icon{object-fit:contain}
+.delete-dialog{width:min(480px,calc(100% - 32px));padding:28px;border:1px solid #e1e0d7;border-radius:12px;color:#142027;background:#fff}
+.delete-dialog::backdrop{background:#14202799}
+.delete-dialog h2{margin:0 0 16px}
+.delete-dialog form{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:24px}
