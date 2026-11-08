@@ -1,16 +1,12 @@
 using Koi.Web.Models;
-using Koi.Web.Filters;
 using Koi.Web.Services;
-using Koi.Web.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin")]
 [Authorize(Roles = "Admin")]
-[CategoryNameConflictFilter]
 public class CategoryController(CategoryService categories) : Controller
 {
     public async Task<IActionResult> Index() => View(await categories.GetListAsync());
@@ -32,34 +28,17 @@ public class CategoryController(CategoryService categories) : Controller
     }
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
     public Task<IActionResult> Create(CategoryEditViewModel model) =>
-        HandleSaveAsync(categories.CreateAsync(model, ModelState), model);
+        HandleSaveAsync(categories.CreateAsync(model, ModelState));
+
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
     public Task<IActionResult> Edit([FromForm] CategoryEditViewModel model) =>
-        HandleSaveAsync(categories.UpdateAsync(model, ModelState), model);
+        HandleSaveAsync(categories.UpdateAsync(model, ModelState));
 
-    private async Task<IActionResult> HandleSaveAsync(
-        Task saveTask,
-        CategoryEditViewModel model)
+    private async Task<IActionResult> HandleSaveAsync(Task saveTask)
     {
-        try
-        {
-            await saveTask;
-        }
-        catch (DbUpdateConcurrencyException) when (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-        {
-            throw new AppException(ErrorCode.CATEGORY_CHANGED);
-        }
-        catch (AppException exception) when (
-            Request.Headers["X-Requested-With"] != "XMLHttpRequest"
-            && exception.Error.Code == ErrorCode.CATEGORY_INVALID.Code)
-        {
-            Response.StatusCode = exception.Error.StatusCode;
-            return View("Edit", model);
-        }
+        await saveTask;
         TempData["Status"] = "Đã lưu danh mục đồ uống.";
-        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-            return Json(new { redirectUrl = Url.Action(nameof(Index)) });
-        return RedirectToAction(nameof(Index));
+        return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
     public async Task<IActionResult> Delete(Guid id)

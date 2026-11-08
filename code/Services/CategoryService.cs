@@ -45,7 +45,14 @@ public class CategoryService(
         await ApplyChangesAsync(category, model, modelState);
         database.Entry(category).Property(category => category.Revision).OriginalValue = model.Revision;
         category.Revision++;
-        await database.SaveChangesAsync();
+        try
+        {
+            await database.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            throw new AppException(ErrorCode.CATEGORY_CHANGED);
+        }
     }
 
     private async Task ApplyChangesAsync(
