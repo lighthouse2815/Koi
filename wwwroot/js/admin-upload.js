@@ -92,7 +92,7 @@
                     });
                     if (response.redirected) throw new Error('Phiên đăng nhập đã hết. Vui lòng đăng nhập lại.');
                     const result = await response.json().catch(() => ({}));
-                    if (!response.ok) throw new Error(result.message || 'Không thể lưu danh mục. Vui lòng thử lại.');
+                    if (!response.ok) throw new Error(result.message || 'Không thể lưu. Vui lòng thử lại.');
                     if (!result.redirectUrl) throw new Error('Không nhận được kết quả lưu. Vui lòng tải lại trang.');
                     const destination = new URL(result.redirectUrl, window.location.href);
                     if (destination.origin !== window.location.origin) throw new Error('Không thể chuyển về danh sách.');

@@ -1,6 +1,6 @@
 using Koi.Web.Data;
+using Koi.Web.Exceptions;
 using Koi.Web.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -80,56 +80,41 @@ public class DrinkService(
             };
     }
 
-    public Task<SaveResult> CreateAsync(
-        DrinkEditViewModel model,
-        ModelStateDictionary modelState) => SaveCoreAsync(model, null, modelState);
-
-    public Task<SaveResult> UpdateAsync(
-        Guid id,
-        DrinkEditViewModel model,
-        ModelStateDictionary modelState) => SaveCoreAsync(model, id, modelState);
-
-    private async Task<SaveResult> SaveCoreAsync(
-        DrinkEditViewModel model,
-        Guid? id,
-        ModelStateDictionary modelState
-    )
+    public async Task CreateAsync(DrinkEditViewModel model)
     {
-        var value = id.HasValue
-            ? await database.Drinks.SingleOrDefaultAsync(value => value.Id == id)
-            : new Drink();
-        if (value == null)
-            return SaveResult.NotFound;
-        model.CurrentImage = value.Image;
-        if (!await database.Categories.AnyAsync(value => value.Id == model.CategoryId))
-            modelState.AddModelError(nameof(model.CategoryId), "Chọn danh mục hợp lệ.");
-        var image = await uploads.GetImageUrlAsync(
-            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "drinks"
-        );
-        if (!modelState.IsValid)
-        {
-            model.Categories = await Categories();
-            return SaveResult.Invalid;
-        }
-        if (image != null)
-            value.Image = image;
-        else if (model.RemoveImage)
-            value.Image = "";
-        value.Name = model.Name.Trim();
-
-        value.CategoryId = model.CategoryId;
-        value.Description = model.Description?.Trim() ?? "";
-        value.SortOrder = model.SortOrder;
-        value.IsPublished = model.IsPublished;
-        if (id == null)
-            database.Drinks.Add(value);
-        else
-        {
-            database.Entry(value).Property(value => value.Revision).OriginalValue = model.Revision;
-            value.Revision++;
-        }
+        var drink = new Drink();
+        await ApplyChangesAsync(drink, model);
+        database.Drinks.Add(drink);
         await database.SaveChangesAsync();
-        return SaveResult.Success;
+    }
+
+    public async Task UpdateAsync(Guid id, DrinkEditViewModel model)
+    {
+        var drink = await database.Drinks.FindAsync(id)
+            ?? throw new AppException(ErrorCode.DRINK_NOT_FOUND);
+
+        await ApplyChangesAsync(drink, model);
+        database.Entry(drink).Property(value => value.Revision).OriginalValue = model.Revision;
+        drink.Revision++;
+        await database.SaveChangesAsync();
+    }
+
+    private async Task ApplyChangesAsync(Drink drink, DrinkEditViewModel model)
+    {
+        if (!await database.Categories.AnyAsync(value => value.Id == model.CategoryId))
+            throw new AppException(ErrorCode.DRINK_CATEGORY_INVALID);
+
+        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "drinks");
+        if (image != null)
+            drink.Image = image;
+        else if (model.RemoveImage)
+            drink.Image = "";
+
+        drink.Name = model.Name.Trim();
+        drink.CategoryId = model.CategoryId;
+        drink.Description = model.Description?.Trim() ?? "";
+        drink.SortOrder = model.SortOrder;
+        drink.IsPublished = model.IsPublished;
     }
 
     public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)

@@ -1,4 +1,5 @@
 using Koi.Web.Models;
+using Koi.Web.Filters;
 using Koi.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,36 +17,24 @@ public class DrinksController(DrinkService drinks) : Controller
         return model == null ? NotFound() : View(model);
     }
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
-    public Task<IActionResult> Create(DrinkEditViewModel model) =>
-        Save(model, drinks.CreateAsync(model, ModelState));
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
-    public Task<IActionResult> Edit(Guid id, DrinkEditViewModel model) =>
-        id != model.Id
-            ? Task.FromResult<IActionResult>(BadRequest())
-            : Save(model, drinks.UpdateAsync(id, model, ModelState));
-
-    private async Task<IActionResult> Save(
-        DrinkEditViewModel model,
-        Task<SaveResult> saveTask)
+    [ValidateModel]
+    public async Task<IActionResult> Create(DrinkEditViewModel model)
     {
-        var result = await saveTask;
-        if (result == SaveResult.NotFound)
-            return NotFound();
-        if (result == SaveResult.Success)
-        {
-            TempData["Status"] = "Đã lưu đồ uống.";
-            return RedirectToAction(nameof(Index), new
-            {
-                categoryId = model.CategoryId
-            });
-        }
-        Response.StatusCode = result switch
-        {
-            SaveResult.Invalid => StatusCodes.Status400BadRequest,
-            SaveResult.Conflict => StatusCodes.Status409Conflict,
-            _ => StatusCodes.Status503ServiceUnavailable
-        };
-        return View("Edit", model);
+        await drinks.CreateAsync(model);
+        TempData["Status"] = "Đã lưu đồ uống.";
+        return Json(new { redirectUrl = Url.Action(nameof(Index), new { categoryId = model.CategoryId }) });
+    }
+
+    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [ValidateModel]
+    public async Task<IActionResult> Edit([FromRoute] Guid id, DrinkEditViewModel model)
+    {
+        if (id != model.Id)
+            return BadRequest();
+
+        await drinks.UpdateAsync(id, model);
+        TempData["Status"] = "Đã lưu đồ uống.";
+        return Json(new { redirectUrl = Url.Action(nameof(Index), new { categoryId = model.CategoryId }) });
     }
 
     public async Task<IActionResult> Delete(Guid id)
