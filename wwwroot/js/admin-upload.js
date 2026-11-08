@@ -1,5 +1,5 @@
 (() => {
-    document.querySelectorAll('form[data-upload-folder]').forEach(form => {
+    document.querySelectorAll('form[data-upload-folder], form[data-ajax-save]').forEach(form => {
         const inputs = [...form.querySelectorAll('input[type="file"]')];
         const ajaxSave = form.hasAttribute('data-ajax-save');
         const summary = form.querySelector('[data-valmsg-summary]');

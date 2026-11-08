@@ -41,6 +41,9 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode STORE_LINK_INVALID =
         new("STORE_LINK_INVALID", "Nhập liên kết HTTPS hoặc HTTP hợp lệ.", StatusCodes.Status400BadRequest);
 
+    public static readonly ErrorCode STORE_CITY_NOT_FOUND =
+        new("STORE_CITY_NOT_FOUND", "Không tìm thấy khu vực.", StatusCodes.Status404NotFound);
+
     public static readonly ErrorCode CATEGORY_NOT_FOUND =
         new("CATEGORY_NOT_FOUND", "Không tìm thấy danh mục.", StatusCodes.Status404NotFound);
 
