@@ -10,7 +10,8 @@ public class CategoryNameConflictFilterAttribute : ActionFilterAttribute
     public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         var result = await next();
-        if (result.Exception is AppException exception
+        if (context.HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest"
+            && result.Exception is AppException exception
             && exception.Error == ErrorCode.CATEGORY_NAME_EXISTS
             && context.Controller is Controller controller
             && context.ActionArguments.TryGetValue("model", out var value)

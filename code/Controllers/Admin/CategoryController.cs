@@ -1,8 +1,10 @@
 using Koi.Web.Models;
 using Koi.Web.Filters;
 using Koi.Web.Services;
+using Koi.Web.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Controllers.Admin;
 
@@ -39,10 +41,20 @@ public class CategoryController(CategoryService categories) : Controller
         Task<SaveResult> saveTask,
         CategoryEditViewModel model)
     {
-        var result = await saveTask;
+        SaveResult result;
+        try
+        {
+            result = await saveTask;
+        }
+        catch (DbUpdateConcurrencyException) when (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+        {
+            throw new AppException(ErrorCode.CATEGORY_CHANGED);
+        }
         if (result == SaveResult.Success)
         {
             TempData["Status"] = "Đã lưu danh mục đồ uống.";
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return Json(new { redirectUrl = Url.Action(nameof(Index)) });
             return RedirectToAction(nameof(Index));
         }
         Response.StatusCode = result switch
@@ -51,6 +63,14 @@ public class CategoryController(CategoryService categories) : Controller
             SaveResult.Conflict => StatusCodes.Status409Conflict,
             _ => StatusCodes.Status503ServiceUnavailable
         };
+        if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+        {
+            var message = ModelState.Values.SelectMany(value => value.Errors)
+                .Select(error => error.ErrorMessage)
+                .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value))
+                ?? "Không thể lưu danh mục. Vui lòng thử lại.";
+            throw new AppException(new ErrorCode("CATEGORY_SAVE_FAILED", message, Response.StatusCode));
+        }
         return View("Edit", model);
     }
 

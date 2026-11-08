@@ -10,11 +10,11 @@
 <noscript>
     <p class="validation">Vui lòng bật JavaScript để sử dụng biểu mẫu này.</p>
 </noscript>
-<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="" method="post" class="editor" data-upload-folder="categories">
+<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="" method="post" class="editor" data-upload-folder="categories" data-ajax-save>
     <fieldset class="upload-fields" disabled>
         <input asp-for="Id" type="hidden" />
         <input asp-for="Revision" type="hidden" />
-        <div asp-validation-summary="All" class="validation" role="alert"></div>
+        <div asp-validation-summary="All" class="validation category-save-error" role="alert"></div>
         <div class="editor-columns">
             <div class="card">
                 <label asp-for="Name">Tên danh mục</label>
