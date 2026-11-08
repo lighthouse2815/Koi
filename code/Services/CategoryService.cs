@@ -26,33 +26,29 @@ public class CategoryService(
             .SingleOrDefaultAsync(category => category.Id == id)
         ?? throw new AppException(ErrorCode.CATEGORY_NOT_FOUND);
 
-    public async Task<SaveResult> CreateAsync(
+    public async Task CreateAsync(
         CategoryEditViewModel model,
         ModelStateDictionary modelState)
     {
         var category = new Category();
-        if (!await ApplyChangesAsync(category, model, modelState))
-            return SaveResult.Invalid;
+        await ApplyChangesAsync(category, model, modelState);
         database.Categories.Add(category);
         await database.SaveChangesAsync();
-        return SaveResult.Success;
     }
 
-    public async Task<SaveResult> UpdateAsync(
+    public async Task UpdateAsync(
         CategoryEditViewModel model,
         ModelStateDictionary modelState)
     {
         var category = await database.Categories.FindAsync(model.Id)
             ?? throw new AppException(ErrorCode.CATEGORY_NOT_FOUND);
-        if (!await ApplyChangesAsync(category, model, modelState))
-            return SaveResult.Invalid;
+        await ApplyChangesAsync(category, model, modelState);
         database.Entry(category).Property(category => category.Revision).OriginalValue = model.Revision;
         category.Revision++;
         await database.SaveChangesAsync();
-        return SaveResult.Success;
     }
 
-    private async Task<bool> ApplyChangesAsync(
+    private async Task ApplyChangesAsync(
         Category category,
         CategoryEditViewModel model,
         ModelStateDictionary modelState)
@@ -63,17 +59,15 @@ public class CategoryService(
             value.Id != category.Id && value.Name.Trim().ToLower() == model.Name.Trim().ToLower()))
             throw new AppException(ErrorCode.CATEGORY_NAME_EXISTS);
 
-        if (!await ApplyImagesAsync(category, model, modelState))
-            return false;
+        await ApplyImagesAsync(category, model, modelState);
 
         category.Name = model.Name.Trim();
         category.SortOrder = model.SortOrder;
         category.ShowOnHome = model.ShowOnHome;
         category.IsPublished = model.IsPublished;
-        return true;
     }
 
-    private async Task<bool> ApplyImagesAsync(
+    private async Task ApplyImagesAsync(
         Category category,
         CategoryEditViewModel model,
         ModelStateDictionary modelState)
@@ -89,7 +83,13 @@ public class CategoryService(
         )
             modelState.AddModelError(nameof(model.IconUploadId), "Chọn biểu tượng thẻ trang chủ.");
         if (!modelState.IsValid)
-            return false;
+        {
+            var message = modelState.Values.SelectMany(value => value.Errors)
+                .Select(error => error.ErrorMessage)
+                .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value))
+                ?? ErrorCode.CATEGORY_INVALID.Message;
+            throw new AppException(ErrorCode.CATEGORY_INVALID with { Message = message });
+        }
 
         if (image != null)
             category.Image = image;
@@ -97,7 +97,6 @@ public class CategoryService(
             category.Icon = icon;
         else if (model.RemoveIcon)
             category.Icon = "";
-        return true;
     }
 
     public async Task DeleteAsync(Guid id)

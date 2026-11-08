@@ -38,40 +38,28 @@ public class CategoryController(CategoryService categories) : Controller
         HandleSaveAsync(categories.UpdateAsync(model, ModelState), model);
 
     private async Task<IActionResult> HandleSaveAsync(
-        Task<SaveResult> saveTask,
+        Task saveTask,
         CategoryEditViewModel model)
     {
-        SaveResult result;
         try
         {
-            result = await saveTask;
+            await saveTask;
         }
         catch (DbUpdateConcurrencyException) when (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
         {
             throw new AppException(ErrorCode.CATEGORY_CHANGED);
         }
-        if (result == SaveResult.Success)
+        catch (AppException exception) when (
+            Request.Headers["X-Requested-With"] != "XMLHttpRequest"
+            && exception.Error.Code == ErrorCode.CATEGORY_INVALID.Code)
         {
-            TempData["Status"] = "Đã lưu danh mục đồ uống.";
-            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-                return Json(new { redirectUrl = Url.Action(nameof(Index)) });
-            return RedirectToAction(nameof(Index));
+            Response.StatusCode = exception.Error.StatusCode;
+            return View("Edit", model);
         }
-        Response.StatusCode = result switch
-        {
-            SaveResult.Invalid => StatusCodes.Status400BadRequest,
-            SaveResult.Conflict => StatusCodes.Status409Conflict,
-            _ => StatusCodes.Status503ServiceUnavailable
-        };
+        TempData["Status"] = "Đã lưu danh mục đồ uống.";
         if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-        {
-            var message = ModelState.Values.SelectMany(value => value.Errors)
-                .Select(error => error.ErrorMessage)
-                .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value))
-                ?? "Không thể lưu danh mục. Vui lòng thử lại.";
-            throw new AppException(new ErrorCode("CATEGORY_SAVE_FAILED", message, Response.StatusCode));
-        }
-        return View("Edit", model);
+            return Json(new { redirectUrl = Url.Action(nameof(Index)) });
+        return RedirectToAction(nameof(Index));
     }
 
     public async Task<IActionResult> Delete(Guid id)
