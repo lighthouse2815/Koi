@@ -11,10 +11,11 @@ public class CategoryController(CategoryService categories) : Controller
 {
     public async Task<IActionResult> Index() => View(await categories.GetListAsync());
     public IActionResult Create() => View("Edit", new CategoryEditViewModel());
-    public async Task<IActionResult> Edit(Guid id)
+    [HttpGet, ActionName("Edit")]
+    public async Task<IActionResult> GetById(Guid id)
     {
         var category = await categories.GetByIdAsync(id);
-        return View(new CategoryEditViewModel
+        return View("Edit", new CategoryEditViewModel
         {
             Id = category.Id,
             Revision = category.Revision,
