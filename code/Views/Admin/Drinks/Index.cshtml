@@ -1,8 +1,9 @@
 @model AdminDrinksViewModel
 @{ ViewData["Title"] = "Quản lý đồ uống"; }
 <div class="page-heading">
-    <h1>Quản lý đồ uống</h1><a asp-action="Create" class="button">+ Thêm đồ uống</a>
+    <h1>Quản lý đồ uống</h1><button type="button" class="button" data-drink-create>+ Thêm đồ uống</button>
 </div>
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm hoặc sửa đồ uống.</p></noscript>
 <p><a asp-controller="Category">Danh mục và thẻ trang chủ</a> · <a asp-controller="FeaturedDrinks">New Drinks</a></p>
 <form method="get" class="search"><label for="search">Tên đồ uống</label><input id="search" name="search" value="@Model.Search" maxlength="200" /><label for="categoryId">Danh mục</label><select name="categoryId" id="categoryId" asp-items="Model.Categories">
         <option value="">Tất cả</option>
@@ -33,7 +34,15 @@
                     <td>@drink.SortOrder</td>
                     <td>@(drink.IsPublished ? (drink.Category.IsPublished ? "Đã xuất bản" : "Danh mục đang ẩn") : "Bản nháp")</td>
                     <td>
-                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@drink.Id">Sửa</a><a asp-action="Delete" asp-route-id="@drink.Id" class="delete-link" data-name="@drink.Name">Xóa</a></div>
+                        <div class="row-actions">
+                            <button type="button" class="link-button" data-drink-edit
+                                    data-url="@Url.Action("Edit", new { id = drink.Id })"
+                                    data-id="@drink.Id" data-revision="@drink.Revision" data-name="@drink.Name"
+                                    data-category-id="@drink.CategoryId" data-description="@drink.Description"
+                                    data-sort-order="@drink.SortOrder" data-is-published="@drink.IsPublished.ToString().ToLowerInvariant()"
+                                    data-image="@drink.Image">Sửa</button>
+                            <a asp-action="Delete" asp-route-id="@drink.Id" class="delete-link" data-name="@drink.Name">Xóa</a>
+                        </div>
                     </td>
                 </tr>
             }
@@ -48,3 +57,5 @@
 </nav>
 
 <partial name="_DeleteDialog" />
+<partial name="Edit" model="new DrinkEditViewModel { Categories = Model.Categories, CategoryId = Model.CategoryId }" />
+<script src="~/js/drink-editor.js" asp-append-version="true" defer></script>

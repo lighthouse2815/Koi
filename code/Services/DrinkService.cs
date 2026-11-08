@@ -55,31 +55,6 @@ public class DrinkService(
         );
     }
 
-    public async Task<DrinkEditViewModel> CreateAsync() =>
-        new() { Categories = await Categories() };
-
-    public async Task<DrinkEditViewModel?> GetEditAsync(Guid id)
-    {
-        var value = await database
-            .Drinks.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null
-            ? null
-            : new DrinkEditViewModel
-            {
-                Id = id,
-                Revision = value.Revision,
-
-                Name = value.Name,
-                CategoryId = value.CategoryId,
-                Description = value.Description,
-                SortOrder = value.SortOrder,
-                IsPublished = value.IsPublished,
-                CurrentImage = value.Image,
-                Categories = await Categories(),
-            };
-    }
-
     public async Task CreateAsync(DrinkEditViewModel model)
     {
         var drink = new Drink();
