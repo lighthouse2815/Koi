@@ -1,4 +1,5 @@
 using Koi.Web.Models;
+using Koi.Web.Exceptions;
 using Koi.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,7 +44,17 @@ public class OrderController(OrderService orders) : Controller
     public async Task<IActionResult> Checkout(CheckoutViewModel checkout)
     {
         var cart = orders.GetCart(HttpContext.Session);
-        if (!await orders.CheckoutAsync(cart, checkout, ModelState))
+        var completed = false;
+        try
+        {
+            completed = await orders.CheckoutAsync(cart, checkout, ModelState.IsValid);
+        }
+        catch (CheckoutException exception)
+        {
+            foreach (var (field, error) in exception.Errors)
+                ModelState.AddModelError(field, error.Message);
+        }
+        if (!completed)
         {
             orders.SaveCart(HttpContext.Session, cart);
             Response.StatusCode = 400;

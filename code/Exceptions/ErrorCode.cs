@@ -44,6 +44,27 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode STORE_CITY_NOT_FOUND =
         new("STORE_CITY_NOT_FOUND", "Không tìm thấy khu vực.", StatusCodes.Status404NotFound);
 
+    public static readonly ErrorCode ORDER_FULFILLMENT_INVALID =
+        new("ORDER_FULFILLMENT_INVALID", "Chọn cách nhận hàng hợp lệ.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode ORDER_ADDRESS_REQUIRED =
+        new("ORDER_ADDRESS_REQUIRED", "Nhập địa chỉ giao hàng.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode ORDER_BRANCH_UNAVAILABLE =
+        new("ORDER_BRANCH_UNAVAILABLE", "Chi nhánh không còn nhận đơn. Vui lòng chọn chi nhánh khác.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode ORDER_CART_EMPTY =
+        new("ORDER_CART_EMPTY", "Giỏ hàng đang trống.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode ORDER_DRINK_UNAVAILABLE =
+        new("ORDER_DRINK_UNAVAILABLE", "Có món không còn được bán. Vui lòng xóa món đó khỏi giỏ hàng.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode ORDER_OPTIONS_INVALID =
+        new("ORDER_OPTIONS_INVALID", "Các lựa chọn cũ không còn được hỗ trợ. Vui lòng xóa món cũ và chọn lại.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode ORDER_PRICE_CHANGED =
+        new("ORDER_PRICE_CHANGED", "Giá đã thay đổi. Vui lòng kiểm tra lại giỏ hàng và xác nhận đặt hàng lần nữa.", StatusCodes.Status400BadRequest);
+
     public static readonly ErrorCode NEWS_NOT_FOUND =
         new("NEWS_NOT_FOUND", "Không tìm thấy bài viết.", StatusCodes.Status404NotFound);
 

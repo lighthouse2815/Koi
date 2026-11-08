@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Koi.Web.Data;
+using Koi.Web.Exceptions;
 using Koi.Web.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.DataProtection;
 
 namespace Koi.Web.Services;
@@ -114,22 +114,28 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
     public Task<Drink?> GetAvailableDrinkAsync(Guid id) =>
         database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id && value.IsPublished && value.Category.IsPublished && value.Price > 0);
 
-    public async Task<bool> CheckoutAsync(ShoppingCart cart, CheckoutViewModel checkout, ModelStateDictionary modelState)
+    public async Task<bool> CheckoutAsync(ShoppingCart cart, CheckoutViewModel checkout, bool isInputValid)
     {
-        if (!Enum.IsDefined(checkout.Fulfillment)) modelState.AddModelError("Checkout.Fulfillment", "Chọn cách nhận hàng hợp lệ.");
-        if (checkout.Fulfillment == FulfillmentMethod.Delivery && string.IsNullOrWhiteSpace(checkout.DeliveryAddress)) modelState.AddModelError("Checkout.DeliveryAddress", "Nhập địa chỉ giao hàng.");
+        var errors = new List<(string Field, ErrorCode Error)>();
+        if (!Enum.IsDefined(checkout.Fulfillment))
+            errors.Add(("Checkout.Fulfillment", ErrorCode.ORDER_FULFILLMENT_INVALID));
+        if (checkout.Fulfillment == FulfillmentMethod.Delivery && string.IsNullOrWhiteSpace(checkout.DeliveryAddress))
+            errors.Add(("Checkout.DeliveryAddress", ErrorCode.ORDER_ADDRESS_REQUIRED));
         var branch = await database.Stores.AsNoTracking().SingleOrDefaultAsync(value => value.Id == cart.StoreId && value.IsPublished && value.AcceptsOrders);
-        if (branch == null) modelState.AddModelError("", "Chi nhánh không còn nhận đơn. Vui lòng chọn chi nhánh khác.");
-        if (cart.Items.Count == 0) modelState.AddModelError("", "Giỏ hàng đang trống.");
+        if (branch == null)
+            errors.Add(("", ErrorCode.ORDER_BRANCH_UNAVAILABLE));
+        if (cart.Items.Count == 0)
+            errors.Add(("", ErrorCode.ORDER_CART_EMPTY));
         var ids = cart.Items.Select(value => value.DrinkId).ToArray();
         var drinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id) && value.IsPublished && value.Category.IsPublished && value.Price > 0).ToDictionaryAsync(value => value.Id);
-        if (drinks.Count != ids.Distinct().Count()) modelState.AddModelError("", "Có món không còn được bán. Vui lòng xóa món đó khỏi giỏ hàng.");
+        if (drinks.Count != ids.Distinct().Count())
+            errors.Add(("", ErrorCode.ORDER_DRINK_UNAVAILABLE));
         var changed = false;
         foreach (var line in cart.Items)
         {
             if (line.SizeId.HasValue || line.ToppingIds.Count > 0 || !string.IsNullOrEmpty(line.Customization))
             {
-                modelState.AddModelError("", "Các lựa chọn cũ không còn được hỗ trợ. Vui lòng xóa món cũ và chọn lại.");
+                errors.Add(("", ErrorCode.ORDER_OPTIONS_INVALID));
                 continue;
             }
             if (drinks.TryGetValue(line.DrinkId, out var drink))
@@ -138,8 +144,12 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
                 if (price != line.Price) { line.Price = price; changed = true; }
             }
         }
-        if (changed) { modelState.AddModelError("", "Giá đã thay đổi. Vui lòng kiểm tra lại giỏ hàng và xác nhận đặt hàng lần nữa."); }
-        if (!modelState.IsValid) return false;
+        if (changed)
+            errors.Add(("", ErrorCode.ORDER_PRICE_CHANGED));
+        if (errors.Count > 0)
+            throw new CheckoutException(errors);
+        if (!isInputValid)
+            return false;
         var order = new Order
         {
             Id = cart.OrderId, StoreId = branch!.Id, StoreName = branch.Name, StoreAddress = branch.Address,
