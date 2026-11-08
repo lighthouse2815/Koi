@@ -43,11 +43,6 @@ public class CategoryController(CategoryService categories) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
-    public async Task<IActionResult> Delete(Guid id)
-    {
-        var category = await categories.GetByIdAsync(id);
-        return View("~/code/Views/Admin/Shared/Delete.cshtml", new DeleteContentViewModel(category.Id, category.Name));
-    }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
