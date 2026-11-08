@@ -31,11 +31,6 @@ public class DrinksController(DrinkService drinks) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index), new { categoryId = model.CategoryId }) });
     }
 
-    public async Task<IActionResult> Delete(Guid id)
-    {
-        var model = await drinks.GetDeleteAsync(id);
-        return model == null ? NotFound() : View("~/code/Views/Admin/Shared/Delete.cshtml", model);
-    }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {

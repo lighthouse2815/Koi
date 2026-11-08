@@ -92,14 +92,6 @@ public class DrinkService(
         drink.IsPublished = model.IsPublished;
     }
 
-    public async Task<DeleteContentViewModel?> GetDeleteAsync(Guid id)
-    {
-        var value = await database
-            .Drinks.AsNoTracking()
-            .SingleOrDefaultAsync(value => value.Id == id);
-        return value == null ? null : new DeleteContentViewModel(id, value.Name);
-    }
-
     public async Task<bool> DeleteAsync(Guid id)
     {
         var value = await database.Drinks.FindAsync(id);
