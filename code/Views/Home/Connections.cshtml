@@ -14,272 +14,286 @@
     <link rel="stylesheet" href="~/css/impact-details.css" asp-append-version="true" />
 }
 <div class="content-page impact-detail" id="home">
-<div class="connectionsWrap menu-pin">
-   <section class="connections-hero" id="connections-hero">
-    <div class="connections-hero__media"><picture>
-      <source media="(max-width: 1024px)" srcset="/images/pages/en/images/connections1-mb.jpg">
-      <img src="/images/pages/en/images/connections1.jpg" alt="">
-     </picture>
-     <div class="connections-hero__content">
-      <div class="connections-hero__title head-area">
-       <h1 class="en">@T["CONNECTIONS THAT"]<br>
-        @T["GO BEYOND THE CUP"]</h1>
-      </div>
-      <div class="connections-hero__desc head-area">
-       <p class="en">@T["FROM GENUINE CONNECTIONS TO STRONGER COMMUNITIES."]</p>
-      </div>
-     </div>
+    <div class="connectionsWrap menu-pin">
+        <section class="connections-hero" id="connections-hero">
+            <div class="connections-hero__media">
+                <picture>
+                    <source media="(max-width: 1024px)" srcset="/images/pages/en/images/connections1-mb.jpg">
+                    <img src="/images/pages/en/images/connections1.jpg" alt="">
+                </picture>
+                <div class="connections-hero__content">
+                    <div class="connections-hero__title head-area">
+                        <h1 class="en">@T["CONNECTIONS THAT"]<br>
+                            @T["GO BEYOND THE CUP"]</h1>
+                    </div>
+                    <div class="connections-hero__desc head-area">
+                        <p class="en">@T["FROM GENUINE CONNECTIONS TO STRONGER COMMUNITIES."]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-down">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }
+                <svg data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="95.04" height="60.99" viewBox="0 0 95.04 60.99">
+                    <g data-name="圖層 1">
+                        <g>
+                            <g class="arrow">
+                                <line class="d" x1="47.52" x2="47.52" y2="24.38"></line>
+                                <path d="M36.22,8.29c.55-.35,1.28-.19,1.63,.36l9.67,15.19,9.67-15.19c.35-.55,1.08-.71,1.63-.36s.71,1.08,.36,1.63l-10.67,16.75c-.22,.34-.59,.54-.99,.54s-.78-.21-.99-.54l-10.67-16.75c-.12-.2-.18-.42-.18-.63,0-.39,.19-.77,.54-1Z"></path>
+                            </g>
+                            <g>
+                                <path d="M3.3,60.99c-1.07-.62-1.88-1.45-2.45-2.48-.57-1.03-.85-2.21-.85-3.54s.28-2.51,.85-3.54c.57-1.04,1.38-1.86,2.45-2.48l.7,.83c-.89,.54-1.58,1.25-2.05,2.15s-.71,1.91-.71,3.04,.24,2.14,.71,3.04,1.16,1.61,2.05,2.14l-.7,.84Z"></path>
+                                <path d="M8.9,56.95l.72-.82c.69,.72,1.65,1.18,2.64,1.18,1.25,0,2-.62,2-1.56s-.69-1.29-1.59-1.69l-1.38-.6c-.88-.38-1.94-1.05-1.94-2.44,0-1.47,1.27-2.54,3-2.54,1.13,0,2.13,.48,2.81,1.18l-.64,.77c-.58-.55-1.29-.9-2.17-.9-1.08,0-1.78,.55-1.78,1.4,0,.92,.83,1.27,1.57,1.59l1.36,.58c1.1,.48,1.96,1.13,1.96,2.55,0,1.51-1.25,2.7-3.24,2.7-1.35,0-2.51-.55-3.34-1.42Z"></path>
+                                <path d="M17.3,54.68c0-2.35,1.6-3.72,3.41-3.72,.92,0,1.56,.39,2.07,.83l-.61,.79c-.42-.38-.85-.64-1.42-.64-1.27,0-2.21,1.1-2.21,2.73s.88,2.7,2.18,2.7c.65,0,1.22-.3,1.66-.7l.51,.79c-.62,.57-1.43,.9-2.28,.9-1.87,0-3.31-1.35-3.31-3.69Z"></path>
+                                <path d="M25.04,51.14h.97l.1,1.29h.04c.49-.9,1.21-1.47,2-1.47,.31,0,.53,.04,.75,.16l-.22,1.04c-.23-.09-.4-.12-.69-.12-.58,0-1.31,.42-1.78,1.62v4.54h-1.18v-7.06Z"></path>
+                                <path d="M29.99,54.68c0-2.35,1.55-3.72,3.28-3.72s3.28,1.37,3.28,3.72-1.55,3.69-3.28,3.69-3.28-1.35-3.28-3.69Zm5.33,0c0-1.62-.83-2.73-2.05-2.73s-2.04,1.1-2.04,2.73,.82,2.7,2.04,2.7,2.05-1.08,2.05-2.7Z"></path>
+                                <path d="M38.99,56.8v-8.94h1.18v9.02c0,.36,.16,.51,.34,.51,.06,0,.12,0,.25-.03l.17,.91c-.17,.06-.38,.1-.69,.1-.88,0-1.25-.57-1.25-1.57Z"></path>
+                                <path d="M43.28,56.8v-8.94h1.18v9.02c0,.36,.16,.51,.34,.51,.06,0,.12,0,.25-.03l.17,.91c-.17,.06-.38,.1-.69,.1-.88,0-1.25-.57-1.25-1.57Z"></path>
+                                <path d="M51.17,48.67h2.39c2.93,0,4.5,1.7,4.5,4.73s-1.57,4.8-4.45,4.8h-2.44v-9.53Zm2.29,8.54c2.25,0,3.35-1.4,3.35-3.81s-1.1-3.76-3.35-3.76h-1.08v7.57h1.08Z"></path>
+                                <path d="M60.05,54.68c0-2.35,1.55-3.72,3.28-3.72s3.28,1.37,3.28,3.72-1.55,3.69-3.28,3.69-3.28-1.35-3.28-3.69Zm5.33,0c0-1.62-.83-2.73-2.05-2.73s-2.04,1.1-2.04,2.73,.82,2.7,2.04,2.7,2.05-1.08,2.05-2.7Z"></path>
+                                <path d="M68.15,51.14h1.21l1.05,4.08c.14,.68,.29,1.31,.42,1.98h.06c.16-.66,.3-1.31,.48-1.98l1.09-4.08h1.16l1.1,4.08c.17,.68,.33,1.31,.49,1.98h.05c.16-.66,.29-1.3,.44-1.98l1.04-4.08h1.12l-1.9,7.06h-1.43l-1.03-3.81c-.18-.66-.31-1.31-.48-2.03h-.06c-.16,.71-.3,1.38-.48,2.05l-.99,3.78h-1.39l-1.96-7.06Z"></path>
+                                <path d="M80,51.14h.98l.1,1.01h.04c.68-.66,1.4-1.2,2.37-1.2,1.48,0,2.16,.96,2.16,2.77v4.47h-1.18v-4.32c0-1.33-.4-1.88-1.34-1.88-.73,0-1.22,.36-1.94,1.08v5.12h-1.18v-7.06Z"></path>
+                                <path d="M91.74,48.9c1.07,.62,1.88,1.45,2.45,2.48,.57,1.03,.85,2.21,.85,3.54s-.28,2.51-.85,3.54c-.57,1.04-1.38,1.86-2.45,2.48l-.7-.83c.89-.54,1.58-1.25,2.05-2.15s.71-1.91,.71-3.04-.24-2.14-.71-3.04-1.16-1.61-2.05-2.14l.7-.84Z"></path>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </section>
+        <section class="connections-belief" id="connections-belief">
+            <div class="connections-belief__image connections-belief__image--left"><img src="/images/pages/en/images/connections3.jpg" alt="">
+            </div>
+            <div class="connections-belief__image connections-belief__image--top"><img src="/images/pages/en/images/connections2.jpg" alt="">
+            </div>
+            <div class="connections-belief__image connections-belief__image--bottom"><img src="/images/pages/en/images/connections4.jpg" alt="">
+            </div>
+            <div class="connections-belief__content">
+                <div class="connections-belief__label">
+                    @T["OUR BELIEF"]
+                </div>
+                <div class="connections-belief__title head-area">
+                    <div class="overflow">
+                        <div class="en">
+                            @H["Connections.From"]
+                        </div>
+                    </div>
+                    <div class="overflow">
+                        <div class="en">
+                            @H["Connections.To"]@T["STRONGER COMMUNITIES"]</div>
+                    </div>
+                </div>
+                <div class="connections-belief__desc">
+                    <p>@T["A cup of tea can start a conversation."]</p>
+                    <p>@T["A simple act of kindness can bring a community together."]</p>
+                    <p>@T["At KOI, we cherish every encounter and believe that even"]<br>
+                        @T["the smallest actions can create a lasting impact. Through"] <br>
+                        @T["our ongoing commitment to community engagement and"]<br>
+                        @T["social initiatives, we extend warmth beyond the cup and"]<br>
+                        @T["into the lives of those around us."]</p>
+                </div>
+            </div>
+            <div class="connections-belief__marquee" aria-hidden="true">
+                <div class="connections-belief__marquee-track">
+                    <div class="connections-belief__marquee-image">
+                        <img src="/images/pages/en/images/connections4.jpg" alt="">
+                    </div>
+                    <div class="connections-belief__marquee-image">
+                        <img src="/images/pages/en/images/connections3.jpg" alt="">
+                    </div>
+                    <div class="connections-belief__marquee-image">
+                        <img src="/images/pages/en/images/connections2.jpg" alt="">
+                    </div>
+                    <div class="connections-belief__marquee-image">
+                        <img src="/images/pages/en/images/connections4.jpg" alt="">
+                    </div>
+                    <div class="connections-belief__marquee-image">
+                        <img src="/images/pages/en/images/connections3.jpg" alt="">
+                    </div>
+                    <div class="connections-belief__marquee-image">
+                        <img src="/images/pages/en/images/connections2.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="connections-feature">
+            <div class="connections-feature__visual">
+                <div class="connections-feature__slides">
+                    <div class="connections-feature__slide active" data-index="0"><img src="/images/pages/en/images/impact_uploads/20260720135344_6a5db7e8360c21.36552684.jpg" alt="">
+                    </div>
+                    <div class="connections-feature__slide " data-index="1"><img src="/images/pages/en/images/impact_uploads/20260720135344_6a5db7e837cbc1.89809233.jpg" alt="">
+                    </div>
+                    <div class="connections-feature__slide " data-index="2"><img src="/images/pages/en/images/impact_uploads/20260720135344_6a5db7e8385216.93204972.jpg" alt="">
+                    </div>
+                </div><button class="connections-feature__arrow connections-feature__arrow--prev" type="button" aria-label="@T["Previous feature"]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14">
+                        <rect fill="#fff" x="5.63" y="21.23" width="48.52" height="4.68"></rect>
+                        <path fill="#fff" d="M37.65,1.08c.7,1.09.37,2.54-.72,3.23L6.7,23.57l30.23,19.25c1.09.7,1.42,2.15.72,3.23s-2.15,1.4-3.24.72L1.08,25.55c-.67-.43-1.08-1.18-1.08-1.98s.41-1.55,1.08-1.98L34.41.37c.39-.25.83-.37,1.26-.37.77,0,1.53.38,1.98,1.08Z"></path>
+                    </svg></button> <button class="connections-feature__arrow connections-feature__arrow--next" type="button" aria-label="@T["Next feature"]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14">
+                        <rect fill="#fff" x="0" y="21.23" width="48.52" height="4.68"></rect>
+                        <path fill="#fff" d="M16.5,1.08c-.7,1.09-.37,2.54.72,3.23l30.23,19.25-30.23,19.25c-1.09.7-1.42,2.15-.72,3.23s2.15,1.4,3.24.72l33.33-21.23c.67-.43,1.08-1.18,1.08-1.98,0-.8-.41-1.55-1.08-1.98L19.74.37C19.34.12,18.91,0,18.48,0c-.77,0-1.53.38-1.98,1.08Z"></path>
+                    </svg></button>
+                <div class="connections-feature__progress" style="--feature-progress-count: 3;"><span></span>
+                </div>
+            </div>
+            <div class="connections-feature__content">
+                <button class="connections-feature__motion" type="button" aria-pressed="false">@T["( Pause motion )"]</button>
+                <div class="connections-feature__panels">
+                    <article class="connections-feature__panel active" data-index="0">
+                        <h2>@T["MEANINGFUL"]<br>
+                            @T["PARTNERSHIPS"]</h2>
+                        <div class="connections-feature__desc">
+                            <p>@T["Collaborating with organizations and community partners to create positive and lasting impact together."]</p>
+                        </div>
+                        <div class="connections-feature__meta"> <strong>01</strong>
+                        </div>
+                    </article>
+                    <article class="connections-feature__panel " data-index="1">
+                        <h2>@T["COMMUNITY"]<br>
+                            @T["ENGAGEMENT"]</h2>
+                        <div class="connections-feature__desc">
+                            <p>@T["Actively engaging with local communities and fostering meaningful connections with the people we serve."]</p>
+                        </div>
+                        <div class="connections-feature__meta"> <strong>02</strong>
+                        </div>
+                    </article>
+                    <article class="connections-feature__panel " data-index="2">
+                        <h2>@T["GIVING BACK"]<br></h2>
+                        <div class="connections-feature__desc">
+                            <p>@T["Giving back through charitable initiatives and community support, extending care to those who need it most."]</p>
+                        </div>
+                        <div class="connections-feature__meta"> <strong>03</strong>
+                        </div>
+                    </article>
+                </div>
+                <div class="connections-feature__dots" aria-label="@T["Feature pagination"]"><button class="dot active" type="button" aria-label="@T["Feature 1"]"></button> <button class="dot " type="button" aria-label="@T["Feature 2"]"></button> <button class="dot " type="button" aria-label="@T["Feature 3"]"></button>
+                </div>
+            </div>
+        </section>
+        <section class="connections-story">
+            <div class="connections-story__inner">
+                <article class="connections-story__block connections-story__block--text-image">
+                    <div class="connections-story__text">
+                        <h2>@T["Inspiring Change"]</h2>
+                        <p>@T["By supporting initiatives that promote respect, inclusion, and empathy, we hope to inspire positive values and encourage meaningful conversations that strengthen our communities."]</p>
+                    </div>
+                    <div class="connections-story__image"><img src="/images/pages/en/images/impact_uploads/20260717133758_6a59bfb61368e5.38576102.jpg" alt="">
+                    </div>
+                </article>
+                <article class="connections-story__block connections-story__block--image-text">
+                    <div class="connections-story__text">
+                        <h2>@T["Spark"]<br>
+                            @T["Curiosity"]</h2>
+                        <p>@T["By opening our doors to young explorers and local communities, we share the story behind every cup — from tea craftsmanship to the values that define KOI. Through hands-on experiences, we inspire curiosity and create meaningful connections with our brand."]</p>
+                    </div>
+                    <div class="connections-story__image"><img src="/images/pages/en/images/impact_uploads/20260728142311_6a684acf0f6352.30588843.jpg" alt="">
+                    </div>
+                </article>
+                <article class="connections-story__block connections-story__block--image-top">
+                    <div class="connections-story__image"><img src="/images/pages/en/images/impact_uploads/20260720135230_6a5db79ead0848.17296368.jpg" alt="">
+                    </div>
+                    <div class="connections-story__text">
+                        <h2>@T["Share Kindness"]</h2>
+                        <p>@T["By supporting meaningful community initiatives, we extend kindness beyond every cup and bring warmth and care to the communities we serve."]</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="connections-share">
+            <div class="connections-share__title head-area">
+                <div class="deco top">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="114.89" height="12.97" viewBox="0 0 114.89 12.97">
+                        <path class="cls-1" d="M1.21,8.14c.08,.48,.45,.86,.93,.94,14.22,2.4,33.95,3.89,55.76,3.89,21.51,0,40.73-1.43,54.85-3.74,.48-.08,.86-.46,.93-.94l1.19-7.34c.08-.46-.32-.86-.78-.78-14.25,2.45-34.16,3.97-56.2,3.97S15.1,2.55,.8,.01C.33-.07-.07,.33,0,.79l1.2,7.34Z"></path>
+                    </svg>
+                </div>
+                <div class="overflow">
+                    <div class="en">
+                        @T["IN ACTION"]
+                    </div>
+                </div>
+                <div class="deco bottom">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="75.19" height="14.36" viewBox="0 0 75.19 14.36">
+                        <path class="cls-1" d="M0,.8l1.28,7.78c.07,.43,.37,.78,.79,.91,10.35,3.17,22.73,4.88,35.5,4.88s25.16-1.72,35.51-4.9c.41-.13,.72-.48,.79-.91l1.3-7.76c.08-.51-.39-.92-.88-.76-10.62,3.43-23.38,5.29-36.72,5.29S11.51,3.51,.89,.04C.4-.12-.07,.29,0,.8Z"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="connections-share__marquee"><button class="connections-share__arrow connections-share__arrow--prev" type="button" aria-label="@T["Previous share"]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14">
+                        <rect fill="#0c131b" x="5.63" y="21.23" width="48.52" height="4.68"></rect>
+                        <path fill="#0c131b" d="M37.65,1.08c.7,1.09.37,2.54-.72,3.23L6.7,23.57l30.23,19.25c1.09.7,1.42,2.15.72,3.23s-2.15,1.4-3.24.72L1.08,25.55c-.67-.43-1.08-1.18-1.08-1.98s.41-1.55,1.08-1.98L34.41.37c.39-.25.83-.37,1.26-.37.77,0,1.53.38,1.98,1.08Z"></path>
+                    </svg></button>
+                <div class="connections-share__track">
+                    <article class="connections-share__item">
+                        <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722155258_6a6076da14ce42.26632085.jpg" alt="">
+                        </div>
+                        <h3>@T["Kindness Wall Campaign"]</h3>
+                        <p>@T["KOI Thé Malaysia partnered with a local film to launch the Kindness Wall campaign, spreading kindness and raising awareness about anti-bullying."]</p>
+                    </article>
+                    <article class="connections-share__item">
+                        <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaeaf868.73222828.jpg" alt="">
+                        </div>
+                        <h3>@T["Supporting Children's Education"]</h3>
+                        <p>@T["KOI Thé Cambodia donated beverages and school supplies to a community kindergarten, supporting children's education."]</p>
+                    </article>
+                    <article class="connections-share__item">
+                        <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaeba771.06935987.jpg" alt="">
+                        </div>
+                        <h3>@T["Treasure House Community Project"]</h3>
+                        <p>@T["KOI Thé China partnered with the Treasure House Project to create a safe and nurturing space for community children."]</p>
+                    </article>
+                    <article class="connections-share__item">
+                        <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaec0460.64610890.jpg" alt="">
+                        </div>
+                        <h3>@T["20th Anniversary Drink Giveaway"]</h3>
+                        <p>@T["To celebrate KOI Thé’s 20th anniversary, KOI Thé France surprised the local community with complimentary drinks, sharing joy and appreciation."]</p>
+                    </article>
+                    <article class="connections-share__item">
+                        <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaec4f35.37911237.jpg" alt="">
+                        </div>
+                        <h3>@T["Voices for Vision"]</h3>
+                        <p>@T["KOI Thé Thailand donated food, beverages, and daily necessities to the Foundation for the Blind, supporting people with visual impairments."]</p>
+                    </article>
+                    <article class="connections-share__item">
+                        <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaecb575.59031953.jpg" alt="">
+                        </div>
+                        <h3>@T["Community Clean-Up Initiative"]</h3>
+                        <p>@T["KOI Thé Japan organized a community clean-up in Ikebukuro, supporting a cleaner environment and local community."]</p>
+                    </article>
+                    <article class="connections-share__item">
+                        <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260727143454_6a66fc0e0bf797.16490854.jpg" alt="">
+                        </div>
+                        <h3>@T["Moments That Matter"]</h3>
+                        <p>@T["KOI Thé Indonesia shared care, kindness, and joyful moments with children."]</p>
+                    </article>
+                </div><button class="connections-share__arrow connections-share__arrow--next" type="button" aria-label="@T["Next share"]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14">
+                        <rect fill="#0c131b" x="0" y="21.23" width="48.52" height="4.68"></rect>
+                        <path fill="#0c131b" d="M16.5,1.08c-.7,1.09-.37,2.54.72,3.23l30.23,19.25-30.23,19.25c-1.09.7-1.42,2.15-.72,3.23s2.15,1.4,3.24.72l33.33-21.23c.67-.43,1.08-1.18,1.08-1.98,0-.8-.41-1.55-1.08-1.98L19.74.37C19.34.12,18.91,0,18.48,0c-.77,0-1.53.38-1.98,1.08Z"></path>
+                    </svg></button>
+            </div>
+        </section>
+        <div class="connections-impact-back"><a class="connections-impact-back__link" href="/Home/Impact?impact=connections#scroll-pin-section" aria-label="@T["Back to impact list"]">
+                <div class="back">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">←</span>@T["( Back )"]</span> }
+                    <svg class="show-for-large" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="90" height="74.44" viewBox="0 0 90 74.44">
+                        <g data-name="layout">
+                            <g>
+                                <g>
+                                    <path class="d" d="M4.63,74.44c-1.48-.86-2.61-2.01-3.39-3.44-.79-1.43-1.18-3.06-1.18-4.9s.39-3.47,1.18-4.91c.79-1.43,1.92-2.58,3.39-3.43l.97,1.15c-1.24,.75-2.18,1.73-2.84,2.97s-.99,2.64-.99,4.21,.33,2.96,.99,4.2,1.61,2.23,2.84,2.96l-.97,1.17Z"></path>
+                                    <path class="d" d="M13.29,57.31h4.11c2.72,0,4.68,.86,4.68,3.26,0,1.26-.7,2.47-1.89,2.86v.09c1.51,.32,2.61,1.35,2.61,3.15,0,2.63-2.14,3.89-5.08,3.89h-4.43v-13.25Zm3.87,5.53c2.02,0,2.86-.76,2.86-2,0-1.39-.94-1.91-2.81-1.91h-1.84v3.91h1.78Zm.32,6.09c2.07,0,3.26-.74,3.26-2.36,0-1.49-1.15-2.14-3.26-2.14h-2.11v4.5h2.11Z"></path>
+                                    <path class="d" d="M25.35,67.94c0-2.12,1.8-3.22,5.92-3.67-.02-1.15-.43-2.16-1.89-2.16-1.04,0-2.02,.47-2.86,1.01l-.77-1.4c1.03-.65,2.41-1.3,4-1.3,2.47,0,3.6,1.57,3.6,4.2v5.96h-1.69l-.18-1.13h-.05c-.9,.77-1.96,1.37-3.15,1.37-1.71,0-2.92-1.12-2.92-2.86Zm5.92,.07v-2.43c-2.93,.36-3.92,1.1-3.92,2.21,0,.97,.67,1.37,1.55,1.37s1.57-.41,2.38-1.15Z"></path>
+                                    <path class="d" d="M36.39,65.63c0-3.31,2.29-5.22,4.9-5.22,1.26,0,2.18,.5,2.9,1.13l-1.03,1.35c-.54-.49-1.1-.77-1.78-.77-1.66,0-2.84,1.4-2.84,3.51s1.13,3.48,2.79,3.48c.83,0,1.57-.4,2.16-.9l.85,1.37c-.9,.81-2.07,1.22-3.21,1.22-2.68,0-4.74-1.89-4.74-5.17Z"></path>
+                                    <path class="d" d="M47.2,56.22h2.02v9.25h.05l3.89-4.81h2.29l-3.37,4.02,3.75,5.89h-2.25l-2.68-4.48-1.67,1.93v2.56h-2.02v-14.35Z"></path>
+                                    <path class="d" d="M62.9,57.7c1.48,.86,2.61,2.01,3.39,3.44,.79,1.43,1.18,3.06,1.18,4.9s-.39,3.47-1.18,4.91-1.92,2.58-3.39,3.43l-.97-1.15c1.24-.75,2.18-1.73,2.84-2.97,.66-1.24,.99-2.64,.99-4.21s-.33-2.96-.99-4.2c-.66-1.24-1.61-2.23-2.84-2.96l.97-1.17Z"></path>
+                                </g>
+                                <g class="arrow">
+                                    <rect class="d" x="5.63" y="21.23" width="48.52" height="4.68"></rect>
+                                    <path class="d" d="M37.65,1.08c.7,1.09,.37,2.54-.72,3.23L6.7,23.57l30.23,19.25c1.09,.7,1.42,2.15,.72,3.23s-2.15,1.4-3.24,.72L1.08,25.55c-.67-.43-1.08-1.18-1.08-1.98s.41-1.55,1.08-1.98L34.41,.37c.39-.25,.83-.37,1.26-.37,.77,0,1.53,.38,1.98,1.08Z"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg><img class="hide-for-large" src="/images/pages/en/images/csr-back.svg" alt="">
+                </div>
+            </a>
+        </div>
     </div>
-    <div class="scroll-down">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }
-     <svg data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="95.04" height="60.99" viewBox="0 0 95.04 60.99"><g data-name="圖層 1">
-       <g>
-        <g class="arrow">
-         <line class="d" x1="47.52" x2="47.52" y2="24.38"></line>
-         <path d="M36.22,8.29c.55-.35,1.28-.19,1.63,.36l9.67,15.19,9.67-15.19c.35-.55,1.08-.71,1.63-.36s.71,1.08,.36,1.63l-10.67,16.75c-.22,.34-.59,.54-.99,.54s-.78-.21-.99-.54l-10.67-16.75c-.12-.2-.18-.42-.18-.63,0-.39,.19-.77,.54-1Z"></path>
-        </g>
-        <g>
-         <path d="M3.3,60.99c-1.07-.62-1.88-1.45-2.45-2.48-.57-1.03-.85-2.21-.85-3.54s.28-2.51,.85-3.54c.57-1.04,1.38-1.86,2.45-2.48l.7,.83c-.89,.54-1.58,1.25-2.05,2.15s-.71,1.91-.71,3.04,.24,2.14,.71,3.04,1.16,1.61,2.05,2.14l-.7,.84Z"></path>
-         <path d="M8.9,56.95l.72-.82c.69,.72,1.65,1.18,2.64,1.18,1.25,0,2-.62,2-1.56s-.69-1.29-1.59-1.69l-1.38-.6c-.88-.38-1.94-1.05-1.94-2.44,0-1.47,1.27-2.54,3-2.54,1.13,0,2.13,.48,2.81,1.18l-.64,.77c-.58-.55-1.29-.9-2.17-.9-1.08,0-1.78,.55-1.78,1.4,0,.92,.83,1.27,1.57,1.59l1.36,.58c1.1,.48,1.96,1.13,1.96,2.55,0,1.51-1.25,2.7-3.24,2.7-1.35,0-2.51-.55-3.34-1.42Z"></path>
-         <path d="M17.3,54.68c0-2.35,1.6-3.72,3.41-3.72,.92,0,1.56,.39,2.07,.83l-.61,.79c-.42-.38-.85-.64-1.42-.64-1.27,0-2.21,1.1-2.21,2.73s.88,2.7,2.18,2.7c.65,0,1.22-.3,1.66-.7l.51,.79c-.62,.57-1.43,.9-2.28,.9-1.87,0-3.31-1.35-3.31-3.69Z"></path>
-         <path d="M25.04,51.14h.97l.1,1.29h.04c.49-.9,1.21-1.47,2-1.47,.31,0,.53,.04,.75,.16l-.22,1.04c-.23-.09-.4-.12-.69-.12-.58,0-1.31,.42-1.78,1.62v4.54h-1.18v-7.06Z"></path>
-         <path d="M29.99,54.68c0-2.35,1.55-3.72,3.28-3.72s3.28,1.37,3.28,3.72-1.55,3.69-3.28,3.69-3.28-1.35-3.28-3.69Zm5.33,0c0-1.62-.83-2.73-2.05-2.73s-2.04,1.1-2.04,2.73,.82,2.7,2.04,2.7,2.05-1.08,2.05-2.7Z"></path>
-         <path d="M38.99,56.8v-8.94h1.18v9.02c0,.36,.16,.51,.34,.51,.06,0,.12,0,.25-.03l.17,.91c-.17,.06-.38,.1-.69,.1-.88,0-1.25-.57-1.25-1.57Z"></path>
-         <path d="M43.28,56.8v-8.94h1.18v9.02c0,.36,.16,.51,.34,.51,.06,0,.12,0,.25-.03l.17,.91c-.17,.06-.38,.1-.69,.1-.88,0-1.25-.57-1.25-1.57Z"></path>
-         <path d="M51.17,48.67h2.39c2.93,0,4.5,1.7,4.5,4.73s-1.57,4.8-4.45,4.8h-2.44v-9.53Zm2.29,8.54c2.25,0,3.35-1.4,3.35-3.81s-1.1-3.76-3.35-3.76h-1.08v7.57h1.08Z"></path>
-         <path d="M60.05,54.68c0-2.35,1.55-3.72,3.28-3.72s3.28,1.37,3.28,3.72-1.55,3.69-3.28,3.69-3.28-1.35-3.28-3.69Zm5.33,0c0-1.62-.83-2.73-2.05-2.73s-2.04,1.1-2.04,2.73,.82,2.7,2.04,2.7,2.05-1.08,2.05-2.7Z"></path>
-         <path d="M68.15,51.14h1.21l1.05,4.08c.14,.68,.29,1.31,.42,1.98h.06c.16-.66,.3-1.31,.48-1.98l1.09-4.08h1.16l1.1,4.08c.17,.68,.33,1.31,.49,1.98h.05c.16-.66,.29-1.3,.44-1.98l1.04-4.08h1.12l-1.9,7.06h-1.43l-1.03-3.81c-.18-.66-.31-1.31-.48-2.03h-.06c-.16,.71-.3,1.38-.48,2.05l-.99,3.78h-1.39l-1.96-7.06Z"></path>
-         <path d="M80,51.14h.98l.1,1.01h.04c.68-.66,1.4-1.2,2.37-1.2,1.48,0,2.16,.96,2.16,2.77v4.47h-1.18v-4.32c0-1.33-.4-1.88-1.34-1.88-.73,0-1.22,.36-1.94,1.08v5.12h-1.18v-7.06Z"></path>
-         <path d="M91.74,48.9c1.07,.62,1.88,1.45,2.45,2.48,.57,1.03,.85,2.21,.85,3.54s-.28,2.51-.85,3.54c-.57,1.04-1.38,1.86-2.45,2.48l-.7-.83c.89-.54,1.58-1.25,2.05-2.15s.71-1.91,.71-3.04-.24-2.14-.71-3.04-1.16-1.61-2.05-2.14l.7-.84Z"></path>
-        </g>
-       </g>
-      </g>
-     </svg>
-    </div>
-   </section>
-   <section class="connections-belief" id="connections-belief">
-    <div class="connections-belief__image connections-belief__image--left"><img src="/images/pages/en/images/connections3.jpg" alt="">
-    </div>
-    <div class="connections-belief__image connections-belief__image--top"><img src="/images/pages/en/images/connections2.jpg" alt="">
-    </div>
-    <div class="connections-belief__image connections-belief__image--bottom"><img src="/images/pages/en/images/connections4.jpg" alt="">
-    </div>
-    <div class="connections-belief__content">
-     <div class="connections-belief__label">
-      @T["OUR BELIEF"]
-     </div>
-     <div class="connections-belief__title head-area">
-      <div class="overflow">
-       <div class="en">
-        @H["Connections.From"]
-       </div>
-      </div>
-      <div class="overflow">
-       <div class="en">
-        @H["Connections.To"]@T["STRONGER COMMUNITIES"]</div>
-      </div>
-     </div>
-     <div class="connections-belief__desc">
-      <p>@T["A cup of tea can start a conversation."]</p>
-      <p>@T["A simple act of kindness can bring a community together."]</p>
-      <p>@T["At KOI, we cherish every encounter and believe that even"]<br>
-        @T["the smallest actions can create a lasting impact. Through"] <br>
-       @T["our ongoing commitment to community engagement and"]<br>
-        @T["social initiatives, we extend warmth beyond the cup and"]<br>
-        @T["into the lives of those around us."]</p>
-     </div>
-    </div>
-    <div class="connections-belief__marquee" aria-hidden="true">
-     <div class="connections-belief__marquee-track">
-      <div class="connections-belief__marquee-image">
-       <img src="/images/pages/en/images/connections4.jpg" alt="">
-      </div>
-      <div class="connections-belief__marquee-image">
-       <img src="/images/pages/en/images/connections3.jpg" alt="">
-      </div>
-      <div class="connections-belief__marquee-image">
-       <img src="/images/pages/en/images/connections2.jpg" alt="">
-      </div>
-      <div class="connections-belief__marquee-image">
-       <img src="/images/pages/en/images/connections4.jpg" alt="">
-      </div>
-      <div class="connections-belief__marquee-image">
-       <img src="/images/pages/en/images/connections3.jpg" alt="">
-      </div>
-      <div class="connections-belief__marquee-image">
-       <img src="/images/pages/en/images/connections2.jpg" alt="">
-      </div>
-     </div>
-    </div>
-   </section>
-   <section class="connections-feature">
-    <div class="connections-feature__visual">
-     <div class="connections-feature__slides">
-      <div class="connections-feature__slide active" data-index="0"><img src="/images/pages/en/images/impact_uploads/20260720135344_6a5db7e8360c21.36552684.jpg" alt="">
-      </div>
-      <div class="connections-feature__slide " data-index="1"><img src="/images/pages/en/images/impact_uploads/20260720135344_6a5db7e837cbc1.89809233.jpg" alt="">
-      </div>
-      <div class="connections-feature__slide " data-index="2"><img src="/images/pages/en/images/impact_uploads/20260720135344_6a5db7e8385216.93204972.jpg" alt="">
-      </div>
-     </div><button class="connections-feature__arrow connections-feature__arrow--prev" type="button" aria-label="@T["Previous feature"]">
-      <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14"><rect fill="#fff" x="5.63" y="21.23" width="48.52" height="4.68"></rect> <path fill="#fff" d="M37.65,1.08c.7,1.09.37,2.54-.72,3.23L6.7,23.57l30.23,19.25c1.09.7,1.42,2.15.72,3.23s-2.15,1.4-3.24.72L1.08,25.55c-.67-.43-1.08-1.18-1.08-1.98s.41-1.55,1.08-1.98L34.41.37c.39-.25.83-.37,1.26-.37.77,0,1.53.38,1.98,1.08Z"></path>
-      </svg></button> <button class="connections-feature__arrow connections-feature__arrow--next" type="button" aria-label="@T["Next feature"]">
-      <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14"><rect fill="#fff" x="0" y="21.23" width="48.52" height="4.68"></rect> <path fill="#fff" d="M16.5,1.08c-.7,1.09-.37,2.54.72,3.23l30.23,19.25-30.23,19.25c-1.09.7-1.42,2.15-.72,3.23s2.15,1.4,3.24.72l33.33-21.23c.67-.43,1.08-1.18,1.08-1.98,0-.8-.41-1.55-1.08-1.98L19.74.37C19.34.12,18.91,0,18.48,0c-.77,0-1.53.38-1.98,1.08Z"></path>
-      </svg></button>
-     <div class="connections-feature__progress" style="--feature-progress-count: 3;"><span></span>
-     </div>
-    </div>
-    <div class="connections-feature__content">
-     <button class="connections-feature__motion" type="button" aria-pressed="false">@T["( Pause motion )"]</button>
-     <div class="connections-feature__panels">
-      <article class="connections-feature__panel active" data-index="0">
-       <h2>@T["MEANINGFUL"]<br>
-         @T["PARTNERSHIPS"]</h2>
-       <div class="connections-feature__desc">
-        <p>@T["Collaborating with organizations and community partners to create positive and lasting impact together."]</p>
-       </div>
-       <div class="connections-feature__meta"> <strong>01</strong>
-       </div>
-      </article>
-      <article class="connections-feature__panel " data-index="1">
-       <h2>@T["COMMUNITY"]<br>
-         @T["ENGAGEMENT"]</h2>
-       <div class="connections-feature__desc">
-        <p>@T["Actively engaging with local communities and fostering meaningful connections with the people we serve."]</p>
-       </div>
-       <div class="connections-feature__meta"> <strong>02</strong>
-       </div>
-      </article>
-      <article class="connections-feature__panel " data-index="2">
-       <h2>@T["GIVING BACK"]<br></h2>
-       <div class="connections-feature__desc">
-        <p>@T["Giving back through charitable initiatives and community support, extending care to those who need it most."]</p>
-       </div>
-       <div class="connections-feature__meta"> <strong>03</strong>
-       </div>
-      </article>
-     </div>
-     <div class="connections-feature__dots" aria-label="@T["Feature pagination"]"><button class="dot active" type="button" aria-label="@T["Feature 1"]"></button> <button class="dot " type="button" aria-label="@T["Feature 2"]"></button> <button class="dot " type="button" aria-label="@T["Feature 3"]"></button>
-     </div>
-    </div>
-   </section>
-   <section class="connections-story">
-    <div class="connections-story__inner">
-     <article class="connections-story__block connections-story__block--text-image">
-      <div class="connections-story__text">
-       <h2>@T["Inspiring Change"]</h2>
-       <p>@T["By supporting initiatives that promote respect, inclusion, and empathy, we hope to inspire positive values and encourage meaningful conversations that strengthen our communities."]</p>
-      </div>
-      <div class="connections-story__image"><img src="/images/pages/en/images/impact_uploads/20260717133758_6a59bfb61368e5.38576102.jpg" alt="">
-      </div>
-     </article>
-     <article class="connections-story__block connections-story__block--image-text">
-      <div class="connections-story__text">
-       <h2>@T["Spark"]<br>
-         @T["Curiosity"]</h2>
-       <p>@T["By opening our doors to young explorers and local communities, we share the story behind every cup — from tea craftsmanship to the values that define KOI. Through hands-on experiences, we inspire curiosity and create meaningful connections with our brand."]</p>
-      </div>
-      <div class="connections-story__image"><img src="/images/pages/en/images/impact_uploads/20260728142311_6a684acf0f6352.30588843.jpg" alt="">
-      </div>
-     </article>
-     <article class="connections-story__block connections-story__block--image-top">
-      <div class="connections-story__image"><img src="/images/pages/en/images/impact_uploads/20260720135230_6a5db79ead0848.17296368.jpg" alt="">
-      </div>
-      <div class="connections-story__text">
-       <h2>@T["Share Kindness"]</h2>
-       <p>@T["By supporting meaningful community initiatives, we extend kindness beyond every cup and bring warmth and care to the communities we serve."]</p>
-      </div>
-     </article>
-    </div>
-   </section>
-   <section class="connections-share">
-    <div class="connections-share__title head-area">
-     <div class="deco top">
-      <svg xmlns="http://www.w3.org/2000/svg" width="114.89" height="12.97" viewBox="0 0 114.89 12.97"><path class="cls-1" d="M1.21,8.14c.08,.48,.45,.86,.93,.94,14.22,2.4,33.95,3.89,55.76,3.89,21.51,0,40.73-1.43,54.85-3.74,.48-.08,.86-.46,.93-.94l1.19-7.34c.08-.46-.32-.86-.78-.78-14.25,2.45-34.16,3.97-56.2,3.97S15.1,2.55,.8,.01C.33-.07-.07,.33,0,.79l1.2,7.34Z"></path>
-      </svg>
-     </div>
-     <div class="overflow">
-      <div class="en">
-       @T["IN ACTION"]
-      </div>
-     </div>
-     <div class="deco bottom">
-      <svg xmlns="http://www.w3.org/2000/svg" width="75.19" height="14.36" viewBox="0 0 75.19 14.36"><path class="cls-1" d="M0,.8l1.28,7.78c.07,.43,.37,.78,.79,.91,10.35,3.17,22.73,4.88,35.5,4.88s25.16-1.72,35.51-4.9c.41-.13,.72-.48,.79-.91l1.3-7.76c.08-.51-.39-.92-.88-.76-10.62,3.43-23.38,5.29-36.72,5.29S11.51,3.51,.89,.04C.4-.12-.07,.29,0,.8Z"></path>
-      </svg>
-     </div>
-    </div>
-    <div class="connections-share__marquee"><button class="connections-share__arrow connections-share__arrow--prev" type="button" aria-label="@T["Previous share"]">
-      <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14"><rect fill="#0c131b" x="5.63" y="21.23" width="48.52" height="4.68"></rect> <path fill="#0c131b" d="M37.65,1.08c.7,1.09.37,2.54-.72,3.23L6.7,23.57l30.23,19.25c1.09.7,1.42,2.15.72,3.23s-2.15,1.4-3.24.72L1.08,25.55c-.67-.43-1.08-1.18-1.08-1.98s.41-1.55,1.08-1.98L34.41.37c.39-.25.83-.37,1.26-.37.77,0,1.53.38,1.98,1.08Z"></path>
-      </svg></button>
-     <div class="connections-share__track">
-      <article class="connections-share__item">
-       <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722155258_6a6076da14ce42.26632085.jpg" alt="">
-       </div>
-       <h3>@T["Kindness Wall Campaign"]</h3>
-       <p>@T["KOI Thé Malaysia partnered with a local film to launch the Kindness Wall campaign, spreading kindness and raising awareness about anti-bullying."]</p>
-      </article>
-      <article class="connections-share__item">
-       <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaeaf868.73222828.jpg" alt="">
-       </div>
-       <h3>@T["Supporting Children's Education"]</h3>
-       <p>@T["KOI Thé Cambodia donated beverages and school supplies to a community kindergarten, supporting children's education."]</p>
-      </article>
-      <article class="connections-share__item">
-       <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaeba771.06935987.jpg" alt="">
-       </div>
-       <h3>@T["Treasure House Community Project"]</h3>
-       <p>@T["KOI Thé China partnered with the Treasure House Project to create a safe and nurturing space for community children."]</p>
-      </article>
-      <article class="connections-share__item">
-       <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaec0460.64610890.jpg" alt="">
-       </div>
-       <h3>@T["20th Anniversary Drink Giveaway"]</h3>
-       <p>@T["To celebrate KOI Thé’s 20th anniversary, KOI Thé France surprised the local community with complimentary drinks, sharing joy and appreciation."]</p>
-      </article>
-      <article class="connections-share__item">
-       <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaec4f35.37911237.jpg" alt="">
-       </div>
-       <h3>@T["Voices for Vision"]</h3>
-       <p>@T["KOI Thé Thailand donated food, beverages, and daily necessities to the Foundation for the Blind, supporting people with visual impairments."]</p>
-      </article>
-      <article class="connections-share__item">
-       <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260722151002_6a606ccaecb575.59031953.jpg" alt="">
-       </div>
-       <h3>@T["Community Clean-Up Initiative"]</h3>
-       <p>@T["KOI Thé Japan organized a community clean-up in Ikebukuro, supporting a cleaner environment and local community."]</p>
-      </article>
-      <article class="connections-share__item">
-       <div class="connections-share__image"><img src="/images/pages/en/images/impact_uploads/20260727143454_6a66fc0e0bf797.16490854.jpg" alt="">
-       </div>
-       <h3>@T["Moments That Matter"]</h3>
-       <p>@T["KOI Thé Indonesia shared care, kindness, and joyful moments with children."]</p>
-      </article>
-     </div><button class="connections-share__arrow connections-share__arrow--next" type="button" aria-label="@T["Next share"]">
-      <svg xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14"><rect fill="#0c131b" x="0" y="21.23" width="48.52" height="4.68"></rect> <path fill="#0c131b" d="M16.5,1.08c-.7,1.09-.37,2.54.72,3.23l30.23,19.25-30.23,19.25c-1.09.7-1.42,2.15-.72,3.23s2.15,1.4,3.24.72l33.33-21.23c.67-.43,1.08-1.18,1.08-1.98,0-.8-.41-1.55-1.08-1.98L19.74.37C19.34.12,18.91,0,18.48,0c-.77,0-1.53.38-1.98,1.08Z"></path>
-      </svg></button>
-    </div>
-   </section>
-   <div class="connections-impact-back"><a class="connections-impact-back__link" href="/Home/Impact?impact=connections#scroll-pin-section" aria-label="@T["Back to impact list"]">
-     <div class="back">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">←</span>@T["( Back )"]</span> }
-      <svg class="show-for-large" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="90" height="74.44" viewBox="0 0 90 74.44"><g data-name="layout">
-        <g>
-         <g>
-          <path class="d" d="M4.63,74.44c-1.48-.86-2.61-2.01-3.39-3.44-.79-1.43-1.18-3.06-1.18-4.9s.39-3.47,1.18-4.91c.79-1.43,1.92-2.58,3.39-3.43l.97,1.15c-1.24,.75-2.18,1.73-2.84,2.97s-.99,2.64-.99,4.21,.33,2.96,.99,4.2,1.61,2.23,2.84,2.96l-.97,1.17Z"></path>
-          <path class="d" d="M13.29,57.31h4.11c2.72,0,4.68,.86,4.68,3.26,0,1.26-.7,2.47-1.89,2.86v.09c1.51,.32,2.61,1.35,2.61,3.15,0,2.63-2.14,3.89-5.08,3.89h-4.43v-13.25Zm3.87,5.53c2.02,0,2.86-.76,2.86-2,0-1.39-.94-1.91-2.81-1.91h-1.84v3.91h1.78Zm.32,6.09c2.07,0,3.26-.74,3.26-2.36,0-1.49-1.15-2.14-3.26-2.14h-2.11v4.5h2.11Z"></path>
-          <path class="d" d="M25.35,67.94c0-2.12,1.8-3.22,5.92-3.67-.02-1.15-.43-2.16-1.89-2.16-1.04,0-2.02,.47-2.86,1.01l-.77-1.4c1.03-.65,2.41-1.3,4-1.3,2.47,0,3.6,1.57,3.6,4.2v5.96h-1.69l-.18-1.13h-.05c-.9,.77-1.96,1.37-3.15,1.37-1.71,0-2.92-1.12-2.92-2.86Zm5.92,.07v-2.43c-2.93,.36-3.92,1.1-3.92,2.21,0,.97,.67,1.37,1.55,1.37s1.57-.41,2.38-1.15Z"></path>
-          <path class="d" d="M36.39,65.63c0-3.31,2.29-5.22,4.9-5.22,1.26,0,2.18,.5,2.9,1.13l-1.03,1.35c-.54-.49-1.1-.77-1.78-.77-1.66,0-2.84,1.4-2.84,3.51s1.13,3.48,2.79,3.48c.83,0,1.57-.4,2.16-.9l.85,1.37c-.9,.81-2.07,1.22-3.21,1.22-2.68,0-4.74-1.89-4.74-5.17Z"></path>
-          <path class="d" d="M47.2,56.22h2.02v9.25h.05l3.89-4.81h2.29l-3.37,4.02,3.75,5.89h-2.25l-2.68-4.48-1.67,1.93v2.56h-2.02v-14.35Z"></path>
-          <path class="d" d="M62.9,57.7c1.48,.86,2.61,2.01,3.39,3.44,.79,1.43,1.18,3.06,1.18,4.9s-.39,3.47-1.18,4.91-1.92,2.58-3.39,3.43l-.97-1.15c1.24-.75,2.18-1.73,2.84-2.97,.66-1.24,.99-2.64,.99-4.21s-.33-2.96-.99-4.2c-.66-1.24-1.61-2.23-2.84-2.96l.97-1.17Z"></path>
-         </g>
-         <g class="arrow">
-          <rect class="d" x="5.63" y="21.23" width="48.52" height="4.68"></rect>
-          <path class="d" d="M37.65,1.08c.7,1.09,.37,2.54-.72,3.23L6.7,23.57l30.23,19.25c1.09,.7,1.42,2.15,.72,3.23s-2.15,1.4-3.24,.72L1.08,25.55c-.67-.43-1.08-1.18-1.08-1.98s.41-1.55,1.08-1.98L34.41,.37c.39-.25,.83-.37,1.26-.37,.77,0,1.53,.38,1.98,1.08Z"></path>
-         </g>
-        </g>
-       </g>
-      </svg><img class="hide-for-large" src="/images/pages/en/images/csr-back.svg" alt="">
-     </div></a>
-   </div>
-  </div>
 </div>
 @section VendorScripts {
     <script src="~/lib/swiper/swiper-bundle.min.js" defer></script>

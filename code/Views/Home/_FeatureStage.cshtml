@@ -9,18 +9,9 @@
     };
 }
 <div class="feature-stage">
-    @for (var column = 0; column < 5; column++)
-    {
-        var isCenter = column == 2;
-        var isDown = column == 1 || column == 3;
-        <div class="feature-column @(isDown ? "feature-down" : "feature-up") @(isCenter ? "feature-main" : "feature-side") @(column == 0 || column == 4 ? "feature-outer" : "")" aria-hidden="@(isCenter ? null : "true")">
-            @for (var frame = 0; frame < (Model ? 1 : features.Length); frame++)
-            {
-                var feature = features[isDown && !Model ? features.Length - 1 - frame : frame];
-                <figure class="feature-frame" data-tone="@feature.Tone">
-                    @for (var dot = 0; dot < (isCenter ? 4 : 5); dot++)
-                    {
-                        <div class="feature-dot @(isCenter && (dot == 1 || dot == 2) ? "feature-mobile-dot" : "")">
+    @for (var column = 0; column < 5; column++) { var isCenter=column==2; var isDown=column==1 || column==3; <div class="feature-column @(isDown ? "feature-down" : "feature-up") @(isCenter ? "feature-main" : "feature-side") @(column == 0 || column == 4 ? "feature-outer" : "")" aria-hidden="@(isCenter ? null : "true")">
+            @for (var frame = 0; frame < (Model ? 1 : features.Length); frame++) { var feature=features[isDown && !Model ? features.Length - 1 - frame : frame]; <figure class="feature-frame" data-tone="@feature.Tone">
+                    @for (var dot = 0; dot < (isCenter ? 4 : 5); dot++) { <div class="feature-dot @(isCenter && (dot == 1 || dot == 2) ? "feature-mobile-dot" : "")">
                             @if (isDown)
                             {
                                 <img src="~/images/@feature.Photo" alt="" width="82" height="82" loading="lazy" />

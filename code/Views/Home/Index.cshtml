@@ -10,47 +10,47 @@
     <button class="intro-skip" type="button">@T["( Skip )"] <span aria-hidden="true">→</span></button>
 </dialog>
 <div class="hero-track" id="home">
-<section class="hero" aria-labelledby="hero-title">
-    <h1 class="visually-hidden" id="hero-title">@T["KOI Thé — Your Daily Beat"]</h1>
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/images/hero-reading-poster.jpg" aria-hidden="true">
-        <source src="~/videos/hero-reading-desktop.mp4" type="video/mp4" media="(min-width: 1025px)" />
-        <source src="~/videos/hero-reading-tablet.mp4" type="video/mp4" media="(min-width: 640px)" />
-        <source src="~/videos/hero-reading-mobile.mp4" type="video/mp4" />
-    </video>
-    <div class="hero-lettering" aria-hidden="true">
-        <div class="hero-artwork">
-            <picture>
-                <source media="(max-width: 1024px)" srcset="/images/hero-reading-wordmark-mobile.png" />
-                <img class="hero-wordmark" src="~/images/hero-wordmark.svg" alt="" fetchpriority="high" />
-            </picture>
-            <div class="hero-o">
-                <img class="hero-ring" src="~/images/hero-ring.svg" alt="" />
-                <img class="hero-center" src="~/images/hero-reading-center.png" alt="" fetchpriority="high" />
+    <section class="hero" aria-labelledby="hero-title">
+        <h1 class="visually-hidden" id="hero-title">@T["KOI Thé — Your Daily Beat"]</h1>
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/images/hero-reading-poster.jpg" aria-hidden="true">
+            <source src="~/videos/hero-reading-desktop.mp4" type="video/mp4" media="(min-width: 1025px)" />
+            <source src="~/videos/hero-reading-tablet.mp4" type="video/mp4" media="(min-width: 640px)" />
+            <source src="~/videos/hero-reading-mobile.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-lettering" aria-hidden="true">
+            <div class="hero-artwork">
+                <picture>
+                    <source media="(max-width: 1024px)" srcset="/images/hero-reading-wordmark-mobile.png" />
+                    <img class="hero-wordmark" src="~/images/hero-wordmark.svg" alt="" fetchpriority="high" />
+                </picture>
+                <div class="hero-o">
+                    <img class="hero-ring" src="~/images/hero-ring.svg" alt="" />
+                    <img class="hero-center" src="~/images/hero-reading-center.png" alt="" fetchpriority="high" />
+                </div>
             </div>
         </div>
-    </div>
-    <div class="hero-bottom">
-        <a class="scroll-prompt" href="#our-story" aria-label="@T["Scroll to explore more"]">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }<picture><source media="(max-width: 1024px)" srcset="/images/scroll-mobile.svg" /><img src="~/images/scroll-desktop.svg" width="170" height="81" alt="" /></picture></a>
-        <p class="hero-note">@T["Happiness is to share special moments with friends. A celebration, a date or just a relaxing break in the day, there is always a reason to get together around a cup of KOI tea. KOI brings joy to the world. Freshly brewed tea and flavorful ingredients, prepared with passion are the key to KOI’s authentic taste and the reason why people come back again and again."]</p>
-        <button class="intro-replay" type="button">@T["( Replay intro )"]</button>
-        <button class="motion-toggle" type="button" aria-label="@T["Pause background video"]" aria-pressed="false">Ⅱ <span>@T["PAUSE"]</span></button>
-    </div>
-</section>
+        <div class="hero-bottom">
+            <a class="scroll-prompt" href="#our-story" aria-label="@T["Scroll to explore more"]">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }<picture><source media="(max-width: 1024px)" srcset="/images/scroll-mobile.svg" /><img src="~/images/scroll-desktop.svg" width="170" height="81" alt="" /></picture></a>
+            <p class="hero-note">@T["Happiness is to share special moments with friends. A celebration, a date or just a relaxing break in the day, there is always a reason to get together around a cup of KOI tea. KOI brings joy to the world. Freshly brewed tea and flavorful ingredients, prepared with passion are the key to KOI’s authentic taste and the reason why people come back again and again."]</p>
+            <button class="intro-replay" type="button">@T["( Replay intro )"]</button>
+            <button class="motion-toggle" type="button" aria-label="@T["Pause background video"]" aria-pressed="false">Ⅱ <span>@T["PAUSE"]</span></button>
+        </div>
+    </section>
 </div>
 <section class="story" id="our-story" aria-labelledby="story-title">
     <h2 class="visually-hidden" id="story-title">@T["A little care in every cup"]</h2>
     <div class="story-stage">
-    <div class="story-lines" aria-hidden="true">
-        @for (var row = 0; row < 16; row++)
-        {
-            <div class="story-line"><div data-marquee-speed="@speeds[row]">@for (var repeat = 0; repeat < 16; repeat++) { <span><img src="~/images/index-bg-text-@(row % 8 + 1).svg" alt="" /></span> }</div></div>
-        }
-    </div>
-    <div class="story-cup" role="img" aria-label="@T["Freshly brewed milk tea turning as you scroll"]">
-        <div class="story-sprite"><img src="~/images/tea-top.png" width="459" height="459" alt="" loading="lazy" /></div>
-    </div>
-    <div class="story-wipe" aria-hidden="true"></div>
-    <div class="daily-marquee" aria-hidden="true"><div data-marquee-speed="120"><img src="~/images/marquee.svg" alt="" loading="lazy" /><img src="~/images/marquee.svg" alt="" loading="lazy" /></div></div>
+        <div class="story-lines" aria-hidden="true">
+            @for (var row = 0; row < 16; row++)
+            {
+                <div class="story-line"><div data-marquee-speed="@speeds[row]">@for (var repeat = 0; repeat < 16; repeat++) { <span><img src="~/images/index-bg-text-@(row % 8 + 1).svg" alt="" /></span> }</div></div>
+            }
+        </div>
+        <div class="story-cup" role="img" aria-label="@T["Freshly brewed milk tea turning as you scroll"]">
+            <div class="story-sprite"><img src="~/images/tea-top.png" width="459" height="459" alt="" loading="lazy" /></div>
+        </div>
+        <div class="story-wipe" aria-hidden="true"></div>
+        <div class="daily-marquee" aria-hidden="true"><div data-marquee-speed="120"><img src="~/images/marquee.svg" alt="" loading="lazy" /><img src="~/images/marquee.svg" alt="" loading="lazy" /></div></div>
     </div>
 </section>
 <section class="feature-intro" aria-hidden="true">
@@ -62,67 +62,67 @@
 </section>
 <section class="recommendation" aria-labelledby="recommendation-title">
     <div class="recommendation-stage">
-    <p class="recommendation-label">@T["OUR"]<br />@T["RECOMMENDATION"]</p>
-    <h2 id="recommendation-title">@T["GOLDEN BUBBLE MILK TEA"]<br />@T["HONEY GREEN TEA"]</h2>
-    <div class="recommendation-art">
-        <div class="recommendation-layer splash splash-left" data-depth="-4.4"><img src="~/images/splash-left.png" alt="" loading="lazy" /></div>
-        <div class="recommendation-layer splash splash-right" data-depth="-4.5"><img src="~/images/splash-right.png" alt="" loading="lazy" /></div>
-        <div class="recommendation-layer fruit orange-one" data-depth="-2"><img src="~/images/orange-1.png" alt="" loading="lazy" /></div>
-        <div class="recommendation-layer fruit orange-two" data-depth="-2.5"><img src="~/images/orange-3.png" alt="" loading="lazy" /></div>
-        <div class="recommendation-layer fruit orange-three" data-depth="-1.8"><img src="~/images/orange-2.png" alt="" loading="lazy" /></div>
-        <div class="recommendation-layer fruit strawberry-one" data-depth="-4.8"><img src="~/images/strawberry-1.png" alt="" loading="lazy" /></div>
-        <div class="recommendation-layer fruit strawberry-two" data-depth="-6.5"><img src="~/images/strawberry-3.png" alt="" loading="lazy" /></div>
-        <div class="recommendation-layer fruit strawberry-three" data-depth="-5"><img src="~/images/strawberry-2.png" alt="" loading="lazy" /></div>
-        <div class="recommendation-layer recommended-drink milk-tea" data-depth="-5"><img src="~/images/drink-milk-tea.png" alt="@T["Golden Bubble Milk Tea__text"]" width="287" height="465" loading="lazy" /></div>
-        <div class="recommendation-layer recommended-drink green-tea" data-depth="-6.5"><img src="~/images/drink-green-tea.png" alt="@T["Honey Green Tea__text"]" width="287" height="465" loading="lazy" /></div>
-    </div>
-    <div class="recommendation-captions"><span>@T["GOLDEN BUBBLE MILK TEA"]</span><span>@T["HONEY GREEN TEA"]</span></div>
+        <p class="recommendation-label">@T["OUR"]<br />@T["RECOMMENDATION"]</p>
+        <h2 id="recommendation-title">@T["GOLDEN BUBBLE MILK TEA"]<br />@T["HONEY GREEN TEA"]</h2>
+        <div class="recommendation-art">
+            <div class="recommendation-layer splash splash-left" data-depth="-4.4"><img src="~/images/splash-left.png" alt="" loading="lazy" /></div>
+            <div class="recommendation-layer splash splash-right" data-depth="-4.5"><img src="~/images/splash-right.png" alt="" loading="lazy" /></div>
+            <div class="recommendation-layer fruit orange-one" data-depth="-2"><img src="~/images/orange-1.png" alt="" loading="lazy" /></div>
+            <div class="recommendation-layer fruit orange-two" data-depth="-2.5"><img src="~/images/orange-3.png" alt="" loading="lazy" /></div>
+            <div class="recommendation-layer fruit orange-three" data-depth="-1.8"><img src="~/images/orange-2.png" alt="" loading="lazy" /></div>
+            <div class="recommendation-layer fruit strawberry-one" data-depth="-4.8"><img src="~/images/strawberry-1.png" alt="" loading="lazy" /></div>
+            <div class="recommendation-layer fruit strawberry-two" data-depth="-6.5"><img src="~/images/strawberry-3.png" alt="" loading="lazy" /></div>
+            <div class="recommendation-layer fruit strawberry-three" data-depth="-5"><img src="~/images/strawberry-2.png" alt="" loading="lazy" /></div>
+            <div class="recommendation-layer recommended-drink milk-tea" data-depth="-5"><img src="~/images/drink-milk-tea.png" alt="@T["Golden Bubble Milk Tea__text"]" width="287" height="465" loading="lazy" /></div>
+            <div class="recommendation-layer recommended-drink green-tea" data-depth="-6.5"><img src="~/images/drink-green-tea.png" alt="@T["Honey Green Tea__text"]" width="287" height="465" loading="lazy" /></div>
+        </div>
+        <div class="recommendation-captions"><span>@T["GOLDEN BUBBLE MILK TEA"]</span><span>@T["HONEY GREEN TEA"]</span></div>
     </div>
 </section>
 <div class="drinks-track">
-<section class="drinks-section" id="drinks" aria-labelledby="drinks-title">
-    <h2 class="section-heading green" id="drinks-title"><span class="heading-clip"><span class="heading-word">@T["DRINK"]</span></span></h2>
-    <div class="drink-controls"><span>@T["FIND YOUR DAILY FAVOURITE"]</span><div><button type="button" class="carousel-arrow" data-drink-direction="-1" aria-label="@T["Previous drinks"]" aria-controls="drink-carousel">←</button><button type="button" class="carousel-arrow" data-drink-direction="1" aria-label="@T["Next drinks"]" aria-controls="drink-carousel">→</button></div></div>
-    <div class="drink-carousel" id="drink-carousel" tabindex="0" role="region" aria-label="@T["Drink categories, scroll horizontally"]">
-        @foreach (var drink in Model.DrinkCategories)
-        {
-            <a class="drink-card" href="@Url.Action("OurTea", "Home")#@drink.Id">
-                <div class="drink-photo">
-                    <img src="@drink.Image" alt="@drink.Name collection" width="600" height="600" loading="lazy" />
-                    <img class="drink-photo-circle" src="@drink.Image" alt="" width="600" height="600" loading="lazy" aria-hidden="true" />
-                    <span class="drink-view-more" aria-hidden="true">@T["VIEW"]<br />@T["MORE ↗"]</span>
-                </div>
-                <h3><img src="@drink.Icon" alt="" width="32" height="44" loading="lazy" />@drink.Name<span aria-hidden="true">↗</span></h3>
-            </a>
-        }
-    </div>
-</section>
+    <section class="drinks-section" id="drinks" aria-labelledby="drinks-title">
+        <h2 class="section-heading green" id="drinks-title"><span class="heading-clip"><span class="heading-word">@T["DRINK"]</span></span></h2>
+        <div class="drink-controls"><span>@T["FIND YOUR DAILY FAVOURITE"]</span><div><button type="button" class="carousel-arrow" data-drink-direction="-1" aria-label="@T["Previous drinks"]" aria-controls="drink-carousel">←</button><button type="button" class="carousel-arrow" data-drink-direction="1" aria-label="@T["Next drinks"]" aria-controls="drink-carousel">→</button></div></div>
+        <div class="drink-carousel" id="drink-carousel" tabindex="0" role="region" aria-label="@T["Drink categories, scroll horizontally"]">
+            @foreach (var drink in Model.DrinkCategories)
+            {
+                <a class="drink-card" href="@Url.Action("OurTea", "Home")#@drink.Id">
+                    <div class="drink-photo">
+                        <img src="@drink.Image" alt="@drink.Name collection" width="600" height="600" loading="lazy" />
+                        <img class="drink-photo-circle" src="@drink.Image" alt="" width="600" height="600" loading="lazy" aria-hidden="true" />
+                        <span class="drink-view-more" aria-hidden="true">@T["VIEW"]<br />@T["MORE ↗"]</span>
+                    </div>
+                    <h3><img src="@drink.Icon" alt="" width="32" height="44" loading="lazy" />@drink.Name<span aria-hidden="true">↗</span></h3>
+                </a>
+            }
+        </div>
+    </section>
 </div>
 @if (Model.News.Count > 0)
 {
-<section class="news-section" id="news" aria-labelledby="news-title">
-    <h2 class="section-heading gold" id="news-title"><span class="heading-clip"><span class="heading-word">@T["NEWS"]</span></span></h2>
-    <div class="news-carousel" role="region" aria-roledescription="carousel" aria-label="@T["Latest news"]">
-        <div class="news-pagination" aria-label="@T["Choose a news article"]">
-            @for (var index = 0; index < Model.News.Count; index++)
-            {
-                <button type="button" data-news-slide="@index" aria-label="Show news @(index + 1)" aria-pressed="@((index == 0).ToString().ToLowerInvariant())" aria-controls="news-@(index + 1)">@((index + 1).ToString("D2"))</button>
-            }
+    <section class="news-section" id="news" aria-labelledby="news-title">
+        <h2 class="section-heading gold" id="news-title"><span class="heading-clip"><span class="heading-word">@T["NEWS"]</span></span></h2>
+        <div class="news-carousel" role="region" aria-roledescription="carousel" aria-label="@T["Latest news"]">
+            <div class="news-pagination" aria-label="@T["Choose a news article"]">
+                @for (var index = 0; index < Model.News.Count; index++)
+                {
+                    <button type="button" data-news-slide="@index" aria-label="Show news @(index + 1)" aria-pressed="@((index == 0).ToString().ToLowerInvariant())" aria-controls="news-@(index + 1)">@((index + 1).ToString("D2"))</button>
+                }
+            </div>
+            <div class="news-slides">
+                @for (var index = 0; index < Model.News.Count; index++)
+                {
+                    var article = Model.News[index];
+                    <article class="news-slide" id="news-@(index + 1)" aria-roledescription="slide" aria-label="@(index + 1) of @Model.News.Count" hidden="@(index > 0)">
+                        <a asp-action="NewsDetail" asp-route-id="@article.Id" class="news-link">
+                            <img class="news-image" src="@(string.IsNullOrEmpty(article.HomeImage) ? article.Image : article.HomeImage)" alt="@article.Title" width="840" height="520" loading="lazy" />
+                            <div class="news-copy"><time datetime="@article.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(article.Date))</time><h3>@article.Title</h3><span class="news-more"><span aria-hidden="true">→</span>@T["( More )"]</span></div>
+                        </a>
+                    </article>
+                }
+            </div>
         </div>
-        <div class="news-slides">
-            @for (var index = 0; index < Model.News.Count; index++)
-            {
-                var article = Model.News[index];
-                <article class="news-slide" id="news-@(index + 1)" aria-roledescription="slide" aria-label="@(index + 1) of @Model.News.Count" hidden="@(index > 0)">
-                    <a asp-action="NewsDetail" asp-route-id="@article.Id" class="news-link">
-                        <img class="news-image" src="@(string.IsNullOrEmpty(article.HomeImage) ? article.Image : article.HomeImage)" alt="@article.Title" width="840" height="520" loading="lazy" />
-                        <div class="news-copy"><time datetime="@article.Date.ToString("yyyy-MM-dd")">(@SiteText.Date(article.Date))</time><h3>@article.Title</h3><span class="news-more"><span aria-hidden="true">→</span>@T["( More )"]</span></div>
-                    </a>
-                </article>
-            }
-        </div>
-    </div>
-</section>
+    </section>
 }
 
 @section VendorScripts {

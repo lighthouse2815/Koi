@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
 }
 <div class="content-page" id="home">
-<div class="aboutWrap about-menu-pin"><h1 class="visually-hidden">@T["About KOI Thé"]</h1>
+    <div class="aboutWrap about-menu-pin">
+        <h1 class="visually-hidden">@T["About KOI Thé"]</h1>
         <div class="about-animation">
             <div class="text-area-outter">
                 <div class="text-area flex-container align-center-middle" aria-hidden="true">
@@ -258,11 +259,13 @@
         </ul>
         <div class="about-ingredient flex-container">
             <div class="pic-area">
-                <div class="ingredient-background swiper"><ul class="bg swiper-wrapper">
-                    <li class="swiper-slide"><img src="/images/pages/en/images/a-i-pic-1.jpg" alt=""></li>
-                    <li class="swiper-slide"><img src="/images/pages/en/images/a-i-pic-2.jpg" alt=""></li>
-                    <li class="swiper-slide"><img src="/images/pages/en/images/a-i-pic-3.jpg" alt=""></li>
-                </ul></div>
+                <div class="ingredient-background swiper">
+                    <ul class="bg swiper-wrapper">
+                        <li class="swiper-slide"><img src="/images/pages/en/images/a-i-pic-1.jpg" alt=""></li>
+                        <li class="swiper-slide"><img src="/images/pages/en/images/a-i-pic-2.jpg" alt=""></li>
+                        <li class="swiper-slide"><img src="/images/pages/en/images/a-i-pic-3.jpg" alt=""></li>
+                    </ul>
+                </div>
                 <div class="triangle">
                     <div data-tri="1" class="one triangle-1 is-show">@T["Tea__text"]</div>
                     <div data-tri="2" class="two triangle-2">@T["Sweetness"]</div>
@@ -276,113 +279,124 @@
                     </div>
 
                 </div>
-                <div class="ingredient-copy swiper"><ul class="slick-article swiper-wrapper">
-                    <li class="swiper-slide slick-slide" data-ing="1">
-                        <div class="title-area">
-                            <div class="en">@T["Tea__text"]</div>
+                <div class="ingredient-copy swiper">
+                    <ul class="slick-article swiper-wrapper">
+                        <li class="swiper-slide slick-slide" data-ing="1">
+                            <div class="title-area">
+                                <div class="en">@T["Tea__text"]</div>
 
-                        </div>
-                        <div class="content">
-                            @T["We conduct regular water quality checks, strictly control the temperature of each batch of tea, ensuring that every cup reflects the exquisite flavors of carefully selected tea leaves."]
-                        </div>
-                    </li>
-                    <li class="swiper-slide slick-slide" data-ing="2">
-                        <div class="title-area">
-                            <div class="en">@T["Sweetness"]</div>
+                            </div>
+                            <div class="content">
+                                @T["We conduct regular water quality checks, strictly control the temperature of each batch of tea, ensuring that every cup reflects the exquisite flavors of carefully selected tea leaves."]
+                            </div>
+                        </li>
+                        <li class="swiper-slide slick-slide" data-ing="2">
+                            <div class="title-area">
+                                <div class="en">@T["Sweetness"]</div>
 
-                        </div>
-                        <div class="content">
-                            @T["Perfected through repeated testing by our team, the ideal ratio elevates the deliciousness of our tea to another level, with each sip releasing just the right amount of sweet aroma."]
-                        </div>
-                    </li>
-                    <li class="swiper-slide slick-slide" data-ing="3">
-                        <div class="title-area">
-                            <div class="en">@T["Ice Cubes"]</div>
+                            </div>
+                            <div class="content">
+                                @T["Perfected through repeated testing by our team, the ideal ratio elevates the deliciousness of our tea to another level, with each sip releasing just the right amount of sweet aroma."]
+                            </div>
+                        </li>
+                        <li class="swiper-slide slick-slide" data-ing="3">
+                            <div class="title-area">
+                                <div class="en">@T["Ice Cubes"]</div>
 
-                        </div>
-                        <div class="content">
-                            @T["We use harder ice cubes with high density plus precise control over the quantity to preserve the original flavor of the tea as well as provide a refreshing and pleasant texture, enhancing the overall taste experience."]
-                        </div>
-                    </li>
-                </ul><div class="ingredient-pagination"></div></div>
+                            </div>
+                            <div class="content">
+                                @T["We use harder ice cubes with high density plus precise control over the quantity to preserve the original flavor of the tea as well as provide a refreshing and pleasant texture, enhancing the overall taste experience."]
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="ingredient-pagination"></div>
+                </div>
                 <button type="button" class="about-motion-pause" aria-pressed="false">@T["( Pause motion )"]</button>
             </div>
         </div>
         <div class="about-event flex-container">
-            <div class="pic-area swiper show-for-large"><ul class="swiper-wrapper">
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
-            </ul></div>
-            <div class="pic-area swiper hide-for-large"><ul class="swiper-wrapper">
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
-                <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
-            </ul></div>
+            <div class="pic-area swiper show-for-large">
+                <ul class="swiper-wrapper">
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
+                </ul>
+            </div>
+            <div class="pic-area swiper hide-for-large">
+                <ul class="swiper-wrapper">
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-1.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-2.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-3.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-4.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-5.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-6.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-7.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-8.jpg" alt=""></li>
+                    <li class="swiper-slide"><img src="/images/pages/en/images/a-event-9.jpg" alt=""></li>
+                </ul>
+            </div>
 
             <div class="article-area">
-                <div class="history-year swiper"><ul class="number swiper-wrapper">
-                    <li class="swiper-slide">2006</li>
-                    <li class="swiper-slide">2007</li>
-                    <li class="swiper-slide">2015</li>
-                    <li class="swiper-slide">2019</li>
-                    <li class="swiper-slide">2021</li>
-                    <li class="swiper-slide">2023</li>
-                    <li class="swiper-slide">2023</li>
-                    <li class="swiper-slide">2024</li>
-                    <li class="swiper-slide">2025</li>
-                </ul></div>
+                <div class="history-year swiper">
+                    <ul class="number swiper-wrapper">
+                        <li class="swiper-slide">2006</li>
+                        <li class="swiper-slide">2007</li>
+                        <li class="swiper-slide">2015</li>
+                        <li class="swiper-slide">2019</li>
+                        <li class="swiper-slide">2021</li>
+                        <li class="swiper-slide">2023</li>
+                        <li class="swiper-slide">2023</li>
+                        <li class="swiper-slide">2024</li>
+                        <li class="swiper-slide">2025</li>
+                    </ul>
+                </div>
 
-                <div class="history-description swiper"><ul class="en swiper-wrapper">
-                    <li class="swiper-slide">@T["A coffee bean sparked a series of magical journeys for KOI."]</li>
-                    <li class="swiper-slide">@T["The grand opening of Toa Payoh flagship store in Singapore has successfully ignited the KOI craze across Southeast Asia."]</li>
-                    <li class="swiper-slide">@T["To reflect the professionalism of tea beverages and the brand philosophy, KOI Café has officially been renamed KOI Thé."]</li>
-                    <li class="swiper-slide">@T["Launching into North America under the FIFTYLAN brand, with the grand opening of the New York store."]</li>
-                    <li class="swiper-slide">@T["Venturing into West Asia, Grand Opening of the Dubai store."]</li>
-                    <li class="swiper-slide">@T["Venturing into South Asia, Grand Opening of the Bangladesh store."]</li>
-                    <li class="swiper-slide">@T["A new Beat of vibrancy! Injected new vitality into our original hand-drawn logo, reflecting KOI's pursuit of professionalism and constant innovation."]</li>
-                    <li class="swiper-slide">@T["Expanding into Europe, marking the grand opening of our first store in Paris."]</li>
-                    <li class="swiper-slide">@T["Expanding into Oceania, with the grand opening of our first store in Sydney"]</li>
-                </ul></div>
+                <div class="history-description swiper">
+                    <ul class="en swiper-wrapper">
+                        <li class="swiper-slide">@T["A coffee bean sparked a series of magical journeys for KOI."]</li>
+                        <li class="swiper-slide">@T["The grand opening of Toa Payoh flagship store in Singapore has successfully ignited the KOI craze across Southeast Asia."]</li>
+                        <li class="swiper-slide">@T["To reflect the professionalism of tea beverages and the brand philosophy, KOI Café has officially been renamed KOI Thé."]</li>
+                        <li class="swiper-slide">@T["Launching into North America under the FIFTYLAN brand, with the grand opening of the New York store."]</li>
+                        <li class="swiper-slide">@T["Venturing into West Asia, Grand Opening of the Dubai store."]</li>
+                        <li class="swiper-slide">@T["Venturing into South Asia, Grand Opening of the Bangladesh store."]</li>
+                        <li class="swiper-slide">@T["A new Beat of vibrancy! Injected new vitality into our original hand-drawn logo, reflecting KOI's pursuit of professionalism and constant innovation."]</li>
+                        <li class="swiper-slide">@T["Expanding into Europe, marking the grand opening of our first store in Paris."]</li>
+                        <li class="swiper-slide">@T["Expanding into Oceania, with the grand opening of our first store in Sydney"]</li>
+                    </ul>
+                </div>
                 <div class="arrow-area flex-container align-middle align-right show-for-large">
                     <div class="prev">
                         <svg data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="34.68" height="30.19" viewBox="0 0 34.68 30.19">
@@ -419,7 +433,7 @@
             <h2>KOI Thé Việt Nam</h2>
             <a asp-action="Store">Xem các chi nhánh ↗</a>
         </section>
-            </div>
+    </div>
 </div>
 @section VendorScripts {
     <script src="~/lib/swiper/swiper-bundle.min.js" defer></script>

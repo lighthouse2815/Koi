@@ -12,46 +12,52 @@
     </script>
     <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
-    <noscript><style>.menuListWrap .head-area .en, .menuListWrap .menuList { transform: none; opacity: 1; } .menuListWrap .head-area { --menu-rule-width: 100%; }</style></noscript>
+    <noscript>
+        <style>.menuListWrap .head-area .en, .menuListWrap .menuList { transform: none; opacity: 1; } .menuListWrap .head-area { --menu-rule-width: 100%; }</style>
+    </noscript>
 }
 <div class="content-page" id="home">
-<div class="menuListWrap menu-pin">
-    <div class="head-area"><h1 class="en">@T["MENU"]</h1></div>
-    <ul class="menuList" aria-label="@T["Menus by country"]">
+    <div class="menuListWrap menu-pin">
+        <div class="head-area">
+            <h1 class="en">@T["MENU"]</h1>
+        </div>
+        <ul class="menuList" aria-label="@T["Menus by country"]">
             <li class="menu-inner">
                 <div class="inner flex-container align-justify">
-                    <div class="title"><h2 class="en">@T["VIETNAM"]</h2></div>
+                    <div class="title">
+                        <h2 class="en">@T["VIETNAM"]</h2>
+                    </div>
                     <ul class="linkList">
                         @foreach (var menu in Model.Menus)
                         {
                             <li><a href="@menu.File" target="_blank" rel="noopener noreferrer" class="flex-container align-middle" aria-label="@T["VIETNAM"] – @menu.Label menu (opens in a new tab)">
-                                <span class="store">@menu.Label</span>
-                                <span class="arrow">
-<svg class="show-for-large" xmlns="http://www.w3.org/2000/svg" width="34.68" height="30.19" viewBox="0 0 34.68 30.19" aria-hidden="true">
+                                    <span class="store">@menu.Label</span>
+                                    <span class="arrow">
+                                        <svg class="show-for-large" xmlns="http://www.w3.org/2000/svg" width="34.68" height="30.19" viewBox="0 0 34.68 30.19" aria-hidden="true">
+                                            <g>
                                                 <g>
-                                                    <g>
-                                                        <line class="e" y1="15.09" x2="31.07" y2="15.09"></line>
-                                                        <path class="d" d="M10.57,29.49c-.45-.7-.24-1.63,.46-2.07L30.39,15.09,11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43,.28,.69,.75,.69,1.27s-.26,.99-.69,1.27L12.64,29.95c-.25,.16-.53,.23-.81,.23-.5,0-.98-.25-1.27-.69Z"></path>
-                                                    </g>
+                                                    <line class="e" y1="15.09" x2="31.07" y2="15.09"></line>
+                                                    <path class="d" d="M10.57,29.49c-.45-.7-.24-1.63,.46-2.07L30.39,15.09,11.03,2.76c-.7-.45-.91-1.37-.46-2.07s1.38-.9,2.07-.46l21.34,13.59c.43,.28,.69,.75,.69,1.27s-.26,.99-.69,1.27L12.64,29.95c-.25,.16-.53,.23-.81,.23-.5,0-.98-.25-1.27-.69Z"></path>
                                                 </g>
-                                            </svg>
-<svg class="hide-for-large" xmlns="http://www.w3.org/2000/svg" width="24.68" height="20.12" viewBox="0 0 24.68 20.12" aria-hidden="true">
+                                            </g>
+                                        </svg>
+                                        <svg class="hide-for-large" xmlns="http://www.w3.org/2000/svg" width="24.68" height="20.12" viewBox="0 0 24.68 20.12" aria-hidden="true">
+                                            <g>
                                                 <g>
-                                                    <g>
-                                                        <line class="e" y1="10.06" x2="22.28" y2="10.06"></line>
-                                                        <path class="d" d="M8.61,19.66c-.3-.46-.16-1.08,.31-1.38l12.9-8.22L8.92,1.84c-.47-.3-.61-.92-.31-1.38s.92-.6,1.38-.31l14.23,9.06c.29,.18,.46,.5,.46,.84s-.18,.66-.46,.84l-14.23,9.06c-.17,.11-.35,.16-.54,.16-.33,0-.65-.16-.85-.46Z"></path>
-                                                    </g>
+                                                    <line class="e" y1="10.06" x2="22.28" y2="10.06"></line>
+                                                    <path class="d" d="M8.61,19.66c-.3-.46-.16-1.08,.31-1.38l12.9-8.22L8.92,1.84c-.47-.3-.61-.92-.31-1.38s.92-.6,1.38-.31l14.23,9.06c.29,.18,.46,.5,.46,.84s-.18,.66-.46,.84l-14.23,9.06c-.17,.11-.35,.16-.54,.16-.33,0-.65-.16-.85-.46Z"></path>
                                                 </g>
-                                            </svg>
-                                </span>
-                            </a></li>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </a></li>
                         }
                     </ul>
                 </div>
             </li>
-    </ul>
-    <div class="back"><a asp-controller="Home" asp-action="OurTea" class="flex-container align-middle" aria-label="@T["Back to Our Tea"]">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">←</span>@T["( Back )"]</span> }
-<svg class="show-for-large" xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14" aria-hidden="true">
+        </ul>
+        <div class="back"><a asp-controller="Home" asp-action="OurTea" class="flex-container align-middle" aria-label="@T["Back to Our Tea"]">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">←</span>@T["( Back )"]</span> }
+                <svg class="show-for-large" xmlns="http://www.w3.org/2000/svg" width="54.15" height="47.14" viewBox="0 0 54.15 47.14" aria-hidden="true">
                     <g>
                         <g>
                             <rect class="d" y="21.22" width="48.52" height="4.68"></rect>
@@ -59,7 +65,7 @@
                         </g>
                     </g>
                 </svg>
-<svg class="hide-for-large" xmlns="http://www.w3.org/2000/svg" width="38.68" height="33.67" viewBox="0 0 38.68 33.67" aria-hidden="true">
+                <svg class="hide-for-large" xmlns="http://www.w3.org/2000/svg" width="38.68" height="33.67" viewBox="0 0 38.68 33.67" aria-hidden="true">
                     <g>
                         <g>
                             <rect class="d" y="15.16" width="34.66" height="3.35"></rect>
@@ -67,9 +73,9 @@
                         </g>
                     </g>
                 </svg>
-        <span class="text">@T["OUR TEA"]</span>
-    </a></div>
-</div>
+                <span class="text">@T["OUR TEA"]</span>
+            </a></div>
+    </div>
 </div>
 @section VendorScripts {
     <script src="~/lib/gsap/gsap.min.js" defer></script>
