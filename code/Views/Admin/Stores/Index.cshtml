@@ -25,7 +25,7 @@
                     <td>@(store.City?.Name ?? "Việt Nam")</td>
                     <td>@(store.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
-                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@store.Id">Sửa</a><a asp-action="Delete" asp-route-id="@store.Id">Xóa</a></div>
+                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@store.Id">Sửa</a><a asp-action="Delete" asp-route-id="@store.Id" class="delete-link" data-name="@store.Name">Xóa</a></div>
                     </td>
                 </tr>
             }
@@ -38,3 +38,5 @@
     <span>Trang @Model.Page / @Model.PageCount</span>
     @if (Model.Page < Model.PageCount) { <a asp-route-page="@(Model.Page + 1)" asp-route-search="@Model.Search">Sau →</a> }
 </nav>
+
+<partial name="_DeleteDialog" />

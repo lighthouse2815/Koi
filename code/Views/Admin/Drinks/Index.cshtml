@@ -33,7 +33,7 @@
                     <td>@drink.SortOrder</td>
                     <td>@(drink.IsPublished ? (drink.Category.IsPublished ? "Đã xuất bản" : "Danh mục đang ẩn") : "Bản nháp")</td>
                     <td>
-                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@drink.Id">Sửa</a><a asp-action="Delete" asp-route-id="@drink.Id">Xóa</a></div>
+                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@drink.Id">Sửa</a><a asp-action="Delete" asp-route-id="@drink.Id" class="delete-link" data-name="@drink.Name">Xóa</a></div>
                     </td>
                 </tr>
             }
@@ -46,3 +46,5 @@
     <span>Trang @Model.Page / @Model.PageCount</span>
     @if (Model.Page < Model.PageCount) { <a asp-route-page="@(Model.Page + 1)" asp-route-categoryId="@Model.CategoryId" asp-route-search="@Model.Search">Sau →</a> }
 </nav>
+
+<partial name="_DeleteDialog" />

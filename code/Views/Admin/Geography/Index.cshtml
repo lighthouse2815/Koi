@@ -18,10 +18,12 @@
                     <td>@row.Name</td>
                     <td>@row.SortOrder</td>
                     <td>
-                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@row.Id" asp-route-kind="@Model.Kind">Sửa</a><a asp-action="Delete" asp-route-id="@row.Id" asp-route-kind="@Model.Kind">Xóa</a></div>
+                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@row.Id" asp-route-kind="@Model.Kind">Sửa</a><a asp-action="Delete" asp-route-id="@row.Id" class="delete-link" data-name="@row.Name" asp-route-kind="@Model.Kind">Xóa</a></div>
                     </td>
                 </tr> }
         </tbody>
     </table>
 </div>
 @if (Model.Rows.Length == 0) { <p>Chưa có dữ liệu.</p> }
+
+<partial name="_DeleteDialog" />

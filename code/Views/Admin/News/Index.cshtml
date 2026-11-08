@@ -35,7 +35,7 @@
                     <td>@article.Date.ToString("dd/MM/yyyy")</td>
                     <td>@(article.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
-                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@article.Id">Sửa</a><a asp-action="Preview" asp-route-id="@article.Id" target="_blank" rel="noopener">Xem trước</a><a asp-action="Delete" asp-route-id="@article.Id">Xóa</a></div>
+                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@article.Id">Sửa</a><a asp-action="Preview" asp-route-id="@article.Id" target="_blank" rel="noopener">Xem trước</a><a asp-action="Delete" asp-route-id="@article.Id" class="delete-link" data-name="@article.Title">Xóa</a></div>
                     </td>
                 </tr>
             }
@@ -51,3 +51,5 @@
     <span>Trang @Model.Page / @Model.PageCount</span>
     @if (Model.Page < Model.PageCount) { <a asp-action="Index" asp-route-page="@(Model.Page + 1)" asp-route-search="@Model.Search">Sau →</a> }
 </nav>
+
+<partial name="_DeleteDialog" />

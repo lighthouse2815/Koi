@@ -25,7 +25,7 @@
                     <td>@item.SortOrder</td>
                     <td>@(item.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
-                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@item.Id">Sửa</a><a asp-action="Delete" asp-route-id="@item.Id">Xóa</a></div>
+                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@item.Id">Sửa</a><a asp-action="Delete" asp-route-id="@item.Id" class="delete-link" data-name="@item.Name">Xóa</a></div>
                     </td>
                 </tr>
             }
@@ -33,3 +33,5 @@
     </table>
 </div>
 @if (Model.Length == 0) { <p>Chưa có mục New Drinks.</p> }
+
+<partial name="_DeleteDialog" />

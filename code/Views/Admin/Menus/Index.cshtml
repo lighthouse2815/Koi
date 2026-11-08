@@ -21,7 +21,7 @@
                     <td>@menu.SortOrder</td>
                     <td>@(menu.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
-                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@menu.Id">Sửa</a><a asp-action="Delete" asp-route-id="@menu.Id">Xóa</a></div>
+                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@menu.Id">Sửa</a><a asp-action="Delete" asp-route-id="@menu.Id" class="delete-link" data-name="@menu.Label">Xóa</a></div>
                     </td>
                 </tr>
             }
@@ -29,3 +29,5 @@
     </table>
 </div>
 @if (Model.Menus.Length == 0) { <p>Chưa có thực đơn.</p> }
+
+<partial name="_DeleteDialog" />

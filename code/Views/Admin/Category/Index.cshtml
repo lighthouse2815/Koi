@@ -5,20 +5,9 @@
 <div class="table-wrap"><table><thead><tr><th>Danh mục</th><th>Thứ tự</th><th>Ảnh</th><th>Biểu tượng</th><th>Hiển thị</th><th>Trang chủ</th><th>Thao tác</th></tr></thead><tbody>
 @foreach (var category in Model)
 {
-    <tr><td>@category.Name</td><td>@category.SortOrder</td><td>@if (!string.IsNullOrWhiteSpace(category.Image)) { <img class="category-thumbnail" src="@category.Image" alt="Ảnh @category.Name" loading="lazy" /> } else { <span>Chưa có</span> }</td><td>@if (!string.IsNullOrWhiteSpace(category.Icon)) { <img class="category-thumbnail category-thumbnail--icon" src="@category.Icon" alt="Biểu tượng @category.Name" loading="lazy" /> } else { <span>Chưa có</span> }</td><td>@(category.IsPublished ? "Đã xuất bản" : "Bản nháp")</td><td>@(category.ShowOnHome ? "Có · thứ tự " + category.SortOrder : "Không")</td><td><div class="row-actions"><a asp-action="Edit" asp-route-id="@category.Id">Sửa</a><a asp-area="" asp-controller="Home" asp-action="OurTea" asp-fragment="@category.Id.ToString()" target="_blank" rel="noopener">Xem website</a><a asp-action="Delete" asp-route-id="@category.Id" class="category-delete" data-name="@category.Name">Xóa</a></div></td></tr>
+    <tr><td>@category.Name</td><td>@category.SortOrder</td><td>@if (!string.IsNullOrWhiteSpace(category.Image)) { <img class="category-thumbnail" src="@category.Image" alt="Ảnh @category.Name" loading="lazy" /> } else { <span>Chưa có</span> }</td><td>@if (!string.IsNullOrWhiteSpace(category.Icon)) { <img class="category-thumbnail category-thumbnail--icon" src="@category.Icon" alt="Biểu tượng @category.Name" loading="lazy" /> } else { <span>Chưa có</span> }</td><td>@(category.IsPublished ? "Đã xuất bản" : "Bản nháp")</td><td>@(category.ShowOnHome ? "Có · thứ tự " + category.SortOrder : "Không")</td><td><div class="row-actions"><a asp-action="Edit" asp-route-id="@category.Id">Sửa</a><a asp-area="" asp-controller="Home" asp-action="OurTea" asp-fragment="@category.Id.ToString()" target="_blank" rel="noopener">Xem website</a><a asp-action="Delete" asp-route-id="@category.Id" class="delete-link" data-name="@category.Name">Xóa</a></div></td></tr>
 }
 </tbody></table></div>
-<p id="category-empty" hidden="@(Model.Count != 0)">Chưa có danh mục.</p>
-<p id="category-delete-status" class="status" role="status" hidden></p>
+@if (Model.Count == 0) { <p>Chưa có danh mục.</p> }
 
-<dialog id="category-delete-dialog" class="delete-dialog" aria-labelledby="category-delete-title">
-    <h2 id="category-delete-title">Xác nhận xóa danh mục</h2>
-    <p>Bạn có chắc muốn xóa <strong id="category-delete-name"></strong>?</p>
-    <p>Ảnh đã tải lên được giữ lại để tránh ảnh hưởng nội dung khác.</p>
-    <p id="category-delete-error" class="validation" role="alert" hidden></p>
-    <form asp-action="Delete" method="post" data-list-url="@Url.Action("Index")">
-        <button type="button" class="button secondary" data-cancel-delete>Hủy</button>
-        <button type="submit" class="button danger">Xác nhận xóa</button>
-    </form>
-</dialog>
-<script src="~/js/category-delete.js" asp-append-version="true" defer></script>
+<partial name="_DeleteDialog" />

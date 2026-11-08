@@ -1,0 +1,14 @@
+<p id="delete-status" class="status" role="status" hidden></p>
+<p id="delete-empty" hidden>Không còn mục nào trên trang này.</p>
+
+<dialog id="delete-dialog" class="delete-dialog" aria-labelledby="delete-title">
+    <h2 id="delete-title">Xác nhận xóa</h2>
+    <p>Bạn có chắc muốn xóa <strong id="delete-name"></strong>?</p>
+    <p>Thao tác này sẽ xóa dữ liệu đã chọn.</p>
+    <p id="delete-error" class="validation" role="alert" hidden></p>
+    <form asp-action="Delete" method="post" data-list-url="@Url.Action("Index")">
+        <button type="button" class="button secondary" data-cancel-delete>Hủy</button>
+        <button type="submit" class="button danger">Xác nhận xóa</button>
+    </form>
+</dialog>
+<script src="~/js/admin-delete.js" asp-append-version="true" defer></script>
