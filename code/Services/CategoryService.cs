@@ -49,9 +49,16 @@ public class CategoryService(
     {
         model.CurrentImage = category.Image;
         model.CurrentIcon = category.Icon;
-        if (!string.IsNullOrWhiteSpace(model.Name) && await database.Categories.AnyAsync(value =>
-            value.Id != category.Id && value.Name.Trim().ToLower() == model.Name.Trim().ToLower()))
-            throw new AppException(ErrorCode.CATEGORY_NAME_EXISTS);
+        if (!string.IsNullOrWhiteSpace(model.Name))
+        {
+            var normalizedName = model.Name.Trim().ToLower();
+            var nameExists = await database.Categories.AnyAsync(existingCategory =>
+                existingCategory.Id != category.Id &&
+                existingCategory.Name.Trim().ToLower() == normalizedName);
+
+            if (nameExists)
+                throw new AppException(ErrorCode.CATEGORY_NAME_EXISTS);
+        }
 
         await ApplyImagesAsync(category, model);
 
