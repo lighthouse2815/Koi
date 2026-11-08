@@ -5,6 +5,12 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode DATA_CONFLICT =
         new("DATA_CONFLICT", "Dữ liệu đã thay đổi. Vui lòng tải lại và thử lại.", StatusCodes.Status409Conflict);
 
+    public static readonly ErrorCode INVALID_INPUT =
+        new("INVALID_INPUT", "Dữ liệu không hợp lệ.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode INVALID_IMAGE =
+        new("INVALID_IMAGE", "Ảnh tải lên không hợp lệ.", StatusCodes.Status400BadRequest);
+
     public static readonly ErrorCode CATEGORY_NOT_FOUND =
         new("CATEGORY_NOT_FOUND", "Không tìm thấy danh mục.", StatusCodes.Status404NotFound);
 
