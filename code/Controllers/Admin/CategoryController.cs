@@ -27,16 +27,17 @@ public class CategoryController(CategoryService categories) : Controller
         });
     }
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
-    public Task<IActionResult> Create(CategoryEditViewModel model) =>
-        HandleSaveAsync(categories.CreateAsync(model, ModelState));
+    public async Task<IActionResult> Create(CategoryEditViewModel model)
+    {
+        await categories.CreateAsync(model, ModelState);
+        TempData["Status"] = "Đã lưu danh mục đồ uống.";
+        return Json(new { redirectUrl = Url.Action(nameof(Index)) });
+    }
 
     [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
-    public Task<IActionResult> Edit([FromForm] CategoryEditViewModel model) =>
-        HandleSaveAsync(categories.UpdateAsync(model, ModelState));
-
-    private async Task<IActionResult> HandleSaveAsync(Task saveTask)
+    public async Task<IActionResult> Edit([FromForm] CategoryEditViewModel model)
     {
-        await saveTask;
+        await categories.UpdateAsync(model, ModelState);
         TempData["Status"] = "Đã lưu danh mục đồ uống.";
         return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
