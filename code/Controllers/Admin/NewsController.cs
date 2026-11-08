@@ -1,4 +1,5 @@
 using Koi.Web.Models;
+using Koi.Web.Filters;
 using Koi.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,49 +13,27 @@ public class NewsController(NewsService news) : Controller
     public async Task<IActionResult> Index(string? search, int page = 1) => View(await news.GetListAsync(search, page));
 
     [HttpGet]
-    public IActionResult Create() => View("Edit", new NewsEditViewModel());
-
-    [HttpGet]
-    public async Task<IActionResult> Edit(Guid id)
-    {
-        var model = await news.GetEditAsync(id);
-        return model == null ? NotFound() : View(model);
-    }
-
-    [HttpGet]
     public IActionResult Preview(Guid id) => RedirectToAction("NewsPreview", "Home", new { area = "", id });
 
     [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
-    public Task<IActionResult> Create(NewsEditViewModel model) => Save(model, null);
-
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
-    public Task<IActionResult> Edit(Guid id, NewsEditViewModel model) => id != model.Id
-        ? Task.FromResult<IActionResult>(BadRequest()) : Save(model, id);
-
-    private async Task<IActionResult> Save(NewsEditViewModel model, Guid? id)
+    [ValidateModel]
+    public async Task<IActionResult> Create(NewsEditViewModel model)
     {
-        var status = await news.SaveAsync(model, id, ModelState);
-        if (status == SaveResult.NotFound)
-            return NotFound();
-        if (status == SaveResult.Success)
-        {
-            TempData["Status"] = id.HasValue ? "Đã cập nhật bài viết." : "Đã thêm bài viết.";
-            return RedirectToAction(nameof(Index));
-        }
-        Response.StatusCode = status switch
-        {
-            SaveResult.Invalid => StatusCodes.Status400BadRequest,
-            SaveResult.Conflict => StatusCodes.Status409Conflict,
-            _ => StatusCodes.Status503ServiceUnavailable
-        };
-        return View("Edit", model);
+        await news.CreateAsync(model);
+        TempData["Status"] = "Đã thêm bài viết.";
+        return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Delete(Guid id)
+    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [ValidateModel]
+    public async Task<IActionResult> Edit([FromRoute] Guid id, NewsEditViewModel model)
     {
-        var article = await news.GetArticleAsync(id);
-        return article == null ? NotFound() : View(article);
+        if (id != model.Id)
+            return BadRequest();
+
+        await news.UpdateAsync(id, model);
+        TempData["Status"] = "Đã cập nhật bài viết.";
+        return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
     [HttpPost, ActionName("Delete")]

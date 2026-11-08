@@ -6,8 +6,9 @@
     <div>
         <p class="eyebrow">NỘI DUNG WEBSITE</p>
         <h1>Quản lý tin tức</h1>
-    </div><a asp-action="Create" class="button">+ Thêm bài viết</a>
+    </div><button type="button" class="button" data-news-create>+ Thêm bài viết</button>
 </div>
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa bài viết.</p></noscript>
 <form method="get" class="search"><label for="search">Tìm theo tiêu đề</label>
     <div><input id="search" name="search" value="@Model.Search" maxlength="200" /><button type="submit" class="button secondary">Tìm kiếm</button></div>
 </form>
@@ -35,7 +36,20 @@
                     <td>@article.Date.ToString("dd/MM/yyyy")</td>
                     <td>@(article.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
-                        <div class="row-actions"><a asp-action="Edit" asp-route-id="@article.Id">Sửa</a><a asp-action="Preview" asp-route-id="@article.Id" target="_blank" rel="noopener">Xem trước</a><a asp-action="Delete" asp-route-id="@article.Id" class="delete-link" data-name="@article.Title">Xóa</a></div>
+                        <div class="row-actions">
+                            <button type="button" class="link-button" data-news-edit
+                                    data-url="@Url.Action("Edit", new { id = article.Id })"
+                                    data-id="@article.Id" data-revision="@article.Revision" data-title="@article.Title"
+                                    data-category="@article.Category" data-date="@article.Date.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)"
+                                    data-body-html="@article.BodyHtml" data-image="@article.Image"
+                                    data-video-url="@(article.VideoId == null ? "" : $"https://www.youtube.com/embed/{article.VideoId}")"
+                                    data-is-published="@article.IsPublished.ToString().ToLowerInvariant()"
+                                    data-is-featured="@article.IsFeatured.ToString().ToLowerInvariant()"
+                                    data-show-on-home="@article.ShowOnHome.ToString().ToLowerInvariant()"
+                                    data-home-order="@article.HomeOrder">Sửa</button>
+                            <a asp-action="Preview" asp-route-id="@article.Id" target="_blank" rel="noopener">Xem trước</a>
+                            <a asp-action="Delete" asp-route-id="@article.Id" class="delete-link" data-name="@article.Title">Xóa</a>
+                        </div>
                     </td>
                 </tr>
             }
@@ -53,3 +67,5 @@
 </nav>
 
 <partial name="_DeleteDialog" />
+<partial name="Edit" model="new NewsEditViewModel()" />
+<script src="~/js/news-editor.js" asp-append-version="true" defer></script>

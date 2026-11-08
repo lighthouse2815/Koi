@@ -1,47 +1,44 @@
 @model NewsEditViewModel
-@{
-    var editing = Model.Id != Guid.Empty;
-    ViewData["Title"] = editing ? "Sửa bài viết" : "Thêm bài viết";
-}
-<div class="page-heading">
-    <h1>@ViewData["Title"]</h1><a asp-action="Index">← Danh sách tin</a>
-</div>
-<noscript>
-    <p class="validation">Vui lòng bật JavaScript để sử dụng biểu mẫu này.</p>
-</noscript>
-<form asp-action="@(editing ? "Edit" : "Create")" asp-route-id="@(editing ? Model.Id : (Guid?)null)" method="post" class="editor" data-upload-folder="news">
-    <fieldset class="upload-fields" disabled>
-        <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
-        <div asp-validation-summary="All" class="validation" role="alert"></div>
-        <div class="editor-columns">
-            <div class="card">
-                <label asp-for="Title">Tiêu đề</label><input asp-for="Title" maxlength="300" required />
-                <div class="field-row">
-                    <div><label asp-for="Category">Danh mục</label><select asp-for="Category">
-                            <option value="NEWS">NEWS</option>
-                            <option value="MEDIA">MEDIA</option>
-                        </select></div>
-                    <div><label asp-for="Date">Ngày đăng</label><input asp-for="Date" asp-format="{0:yyyy-MM-dd}" type="date" required /></div>
+
+<dialog id="news-editor" class="drink-editor" aria-labelledby="news-editor-title">
+    <div class="page-heading">
+        <h2 id="news-editor-title">Thêm bài viết</h2>
+        <button type="button" class="button secondary" data-news-cancel>Đóng</button>
+    </div>
+    <form asp-action="Create" method="post" class="editor" data-upload-folder="news" data-ajax-save
+          data-create-url="@Url.Action("Create")">
+        <fieldset class="upload-fields" disabled>
+            <input asp-for="Id" type="hidden" /><input asp-for="Revision" type="hidden" />
+            <div asp-validation-summary="All" class="validation" role="alert"></div>
+            <div class="editor-columns">
+                <div class="card">
+                    <label asp-for="Title">Tiêu đề</label><input asp-for="Title" maxlength="300" required />
+                    <div class="field-row">
+                        <div><label asp-for="Category">Danh mục</label><select asp-for="Category">
+                                <option value="NEWS">NEWS</option>
+                                <option value="MEDIA">MEDIA</option>
+                            </select></div>
+                        <div><label asp-for="Date">Ngày đăng</label><input asp-for="Date" asp-format="{0:yyyy-MM-dd}" type="date" required /></div>
+                    </div>
+                    <label asp-for="BodyHtml">Nội dung (HTML)</label>
+                    <p class="help">Có thể dùng đoạn văn, tiêu đề, chữ đậm, liên kết và ảnh. Mã script được loại bỏ khi lưu.</p>
+                    <textarea asp-for="BodyHtml" rows="22" maxlength="200000" required class="content-editor" spellcheck="false"></textarea>
                 </div>
-                <label asp-for="BodyHtml">Nội dung (HTML)</label>
-                <p class="help">Có thể dùng đoạn văn, tiêu đề, chữ đậm, liên kết và ảnh. Mã script được loại bỏ khi lưu.</p>
-                <textarea asp-for="BodyHtml" rows="22" maxlength="200000" required class="content-editor" spellcheck="false"></textarea>
+                <aside class="card">
+                    <label for="ImageUpload">Ảnh đại diện</label><img class="current-image" alt="Ảnh hiện tại" hidden />
+                    <input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Khi sửa, để trống để giữ ảnh cũ.</p>
+                    <label asp-for="VideoUrl">Video YouTube</label><input asp-for="VideoUrl" type="url" maxlength="500" />
+                    <p class="help">Dán liên kết YouTube; để trống để dùng ảnh bìa.</p>
+                    <label class="check"><input asp-for="IsPublished" /> Xuất bản bài viết</label>
+                    <label class="check"><input asp-for="IsFeatured" /> Tin nổi bật ở trang News</label>
+                    <label class="check"><input asp-for="ShowOnHome" /> Hiển thị trên trang chủ</label>
+                    <label asp-for="HomeOrder">Thứ tự trên trang chủ</label><input asp-for="HomeOrder" type="number" min="0" max="100" />
+                    <p class="help">Số nhỏ hiển thị trước. Trang chủ hiển thị tối đa sáu bài.</p>
+                    <button type="submit" class="button">Lưu bài viết</button>
+                    <a asp-action="Index" data-news-reload hidden>Tải lại bản mới nhất</a>
+                </aside>
             </div>
-            <aside class="card">
-                <label for="ImageUpload">Ảnh đại diện</label>
-                @if (!string.IsNullOrEmpty(Model.CurrentImage)) { <img class="current-image" src="@Model.CurrentImage" alt="Ảnh hiện tại" /> }
-                <input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
-                <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Khi sửa, để trống để giữ ảnh cũ.</p>
-                <label asp-for="VideoUrl">Video YouTube</label><input asp-for="VideoUrl" type="url" maxlength="500" />
-                <p class="help">Dán liên kết YouTube; để trống để dùng ảnh bìa.</p>
-                <label class="check"><input asp-for="IsPublished" /> Xuất bản bài viết</label>
-                <label class="check"><input asp-for="IsFeatured" /> Tin nổi bật ở trang News</label>
-                <label class="check"><input asp-for="ShowOnHome" /> Hiển thị trên trang chủ</label>
-                <label asp-for="HomeOrder">Thứ tự trên trang chủ</label><input asp-for="HomeOrder" type="number" min="0" max="100" />
-                <p class="help">Số nhỏ hiển thị trước. Trang chủ hiển thị tối đa sáu bài.</p>
-                <button type="submit" class="button">Lưu bài viết</button>
-                @if (editing) { <a asp-action="Edit" asp-route-id="@Model.Id">Tải lại bản mới nhất</a> }
-            </aside>
-        </div>
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
+</dialog>

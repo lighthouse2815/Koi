@@ -1,7 +1,7 @@
 using Ganss.Xss;
 using Koi.Web.Data;
+using Koi.Web.Exceptions;
 using Koi.Web.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
@@ -31,66 +31,41 @@ public class NewsService(
         return new AdminNewsViewModel(articles, search, page, pageCount);
     }
 
-    public async Task<NewsEditViewModel?> GetEditAsync(Guid id)
+    public async Task CreateAsync(NewsEditViewModel model)
     {
-        var article = await database
-            .NewsArticles.AsNoTracking()
-            .SingleOrDefaultAsync(article => article.Id == id);
-        return article == null
-            ? null
-            : new NewsEditViewModel
-            {
-                Id = article.Id,
-                Revision = article.Revision,
-
-                Title = article.Title,
-                Category = article.Category,
-                Date = article.Date,
-                BodyHtml = article.BodyHtml,
-                CurrentImage = article.Image,
-                VideoUrl =
-                    article.VideoId == null
-                        ? null
-                        : $"https://www.youtube.com/embed/{article.VideoId}",
-                IsPublished = article.IsPublished,
-                IsFeatured = article.IsFeatured,
-                ShowOnHome = article.ShowOnHome,
-                HomeOrder = article.HomeOrder,
-            };
+        var article = new NewsArticle();
+        await ApplyChangesAsync(article, model, isNew: true);
+        database.NewsArticles.Add(article);
+        await SaveChangesAsync(article);
     }
 
-    public async Task<SaveResult> SaveAsync(
-        NewsEditViewModel model,
-        Guid? id,
-        ModelStateDictionary modelState
-    )
+    public async Task UpdateAsync(Guid id, NewsEditViewModel model)
     {
-        var article = id.HasValue
-            ? await database.NewsArticles.SingleOrDefaultAsync(article => article.Id == id)
-            : new NewsArticle();
-        if (article == null)
-            return SaveResult.NotFound;
-        model.CurrentImage = article.Image;
+        var article = await database.NewsArticles.FindAsync(id)
+            ?? throw new AppException(ErrorCode.NEWS_NOT_FOUND);
+
+        await ApplyChangesAsync(article, model, isNew: false);
+        database.Entry(article).Property(value => value.Revision).OriginalValue = model.Revision;
+        article.Revision++;
+        await SaveChangesAsync(article);
+    }
+
+    private async Task ApplyChangesAsync(NewsArticle article, NewsEditViewModel model, bool isNew)
+    {
         if (model.IsFeatured && !model.IsPublished)
-            modelState.AddModelError(nameof(model.IsFeatured), "Tin nổi bật cần được xuất bản.");
+            throw new AppException(ErrorCode.NEWS_FEATURED_UNPUBLISHED);
         var videoId = ParseVideoId(model.VideoUrl);
         if (!string.IsNullOrWhiteSpace(model.VideoUrl) && videoId == null)
-            modelState.AddModelError(nameof(model.VideoUrl), "Nhập liên kết video YouTube hợp lệ.");
+            throw new AppException(ErrorCode.NEWS_VIDEO_INVALID);
         var sanitizer = new HtmlSanitizer();
         sanitizer.AllowedAttributes.Add("class");
         var body = sanitizer.Sanitize(model.BodyHtml ?? "").Trim();
         if (string.IsNullOrWhiteSpace(body))
-            modelState.AddModelError(nameof(model.BodyHtml), "Nhập nội dung bài viết.");
-        var image = await uploads.GetImageUrlAsync(
-            model.ImageUploadId, modelState, nameof(model.ImageUploadId), "news"
-        );
-        if (id == null && image == null)
-            modelState.AddModelError(nameof(model.ImageUploadId), "Chọn ảnh cho bài viết.");
-        if (!modelState.IsValid)
-        {
-            return SaveResult.Invalid;
-        }
-        await using var transaction = await database.Database.BeginTransactionAsync();
+            throw new AppException(ErrorCode.NEWS_BODY_REQUIRED);
+        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "news");
+        if (isNew && image == null)
+            throw new AppException(ErrorCode.NEWS_IMAGE_REQUIRED);
+
         if (image != null)
         {
             var uploadedFile = image;
@@ -109,24 +84,18 @@ public class NewsService(
         article.IsFeatured = model.IsFeatured;
         article.ShowOnHome = model.ShowOnHome;
         article.HomeOrder = model.HomeOrder;
-        if (id == null)
-            database.NewsArticles.Add(article);
-        else
-        {
-            database.Entry(article).Property(value => value.Revision).OriginalValue = model.Revision;
-            article.Revision++;
-        }
+    }
+
+    private async Task SaveChangesAsync(NewsArticle article)
+    {
+        await using var transaction = await database.Database.BeginTransactionAsync();
         if (article.IsFeatured)
             await database.NewsArticles
                 .Where(other => other.IsFeatured && other.Id != article.Id)
                 .ExecuteUpdateAsync(update => update.SetProperty(other => other.IsFeatured, false));
         await database.SaveChangesAsync();
         await transaction.CommitAsync();
-        return SaveResult.Success;
     }
-
-    public Task<NewsArticle?> GetArticleAsync(Guid id) =>
-        database.NewsArticles.AsNoTracking().SingleOrDefaultAsync(article => article.Id == id);
 
     public async Task<bool> DeleteAsync(Guid id)
     {
