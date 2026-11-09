@@ -94,6 +94,9 @@ public class CategoryService(
         var category = await database.Categories.FindAsync(id)
             ?? throw new AppException(ErrorCode.CATEGORY_NOT_FOUND);
 
+        if (await database.Drinks.AnyAsync(drink => drink.CategoryId == id))
+            throw new AppException(ErrorCode.CATEGORY_HAS_DRINKS);
+
         database.Categories.Remove(category);
         try
         {
