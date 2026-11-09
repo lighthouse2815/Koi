@@ -15,7 +15,7 @@ public class NewsController(NewsService news) : Controller
     [HttpGet]
     public IActionResult Preview(Guid id) => RedirectToAction("NewsPreview", "Home", new { area = "", id });
 
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(NewsEditViewModel model)
     {
@@ -24,7 +24,7 @@ public class NewsController(NewsService news) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Edit([FromRoute] Guid id, NewsEditViewModel model)
     {

@@ -10,7 +10,7 @@ namespace Koi.Web.Controllers.Admin;
 public class StoresController(StoreService stores) : Controller
 {
     public async Task<IActionResult> Index(string? search, int page = 1) => View(await stores.GetListAsync(search, page));
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(StoreEditViewModel model)
     {
@@ -19,7 +19,7 @@ public class StoresController(StoreService stores) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Edit([FromRoute] Guid id, StoreEditViewModel model)
     {

@@ -10,7 +10,7 @@ namespace Koi.Web.Controllers.Admin;
 public class MenusController(MenuService menus) : Controller
 {
     public async Task<IActionResult> Index() => View(await menus.GetListAsync());
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(MenuEditViewModel model)
     {
@@ -19,7 +19,7 @@ public class MenusController(MenuService menus) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Edit([FromRoute] Guid id, MenuEditViewModel model)
     {

@@ -15,7 +15,7 @@ public class GeographyController(StoreCityService geography) : Controller
         return model == null ? NotFound() : View(model);
     }
 
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(GeographyEditViewModel model)
     {
@@ -24,7 +24,7 @@ public class GeographyController(StoreCityService geography) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index), new { kind = model.Kind }) });
     }
 
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Edit([FromRoute] Guid id, GeographyEditViewModel model)
     {
