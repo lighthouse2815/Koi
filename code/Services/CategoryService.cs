@@ -102,10 +102,6 @@ public class CategoryService(
         {
             await database.SaveChangesAsync();
         }
-        catch (DbUpdateConcurrencyException)
-        {
-            throw new AppException(ErrorCode.CATEGORY_CHANGED);
-        }
         catch (DbUpdateException exception) when (
             exception.InnerException is PostgresException
             {
