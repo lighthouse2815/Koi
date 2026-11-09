@@ -34,8 +34,7 @@ public class DrinksController(DrinkService drinks) : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        if (!await drinks.DeleteAsync(id))
-            return NotFound();
+        await drinks.DeleteAsync(id);
         TempData["Status"] = "Đã xóa đồ uống.";
         return RedirectToAction(nameof(Index));
     }

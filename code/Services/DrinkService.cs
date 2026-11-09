@@ -93,14 +93,13 @@ public class DrinkService(
         drink.IsPublished = model.IsPublished;
     }
 
-    public async Task<bool> DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        var value = await database.Drinks.FindAsync(id);
-        if (value == null)
-            return false;
-        database.Drinks.Remove(value);
+        var drink = await database.Drinks.FindAsync(id)
+            ?? throw new AppException(ErrorCode.DRINK_NOT_FOUND);
+
+        database.Drinks.Remove(drink);
         await database.SaveChangesAsync();
-        return true;
     }
 
     private async Task<SelectList> Categories() =>
