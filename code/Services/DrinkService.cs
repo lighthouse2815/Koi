@@ -30,7 +30,8 @@ public class DrinkService(
 
         if (!string.IsNullOrEmpty(search))
         {
-            query = query.Where(value => EF.Functions.ILike(value.Name, $"%{search}%"));
+            var keyword = search.ToLower();
+            query = query.Where(value => value.Name.ToLower().Contains(keyword));
         }
 
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 20d));
