@@ -1,5 +1,6 @@
 using Koi.Web.Exceptions;
 using Koi.Web.Models;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -17,6 +18,29 @@ public class AppExceptionMiddleware(RequestDelegate next)
         catch (Exception exception) when (
             !context.Response.HasStarted && (error = GetError(exception)) != null)
         {
+            if (context.Request.Headers["X-Requested-With"] != "XMLHttpRequest"
+                && HttpMethods.IsPost(context.Request.Method)
+                && context.Request.HasFormContentType
+                && context.Request.RouteValues["area"]?.ToString() == "Admin"
+                && context.Request.RouteValues["controller"]?.ToString() == "Account"
+                && context.Request.RouteValues["action"]?.ToString() == "Login"
+                && (error == ErrorCode.LOGIN_INVALID_CREDENTIALS || error == ErrorCode.LOGIN_LOCKED_OUT
+                    || error!.Code == ErrorCode.INVALID_INPUT.Code))
+            {
+                var form = await context.Request.ReadFormAsync();
+                var tempData = context.RequestServices.GetRequiredService<ITempDataDictionaryFactory>().GetTempData(context);
+                tempData["LoginError"] = error!.Message;
+                var email = form["Email"].ToString();
+                if (email.Length <= 256)
+                    tempData["LoginEmail"] = email;
+                tempData["LoginRememberMe"] = form["RememberMe"].Contains("true");
+                tempData.Save();
+                var returnUrl = form["ReturnUrl"].ToString();
+                var query = string.IsNullOrEmpty(returnUrl) ? QueryString.Empty : QueryString.Create("returnUrl", returnUrl);
+                context.Response.Redirect(context.Request.PathBase + context.Request.Path + query);
+                return;
+            }
+
             context.Response.StatusCode = error!.StatusCode;
             if (context.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {

@@ -5,9 +5,16 @@
 <section class="login-card">
     <p class="eyebrow">KOI ADMIN</p>
     <h1>Đăng nhập quản trị</h1>
-    <form asp-action="Login" method="post">
+    <form asp-action="Login" method="post" data-ajax-save>
         <input asp-for="ReturnUrl" type="hidden" />
-        <div asp-validation-summary="ModelOnly" class="validation" role="alert"></div>
+        @if (TempData["LoginError"] is string error)
+        {
+            <div class="validation validation-summary-errors" data-valmsg-summary="true" role="alert"><ul><li>@error</li></ul></div>
+        }
+        else
+        {
+            <div class="validation validation-summary-valid" data-valmsg-summary="true" role="alert"></div>
+        }
         <label asp-for="Email">Email</label>
         <input asp-for="Email" type="email" autocomplete="username" required />
         <span asp-validation-for="Email" class="validation"></span>

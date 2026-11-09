@@ -1,4 +1,6 @@
 using Koi.Web.Models;
+using Koi.Web.Exceptions;
+using Koi.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,21 +11,29 @@ namespace Koi.Web.Controllers.Admin;
 public class AccountController(SignInManager<IdentityUser<Guid>> signInManager) : Controller
 {
     [HttpGet]
-    public IActionResult Login(string? returnUrl = null) => View(new LoginViewModel { ReturnUrl = returnUrl });
+    public IActionResult Login(string? returnUrl = null) => View(new LoginViewModel
+    {
+        ReturnUrl = returnUrl,
+        Email = TempData["LoginEmail"] as string ?? "",
+        RememberMe = TempData["LoginRememberMe"] is true
+    });
 
     [HttpPost]
+    [ValidateModel]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
-        if (!ModelState.IsValid)
-            return View(model);
         var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
         if (result.Succeeded)
-            return LocalRedirect(Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl! : Url.Action("Index", "News", new
+        {
+            var redirectUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl! : Url.Action("Index", "News", new
             {
                 area = "Admin"
-            })!);
-        ModelState.AddModelError("", result.IsLockedOut ? "Tài khoản tạm khóa. Vui lòng thử lại sau 5 phút." : "Email hoặc mật khẩu không đúng.");
-        return View(model);
+            })!;
+            return Request.Headers["X-Requested-With"] == "XMLHttpRequest"
+                ? Json(new { redirectUrl })
+                : LocalRedirect(redirectUrl);
+        }
+        throw new AppException(result.IsLockedOut ? ErrorCode.LOGIN_LOCKED_OUT : ErrorCode.LOGIN_INVALID_CREDENTIALS);
     }
 
     [HttpPost, Authorize(Roles = "Admin")]

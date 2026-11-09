@@ -11,6 +11,12 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode INVALID_IMAGE =
         new("INVALID_IMAGE", "Ảnh tải lên không hợp lệ.", StatusCodes.Status400BadRequest);
 
+    public static readonly ErrorCode LOGIN_INVALID_CREDENTIALS =
+        new("LOGIN_INVALID_CREDENTIALS", "Email hoặc mật khẩu không đúng.", StatusCodes.Status401Unauthorized);
+
+    public static readonly ErrorCode LOGIN_LOCKED_OUT =
+        new("LOGIN_LOCKED_OUT", "Tài khoản tạm khóa. Vui lòng thử lại sau 5 phút.", StatusCodes.Status423Locked);
+
     public static readonly ErrorCode DRINK_NOT_FOUND =
         new("DRINK_NOT_FOUND", "Không tìm thấy đồ uống.", StatusCodes.Status404NotFound);
 

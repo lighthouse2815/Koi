@@ -32,7 +32,8 @@
             });
         }
 
-        form.querySelector('fieldset.upload-fields').disabled = false;
+        const uploadFields = form.querySelector('fieldset.upload-fields');
+        if (uploadFields) uploadFields.disabled = false;
 
         form.addEventListener('submit', async event => {
             if (submitting) return;
