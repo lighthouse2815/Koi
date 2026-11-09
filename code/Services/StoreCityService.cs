@@ -54,6 +54,10 @@ public class StoreCityService(
         var city = await database.StoreCities.SingleOrDefaultAsync(value => value.Id == id);
         if (city == null)
             return false;
+
+        if (await database.Stores.AnyAsync(store => store.CityId == id))
+            throw new AppException(ErrorCode.STORE_CITY_HAS_STORES);
+
         database.StoreCities.Remove(city);
         await database.SaveChangesAsync();
         return true;
