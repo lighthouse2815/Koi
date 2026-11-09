@@ -10,7 +10,7 @@ namespace Koi.Web.Controllers.Admin;
 public class FeaturedDrinksController(FeaturedDrinkService drinks) : Controller
 {
     public async Task<IActionResult> Index() => View(await drinks.GetListAsync());
-    [HttpPost, RequestSizeLimit(12 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(FeaturedDrinkEditViewModel model)
     {
@@ -19,7 +19,7 @@ public class FeaturedDrinksController(FeaturedDrinkService drinks) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
-    [HttpPost, RequestSizeLimit(12 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Edit([FromRoute] Guid id, FeaturedDrinkEditViewModel model)
     {
