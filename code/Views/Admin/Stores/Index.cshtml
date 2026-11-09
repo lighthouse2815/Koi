@@ -4,7 +4,7 @@
     <h1>Quản lý chi nhánh</h1><button type="button" class="button" data-store-create>+ Thêm chi nhánh</button>
 </div>
 <noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa chi nhánh.</p></noscript>
-<p><a asp-controller="Geography" asp-route-kind="cities">Quản lý khu vực</a></p>
+<p><a asp-controller="StoreCities" asp-route-kind="cities">Quản lý khu vực</a></p>
 <form method="get" class="search"><label for="search">Tên hoặc địa chỉ</label><input id="search" name="search" value="@Model.Search" maxlength="200" />
     <p><button class="button secondary">Tìm kiếm</button></p>
 </form>

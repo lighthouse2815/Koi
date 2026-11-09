@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Koi.Web.Controllers.Admin;
 
 [Area("Admin"), Authorize(Roles = "Admin")]
-public class GeographyController(StoreCityService geography) : Controller
+public class StoreCitiesController(StoreCityService cities) : Controller
 {
     public async Task<IActionResult> Index(string kind = "cities")
     {
-        var model = await geography.GetListAsync(kind);
+        var model = await cities.GetListAsync(kind);
         return model == null ? NotFound() : View(model);
     }
 
@@ -19,7 +19,7 @@ public class GeographyController(StoreCityService geography) : Controller
     [ValidateModel]
     public async Task<IActionResult> Create(GeographyEditViewModel model)
     {
-        await geography.CreateAsync(model);
+        await cities.CreateAsync(model);
         TempData["Status"] = "Đã lưu dữ liệu.";
         return Json(new { redirectUrl = Url.Action(nameof(Index), new { kind = model.Kind }) });
     }
@@ -31,14 +31,14 @@ public class GeographyController(StoreCityService geography) : Controller
         if (id != model.Id)
             return BadRequest();
 
-        await geography.UpdateAsync(id, model);
+        await cities.UpdateAsync(id, model);
         TempData["Status"] = "Đã lưu dữ liệu.";
         return Json(new { redirectUrl = Url.Action(nameof(Index), new { kind = model.Kind }) });
     }
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id, string kind)
     {
-        if (!await geography.DeleteAsync(id, kind))
+        if (!await cities.DeleteAsync(id, kind))
             return NotFound();
         TempData["Status"] = "Đã xóa dữ liệu.";
         return RedirectToAction(nameof(Index), new
