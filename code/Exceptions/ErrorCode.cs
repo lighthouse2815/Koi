@@ -44,6 +44,9 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode STORE_CITY_NOT_FOUND =
         new("STORE_CITY_NOT_FOUND", "Không tìm thấy khu vực.", StatusCodes.Status404NotFound);
 
+    public static readonly ErrorCode STORE_CITY_HAS_STORES =
+        new("STORE_CITY_HAS_STORES", "Không thể xóa khu vực đang có chi nhánh.", StatusCodes.Status409Conflict);
+
     public static readonly ErrorCode ORDER_FULFILLMENT_INVALID =
         new("ORDER_FULFILLMENT_INVALID", "Chọn cách nhận hàng hợp lệ.", StatusCodes.Status400BadRequest);
 

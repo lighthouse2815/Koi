@@ -2,7 +2,6 @@ using Koi.Web.Data;
 using Koi.Web.Exceptions;
 using Koi.Web.Models;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 
 namespace Koi.Web.Services;
 
@@ -98,18 +97,6 @@ public class CategoryService(
             throw new AppException(ErrorCode.CATEGORY_HAS_DRINKS);
 
         database.Categories.Remove(category);
-        try
-        {
-            await database.SaveChangesAsync();
-        }
-        catch (DbUpdateException exception) when (
-            exception.InnerException is PostgresException
-            {
-                SqlState: PostgresErrorCodes.ForeignKeyViolation,
-                ConstraintName: "FK_Drinks_Category_CategoryId"
-            })
-        {
-            throw new AppException(ErrorCode.CATEGORY_HAS_DRINKS);
-        }
+        await database.SaveChangesAsync();
     }
 }
