@@ -3,28 +3,17 @@
 @{ ViewData["Title"] = "Danh mục đồ uống"; }
 
 <div class="category-page">
-    <svg class="category-icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <symbol id="category-icon-cup" viewBox="0 0 24 24"><path d="M4 9h13v4a6.5 6.5 0 0 1-13 0V9Zm13 1h1a3 3 0 0 1 0 6h-2M3 21h15M9 7c0-2 1-4 3-5m0 5c0-2 2-4 5-4-1 3-3 4-5 4Z" /></symbol>
-        <symbol id="category-icon-order" viewBox="0 0 24 24"><path d="M7 4v15m-3-3 3 3 3-3M17 20V5m-3 3 3-3 3 3" /></symbol>
-        <symbol id="category-icon-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 16l9 5 9-5" /></symbol>
-        <symbol id="category-icon-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="9" r="1"/><path d="m4 17 5-5 4 4 2-2 5 4"/></symbol>
-        <symbol id="category-icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3V10Z"/></symbol>
-        <symbol id="category-icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06-1.9 3.29-.08-.02a1.7 1.7 0 0 0-1.8.64l-.05.06h-3.8l-.03-.08a1.7 1.7 0 0 0-1.58-1.05 1.7 1.7 0 0 0-1.58 1.05l-.03.08h-3.8l-.05-.06a1.7 1.7 0 0 0-1.8-.64l-.08.02-1.9-3.29.06-.06A1.7 1.7 0 0 0 4.6 15l-.03-.07v-3.8l.03-.07A1.7 1.7 0 0 0 4.26 9.2l-.06-.06 1.9-3.29.08.02a1.7 1.7 0 0 0 1.8-.64l.05-.06h3.8l.03.08a1.7 1.7 0 0 0 3.16 0l.03-.08h3.8l.05.06a1.7 1.7 0 0 0 1.8.64l.08-.02 1.9 3.29-.06.06a1.7 1.7 0 0 0-.34 1.87l.03.07v3.8l-.03.07Z" transform="translate(-2 -1) scale(1.1)"/></symbol>
-        <symbol id="category-icon-edit" viewBox="0 0 24 24"><path d="m4 16 11-11 4 4L8 20H4v-4ZM13 7l4 4"/></symbol>
-        <symbol id="category-icon-external" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6-9 9M19 13v6H5V5h6"/></symbol>
-        <symbol id="category-icon-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v5m4-5v5"/></symbol>
-    </svg>
-    <header class="category-heading">
-        <div class="category-heading-info">
-            <span class="category-heading-icon" aria-hidden="true"><svg><use href="#category-icon-cup" /></svg></span>
-            <div class="category-heading-copy">
+    <header class="page-heading admin-page-heading">
+        <div class="admin-heading-title">
+            <span class="admin-heading-icon"><partial name="_AdminIcon" model='"layers"' /></span>
+            <div>
                 <h1>Danh mục đồ uống</h1>
                 <nav class="category-related" aria-label="Quản lý đồ uống">
                     <a asp-controller="Drinks">Đồ uống</a><span aria-hidden="true">·</span><a asp-controller="FeaturedDrinks">New Drinks</a>
                 </nav>
             </div>
         </div>
-        <button type="button" class="button category-add" data-category-create><span aria-hidden="true">+</span> Thêm danh mục</button>
+        <button type="button" class="button" data-category-create><partial name="_AdminIcon" model='"plus"' /> Thêm danh mục</button>
     </header>
 
 <noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa danh mục.</p></noscript>
@@ -34,47 +23,12 @@
     <table>
         <thead>
             <tr>
-                <th scope="col"><span class="category-column"><svg aria-hidden="true"><use href="#category-icon-order" /></svg>Thứ tự</span></th>
-                <th scope="col">
-                    <span class="category-column">
-                        <svg aria-hidden="true">
-                            <use href="#category-icon-layers" />
-                        </svg>
-                            Danh mục
-                    </span>
-                </th>
-                <th scope="col">
-                    <span class="category-column">
-                        <svg aria-hidden="true">
-                            <use href="#category-icon-image" />
-                        </svg>
-                            Ảnh
-                    </span>
-                </th>
-                <th scope="col">
-                    <span class="category-column">
-                        <svg aria-hidden="true">
-                            <use href="#category-icon-cup" />
-                        </svg>
-                            Biểu tượng
-                    </span>
-                </th>
-                <th scope="col">
-                    <span class="category-column">
-                        <svg aria-hidden="true">
-                            <use href="#category-icon-home" />
-                        </svg>
-                            Trang chủ
-                    </span>
-                </th>
-                <th scope="col">
-                    <span class="category-column">
-                        <svg aria-hidden="true">
-                            <use href="#category-icon-settings" />
-                        </svg>
-                            Thao tác
-                    </span>
-                </th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"order"' /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"layers"' /> Danh mục</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"image"' /> Ảnh</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"cup"' /> Biểu tượng</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"home"' /> Trang chủ</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"settings"' /> Thao tác</span></th>
             </tr>
         </thead>
 
@@ -106,15 +60,15 @@
                     </td>
                     <td><span class="category-home">@(category.ShowOnHome ? "Có · thứ tự " + category.SortOrder : "Không")</span></td>
                     <td>
-                        <div class="row-actions category-actions">
-                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @category.Name" hidden>Xem</button>
-                            <button type="button" class="category-action category-action-edit" data-category-edit
+                        <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @category.Name" hidden><partial name="_AdminIcon" model='"eye"' /> Xem</button>
+                            <button type="button" data-category-edit
                                     data-id="@category.Id" data-revision="@category.Revision" data-name="@category.Name"
                                     data-sort-order="@category.SortOrder"
                                     data-show-on-home="@category.ShowOnHome.ToString().ToLowerInvariant()"
-                                    data-image="@category.Image" data-icon="@category.Icon"><svg aria-hidden="true"><use href="#category-icon-edit" /></svg>Sửa</button>
-                            <a asp-area="" asp-controller="Home" asp-action="OurTea" asp-fragment="@category.Id.ToString()" target="_blank" rel="noopener" class="category-action category-action-view"><svg aria-hidden="true"><use href="#category-icon-external" /></svg>Xem website</a>
-                            <a asp-action="Delete" asp-route-id="@category.Id" class="delete-link category-action category-action-delete" data-name="@category.Name"><svg aria-hidden="true"><use href="#category-icon-trash" /></svg>Xóa</a>
+                                    data-image="@category.Image" data-icon="@category.Icon"><partial name="_AdminIcon" model='"edit"' /> Sửa</button>
+                            <a asp-area="" asp-controller="Home" asp-action="OurTea" asp-fragment="@category.Id.ToString()" target="_blank" rel="noopener"><partial name="_AdminIcon" model='"external"' /> Xem website</a>
+                            <a asp-action="Delete" asp-route-id="@category.Id" class="delete-link" data-name="@category.Name"><partial name="_AdminIcon" model='"trash"' /> Xóa</a>
                         </div>
                         <template data-row-preview-content data-title="@category.Name">
                             <dl class="row-preview-details">

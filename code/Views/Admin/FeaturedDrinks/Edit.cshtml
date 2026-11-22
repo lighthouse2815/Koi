@@ -2,7 +2,7 @@
 
 <dialog id="featured-editor" class="drink-editor" aria-labelledby="featured-editor-title">
     <div class="page-heading">
-        <h2 id="featured-editor-title">Thêm New Drinks</h2>
+        <div class="admin-icon-label"><partial name="_AdminIcon" model='"sparkles"' /> <h2 id="featured-editor-title">Thêm New Drinks</h2></div>
         <button type="button" class="button secondary" data-featured-cancel>Đóng</button>
     </div>
     <form asp-action="Create" method="post" class="editor" data-upload-folder="featured-drinks" data-ajax-save

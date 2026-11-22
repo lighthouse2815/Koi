@@ -1,16 +1,17 @@
 @model GeographyIndexViewModel
 @{ ViewData["Title"] = Model.Title; }
-<div class="page-heading">
-    <h1>@Model.Title</h1><button type="button" class="button" data-geography-create>+ Thêm khu vực</button>
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><partial name="_AdminIcon" model='"pin"' /></span><h1>@Model.Title</h1></div>
+    <button type="button" class="button" data-geography-create><partial name="_AdminIcon" model='"plus"' /> Thêm khu vực</button>
 </div>
 <noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa khu vực.</p></noscript>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách khu vực">
     <table>
         <thead>
             <tr>
-                <th scope="col">Tên</th>
-                <th scope="col">Thứ tự</th>
-                <th scope="col">Thao tác</th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"pin"' /> Tên</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"order"' /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"settings"' /> Thao tác</span></th>
             </tr>
         </thead>
         <tbody>
@@ -21,12 +22,12 @@
                     <td>@row.SortOrder</td>
                     <td>
                         <div class="row-actions">
-                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @row.Name" hidden>Xem</button>
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @row.Name" hidden><partial name="_AdminIcon" model='"eye"' /> Xem</button>
                             <button type="button" class="link-button" data-geography-edit
                                     data-url="@Url.Action("Edit", new { id = row.Id })"
                                     data-id="@row.Id" data-revision="@row.Revision" data-name="@row.Name"
-                                    data-sort-order="@row.SortOrder">Sửa</button>
-                            <a asp-action="Delete" asp-route-id="@row.Id" class="delete-link" data-name="@row.Name" asp-route-kind="@Model.Kind">Xóa</a>
+                                    data-sort-order="@row.SortOrder"><partial name="_AdminIcon" model='"edit"' /> Sửa</button>
+                            <a asp-action="Delete" asp-route-id="@row.Id" class="delete-link" data-name="@row.Name" asp-route-kind="@Model.Kind"><partial name="_AdminIcon" model='"trash"' /> Xóa</a>
                         </div>
                         <template data-row-preview-content data-title="@row.Name">
                             <dl class="row-preview-details">

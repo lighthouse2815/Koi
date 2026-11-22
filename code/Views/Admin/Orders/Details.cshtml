@@ -3,8 +3,11 @@
     ViewData["Title"] = "Chi tiết đơn hàng";
     ViewData["ShowOrderActions"] = true;
 }
-<div class="page-heading">
-    <h1>Chi tiết đơn hàng</h1>
-    <a class="button secondary" asp-action="Index">← Danh sách đơn</a>
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title">
+        <span class="admin-heading-icon"><partial name="_AdminIcon" model='"receipt"' /></span>
+        <h1>Chi tiết đơn hàng</h1>
+    </div>
+    <a class="button secondary" asp-action="Index"><partial name="_AdminIcon" model='"arrow-left"' /> Danh sách đơn</a>
 </div>
 <partial name="_OrderDetails" />

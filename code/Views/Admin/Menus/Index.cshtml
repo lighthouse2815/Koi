@@ -1,23 +1,24 @@
 @model IReadOnlyList<Menu>
 @{ ViewData["Title"] = "Quản lý thực đơn"; }
-<div class="page-heading">
-    <h1>Quản lý thực đơn</h1><button type="button" class="button" data-menu-create>+ Thêm thực đơn</button>
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><partial name="_AdminIcon" model='"menu"' /></span><h1>Quản lý thực đơn</h1></div>
+    <button type="button" class="button" data-menu-create><partial name="_AdminIcon" model='"plus"' /> Thêm thực đơn</button>
 </div>
 <noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa thực đơn.</p></noscript>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách thực đơn">
     <table>
         <thead>
             <tr>
-                <th scope="col">Thực đơn</th>
-                <th scope="col">Thứ tự</th>
-                <th scope="col">Thao tác</th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"menu"' /> Thực đơn</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"order"' /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"settings"' /> Thao tác</span></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var menu in Model)
             {
                 <tr data-row-preview>
-                    <td><a href="@menu.File" target="_blank" rel="noopener" data-row-preview-trigger>@menu.Label</a></td>
+                    <td><a href="@menu.File" target="_blank" rel="noopener" class="admin-icon-label" data-row-preview-trigger><partial name="_AdminIcon" model='"eye"' /> @menu.Label</a></td>
                     <td>@menu.SortOrder</td>
                     <td>
                         <div class="row-actions">
@@ -25,8 +26,8 @@
                                     data-url="@Url.Action("Edit", new { id = menu.Id })"
                                     data-id="@menu.Id" data-revision="@menu.Revision" data-label="@menu.Label"
                                     data-sort-order="@menu.SortOrder"
-                                    data-image="@menu.File">Sửa</button>
-                            <a asp-action="Delete" asp-route-id="@menu.Id" class="delete-link" data-name="@menu.Label">Xóa</a>
+                                    data-image="@menu.File"><partial name="_AdminIcon" model='"edit"' /> Sửa</button>
+                            <a asp-action="Delete" asp-route-id="@menu.Id" class="delete-link" data-name="@menu.Label"><partial name="_AdminIcon" model='"trash"' /> Xóa</a>
                         </div>
                         <template data-row-preview-content data-title="@menu.Label">
                             <dl class="row-preview-details">

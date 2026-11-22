@@ -2,7 +2,7 @@
 
 <dialog id="menu-editor" class="drink-editor" aria-labelledby="menu-editor-title">
     <div class="page-heading">
-        <h2 id="menu-editor-title">Thêm thực đơn</h2>
+        <div class="admin-icon-label"><partial name="_AdminIcon" model='"menu"' /> <h2 id="menu-editor-title">Thêm thực đơn</h2></div>
         <button type="button" class="button secondary" data-menu-cancel>Đóng</button>
     </div>
     <form asp-action="Create" method="post" class="editor" data-upload-folder="menus" data-ajax-save

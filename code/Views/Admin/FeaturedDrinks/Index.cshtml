@@ -1,20 +1,23 @@
 @model IReadOnlyList<FeaturedDrink>
 @{ ViewData["Title"] = "New Drinks"; }
-<div class="page-heading">
-    <div>
-        <h1>New Drinks</h1>
-        <p class="page-description">Sắp xếp đồ uống nổi bật trên trang Our Tea.</p>
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title">
+        <span class="admin-heading-icon"><partial name="_AdminIcon" model='"sparkles"' /></span>
+        <div>
+            <h1>New Drinks</h1>
+            <p class="page-description">Sắp xếp đồ uống nổi bật trên trang Our Tea.</p>
+        </div>
     </div>
-    <button type="button" class="button" data-featured-create>+ Thêm mục</button>
+    <button type="button" class="button" data-featured-create><partial name="_AdminIcon" model='"plus"' /> Thêm mục</button>
 </div>
 <noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa mục New Drinks.</p></noscript>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách New Drinks">
     <table>
         <thead>
             <tr>
-                <th scope="col">Tên</th>
-                <th scope="col">Thứ tự</th>
-                <th scope="col">Thao tác</th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"sparkles"' /> Tên</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"order"' /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"settings"' /> Thao tác</span></th>
             </tr>
         </thead>
         <tbody>
@@ -27,13 +30,13 @@
                     <td>@item.SortOrder</td>
                     <td>
                         <div class="row-actions">
-                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @item.Name" hidden>Xem</button>
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @item.Name" hidden><partial name="_AdminIcon" model='"eye"' /> Xem</button>
                             <button type="button" class="link-button" data-featured-edit
                                     data-url="@Url.Action("Edit", new { id = item.Id })"
                                     data-id="@item.Id" data-revision="@item.Revision" data-name="@item.Name"
                                     data-sort-order="@item.SortOrder"
-                                    data-image="@item.Image" data-background="@item.BackgroundImage">Sửa</button>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="delete-link" data-name="@item.Name">Xóa</a>
+                                    data-image="@item.Image" data-background="@item.BackgroundImage"><partial name="_AdminIcon" model='"edit"' /> Sửa</button>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="delete-link" data-name="@item.Name"><partial name="_AdminIcon" model='"trash"' /> Xóa</a>
                         </div>
                         <template data-row-preview-content data-title="@item.Name">
                             <dl class="row-preview-details">

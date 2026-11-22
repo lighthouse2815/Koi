@@ -2,7 +2,7 @@
 
 <dialog id="category-editor" class="category-editor" aria-labelledby="category-editor-title">
     <div class="page-heading">
-        <h2 id="category-editor-title">Thêm danh mục</h2>
+        <div class="admin-icon-label"><partial name="_AdminIcon" model='"layers"' /> <h2 id="category-editor-title">Thêm danh mục</h2></div>
         <button type="button" class="button secondary" data-category-cancel>Đóng</button>
     </div>
     <form asp-action="Create" method="post" class="editor" data-upload-folder="categories" data-ajax-save

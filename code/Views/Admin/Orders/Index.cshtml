@@ -3,8 +3,8 @@
     ViewData["Title"] = "Đơn hàng";
     var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
-<div class="page-heading">
-    <h1>Đơn hàng</h1>
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><partial name="_AdminIcon" model='"receipt"' /></span><h1>Đơn hàng</h1></div>
 </div>
 <form method="get" class="search">
     <div class="search-field search-field--wide">
@@ -33,18 +33,18 @@
             }
         </select>
     </div>
-    <button type="submit" class="button secondary">Lọc đơn hàng</button>
+    <button type="submit" class="button secondary"><partial name="_AdminIcon" model='"filter"' /> Lọc đơn hàng</button>
 </form>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách đơn hàng">
     <table>
         <thead>
             <tr>
-                <th scope="col">Thời gian (UTC)</th>
-                <th scope="col">Chi nhánh</th>
-                <th scope="col">Khách hàng</th>
-                <th scope="col">Tổng tiền món</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Thao tác</th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"clock"' /> Thời gian (UTC)</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"store"' /> Chi nhánh</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"user"' /> Khách hàng</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"wallet"' /> Tổng tiền món</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"status"' /> Trạng thái</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"settings"' /> Thao tác</span></th>
             </tr>
         </thead>
         <tbody>
@@ -60,8 +60,8 @@
                         <div class="row-actions">
                             <button type="button" data-row-preview-trigger data-row-preview-title="Chi tiết đơn hàng"
                                     data-row-preview-url="@Url.Action("Details", new { id = order.Id, preview = true })"
-                                    aria-label="Xem đơn của @order.CustomerName" hidden>Xem</button>
-                            <a asp-action="Details" asp-route-id="@order.Id">Mở đơn</a>
+                                    aria-label="Xem đơn của @order.CustomerName" hidden><partial name="_AdminIcon" model='"eye"' /> Xem</button>
+                            <a asp-action="Details" asp-route-id="@order.Id"><partial name="_AdminIcon" model='"receipt"' /> Mở đơn</a>
                         </div>
                     </td>
                 </tr>

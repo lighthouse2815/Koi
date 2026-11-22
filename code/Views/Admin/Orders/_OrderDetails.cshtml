@@ -5,7 +5,7 @@
 <div class="order-layout">
     <section class="card" aria-labelledby="info-title">
         <div class="order-heading">
-            <h2 id="info-title">Thông tin đơn</h2>
+            <h2 id="info-title" class="admin-icon-label"><partial name="_AdminIcon" model='"receipt"' /> Thông tin đơn</h2>
             <partial name="_OrderStatus" model="Model.Status" />
         </div>
         <dl class="order-info">
@@ -33,15 +33,15 @@
         }
     </section>
     <section class="card" aria-labelledby="items-title">
-        <h2 id="items-title">Đồ uống trong đơn</h2>
+        <h2 id="items-title" class="admin-icon-label"><partial name="_AdminIcon" model='"cup"' /> Đồ uống trong đơn</h2>
         <div class="table-wrap" tabindex="0" role="region" aria-label="Đồ uống trong đơn">
             <table>
                 <thead>
                     <tr>
-                        <th scope="col">Đồ uống</th>
-                        <th scope="col">Đơn giá</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Thành tiền</th>
+                        <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"cup"' /> Đồ uống</span></th>
+                        <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"wallet"' /> Đơn giá</span></th>
+                        <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"count"' /> Số lượng</span></th>
+                        <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"wallet"' /> Thành tiền</span></th>
                     </tr>
                 </thead>
                 <tbody>

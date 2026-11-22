@@ -5,7 +5,10 @@
 <section class="login-card">
     <div class="login-visual" aria-hidden="true"></div>
     <div class="login-content">
-        <h1>Đăng nhập quản trị</h1>
+        <div class="admin-heading-title">
+            <span class="admin-heading-icon"><partial name="_AdminIcon" model='"lock"' /></span>
+            <h1>Đăng nhập quản trị</h1>
+        </div>
         <form asp-action="Login" method="post" data-ajax-save>
             <input asp-for="ReturnUrl" type="hidden" />
             @if (TempData["LoginError"] is string error)
@@ -23,7 +26,7 @@
             <input asp-for="Password" autocomplete="current-password" required />
             <span asp-validation-for="Password" class="validation"></span>
             <label class="check"><input asp-for="RememberMe" /> Giữ đăng nhập</label>
-            <button type="submit" class="button">Đăng nhập</button>
+            <button type="submit" class="button"><partial name="_AdminIcon" model='"lock"' /> Đăng nhập</button>
         </form>
     </div>
 </section>

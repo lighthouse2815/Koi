@@ -1,7 +1,8 @@
 @model AdminDrinksViewModel
 @{ ViewData["Title"] = "Quản lý đồ uống"; }
-<div class="page-heading">
-    <h1>Quản lý đồ uống</h1><button type="button" class="button" data-drink-create>+ Thêm đồ uống</button>
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><partial name="_AdminIcon" model='"cup"' /></span><h1>Quản lý đồ uống</h1></div>
+    <button type="button" class="button" data-drink-create><partial name="_AdminIcon" model='"plus"' /> Thêm đồ uống</button>
 </div>
 <noscript><p class="validation">Vui lòng bật JavaScript để thêm hoặc sửa đồ uống.</p></noscript>
 <form method="get" class="search">
@@ -15,16 +16,16 @@
             <option value="">Tất cả danh mục</option>
         </select>
     </div>
-    <button type="submit" class="button secondary">Tìm kiếm</button>
+    <button type="submit" class="button secondary"><partial name="_AdminIcon" model='"search"' /> Tìm kiếm</button>
 </form>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách đồ uống">
     <table>
         <thead>
             <tr>
-                <th scope="col">Đồ uống</th>
-                <th scope="col">Danh mục</th>
-                <th scope="col">Thứ tự</th>
-                <th scope="col">Thao tác</th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"cup"' /> Đồ uống</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"layers"' /> Danh mục</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"order"' /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"settings"' /> Thao tác</span></th>
             </tr>
         </thead>
         <tbody>
@@ -41,14 +42,14 @@
                     <td>@drink.SortOrder</td>
                     <td>
                         <div class="row-actions">
-                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @drink.Name" hidden>Xem</button>
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @drink.Name" hidden><partial name="_AdminIcon" model='"eye"' /> Xem</button>
                             <button type="button" class="link-button" data-drink-edit
                                     data-url="@Url.Action("Edit", new { id = drink.Id })"
                                     data-id="@drink.Id" data-revision="@drink.Revision" data-name="@drink.Name"
                                     data-category-id="@drink.CategoryId" data-description="@drink.Description"
                                     data-sort-order="@drink.SortOrder"
-                                    data-image="@drink.Image">Sửa</button>
-                            <a asp-action="Delete" asp-route-id="@drink.Id" class="delete-link" data-name="@drink.Name">Xóa</a>
+                                    data-image="@drink.Image"><partial name="_AdminIcon" model='"edit"' /> Sửa</button>
+                            <a asp-action="Delete" asp-route-id="@drink.Id" class="delete-link" data-name="@drink.Name"><partial name="_AdminIcon" model='"trash"' /> Xóa</a>
                         </div>
                         <template data-row-preview-content data-title="@drink.Name">
                             <dl class="row-preview-details">

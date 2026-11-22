@@ -2,7 +2,7 @@
 
 <dialog id="news-editor" class="drink-editor" aria-labelledby="news-editor-title">
     <div class="page-heading">
-        <h2 id="news-editor-title">Thêm bài viết</h2>
+        <div class="admin-icon-label"><partial name="_AdminIcon" model='"news"' /> <h2 id="news-editor-title">Thêm bài viết</h2></div>
         <button type="button" class="button secondary" data-news-cancel>Đóng</button>
     </div>
     <form asp-action="Create" method="post" class="editor" data-upload-folder="news" data-ajax-save

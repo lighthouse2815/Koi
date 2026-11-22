@@ -1,7 +1,8 @@
 @model AdminStoresViewModel
 @{ ViewData["Title"] = "Quản lý chi nhánh"; }
-<div class="page-heading">
-    <h1>Quản lý chi nhánh</h1><button type="button" class="button" data-store-create>+ Thêm chi nhánh</button>
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><partial name="_AdminIcon" model='"store"' /></span><h1>Quản lý chi nhánh</h1></div>
+    <button type="button" class="button" data-store-create><partial name="_AdminIcon" model='"plus"' /> Thêm chi nhánh</button>
 </div>
 <noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa chi nhánh.</p></noscript>
 <form method="get" class="search">
@@ -9,15 +10,15 @@
         <label for="search">Tên hoặc địa chỉ</label>
         <input id="search" name="search" value="@Model.Search" maxlength="200" />
     </div>
-    <button type="submit" class="button secondary">Tìm kiếm</button>
+    <button type="submit" class="button secondary"><partial name="_AdminIcon" model='"search"' /> Tìm kiếm</button>
 </form>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách chi nhánh">
     <table>
         <thead>
             <tr>
-                <th scope="col">Chi nhánh</th>
-                <th scope="col">Khu vực</th>
-                <th scope="col">Thao tác</th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"store"' /> Chi nhánh</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"pin"' /> Khu vực</span></th>
+                <th scope="col"><span class="admin-column"><partial name="_AdminIcon" model='"settings"' /> Thao tác</span></th>
             </tr>
         </thead>
         <tbody>
@@ -28,15 +29,15 @@
                     <td>@(store.City?.Name ?? "Việt Nam")</td>
                     <td>
                         <div class="row-actions">
-                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @store.Name" hidden>Xem</button>
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @store.Name" hidden><partial name="_AdminIcon" model='"eye"' /> Xem</button>
                             <button type="button" class="link-button" data-store-edit
                                     data-url="@Url.Action("Edit", new { id = store.Id })"
                                     data-id="@store.Id" data-revision="@store.Revision" data-name="@store.Name"
                                     data-city-id="@store.CityId" data-address="@store.Address" data-phone="@store.Phone"
                                     data-hours="@store.Hours" data-navigation-url="@store.NavigationUrl"
                                     data-sort-order="@store.SortOrder"
-                                    data-image="@store.Photo">Sửa</button>
-                            <a asp-action="Delete" asp-route-id="@store.Id" class="delete-link" data-name="@store.Name">Xóa</a>
+                                    data-image="@store.Photo"><partial name="_AdminIcon" model='"edit"' /> Sửa</button>
+                            <a asp-action="Delete" asp-route-id="@store.Id" class="delete-link" data-name="@store.Name"><partial name="_AdminIcon" model='"trash"' /> Xóa</a>
                         </div>
                         <template data-row-preview-content data-title="@store.Name">
                             <dl class="row-preview-details">

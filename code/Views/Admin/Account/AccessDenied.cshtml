@@ -2,7 +2,10 @@
     ViewData["Title"] = "Không có quyền truy cập";
 }
 <section class="card access-card">
-    <h1>Không có quyền truy cập</h1>
+    <div class="admin-heading-title">
+        <span class="admin-heading-icon"><partial name="_AdminIcon" model='"lock"' /></span>
+        <h1>Không có quyền truy cập</h1>
+    </div>
     <p>Tài khoản này không có quyền quản trị.</p>
-    <a class="button" asp-action="Login">Quay lại đăng nhập</a>
+    <a class="button" asp-action="Login"><partial name="_AdminIcon" model='"arrow-left"' /> Quay lại đăng nhập</a>
 </section>

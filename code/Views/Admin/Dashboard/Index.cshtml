@@ -7,10 +7,10 @@
     var chartMax = Math.Max(1, Model.OrderActivity.Max(day => day.Count));
     var metrics = new[]
     {
-        (Controller: "Orders", Label: "Đơn hàng", Value: Model.OrderCount),
-        (Controller: "Drinks", Label: "Đồ uống", Value: Model.DrinkCount),
-        (Controller: "Stores", Label: "Chi nhánh", Value: Model.StoreCount),
-        (Controller: "News", Label: "Bài viết", Value: Model.NewsCount)
+        (Controller: "Orders", Label: "Đơn hàng", Value: Model.OrderCount, Icon: "receipt"),
+        (Controller: "Drinks", Label: "Đồ uống", Value: Model.DrinkCount, Icon: "cup"),
+        (Controller: "Stores", Label: "Chi nhánh", Value: Model.StoreCount, Icon: "store"),
+        (Controller: "News", Label: "Bài viết", Value: Model.NewsCount, Icon: "news")
     };
 }
 
@@ -23,7 +23,7 @@
         <div class="dashboard-intro">
             <time datetime="@today.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)">@today.ToString("dddd, dd/MM/yyyy", culture)</time>
             <h1>Tổng quan quản trị</h1>
-            <a class="button" asp-controller="Orders" asp-action="Index">Xem đơn hàng <span aria-hidden="true">→</span></a>
+            <a class="button" asp-controller="Orders" asp-action="Index">Xem đơn hàng <partial name="_AdminIcon" model='"arrow-right"' /></a>
         </div>
     </header>
 
@@ -31,9 +31,9 @@
         @foreach (var metric in metrics)
         {
             <a class="dashboard-metric" asp-controller="@metric.Controller" asp-action="Index">
-                <span class="dashboard-metric-label">@metric.Label</span>
+                <span class="dashboard-metric-label admin-icon-label"><partial name="_AdminIcon" model="metric.Icon" /> @metric.Label</span>
                 <strong>@metric.Value.ToString("N0", culture)</strong>
-                <span class="dashboard-metric-arrow" aria-hidden="true">↗</span>
+                <span class="dashboard-metric-arrow"><partial name="_AdminIcon" model='"arrow-right"' /></span>
             </a>
         }
     </section>
@@ -42,7 +42,7 @@
         <section class="dashboard-panel" aria-labelledby="activity-heading">
             <header class="dashboard-panel-heading">
                 <div>
-                    <h2 id="activity-heading">Đơn hàng 7 ngày qua</h2>
+                    <h2 id="activity-heading" class="admin-icon-label"><partial name="_AdminIcon" model='"chart"' /> Đơn hàng 7 ngày qua</h2>
                     <p>@firstDay.ToString("dd/MM", culture) – @today.ToString("dd/MM/yyyy", culture) · Giờ Việt Nam</p>
                 </div>
             </header>
@@ -63,7 +63,7 @@
         <section class="dashboard-panel" aria-labelledby="recent-orders-heading">
             <header class="dashboard-panel-heading">
                 <div>
-                    <h2 id="recent-orders-heading">Đơn hàng gần đây</h2>
+                    <h2 id="recent-orders-heading" class="admin-icon-label"><partial name="_AdminIcon" model='"receipt"' /> Đơn hàng gần đây</h2>
                     <p>Thời gian theo giờ Việt Nam</p>
                 </div>
             </header>
