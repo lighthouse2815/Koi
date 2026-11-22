@@ -38,18 +38,18 @@ public class HomeController(
         return View();
     }
 
-    public async Task<IActionResult> News(string? category, int page = 1) => View(await siteContent.GetNewsAsync(category, page));
+    public async Task<IActionResult> News(string? category, int page = 1) => View(await newsArticleService.GetNewsAsync(category, page));
 
     public async Task<IActionResult> NewsDetail(Guid id)
     {
-        var article = await siteContent.GetArticleAsync(id);
+        var article = await newsArticleService.GetArticleAsync(id);
         return article == null ? NotFound() : View(article);
     }
 
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> NewsPreview(Guid id)
     {
-        var article = await siteContent.GetArticleAsync(id);
+        var article = await newsArticleService.GetArticleAsync(id);
         if (article == null)
             return NotFound();
         ViewData["IsAdminPreview"] = true;
