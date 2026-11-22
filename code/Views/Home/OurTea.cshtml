@@ -106,7 +106,7 @@
                         <img src="/images/pages/en/images/drink-6.png" alt="">
                     </li>
                 </ul>
-                <div class="scroll-down">@if (SiteText.IsVietnamese) { <span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span> }
+                <div class="scroll-down"><span class="localized-control-text"><span class="control-arrow" aria-hidden="true">↓</span>@T["Scroll"]</span>
                     <svg class="show-for-large" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="170.03" height="55.27" viewBox="0 0 170.03 55.27">
                         <g data-name="設計">
                             <g>
@@ -212,12 +212,12 @@
             <header class="tea-catalog-heading">
                 <div>
                     <p class="tea-eyebrow">( YOUR DAILY BEAT. )</p>
-                    <h2 id="tea-catalog-title"><span>@(SiteText.IsVietnamese ? "MỘT CHÚT TRÀ." : "A LITTLE TEA.")</span><em>@(SiteText.IsVietnamese ? "THẬT NHIỀU VUI." : "A LOT OF JOY.")</em></h2>
-                    <p>@(SiteText.IsVietnamese ? "Chọn hương vị yêu thích, để KOI lo phần còn lại." : "Find your favourite. We'll take care of the rest.")</p>
+                    <h2 id="tea-catalog-title"><span>MỘT CHÚT TRÀ.</span><em>THẬT NHIỀU VUI.</em></h2>
+                    <p>Chọn hương vị yêu thích, để KOI lo phần còn lại.</p>
                 </div>
-                <a class="tea-all-menu" asp-controller="Order" asp-action="Index" asp-fragment="drinks"><span>@(SiteText.IsVietnamese ? "Xem toàn bộ" : "Explore the full")<br />@(SiteText.IsVietnamese ? "thực đơn" : "menu")</span><span class="tea-button-arrow" aria-hidden="true">↗</span></a>
+                <a class="tea-all-menu" asp-controller="Order" asp-action="Index" asp-fragment="drinks"><span>Xem toàn bộ<br />thực đơn</span><span class="tea-button-arrow" aria-hidden="true">↗</span></a>
             </header>
-            <nav class="tea-category-nav" aria-label="@(SiteText.IsVietnamese ? "Danh mục đồ uống" : "Drink categories")">
+            <nav class="tea-category-nav" aria-label="Danh mục đồ uống">
                 @foreach (var category in Model.Categories)
                 {
                     <a href="#@category.Id">
@@ -240,7 +240,7 @@
                                 }
                                 <h3 class="en">@category.Name</h3>
                             </div>
-                            <a class="tea-view-all" asp-controller="Order" asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks">@(SiteText.IsVietnamese ? "Xem tất cả sản phẩm" : "View all drinks") <span class="tea-button-arrow" aria-hidden="true">↗</span></a>
+                            <a class="tea-view-all" asp-controller="Order" asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks">Xem tất cả sản phẩm <span class="tea-button-arrow" aria-hidden="true">↗</span></a>
                         </div>
                         <ul class="drinkList tea-products">
                             @foreach (var drink in category.Drinks.Take(4))
@@ -248,17 +248,17 @@
                                 var name = drink.Name;
                                 var hasImage = !string.IsNullOrWhiteSpace(drink.Image);
                                 <li class="tea-product" data-drink-id="@drink.Id">
-                                    <div class="tea-product-image"><img src="@(hasImage ? drink.Image : category.Image)" alt="@name" loading="lazy" />@if (!hasImage) { <span>@(SiteText.IsVietnamese ? "Ảnh danh mục" : "Category image")</span> }</div>
+                                    <div class="tea-product-image"><img src="@(hasImage ? drink.Image : category.Image)" alt="@name" loading="lazy" />@if (!hasImage) { <span>Ảnh danh mục</span> }</div>
                                     <div class="tea-product-details">
                                         <div class="en">@name</div>
                                         <div class="content">@drink.Description</div>
-                                        @if (drink.Price > 0) { <div class="tea-product-bottom"><strong>@drink.Price.Value.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) đ</strong><a asp-controller="Order" asp-action="Index" asp-route-drinkId="@drink.Id" asp-fragment="drinks" aria-label="@(SiteText.IsVietnamese ? "Chọn món " : "Choose ")@name">@(SiteText.IsVietnamese ? "Chọn món" : "Choose") <span class="tea-button-arrow" aria-hidden="true">↗</span></a></div> }
-                                        else { <p class="tea-unavailable">@(SiteText.IsVietnamese ? "Chưa mở bán" : "Not available")</p> }
+                                        @if (drink.Price > 0) { <div class="tea-product-bottom"><strong>@drink.Price.Value.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN")) đ</strong><a asp-controller="Order" asp-action="Index" asp-route-drinkId="@drink.Id" asp-fragment="drinks" aria-label="Chọn món @name">Chọn món <span class="tea-button-arrow" aria-hidden="true">↗</span></a></div> }
+                                        else { <p class="tea-unavailable">Chưa mở bán</p> }
                                     </div>
                                 </li>
                             }
                         </ul>
-                        @if (category.Drinks.Count == 0) { <p>@(SiteText.IsVietnamese ? "Chưa có sản phẩm." : "No drinks yet.")</p> }
+                        @if (category.Drinks.Count == 0) { <p>Chưa có sản phẩm.</p> }
                     </li>
                 }
             </ul>

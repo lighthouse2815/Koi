@@ -19,7 +19,7 @@
                     <div class="pic-area hide-for-large">
                         <div class="cat">@T[featured.Category.ToString()]</div>
                         <time class="date" datetime="@featured.Date.ToString(" yyyy-MM-dd")">(@SiteText.Date(featured.Date))</time>
-                        <div class="more" aria-hidden="true">@if (SiteText.IsVietnamese) { <span class="localized-control-text">@T["( More )"] ↗</span> }
+                        <div class="more" aria-hidden="true"><span class="localized-control-text">@T["( More )"] ↗</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="34.67" height="30.18" viewBox="0 0 34.67 30.18">
                                 <g class="arrow">
                                     <line class="d" y1="15.09" x2="31.07" y2="15.09" />
@@ -30,7 +30,7 @@
                     </div>
                     <div class="article-area">
                         <div class="title">@featured.Title</div>
-                        <div class="more show-for-large" aria-hidden="true">@if (SiteText.IsVietnamese) { <span class="localized-control-text">@T["( More )"] ↗</span> }
+                        <div class="more show-for-large" aria-hidden="true"><span class="localized-control-text">@T["( More )"] ↗</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="54" height="53.02" viewBox="0 0 54 53.02">
                                 <path class="e" d="M3.56,53.02c-1.15-.67-2.03-1.56-2.64-2.67C.31,49.24,0,47.97,0,46.54s.31-2.7,.92-3.82c.61-1.12,1.49-2,2.64-2.67l.76,.9c-.96,.58-1.7,1.35-2.21,2.31-.51,.96-.77,2.05-.77,3.28s.26,2.3,.77,3.27,1.25,1.73,2.21,2.3l-.76,.91Z" />
                                 <path class="e" d="M10.29,39.7h1.86l1.89,5.21c.24,.69,.45,1.39,.69,2.09h.07c.24-.7,.43-1.4,.67-2.09l1.86-5.21h1.88v10.31h-1.51v-5.1c0-.92,.13-2.25,.21-3.19h-.06l-.83,2.38-1.79,4.92h-1.01l-1.81-4.92-.81-2.38h-.06c.07,.94,.2,2.27,.2,3.19v5.1h-1.46v-10.31Z" />
