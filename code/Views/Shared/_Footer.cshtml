@@ -1,16 +1,18 @@
 <aside class="floating-bear" aria-label="Liên kết nhanh đến thực đơn và cửa hàng" tabindex="0">
-    <div class="circle" aria-hidden="true">
-        <img class="mascot-menu" src="~/images/m-menu.svg" alt="" />
-        <img class="mascot-store" src="~/images/m-store.svg" alt="" />
-        <img class="mascot-mobile" src="~/images/m-text-mobile.svg" alt="" />
+    <div class="mascot-art" aria-hidden="true">
+        <div class="circle">
+            <img class="mascot-menu" src="~/images/m-menu.svg" alt="" />
+            <img class="mascot-store" src="~/images/m-store.svg" alt="" />
+            <img class="mascot-mobile" src="~/images/m-text-mobile.svg" alt="" />
+        </div>
+        <div class="bear">
+            <div class="drink"><img src="~/images/b-drink-menu.svg" alt="" /></div>
+            <div class="big-body"><img src="~/images/b-big-body.svg" alt="" /></div>
+        </div>
     </div>
     <div class="hover-link">
-        <div class="menu"><a asp-controller="Home" asp-action="Menu" aria-label="Khám phá thực đơn"><span class="localized-menu-label">THỰC ĐƠN</span><img src="~/images/m-hover-menu.svg" alt="" /></a></div>
-        <div class="store"><a asp-controller="Home" asp-action="Store" aria-label="Tìm cửa hàng KOI"><span class="localized-menu-label">CỬA HÀNG</span><img src="~/images/m-hover-store.svg" alt="" /></a></div>
-    </div>
-    <div class="bear" aria-hidden="true">
-        <div class="drink"><img src="~/images/b-drink-menu.svg" alt="" /></div>
-        <div class="big-body"><img src="~/images/b-big-body.svg" alt="" /></div>
+        <a asp-controller="Home" asp-action="Menu" aria-label="Khám phá thực đơn">THỰC ĐƠN</a>
+        <a asp-controller="Home" asp-action="Store" aria-label="Tìm cửa hàng KOI">CỬA HÀNG</a>
     </div>
 </aside>
 <footer class="site-footer" id="footer">
