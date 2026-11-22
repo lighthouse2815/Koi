@@ -11,6 +11,15 @@ public class NewsService(
     ImageUploadService uploads
 )
 {
+    public Task<NewsArticle[]> GetForHomeAsync() =>
+        database.NewsArticles
+            .AsNoTracking()
+            .Where(article => article.IsPublished && article.ShowOnHome)
+            .OrderBy(article => article.HomeOrder)
+            .ThenByDescending(article => article.Date)
+            .Take(6)
+            .ToArrayAsync();
+
     public async Task<AdminNewsViewModel> GetListAsync(string? search, int page = 1)
     {
         search = search?.Trim();

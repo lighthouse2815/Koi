@@ -4,23 +4,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class SiteContentService(ApplicationDbContext database, IConfiguration configuration)
+public class SiteContentService(
+    ApplicationDbContext database,
+    IConfiguration configuration,
+    NewsService newsService,
+    CategoryService categoryService
+)
 {
     public async Task<HomeViewModel> GetHomeAsync()
     {
-        var news = await database
-            .NewsArticles.AsNoTracking()
-            .Where(article => article.IsPublished && article.ShowOnHome)
-            .OrderBy(article => article.HomeOrder)
-            .ThenByDescending(article => article.Date)
-            .Take(6)
-            .ToArrayAsync();
-        var categories = await database
-            .Categories.AsNoTracking()
-            .Where(value => value.IsPublished && value.ShowOnHome)
-            .OrderBy(value => value.SortOrder)
-            .ThenBy(value => value.Id)
-            .ToArrayAsync();
+        var news = await newsService.GetForHomeAsync();
+        var categories = await categoryService.GetForHomeAsync();
         return new HomeViewModel(news, categories);
     }
 
