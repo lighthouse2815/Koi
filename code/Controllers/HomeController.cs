@@ -9,7 +9,8 @@ namespace Koi.Web.Controllers;
 public class HomeController(
     SiteContentService siteContent,
     NewsArticleService newsArticleService,
-    CategoryService categoryService
+    CategoryService categoryService,
+    FeaturedDrinkService featuredDrinkService
 ) : Controller
 {
     public async Task<IActionResult> Index()
@@ -24,7 +25,12 @@ public class HomeController(
         return View();
     }
 
-    public async Task<IActionResult> OurTea() => View(await siteContent.GetOurTeaAsync());
+    public async Task<IActionResult> OurTea()
+    {
+        var categories = await categoryService.GetListAsync(includeDrinks: true);
+        var featured = await featuredDrinkService.GetListAsync();
+        return View(new OurTeaViewModel(categories, featured));
+    }
 
     public IActionResult Recruit()
     {

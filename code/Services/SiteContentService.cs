@@ -4,20 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class SiteContentService(
-    ApplicationDbContext database,
-    IConfiguration configuration,
-    CategoryService categoryService,
-    FeaturedDrinkService featuredDrinkService
-)
+public class SiteContentService(ApplicationDbContext database, IConfiguration configuration)
 {
-    public async Task<OurTeaViewModel> GetOurTeaAsync()
-    {
-        var categories = await categoryService.GetListAsync(includeDrinks: true);
-        var featured = await featuredDrinkService.GetListAsync();
-        return new OurTeaViewModel(categories, featured);
-    }
-
     public async Task<NewsViewModel> GetNewsAsync(string? category, int page = 1)
     {
         category = category?.ToUpperInvariant();
