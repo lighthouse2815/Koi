@@ -10,7 +10,7 @@ public class CategoryService(
     ImageUploadService uploads
 )
 {
-    public Task<Category[]> GetListAsync(bool forHome = false, bool includeDrinks = false)
+    public Task<List<Category>> GetListAsync(bool forHome = false, bool includeDrinks = false)
     {
         var query = database.Categories.AsNoTracking();
         if (forHome)
@@ -25,7 +25,7 @@ public class CategoryService(
         return query
             .OrderBy(category => category.SortOrder)
             .ThenBy(category => category.Id)
-            .ToArrayAsync();
+            .ToListAsync();
     }
 
    

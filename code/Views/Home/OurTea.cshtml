@@ -176,7 +176,7 @@
                 </div>
             </div>
         </div>
-        @if (Model.Featured.Length > 0)
+        @if (Model.Featured.Count > 0)
         {
             <div class="new-drinkWrap flex-container align-center">
                 <div class="tea-new-background swiper" aria-hidden="true">
@@ -195,7 +195,7 @@
                     </div>
                     <div class="tea-new-copy swiper">
                         <ul class="new-drink">
-                            @for (var index = 0; index < Model.Featured.Length; index++) { var item=Model.Featured[index]; <li data-drink="@(index + 1)">
+                            @for (var index = 0; index < Model.Featured.Count; index++) { var item=Model.Featured[index]; <li data-drink="@(index + 1)">
                                     <div class="inner">
                                         <div class="en">@item.Name</div>
                                     </div>

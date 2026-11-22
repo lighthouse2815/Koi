@@ -11,14 +11,14 @@ public class NewsArticleService(
     ImageUploadService uploads
 )
 {
-    public Task<NewsArticle[]> GetForHomeAsync() =>
+    public Task<List<NewsArticle>> GetForHomeAsync() =>
         database.NewsArticles
             .AsNoTracking()
             .Where(article => article.ShowOnHome)
             .OrderBy(article => article.HomeOrder)
             .ThenByDescending(article => article.Date)
             .Take(6)
-            .ToArrayAsync();
+            .ToListAsync();
 
     public async Task<AdminNewsViewModel> GetListAsync(string? search, int page = 1)
     {

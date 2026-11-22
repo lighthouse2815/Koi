@@ -10,12 +10,12 @@ public class FeaturedDrinkService(
     ImageUploadService uploads
 )
 {
-    public Task<FeaturedDrink[]> GetListAsync() =>
+    public Task<List<FeaturedDrink>> GetListAsync() =>
         database
             .FeaturedDrinks.AsNoTracking()
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
-            .ToArrayAsync();
+            .ToListAsync();
 
     public async Task CreateAsync(FeaturedDrinkEditViewModel model)
     {
