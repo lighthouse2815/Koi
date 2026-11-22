@@ -12,8 +12,6 @@ public class HomeController(
     CategoryService categoryService
 ) : Controller
 {
-    public IActionResult Cover() => RedirectToAction(nameof(Index));
-
     public async Task<IActionResult> Index()
     {
         var news = await newsService.GetForHomeAsync();
