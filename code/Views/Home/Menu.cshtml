@@ -54,20 +54,10 @@
 </div>
 @if (Model.Menus.Count > 0)
 {
-    <dialog class="menu-viewer" id="menu-viewer" aria-labelledby="menu-viewer-title">
-        <div class="menu-viewer__toolbar">
-            <h2 id="menu-viewer-title">Ảnh thực đơn</h2>
-            <div class="menu-viewer__controls">
-                <button type="button" data-zoom-out aria-label="Thu nhỏ" disabled>−</button>
-                <output>100%</output>
-                <button type="button" data-zoom-in aria-label="Phóng to">+</button>
-                <form method="dialog">
-                    <button autofocus>Đóng</button>
-                </form>
-            </div>
-        </div>
-        <div class="menu-viewer__viewport" tabindex="0" role="region" aria-label="Vùng cuộn ảnh thực đơn">
-            <img class="menu-viewer__image" alt="" />
+    <dialog class="menu-viewer" id="menu-viewer" aria-label="Ảnh thực đơn" aria-describedby="menu-viewer-help">
+        <p class="visually-hidden" id="menu-viewer-help">Dùng phím + hoặc − để phóng to hoặc thu nhỏ, phím mũi tên để di chuyển và Escape để đóng.</p>
+        <div class="menu-viewer__viewport" tabindex="0" autofocus>
+            <img class="menu-viewer__image" alt="" draggable="false" />
         </div>
     </dialog>
 }
