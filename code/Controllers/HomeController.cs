@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 namespace Koi.Web.Controllers;
 
 public class HomeController(
-    SiteContentService siteContent,
     NewsArticleService newsArticleService,
     CategoryService categoryService,
     FeaturedDrinkService featuredDrinkService,
+    StoreService storeService,
     MenuService menuService
 ) : Controller
 {
@@ -56,7 +56,7 @@ public class HomeController(
         return View("NewsDetail", article);
     }
 
-    public async Task<IActionResult> Store(Guid s = default, int page = 1) => View(await siteContent.GetStoresAsync(s, page));
+    public async Task<IActionResult> Store(Guid s = default, int page = 1) => View(await storeService.GetStoresAsync(s, page));
 
     public IActionResult Impact()
     {
