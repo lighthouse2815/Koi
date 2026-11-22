@@ -132,15 +132,15 @@
         <h2 class="section-heading green" id="drinks-title"><span class="heading-clip"><span class="heading-word">ĐỒ UỐNG</span></span></h2>
         <div class="drink-controls"><span>TÌM HƯƠNG VỊ YÊU THÍCH MỖI NGÀY</span><div><button type="button" class="carousel-arrow" data-drink-direction="-1" aria-label="Đồ uống trước" aria-controls="drink-carousel">←</button><button type="button" class="carousel-arrow" data-drink-direction="1" aria-label="Đồ uống tiếp theo" aria-controls="drink-carousel">→</button></div></div>
         <div class="drink-carousel" id="drink-carousel" tabindex="0" role="region" aria-label="Danh mục đồ uống, cuộn theo chiều ngang">
-            @foreach (var drink in Model.DrinkCategories)
+            @foreach (var category in Model.DrinkCategories)
             {
-                <a class="drink-card" href="@Url.Action("OurTea", "Home")#@drink.Id">
+                <a class="drink-card" href="@Url.Action("OurTea", "Home")#@category.Id">
                     <div class="drink-photo">
-                        <img src="@drink.Image" alt="@drink.Name collection" width="600" height="600" loading="lazy" />
-                        <img class="drink-photo-circle" src="@drink.Image" alt="" width="600" height="600" loading="lazy" aria-hidden="true" />
+                        <img src="@category.Image" alt="@category.Name collection" width="600" height="600" loading="lazy" />
+                        <img class="drink-photo-circle" src="@category.Image" alt="" width="600" height="600" loading="lazy" aria-hidden="true" />
                         <span class="drink-view-more" aria-hidden="true">XEM<br />THÊM ↗</span>
                     </div>
-                    <h3><img src="@drink.Icon" alt="" width="32" height="44" loading="lazy" />@drink.Name<span aria-hidden="true">↗</span></h3>
+                    <h3><img src="@category.Icon" alt="" width="32" height="44" loading="lazy" />@category.Name<span aria-hidden="true">↗</span></h3>
                 </a>
             }
         </div>
