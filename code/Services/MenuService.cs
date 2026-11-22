@@ -10,14 +10,12 @@ public class MenuService(
     ImageUploadService uploads
 )
 {
-    public async Task<AdminMenusViewModel> GetListAsync() =>
-        new(
-            await database
-                .Menus.AsNoTracking()
-                .OrderBy(value => value.SortOrder)
-                .ThenBy(value => value.Id)
-                .ToArrayAsync()
-        );
+    public Task<List<Menu>> GetListAsync() =>
+        database
+            .Menus.AsNoTracking()
+            .OrderBy(menu => menu.SortOrder)
+            .ThenBy(menu => menu.Id)
+            .ToListAsync();
 
     public async Task CreateAsync(MenuEditViewModel model)
     {

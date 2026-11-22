@@ -92,18 +92,6 @@ public class SiteContentService(ApplicationDbContext database, IConfiguration co
         );
     }
 
-    public async Task<MenuViewModel> GetMenusAsync()
-    {
-        var menus = await database
-            .Menus.AsNoTracking()
-            .OrderBy(value => value.SortOrder)
-            .ThenBy(value => value.Id)
-            .ToArrayAsync();
-        return new MenuViewModel(
-            menus.Select(value => new MenuDocument(value.Label, value.File)).ToArray()
-        );
-    }
-
     public Task<NewsArticle?> GetArticleAsync(Guid id) =>
         database.NewsArticles.AsNoTracking().SingleOrDefaultAsync(article => article.Id == id);
 }

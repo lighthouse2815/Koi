@@ -34,7 +34,7 @@
         </tbody>
     </table>
 </div>
-@if (Model.Menus.Length == 0) { <p>Chưa có thực đơn.</p> }
+@if (Model.Menus.Count == 0) { <p>Chưa có thực đơn.</p> }
 
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new MenuEditViewModel()" />

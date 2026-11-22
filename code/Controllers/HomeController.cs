@@ -10,7 +10,8 @@ public class HomeController(
     SiteContentService siteContent,
     NewsArticleService newsArticleService,
     CategoryService categoryService,
-    FeaturedDrinkService featuredDrinkService
+    FeaturedDrinkService featuredDrinkService,
+    MenuService menuService
 ) : Controller
 {
     public async Task<IActionResult> Index()
@@ -67,7 +68,13 @@ public class HomeController(
     public IActionResult People() => View();
     public IActionResult Connections() => View();
     public IActionResult Contact() => View();
-    public async Task<IActionResult> Menu() => View(await siteContent.GetMenusAsync());
+
+    public async Task<IActionResult> Menu()
+    {
+        var menus = await menuService.GetListAsync();
+        var documents = menus.Select(menu => new MenuDocument(menu.Label, menu.File)).ToList();
+        return View(new MenuViewModel(documents));
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

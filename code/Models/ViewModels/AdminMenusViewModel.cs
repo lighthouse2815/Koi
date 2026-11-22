@@ -1,3 +1,3 @@
 namespace Koi.Web.Models;
 
-public record AdminMenusViewModel(Menu[] Menus);
+public record AdminMenusViewModel(IReadOnlyList<Menu> Menus);

@@ -9,7 +9,7 @@ namespace Koi.Web.Controllers.Admin;
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class MenusController(MenuService menus) : Controller
 {
-    public async Task<IActionResult> Index() => View(await menus.GetListAsync());
+    public async Task<IActionResult> Index() => View(new AdminMenusViewModel(await menus.GetListAsync()));
     [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(MenuEditViewModel model)
