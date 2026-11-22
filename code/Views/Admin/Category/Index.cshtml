@@ -81,7 +81,7 @@
         <tbody>
             @foreach (var category in Model)
             {
-                <tr>
+                <tr data-row-preview>
                     <td><span class="category-order">@category.SortOrder</span></td>
                     <td class="category-name">@category.Name</td>
                     <td>
@@ -107,6 +107,7 @@
                     <td><span class="category-home">@(category.ShowOnHome ? "Có · thứ tự " + category.SortOrder : "Không")</span></td>
                     <td>
                         <div class="row-actions category-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @category.Name" hidden>Xem</button>
                             <button type="button" class="category-action category-action-edit" data-category-edit
                                     data-id="@category.Id" data-revision="@category.Revision" data-name="@category.Name"
                                     data-sort-order="@category.SortOrder"
@@ -115,6 +116,38 @@
                             <a asp-area="" asp-controller="Home" asp-action="OurTea" asp-fragment="@category.Id.ToString()" target="_blank" rel="noopener" class="category-action category-action-view"><svg aria-hidden="true"><use href="#category-icon-external" /></svg>Xem website</a>
                             <a asp-action="Delete" asp-route-id="@category.Id" class="delete-link category-action category-action-delete" data-name="@category.Name"><svg aria-hidden="true"><use href="#category-icon-trash" /></svg>Xóa</a>
                         </div>
+                        <template data-row-preview-content data-title="@category.Name">
+                            <dl class="row-preview-details">
+                                <div><dt>Thứ tự</dt><dd>@category.SortOrder</dd></div>
+                                <div><dt>Hiển thị trên trang chủ</dt><dd>@(category.ShowOnHome ? "Có" : "Không")</dd></div>
+                                <div>
+                                    <dt>Ảnh danh mục</dt>
+                                    <dd>
+                                        @if (!string.IsNullOrWhiteSpace(category.Image))
+                                        {
+                                            <img class="row-preview-image" src="@category.Image" alt="Ảnh @category.Name" />
+                                        }
+                                        else
+                                        {
+                                            <span>Chưa có ảnh</span>
+                                        }
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt>Biểu tượng</dt>
+                                    <dd>
+                                        @if (!string.IsNullOrWhiteSpace(category.Icon))
+                                        {
+                                            <img class="row-preview-image category-thumbnail--icon" src="@category.Icon" alt="Biểu tượng @category.Name" />
+                                        }
+                                        else
+                                        {
+                                            <span>Chưa có biểu tượng</span>
+                                        }
+                                    </dd>
+                                </div>
+                            </dl>
+                        </template>
                     </td>
                 </tr>
             }
@@ -124,6 +157,7 @@
 
 @if (Model.Count == 0) { <p class="category-empty">Chưa có danh mục.</p> }
 
+<partial name="_RowPreviewDialog" />
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new CategoryEditViewModel()" />
 <script src="~/js/category-editor.js" asp-append-version="true" defer></script>

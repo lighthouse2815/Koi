@@ -77,7 +77,9 @@
                     @foreach (var order in Model.RecentOrders)
                     {
                         <li>
-                            <a asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id">
+                            <a asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id"
+                               data-row-preview-trigger data-row-preview-title="Chi tiết đơn hàng"
+                               data-row-preview-url="@Url.Action("Details", "Orders", new { id = order.Id, preview = true })">
                                 <span>
                                     <strong>@order.StoreName</strong>
                                     <small>@order.CreatedAt.ToString("dd/MM/yyyy · HH:mm", culture)</small>
@@ -91,3 +93,5 @@
         </section>
     </div>
 </div>
+
+<partial name="_RowPreviewDialog" />

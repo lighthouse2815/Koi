@@ -1,73 +1,10 @@
 @model Order
 @{
     ViewData["Title"] = "Chi tiết đơn hàng";
-    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    ViewData["ShowOrderActions"] = true;
 }
 <div class="page-heading">
-    <div>
-        <h1>Chi tiết đơn hàng</h1>
-        <p class="page-description">Mã đơn <span class="order-id">@Model.Id</span></p>
-    </div>
+    <h1>Chi tiết đơn hàng</h1>
     <a class="button secondary" asp-action="Index">← Danh sách đơn</a>
 </div>
-<div class="order-layout">
-    <section class="card" aria-labelledby="info-title">
-        <div class="order-heading">
-            <h2 id="info-title">Thông tin đơn</h2>
-            <partial name="_OrderStatus" model="Model.Status" />
-        </div>
-        <dl class="order-info">
-            <div><dt>Thời gian (UTC)</dt><dd>@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd></div>
-            <div><dt>Chi nhánh</dt><dd>@Model.StoreName <span class="cell-detail">@Model.StoreAddress</span></dd></div>
-            <div><dt>Khách hàng</dt><dd>@Model.CustomerName <span class="cell-detail">@Model.CustomerPhone</span></dd></div>
-            <div><dt>Nhận hàng</dt><dd>@(Model.Fulfillment == FulfillmentMethod.Pickup ? "Nhận tại chi nhánh" : "Giao hàng")</dd></div>
-            @if (Model.Fulfillment == FulfillmentMethod.Delivery)
-            {
-                <div><dt>Địa chỉ giao</dt><dd>@Model.DeliveryAddress</dd></div>
-            }
-            @if (!string.IsNullOrWhiteSpace(Model.Note))
-            {
-                <div><dt>Ghi chú</dt><dd>@Model.Note</dd></div>
-            }
-        </dl>
-        @if (Model.Status is OrderStatus.New or OrderStatus.Preparing)
-        {
-            <form class="order-actions" asp-action="ChangeStatus" asp-route-id="@Model.Id" method="post">
-                <input type="hidden" name="current" value="@((int)Model.Status)" />
-                <button class="button" type="submit" name="next" value="@((int)(Model.Status == OrderStatus.New ? OrderStatus.Preparing : OrderStatus.Completed))">@(Model.Status == OrderStatus.New ? "Bắt đầu chuẩn bị" : "Hoàn thành")</button>
-                <button class="button danger-outline" type="submit" name="next" value="@((int)OrderStatus.Cancelled)">Hủy đơn</button>
-            </form>
-        }
-    </section>
-    <section class="card" aria-labelledby="items-title">
-        <h2 id="items-title">Đồ uống trong đơn</h2>
-        <div class="table-wrap" tabindex="0" role="region" aria-label="Đồ uống trong đơn">
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">Đồ uống</th>
-                        <th scope="col">Đơn giá</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Thành tiền</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Items)
-                    {
-                        <tr>
-                            <td><strong>@item.DrinkName</strong><span class="cell-detail">@item.Customization</span></td>
-                            <td class="amount">@item.UnitPrice.ToString("N0", culture) đ</td>
-                            <td>@item.Quantity</td>
-                            <td class="amount">@((item.UnitPrice * item.Quantity).ToString("N0", culture)) đ</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="order-total">
-            <span>Tổng tiền món</span>
-            <strong class="amount">@Model.Items.Sum(item => item.UnitPrice * item.Quantity).ToString("N0", culture) đ</strong>
-        </div>
-        <p class="help">Thanh toán khi nhận hàng. Phí giao hàng được xác nhận riêng.</p>
-    </section>
-</div>
+<partial name="_OrderDetails" />

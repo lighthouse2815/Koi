@@ -30,9 +30,10 @@
         <tbody>
             @foreach (var drink in Model.Drinks)
             {
-                <tr>
+                var previewImage = string.IsNullOrEmpty(drink.Image) ? drink.Category.Image : drink.Image;
+                <tr data-row-preview>
                     <td>
-                        <div class="article-cell"><img src="@(string.IsNullOrEmpty(drink.Image) ? drink.Category.Image : drink.Image)" alt="" loading="lazy" />
+                        <div class="article-cell"><img src="@previewImage" alt="" loading="lazy" />
                             <div><strong>@drink.Name</strong></div>
                         </div>
                     </td>
@@ -40,6 +41,7 @@
                     <td>@drink.SortOrder</td>
                     <td>
                         <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @drink.Name" hidden>Xem</button>
                             <button type="button" class="link-button" data-drink-edit
                                     data-url="@Url.Action("Edit", new { id = drink.Id })"
                                     data-id="@drink.Id" data-revision="@drink.Revision" data-name="@drink.Name"
@@ -48,6 +50,20 @@
                                     data-image="@drink.Image">Sửa</button>
                             <a asp-action="Delete" asp-route-id="@drink.Id" class="delete-link" data-name="@drink.Name">Xóa</a>
                         </div>
+                        <template data-row-preview-content data-title="@drink.Name">
+                            <dl class="row-preview-details">
+                                <div><dt>Danh mục</dt><dd>@drink.Category.Name</dd></div>
+                                <div><dt>Thứ tự</dt><dd>@drink.SortOrder</dd></div>
+                                <div class="row-preview-wide"><dt>Mô tả</dt><dd>@(string.IsNullOrWhiteSpace(drink.Description) ? "Chưa có mô tả" : drink.Description)</dd></div>
+                                @if (!string.IsNullOrWhiteSpace(previewImage))
+                                {
+                                    <div class="row-preview-wide">
+                                        <dt>@(string.IsNullOrEmpty(drink.Image) ? "Ảnh dùng chung của danh mục" : "Ảnh đồ uống")</dt>
+                                        <dd><img class="row-preview-image" src="@previewImage" alt="" /></dd>
+                                    </div>
+                                }
+                            </dl>
+                        </template>
                     </td>
                 </tr>
             }
@@ -64,6 +80,7 @@
     @if (Model.Page < Model.PageCount) { <a asp-route-page="@(Model.Page + 1)" asp-route-categoryId="@Model.CategoryId" asp-route-search="@Model.Search">Sau →</a> }
 </nav>
 
+<partial name="_RowPreviewDialog" />
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new DrinkEditViewModel { Categories = Model.Categories, CategoryId = Model.CategoryId }" />
 <script src="~/js/drink-editor.js" asp-append-version="true" defer></script>

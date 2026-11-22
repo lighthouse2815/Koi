@@ -14,19 +14,28 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var row in Model.Rows) { <tr>
+            @foreach (var row in Model.Rows)
+            {
+                <tr data-row-preview>
                     <td>@row.Name</td>
                     <td>@row.SortOrder</td>
                     <td>
                         <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @row.Name" hidden>Xem</button>
                             <button type="button" class="link-button" data-geography-edit
                                     data-url="@Url.Action("Edit", new { id = row.Id })"
                                     data-id="@row.Id" data-revision="@row.Revision" data-name="@row.Name"
                                     data-sort-order="@row.SortOrder">Sửa</button>
                             <a asp-action="Delete" asp-route-id="@row.Id" class="delete-link" data-name="@row.Name" asp-route-kind="@Model.Kind">Xóa</a>
                         </div>
+                        <template data-row-preview-content data-title="@row.Name">
+                            <dl class="row-preview-details">
+                                <div><dt>Thứ tự</dt><dd>@row.SortOrder</dd></div>
+                            </dl>
+                        </template>
                     </td>
-                </tr> }
+                </tr>
+            }
             @if (Model.Rows.Count == 0)
             {
                 <tr><td colspan="3" class="empty-state">Chưa có khu vực.</td></tr>
@@ -35,6 +44,7 @@
     </table>
 </div>
 
+<partial name="_RowPreviewDialog" />
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new GeographyEditViewModel { Kind = Model.Kind }" />
 <script src="~/js/geography-editor.js" asp-append-version="true" defer></script>

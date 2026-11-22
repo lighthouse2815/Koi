@@ -20,13 +20,14 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr data-row-preview>
                     <td>
                         <div class="article-cell"><img src="@item.Image" alt="" loading="lazy" /><strong>@item.Name</strong></div>
                     </td>
                     <td>@item.SortOrder</td>
                     <td>
                         <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @item.Name" hidden>Xem</button>
                             <button type="button" class="link-button" data-featured-edit
                                     data-url="@Url.Action("Edit", new { id = item.Id })"
                                     data-id="@item.Id" data-revision="@item.Revision" data-name="@item.Name"
@@ -34,6 +35,13 @@
                                     data-image="@item.Image" data-background="@item.BackgroundImage">Sửa</button>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="delete-link" data-name="@item.Name">Xóa</a>
                         </div>
+                        <template data-row-preview-content data-title="@item.Name">
+                            <dl class="row-preview-details">
+                                <div class="row-preview-wide"><dt>Thứ tự</dt><dd>@item.SortOrder</dd></div>
+                                <div><dt>Ảnh đồ uống</dt><dd><img class="row-preview-image" src="@item.Image" alt="" /></dd></div>
+                                <div><dt>Ảnh nền</dt><dd><img class="row-preview-image" src="@item.BackgroundImage" alt="" /></dd></div>
+                            </dl>
+                        </template>
                     </td>
                 </tr>
             }
@@ -45,6 +53,7 @@
     </table>
 </div>
 
+<partial name="_RowPreviewDialog" />
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new FeaturedDrinkEditViewModel()" />
 <script src="~/js/featured-drink-editor.js" asp-append-version="true" defer></script>

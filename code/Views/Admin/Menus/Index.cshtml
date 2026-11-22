@@ -16,8 +16,8 @@
         <tbody>
             @foreach (var menu in Model)
             {
-                <tr>
-                    <td><a href="@menu.File" target="_blank" rel="noopener">@menu.Label ↗</a></td>
+                <tr data-row-preview>
+                    <td><a href="@menu.File" target="_blank" rel="noopener" data-row-preview-trigger>@menu.Label</a></td>
                     <td>@menu.SortOrder</td>
                     <td>
                         <div class="row-actions">
@@ -28,6 +28,17 @@
                                     data-image="@menu.File">Sửa</button>
                             <a asp-action="Delete" asp-route-id="@menu.Id" class="delete-link" data-name="@menu.Label">Xóa</a>
                         </div>
+                        <template data-row-preview-content data-title="@menu.Label">
+                            <dl class="row-preview-details">
+                                <div><dt>Thứ tự</dt><dd>@menu.SortOrder</dd></div>
+                                <div class="row-preview-wide">
+                                    <dt>Ảnh thực đơn</dt>
+                                    <dd>
+                                        <a href="@menu.File" target="_blank" rel="noopener"><img class="row-preview-image" src="@menu.File" alt="Mở ảnh thực đơn @menu.Label" /></a>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </template>
                     </td>
                 </tr>
             }
@@ -39,6 +50,7 @@
     </table>
 </div>
 
+<partial name="_RowPreviewDialog" />
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new MenuEditViewModel()" />
 <script src="~/js/menu-editor.js" asp-append-version="true" defer></script>

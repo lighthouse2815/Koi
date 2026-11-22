@@ -23,11 +23,12 @@
         <tbody>
             @foreach (var store in Model.Stores)
             {
-                <tr>
+                <tr data-row-preview>
                     <td><strong>@store.Name</strong><span class="cell-detail">@store.Address</span></td>
                     <td>@(store.City?.Name ?? "Việt Nam")</td>
                     <td>
                         <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @store.Name" hidden>Xem</button>
                             <button type="button" class="link-button" data-store-edit
                                     data-url="@Url.Action("Edit", new { id = store.Id })"
                                     data-id="@store.Id" data-revision="@store.Revision" data-name="@store.Name"
@@ -37,6 +38,23 @@
                                     data-image="@store.Photo">Sửa</button>
                             <a asp-action="Delete" asp-route-id="@store.Id" class="delete-link" data-name="@store.Name">Xóa</a>
                         </div>
+                        <template data-row-preview-content data-title="@store.Name">
+                            <dl class="row-preview-details">
+                                <div class="row-preview-wide"><dt>Địa chỉ</dt><dd>@(string.IsNullOrWhiteSpace(store.Address) ? "Chưa cập nhật" : store.Address)</dd></div>
+                                <div><dt>Khu vực</dt><dd>@(store.City?.Name ?? "Việt Nam")</dd></div>
+                                <div><dt>Điện thoại</dt><dd>@(string.IsNullOrWhiteSpace(store.Phone) ? "Chưa cập nhật" : store.Phone)</dd></div>
+                                <div><dt>Giờ mở cửa</dt><dd>@(string.IsNullOrWhiteSpace(store.Hours) ? "Chưa cập nhật" : store.Hours)</dd></div>
+                                <div><dt>Thứ tự</dt><dd>@store.SortOrder</dd></div>
+                                @if (!string.IsNullOrWhiteSpace(store.NavigationUrl) && Koi.Web.Services.StoreService.SafeLink(store.NavigationUrl))
+                                {
+                                    <div><dt>Bản đồ</dt><dd><a href="@store.NavigationUrl" target="_blank" rel="noopener">Xem chỉ đường</a></dd></div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(store.Photo))
+                                {
+                                    <div class="row-preview-wide"><dt>Ảnh chi nhánh</dt><dd><img class="row-preview-image" src="@store.Photo" alt="" /></dd></div>
+                                }
+                            </dl>
+                        </template>
                     </td>
                 </tr>
             }
@@ -53,6 +71,7 @@
     @if (Model.Page < Model.PageCount) { <a asp-route-page="@(Model.Page + 1)" asp-route-search="@Model.Search">Sau →</a> }
 </nav>
 
+<partial name="_RowPreviewDialog" />
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new StoreEditViewModel { Cities = Model.Cities }" />
 <script src="~/js/store-editor.js" asp-append-version="true" defer></script>

@@ -25,10 +25,12 @@ public class OrdersController(ApplicationDbContext database) : Controller
         });
     }
 
-    public async Task<IActionResult> Details(Guid id)
+    [HttpGet]
+    public async Task<IActionResult> Details(Guid id, bool preview = false)
     {
         var order = await database.Orders.AsNoTracking().Include(value => value.Items).SingleOrDefaultAsync(value => value.Id == id);
-        return order == null ? NotFound() : View(order);
+        if (order == null) return NotFound();
+        return preview ? PartialView("_OrderDetails", order) : View(order);
     }
 
     [HttpPost]

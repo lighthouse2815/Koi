@@ -50,13 +50,20 @@
         <tbody>
             @foreach (var order in Model.Orders)
             {
-                <tr>
+                <tr data-row-preview>
                     <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
                     <td><strong>@order.StoreName</strong></td>
                     <td>@order.CustomerName</td>
                     <td class="amount">@order.Items.Sum(item => item.UnitPrice * item.Quantity).ToString("N0", culture) đ</td>
                     <td><partial name="_OrderStatus" model="order.Status" /></td>
-                    <td><div class="row-actions"><a asp-action="Details" asp-route-id="@order.Id">Xem đơn</a></div></td>
+                    <td>
+                        <div class="row-actions">
+                            <button type="button" data-row-preview-trigger data-row-preview-title="Chi tiết đơn hàng"
+                                    data-row-preview-url="@Url.Action("Details", new { id = order.Id, preview = true })"
+                                    aria-label="Xem đơn của @order.CustomerName" hidden>Xem</button>
+                            <a asp-action="Details" asp-route-id="@order.Id">Mở đơn</a>
+                        </div>
+                    </td>
                 </tr>
             }
             @if (Model.Orders.Length == 0)
@@ -77,3 +84,5 @@
         <a asp-action="Index" asp-route-storeId="@Model.StoreId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page + 1)">Sau →</a>
     }
 </nav>
+
+<partial name="_RowPreviewDialog" />

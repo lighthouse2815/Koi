@@ -27,7 +27,7 @@
         <tbody>
             @foreach (var article in Model.Articles)
             {
-                <tr>
+                <tr data-row-preview>
                     <td>
                         <div class="article-cell"><img src="@article.Image" alt="" loading="lazy" />
                             <div><strong>@article.Title</strong>@if (article.IsFeatured) { <span class="badge">Nổi bật</span> }@if (article.ShowOnHome) { <span class="badge">Trang chủ</span> }</div>
@@ -37,6 +37,7 @@
                     <td>@article.Date.ToString("dd/MM/yyyy")</td>
                     <td>
                         <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @article.Title" hidden>Xem</button>
                             <button type="button" class="link-button" data-news-edit
                                     data-url="@Url.Action("Edit", new { id = article.Id })"
                                     data-id="@article.Id" data-revision="@article.Revision" data-title="@article.Title"
@@ -49,6 +50,19 @@
                             <a asp-action="Preview" asp-route-id="@article.Id" target="_blank" rel="noopener">Xem trước</a>
                             <a asp-action="Delete" asp-route-id="@article.Id" class="delete-link" data-name="@article.Title">Xóa</a>
                         </div>
+                        <template data-row-preview-content data-title="@article.Title">
+                            <dl class="row-preview-details">
+                                <div><dt>Danh mục</dt><dd>@(article.Category == NewsCategory.NEWS ? "Tin tức" : "Truyền thông")</dd></div>
+                                <div><dt>Ngày đăng</dt><dd>@article.Date.ToString("dd/MM/yyyy")</dd></div>
+                                <div><dt>Bài nổi bật</dt><dd>@(article.IsFeatured ? "Có" : "Không")</dd></div>
+                                <div><dt>Hiển thị trên trang chủ</dt><dd>@(article.ShowOnHome ? $"Có · thứ tự {article.HomeOrder}" : "Không")</dd></div>
+                                @if (!string.IsNullOrWhiteSpace(article.Image))
+                                {
+                                    <div class="row-preview-wide"><dt>Ảnh đại diện</dt><dd><img class="row-preview-image" src="@article.Image" alt="" /></dd></div>
+                                }
+                            </dl>
+                            <p><a asp-action="Preview" asp-route-id="@article.Id" target="_blank" rel="noopener">Đọc bài viết</a></p>
+                        </template>
                     </td>
                 </tr>
             }
@@ -65,6 +79,7 @@
     @if (Model.Page < Model.PageCount) { <a asp-action="Index" asp-route-page="@(Model.Page + 1)" asp-route-search="@Model.Search">Sau →</a> }
 </nav>
 
+<partial name="_RowPreviewDialog" />
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new NewsEditViewModel()" />
 <script src="~/js/news-editor.js" asp-append-version="true" defer></script>
