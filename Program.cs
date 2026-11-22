@@ -76,11 +76,11 @@ app.MapStaticAssets();
 app.MapControllerRoute(
     "legacy-drink-categories", "Admin/DrinkCategories/{action=Index}/{id?}",
     new { area = "Admin", controller = "Category" })
-    .Add(endpoint => endpoint.Metadata.Add(new Microsoft.AspNetCore.Routing.SuppressLinkGenerationMetadata()));
+    .Add(endpoint => endpoint.Metadata.Add(new SuppressLinkGenerationMetadata()));
 app.MapControllerRoute(
     "legacy-geography", "Admin/Geography/{action=Index}/{id?}",
     new { area = "Admin", controller = "StoreCities" })
-    .Add(endpoint => endpoint.Metadata.Add(new Microsoft.AspNetCore.Routing.SuppressLinkGenerationMetadata()));
+    .Add(endpoint => endpoint.Metadata.Add(new SuppressLinkGenerationMetadata()));
 app.MapControllerRoute("areas", "{area:exists}/{controller=News}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
