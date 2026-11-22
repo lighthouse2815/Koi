@@ -4,20 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class SiteContentService(
-    ApplicationDbContext database,
-    IConfiguration configuration,
-    NewsService newsService,
-    CategoryService categoryService
-)
+public class SiteContentService(ApplicationDbContext database, IConfiguration configuration)
 {
-    public async Task<HomeViewModel> GetHomeAsync()
-    {
-        var news = await newsService.GetForHomeAsync();
-        var categories = await categoryService.GetListAsync(forHome: true);
-        return new HomeViewModel(news, categories);
-    }
-
     public async Task<OurTeaViewModel> GetOurTeaAsync()
     {
         var categories = await database

@@ -6,11 +6,20 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Koi.Web.Controllers;
 
-public class HomeController(SiteContentService siteContent) : Controller
+public class HomeController(
+    SiteContentService siteContent,
+    NewsService newsService,
+    CategoryService categoryService
+) : Controller
 {
     public IActionResult Cover() => RedirectToAction(nameof(Index));
 
-    public async Task<IActionResult> Index() => View(await siteContent.GetHomeAsync());
+    public async Task<IActionResult> Index()
+    {
+        var news = await newsService.GetForHomeAsync();
+        var categories = await categoryService.GetListAsync(forHome: true);
+        return View(new HomeViewModel(news, categories));
+    }
 
     public IActionResult About()
     {
