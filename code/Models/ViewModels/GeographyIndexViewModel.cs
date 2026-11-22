@@ -1,3 +1,3 @@
 namespace Koi.Web.Models;
 
-public record GeographyIndexViewModel(string Kind, string Title, GeographyRow[] Rows);
+public record GeographyIndexViewModel(string Kind, string Title, IReadOnlyList<StoreCity> Rows);

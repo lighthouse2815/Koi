@@ -17,8 +17,7 @@ public class StoreCityService(
             .StoreCities.AsNoTracking()
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
-            .Select(value => new GeographyRow(value.Id, value.Name, "", value.SortOrder, value.Revision))
-            .ToArrayAsync();
+            .ToListAsync();
         return new GeographyIndexViewModel(kind, Title(kind), rows);
     }
 

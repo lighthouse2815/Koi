@@ -31,7 +31,7 @@
         </tbody>
     </table>
 </div>
-@if (Model.Rows.Length == 0) { <p>Chưa có dữ liệu.</p> }
+@if (Model.Rows.Count == 0) { <p>Chưa có dữ liệu.</p> }
 
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new GeographyEditViewModel { Kind = Model.Kind }" />
