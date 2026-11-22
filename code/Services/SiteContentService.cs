@@ -14,7 +14,7 @@ public class SiteContentService(
     public async Task<HomeViewModel> GetHomeAsync()
     {
         var news = await newsService.GetForHomeAsync();
-        var categories = await categoryService.GetForHomeAsync();
+        var categories = await categoryService.GetListAsync(forHome: true);
         return new HomeViewModel(news, categories);
     }
 

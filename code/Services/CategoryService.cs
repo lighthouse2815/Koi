@@ -10,18 +10,17 @@ public class CategoryService(
     ImageUploadService uploads
 )
 {
-    private IOrderedQueryable<Category> OrderedCategories =>
-        database.Categories
-            .AsNoTracking()
+    public Task<Category[]> GetListAsync(bool forHome = false)
+    {
+        var query = database.Categories.AsNoTracking();
+        if (forHome)
+            query = query.Where(category => category.IsPublished && category.ShowOnHome);
+
+        return query
             .OrderBy(category => category.SortOrder)
-            .ThenBy(category => category.Id);
-
-    public Task<Category[]> GetListAsync() => OrderedCategories.ToArrayAsync();
-
-    public Task<Category[]> GetForHomeAsync() =>
-        OrderedCategories
-            .Where(category => category.IsPublished && category.ShowOnHome)
+            .ThenBy(category => category.Id)
             .ToArrayAsync();
+    }
 
    
     public async Task<Category> GetByIdAsync(Guid id) =>
