@@ -171,12 +171,19 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
         return true;
     }
 
-    public async Task<OrderingPageViewModel> GetPageAsync(ShoppingCart cart, Guid? categoryId = null, Guid? drinkId = null, int page = 1)
+    public async Task<OrderingPageViewModel> GetPageAsync(ShoppingCart cart, Guid? categoryId = null, Guid? drinkId = null, int page = 1, string? search = null)
     {
+        search = search?.Trim();
+        if (search?.Length > 200) search = search[..200];
         var branches = await database.Stores.AsNoTracking().Where(value => value.IsPublished && value.AcceptsOrders).OrderBy(value => value.Name).ToArrayAsync();
         var query = database.Drinks.AsNoTracking().Include(value => value.Category).Where(value => value.IsPublished && value.Category.IsPublished);
         if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);
         else if (categoryId.HasValue) query = query.Where(value => value.CategoryId == categoryId);
+        if (!string.IsNullOrEmpty(search))
+        {
+            var keyword = search.ToLowerInvariant();
+            query = query.Where(value => value.Name.ToLower().Contains(keyword));
+        }
         const int pageSize = 12;
         var drinkCount = await query.CountAsync();
         var pageCount = Math.Max(1, (int)Math.Ceiling(drinkCount / (double)pageSize));
@@ -193,7 +200,7 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
         return new OrderingPageViewModel
         {
             Branches = branches, Branch = branches.FirstOrDefault(value => value.Id == cart.StoreId), Drinks = drinks, Cart = cart,
-            CategoryId = categoryId, DrinkId = drinkId, FilterName = filterName, Categories = categories,
+            CategoryId = categoryId, DrinkId = drinkId, Search = search, FilterName = filterName, Categories = categories,
             Page = page, DrinkCount = drinkCount, HasMoreDrinks = page < pageCount,
             Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (d.Name) : "Món không còn tồn tại", line.Customization, line.Quantity, line.Price)).ToList()
         };

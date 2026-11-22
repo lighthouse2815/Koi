@@ -52,6 +52,8 @@ summary::-webkit-details-marker { display: none; }
 .order-section-heading h2 { display: flex; align-items: center; gap: 13px; font-size: 29px; font-weight: 900; letter-spacing: -.035em; }
 .menu-result-count { font-size: 12px; font-weight: 600; color: #6c6356; background: #eee5d7; border-radius: 50%; min-width: 27px; height: 27px; display: inline-grid; place-items: center; letter-spacing: 0; }
 .order-section-heading > a { color: #a83c00; font-size: 11px; font-weight: 700; border-bottom: 1px solid #a83c00; padding: 5px 0; }
+.menu-search { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; max-width: 32rem; margin-bottom: 20px; }
+.menu-search label { grid-column: 1 / -1; font-size: 12px; font-weight: 700; }
 .menu-browser { display: grid; grid-template-columns: 138px minmax(0, 1fr); gap: 23px; align-items: start; }
 .order-category-nav { position: sticky; top: 110px; display: grid; gap: 7px; }
 .order-category-nav a { border-radius: 8px; color: #71685a; padding: 12px 11px; font-size: 11px; line-height: 1.35; font-weight: 700; transition: background .2s, color .2s; }

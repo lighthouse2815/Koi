@@ -3,6 +3,8 @@
     Layout = null;
     var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
     var itemCount = Model.Cart.Items.Sum(item => item.Quantity);
+    var hasSearch = !string.IsNullOrEmpty(Model.Search);
+    var catalogTitle = Model.FilterName ?? (Model.DrinkId.HasValue ? "Món bạn đã chọn" : hasSearch ? "Kết quả tìm kiếm" : "Tất cả đồ uống");
 }
 <!doctype html>
 <html lang="vi">
@@ -35,8 +37,8 @@
                 <div class="branch-picker-content">
                     @if (Model.Branches.Length == 0) { <p>Hiện chưa có chi nhánh mở nhận đơn.</p> }
                     else {
-                        <form asp-action="SelectBranch" method="post" class="inline-form">
-                            <input type="hidden" name="categoryId" value="@Model.CategoryId" /><input type="hidden" name="drinkId" value="@Model.DrinkId" />
+                        <form asp-action="SelectBranch" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
+                              asp-route-search="@Model.Search" method="post" class="inline-form">
                             <label for="storeId">Chi nhánh nhận đơn</label>
                             <select id="storeId" name="storeId" required>
                                 <option value="">Chọn chi nhánh</option>@foreach (var branch in Model.Branches) { <option value="@branch.Id" selected="@(branch.Id == Model.Cart.StoreId)">@branch.Name · @branch.Address</option> }
@@ -51,14 +53,22 @@
                     <div class="order-section-heading">
                         <div>
                             <p class="section-kicker">THE KOI MENU</p>
-                            <h2 id="menu-title">@(Model.FilterName ?? (Model.DrinkId.HasValue ? "Món bạn đã chọn" : "Tất cả đồ uống"))<span class="menu-result-count">@Model.DrinkCount</span></h2>
-                        </div>@if (Model.DrinkId.HasValue || Model.CategoryId.HasValue) { <a asp-action="Index" asp-fragment="drinks">Xem toàn bộ thực đơn ↗</a> }
+                            <h2 id="menu-title">@catalogTitle<span class="menu-result-count">@Model.DrinkCount</span></h2>
+                        </div>@if (Model.DrinkId.HasValue || Model.CategoryId.HasValue || hasSearch) { <a asp-action="Index" asp-fragment="drinks">Xem toàn bộ thực đơn ↗</a> }
                     </div>
+                    <form asp-action="Index" asp-fragment="drinks" method="get" class="menu-search" role="search">
+                        @if (Model.CategoryId.HasValue) {
+                            <input type="hidden" name="categoryId" value="@Model.CategoryId" />
+                        }
+                        <label for="drink-search">Tìm đồ uống theo tên</label>
+                        <input type="search" id="drink-search" name="search" value="@Model.Search" maxlength="200" />
+                        <button type="submit">Tìm kiếm</button>
+                    </form>
                     <div class="menu-browser">
                         <nav class="order-category-nav" aria-label="Danh mục đồ uống">
-                            <a asp-action="Index" asp-fragment="drinks" aria-current="@(!Model.CategoryId.HasValue && !Model.DrinkId.HasValue ? "page" : null)"><span aria-hidden="true">✳</span> Tất cả</a>
+                            <a asp-action="Index" asp-route-search="@Model.Search" asp-fragment="drinks" aria-current="@(!Model.CategoryId.HasValue && !Model.DrinkId.HasValue ? "page" : null)"><span aria-hidden="true">✳</span> Tất cả</a>
                             @foreach (var category in Model.Categories) {
-                                <a asp-action="Index" asp-route-categoryId="@category.Id" asp-fragment="drinks" aria-current="@(category.Id == Model.CategoryId ? "page" : null)">@(category.Name)</a>
+                                <a asp-action="Index" asp-route-categoryId="@category.Id" asp-route-search="@Model.Search" asp-fragment="drinks" aria-current="@(category.Id == Model.CategoryId ? "page" : null)">@(category.Name)</a>
                             }
                         </nav>
                         <div class="drink-results" data-menu-results>
@@ -74,13 +84,17 @@
                                             <div class="drink-buy-row">
                                                 <p class="drink-price">@(drink.Price > 0 ? drink.Price.Value.ToString("N0", culture) + " đ" : "Chưa mở bán")</p>
                                                 @if (!(drink.Price > 0)) { <span class="unavailable-label">Tạm ngưng</span> }
-                                                else if (Model.Branch == null) { <a class="drink-branch-link" asp-action="Index" asp-route-drinkId="@drink.Id" asp-fragment="branches" aria-label="Chọn món @name"><span aria-hidden="true">+</span> Chọn món</a> }
+                                                else if (Model.Branch == null) {
+                                                    <a class="drink-branch-link" asp-action="Index" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@drink.Id"
+                                                       asp-route-search="@Model.Search" asp-fragment="branches" aria-label="Chọn món @name"><span aria-hidden="true">+</span> Chọn món</a>
+                                                }
                                             </div>
                                             @if (drink.Price > 0 && Model.Branch != null) {
                                                 <details class="drink-customize" open="@(Model.DrinkId == drink.Id)">
                                                     <summary>Chọn món <span aria-hidden="true">+</span></summary>
-                                                    <form asp-action="Add" method="post">
-                                                        <input type="hidden" name="id" value="@drink.Id" /><input type="hidden" name="categoryId" value="@Model.CategoryId" /><input type="hidden" name="drinkId" value="@Model.DrinkId" />
+                                                    <form asp-action="Add" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
+                                                          asp-route-search="@Model.Search" method="post">
+                                                        <input type="hidden" name="id" value="@drink.Id" />
                                                         <label class="quantity-option">Số lượng<input type="number" name="quantity" min="1" max="20" value="1" /></label><button type="submit">Thêm vào giỏ <span aria-hidden="true">↗</span></button>
                                                     </form>
                                                 </details>
@@ -89,14 +103,16 @@
                                     </article>
                                 }
                                 @if (Model.Drinks.Length == 0) { <div class="menu-empty">
-                                        <p>Chưa có đồ uống trong danh mục này.</p><a asp-action="Index" asp-fragment="drinks">Khám phá thực đơn ↗</a>
+                                        <p>@(hasSearch ? "Không tìm thấy đồ uống phù hợp." : "Chưa có đồ uống trong danh mục này.")</p>
+                                        <a asp-action="Index" asp-fragment="drinks">Khám phá thực đơn ↗</a>
                                     </div> }
                             </div>
                             @if (Model.DrinkCount > 0) {
                                 <div class="menu-scroll" data-menu-scroll>
                                     <p class="menu-load-status" role="status">@(Model.HasMoreDrinks ? "Cuộn xuống để khám phá thêm món." : "Bạn đã xem hết đồ uống rồi.")</p>
                                     @if (Model.HasMoreDrinks) {
-                                        <a class="menu-load-more" asp-action="Index" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId" asp-route-page="@(Model.Page + 1)" asp-fragment="drinks" rel="next">Xem thêm đồ uống <span aria-hidden="true">↓</span></a>
+                                        <a class="menu-load-more" asp-action="Index" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
+                                           asp-route-search="@Model.Search" asp-route-page="@(Model.Page + 1)" asp-fragment="drinks" rel="next">Xem thêm đồ uống <span aria-hidden="true">↓</span></a>
                                     }
                                 </div>
                             }
@@ -117,8 +133,17 @@
                             <div class="cart-lines">@foreach (var line in Model.Lines) {
                                     <div class="cart-line">
                                         <div class="cart-line-title"><strong>@line.Name</strong><span>@((line.Price * line.Quantity).ToString("N0", culture)) đ</span></div>@if (!string.IsNullOrEmpty(line.Customization)) { <small>@line.Customization</small> }
-                                        <form asp-action="Update" method="post" class="cart-update"><input type="hidden" name="id" value="@line.LineId" /><label>Số lượng<input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label><button type="submit">Lưu</button></form>
-                                        <form asp-action="Update" method="post" class="cart-remove-action"><input type="hidden" name="id" value="@line.LineId" /><input type="hidden" name="quantity" value="0" /><button type="submit" class="cart-remove" aria-label="Xóa món @line.Name">Xóa món</button></form>
+                                        <form asp-action="Update" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
+                                              asp-route-search="@Model.Search" method="post" class="cart-update">
+                                            <input type="hidden" name="id" value="@line.LineId" />
+                                            <label>Số lượng<input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label>
+                                            <button type="submit">Lưu</button>
+                                        </form>
+                                        <form asp-action="Update" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
+                                              asp-route-search="@Model.Search" method="post" class="cart-remove-action">
+                                            <input type="hidden" name="id" value="@line.LineId" /><input type="hidden" name="quantity" value="0" />
+                                            <button type="submit" class="cart-remove" aria-label="Xóa món @line.Name">Xóa món</button>
+                                        </form>
                                     </div>
                                 }
                             </div>
@@ -132,7 +157,8 @@
                         <section class="checkout-panel" id="checkout">
                             <p class="section-kicker">ALMOST THERE.</p>
                             <h2>Gửi một chút vui.</h2>
-                            <form asp-action="Checkout" method="post" class="checkout-form">
+                            <form asp-action="Checkout" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
+                                  asp-route-search="@Model.Search" method="post" class="checkout-form">
                                 <label asp-for="Checkout.CustomerName">Họ tên</label><input asp-for="Checkout.CustomerName" required maxlength="150" autocomplete="name" /><span asp-validation-for="Checkout.CustomerName"></span>
                                 <label asp-for="Checkout.CustomerPhone">Số điện thoại</label><input asp-for="Checkout.CustomerPhone" type="tel" required maxlength="30" autocomplete="tel" /><span asp-validation-for="Checkout.CustomerPhone"></span>
                                 <label asp-for="Checkout.Fulfillment">Cách nhận hàng</label><select asp-for="Checkout.Fulfillment">
