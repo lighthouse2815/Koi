@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class NewsService(
+public class NewsArticleService(
     ApplicationDbContext database,
     ImageUploadService uploads
 )

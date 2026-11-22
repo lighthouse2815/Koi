@@ -8,13 +8,13 @@ namespace Koi.Web.Controllers;
 
 public class HomeController(
     SiteContentService siteContent,
-    NewsService newsService,
+    NewsArticleService newsArticleService,
     CategoryService categoryService
 ) : Controller
 {
     public async Task<IActionResult> Index()
     {
-        var news = await newsService.GetForHomeAsync();
+        var news = await newsArticleService.GetForHomeAsync();
         var categories = await categoryService.GetListAsync(forHome: true);
         return View(new HomeViewModel(news, categories));
     }

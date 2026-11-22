@@ -29,7 +29,7 @@ builder.Services.AddControllersWithViews(options => options.Filters.Add(new Auto
     });
 builder.Services.AddScoped<ImageUploadService>();
 builder.Services.AddScoped<SiteContentService>();
-builder.Services.AddScoped<NewsService>();
+builder.Services.AddScoped<NewsArticleService>();
 builder.Services.AddScoped<MenuService>();
 builder.Services.AddScoped<DrinkService>();
 builder.Services.AddScoped<FeaturedDrinkService>();
