@@ -1,17 +1,16 @@
 @model GeographyIndexViewModel
 @{ ViewData["Title"] = Model.Title; }
 <div class="page-heading">
-    <h1>@Model.Title</h1><button type="button" class="button" data-geography-create>+ Thêm</button>
+    <h1>@Model.Title</h1><button type="button" class="button" data-geography-create>+ Thêm khu vực</button>
 </div>
 <noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa khu vực.</p></noscript>
-<p><a asp-route-kind="cities">Khu vực</a> · <a asp-controller="Stores">Chi nhánh</a></p>
-<div class="table-wrap">
+<div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách khu vực">
     <table>
         <thead>
             <tr>
-                <th>Tên</th>
-                <th>Thứ tự</th>
-                <th>Thao tác</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Thứ tự</th>
+                <th scope="col">Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -28,10 +27,13 @@
                         </div>
                     </td>
                 </tr> }
+            @if (Model.Rows.Count == 0)
+            {
+                <tr><td colspan="3" class="empty-state">Chưa có khu vực.</td></tr>
+            }
         </tbody>
     </table>
 </div>
-@if (Model.Rows.Count == 0) { <p>Chưa có dữ liệu.</p> }
 
 <partial name="_DeleteDialog" />
 <partial name="Edit" model="new GeographyEditViewModel { Kind = Model.Kind }" />

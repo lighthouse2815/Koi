@@ -4,20 +4,27 @@
     <h1>Quản lý đồ uống</h1><button type="button" class="button" data-drink-create>+ Thêm đồ uống</button>
 </div>
 <noscript><p class="validation">Vui lòng bật JavaScript để thêm hoặc sửa đồ uống.</p></noscript>
-<p><a asp-controller="Category">Danh mục và thẻ trang chủ</a> · <a asp-controller="FeaturedDrinks">New Drinks</a></p>
-<form method="get" class="search"><label for="search">Tên đồ uống</label><input id="search" name="search" value="@Model.Search" maxlength="200" /><label for="categoryId">Danh mục</label><select name="categoryId" id="categoryId" asp-items="Model.Categories">
-        <option value="">Tất cả</option>
-    </select>
-    <p><button class="button secondary">Tìm kiếm</button></p>
+<form method="get" class="search">
+    <div class="search-field">
+        <label for="search">Tên đồ uống</label>
+        <input id="search" name="search" value="@Model.Search" maxlength="200" />
+    </div>
+    <div class="search-field">
+        <label for="categoryId">Danh mục</label>
+        <select name="categoryId" id="categoryId" asp-items="Model.Categories">
+            <option value="">Tất cả danh mục</option>
+        </select>
+    </div>
+    <button type="submit" class="button secondary">Tìm kiếm</button>
 </form>
-<div class="table-wrap">
+<div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách đồ uống">
     <table>
         <thead>
             <tr>
-                <th>Đồ uống</th>
-                <th>Danh mục</th>
-                <th>Thứ tự</th>
-                <th>Thao tác</th>
+                <th scope="col">Đồ uống</th>
+                <th scope="col">Danh mục</th>
+                <th scope="col">Thứ tự</th>
+                <th scope="col">Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -44,10 +51,13 @@
                     </td>
                 </tr>
             }
+            @if (Model.Drinks.Length == 0)
+            {
+                <tr><td colspan="4" class="empty-state">Không tìm thấy đồ uống.</td></tr>
+            }
         </tbody>
     </table>
 </div>
-@if (Model.Drinks.Length == 0) { <p>Không tìm thấy đồ uống.</p> }
 <nav class="pagination" aria-label="Phân trang">
     @if (Model.Page > 1) { <a asp-route-page="@(Model.Page - 1)" asp-route-categoryId="@Model.CategoryId" asp-route-search="@Model.Search">← Trước</a> }
     <span>Trang @Model.Page / @Model.PageCount</span>
