@@ -1,0 +1,93 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var firstDay = Model.OrderActivity[0].Date;
+    var today = Model.OrderActivity[^1].Date;
+    var chartMax = Math.Max(1, Model.OrderActivity.Max(day => day.Count));
+    var metrics = new[]
+    {
+        (Controller: "Orders", Label: "Đơn hàng", Value: Model.OrderCount),
+        (Controller: "Drinks", Label: "Đồ uống", Value: Model.DrinkCount),
+        (Controller: "Stores", Label: "Chi nhánh", Value: Model.StoreCount),
+        (Controller: "News", Label: "Bài viết", Value: Model.NewsCount)
+    };
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin-dashboard.css" asp-append-version="true" />
+}
+
+<div class="dashboard">
+    <header class="dashboard-hero">
+        <div class="dashboard-intro">
+            <time datetime="@today.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)">@today.ToString("dddd, dd/MM/yyyy", culture)</time>
+            <h1>Tổng quan quản trị</h1>
+            <a class="button" asp-controller="Orders" asp-action="Index">Xem đơn hàng <span aria-hidden="true">→</span></a>
+        </div>
+    </header>
+
+    <section class="dashboard-metrics" aria-label="Số liệu tổng quan">
+        @foreach (var metric in metrics)
+        {
+            <a class="dashboard-metric" asp-controller="@metric.Controller" asp-action="Index">
+                <span class="dashboard-metric-label">@metric.Label</span>
+                <strong>@metric.Value.ToString("N0", culture)</strong>
+                <span class="dashboard-metric-arrow" aria-hidden="true">↗</span>
+            </a>
+        }
+    </section>
+
+    <div class="dashboard-panels">
+        <section class="dashboard-panel" aria-labelledby="activity-heading">
+            <header class="dashboard-panel-heading">
+                <div>
+                    <h2 id="activity-heading">Đơn hàng 7 ngày qua</h2>
+                    <p>@firstDay.ToString("dd/MM", culture) – @today.ToString("dd/MM/yyyy", culture) · Giờ Việt Nam</p>
+                </div>
+            </header>
+            <ul class="dashboard-chart" role="list">
+                @foreach (var day in Model.OrderActivity)
+                {
+                    <li class="@(day.Date == today ? "dashboard-chart-today" : null)">
+                        <strong aria-label="@day.Count đơn">@day.Count.ToString("N0", culture)</strong>
+                        <span class="dashboard-chart-track" aria-hidden="true">
+                            <span style="--bar-height: @((100.0 * day.Count / chartMax).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%"></span>
+                        </span>
+                        <time datetime="@day.Date.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)">@day.Date.ToString("dd/MM", culture)</time>
+                    </li>
+                }
+            </ul>
+        </section>
+
+        <section class="dashboard-panel" aria-labelledby="recent-orders-heading">
+            <header class="dashboard-panel-heading">
+                <div>
+                    <h2 id="recent-orders-heading">Đơn hàng gần đây</h2>
+                    <p>Thời gian theo giờ Việt Nam</p>
+                </div>
+            </header>
+            @if (Model.RecentOrders.Count == 0)
+            {
+                <p class="dashboard-empty">Chưa có đơn hàng.</p>
+            }
+            else
+            {
+                <ul class="dashboard-orders" role="list">
+                    @foreach (var order in Model.RecentOrders)
+                    {
+                        <li>
+                            <a asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id">
+                                <span>
+                                    <strong>@order.StoreName</strong>
+                                    <small>@order.CreatedAt.ToString("dd/MM/yyyy · HH:mm", culture)</small>
+                                </span>
+                                <partial name="_OrderStatus" model="order.Status" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+        </section>
+    </div>
+</div>

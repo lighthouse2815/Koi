@@ -8,20 +8,21 @@
         <title>@ViewData["Title"] · KOI Admin</title>
         <link rel="icon" href="~/images/favicon.png" />
         <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+        @await RenderSectionAsync("Styles", required: false)
     </head>
 
     <body>
         <header class="admin-header">
-            <a class="admin-brand" asp-area="Admin" asp-controller="News" asp-action="Index"><img src="~/images/logo.svg" width="150" height="32" alt="KOI Thé" /><span>Quản trị</span></a>
+            <a class="admin-brand" asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><img src="~/images/logo.svg" width="150" height="32" alt="KOI Thé" /><span>Quản trị</span></a>
             <nav aria-label="Điều hướng quản trị">
                 @if (User.IsInRole("Admin"))
                 {
+                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                     <a asp-area="Admin" asp-controller="News" asp-action="Index">Tin tức</a>
                     <a asp-area="Admin" asp-controller="Stores" asp-action="Index">Chi nhánh</a>
                     <a asp-area="Admin" asp-controller="Menus" asp-action="Index">Thực đơn</a>
                     <a asp-area="Admin" asp-controller="Drinks" asp-action="Index">Đồ uống</a>
                     <a asp-area="Admin" asp-controller="Category" asp-action="Index">Danh mục đồ uống</a>
-                    <a asp-area="Admin" asp-controller="Sales" asp-action="Index">Bán hàng</a>
                     <a asp-area="Admin" asp-controller="Orders" asp-action="Index">Đơn hàng</a>
                 }
                 <a asp-area="" asp-controller="Home" asp-action="Index" target="_blank" rel="noopener">Xem website ↗</a>

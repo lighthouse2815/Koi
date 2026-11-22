@@ -25,7 +25,7 @@ public class AccountController(SignInManager<IdentityUser<Guid>> signInManager) 
         var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
         if (result.Succeeded)
         {
-            var redirectUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl! : Url.Action("Index", "News", new
+            var redirectUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl! : Url.Action("Index", "Dashboard", new
             {
                 area = "Admin"
             })!;

@@ -1,0 +1,12 @@
+@model OrderStatus
+@{
+    var (style, label) = Model switch
+    {
+        OrderStatus.New => ("new", "Mới"),
+        OrderStatus.Preparing => ("preparing", "Đang chuẩn bị"),
+        OrderStatus.Completed => ("completed", "Hoàn thành"),
+        OrderStatus.Cancelled => ("cancelled", "Đã hủy"),
+        _ => ("", "Không xác định")
+    };
+}
+<span class="order-status order-status--@style">@label</span>

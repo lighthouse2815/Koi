@@ -80,7 +80,7 @@ app.MapControllerRoute(
     "legacy-geography", "Admin/Geography/{action=Index}/{id?}",
     new { area = "Admin", controller = "StoreCities" })
     .Add(endpoint => endpoint.Metadata.Add(new SuppressLinkGenerationMetadata()));
-app.MapControllerRoute("areas", "{area:exists}/{controller=News}/{action=Index}/{id?}");
+app.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
