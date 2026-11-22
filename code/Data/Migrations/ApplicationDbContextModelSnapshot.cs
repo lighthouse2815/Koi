@@ -38,9 +38,6 @@ namespace Koi.Web.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -80,9 +77,6 @@ namespace Koi.Web.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -101,7 +95,7 @@ namespace Koi.Web.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId", "IsPublished", "SortOrder");
+                    b.HasIndex("CategoryId", "SortOrder");
 
                     b.ToTable("Drinks");
                 });
@@ -122,9 +116,6 @@ namespace Koi.Web.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -142,7 +133,7 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("FeaturedDrinks");
                 });
 
-            modelBuilder.Entity("Koi.Web.Models.MenuEntry", b =>
+            modelBuilder.Entity("Koi.Web.Models.Menu", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -152,9 +143,6 @@ namespace Koi.Web.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
-
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -170,7 +158,7 @@ namespace Koi.Web.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IsPublished", "SortOrder");
+                    b.HasIndex("SortOrder");
 
                     b.ToTable("Menus");
                 });
@@ -214,9 +202,6 @@ namespace Koi.Web.Data.Migrations
                     b.Property<bool>("IsFeatured")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("boolean");
-
                     b.Property<int>("Revision")
                         .IsConcurrencyToken()
                         .HasColumnType("integer");
@@ -235,11 +220,11 @@ namespace Koi.Web.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Date");
+
                     b.HasIndex("IsFeatured")
                         .IsUnique()
                         .HasFilter("\"IsFeatured\" = TRUE");
-
-                    b.HasIndex("IsPublished", "Date");
 
                     b.ToTable("NewsArticles");
 
@@ -255,7 +240,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 0,
                             Image = "/images/pages/upload_image/news/news_1_7917_2746.jpg",
                             IsFeatured = true,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = true,
                             Title = "“Check-in cùng KOI khắp thế giới” — Thử thách sưu tập huy hiệu nam châm toàn cầu"
@@ -271,7 +255,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_1_6050_1872.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "Bằng sự tận tâm",
@@ -288,7 +271,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_1_5807_1584.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "Từ thiên nhiên",
@@ -305,7 +287,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_1_5153_7145.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "FIFTYLAN khai trương tại Sydney",
@@ -322,7 +303,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_1_1752_6518.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "KOI Brunei — Tất cả bắt đầu từ ly trà này",
@@ -339,7 +319,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_695.png",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "Kết quả cuộc thi thiết kế KOI20 Gold Dot Award"
@@ -355,7 +334,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_634.png",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "Cuộc thi thiết kế KOI20 Gold Dot Award"
@@ -371,7 +349,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_16.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = true,
                             Title = "Chào mừng đến với website KOI mới! Khám phá nét cuốn hút riêng của KOI!"
@@ -387,7 +364,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_594.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "Video doanh nghiệp 2024 — Nhịp vui mỗi ngày",
@@ -404,7 +380,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_595.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "Đổi mới thương hiệu, phần 3: Nhịp điệu mới đầy sức sống",
@@ -421,7 +396,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_596.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "Đổi mới thương hiệu, phần 2: Logo mới mang ý nghĩa gì?",
@@ -438,7 +412,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_597.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "Đổi mới thương hiệu, phần 1: Nơi câu chuyện bắt đầu",
@@ -455,7 +428,6 @@ namespace Koi.Web.Data.Migrations
                             HomeOrder = 1,
                             Image = "/images/pages/upload_image/news/news_593.jpg",
                             IsFeatured = false,
-                            IsPublished = true,
                             Revision = 1,
                             ShowOnHome = false,
                             Title = "Nhịp điệu mới đầy sức sống"
@@ -557,30 +529,7 @@ namespace Koi.Web.Data.Migrations
                     b.ToTable("OrderItem");
                 });
 
-            modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<int>("Revision")
-                        .IsConcurrencyToken()
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StoreCities");
-                });
-
-            modelBuilder.Entity("Koi.Web.Models.StoreEntry", b =>
+            modelBuilder.Entity("Koi.Web.Models.Store", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -601,9 +550,6 @@ namespace Koi.Web.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
-
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -636,9 +582,30 @@ namespace Koi.Web.Data.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.HasIndex("IsPublished", "CityId");
-
                     b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("Koi.Web.Models.StoreCity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<int>("Revision")
+                        .IsConcurrencyToken()
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StoreCities");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -849,7 +816,7 @@ namespace Koi.Web.Data.Migrations
 
             modelBuilder.Entity("Koi.Web.Models.Order", b =>
                 {
-                    b.HasOne("Koi.Web.Models.StoreEntry", "Store")
+                    b.HasOne("Koi.Web.Models.Store", "Store")
                         .WithMany()
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -875,7 +842,7 @@ namespace Koi.Web.Data.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Koi.Web.Models.StoreEntry", b =>
+            modelBuilder.Entity("Koi.Web.Models.Store", b =>
                 {
                     b.HasOne("Koi.Web.Models.StoreCity", "City")
                         .WithMany()

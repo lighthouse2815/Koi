@@ -29,8 +29,6 @@ public class Store
 
     public bool AcceptsOrders { get; set; }
 
-    public bool IsPublished { get; set; } = true;
-
     public int SortOrder { get; set; }
 
     [ConcurrencyCheck]

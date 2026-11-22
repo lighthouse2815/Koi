@@ -28,7 +28,6 @@
             form.elements.Revision.value = data.revision;
             form.elements.Name.value = data.name;
             form.elements.SortOrder.value = data.sortOrder;
-            form.querySelector('#IsPublished').checked = data.isPublished === 'true';
         }
 
         for (const [selector, url] of [['[data-featured-image]', data?.image], ['[data-featured-background]', data?.background]]) {

@@ -25,11 +25,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(builder);
         builder.Entity<Store>().HasOne(value => value.City).WithMany().OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<Store>().HasIndex(value => new { value.IsPublished, value.CityId });
-        builder.Entity<Menu>().HasIndex(value => new { value.IsPublished, value.SortOrder });
+        builder.Entity<Menu>().HasIndex(value => value.SortOrder);
         builder.Entity<Category>().ToTable("Category");
         builder.Entity<Drink>().HasOne(value => value.Category).WithMany(value => value.Drinks).OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.IsPublished, value.SortOrder });
+        builder.Entity<Drink>().HasIndex(value => new { value.CategoryId, value.SortOrder });
         builder.Entity<Drink>().Property(value => value.Price).HasPrecision(12, 0);
         builder.Entity<OrderItem>().HasOne(value => value.Drink).WithMany().OnDelete(DeleteBehavior.SetNull);
         builder.Entity<OrderItem>().Property(value => value.UnitPrice).HasPrecision(12, 0);
@@ -37,7 +36,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<Order>().HasIndex(value => new { value.Status, value.CreatedAt });
         var articles = builder.Entity<NewsArticle>();
         articles.Property(article => article.Category).HasConversion<string>().HasMaxLength(10);
-        articles.HasIndex(article => new { article.IsPublished, article.Date });
+        articles.HasIndex(article => article.Date);
         articles.HasIndex(article => article.IsFeatured).IsUnique().HasFilter("\"IsFeatured\" = TRUE");
         using var stream = typeof(ApplicationDbContext).Assembly.GetManifestResourceStream("Koi.Web.Data.NewsSeed.json")
             ?? throw new InvalidOperationException("News seed data is missing.");

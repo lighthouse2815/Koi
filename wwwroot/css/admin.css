@@ -16,7 +16,7 @@ fieldset.upload-fields{border:0;margin:0;padding:0;min-width:0}
 .category-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 32px}
 .category-heading-info{display:flex;align-items:center;gap:20px;min-width:0}
 .category-heading-icon{display:grid;place-items:center;flex:none;width:66px;height:66px;border-radius:17px;color:#ab550c;background:#fae4d0}
-.category-heading-icon svg,.category-column svg,.category-actions svg,.category-publish svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.category-heading-icon svg,.category-column svg,.category-actions svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .category-heading-icon svg{width:38px;height:38px;stroke-width:1.6}
 .category-heading-copy{padding-left:20px;border-left:1px solid #efc8a8}
 .category-heading h1{margin:0 0 5px;color:#30231b;font-size:clamp(27px,3vw,38px);letter-spacing:-.035em}
@@ -43,10 +43,6 @@ fieldset.upload-fields{border:0;margin:0;padding:0;min-width:0}
 .category-table-wrap .category-thumbnail{width:64px;height:53px;border-radius:8px}
 .category-table-wrap .category-thumbnail--icon{width:48px;height:48px;object-fit:contain}
 .category-missing{display:inline-flex;padding:5px 12px;border:1px dashed #d2cbc5;border-radius:999px;color:#857e79;white-space:nowrap;font-size:12px}
-.category-publish{display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:10px;white-space:nowrap;font-size:12px;font-weight:700}
-.category-publish.is-published{color:#286c21;background:#e8f4df;border:1px solid #d3e9c8}
-.category-publish.is-draft{color:#796d5b;background:#f2ede5;border:1px solid #e8ded0}
-.category-publish svg{width:16px;height:16px;padding:2px;border-radius:50%;color:white;background:#4c9a24;stroke-width:3}
 .category-home{padding:5px 13px;background:#efedeb;color:#5d5854;font-size:12px}
 .category-actions{gap:7px;white-space:nowrap}
 .category-actions .category-action{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:6px 9px;border:1px solid;border-radius:9px;text-decoration:none;font-size:12px;font-weight:650;transition:background .15s}

@@ -90,7 +90,6 @@ public class DrinkService(
         drink.CategoryId = model.CategoryId;
         drink.Description = model.Description?.Trim() ?? "";
         drink.SortOrder = model.SortOrder;
-        drink.IsPublished = model.IsPublished;
     }
 
     public async Task DeleteAsync(Guid id)

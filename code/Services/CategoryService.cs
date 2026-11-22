@@ -14,7 +14,7 @@ public class CategoryService(
     {
         var query = database.Categories.AsNoTracking();
         if (forHome)
-            query = query.Where(category => category.IsPublished && category.ShowOnHome);
+            query = query.Where(category => category.ShowOnHome);
 
         return query
             .OrderBy(category => category.SortOrder)
@@ -66,7 +66,6 @@ public class CategoryService(
         category.Name = model.Name.Trim();
         category.SortOrder = model.SortOrder;
         category.ShowOnHome = model.ShowOnHome;
-        category.IsPublished = model.IsPublished;
     }
 
     private async Task ApplyImagesAsync(

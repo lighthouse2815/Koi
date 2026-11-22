@@ -28,7 +28,6 @@
             form.elements.Revision.value = data.revision;
             form.elements.Label.value = data.label;
             form.elements.SortOrder.value = data.sortOrder;
-            form.querySelector('#IsPublished').checked = data.isPublished === 'true';
         }
 
         imageLink.hidden = !data?.image;

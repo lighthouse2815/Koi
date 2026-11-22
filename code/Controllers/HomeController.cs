@@ -28,14 +28,14 @@ public class HomeController(SiteContentService siteContent) : Controller
 
     public async Task<IActionResult> NewsDetail(Guid id)
     {
-        var article = await siteContent.GetArticleAsync(id, publishedOnly: true);
+        var article = await siteContent.GetArticleAsync(id);
         return article == null ? NotFound() : View(article);
     }
 
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> NewsPreview(Guid id)
     {
-        var article = await siteContent.GetArticleAsync(id, publishedOnly: false);
+        var article = await siteContent.GetArticleAsync(id);
         if (article == null)
             return NotFound();
         ViewData["IsAdminPreview"] = true;

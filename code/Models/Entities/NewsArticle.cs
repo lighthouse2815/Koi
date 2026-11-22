@@ -31,8 +31,6 @@ public class NewsArticle
 
     public string BodyHtml { get; set; } = "";
 
-    public bool IsPublished { get; set; } = true;
-
     public bool IsFeatured { get; set; }
 
     public bool ShowOnHome { get; set; }

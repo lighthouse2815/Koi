@@ -14,7 +14,6 @@ public class MenuEditViewModel
 
     [Range(0, 100000)]
     public int SortOrder { get; set; }
-    public bool IsPublished { get; set; } = true;
     public string? ImageUploadId { get; set; }
 
     [BindNever, ValidateNever]

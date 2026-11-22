@@ -74,7 +74,6 @@ public class StoreService(
         store.Hours = model.Hours?.Trim() ?? "";
         store.CityId = model.CityId;
         store.NavigationUrl = model.NavigationUrl?.Trim() ?? "";
-        store.IsPublished = model.IsPublished;
         store.SortOrder = model.SortOrder;
     }
 

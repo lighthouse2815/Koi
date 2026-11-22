@@ -22,20 +22,15 @@ public class SiteContentService(
     {
         var categories = await database
             .Categories.AsNoTracking()
-            .Where(value => value.IsPublished)
-            .Include(value =>
-                value
-                    .Drinks.Where(drink => drink.IsPublished)
-                    .OrderBy(drink => drink.SortOrder)
-                    .ThenBy(drink => drink.Id)
-            )
+            .Include(category => category.Drinks
+                .OrderBy(drink => drink.SortOrder)
+                .ThenBy(drink => drink.Id))
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
             .AsSplitQuery()
             .ToArrayAsync();
         var featured = await database
             .FeaturedDrinks.AsNoTracking()
-            .Where(value => value.IsPublished)
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
             .ToArrayAsync();
@@ -49,14 +44,14 @@ public class SiteContentService(
             category = null;
         var categoryFilter =
             category == null ? (NewsCategory?)null : Enum.Parse<NewsCategory>(category);
-        var published = database.NewsArticles.AsNoTracking().Where(article => article.IsPublished);
-        var featured = await published
+        var allArticles = database.NewsArticles.AsNoTracking();
+        var featured = await allArticles
             .OrderByDescending(article => article.IsFeatured)
             .ThenByDescending(article => article.Date)
             .ThenByDescending(article => article.Id)
             .FirstOrDefaultAsync();
         var featuredId = featured?.Id ?? Guid.Empty;
-        var articles = published.Where(article =>
+        var articles = allArticles.Where(article =>
             article.Id != featuredId
             && (categoryFilter == null || article.Category == categoryFilter)
         );
@@ -97,7 +92,7 @@ public class SiteContentService(
             s = Guid.Empty;
         var query = database
             .Stores.AsNoTracking()
-            .Where(value => value.IsPublished && (s == Guid.Empty || value.CityId == s));
+            .Where(value => s == Guid.Empty || value.CityId == s);
         const int pageSize = 9;
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / (double)pageSize));
         page = Math.Clamp(page, 1, pages);
@@ -132,7 +127,6 @@ public class SiteContentService(
     {
         var menus = await database
             .Menus.AsNoTracking()
-            .Where(value => value.IsPublished)
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
             .ToArrayAsync();
@@ -141,10 +135,6 @@ public class SiteContentService(
         );
     }
 
-    public Task<NewsArticle?> GetArticleAsync(Guid id, bool publishedOnly) =>
-        database
-            .NewsArticles.AsNoTracking()
-            .SingleOrDefaultAsync(article =>
-                article.Id == id && (!publishedOnly || article.IsPublished)
-            );
+    public Task<NewsArticle?> GetArticleAsync(Guid id) =>
+        database.NewsArticles.AsNoTracking().SingleOrDefaultAsync(article => article.Id == id);
 }

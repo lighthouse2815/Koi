@@ -12,7 +12,6 @@
             <tr>
                 <th>Tên</th>
                 <th>Thứ tự</th>
-                <th>Hiển thị</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
@@ -24,13 +23,12 @@
                         <div class="article-cell"><img src="@item.Image" alt="" loading="lazy" /><strong>@item.Name</strong></div>
                     </td>
                     <td>@item.SortOrder</td>
-                    <td>@(item.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
                         <div class="row-actions">
                             <button type="button" class="link-button" data-featured-edit
                                     data-url="@Url.Action("Edit", new { id = item.Id })"
                                     data-id="@item.Id" data-revision="@item.Revision" data-name="@item.Name"
-                                    data-sort-order="@item.SortOrder" data-is-published="@item.IsPublished.ToString().ToLowerInvariant()"
+                                    data-sort-order="@item.SortOrder"
                                     data-image="@item.Image" data-background="@item.BackgroundImage">Sửa</button>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="delete-link" data-name="@item.Name">Xóa</a>
                         </div>

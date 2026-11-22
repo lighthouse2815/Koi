@@ -10,7 +10,6 @@
             <tr>
                 <th>Thực đơn</th>
                 <th>Thứ tự</th>
-                <th>Hiển thị</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
@@ -20,13 +19,12 @@
                 <tr>
                     <td><a href="@menu.File" target="_blank" rel="noopener">@menu.Label ↗</a></td>
                     <td>@menu.SortOrder</td>
-                    <td>@(menu.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
                         <div class="row-actions">
                             <button type="button" class="link-button" data-menu-edit
                                     data-url="@Url.Action("Edit", new { id = menu.Id })"
                                     data-id="@menu.Id" data-revision="@menu.Revision" data-label="@menu.Label"
-                                    data-sort-order="@menu.SortOrder" data-is-published="@menu.IsPublished.ToString().ToLowerInvariant()"
+                                    data-sort-order="@menu.SortOrder"
                                     data-image="@menu.File">Sửa</button>
                             <a asp-action="Delete" asp-route-id="@menu.Id" class="delete-link" data-name="@menu.Label">Xóa</a>
                         </div>

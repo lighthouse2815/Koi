@@ -23,7 +23,6 @@ public class NewsEditViewModel
     public string? VideoUrl { get; set; }
     public string? ImageUploadId { get; set; }
     public string? CurrentImage { get; set; }
-    public bool IsPublished { get; set; } = true;
     public bool IsFeatured { get; set; }
     public bool ShowOnHome { get; set; }
 

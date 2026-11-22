@@ -14,7 +14,6 @@
             <tr>
                 <th>Chi nhánh</th>
                 <th>Khu vực</th>
-                <th>Hiển thị</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
@@ -24,7 +23,6 @@
                 <tr>
                     <td><strong>@store.Name</strong><br />@store.Address</td>
                     <td>@(store.City?.Name ?? "Việt Nam")</td>
-                    <td>@(store.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
                         <div class="row-actions">
                             <button type="button" class="link-button" data-store-edit
@@ -32,7 +30,7 @@
                                     data-id="@store.Id" data-revision="@store.Revision" data-name="@store.Name"
                                     data-city-id="@store.CityId" data-address="@store.Address" data-phone="@store.Phone"
                                     data-hours="@store.Hours" data-navigation-url="@store.NavigationUrl"
-                                    data-sort-order="@store.SortOrder" data-is-published="@store.IsPublished.ToString().ToLowerInvariant()"
+                                    data-sort-order="@store.SortOrder"
                                     data-image="@store.Photo">Sửa</button>
                             <a asp-action="Delete" asp-route-id="@store.Id" class="delete-link" data-name="@store.Name">Xóa</a>
                         </div>

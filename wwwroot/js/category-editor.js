@@ -26,7 +26,6 @@
             form.elements.Revision.value = data.revision;
             form.elements.Name.value = data.name;
             form.elements.SortOrder.value = data.sortOrder;
-            form.querySelector('#IsPublished').checked = data.isPublished === 'true';
             form.querySelector('#ShowOnHome').checked = data.showOnHome === 'true';
         }
 

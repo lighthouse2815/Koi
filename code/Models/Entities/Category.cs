@@ -17,8 +17,6 @@ public class Category
 
     public bool ShowOnHome { get; set; }
 
-    public bool IsPublished { get; set; } = true;
-
     public int SortOrder { get; set; }
     
     [ConcurrencyCheck]

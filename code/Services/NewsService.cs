@@ -14,7 +14,7 @@ public class NewsService(
     public Task<NewsArticle[]> GetForHomeAsync() =>
         database.NewsArticles
             .AsNoTracking()
-            .Where(article => article.IsPublished && article.ShowOnHome)
+            .Where(article => article.ShowOnHome)
             .OrderBy(article => article.HomeOrder)
             .ThenByDescending(article => article.Date)
             .Take(6)
@@ -61,8 +61,6 @@ public class NewsService(
 
     private async Task ApplyChangesAsync(NewsArticle article, NewsEditViewModel model, bool isNew)
     {
-        if (model.IsFeatured && !model.IsPublished)
-            throw new AppException(ErrorCode.NEWS_FEATURED_UNPUBLISHED);
         var videoId = ParseVideoId(model.VideoUrl);
         if (!string.IsNullOrWhiteSpace(model.VideoUrl) && videoId == null)
             throw new AppException(ErrorCode.NEWS_VIDEO_INVALID);
@@ -89,7 +87,6 @@ public class NewsService(
             article.BannerImage = article.Image;
         article.VideoId = videoId;
         article.BodyHtml = body;
-        article.IsPublished = model.IsPublished;
         article.IsFeatured = model.IsFeatured;
         article.ShowOnHome = model.ShowOnHome;
         article.HomeOrder = model.HomeOrder;

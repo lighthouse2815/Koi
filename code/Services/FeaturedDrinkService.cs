@@ -53,7 +53,6 @@ public class FeaturedDrinkService(
 
         drink.Name = model.Name.Trim();
         drink.SortOrder = model.SortOrder;
-        drink.IsPublished = model.IsPublished;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

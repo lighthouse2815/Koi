@@ -24,7 +24,6 @@ public class StoreEditViewModel
 
     [StringLength(2000)]
     public string? NavigationUrl { get; set; }
-    public bool IsPublished { get; set; } = true;
 
     [Range(0, 1000000)]
     public int SortOrder { get; set; } = 10000;

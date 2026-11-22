@@ -22,7 +22,7 @@
                     <label for="ImageUpload">Ảnh đồ uống</label><img class="current-image" alt="Ảnh hiện tại" hidden />
                     <input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
                     <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Không có ảnh riêng sẽ dùng ảnh chung của danh mục.</p>
-                    <label class="check"><input asp-for="RemoveImage" /> Bỏ ảnh riêng</label><label class="check"><input asp-for="IsPublished" /> Hiển thị trên website</label>
+                    <label class="check"><input asp-for="RemoveImage" /> Bỏ ảnh riêng</label>
                     <label asp-for="SortOrder">Thứ tự trong danh mục</label><input asp-for="SortOrder" type="number" min="0" max="100000" />
                     <p class="help">Số nhỏ hiển thị trước.</p>
                     <button class="button" type="submit">Lưu đồ uống</button>

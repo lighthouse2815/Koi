@@ -77,9 +77,6 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode NEWS_NOT_FOUND =
         new("NEWS_NOT_FOUND", "Không tìm thấy bài viết.", StatusCodes.Status404NotFound);
 
-    public static readonly ErrorCode NEWS_FEATURED_UNPUBLISHED =
-        new("NEWS_FEATURED_UNPUBLISHED", "Tin nổi bật cần được xuất bản.", StatusCodes.Status400BadRequest);
-
     public static readonly ErrorCode NEWS_VIDEO_INVALID =
         new("NEWS_VIDEO_INVALID", "Nhập liên kết video YouTube hợp lệ.", StatusCodes.Status400BadRequest);
 

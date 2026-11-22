@@ -29,7 +29,6 @@
             form.elements.Hours.value = data.hours;
             form.elements.NavigationUrl.value = data.navigationUrl;
             form.elements.SortOrder.value = data.sortOrder;
-            form.querySelector('#IsPublished').checked = data.isPublished === 'true';
         }
 
         image.hidden = !data?.image;

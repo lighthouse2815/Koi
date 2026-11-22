@@ -13,7 +13,7 @@ public class SalesController(ApplicationDbContext database) : Controller
     {
         search = search?.Trim();
         if (search?.Length > 100) search = search[..100];
-        var branches = database.Stores.AsNoTracking().Where(value => value.IsPublished);
+        var branches = database.Stores.AsNoTracking();
         if (!string.IsNullOrEmpty(search))
             branches = branches.Where(value => EF.Functions.ILike(value.Name, $"%{search}%") || EF.Functions.ILike(value.Address, $"%{search}%"));
         var pageCount = Math.Max(1, (int)Math.Ceiling(await branches.CountAsync() / 20d));

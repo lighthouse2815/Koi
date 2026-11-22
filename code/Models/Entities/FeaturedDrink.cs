@@ -15,7 +15,6 @@ public class FeaturedDrink
     [Required, StringLength(500)]
     public string BackgroundImage { get; set; } = "";
 
-    public bool IsPublished { get; set; } = true;
     public int SortOrder { get; set; }
 
     [ConcurrencyCheck]

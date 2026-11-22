@@ -12,8 +12,6 @@ public class Menu
     [Required, StringLength(500)]
     public string File { get; set; } = "";
 
-    public bool IsPublished { get; set; } = true;
-    
     public int SortOrder { get; set; }
 
     [ConcurrencyCheck]

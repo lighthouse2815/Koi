@@ -31,7 +31,6 @@
             form.elements.BodyHtml.value = data.bodyHtml;
             form.elements.VideoUrl.value = data.videoUrl;
             form.elements.HomeOrder.value = data.homeOrder;
-            form.querySelector('#IsPublished').checked = data.isPublished === 'true';
             form.querySelector('#IsFeatured').checked = data.isFeatured === 'true';
             form.querySelector('#ShowOnHome').checked = data.showOnHome === 'true';
         }

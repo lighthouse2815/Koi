@@ -109,10 +109,10 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
     }
 
     public Task<bool> BranchAcceptsOrdersAsync(Guid id) =>
-        database.Stores.AnyAsync(value => value.Id == id && value.IsPublished && value.AcceptsOrders);
+        database.Stores.AnyAsync(value => value.Id == id && value.AcceptsOrders);
 
     public Task<Drink?> GetAvailableDrinkAsync(Guid id) =>
-        database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id && value.IsPublished && value.Category.IsPublished && value.Price > 0);
+        database.Drinks.AsNoTracking().SingleOrDefaultAsync(value => value.Id == id && value.Price > 0);
 
     public async Task<bool> CheckoutAsync(ShoppingCart cart, CheckoutViewModel checkout, bool isInputValid)
     {
@@ -121,13 +121,13 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
             errors.Add(("Checkout.Fulfillment", ErrorCode.ORDER_FULFILLMENT_INVALID));
         if (checkout.Fulfillment == FulfillmentMethod.Delivery && string.IsNullOrWhiteSpace(checkout.DeliveryAddress))
             errors.Add(("Checkout.DeliveryAddress", ErrorCode.ORDER_ADDRESS_REQUIRED));
-        var branch = await database.Stores.AsNoTracking().SingleOrDefaultAsync(value => value.Id == cart.StoreId && value.IsPublished && value.AcceptsOrders);
+        var branch = await database.Stores.AsNoTracking().SingleOrDefaultAsync(value => value.Id == cart.StoreId && value.AcceptsOrders);
         if (branch == null)
             errors.Add(("", ErrorCode.ORDER_BRANCH_UNAVAILABLE));
         if (cart.Items.Count == 0)
             errors.Add(("", ErrorCode.ORDER_CART_EMPTY));
         var ids = cart.Items.Select(value => value.DrinkId).ToArray();
-        var drinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id) && value.IsPublished && value.Category.IsPublished && value.Price > 0).ToDictionaryAsync(value => value.Id);
+        var drinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id) && value.Price > 0).ToDictionaryAsync(value => value.Id);
         if (drinks.Count != ids.Distinct().Count())
             errors.Add(("", ErrorCode.ORDER_DRINK_UNAVAILABLE));
         var changed = false;
@@ -175,8 +175,8 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
     {
         search = search?.Trim();
         if (search?.Length > 200) search = search[..200];
-        var branches = await database.Stores.AsNoTracking().Where(value => value.IsPublished && value.AcceptsOrders).OrderBy(value => value.Name).ToArrayAsync();
-        var query = database.Drinks.AsNoTracking().Include(value => value.Category).Where(value => value.IsPublished && value.Category.IsPublished);
+        var branches = await database.Stores.AsNoTracking().Where(value => value.AcceptsOrders).OrderBy(value => value.Name).ToArrayAsync();
+        IQueryable<Drink> query = database.Drinks.AsNoTracking().Include(value => value.Category);
         if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);
         else if (categoryId.HasValue) query = query.Where(value => value.CategoryId == categoryId);
         if (!string.IsNullOrEmpty(search))
@@ -191,10 +191,10 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
         var drinks = await query.OrderBy(value => value.Category.SortOrder).ThenBy(value => value.CategoryId)
             .ThenBy(value => value.SortOrder).ThenBy(value => value.Id)
             .Skip((page - 1) * pageSize).Take(pageSize).ToArrayAsync();
-        var categories = await database.Categories.AsNoTracking().Where(value => value.IsPublished && value.Drinks.Any(drink => drink.IsPublished))
+        var categories = await database.Categories.AsNoTracking().Where(value => value.Drinks.Any())
             .OrderBy(value => value.SortOrder).ThenBy(value => value.Id).ToArrayAsync();
         var filterName = drinkId.HasValue ? null : categoryId.HasValue
-            ? await database.Categories.AsNoTracking().Where(value => value.Id == categoryId && value.IsPublished).Select(value => value.Name).SingleOrDefaultAsync() : null;
+            ? await database.Categories.AsNoTracking().Where(value => value.Id == categoryId).Select(value => value.Name).SingleOrDefaultAsync() : null;
         var ids = cart.Items.Select(line => line.DrinkId).ToArray();
         var allCartDrinks = await database.Drinks.AsNoTracking().Where(value => ids.Contains(value.Id)).ToDictionaryAsync(value => value.Id);
         return new OrderingPageViewModel

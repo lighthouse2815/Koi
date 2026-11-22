@@ -49,7 +49,6 @@ public class MenuService(
 
         menu.Label = model.Label.Trim();
         menu.SortOrder = model.SortOrder;
-        menu.IsPublished = model.IsPublished;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

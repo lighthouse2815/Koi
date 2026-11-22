@@ -26,7 +26,6 @@
             form.elements.CategoryId.value = data.categoryId;
             form.elements.Description.value = data.description;
             form.elements.SortOrder.value = data.sortOrder;
-            form.querySelector('#IsPublished').checked = data.isPublished === 'true';
         }
 
         image.hidden = !data?.image;

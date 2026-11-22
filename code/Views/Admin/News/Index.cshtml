@@ -19,7 +19,6 @@
                 <th>Tiêu đề</th>
                 <th>Danh mục</th>
                 <th>Ngày đăng</th>
-                <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
@@ -34,7 +33,6 @@
                     </td>
                     <td>@article.Category</td>
                     <td>@article.Date.ToString("dd/MM/yyyy")</td>
-                    <td>@(article.IsPublished ? "Đã xuất bản" : "Bản nháp")</td>
                     <td>
                         <div class="row-actions">
                             <button type="button" class="link-button" data-news-edit
@@ -43,7 +41,6 @@
                                     data-category="@article.Category" data-date="@article.Date.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)"
                                     data-body-html="@article.BodyHtml" data-image="@article.Image"
                                     data-video-url="@(article.VideoId == null ? "" : $"https://www.youtube.com/embed/{article.VideoId}")"
-                                    data-is-published="@article.IsPublished.ToString().ToLowerInvariant()"
                                     data-is-featured="@article.IsFeatured.ToString().ToLowerInvariant()"
                                     data-show-on-home="@article.ShowOnHome.ToString().ToLowerInvariant()"
                                     data-home-order="@article.HomeOrder">Sửa</button>

@@ -17,7 +17,6 @@
                 <th>Đồ uống</th>
                 <th>Danh mục</th>
                 <th>Thứ tự</th>
-                <th>Hiển thị</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
@@ -32,14 +31,13 @@
                     </td>
                     <td>@drink.Category.Name</td>
                     <td>@drink.SortOrder</td>
-                    <td>@(drink.IsPublished ? (drink.Category.IsPublished ? "Đã xuất bản" : "Danh mục đang ẩn") : "Bản nháp")</td>
                     <td>
                         <div class="row-actions">
                             <button type="button" class="link-button" data-drink-edit
                                     data-url="@Url.Action("Edit", new { id = drink.Id })"
                                     data-id="@drink.Id" data-revision="@drink.Revision" data-name="@drink.Name"
                                     data-category-id="@drink.CategoryId" data-description="@drink.Description"
-                                    data-sort-order="@drink.SortOrder" data-is-published="@drink.IsPublished.ToString().ToLowerInvariant()"
+                                    data-sort-order="@drink.SortOrder"
                                     data-image="@drink.Image">Sửa</button>
                             <a asp-action="Delete" asp-route-id="@drink.Id" class="delete-link" data-name="@drink.Name">Xóa</a>
                         </div>
