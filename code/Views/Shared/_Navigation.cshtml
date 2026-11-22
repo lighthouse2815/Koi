@@ -50,7 +50,5 @@
             <a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)"><span>@T[navItem.Label]</span><span aria-hidden="true">↗</span></a>
         }
     </nav>
-    <div class="dialog-bottom"><span>@T["YOUR DAILY BEAT."]</span><a asp-controller="Order" asp-action="Index">Đặt hàng ↗</a>
-        <partial name="_LanguageSwitcher" />
-    </div>
+    <div class="dialog-bottom"><span>@T["YOUR DAILY BEAT."]</span><a asp-controller="Order" asp-action="Index">Đặt hàng ↗</a></div>
 </dialog>

@@ -4,7 +4,6 @@ using Koi.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDistributedMemoryCache();
@@ -17,8 +16,8 @@ builder.Services.AddSession(options =>
 builder.Services.AddLocalization(options => options.ResourcesPath = "code/Resources");
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    options.SetDefaultCulture("en").AddSupportedCultures("en", "vi").AddSupportedUICultures("en", "vi");
-    options.RequestCultureProviders = [new CookieRequestCultureProvider(), new QueryStringRequestCultureProvider(), new AcceptLanguageHeaderRequestCultureProvider()];
+    options.SetDefaultCulture("vi").AddSupportedCultures("vi").AddSupportedUICultures("vi");
+    options.RequestCultureProviders.Clear();
 });
 
 // Add services to the container.
@@ -94,7 +93,7 @@ app.MapControllerRoute("areas", "{area:exists}/{controller=News}/{action=Index}/
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Cover}/{id?}")
+    pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 
