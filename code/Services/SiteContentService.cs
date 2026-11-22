@@ -4,19 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class SiteContentService(ApplicationDbContext database, IConfiguration configuration)
+public class SiteContentService(
+    ApplicationDbContext database,
+    IConfiguration configuration,
+    CategoryService categoryService
+)
 {
     public async Task<OurTeaViewModel> GetOurTeaAsync()
     {
-        var categories = await database
-            .Categories.AsNoTracking()
-            .Include(category => category.Drinks
-                .OrderBy(drink => drink.SortOrder)
-                .ThenBy(drink => drink.Id))
-            .OrderBy(value => value.SortOrder)
-            .ThenBy(value => value.Id)
-            .AsSplitQuery()
-            .ToArrayAsync();
+        var categories = await categoryService.GetListAsync(includeDrinks: true);
         var featured = await database
             .FeaturedDrinks.AsNoTracking()
             .OrderBy(value => value.SortOrder)

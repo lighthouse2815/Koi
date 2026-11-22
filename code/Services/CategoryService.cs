@@ -10,11 +10,17 @@ public class CategoryService(
     ImageUploadService uploads
 )
 {
-    public Task<Category[]> GetListAsync(bool forHome = false)
+    public Task<Category[]> GetListAsync(bool forHome = false, bool includeDrinks = false)
     {
         var query = database.Categories.AsNoTracking();
         if (forHome)
             query = query.Where(category => category.ShowOnHome);
+        if (includeDrinks)
+            query = query
+                .Include(category => category.Drinks
+                    .OrderBy(drink => drink.SortOrder)
+                    .ThenBy(drink => drink.Id))
+                .AsSplitQuery();
 
         return query
             .OrderBy(category => category.SortOrder)

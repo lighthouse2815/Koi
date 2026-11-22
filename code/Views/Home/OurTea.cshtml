@@ -230,7 +230,7 @@
                 }
             </nav>
             <ul class="drinkWrapList tea-categories">
-                @for (var categoryIndex = 0; categoryIndex < Model.Categories.Length; categoryIndex++) { var category=Model.Categories[categoryIndex]; <li id="@category.Id" class="tea-category">
+                @for (var categoryIndex = 0; categoryIndex < Model.Categories.Count; categoryIndex++) { var category=Model.Categories[categoryIndex]; <li id="@category.Id" class="tea-category">
                         <div class="tea-category-rule" aria-hidden="true"></div>
                         <div class="tea-category-heading">
                             <div class="title"><span class="tea-category-number" aria-hidden="true">(@((categoryIndex + 1).ToString("D2")))</span>
