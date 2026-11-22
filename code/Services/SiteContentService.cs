@@ -7,17 +7,14 @@ namespace Koi.Web.Services;
 public class SiteContentService(
     ApplicationDbContext database,
     IConfiguration configuration,
-    CategoryService categoryService
+    CategoryService categoryService,
+    FeaturedDrinkService featuredDrinkService
 )
 {
     public async Task<OurTeaViewModel> GetOurTeaAsync()
     {
         var categories = await categoryService.GetListAsync(includeDrinks: true);
-        var featured = await database
-            .FeaturedDrinks.AsNoTracking()
-            .OrderBy(value => value.SortOrder)
-            .ThenBy(value => value.Id)
-            .ToArrayAsync();
+        var featured = await featuredDrinkService.GetListAsync();
         return new OurTeaViewModel(categories, featured);
     }
 
