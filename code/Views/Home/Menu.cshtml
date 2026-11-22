@@ -1,4 +1,4 @@
-@model MenuViewModel
+@model IReadOnlyList<Menu>
 @{
     ViewData["Title"] = "Thực đơn";
 }
@@ -20,7 +20,7 @@
         <section class="menu-gallery" aria-labelledby="menu-country">
             <h2 class="en" id="menu-country">VIỆT NAM</h2>
             <ul class="menu-gallery__list">
-                @foreach (var menu in Model.Menus)
+                @foreach (var menu in Model)
                 {
                     <li>
                         <a class="menu-gallery__photo" href="@menu.File" aria-label="Mở ảnh thực đơn @menu.Label" data-menu-photo>
@@ -52,7 +52,7 @@
             </a></div>
     </div>
 </div>
-@if (Model.Menus.Count > 0)
+@if (Model.Count > 0)
 {
     <dialog class="menu-viewer" id="menu-viewer" aria-label="Ảnh thực đơn" aria-describedby="menu-viewer-help">
         <p class="visually-hidden" id="menu-viewer-help">Dùng phím + hoặc − để phóng to hoặc thu nhỏ, phím mũi tên để di chuyển và Escape để đóng.</p>

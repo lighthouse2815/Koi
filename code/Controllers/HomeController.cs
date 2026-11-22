@@ -69,12 +69,7 @@ public class HomeController(
     public IActionResult Connections() => View();
     public IActionResult Contact() => View();
 
-    public async Task<IActionResult> Menu()
-    {
-        var menus = await menuService.GetListAsync();
-        var documents = menus.Select(menu => new MenuDocument(menu.Label, menu.File)).ToList();
-        return View(new MenuViewModel(documents));
-    }
+    public async Task<IActionResult> Menu() => View(await menuService.GetListAsync());
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
