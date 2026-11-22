@@ -1,13 +1,13 @@
 @model ErrorViewModel
 @{
-    ViewData["Title"] = T["Something went wrong"].Value;
+    ViewData["Title"] = "Đã xảy ra lỗi";
 }
 <section class="error-page">
-    <h1>@T["Let's try that again."]</h1>
-    <p>@T["We couldn't load this page. Please refresh or return to the home page."]</p>
-    <a asp-controller="Home" asp-action="Index">@T["Back to KOI Thé →"]</a>
+    <h1>Vui lòng thử lại.</h1>
+    <p>Không tải được trang này. Hãy tải lại hoặc quay về trang chủ.</p>
+    <a asp-controller="Home" asp-action="Index">Về trang chủ KOI Thé →</a>
     @if (Model.ShowRequestId)
     {
-        <p>@T["Reference:"] <code>@Model.RequestId</code></p>
+        <p>Mã tham chiếu: <code>@Model.RequestId</code></p>
     }
 </section>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="@System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
+<html lang="vi">
 
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="@T["Your daily beat. Discover freshly brewed tea, golden bubbles and little moments of happiness with KOI Thé."]" />
+        <meta name="description" content="Nhịp vui mỗi ngày. Khám phá trà pha mới, trân châu hoàng kim và những khoảnh khắc hạnh phúc cùng KOI Thé." />
         <meta name="theme-color" content="#f9efe1" />
         <title>@ViewData["Title"] · KOI Thé</title>
         <link rel="icon" type="image/png" href="~/images/favicon.png" />
@@ -15,17 +15,13 @@
     </head>
 
     <body>
-        <a class="skip-link" href="#main-content">@T["Skip to content"]</a>
+        <a class="skip-link" href="#main-content">Chuyển đến nội dung</a>
         <partial name="_Navigation" />
         <main id="main-content">
             @RenderBody()
         </main>
         <partial name="_Footer" />
         @await RenderSectionAsync("VendorScripts", required: false)
-        @{
-            var interactiveLabels = new[] { "PLAY", "PAUSE", "Play background video", "Pause background video", "Link copied", "Copy the address from your browser to share this article.", "Explore the KOI story", "( Play motion )", "( Pause motion )", "Next brand", "Previous brand", "Next milestone", "Previous milestone", "Explore new drinks", "Commitment {0}", "Photo of {0}", "Explore more" };
-        }
-        <script type="application/json" id="site-translations">@Html.Raw(System.Text.Json.JsonSerializer.Serialize(interactiveLabels.ToDictionary(key => key, key => T[key].Value)))</script>
         <script src="~/js/site.js" asp-append-version="true" defer></script>
         @await RenderSectionAsync("Scripts", required: false)
     </body>

@@ -13,16 +13,9 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-builder.Services.AddLocalization(options => options.ResourcesPath = "code/Resources");
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-    options.SetDefaultCulture("vi").AddSupportedCultures("vi").AddSupportedUICultures("vi");
-    options.RequestCultureProviders.Clear();
-});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
-    .AddViewLocalization()
     .AddRazorOptions(options =>
     {
         // Both public and Admin views live inside the shared code folder.
@@ -73,7 +66,6 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseMiddleware<AppExceptionMiddleware>();
 app.UseStaticFiles();
-app.UseRequestLocalization();
 app.UseRouting();
 app.UseSession();
 

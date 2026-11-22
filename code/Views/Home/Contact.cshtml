@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = T["Contact__text"].Value;
+    ViewData["Title"] = "Liên hệ";
 }
 @section Styles {
     <script>
@@ -17,26 +17,26 @@
 <div class="content-page contact-page-content" id="home">
     <div class="contactWrap menu-pin" id="contact">
         <div class="head-area">
-            <h1 class="en">@T["CONTACT"]</h1>
+            <h1 class="en">LIÊN HỆ</h1>
         </div>
         <div class="contact-area flex-container align-justify">
             <div class="article-area">
                 <div class="content content-1">
                     <ul class="change">
-                        <li class="inner">@H["Contact.Questions"]</li>
-                        <li class="inner">@T["PLEASE FEEL"]</li>
-                        <li class="inner">@H["Contact.Free"]</li>
-                        <li class="inner">@H["Contact.ContactUs"]</li>
-                        <li class="inner">@T["HERE."]</li>
+                        <li class="inner">BẠN CẦN HỖ TRỢ?</li>
+                        <li class="inner">ĐỪNG NGẦN NGẠI</li>
+                        <li class="inner">LIÊN HỆ</li>
+                        <li class="inner">VỚI KOI</li>
+                        <li class="inner">TẠI ĐÂY.</li>
                     </ul>
-                    <div class="note">@T["Thank you for contacting us."]<br>@T["We will be in touch with you as soon as possible."]</div>
+                    <div class="note">Cảm ơn bạn đã liên hệ.<br>Chúng tôi sẽ phản hồi trong thời gian sớm nhất.</div>
                 </div>
             </div>
             <div class="form-area">
-                <section class="contact-form" id="contactForm1" role="form" aria-label="@T["Contact__text"]">
+                <section class="contact-form" id="contactForm1" role="form" aria-label="Liên hệ">
                     <div class="item required">
                         <label class="title" for="name">
-                            @T["Name"]
+                            Họ tên
                         </label>
                         <div>
                             <input type="text" name="name" id="name" required="" autocomplete="name" maxlength="300">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="item required">
                         <label class="title" for="phone">
-                            @T["Contact Number"]
+                            Số điện thoại
                         </label>
                         <div>
                             <input type="tel" name="phone" id="phone" required="" autocomplete="tel" maxlength="300">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="item required">
                         <label class="title" for="email">
-                            @T["E-Mail"]
+                            Email
                         </label>
                         <div>
                             <input type="email" name="email" id="email" required="" autocomplete="email" maxlength="300">
@@ -60,32 +60,32 @@
                     </div>
                     <div class="item required">
                         <label class="title" for="ask">
-                            @T["Category"]
+                            Chủ đề
                         </label>
                         <div>
                             <select name="ask" id="ask" class="ask-select" required="">
                                 <option value="After sales service">
-                                    <span class="ch">@T["After sales service"]</span>
+                                    <span class="ch">Chăm sóc sau bán hàng</span>
                                 </option>
                                 <option value="Business cooperation">
-                                    <span class="ch">@T["Business cooperation"]</span>
+                                    <span class="ch">Hợp tác kinh doanh</span>
                                 </option>
                                 <option value="Others">
-                                    <span class="ch">@T["Others"]</span>
+                                    <span class="ch">Khác</span>
                                 </option>
                             </select>
                         </div>
                     </div>
                     <div class="item required">
                         <label class="title" for="content">
-                            @T["Content"]
+                            Nội dung
                         </label>
                         <div>
                             <textarea name="content" id="content" required="" maxlength="5000"></textarea>
                         </div>
                     </div>
                     <div class="submit" id="submit1">
-                        <button type="submit" disabled="" aria-label="@T["Submit form (unavailable in preview)"]" aria-describedby="form-preview-0">
+                        <button type="submit" disabled="" aria-label="Gửi biểu mẫu (chưa khả dụng trong bản xem trước)" aria-describedby="form-preview-0">
                             <svg class="show-for-large" xmlns="http://www.w3.org/2000/svg" width="113.33" height="71.38" viewBox="0 0 113.33 71.38" aria-hidden="true">
                                 <g>
                                     <g class="arrow">
@@ -124,7 +124,7 @@
                             </svg>
                         </button>
                     </div>
-                    <p class="form-preview-note" id="form-preview-0">@T["Form preview. Sending is not enabled."]</p>
+                    <p class="form-preview-note" id="form-preview-0">Biểu mẫu xem trước. Chức năng gửi chưa được bật.</p>
                 </section>
             </div>
         </div>

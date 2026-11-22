@@ -1,7 +1,3 @@
-{
-    const translations = JSON.parse(document.getElementById('site-translations')?.textContent || '{}');
-    window.koiText = (key, ...args) => (translations[key] || key).replace(/\{(\d+)\}/g, (_, index) => args[Number(index)] ?? '');
-}
 (() => {
     'use strict';
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -68,8 +64,8 @@
     motionToggle?.addEventListener('click', () => {
         userPausedVideo = !userPausedVideo;
         motionToggle.setAttribute('aria-pressed', String(userPausedVideo));
-        motionToggle.setAttribute('aria-label', window.koiText(userPausedVideo ? 'Play background video' : 'Pause background video'));
-        motionToggle.innerHTML = (userPausedVideo ? '▷ <span>' + window.koiText('PLAY') : 'Ⅱ <span>' + window.koiText('PAUSE')) + '</span>';
+        motionToggle.setAttribute('aria-label', userPausedVideo ? 'Phát video nền' : 'Tạm dừng video nền');
+        motionToggle.innerHTML = userPausedVideo ? '▷ <span>PHÁT</span>' : 'Ⅱ <span>TẠM DỪNG</span>';
         syncVideo();
     });
     reducedMotion.addEventListener('change', syncVideo);

@@ -18,7 +18,7 @@
     }
     page.querySelectorAll('.scroll-down').forEach(button => {
         button.setAttribute('role', 'button');
-        button.setAttribute('aria-label', window.koiText('Explore more'));
+        button.setAttribute('aria-label', 'Khám phá thêm');
         button.tabIndex = 0;
         const scroll = () => button.closest('section').nextElementSibling?.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' });
         button.addEventListener('click', scroll);
@@ -166,7 +166,7 @@
             if (visible && !paused && !reducedMotion.matches && !document.hidden) {
                 if (!shareSlider.autoplay.running) shareSlider.autoplay.start();
             } else freezeShare();
-            motionButton.textContent = paused ? window.koiText('( Play motion )') : window.koiText('( Pause motion )');
+            motionButton.textContent = paused ? '( Tiếp tục chuyển động )' : '( Tạm dừng chuyển động )';
             motionButton.disabled = reducedMotion.matches;
         };
         motionButton.addEventListener('click', () => {
@@ -258,7 +258,7 @@
                 progress.style.transform = 'scaleX(0)';
             } else if (countdown) countdown.paused(!canPlay());
             else if (canPlay() && !busy) startAuto();
-            motionButton.textContent = paused ? window.koiText('( Play motion )') : window.koiText('( Pause motion )');
+            motionButton.textContent = paused ? '( Tiếp tục chuyển động )' : '( Tạm dừng chuyển động )';
             motionButton.disabled = reducedMotion.matches;
         };
         feature.querySelector('.connections-feature__arrow--prev').addEventListener('click', () => select(index - 1));

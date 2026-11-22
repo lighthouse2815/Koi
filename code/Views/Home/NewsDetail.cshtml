@@ -1,4 +1,5 @@
 @model NewsArticle
+@using System.Globalization
 @{
     ViewData["Title"] = Model.Title;
     Layout = "~/code/Views/Shared/_Layout.cshtml";
@@ -16,8 +17,8 @@
         <div class="banner-area">
             <div class="head-area">
                 <div class="info-area">
-                    <div class="cat">@T[Model.Category.ToString()]</div>
-                    <div class="date">(@SiteText.Date(Model.Date))</div>
+                    <div class="cat">@(Model.Category == NewsCategory.MEDIA ? "TRUYỀN THÔNG" : "TIN TỨC")</div>
+                    <div class="date">(@Model.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture))</div>
                 </div>
                 <h1 class="title">@Model.Title</h1>
             </div>
@@ -28,14 +29,14 @@
                 }
                 @if (!string.IsNullOrEmpty(Model.VideoId))
                 {
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/@Model.VideoId" title="@T["KOI Thé video"]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/@Model.VideoId" title="Video KOI Thé" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                 }
             </div>
         </div>
         <div class="detailWrap">
             <div class="detail-area">@Html.Raw(Model.BodyHtml)</div>
-            <div class="other-area flex-container align-justify"><a href="/Home/News" aria-label="@T["Back to news"]">
-                    <div class="back"><span class="localized-control-text"><span class="control-arrow" aria-hidden="true">←</span>@T["( Back )"]</span>
+            <div class="other-area flex-container align-justify"><a href="/Home/News" aria-label="Quay lại tin tức">
+                    <div class="back"><span class="localized-control-text"><span class="control-arrow" aria-hidden="true">←</span>( Quay lại )</span>
                         <svg class="show-for-large" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" width="90" height="74.44" viewBox="0 0 90 74.44">
                             <g data-name="layout">
                                 <g>
@@ -56,7 +57,7 @@
                         </svg><img class="hide-for-large" src="/images/pages/en/images/news-back-mobile.svg" alt="" loading="lazy">
                     </div>
                 </a>
-                <div class="share-area"><button type="button" class="article-share" data-copy-link="">@T["Copy link ↗"]</button><span role="status" class="share-status"></span></div>
+                <div class="share-area"><button type="button" class="article-share" data-copy-link="">Sao chép liên kết ↗</button><span role="status" class="share-status"></span></div>
             </div>
         </div>
     </div>

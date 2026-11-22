@@ -7,9 +7,9 @@
         const status = page.querySelector('.share-status');
         try {
             await navigator.clipboard.writeText(location.href);
-            status.textContent = window.koiText('Link copied');
+            status.textContent = 'Đã sao chép liên kết';
         } catch {
-            status.textContent = window.koiText('Copy the address from your browser to share this article.');
+            status.textContent = 'Sao chép địa chỉ trên trình duyệt để chia sẻ bài viết.';
         }
     });
     const activate = (element, callback) => {
@@ -27,7 +27,7 @@
     const about = page.querySelector('.aboutWrap');
     if (about) {
         about.querySelectorAll('.text-area-outter .scroll').forEach(button => {
-            button.setAttribute('aria-label', window.koiText('Explore the KOI story'));
+            button.setAttribute('aria-label', 'Khám phá câu chuyện KOI');
             activate(button, () => about.querySelector('.number-area').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
         });
         const ingredients = [...about.querySelectorAll('[data-ing]')];
@@ -55,7 +55,7 @@
         motionButton.addEventListener('click', () => {
             paused = !paused;
             motionButton.setAttribute('aria-pressed', String(paused));
-            motionButton.textContent = paused ? window.koiText('( Play motion )') : window.koiText('( Pause motion )');
+            motionButton.textContent = paused ? '( Tiếp tục chuyển động )' : '( Tạm dừng chuyển động )';
             syncAutoplay();
         });
         reducedMotion.addEventListener('change', syncAutoplay);
@@ -136,7 +136,7 @@
         smallScreen.addEventListener('change', mountHistory);
         history.querySelectorAll('.prev, .next').forEach(button => {
             const next = button.classList.contains('next');
-            button.setAttribute('aria-label', next ? window.koiText('Next milestone') : window.koiText('Previous milestone'));
+            button.setAttribute('aria-label', next ? 'Cột mốc tiếp theo' : 'Cột mốc trước');
             activate(button, () => next ? historySlider.slideNext(reducedMotion.matches ? 0 : 900) : historySlider.slidePrev(reducedMotion.matches ? 0 : 900));
         });
     }
@@ -214,13 +214,13 @@
             pause.addEventListener('click', () => {
                 paused = !paused;
                 tea.classList.toggle('tea-paused', paused);
-                pause.textContent = paused ? window.koiText('( Play motion )') : window.koiText('( Pause motion )');
+                pause.textContent = paused ? '( Tiếp tục chuyển động )' : '( Tạm dừng chuyển động )';
                 pause.setAttribute('aria-pressed', String(paused));
                 syncMotion();
             });
         }
         const explore = tea.querySelector('.scroll-down');
-        explore.setAttribute('aria-label', window.koiText('Explore new drinks'));
+        explore.setAttribute('aria-label', 'Khám phá đồ uống mới');
         activate(explore, () => (tea.querySelector('.new-drinkWrap') || tea.querySelector('.tea-catalog')).scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
 
     }
@@ -236,7 +236,7 @@
         updateImpactHeader();
         activate(impact.querySelector('.scroll-down'), () => impact.querySelector('.crmListWrap').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
         impact.querySelectorAll('.pin-pagination .dot').forEach((dot, index) => {
-            dot.setAttribute('aria-label', window.koiText('Commitment {0}', index + 1));
+            dot.setAttribute('aria-label', `Cam kết ${index + 1}`);
             activate(dot, () => navigateImpact?.(index));
         });
     }

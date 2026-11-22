@@ -1,6 +1,6 @@
 @model StoreViewModel
 @{
-    ViewData["Title"] = T["Store__text"].Value;
+    ViewData["Title"] = "Cửa hàng";
     var visiblePages = Enumerable.Range(1, Model.PageCount)
     .Where(page => Model.PageCount <= 9 || page==1 || page==Model.PageCount || Math.Abs(page - Model.Page) <=1 || (Model.Page <=2 && page <=3) || (Model.Page>= Model.PageCount - 1 && page >= Model.PageCount - 2))
     .ToArray();
@@ -22,15 +22,15 @@
 <div class="content-page store-page-content" id="home">
     <div class="storeWrap menu-pin">
         <div class="head-area">
-            <h1 class="en">@T["STORE"] <span class="note">@T["VIETNAM"]</span></h1>
+            <h1 class="en">CỬA HÀNG <span class="note">VIỆT NAM</span></h1>
         </div>
         <div class="storeListWrap flex-container align-justify">
-            <nav class="storeCat-area" aria-label="@T["Filter stores"]">
+            <nav class="storeCat-area" aria-label="Lọc cửa hàng">
                 <div class="storeCat-inner">
-                    <div class="store" id="store-location">@T["(Location)"]</div>
+                    <div class="store" id="store-location">(Khu vực)</div>
                     <ul class="storeCatList" aria-labelledby="store-location">
                         <li class="@(Model.LocationId == Guid.Empty ? "current" : null)">
-                            <a asp-action="Store" class="flex-container align-middle" aria-current="@(Model.LocationId == Guid.Empty ? "true" : null)"><span class="dot"></span><span class="title">@T["All__text"]</span></a>
+                            <a asp-action="Store" class="flex-container align-middle" aria-current="@(Model.LocationId == Guid.Empty ? "true" : null)"><span class="dot"></span><span class="title">Tất cả</span></a>
                         </li>
                         @foreach (var location in Model.Locations)
                         {
@@ -42,11 +42,11 @@
                 </div>
             </nav>
             <div class="storeList-area">
-                <ul class="store-socialList flex-container align-right" aria-label="@T["Country social media"]">
+                <ul class="store-socialList flex-container align-right" aria-label="Mạng xã hội theo quốc gia">
                     <li><a href="https://www.instagram.com/koithevietnam/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="/images/pages/en/images/store-instagram.svg" width="36" height="36" alt="" /></a></li>
                     <li><a href="https://www.facebook.com/KOI-Th%C3%A9-Vietnam-1113353828678015/?fref=ts" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="/images/pages/en/images/store-facebook.svg" width="36" height="36" alt="" /></a></li>
                 </ul>
-                <ul class="storeList" aria-label="@T["Stores"]">
+                <ul class="storeList" aria-label="Cửa hàng">
                     @foreach (var store in Model.Stores)
                     {
                         var brandName = Model.ShopName;
@@ -89,7 +89,7 @@
                                 }
                                 @if (!string.IsNullOrEmpty(store.NavigationUrl))
                                 {
-                                    <a class="directions" href="@store.NavigationUrl" target="_blank" rel="noopener noreferrer" aria-label="Directions to @store.Name"><span class="googlemap">@T["Google map"]</span><svg class="arrow" width="66" height="27" viewBox="0 0 66 27" aria-hidden="true">
+                                    <a class="directions" href="@store.NavigationUrl" target="_blank" rel="noopener noreferrer" aria-label="Directions to @store.Name"><span class="googlemap">Chỉ đường</span><svg class="arrow" width="66" height="27" viewBox="0 0 66 27" aria-hidden="true">
                                             <path class="d" d="M0 13.5h62" />
                                             <path class="e" d="m45 0 21 13.5L45 27l-2-3 17-10.5L43 3z" />
                                         </svg></a>
@@ -100,15 +100,15 @@
                 </ul>
                 @if (Model.Stores.Count == 0)
                 {
-                    <p class="store-empty" role="status">@T["No stores match these filters. Choose another location."]</p>
+                    <p class="store-empty" role="status">Không có cửa hàng phù hợp. Vui lòng chọn khu vực khác.</p>
                 }
                 @if (Model.PageCount > 1)
                 {
-                    <nav class="store-pageWrap flex-container align-center-middle" aria-label="@T["Store pages"]">
+                    <nav class="store-pageWrap flex-container align-center-middle" aria-label="Phân trang cửa hàng">
                         <div class="prev">
                             @if (Model.Page > 1)
                             {
-                                <a asp-action="Store" asp-route-s="@Model.LocationId" asp-route-page="@(Model.Page - 1)" rel="prev">@T["prev"]</a>
+                                <a asp-action="Store" asp-route-s="@Model.LocationId" asp-route-page="@(Model.Page - 1)" rel="prev">trước</a>
                             }
                         </div>
                         <ul class="store-page flex-container align-center-middle">
@@ -116,21 +116,21 @@
                                 {
                                 <li class="ellipsis" aria-hidden="true">…</li>
                             }
-                            <li class="@(number == Model.Page ? "current" : null)"><a asp-action="Store" asp-route-s="@Model.LocationId" asp-route-page="@number" aria-label="@T["Page {0} of {1}", number, Model.PageCount]" aria-current="@(number == Model.Page ? "page" : null)">@number</a></li>
+                            <li class="@(number == Model.Page ? "current" : null)"><a asp-action="Store" asp-route-s="@Model.LocationId" asp-route-page="@number" aria-label="Trang @number / @Model.PageCount" aria-current="@(number == Model.Page ? "page" : null)">@number</a></li>
                             }
                         </ul>
                         <div class="next">
-                            @if (Model.Page < Model.PageCount) { <a asp-action="Store" asp-route-s="@Model.LocationId" asp-route-page="@(Model.Page + 1)" rel="next">@T["next"]</a>
+                            @if (Model.Page < Model.PageCount) { <a asp-action="Store" asp-route-s="@Model.LocationId" asp-route-page="@(Model.Page + 1)" rel="next">sau</a>
                             }
                         </div>
                     </nav>
                 }
             </div>
         </div>
-        <dialog class="store-fancy" id="store-photo-dialog" aria-label="@T["Store photo"]">
+        <dialog class="store-fancy" id="store-photo-dialog" aria-label="Ảnh cửa hàng">
             <div class="inner-fancy flex-container align-center-middle">
                 <div class="pic"><img alt="" /></div>
-                <button class="back" type="button" aria-label="@T["Close store photo"]"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="70" height="54.92" viewBox="0 0 70 54.92">
+                <button class="back" type="button" aria-label="Đóng ảnh cửa hàng"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="70" height="54.92" viewBox="0 0 70 54.92">
                         <g>
                             <g class="e">
                                 <path class="d" d="M3.55,54.92c-1.15-.67-2.03-1.56-2.64-2.67s-.92-2.38-.92-3.81,.3-2.7,.92-3.82,1.49-2,2.64-2.67l.76,.9c-.96,.58-1.7,1.35-2.21,2.31-.51,.96-.77,2.05-.77,3.28s.26,2.3,.77,3.27,1.25,1.73,2.21,2.3l-.76,.91Z"></path>
