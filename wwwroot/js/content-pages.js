@@ -349,16 +349,12 @@
             gsap.fromTo('.newsWrap .head-area .en', { yPercent: 100, rotation: 10 }, { yPercent: 0, rotation: 0, duration: 1, delay: 1, ease: 'power2.out' });
         }
         if (menus) {
-            const list = menus.querySelector('.menuList');
-            list.inert = true;
-            gsap.timeline({ delay: 1, onComplete: () => list.inert = false })
+            gsap.timeline({ delay: 1 })
                 .fromTo(menus.querySelector('.head-area'), { '--menu-rule-width': '0%' },
                     { '--menu-rule-width': '100%', duration: 1, ease: 'power3.out' })
                 .fromTo(menus.querySelector('.head-area .en'),
                     { y: 0, yPercent: context.conditions.desktop && innerWidth >= 1200 ? 100 : 120, rotation: 10 },
-                    { y: 0, yPercent: 0, rotation: 0, duration: .75, ease: 'power2.out' }, .5)
-                .fromTo(list, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power2.out' });
-            cleanUpPage = () => list.inert = false;
+                    { y: 0, yPercent: 0, rotation: 0, duration: .75, ease: 'power2.out' }, .5);
         }
         if (page.querySelector('.crmWrap')) {
             const hero = page.querySelector('#crm-banner');
