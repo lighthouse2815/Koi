@@ -58,27 +58,17 @@ public class StoreService(
         const int pageSize = 9;
         var pages = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / (double)pageSize));
         page = Math.Clamp(page, 1, pages);
-        var rows = await query
+        var stores = await query
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToArrayAsync();
-        var stores = rows.Select(value => new StoreBranch(
-                value.Id,
-                value.Name,
-                value.Phone,
-                value.Hours,
-                value.Address,
-                brandLogo,
-                value.Photo,
-                value.NavigationUrl
-            ))
-            .ToArray();
         return new StoreViewModel(
-            cities.Select(value => new StoreLocation(value.Id, value.Name)).ToArray(),
+            cities,
             stores,
             brandName,
+            brandLogo,
             s,
             page,
             pages

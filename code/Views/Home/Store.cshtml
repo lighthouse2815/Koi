@@ -52,20 +52,19 @@
                 <ul class="storeList" aria-label="Cửa hàng">
                     @foreach (var store in Model.Stores)
                     {
-                        var brandName = Model.ShopName;
                         var phone = new string(store.Phone.Where(character => char.IsAsciiDigit(character) || character == '+').ToArray());
                         var isDialable = phone.Count(char.IsAsciiDigit) is >= 5 and <= 15 && phone.Count(character=> character == '+') <= 1; <li data-store-id="@store.Id">
                             <div class="deco"><img src="~/images/pages/en/images/s-deco-top.svg" alt="" /></div>
                             <div class="head flex-container align-justify">
                                 <h2 class="title">@store.Name</h2>
                                 <div class="brand">
-                                    @if (!string.IsNullOrEmpty(store.Logo))
+                                    @if (!string.IsNullOrEmpty(Model.ShopLogo))
                                     {
-                                        <img src="@store.Logo" alt="@brandName" />
+                                        <img src="@Model.ShopLogo" alt="@Model.ShopName" />
                                     }
                                     else
                                     {
-                                        <span class="visually-hidden">@brandName</span>
+                                        <span class="visually-hidden">@Model.ShopName</span>
                                     }
                                 </div>
                             </div>
