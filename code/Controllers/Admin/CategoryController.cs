@@ -11,7 +11,8 @@ namespace Koi.Web.Controllers.Admin;
 public class CategoryController(CategoryService categories) : Controller
 {
     public async Task<IActionResult> Index() => View(await categories.GetListAsync());
-    [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
+
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(CategoryEditViewModel model)
     {
@@ -20,16 +21,17 @@ public class CategoryController(CategoryService categories) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
-    [HttpPost, RequestSizeLimit(22 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
-    public async Task<IActionResult> Edit([FromForm] CategoryEditViewModel model)
+    public async Task<IActionResult> Edit(CategoryEditViewModel model)
     {
         await categories.UpdateAsync(model);
         TempData["Status"] = "Đã lưu danh mục đồ uống.";
         return Json(new { redirectUrl = Url.Action(nameof(Index)) });
     }
 
-    [HttpPost, ActionName("Delete")]
+    [HttpPost]
+    [ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         await categories.DeleteAsync(id);

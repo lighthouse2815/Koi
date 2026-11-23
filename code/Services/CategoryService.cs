@@ -25,18 +25,15 @@ public class CategoryService(ApplicationDbContext database)
             .ToListAsync();
     }
 
-   
-    public async Task<Category> GetByIdAsync(Guid id) =>
-        await database.Categories
-            .AsNoTracking()
-            .SingleOrDefaultAsync(category => category.Id == id)
-        ?? throw new AppException(ErrorCode.CATEGORY_NOT_FOUND);
 
     public async Task CreateAsync(CategoryEditViewModel model)
     {
         var category = new Category();
+
         await ApplyChangesAsync(category, model);
+
         database.Categories.Add(category);
+
         await database.SaveChangesAsync();
     }
 
@@ -44,9 +41,15 @@ public class CategoryService(ApplicationDbContext database)
     {
         var category = await database.Categories.FindAsync(model.Id)
             ?? throw new AppException(ErrorCode.CATEGORY_NOT_FOUND);
+
         await ApplyChangesAsync(category, model);
-        database.Entry(category).Property(category => category.Revision).OriginalValue = model.Revision;
+
+        database.Entry(category)
+                .Property(category => category.Revision)
+                .OriginalValue = model.Revision;
+
         category.Revision++;
+
         await database.SaveChangesAsync();
     }
 
@@ -56,6 +59,7 @@ public class CategoryService(ApplicationDbContext database)
     {
         model.CurrentImage = category.Image;
         model.CurrentIcon = category.Icon;
+
         var normalizedName = model.Name.Trim().ToLower();
         var nameExists = await database.Categories.AnyAsync(existingCategory =>
             existingCategory.Id != category.Id &&
@@ -80,11 +84,10 @@ public class CategoryService(ApplicationDbContext database)
 
         if (string.IsNullOrWhiteSpace(image) && string.IsNullOrEmpty(category.Image))
             throw new AppException(ErrorCode.CATEGORY_IMAGE_REQUIRED);
-        if (
-            model.ShowOnHome
+
+        if (model.ShowOnHome
             && string.IsNullOrWhiteSpace(icon)
-            && (model.RemoveIcon || string.IsNullOrEmpty(category.Icon))
-        )
+            && (model.RemoveIcon || string.IsNullOrEmpty(category.Icon)))
             throw new AppException(ErrorCode.CATEGORY_ICON_REQUIRED);
 
         if (!string.IsNullOrWhiteSpace(image))

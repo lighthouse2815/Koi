@@ -9,8 +9,10 @@ namespace Koi.Web.Controllers.Admin;
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class DrinksController(DrinkService drinks) : Controller
 {
-    public async Task<IActionResult> Index(string? search, Guid categoryId = default, int page = 1) => View(await drinks.GetListAsync(search, categoryId, page));
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    public async Task<IActionResult> Index(string? search, Guid categoryId = default, int page = 1)
+        => View(await drinks.GetListAsync(search, categoryId, page));
+
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(DrinkEditViewModel model)
     {
@@ -19,7 +21,7 @@ public class DrinksController(DrinkService drinks) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index), new { categoryId = model.CategoryId }) });
     }
 
-    [HttpPost, RequestSizeLimit(6 * 1024 * 1024)]
+    [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Edit([FromRoute] Guid id, DrinkEditViewModel model)
     {
@@ -31,7 +33,8 @@ public class DrinksController(DrinkService drinks) : Controller
         return Json(new { redirectUrl = Url.Action(nameof(Index), new { categoryId = model.CategoryId }) });
     }
 
-    [HttpPost, ActionName("Delete")]
+    [HttpPost]
+    [ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         await drinks.DeleteAsync(id);

@@ -58,7 +58,7 @@
                             <span class="category-missing">Chưa có</span>
                         }
                     </td>
-                    <td><span class="category-home">@(category.ShowOnHome ? "Có · thứ tự " + category.SortOrder : "Không")</span></td>
+                    <td><span class="category-home">@(category.ShowOnHome ? "thứ tự " + category.SortOrder : "Không")</span></td>
                     <td>
                         <div class="row-actions">
                             <button type="button" data-row-preview-trigger aria-label="Xem thông tin @category.Name" hidden><partial name="_AdminIcon" model='"eye"' /> Xem</button>

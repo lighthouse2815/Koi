@@ -11,15 +11,9 @@ public class DrinkService(ApplicationDbContext database)
     public async Task<AdminDrinksViewModel> GetListAsync(
         string? search,
         Guid categoryId = default,
-        int page = 1
-    )
+        int page = 1)
     {
         search = search?.Trim();
-
-        if (search?.Length > 200)
-        {
-            search = search[..200];
-        }
 
         var query = database
             .Drinks.AsNoTracking()
@@ -45,6 +39,7 @@ public class DrinkService(ApplicationDbContext database)
                 .Skip((page - 1) * 20)
                 .Take(20)
                 .ToListAsync(),
+
             await Categories(),
             categoryId,
             search,
@@ -67,7 +62,10 @@ public class DrinkService(ApplicationDbContext database)
             ?? throw new AppException(ErrorCode.DRINK_NOT_FOUND);
 
         await ApplyChangesAsync(drink, model);
-        database.Entry(drink).Property(value => value.Revision).OriginalValue = model.Revision;
+        database.Entry(drink)
+                .Property(value => value.Revision)
+                .OriginalValue = model.Revision;
+
         drink.Revision++;
         await database.SaveChangesAsync();
     }
@@ -99,11 +97,12 @@ public class DrinkService(ApplicationDbContext database)
 
     private async Task<SelectList> Categories() =>
         new(
-            await database
-                .Categories.AsNoTracking()
-                .OrderBy(value => value.SortOrder)
-                .ThenBy(value => value.Id)
-                .ToListAsync(),
+            await database.Categories
+                        .AsNoTracking()
+                        .OrderBy(value => value.SortOrder)
+                        .ThenBy(value => value.Id)
+                        .ToListAsync(),
+
             "Id",
             "Name"
         );
