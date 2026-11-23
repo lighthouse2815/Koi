@@ -12,7 +12,8 @@ public class OrderService(
 )
 {
     public Task<List<Order>> GetHistoryAsync(Guid customerId) =>
-        database.Orders.AsNoTracking()
+        database.Orders
+            .AsNoTracking()
             .Where(order => order.CustomerId == customerId)
             .Include(order => order.Items)
             .OrderByDescending(order => order.CreatedAt)
@@ -101,11 +102,16 @@ public class OrderService(
         return order.Id;
     }
 
-    public async Task<OrderingPageViewModel> GetPageAsync(Guid? categoryId = null, Guid? drinkId = null, int page = 1, string? search = null)
-    {
+    public async Task<OrderingPageViewModel> GetPageAsync(
+        Guid? categoryId = null,
+        Guid? drinkId = null,
+        int page = 1,
+        string? search = null
+    ){
         search = search?.Trim();
-        if (search?.Length > 200) search = search[..200];
+
         var stores = await storeService.GetStoresAcceptingOrdersAsync();
+
         IQueryable<Drink> query = database.Drinks.AsNoTracking()
             .Include(value => value.Category);
         if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);

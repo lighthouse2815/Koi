@@ -24,9 +24,9 @@ public class StoreService(
     public async Task<AdminStoresViewModel> GetListAsync(string? search, int page = 1)
     {
         search = search?.Trim();
-        if (search?.Length > 200)
-            search = search[..200];
+
         var query = database.Stores.AsNoTracking();
+
         if (!string.IsNullOrEmpty(search))
             query = query.Where(value =>
                 EF.Functions.ILike(value.Name, $"%{search}%")

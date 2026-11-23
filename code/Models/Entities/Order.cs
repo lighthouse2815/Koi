@@ -14,6 +14,7 @@ public class Order
     public string StoreName { get; set; } = "";
     [Required, StringLength(2000)] 
     public string StoreAddress { get; set; } = "";
+
     [Required, StringLength(150)] 
     public string CustomerName { get; set; } = "";
     [Required, StringLength(30)] 

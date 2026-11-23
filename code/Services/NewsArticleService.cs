@@ -61,20 +61,23 @@ public class NewsArticleService(ApplicationDbContext database)
     public async Task<AdminNewsViewModel> GetListAsync(string? search, int page = 1)
     {
         search = search?.Trim();
-        if (search?.Length > 200)
-            search = search[..200];
+
         var query = database.NewsArticles.AsNoTracking();
+
         if (!string.IsNullOrEmpty(search))
             query = query.Where(article => EF.Functions.ILike(article.Title, $"%{search}%"));
+
         const int pageSize = 20;
         var pageCount = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / (double)pageSize));
         page = Math.Clamp(page, 1, pageCount);
+
         var articles = await query
             .OrderByDescending(article => article.Date)
             .ThenByDescending(article => article.Id)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
+
         return new AdminNewsViewModel(articles, search, page, pageCount);
     }
 
