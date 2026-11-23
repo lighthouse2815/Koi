@@ -11,7 +11,7 @@ public class ImageUploadService(IConfiguration configuration)
         if (!allowedFolders.Contains(folder))
             throw new AppException(ErrorCode.UPLOAD_FOLDER_INVALID);
 
-        var cloudinary = CreateCloudinary();
+        var api = CreateCloudinary().Api;
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         var publicId = $"koi/{folder}/{Guid.NewGuid():N}";
         var parameters = new SortedDictionary<string, object>()
@@ -23,21 +23,22 @@ public class ImageUploadService(IConfiguration configuration)
         };
         return new
         {
-            cloudName = configuration["Cloudinary:CloudName"],
-            apiKey = configuration["Cloudinary:ApiKey"],
+            cloudName = api.Account.Cloud,
+            apiKey = api.Account.ApiKey,
             timestamp,
             publicId,
             allowedFormats = parameters["allowed_formats"],
             overwrite = parameters["overwrite"],
-            signature = cloudinary.Api.SignParameters(parameters)
+            signature = api.SignParameters(parameters)
         };
     }
 
     private Cloudinary CreateCloudinary()
     {
-        var cloudName = configuration["Cloudinary:CloudName"];
-        var apiKey = configuration["Cloudinary:ApiKey"];
-        var apiSecret = configuration["Cloudinary:ApiSecret"];
+        var settings = configuration.GetSection("Cloudinary");
+        var cloudName = settings["CloudName"];
+        var apiKey = settings["ApiKey"];
+        var apiSecret = settings["ApiSecret"];
         if (string.IsNullOrWhiteSpace(cloudName) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(apiSecret))
             throw new AppException(ErrorCode.CLOUDINARY_NOT_CONFIGURED);
         return new Cloudinary(new Account(cloudName, apiKey, apiSecret));
