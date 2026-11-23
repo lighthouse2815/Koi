@@ -6,7 +6,10 @@ using Npgsql;
 
 namespace Koi.Web.Services;
 
-public class OrderService(ApplicationDbContext database)
+public class OrderService(
+    ApplicationDbContext database,
+    StoreService storeService
+)
 {
     public Task<List<Order>> GetHistoryAsync(Guid customerId) =>
         database.Orders.AsNoTracking()
@@ -47,9 +50,8 @@ public class OrderService(ApplicationDbContext database)
         if (checkout.Fulfillment == FulfillmentMethod.Delivery && string.IsNullOrWhiteSpace(checkout.DeliveryAddress))
             errors.Add(("Checkout.DeliveryAddress", ErrorCode.ORDER_ADDRESS_REQUIRED));
 
-        var branch = await database.Stores.AsNoTracking()
-            .SingleOrDefaultAsync(store => store.Id == checkout.StoreId && store.AcceptsOrders);
-        if (branch == null)
+        var store = await storeService.GetStoreAcceptingOrdersAsync(checkout.StoreId);
+        if (store == null)
             errors.Add(("", ErrorCode.ORDER_BRANCH_UNAVAILABLE));
 
         var drinks = (await GetCartLinesAsync(drinkIds)).ToDictionary(drink => drink.DrinkId);
@@ -64,9 +66,9 @@ public class OrderService(ApplicationDbContext database)
         {
             Id = checkout.OrderId,
             CustomerId = customerId,
-            StoreId = branch!.Id,
-            StoreName = branch.Name,
-            StoreAddress = branch.Address,
+            StoreId = store!.Id,
+            StoreName = store.Name,
+            StoreAddress = store.Address,
             CustomerName = checkout.CustomerName.Trim(),
             CustomerPhone = checkout.CustomerPhone.Trim(),
             Fulfillment = checkout.Fulfillment,
@@ -103,10 +105,7 @@ public class OrderService(ApplicationDbContext database)
     {
         search = search?.Trim();
         if (search?.Length > 200) search = search[..200];
-        var stores = await database.Stores.AsNoTracking()
-            .Where(value => value.AcceptsOrders)
-            .OrderBy(value => value.Name)
-            .ToListAsync();
+        var stores = await storeService.GetStoresAcceptingOrdersAsync();
         IQueryable<Drink> query = database.Drinks.AsNoTracking()
             .Include(value => value.Category);
         if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);

@@ -11,6 +11,17 @@ public class StoreService(
     IConfiguration configuration
 )
 {
+    public Task<List<Store>> GetStoresAcceptingOrdersAsync() =>
+        StoresAcceptingOrders()
+            .OrderBy(store => store.Name)
+            .ToListAsync();
+
+    public Task<Store?> GetStoreAcceptingOrdersAsync(Guid id) =>
+        StoresAcceptingOrders().SingleOrDefaultAsync(store => store.Id == id);
+
+    private IQueryable<Store> StoresAcceptingOrders() =>
+        database.Stores.AsNoTracking().Where(store => store.AcceptsOrders);
+
     public async Task<AdminStoresViewModel> GetListAsync(string? search, int page = 1)
     {
         search = search?.Trim();
