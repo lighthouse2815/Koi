@@ -1,8 +1,11 @@
 @model NewsViewModel
+
 @using System.Globalization
+
 @{
     ViewData["Title"] = "Tin tức";
-    string CategoryLabel(NewsCategory category) => category == NewsCategory.MEDIA ? "TRUYỀN THÔNG" : "TIN TỨC";
+    string CategoryLabel(NewsCategory category)
+    => category == NewsCategory.MEDIA ? "TRUYỀN THÔNG" : "TIN TỨC";
     var categories = new[]
     {
         (Key: "ALL", Label: "TẤT CẢ"),
@@ -14,20 +17,41 @@
     <link rel="stylesheet" href="~/css/news.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/content-pages.css" asp-append-version="true" />
 }
+
 <div class="content-page" id="home">
     <div class="newsWrap">
         <div class="head-area">
             <h1 class="en">TIN TỨC</h1>
         </div>
+
         @if (Model.Featured is { } featured)
         {
             <div class="top-news">
-                <a asp-action="NewsDetail" asp-route-id="@featured.Id" class="flex-container align-middle align-justify">
+                <a
+                    asp-action="NewsDetail"
+                    asp-route-id="@featured.Id"
+                    class="flex-container align-middle align-justify"
+                >
                     <div class="pic-area hide-for-large">
-                        <div class="cat">@CategoryLabel(featured.Category)</div>
-                        <time class="date" datetime="@featured.Date.ToString(" yyyy-MM-dd")">(@featured.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture))</time>
-                        <div class="more" aria-hidden="true"><span class="localized-control-text">( Xem thêm ) ↗</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="34.67" height="30.18" viewBox="0 0 34.67 30.18">
+                        <div class="cat">
+                            @CategoryLabel(featured.Category)
+                        </div>
+
+                        <time class="date" datetime="@featured.Date.ToString(" yyyy-MM-dd")">
+                            (@featured.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture))
+                        </time>
+
+                        <div class="more" aria-hidden="true">
+                            <span class="localized-control-text">
+                                ( Xem thêm ) ↗
+                            </span>
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="34.67"
+                                height="30.18"
+                                viewBox="0 0 34.67 30.18"
+                            >
                                 <g class="arrow">
                                     <line class="d" y1="15.09" x2="31.07" y2="15.09" />
                                     <path class="e" d="M10.57,29.49c-.45-.7-.24-1.63,.46-2.07L30.38,15.09,11.03,2.76c-.7-.45-.91-1.37-.46-2.07C11.01,0,11.95-.21,12.64,.23l21.34,13.59c.43,.28,.69,.75,.69,1.27s-.26,.99-.69,1.27L12.64,29.95c-.25,.16-.53,.23-.81,.23-.5,0-.98-.25-1.27-.69Z" />
@@ -35,6 +59,7 @@
                             </svg>
                         </div>
                     </div>
+
                     <div class="article-area">
                         <div class="title">@featured.Title</div>
                         <div class="more show-for-large" aria-hidden="true"><span class="localized-control-text">( Xem thêm ) ↗</span>
@@ -52,6 +77,7 @@
                             </svg>
                         </div>
                     </div>
+
                     <div class="pic-area">
                         <div class="cat show-for-large">@CategoryLabel(featured.Category)</div>
                         <time class="date show-for-large" datetime="@featured.Date.ToString(" yyyy-MM-dd")">(@featured.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture))</time>

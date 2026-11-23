@@ -21,11 +21,6 @@ public class HomeController(
         return View(new HomeViewModel(news, categories));
     }
 
-    public IActionResult About()
-    {
-        return View();
-    }
-
     public async Task<IActionResult> OurTea()
     {
         var categories = await categoryService.GetListAsync(includeDrinks: true);
@@ -33,12 +28,10 @@ public class HomeController(
         return View(new OurTeaViewModel(categories, featured));
     }
 
-    public IActionResult Recruit()
-    {
-        return View();
-    }
+    public async Task<IActionResult> Menu() => View(await menuService.GetListAsync());
 
-    public async Task<IActionResult> News(string? category, int page = 1) => View(await newsArticleService.GetNewsAsync(category, page));
+    public async Task<IActionResult> News(string? category, int page = 1)
+        => View(await newsArticleService.GetNewsAsync(category, page));
 
     public async Task<IActionResult> NewsDetail(Guid id)
     {
@@ -56,20 +49,24 @@ public class HomeController(
         return View("NewsDetail", article);
     }
 
-    public async Task<IActionResult> Store(Guid s = default, int page = 1) => View(await storeService.GetStoresAsync(s, page));
+    public async Task<IActionResult> Store(Guid s = default, int page = 1)
+        => View(await storeService.GetStoresAsync(s, page));
 
-    public IActionResult Impact()
-    {
-        return View();
-    }
+    public IActionResult Impact() => View();
 
     public IActionResult Responsibility() => View();
+
     public IActionResult Precision() => View();
+
     public IActionResult People() => View();
+
     public IActionResult Connections() => View();
+
     public IActionResult Contact() => View();
 
-    public async Task<IActionResult> Menu() => View(await menuService.GetListAsync());
+    public IActionResult About() => View();
+
+    public IActionResult Recruit() => View();
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
