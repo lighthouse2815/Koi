@@ -132,7 +132,7 @@
                         } else {
                             <div class="cart-lines">@foreach (var line in Model.Lines) {
                                     <div class="cart-line">
-                                        <div class="cart-line-title"><strong>@line.Name</strong><span>@((line.Price * line.Quantity).ToString("N0", culture)) đ</span></div>@if (!string.IsNullOrEmpty(line.Customization)) { <small>@line.Customization</small> }
+                                        <div class="cart-line-title"><strong>@line.Name</strong><span>@((line.Price * line.Quantity).ToString("N0", culture)) đ</span></div>
                                         <form asp-action="Update" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
                                               asp-route-search="@Model.Search" method="post" class="cart-update">
                                             <input type="hidden" name="id" value="@line.LineId" />

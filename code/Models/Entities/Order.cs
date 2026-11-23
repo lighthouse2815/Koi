@@ -45,9 +45,6 @@ public class OrderItem
     [Required, StringLength(250)] 
     public string DrinkName { get; set; } = "";
 
-    [StringLength(2000)] 
-    public string Customization { get; set; } = "";
-
     public decimal UnitPrice { get; set; }
     
     public int Quantity { get; set; }

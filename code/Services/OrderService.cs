@@ -69,7 +69,7 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
         if (!await BranchAcceptsOrdersAsync(cart.StoreId)) return ("branch", "Hãy chọn chi nhánh đang nhận đơn.");
         var drink = await GetAvailableDrinkAsync(id);
         if (drink == null || quantity < 1 || quantity > 20) return ("bad", "Đồ uống hoặc lựa chọn không hợp lệ.");
-        var existing = cart.Items.Find(line => line.DrinkId == id && line.SizeId == null && line.ToppingIds.Count == 0 && string.IsNullOrEmpty(line.Customization));
+        var existing = cart.Items.Find(line => line.DrinkId == id && line.SizeId == null && line.ToppingIds.Count == 0);
         if (existing != null)
         {
             if (existing.Quantity + quantity > 20) return ("quantity", "Mỗi lựa chọn chỉ được đặt tối đa 20 ly.");
@@ -133,7 +133,7 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
         var changed = false;
         foreach (var line in cart.Items)
         {
-            if (line.SizeId.HasValue || line.ToppingIds.Count > 0 || !string.IsNullOrEmpty(line.Customization))
+            if (line.SizeId.HasValue || line.ToppingIds.Count > 0)
             {
                 errors.Add(("", ErrorCode.ORDER_OPTIONS_INVALID));
                 continue;
@@ -156,7 +156,7 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
             CustomerName = checkout.CustomerName.Trim(), CustomerPhone = checkout.CustomerPhone.Trim(),
             Fulfillment = checkout.Fulfillment, DeliveryAddress = checkout.Fulfillment == FulfillmentMethod.Delivery ? checkout.DeliveryAddress!.Trim() : "",
             Note = checkout.Note?.Trim() ?? "",
-            Items = cart.Items.Select(line => new OrderItem { DrinkId = line.DrinkId, DrinkName = drinks[line.DrinkId].Name, Customization = line.Customization, UnitPrice = line.Price, Quantity = line.Quantity }).ToList()
+            Items = cart.Items.Select(line => new OrderItem { DrinkId = line.DrinkId, DrinkName = drinks[line.DrinkId].Name, UnitPrice = line.Price, Quantity = line.Quantity }).ToList()
         };
         if (!await database.Orders.AnyAsync(value => value.Id == order.Id))
         {
@@ -202,7 +202,7 @@ public class OrderService(ApplicationDbContext database, IDataProtectionProvider
             Branches = branches, Branch = branches.FirstOrDefault(value => value.Id == cart.StoreId), Drinks = drinks, Cart = cart,
             CategoryId = categoryId, DrinkId = drinkId, Search = search, FilterName = filterName, Categories = categories,
             Page = page, DrinkCount = drinkCount, HasMoreDrinks = page < pageCount,
-            Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (d.Name) : "Món không còn tồn tại", line.Customization, line.Quantity, line.Price)).ToList()
+            Lines = cart.Items.Select(line => new CartLine(line.LineId, allCartDrinks.TryGetValue(line.DrinkId, out var d) ? (d.Name) : "Món không còn tồn tại", line.Quantity, line.Price)).ToList()
         };
     }
 }

@@ -48,7 +48,7 @@
                     @foreach (var item in Model.Items)
                     {
                         <tr>
-                            <td><strong>@item.DrinkName</strong><span class="cell-detail">@item.Customization</span></td>
+                            <td><strong>@item.DrinkName</strong></td>
                             <td class="amount">@item.UnitPrice.ToString("N0", culture) đ</td>
                             <td>@item.Quantity</td>
                             <td class="amount">@((item.UnitPrice * item.Quantity).ToString("N0", culture)) đ</td>
