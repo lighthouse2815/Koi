@@ -1,5 +1,4 @@
 using System.Security.Cryptography;
-using System.Text.Json;
 using Koi.Web.Exceptions;
 using Koi.Web.Models;
 using Koi.Web.Services;
@@ -15,7 +14,6 @@ public class OrderController(
 {
     private const string CustomerPurpose = "Koi.OrderCustomer";
     private const string ReceiptPurpose = "Koi.OrderReceipt";
-    private const string LegacyHistoryCookie = "Koi.OrderHistory";
 
     [HttpGet]
     [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
@@ -82,32 +80,11 @@ public class OrderController(
         if (!Guid.TryParse(ReadProtectedValue(CustomerPurpose, customerToken), out var customerId))
             return Unauthorized();
 
-        var legacyCookie = Request.Cookies[LegacyHistoryCookie];
-        var history = await orders.GetHistoryAsync(customerId, ReadLegacyOrderIds(legacyCookie));
-        if (legacyCookie != null)
-            Response.Cookies.Delete(LegacyHistoryCookie);
-
-        return PartialView("_HistoryOrders", history);
+        return PartialView("_HistoryOrders", await orders.GetHistoryAsync(customerId));
     }
 
     private void IssueCustomerToken() =>
         ViewData["CustomerToken"] = protection.CreateProtector(CustomerPurpose).Protect(Guid.NewGuid().ToString("D"));
-
-    private Guid[] ReadLegacyOrderIds(string? cookie)
-    {
-        var json = ReadProtectedValue(LegacyHistoryCookie, cookie);
-        if (json == null)
-            return [];
-
-        try
-        {
-            return JsonSerializer.Deserialize<Guid[]>(json) ?? [];
-        }
-        catch (JsonException)
-        {
-            return [];
-        }
-    }
 
     private string? ReadProtectedValue(string purpose, string? value)
     {

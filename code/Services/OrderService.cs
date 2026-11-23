@@ -8,21 +8,12 @@ namespace Koi.Web.Services;
 
 public class OrderService(ApplicationDbContext database)
 {
-    public async Task<Order[]> GetHistoryAsync(Guid customerId, Guid[] legacyOrderIds)
-    {
-        if (legacyOrderIds.Length > 0)
-        {
-            await database.Orders
-                .Where(order => order.CustomerId == null && legacyOrderIds.Contains(order.Id))
-                .ExecuteUpdateAsync(setters => setters.SetProperty(order => order.CustomerId, customerId));
-        }
-
-        return await database.Orders.AsNoTracking()
+    public Task<Order[]> GetHistoryAsync(Guid customerId) =>
+        database.Orders.AsNoTracking()
             .Where(order => order.CustomerId == customerId)
             .Include(order => order.Items)
             .OrderByDescending(order => order.CreatedAt)
             .ToArrayAsync();
-    }
 
     public Task<CartLine[]> GetCartLinesAsync(Guid[] drinkIds) =>
         database.Drinks.AsNoTracking()
