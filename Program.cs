@@ -6,14 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromHours(2);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
-
 // Add services to the container.
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
     .AddRazorOptions(options =>
@@ -66,7 +58,6 @@ if (!app.Environment.IsDevelopment())
 app.UseMiddleware<AppExceptionMiddleware>();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

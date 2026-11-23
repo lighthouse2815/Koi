@@ -1,7 +1,7 @@
 @{
     Layout = "_Layout";
-    var itemCount = ViewData["CartItemCount"] as int?;
     var action = Context.GetRouteValue("action")?.ToString();
+    var showCart = action == "Index";
 }
 
 @section Styles {
@@ -16,15 +16,15 @@
                 <img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" />
             </a>
             <nav aria-label="Điều hướng đặt hàng">
-                @if (!itemCount.HasValue)
+                @if (!showCart)
                 {
                     <a asp-controller="Order" asp-action="Index">Đặt hàng</a>
                 }
                 <a asp-controller="Order" asp-action="History" aria-current="@(action == "History" ? "page" : null)">Đơn đã mua</a>
-                @if (itemCount.HasValue)
+                @if (showCart)
                 {
-                    <a class="order-header-cart" href="#cart" aria-label="Giỏ hàng, @itemCount món">
-                        Giỏ hàng <span class="cart-count" aria-hidden="true">@itemCount</span>
+                    <a class="order-header-cart" href="#cart">
+                        Giỏ hàng <span class="cart-count" data-cart-count>0</span>
                     </a>
                 }
             </nav>
@@ -43,7 +43,11 @@
 
 @section Scripts {
     <script src="~/js/shop-motion.js" asp-append-version="true" defer></script>
-    @if (itemCount.HasValue)
+    @if (showCart || action == "History")
+    {
+        <script src="~/js/order-cart.js" asp-append-version="true" defer></script>
+    }
+    @if (showCart)
     {
         <script src="~/js/order-menu.js" asp-append-version="true" defer></script>
     }

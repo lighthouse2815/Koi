@@ -443,6 +443,9 @@ namespace Koi.Web.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -485,6 +488,8 @@ namespace Koi.Web.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("StoreId");
+
+                    b.HasIndex("CustomerId", "CreatedAt");
 
                     b.HasIndex("Status", "CreatedAt");
 

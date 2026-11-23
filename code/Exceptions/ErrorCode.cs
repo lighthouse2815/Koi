@@ -68,8 +68,8 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode ORDER_DRINK_UNAVAILABLE =
         new("ORDER_DRINK_UNAVAILABLE", "Có món không còn được bán. Vui lòng xóa món đó khỏi giỏ hàng.", StatusCodes.Status400BadRequest);
 
-    public static readonly ErrorCode ORDER_OPTIONS_INVALID =
-        new("ORDER_OPTIONS_INVALID", "Các lựa chọn cũ không còn được hỗ trợ. Vui lòng xóa món cũ và chọn lại.", StatusCodes.Status400BadRequest);
+    public static readonly ErrorCode ORDER_CART_INVALID =
+        new("ORDER_CART_INVALID", "Giỏ hàng chỉ hỗ trợ tối đa 20 món khác nhau. Vui lòng kiểm tra lại giỏ hàng.", StatusCodes.Status400BadRequest);
 
     public static readonly ErrorCode ORDER_PRICE_CHANGED =
         new("ORDER_PRICE_CHANGED", "Giá đã thay đổi. Vui lòng kiểm tra lại giỏ hàng và xác nhận đặt hàng lần nữa.", StatusCodes.Status400BadRequest);

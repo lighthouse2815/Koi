@@ -3,19 +3,17 @@
     Layout = "_OrderLayout";
     ViewData["Title"] = "Đặt hàng";
     var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
-    var itemCount = Model.Cart.Items.Sum(item => item.Quantity);
-    ViewData["CartItemCount"] = itemCount;
     var hasSearch = !string.IsNullOrEmpty(Model.Search);
-    var canCheckout = Model.Branch != null && Model.Lines.Count > 0;
     var catalogTitle = Model.FilterName ?? (Model.DrinkId.HasValue ? "Món bạn đã chọn" : hasSearch ? "Kết quả tìm kiếm" : "Tất cả đồ uống");
 }
 
 <a href="#cart" class="mobile-cart-link">
-    <span>Giỏ hàng · @itemCount món</span>
-    <strong>@Model.Total.ToString("N0", culture) đ <span aria-hidden="true">↗</span></strong>
+    <span>Giỏ hàng · <span data-cart-count>0</span> món</span>
+    <strong><span data-cart-total>0 đ</span> <span aria-hidden="true">↗</span></strong>
 </a>
 
-<div class="order-shell">
+<div class="order-shell" data-order-cart data-lines-url="@Url.Action("CartLines")" data-customer-token="@ViewData["CustomerToken"]">
+    <noscript><p class="order-notice">Bật JavaScript để chọn chi nhánh, dùng giỏ hàng và đặt món.</p></noscript>
     <section class="order-hero" aria-labelledby="order-title">
         <div class="order-hero-copy">
             <h1 id="order-title">
@@ -32,18 +30,15 @@
         </div>
     </section>
 
-    <details class="branch-picker" id="branches" open="@(Model.Branch == null)">
+    <details class="branch-picker" id="branches" open>
         <summary>
             <span class="order-arrow branch-symbol" aria-hidden="true">↗</span>
             <span class="branch-summary">
                 <small>Chi nhánh của bạn</small>
-                <strong>@(Model.Branch?.Name ?? "Chọn chi nhánh nhận đơn")</strong>
-                @if (Model.Branch != null)
-                {
-                    <span class="branch-address">@Model.Branch.Address</span>
-                }
+                <strong data-branch-name>Chọn chi nhánh nhận đơn</strong>
+                <span class="branch-address" data-branch-address hidden></span>
             </span>
-            <span class="branch-change">@(Model.Branch == null ? "Danh sách" : "Thay đổi") <span aria-hidden="true">↓</span></span>
+            <span class="branch-change"><b data-branch-change>Danh sách</b> <span aria-hidden="true">↓</span></span>
         </summary>
         <div class="branch-picker-content">
             @if (Model.Branches.Length == 0)
@@ -52,14 +47,13 @@
             }
             else
             {
-                <form asp-action="SelectBranch" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
-                      asp-route-search="@Model.Search" method="post" class="inline-form">
+                <form method="post" asp-antiforgery="false" class="inline-form" data-branch-form>
                     <label class="visually-hidden" for="storeId">Chi nhánh nhận đơn</label>
                     <select id="storeId" name="storeId" required>
                         <option value="">Chọn chi nhánh</option>
                         @foreach (var branch in Model.Branches)
                         {
-                            <option value="@branch.Id" selected="@(branch.Id == Model.Cart.StoreId)">@branch.Name · @branch.Address</option>
+                            <option value="@branch.Id" data-name="@branch.Name" data-address="@branch.Address">@branch.Name · @branch.Address</option>
                         }
                     </select>
                     <button class="order-button" type="submit">Xác nhận <span aria-hidden="true">↗</span></button>
@@ -69,14 +63,7 @@
     </details>
 
     <div id="drinks">
-        @if (TempData["OrderMessage"] is string message)
-        {
-            <p class="order-notice" role="status">@message <a href="#cart">Xem giỏ hàng <span aria-hidden="true">↗</span></a></p>
-        }
-        @if (!canCheckout && !ViewData.ModelState.IsValid)
-        {
-            <div asp-validation-summary="All" class="order-notice" role="alert" tabindex="-1" autofocus></div>
-        }
+        <p class="order-notice" role="status" data-cart-message hidden><span></span> <a href="#cart" hidden>Xem giỏ hàng <span aria-hidden="true">↗</span></a></p>
         <div class="order-workspace">
             <section class="order-catalog" aria-labelledby="menu-title">
                 <div class="order-section-heading">
@@ -130,20 +117,18 @@
                                     <h3>@name</h3>
                                     <div class="drink-buy-row">
                                         <p class="drink-price">@(drink.Price > 0 ? drink.Price.Value.ToString("N0", culture) + " đ" : "Chưa mở bán")</p>
-                                        @if (drink.Price > 0 && Model.Branch == null)
+                                        @if (drink.Price > 0)
                                         {
                                             <a class="drink-branch-link" asp-action="Index" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@drink.Id"
                                                asp-route-search="@Model.Search" asp-fragment="branches" aria-label="Chọn món @name">Chọn món <span class="order-arrow" aria-hidden="true">+</span></a>
                                         }
                                     </div>
-                                    @if (drink.Price > 0 && Model.Branch != null)
+                                    @if (drink.Price > 0)
                                     {
-                                        <details class="drink-customize" open="@(Model.DrinkId == drink.Id)">
+                                        <details class="drink-customize" data-add-drink open="@(Model.DrinkId == drink.Id)">
                                             <summary aria-label="Chọn món @name">Chọn món <span class="order-arrow" aria-hidden="true">+</span></summary>
-                                            <form asp-action="Add" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
-                                                  asp-route-search="@Model.Search" method="post">
-                                                <input type="hidden" name="id" value="@drink.Id" />
-                                                <label class="quantity-option">Số lượng <input type="number" name="quantity" min="1" max="20" value="1" /></label>
+                                            <form method="post" asp-antiforgery="false" data-add-item data-drink-id="@drink.Id" data-name="@name" data-price="@drink.Price.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)">
+                                                <label class="quantity-option">Số lượng <input type="number" name="quantity" min="1" max="20" value="1" required /></label>
                                                 <button class="order-button" type="submit">Thêm vào giỏ <span aria-hidden="true">↗</span></button>
                                             </form>
                                         </details>
@@ -176,83 +161,55 @@
                 <section class="order-cart" id="cart" tabindex="-1">
                     <div class="cart-heading">
                         <h2 id="cart-title">Món của bạn</h2>
-                        <span class="cart-count" aria-label="@itemCount món">@itemCount</span>
+                        <span class="cart-count" data-cart-count>0</span>
                     </div>
-                    @if (Model.Lines.Count == 0)
-                    {
-                        <div class="empty-cart">
-                            <img src="~/images/bear-head.svg" width="84" height="84" alt="" />
-                            <p>Giỏ hàng còn trống.</p>
+                    <div class="empty-cart" data-empty-cart>
+                        <img src="~/images/bear-head.svg" width="84" height="84" alt="" />
+                        <p>Giỏ hàng còn trống.</p>
+                    </div>
+                    <div class="cart-lines" data-cart-lines></div>
+                    <template data-cart-line>
+                        <div class="cart-line">
+                            <div class="cart-line-title"><strong></strong><span></span></div>
+                            <div class="cart-line-actions">
+                                <form class="cart-update" method="post" asp-antiforgery="false" data-update-item>
+                                    <label>Số lượng <input type="number" name="quantity" min="0" max="20" required /></label>
+                                    <button class="order-button" type="submit">Lưu</button>
+                                </form>
+                                <button type="button" class="cart-remove" data-remove-item>Xóa</button>
+                            </div>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="cart-lines">
-                            @foreach (var line in Model.Lines)
-                            {
-                                <div class="cart-line">
-                                    <div class="cart-line-title"><strong>@line.Name</strong><span>@((line.Price * line.Quantity).ToString("N0", culture)) đ</span></div>
-                                    <div class="cart-line-actions">
-                                        <form asp-action="Update" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
-                                              asp-route-search="@Model.Search" method="post" class="cart-update">
-                                            <input type="hidden" name="id" value="@line.LineId" />
-                                            <label>Số lượng <input type="number" name="quantity" min="0" max="20" value="@line.Quantity" /></label>
-                                            <button class="order-button" type="submit">Lưu</button>
-                                        </form>
-                                        <form asp-action="Update" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
-                                              asp-route-search="@Model.Search" method="post">
-                                            <input type="hidden" name="id" value="@line.LineId" />
-                                            <input type="hidden" name="quantity" value="0" />
-                                            <button type="submit" class="cart-remove" aria-label="Xóa món @line.Name">Xóa</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    }
-                    <div class="cart-total"><span>Tạm tính</span><strong>@Model.Total.ToString("N0", culture) đ</strong></div>
+                    </template>
+                    <p class="order-notice" role="status" data-price-error hidden>
+                        Chưa tải được giá giỏ hàng. <button type="button" class="order-button" data-retry-prices>Thử lại</button>
+                    </p>
+                    <div class="cart-total"><span>Tạm tính</span><strong data-cart-total>0 đ</strong></div>
                     <p class="cart-payment-note">Thanh toán khi nhận hàng.<br />Chi nhánh sẽ xác nhận phí giao hàng.</p>
-                    @if (canCheckout)
-                    {
-                        <a href="#checkout" class="checkout-link order-button">Thông tin nhận hàng <span aria-hidden="true">↓</span></a>
-                    }
-                    else if (Model.Branch == null)
-                    {
-                        <a href="#branches" class="checkout-link order-button">Chọn chi nhánh <span aria-hidden="true">↗</span></a>
-                    }
+                    <a href="#checkout" class="checkout-link order-button" data-checkout-link hidden>Thông tin nhận hàng <span aria-hidden="true">↓</span></a>
+                    <a href="#branches" class="checkout-link order-button" data-choose-branch>Chọn chi nhánh <span aria-hidden="true">↗</span></a>
                 </section>
 
-                @if (canCheckout)
-                {
-                    <section class="checkout-panel" id="checkout" tabindex="-1">
-                        <h2>Thông tin nhận hàng</h2>
-                        @if (!ViewData.ModelState.IsValid)
-                        {
-                            <div asp-validation-summary="All" class="order-notice" role="alert" tabindex="-1" autofocus></div>
-                        }
-                        <form asp-action="Checkout" asp-route-categoryId="@Model.CategoryId" asp-route-drinkId="@Model.DrinkId"
-                              asp-route-search="@Model.Search" method="post" class="checkout-form">
-                            <label asp-for="Checkout.CustomerName">Họ tên</label>
-                            <input asp-for="Checkout.CustomerName" required maxlength="150" autocomplete="name" />
-                            <span asp-validation-for="Checkout.CustomerName"></span>
-                            <label asp-for="Checkout.CustomerPhone">Số điện thoại</label>
-                            <input asp-for="Checkout.CustomerPhone" type="tel" required maxlength="30" autocomplete="tel" />
-                            <span asp-validation-for="Checkout.CustomerPhone"></span>
-                            <label asp-for="Checkout.Fulfillment">Cách nhận hàng</label>
-                            <select asp-for="Checkout.Fulfillment">
-                                <option value="0">Nhận tại chi nhánh</option>
-                                <option value="1">Giao hàng</option>
-                            </select>
-                            <label asp-for="Checkout.DeliveryAddress">Địa chỉ giao hàng</label>
-                            <input asp-for="Checkout.DeliveryAddress" maxlength="2000" autocomplete="street-address" />
-                            <span asp-validation-for="Checkout.DeliveryAddress"></span>
-                            <small>Bắt buộc nếu chọn giao hàng.</small>
-                            <label asp-for="Checkout.Note">Ghi chú</label>
-                            <textarea asp-for="Checkout.Note" maxlength="1000"></textarea>
-                            <button class="order-button" type="submit">Gửi đơn hàng <span aria-hidden="true">↗</span></button>
-                        </form>
-                    </section>
-                }
+                <section class="checkout-panel" id="checkout" tabindex="-1" hidden>
+                    <h2>Thông tin nhận hàng</h2>
+                    <div class="order-notice" role="alert" tabindex="-1" data-checkout-errors hidden></div>
+                    <form asp-action="Checkout" asp-antiforgery="true" method="post" class="checkout-form" data-checkout-form>
+                        <label asp-for="Checkout.CustomerName">Họ tên</label>
+                        <input asp-for="Checkout.CustomerName" required maxlength="150" autocomplete="name" />
+                        <label asp-for="Checkout.CustomerPhone">Số điện thoại</label>
+                        <input asp-for="Checkout.CustomerPhone" type="tel" required maxlength="30" autocomplete="tel" />
+                        <label asp-for="Checkout.Fulfillment">Cách nhận hàng</label>
+                        <select asp-for="Checkout.Fulfillment">
+                            <option value="0">Nhận tại chi nhánh</option>
+                            <option value="1">Giao hàng</option>
+                        </select>
+                        <label asp-for="Checkout.DeliveryAddress">Địa chỉ giao hàng</label>
+                        <input asp-for="Checkout.DeliveryAddress" maxlength="2000" autocomplete="street-address" />
+                        <small>Bắt buộc nếu chọn giao hàng.</small>
+                        <label asp-for="Checkout.Note">Ghi chú</label>
+                        <textarea asp-for="Checkout.Note" maxlength="1000"></textarea>
+                        <button class="order-button" type="submit" disabled>Gửi đơn hàng <span aria-hidden="true">↗</span></button>
+                    </form>
+                </section>
             </aside>
         </div>
     </div>

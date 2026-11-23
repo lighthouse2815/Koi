@@ -254,6 +254,10 @@
 
 .branch-picker-content { padding-bottom: 16px; }
 
+.order-page [hidden],
+[data-order-cart]:not([data-has-branch]) [data-add-drink],
+[data-order-cart][data-has-branch] .drink-branch-link { display: none !important; }
+
 .inline-form {
     display: flex;
     flex-wrap: wrap;

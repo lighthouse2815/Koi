@@ -12,9 +12,5 @@ public class OrderingPageViewModel
     public int Page { get; set; } = 1;
     public int DrinkCount { get; set; }
     public bool HasMoreDrinks { get; set; }
-    public ShoppingCart Cart { get; set; } = new();
-    public Store? Branch { get; set; }
-    public List<CartLine> Lines { get; set; } = [];
     public CheckoutViewModel Checkout { get; set; } = new();
-    public decimal Total => Lines.Sum(value => value.Price * value.Quantity);
 }

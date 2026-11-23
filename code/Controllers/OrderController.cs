@@ -1,77 +1,126 @@
-using Koi.Web.Models;
+using System.Security.Cryptography;
+using System.Text.Json;
 using Koi.Web.Exceptions;
+using Koi.Web.Models;
 using Koi.Web.Services;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Koi.Web.Controllers;
 
-public class OrderController(OrderService orders) : Controller
+public class OrderController(
+    OrderService orders,
+    IDataProtectionProvider protection
+) : Controller
 {
+    private const string CustomerPurpose = "Koi.OrderCustomer";
+    private const string ReceiptPurpose = "Koi.OrderReceipt";
+    private const string LegacyHistoryCookie = "Koi.OrderHistory";
+
+    [HttpGet]
+    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
     public async Task<IActionResult> Index(Guid? categoryId, Guid? drinkId, int page = 1, string? search = null)
     {
-        var model = await orders.GetPageAsync(orders.GetCart(HttpContext.Session), categoryId, drinkId, page, search);
-        return View(model);
+        IssueCustomerToken();
+        return View(await orders.GetPageAsync(categoryId, drinkId, page, search));
+    }
+
+    [HttpGet]
+    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+    public async Task<IActionResult> CartLines([FromQuery] Guid[] ids)
+    {
+        if (!ModelState.IsValid || ids.Length > 20)
+            return BadRequest();
+
+        return Json(await orders.GetCartLinesAsync(ids));
     }
 
     [HttpPost]
-    public async Task<IActionResult> SelectBranch(Guid storeId, Guid? categoryId, Guid? drinkId, string? search = null)
+    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+    public async Task<IActionResult> Checkout([FromForm] CheckoutViewModel checkout)
     {
-        if (!await orders.SelectBranchAsync(HttpContext.Session, storeId)) return BadRequest("Chi nhánh không nhận đơn.");
-        return RedirectToAction(nameof(Index), null, new { categoryId, drinkId, search }, "drinks");
-    }
+        if (!ModelState.IsValid)
+            return ValidationProblem(ModelState);
+        if (!Guid.TryParse(ReadProtectedValue(CustomerPurpose, checkout.CustomerToken), out var customerId))
+            return Unauthorized(new { message = "Mã trình duyệt đã hết hiệu lực. Vui lòng thử lại." });
 
-    [HttpPost]
-    public async Task<IActionResult> Add(Guid id, int quantity = 1, Guid? sizeId = null, Guid[]? toppingIds = null, int? sugar = null, int? ice = null, Guid? categoryId = null, Guid? drinkId = null, string? search = null)
-    {
-        var result = await orders.AddAsync(HttpContext.Session, id, quantity, sizeId, toppingIds, sugar, ice);
-        if (result.Status == "bad") return BadRequest(result.Message);
-        TempData["OrderMessage"] = result.Message;
-        return RedirectToAction(nameof(Index), null, new { categoryId, drinkId, search }, "drinks");
-    }
-
-    [HttpPost]
-    public IActionResult Update(Guid id, int quantity, Guid? categoryId = null, Guid? drinkId = null, string? search = null)
-    {
-        var result = orders.Update(HttpContext.Session, id, quantity);
-        if (result == "missing") return NotFound();
-        if (result == "invalid") return BadRequest("Số lượng không hợp lệ.");
-        return RedirectToAction(nameof(Index), null, new { categoryId, drinkId, search }, "cart");
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Checkout(CheckoutViewModel checkout, Guid? categoryId = null, Guid? drinkId = null, string? search = null)
-    {
-        var cart = orders.GetCart(HttpContext.Session);
-        var completed = false;
         try
         {
-            completed = await orders.CheckoutAsync(cart, checkout, ModelState.IsValid);
+            var orderId = await orders.CheckoutAsync(checkout, customerId);
+            var receipt = protection.CreateProtector(ReceiptPurpose).Protect(orderId.ToString("D"));
+            return Json(new { orderId, confirmationUrl = Url.Action(nameof(Complete), new { receipt }) });
         }
         catch (CheckoutException exception)
         {
             foreach (var (field, error) in exception.Errors)
                 ModelState.AddModelError(field, error.Message);
+            return ValidationProblem(ModelState);
         }
-        if (!completed)
-        {
-            orders.SaveCart(HttpContext.Session, cart);
-            Response.StatusCode = 400;
-            var model = await orders.GetPageAsync(cart, categoryId, drinkId, search: search);
-            model.Checkout = checkout;
-            return View("Index", model);
-        }
-        orders.CompleteCheckout(HttpContext.Session, cart.OrderId);
-        orders.RememberOrder(HttpContext, cart.OrderId);
-        return RedirectToAction(nameof(Complete));
     }
 
-    public IActionResult Complete()
+    [HttpGet]
+    public IActionResult Complete(string? receipt)
     {
-        var reference = orders.TakeOrderReference(HttpContext.Session);
-        if (reference == null) return RedirectToAction(nameof(Index));
-        return View((object)reference);
+        if (!Guid.TryParse(ReadProtectedValue(ReceiptPurpose, receipt), out var orderId))
+            return RedirectToAction(nameof(Index));
+
+        return View((object)orderId.ToString("D"));
     }
 
-    public async Task<IActionResult> History() => View(await orders.GetHistoryAsync(Request));
+    [HttpGet]
+    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+    public IActionResult History()
+    {
+        IssueCustomerToken();
+        return View();
+    }
 
+    [HttpPost]
+    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+    public async Task<IActionResult> HistoryOrders([FromForm] string? customerToken)
+    {
+        if (!Guid.TryParse(ReadProtectedValue(CustomerPurpose, customerToken), out var customerId))
+            return Unauthorized();
+
+        var legacyCookie = Request.Cookies[LegacyHistoryCookie];
+        var history = await orders.GetHistoryAsync(customerId, ReadLegacyOrderIds(legacyCookie));
+        if (legacyCookie != null)
+            Response.Cookies.Delete(LegacyHistoryCookie);
+
+        return PartialView("_HistoryOrders", history);
+    }
+
+    private void IssueCustomerToken() =>
+        ViewData["CustomerToken"] = protection.CreateProtector(CustomerPurpose).Protect(Guid.NewGuid().ToString("D"));
+
+    private Guid[] ReadLegacyOrderIds(string? cookie)
+    {
+        var json = ReadProtectedValue(LegacyHistoryCookie, cookie);
+        if (json == null)
+            return [];
+
+        try
+        {
+            return JsonSerializer.Deserialize<Guid[]>(json) ?? [];
+        }
+        catch (JsonException)
+        {
+            return [];
+        }
+    }
+
+    private string? ReadProtectedValue(string purpose, string? value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return null;
+
+        try
+        {
+            return protection.CreateProtector(purpose).Unprotect(value);
+        }
+        catch (CryptographicException)
+        {
+            return null;
+        }
+    }
 }

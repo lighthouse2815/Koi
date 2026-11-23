@@ -4,6 +4,11 @@ namespace Koi.Web.Models;
 
 public class CheckoutViewModel
 {
+    public Guid OrderId { get; set; }
+    public Guid StoreId { get; set; }
+    [Required] public string CustomerToken { get; set; } = "";
+    public List<CartItem> Items { get; set; } = [];
+
     [Required(ErrorMessage = "Nhập tên người nhận."), StringLength(150)]
     public string CustomerName { get; set; } = "";
     [Required(ErrorMessage = "Nhập số điện thoại."), StringLength(30), Phone(ErrorMessage = "Số điện thoại không hợp lệ.")]
