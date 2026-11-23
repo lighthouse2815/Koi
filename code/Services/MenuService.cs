@@ -5,10 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class MenuService(
-    ApplicationDbContext database,
-    ImageUploadService uploads
-)
+public class MenuService(ApplicationDbContext database)
 {
     public Task<List<Menu>> GetListAsync() =>
         database
@@ -20,7 +17,7 @@ public class MenuService(
     public async Task CreateAsync(MenuEditViewModel model)
     {
         var menu = new Menu();
-        await ApplyChangesAsync(menu, model);
+        ApplyChanges(menu, model);
         if (string.IsNullOrEmpty(menu.File))
             throw new AppException(ErrorCode.MENU_IMAGE_REQUIRED);
 
@@ -33,17 +30,16 @@ public class MenuService(
         var menu = await database.Menus.FindAsync(id)
             ?? throw new AppException(ErrorCode.MENU_NOT_FOUND);
 
-        await ApplyChangesAsync(menu, model);
+        ApplyChanges(menu, model);
         database.Entry(menu).Property(value => value.Revision).OriginalValue = model.Revision;
         menu.Revision++;
         await database.SaveChangesAsync();
     }
 
-    private async Task ApplyChangesAsync(Menu menu, MenuEditViewModel model)
+    private static void ApplyChanges(Menu menu, MenuEditViewModel model)
     {
-        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "menus");
-        if (image != null)
-            menu.File = image;
+        if (!string.IsNullOrWhiteSpace(model.ImageUploadUrl))
+            menu.File = model.ImageUploadUrl;
 
         menu.Label = model.Label.Trim();
         menu.SortOrder = model.SortOrder;

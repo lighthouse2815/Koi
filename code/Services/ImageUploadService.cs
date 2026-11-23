@@ -1,32 +1,9 @@
 using CloudinaryDotNet;
-using Koi.Web.Exceptions;
 
 namespace Koi.Web.Services;
 
 public class ImageUploadService(IConfiguration configuration)
 {
-    public async Task<string?> GetImageUrlAsync(string? publicId, string folder)
-    {
-        if (string.IsNullOrWhiteSpace(publicId))
-            return null;
-
-        var prefix = $"koi/{folder}/";
-        if (!publicId.StartsWith(prefix, StringComparison.Ordinal)
-            || !Guid.TryParseExact(publicId[prefix.Length..], "N", out _))
-        {
-            throw new AppException(ErrorCode.INVALID_IMAGE);
-        }
-
-        var resource = await CreateCloudinary().GetResourceAsync(publicId);
-        if (resource.Error != null || resource.SecureUrl == null
-            || resource.Bytes <= 0 || resource.Bytes > 5 * 1024 * 1024
-            || resource.Format is not ("jpg" or "jpeg" or "png" or "webp"))
-        {
-            throw new AppException(ErrorCode.INVALID_IMAGE with { Message = "Chọn ảnh JPG, PNG hoặc WebP tối đa 5 MB." });
-        }
-        return resource.SecureUrl.ToString();
-    }
-
     public object CreateUploadSignature(string folder)
     {
         var allowedFolders = new[] { "categories", "drinks", "featured-drinks", "menus", "news", "stores" };

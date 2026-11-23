@@ -35,7 +35,7 @@
         image.style.setProperty('--menu-image-ratio', image.naturalWidth / image.naturalHeight);
     });
 
-    document.querySelectorAll('[data-menu-photo]').forEach(link => {
+    document.querySelectorAll('[data-menu-photo][href]').forEach(link => {
         link.setAttribute('aria-haspopup', 'dialog');
         link.addEventListener('click', event => {
             if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;

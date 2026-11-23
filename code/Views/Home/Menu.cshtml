@@ -22,8 +22,9 @@
             <ul class="menu-gallery__list">
                 @foreach (var menu in Model)
                 {
+                    var imageLink = ImageLinks.ForNavigation(Url, menu.File);
                     <li>
-                        <a class="menu-gallery__photo" href="@menu.File" aria-label="Mở ảnh thực đơn @menu.Label" data-menu-photo>
+                        <a class="menu-gallery__photo" href="@imageLink" aria-label="Mở ảnh thực đơn @menu.Label" data-menu-photo>
                             <img src="@menu.File" alt="Thực đơn @menu.Label" />
                             <span>@menu.Label</span>
                         </a>

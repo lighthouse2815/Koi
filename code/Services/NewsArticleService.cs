@@ -6,10 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class NewsArticleService(
-    ApplicationDbContext database,
-    ImageUploadService uploads
-)
+public class NewsArticleService(ApplicationDbContext database)
 {
     public Task<List<NewsArticle>> GetForHomeAsync() =>
         database.NewsArticles
@@ -84,7 +81,7 @@ public class NewsArticleService(
     public async Task CreateAsync(NewsEditViewModel model)
     {
         var article = new NewsArticle();
-        await ApplyChangesAsync(article, model, isNew: true);
+        ApplyChanges(article, model, isNew: true);
         database.NewsArticles.Add(article);
         await SaveChangesAsync(article);
     }
@@ -94,13 +91,13 @@ public class NewsArticleService(
         var article = await database.NewsArticles.FindAsync(id)
             ?? throw new AppException(ErrorCode.NEWS_NOT_FOUND);
 
-        await ApplyChangesAsync(article, model, isNew: false);
+        ApplyChanges(article, model, isNew: false);
         database.Entry(article).Property(value => value.Revision).OriginalValue = model.Revision;
         article.Revision++;
         await SaveChangesAsync(article);
     }
 
-    private async Task ApplyChangesAsync(NewsArticle article, NewsEditViewModel model, bool isNew)
+    private static void ApplyChanges(NewsArticle article, NewsEditViewModel model, bool isNew)
     {
         var videoId = ParseVideoId(model.VideoUrl);
         if (!string.IsNullOrWhiteSpace(model.VideoUrl) && videoId == null)
@@ -110,14 +107,13 @@ public class NewsArticleService(
         var body = sanitizer.Sanitize(model.BodyHtml ?? "").Trim();
         if (string.IsNullOrWhiteSpace(body))
             throw new AppException(ErrorCode.NEWS_BODY_REQUIRED);
-        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "news");
-        if (isNew && image == null)
+        var image = model.ImageUploadUrl;
+        if (isNew && string.IsNullOrWhiteSpace(image))
             throw new AppException(ErrorCode.NEWS_IMAGE_REQUIRED);
 
-        if (image != null)
+        if (!string.IsNullOrWhiteSpace(image))
         {
-            var uploadedFile = image;
-            article.Image = article.BannerImage = uploadedFile;
+            article.Image = article.BannerImage = image;
             article.HomeImage = "";
         }
         article.Title = model.Title.Trim();

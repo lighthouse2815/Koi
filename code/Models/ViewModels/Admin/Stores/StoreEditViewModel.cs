@@ -28,7 +28,7 @@ public class StoreEditViewModel
     [Range(0, 1000000)]
     public int SortOrder { get; set; } = 10000;
 
-    public string? ImageUploadId { get; set; }
+    public string? ImageUploadUrl { get; set; }
     public bool RemoveImage { get; set; }
 
     [BindNever, ValidateNever]

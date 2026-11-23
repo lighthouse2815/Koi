@@ -81,9 +81,10 @@
                             <div class="time">@store.Hours</div>
                             <div class="address">@store.Address</div>
                             <div class="other-area flex-container align-middle align-justify">
-                                @if (!string.IsNullOrEmpty(store.Photo))
+                                @{ var photoLink = ImageLinks.ForNavigation(Url, store.Photo); }
+                                @if (photoLink != null)
                                 {
-                                    <a class="pic" href="@store.Photo" data-store-photo data-store-name="@store.Name" aria-label="View photo of @store.Name"><img src="@store.Photo" alt="@store.Name" loading="lazy" /></a>
+                                    <a class="pic" href="@photoLink" data-store-photo data-store-name="@store.Name" aria-label="View photo of @store.Name"><img src="@store.Photo" alt="@store.Name" loading="lazy" /></a>
                                 }
                                 else
                                 {

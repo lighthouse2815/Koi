@@ -18,12 +18,12 @@
 
                     <label for="ImageUpload">Ảnh danh mục và thẻ trang chủ</label>
                     <img class="current-image" alt="Ảnh danh mục" hidden />
-                    <input asp-for="ImageUploadId" type="hidden" />
+                    <input asp-for="ImageUploadUrl" type="hidden" />
                     <input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
 
                     <label for="IconUpload">Biểu tượng danh mục trên trang chủ</label>
                     <img class="current-icon" alt="Biểu tượng danh mục" hidden />
-                    <input asp-for="IconUploadId" type="hidden" />
+                    <input asp-for="IconUploadUrl" type="hidden" />
                     <input id="IconUpload" type="file" accept="image/jpeg,image/png,image/webp" />
                     <label class="check"><input asp-for="RemoveIcon" /> Bỏ biểu tượng danh mục</label>
                     <p class="help">Mỗi ảnh JPG, PNG hoặc WebP tối đa 5 MB. Để trống để giữ ảnh hiện tại. Bật thẻ trang chủ cần có cả ảnh và biểu tượng thẻ.</p>

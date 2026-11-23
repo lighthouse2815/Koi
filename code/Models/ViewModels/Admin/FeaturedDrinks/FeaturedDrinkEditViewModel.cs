@@ -14,8 +14,8 @@ public class FeaturedDrinkEditViewModel
 
     [Range(0, 100000)]
     public int SortOrder { get; set; }
-    public string? ImageUploadId { get; set; }
-    public string? BackgroundUploadId { get; set; }
+    public string? ImageUploadUrl { get; set; }
+    public string? BackgroundUploadUrl { get; set; }
 
     [BindNever, ValidateNever]
     public string? CurrentImage { get; set; }

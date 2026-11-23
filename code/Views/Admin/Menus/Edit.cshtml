@@ -13,7 +13,7 @@
             <div class="editor-columns">
                 <div class="card">
                     <label asp-for="Label">Tên thực đơn</label><input asp-for="Label" required maxlength="200" />
-                    <label for="ImageUpload">Ảnh thực đơn</label><input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <label for="ImageUpload">Ảnh thực đơn</label><input asp-for="ImageUploadUrl" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
                     <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Khi sửa, để trống để giữ ảnh hiện tại.</p>
                     <a data-menu-current target="_blank" rel="noopener" hidden><img class="current-image" alt="Thực đơn hiện tại" />Mở ảnh kích thước đầy đủ ↗</a>
                 </div>

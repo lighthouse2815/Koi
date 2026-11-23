@@ -8,9 +8,6 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode INVALID_INPUT =
         new("INVALID_INPUT", "Dữ liệu không hợp lệ.", StatusCodes.Status400BadRequest);
 
-    public static readonly ErrorCode INVALID_IMAGE =
-        new("INVALID_IMAGE", "Ảnh tải lên không hợp lệ.", StatusCodes.Status400BadRequest);
-
     public static readonly ErrorCode LOGIN_INVALID_CREDENTIALS =
         new("LOGIN_INVALID_CREDENTIALS", "Email hoặc mật khẩu không đúng.", StatusCodes.Status401Unauthorized);
 

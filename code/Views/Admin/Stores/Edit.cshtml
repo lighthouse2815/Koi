@@ -25,7 +25,7 @@
                 </div>
                 <aside class="card">
                     <label for="ImageUpload">Ảnh chi nhánh</label><img class="current-image" alt="Ảnh hiện tại" hidden />
-                    <input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <input asp-for="ImageUploadUrl" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
                     <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Để trống để giữ ảnh hiện tại.</p>
                     <label class="check"><input asp-for="RemoveImage" /> Bỏ ảnh hiện tại</label>
                     <label asp-for="SortOrder">Thứ tự hiển thị</label><input asp-for="SortOrder" type="number" min="0" max="1000000" />

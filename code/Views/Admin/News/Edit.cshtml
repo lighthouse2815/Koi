@@ -26,7 +26,7 @@
                 </div>
                 <aside class="card">
                     <label for="ImageUpload">Ảnh đại diện</label><img class="current-image" alt="Ảnh hiện tại" hidden />
-                    <input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <input asp-for="ImageUploadUrl" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
                     <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Khi sửa, để trống để giữ ảnh cũ.</p>
                     <label asp-for="VideoUrl">Video YouTube</label><input asp-for="VideoUrl" type="url" maxlength="500" />
                     <p class="help">Dán liên kết YouTube; để trống để dùng ảnh bìa.</p>

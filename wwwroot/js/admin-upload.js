@@ -21,7 +21,7 @@
         };
 
         for (const input of inputs) {
-            const uploaded = form.elements[`${input.id}Id`];
+            const uploaded = form.elements[`${input.id}Url`];
             const required = input.required;
             if (uploaded.value) input.required = false;
             input.addEventListener('change', () => {
@@ -50,7 +50,7 @@
             try {
                 for (const input of inputs) {
                     const file = input.files[0];
-                    const uploaded = form.elements[`${input.id}Id`];
+                    const uploaded = form.elements[`${input.id}Url`];
                     if (!file || (ajaxSave && uploaded.value)) continue;
                     if (file.size > 5 * 1024 * 1024 || !/\.(jpe?g|png|webp)$/i.test(file.name))
                         throw new Error('Chọn ảnh JPG, PNG hoặc WebP tối đa 5 MB.');
@@ -80,8 +80,8 @@
                     const response = await fetch(`https://api.cloudinary.com/v1_1/${encodeURIComponent(config.cloudName)}/image/upload`, { method: 'POST', body: data });
                     if (!response.ok) throw new Error('Không thể tải ảnh lên Cloudinary. Vui lòng thử lại.');
                     const result = await response.json();
-                    if (result.public_id !== config.publicId) throw new Error('Ảnh tải lên không hợp lệ.');
-                    uploaded.value = result.public_id;
+                    if (!result.secure_url) throw new Error('Ảnh tải lên không hợp lệ.');
+                    uploaded.value = result.secure_url;
                     if (!ajaxSave) input.value = '';
                     input.required = false;
                 }

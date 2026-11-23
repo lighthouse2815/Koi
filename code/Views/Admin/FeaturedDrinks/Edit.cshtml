@@ -14,9 +14,9 @@
                 <div class="card">
                     <label asp-for="Name">Tên đồ uống / bộ sưu tập</label><input asp-for="Name" maxlength="250" required />
                     <label for="ImageUpload">Ảnh đồ uống</label><img class="current-image" data-featured-image alt="Ảnh hiện tại" hidden />
-                    <input asp-for="ImageUploadId" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <input asp-for="ImageUploadUrl" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
                     <label for="BackgroundUpload">Ảnh nền</label><img class="current-image" data-featured-background alt="Ảnh nền hiện tại" hidden />
-                    <input asp-for="BackgroundUploadId" type="hidden" /><input id="BackgroundUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <input asp-for="BackgroundUploadUrl" type="hidden" /><input id="BackgroundUpload" type="file" accept="image/jpeg,image/png,image/webp" />
                     <p class="help">Mỗi ảnh JPG, PNG hoặc WebP tối đa 5 MB. Khi sửa, để trống để giữ ảnh cũ.</p>
                 </div>
                 <aside class="card">

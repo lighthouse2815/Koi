@@ -5,10 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class FeaturedDrinkService(
-    ApplicationDbContext database,
-    ImageUploadService uploads
-)
+public class FeaturedDrinkService(ApplicationDbContext database)
 {
     public Task<List<FeaturedDrink>> GetListAsync() =>
         database
@@ -20,7 +17,7 @@ public class FeaturedDrinkService(
     public async Task CreateAsync(FeaturedDrinkEditViewModel model)
     {
         var drink = new FeaturedDrink();
-        await ApplyChangesAsync(drink, model);
+        ApplyChanges(drink, model);
         database.FeaturedDrinks.Add(drink);
         await database.SaveChangesAsync();
     }
@@ -30,25 +27,25 @@ public class FeaturedDrinkService(
         var drink = await database.FeaturedDrinks.FindAsync(id)
             ?? throw new AppException(ErrorCode.FEATURED_DRINK_NOT_FOUND);
 
-        await ApplyChangesAsync(drink, model);
+        ApplyChanges(drink, model);
         database.Entry(drink).Property(value => value.Revision).OriginalValue = model.Revision;
         drink.Revision++;
         await database.SaveChangesAsync();
     }
 
-    private async Task ApplyChangesAsync(FeaturedDrink drink, FeaturedDrinkEditViewModel model)
+    private static void ApplyChanges(FeaturedDrink drink, FeaturedDrinkEditViewModel model)
     {
-        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "featured-drinks");
-        var background = await uploads.GetImageUrlAsync(model.BackgroundUploadId, "featured-drinks");
+        var image = model.ImageUploadUrl;
+        var background = model.BackgroundUploadUrl;
 
-        if (image == null && string.IsNullOrEmpty(drink.Image))
+        if (string.IsNullOrWhiteSpace(image) && string.IsNullOrEmpty(drink.Image))
             throw new AppException(ErrorCode.FEATURED_DRINK_IMAGE_REQUIRED);
-        if (background == null && string.IsNullOrEmpty(drink.BackgroundImage))
+        if (string.IsNullOrWhiteSpace(background) && string.IsNullOrEmpty(drink.BackgroundImage))
             throw new AppException(ErrorCode.FEATURED_DRINK_BACKGROUND_REQUIRED);
 
-        if (image != null)
+        if (!string.IsNullOrWhiteSpace(image))
             drink.Image = image;
-        if (background != null)
+        if (!string.IsNullOrWhiteSpace(background))
             drink.BackgroundImage = background;
 
         drink.Name = model.Name.Trim();

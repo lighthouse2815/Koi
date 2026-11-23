@@ -16,8 +16,8 @@ public class CategoryEditViewModel
     public int SortOrder { get; set; }
 
     public bool ShowOnHome { get; set; }
-    public string? ImageUploadId { get; set; }
-    public string? IconUploadId { get; set; }
+    public string? ImageUploadUrl { get; set; }
+    public string? IconUploadUrl { get; set; }
     public bool RemoveIcon { get; set; }
 
     [BindNever, ValidateNever]

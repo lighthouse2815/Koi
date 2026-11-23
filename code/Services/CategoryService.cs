@@ -5,10 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class CategoryService(
-    ApplicationDbContext database,
-    ImageUploadService uploads
-)
+public class CategoryService(ApplicationDbContext database)
 {
     public Task<List<Category>> GetListAsync(bool forHome = false, bool includeDrinks = false)
     {
@@ -67,32 +64,32 @@ public class CategoryService(
         if (nameExists)
             throw new AppException(ErrorCode.CATEGORY_NAME_EXISTS);
 
-        await ApplyImagesAsync(category, model);
+        ApplyImages(category, model);
 
         category.Name = model.Name.Trim();
         category.SortOrder = model.SortOrder;
         category.ShowOnHome = model.ShowOnHome;
     }
 
-    private async Task ApplyImagesAsync(
+    private static void ApplyImages(
         Category category,
         CategoryEditViewModel model)
     {
-        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "categories");
-        var icon = await uploads.GetImageUrlAsync(model.IconUploadId, "categories");
+        var image = model.ImageUploadUrl;
+        var icon = model.IconUploadUrl;
 
-        if (image == null && string.IsNullOrEmpty(category.Image))
+        if (string.IsNullOrWhiteSpace(image) && string.IsNullOrEmpty(category.Image))
             throw new AppException(ErrorCode.CATEGORY_IMAGE_REQUIRED);
         if (
             model.ShowOnHome
-            && icon == null
+            && string.IsNullOrWhiteSpace(icon)
             && (model.RemoveIcon || string.IsNullOrEmpty(category.Icon))
         )
             throw new AppException(ErrorCode.CATEGORY_ICON_REQUIRED);
 
-        if (image != null)
+        if (!string.IsNullOrWhiteSpace(image))
             category.Image = image;
-        if (icon != null)
+        if (!string.IsNullOrWhiteSpace(icon))
             category.Icon = icon;
         else if (model.RemoveIcon)
             category.Icon = "";

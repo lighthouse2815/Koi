@@ -17,8 +17,9 @@
         <tbody>
             @foreach (var menu in Model)
             {
+                var imageLink = ImageLinks.ForNavigation(Url, menu.File);
                 <tr data-row-preview>
-                    <td><a href="@menu.File" target="_blank" rel="noopener" class="admin-icon-label" data-row-preview-trigger><partial name="_AdminIcon" model='"eye"' /> @menu.Label</a></td>
+                    <td><a href="@imageLink" target="_blank" rel="noopener" class="admin-icon-label" data-row-preview-trigger><partial name="_AdminIcon" model='"eye"' /> @menu.Label</a></td>
                     <td>@menu.SortOrder</td>
                     <td>
                         <div class="row-actions">
@@ -26,7 +27,7 @@
                                     data-url="@Url.Action("Edit", new { id = menu.Id })"
                                     data-id="@menu.Id" data-revision="@menu.Revision" data-label="@menu.Label"
                                     data-sort-order="@menu.SortOrder"
-                                    data-image="@menu.File"><partial name="_AdminIcon" model='"edit"' /> Sửa</button>
+                                    data-image="@imageLink"><partial name="_AdminIcon" model='"edit"' /> Sửa</button>
                             <a asp-action="Delete" asp-route-id="@menu.Id" class="delete-link" data-name="@menu.Label"><partial name="_AdminIcon" model='"trash"' /> Xóa</a>
                         </div>
                         <template data-row-preview-content data-title="@menu.Label">
@@ -35,7 +36,7 @@
                                 <div class="row-preview-wide">
                                     <dt>Ảnh thực đơn</dt>
                                     <dd>
-                                        <a href="@menu.File" target="_blank" rel="noopener"><img class="row-preview-image" src="@menu.File" alt="Mở ảnh thực đơn @menu.Label" /></a>
+                                        <a href="@imageLink" target="_blank" rel="noopener"><img class="row-preview-image" src="@menu.File" alt="Mở ảnh thực đơn @menu.Label" /></a>
                                     </dd>
                                 </div>
                             </dl>

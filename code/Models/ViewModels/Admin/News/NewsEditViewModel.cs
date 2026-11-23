@@ -21,7 +21,7 @@ public class NewsEditViewModel
 
     [StringLength(500)]
     public string? VideoUrl { get; set; }
-    public string? ImageUploadId { get; set; }
+    public string? ImageUploadUrl { get; set; }
     public string? CurrentImage { get; set; }
     public bool IsFeatured { get; set; }
     public bool ShowOnHome { get; set; }

@@ -6,10 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class DrinkService(
-    ApplicationDbContext database,
-    ImageUploadService uploads
-)
+public class DrinkService(ApplicationDbContext database)
 {
     public async Task<AdminDrinksViewModel> GetListAsync(
         string? search,
@@ -80,9 +77,8 @@ public class DrinkService(
         if (!await database.Categories.AnyAsync(value => value.Id == model.CategoryId))
             throw new AppException(ErrorCode.DRINK_CATEGORY_INVALID);
 
-        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "drinks");
-        if (image != null)
-            drink.Image = image;
+        if (!string.IsNullOrWhiteSpace(model.ImageUploadUrl))
+            drink.Image = model.ImageUploadUrl;
         else if (model.RemoveImage)
             drink.Image = "";
 

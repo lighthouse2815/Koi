@@ -7,7 +7,6 @@ namespace Koi.Web.Services;
 
 public class StoreService(
     ApplicationDbContext database,
-    ImageUploadService uploads,
     IConfiguration configuration
 )
 {
@@ -112,9 +111,8 @@ public class StoreService(
         if (!SafeLink(model.NavigationUrl))
             throw new AppException(ErrorCode.STORE_LINK_INVALID);
 
-        var image = await uploads.GetImageUrlAsync(model.ImageUploadId, "stores");
-        if (image != null)
-            store.Photo = image;
+        if (!string.IsNullOrWhiteSpace(model.ImageUploadUrl))
+            store.Photo = model.ImageUploadUrl;
         else if (model.RemoveImage)
             store.Photo = "";
 
