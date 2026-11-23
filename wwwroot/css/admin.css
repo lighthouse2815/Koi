@@ -67,6 +67,63 @@ h2 { margin: 0 0 16px; font-size: 21px; }
     min-height: 100vh;
 }
 
+.admin-guest { display: grid; min-height: 100vh; }
+
+.admin-workspace {
+    position: relative;
+    min-width: 0;
+    isolation: isolate;
+}
+
+.admin-background {
+    --admin-background-cup-size: clamp(84px, 11vw, 144px);
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: radial-gradient(ellipse 365px 240px at right 100px, #f0e5d8b3, transparent);
+}
+
+.admin-background > span { position: absolute; color: var(--admin-accent); opacity: .17; }
+
+.admin-background-cup {
+    --admin-icon-size: var(--admin-background-cup-size);
+    inset-block-start: 61px;
+    inset-inline-end: 4%;
+    transform: rotate(15deg);
+}
+
+.admin-background-sparkles {
+    --admin-icon-size: clamp(29px, 4vw, 49px);
+    inset-block-start: 86px;
+    inset-inline-end: calc(5% + var(--admin-background-cup-size));
+    transform: rotate(-13deg);
+}
+
+.admin-background-layers {
+    --admin-icon-size: clamp(85px, 10vw, 130px);
+    inset-block-start: 260px;
+    inset-inline-start: -43px;
+    transform: rotate(-20deg);
+}
+
+.admin-background-pin {
+    --admin-icon-size: clamp(75px, 9vw, 120px);
+    inset-block-start: clamp(440px, 70vh, 680px);
+    inset-inline-end: -32px;
+    transform: rotate(21deg);
+}
+
+.admin-background-menu {
+    --admin-icon-size: clamp(55px, 7vw, 90px);
+    inset-block-end: 12px;
+    inset-inline-start: 13%;
+    transform: rotate(-12deg);
+}
+
+.admin-background .admin-icon { stroke-width: 1; }
+
 .admin-sidebar {
     position: sticky;
     top: 0;
@@ -594,6 +651,9 @@ fieldset.upload-fields { min-width: 0; margin: 0; padding: 0; border: 0; }
 }
 
 @media (max-width: 520px) {
+    .admin-background > span { opacity: .13; }
+    .admin-background-cup { inset-inline-end: -8px; }
+    .admin-background-sparkles { inset-block-start: 51px; inset-inline-end: var(--admin-background-cup-size); }
     .admin-site-link { gap: 4px; padding-inline: 9px; }
     .page-heading > .button { min-height: 39px; }
     .login-card { grid-template-columns: minmax(0, 1fr); }
