@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
+
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
     .AddRazorOptions(options =>
     {
-        // Both public and Admin views live inside the shared code folder.
         options.ViewLocationFormats.Clear();
         options.ViewLocationFormats.Add("/code/Views/{1}/{0}.cshtml");
         options.ViewLocationFormats.Add("/code/Views/Shared/{0}.cshtml");
@@ -19,6 +18,7 @@ builder.Services.AddControllersWithViews(options => options.Filters.Add(new Auto
         options.AreaViewLocationFormats.Add("/code/Views/{2}/Shared/{0}.cshtml");
         options.AreaViewLocationFormats.Add("/code/Views/Shared/{0}.cshtml");
     });
+
 builder.Services.AddScoped<ImageUploadService>();
 builder.Services.AddScoped<NewsArticleService>();
 builder.Services.AddScoped<MenuService>();
@@ -28,9 +28,11 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<StoreService>();
 builder.Services.AddScoped<StoreCityService>();
 builder.Services.AddScoped<OrderService>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Configure ConnectionStrings:DefaultConnection for PostgreSQL.")));
+
 builder.Services.AddIdentity<IdentityUser<Guid>, IdentityRole<Guid>>(options =>
 {
     options.User.RequireUniqueEmail = true;
@@ -38,6 +40,7 @@ builder.Services.AddIdentity<IdentityUser<Guid>, IdentityRole<Guid>>(options =>
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Admin/Account/Login";
@@ -47,6 +50,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 var app = builder.Build();
+
 if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("Database:Initialize"))
     await DatabaseInitializer.InitializeAsync(app.Services, app.Configuration);
 
@@ -63,20 +67,25 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
 app.MapControllerRoute(
-    "legacy-drink-categories", "Admin/DrinkCategories/{action=Index}/{id?}",
-    new { area = "Admin", controller = "Category" })
-    .Add(endpoint => endpoint.Metadata.Add(new SuppressLinkGenerationMetadata()));
+    "legacy-drink-categories",
+    "Admin/DrinkCategories/{action=Index}/{id?}",
+    new { area = "Admin", controller = "Category" }
+).Add(endpoint => endpoint.Metadata.Add(new SuppressLinkGenerationMetadata()));
+
 app.MapControllerRoute(
-    "legacy-geography", "Admin/Geography/{action=Index}/{id?}",
-    new { area = "Admin", controller = "StoreCities" })
-    .Add(endpoint => endpoint.Metadata.Add(new SuppressLinkGenerationMetadata()));
+    "legacy-geography",
+    "Admin/Geography/{action=Index}/{id?}",
+    new { area = "Admin", controller = "StoreCities" }
+).Add(endpoint => endpoint.Metadata.Add(new SuppressLinkGenerationMetadata()));
+
 app.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+).WithStaticAssets();
 
 
 app.Run();

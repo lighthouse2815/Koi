@@ -25,10 +25,12 @@ public class AccountController(SignInManager<IdentityUser<Guid>> signInManager) 
         var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
         if (result.Succeeded)
         {
-            var redirectUrl = Url.IsLocalUrl(model.ReturnUrl) ? model.ReturnUrl! : Url.Action("Index", "Dashboard", new
+            var redirectUrl = Url.IsLocalUrl(model.ReturnUrl)
+                ? model.ReturnUrl! : Url.Action("Index", "Dashboard", new
             {
                 area = "Admin"
             })!;
+
             return Request.Headers["X-Requested-With"] == "XMLHttpRequest"
                 ? Json(new { redirectUrl })
                 : LocalRedirect(redirectUrl);
@@ -36,7 +38,8 @@ public class AccountController(SignInManager<IdentityUser<Guid>> signInManager) 
         throw new AppException(result.IsLockedOut ? ErrorCode.LOGIN_LOCKED_OUT : ErrorCode.LOGIN_INVALID_CREDENTIALS);
     }
 
-    [HttpPost, Authorize(Roles = "Admin")]
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Logout()
     {
         await signInManager.SignOutAsync();
