@@ -7,13 +7,13 @@ public class ImageUploadService(IConfiguration configuration)
     public object CreateUploadSignature(string folder)
     {
         var allowedFolders = new[] { "categories", "drinks", "featured-drinks", "menus", "news", "stores" };
-        if (!allowedFolders.Contains(folder, StringComparer.Ordinal))
+        if (!allowedFolders.Contains(folder))
             throw new ArgumentException("Thư mục tải ảnh không hợp lệ.", nameof(folder));
 
         var cloudinary = CreateCloudinary();
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         var publicId = $"koi/{folder}/{Guid.NewGuid():N}";
-        var parameters = new SortedDictionary<string, object>(StringComparer.Ordinal)
+        var parameters = new SortedDictionary<string, object>()
         {
             ["timestamp"] = timestamp,
             ["public_id"] = publicId,
