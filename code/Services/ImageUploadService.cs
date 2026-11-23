@@ -1,4 +1,5 @@
 using CloudinaryDotNet;
+using Koi.Web.Exceptions;
 
 namespace Koi.Web.Services;
 
@@ -8,7 +9,7 @@ public class ImageUploadService(IConfiguration configuration)
     {
         var allowedFolders = new[] { "categories", "drinks", "featured-drinks", "menus", "news", "stores" };
         if (!allowedFolders.Contains(folder))
-            throw new ArgumentException("Thư mục tải ảnh không hợp lệ.", nameof(folder));
+            throw new AppException(ErrorCode.UPLOAD_FOLDER_INVALID);
 
         var cloudinary = CreateCloudinary();
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -38,7 +39,7 @@ public class ImageUploadService(IConfiguration configuration)
         var apiKey = configuration["Cloudinary:ApiKey"];
         var apiSecret = configuration["Cloudinary:ApiSecret"];
         if (string.IsNullOrWhiteSpace(cloudName) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(apiSecret))
-            throw new InvalidOperationException("Cần cấu hình Cloudinary trước khi tải ảnh lên.");
+            throw new AppException(ErrorCode.CLOUDINARY_NOT_CONFIGURED);
         return new Cloudinary(new Account(cloudName, apiKey, apiSecret));
     }
 }

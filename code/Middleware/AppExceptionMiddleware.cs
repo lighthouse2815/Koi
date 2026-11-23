@@ -44,7 +44,7 @@ public class AppExceptionMiddleware(RequestDelegate next)
             context.Response.StatusCode = error!.StatusCode;
             if (context.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-                await context.Response.WriteAsJsonAsync(new { message = error.Message });
+                await context.Response.WriteAsJsonAsync(new { code = error.Code, message = error.Message });
                 return;
             }
             context.Response.ContentType = "text/plain; charset=utf-8";

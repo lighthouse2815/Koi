@@ -8,6 +8,12 @@ public record ErrorCode(string Code, string Message, int StatusCode)
     public static readonly ErrorCode INVALID_INPUT =
         new("INVALID_INPUT", "Dữ liệu không hợp lệ.", StatusCodes.Status400BadRequest);
 
+    public static readonly ErrorCode UPLOAD_FOLDER_INVALID =
+        new("UPLOAD_FOLDER_INVALID", "Thư mục tải ảnh không hợp lệ.", StatusCodes.Status400BadRequest);
+
+    public static readonly ErrorCode CLOUDINARY_NOT_CONFIGURED =
+        new("CLOUDINARY_NOT_CONFIGURED", "Không thể chuẩn bị tải ảnh. Vui lòng kiểm tra cấu hình Cloudinary.", StatusCodes.Status503ServiceUnavailable);
+
     public static readonly ErrorCode LOGIN_INVALID_CREDENTIALS =
         new("LOGIN_INVALID_CREDENTIALS", "Email hoặc mật khẩu không đúng.", StatusCodes.Status401Unauthorized);
 

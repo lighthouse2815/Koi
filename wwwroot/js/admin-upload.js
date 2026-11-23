@@ -61,6 +61,7 @@
                     });
                     const signed = await fetch('/Admin/Uploads/Sign', {
                         method: 'POST',
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' },
                         body: params
                     });
                     if (!signed.ok) {
