@@ -35,7 +35,7 @@ public class DashboardController(ApplicationDbContext database) : Controller
             .ThenBy(order => order.Id)
             .Take(5)
             .Select(order => new DashboardOrder(order.Id, order.StoreName, order.CreatedAt, order.Status))
-            .ToArrayAsync(cancellationToken);
+            .ToListAsync(cancellationToken);
 
         return View(new DashboardViewModel(
             await database.Orders.CountAsync(cancellationToken),
@@ -43,6 +43,6 @@ public class DashboardController(ApplicationDbContext database) : Controller
             await database.Stores.CountAsync(cancellationToken),
             await database.NewsArticles.CountAsync(cancellationToken),
             chart,
-            recentOrders.Select(order => order with { CreatedAt = TimeZoneInfo.ConvertTimeFromUtc(order.CreatedAt, timeZone) }).ToArray()));
+            recentOrders.Select(order => order with { CreatedAt = TimeZoneInfo.ConvertTimeFromUtc(order.CreatedAt, timeZone) }).ToList()));
     }
 }

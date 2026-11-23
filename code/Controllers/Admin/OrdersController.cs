@@ -17,10 +17,10 @@ public class OrdersController(ApplicationDbContext database) : Controller
         if (status.HasValue) query = query.Where(value => value.Status == status);
         var pageCount = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / 25d));
         page = Math.Clamp(page, 1, pageCount);
-        var branches = await database.Stores.AsNoTracking().Where(value => value.AcceptsOrders || database.Orders.Any(order => order.StoreId == value.Id)).OrderBy(value => value.Name).ToArrayAsync();
+        var branches = await database.Stores.AsNoTracking().Where(value => value.AcceptsOrders || database.Orders.Any(order => order.StoreId == value.Id)).OrderBy(value => value.Name).ToListAsync();
         return View(new OrderListViewModel
         {
-            Orders = await query.OrderByDescending(value => value.CreatedAt).ThenBy(value => value.Id).Skip((page - 1) * 25).Take(25).ToArrayAsync(),
+            Orders = await query.OrderByDescending(value => value.CreatedAt).ThenBy(value => value.Id).Skip((page - 1) * 25).Take(25).ToListAsync(),
             Branches = branches, StoreId = storeId, Status = status, Page = page, PageCount = pageCount
         });
     }
@@ -48,8 +48,8 @@ public class OrdersController(ApplicationDbContext database) : Controller
 
 public class OrderListViewModel
 {
-    public Order[] Orders { get; set; } = [];
-    public Store[] Branches { get; set; } = [];
+    public List<Order> Orders { get; set; } = [];
+    public List<Store> Branches { get; set; } = [];
     public Guid? StoreId { get; set; }
     public OrderStatus? Status { get; set; }
     public int Page { get; set; }

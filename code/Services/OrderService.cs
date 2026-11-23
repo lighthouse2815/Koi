@@ -15,11 +15,11 @@ public class OrderService(ApplicationDbContext database)
             .OrderByDescending(order => order.CreatedAt)
             .ToListAsync();
 
-    public Task<CartLine[]> GetCartLinesAsync(Guid[] drinkIds) =>
+    public Task<List<CartLine>> GetCartLinesAsync(Guid[] drinkIds) =>
         database.Drinks.AsNoTracking()
             .Where(drink => drinkIds.Contains(drink.Id) && drink.Price > 0)
             .Select(drink => new CartLine(drink.Id, drink.Name, drink.Price!.Value))
-            .ToArrayAsync();
+            .ToListAsync();
 
     public async Task<Guid> CheckoutAsync(CheckoutViewModel checkout, Guid customerId)
     {
@@ -106,7 +106,7 @@ public class OrderService(ApplicationDbContext database)
         var branches = await database.Stores.AsNoTracking()
             .Where(value => value.AcceptsOrders)
             .OrderBy(value => value.Name)
-            .ToArrayAsync();
+            .ToListAsync();
         IQueryable<Drink> query = database.Drinks.AsNoTracking()
             .Include(value => value.Category);
         if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);
@@ -127,12 +127,12 @@ public class OrderService(ApplicationDbContext database)
             .ThenBy(value => value.Id)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .ToArrayAsync();
+            .ToListAsync();
         var categories = await database.Categories.AsNoTracking()
             .Where(value => value.Drinks.Any())
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
-            .ToArrayAsync();
+            .ToListAsync();
         var filterName = drinkId.HasValue ? null : categoryId.HasValue
             ? await database.Categories.AsNoTracking().Where(value => value.Id == categoryId).Select(value => value.Name).SingleOrDefaultAsync() : null;
         return new OrderingPageViewModel

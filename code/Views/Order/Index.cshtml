@@ -41,7 +41,7 @@
             <span class="branch-change"><b data-branch-change>Danh sách</b> <span aria-hidden="true">↓</span></span>
         </summary>
         <div class="branch-picker-content">
-            @if (Model.Branches.Length == 0)
+            @if (Model.Branches.Count == 0)
             {
                 <p>Hiện chưa có chi nhánh mở nhận đơn.</p>
             }
@@ -136,7 +136,7 @@
                                 </div>
                             </article>
                         }
-                        @if (Model.Drinks.Length == 0)
+                        @if (Model.Drinks.Count == 0)
                         {
                             <div class="menu-empty">
                                 <p>@(hasSearch ? "Không tìm thấy đồ uống phù hợp." : "Chưa có đồ uống trong danh mục này.")</p>
