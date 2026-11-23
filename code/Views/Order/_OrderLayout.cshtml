@@ -1,0 +1,50 @@
+@{
+    Layout = "_Layout";
+    var itemCount = ViewData["CartItemCount"] as int?;
+    var action = Context.GetRouteValue("action")?.ToString();
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/ordering.css" asp-append-version="true" />
+}
+
+@section Navigation {
+    <header class="order-header">
+        <div class="order-shell order-header-inner">
+            <a class="order-home-link" asp-controller="Home" asp-action="OurTea"><span aria-hidden="true">←</span> Trà của KOI</a>
+            <a class="order-brand" asp-controller="Home" asp-action="Index" aria-label="Trang chủ KOI Thé">
+                <img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" />
+            </a>
+            <nav aria-label="Điều hướng đặt hàng">
+                @if (!itemCount.HasValue)
+                {
+                    <a asp-controller="Order" asp-action="Index">Đặt hàng</a>
+                }
+                <a asp-controller="Order" asp-action="History" aria-current="@(action == "History" ? "page" : null)">Đơn đã mua</a>
+                @if (itemCount.HasValue)
+                {
+                    <a class="order-header-cart" href="#cart" aria-label="Giỏ hàng, @itemCount món">
+                        Giỏ hàng <span class="cart-count" aria-hidden="true">@itemCount</span>
+                    </a>
+                }
+            </nav>
+        </div>
+    </header>
+}
+
+<div class="order-page" id="home">
+    @RenderBody()
+</div>
+
+@section VendorScripts {
+    <script src="~/lib/gsap/gsap.min.js" defer></script>
+    <script src="~/lib/gsap/ScrollTrigger.min.js" defer></script>
+}
+
+@section Scripts {
+    <script src="~/js/shop-motion.js" asp-append-version="true" defer></script>
+    @if (itemCount.HasValue)
+    {
+        <script src="~/js/order-menu.js" asp-append-version="true" defer></script>
+    }
+}

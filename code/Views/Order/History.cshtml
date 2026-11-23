@@ -1,36 +1,60 @@
 @model Order[]
-@{ Layout = null; var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); }
-<!doctype html>
-<html lang="vi">
+@{
+    Layout = "_OrderLayout";
+    ViewData["Title"] = "Đơn đã mua";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
 
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Đơn đã mua · KOI Thé</title>
-        <link rel="stylesheet" href="~/css/ordering.css" asp-append-version="true" />
-    </head>
+<div class="order-shell order-history">
+    <header class="order-history-heading">
+        <div>
+            <h1 class="order-title-line"><span>Đơn đã mua</span></h1>
+            <p>Các đơn bạn đã đặt trên trình duyệt này.</p>
+        </div>
+        <a class="order-explore" asp-action="Index">Tiếp tục đặt hàng <span class="order-arrow" aria-hidden="true">↗</span></a>
+    </header>
 
-    <body>
-        <header class="order-header"><a asp-controller="Home" asp-action="Index"><img src="~/images/logo.svg" width="184" height="39" alt="KOI Thé" /></a><a asp-action="Index">Đặt hàng ↗</a></header>
-        <main class="order-page">
-            <section class="order-intro">
-                <p class="order-eyebrow">( YOUR ORDERS. )</p>
-                <h1>Đơn đã mua</h1>
-                <p>Các đơn đã đặt trên trình duyệt này.</p>
-            </section>
-            @if (Model.Length == 0) { <p>Bạn chưa có đơn hàng nào trên trình duyệt này.</p> }
+    @if (Model.Length == 0)
+    {
+        <div class="order-history-empty empty-cart">
+            <img src="~/images/bear-head.svg" width="84" height="84" alt="" />
+            <p>Bạn chưa có đơn hàng nào.</p>
+        </div>
+    }
+    else
+    {
+        <div class="order-history-list">
             @foreach (var order in Model)
             {
-                <article class="order-intro">
-                    <h2>Đơn @order.Id</h2>
-                    <p>@order.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm") · @order.StoreName</p>
-                    <p>Trạng thái: @(order.Status switch { OrderStatus.New => "Mới đặt", OrderStatus.Preparing => "Đang chuẩn bị", OrderStatus.Completed => "Hoàn thành", OrderStatus.Cancelled => "Đã hủy", _ => "Không xác định" })</p>
-                    <ul>@foreach (var item in order.Items) { <li>@item.DrinkName × @item.Quantity — @((item.UnitPrice * item.Quantity).ToString("N0", culture)) đ</li> }</ul>
-                    <p><strong>Tổng: @order.Items.Sum(item => item.UnitPrice * item.Quantity).ToString("N0", culture) đ</strong></p>
+                var status = order.Status switch
+                {
+                    OrderStatus.New => "Mới đặt",
+                    OrderStatus.Preparing => "Đang chuẩn bị",
+                    OrderStatus.Completed => "Hoàn thành",
+                    OrderStatus.Cancelled => "Đã hủy",
+                    _ => "Không xác định"
+                };
+
+                <article class="order-history-card">
+                    <div class="order-history-card-heading">
+                        <div>
+                            <h2>@order.StoreName</h2>
+                            <p>@order.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</p>
+                        </div>
+                        <span class="order-status" data-status="@order.Status">@status</span>
+                    </div>
+                    <p class="order-reference">Mã đơn <strong>@order.Id</strong></p>
+                    <ul class="order-history-items">
+                        @foreach (var item in order.Items)
+                        {
+                            <li><span>@item.DrinkName × @item.Quantity</span><strong>@((item.UnitPrice * item.Quantity).ToString("N0", culture)) đ</strong></li>
+                        }
+                    </ul>
+                    <div class="cart-total">
+                        <span>Tổng tiền</span><strong>@order.Items.Sum(item => item.UnitPrice * item.Quantity).ToString("N0", culture) đ</strong>
+                    </div>
                 </article>
             }
-            <a class="order-explore" asp-action="Index">Tiếp tục đặt hàng ↗</a>
-        </main>
-    </body>
-
-</html>
+        </div>
+    }
+</div>

@@ -4,7 +4,7 @@
     const order = document.querySelector('.order-page');
     if (!catalog && !order) return;
 
-    if (catalog) {
+    if (catalog && 'IntersectionObserver' in window) {
         const links = [...catalog.querySelectorAll('.tea-category-nav a')];
         const observer = new IntersectionObserver(entries => {
             const entry = entries.find(value => value.isIntersecting);
@@ -39,17 +39,51 @@
                 });
             });
         }
-        if (order) {
-            reveal(order.querySelector('.order-intro'), order);
-            order.querySelectorAll('.order-card').forEach(panel => reveal(panel, panel));
-            order.querySelectorAll('.drink-card').forEach(card => reveal(card, card));
+        document.fonts.ready.then(() => ScrollTrigger.refresh());
+        if (!order) return;
+
+        const intro = gsap.timeline({ defaults: { duration: .7, ease: 'power3.out' } });
+        intro.from(order.querySelectorAll('.order-title-line > *'), { yPercent: 108, stagger: .11, clearProps: 'transform' }, 0);
+
+        const introCopy = order.querySelectorAll('.order-hero-copy > p, .order-hero-copy > a, .order-confirmation > p, .order-confirmation-actions, .order-history-heading p, .order-history-heading > a');
+        intro.from(introCopy, { opacity: .25, y: 14, stagger: .08, clearProps: 'opacity,transform' }, .18);
+
+        const heroArt = order.querySelector('.order-hero-art');
+        if (heroArt) {
+            intro
+                .from(heroArt, { opacity: 0, scale: .91, clearProps: 'opacity,transform' }, .06)
+                .from(heroArt.querySelector('.order-hero-drink'), { opacity: 0, y: 32, rotation: 12, duration: .9, clearProps: 'opacity,transform' }, .15)
+                .from(heroArt.querySelector('.order-hero-orbit'), { scale: .68, rotation: -38, clearProps: 'transform' }, .24)
+                .from(heroArt.querySelector('.order-hero-spark'), { scale: .35, rotation: -75, ease: 'back.out(1.8)', clearProps: 'transform' }, .4);
         }
+
+        const confirmation = order.querySelector('.order-confirmation-mark');
+        if (confirmation) {
+            intro.from(confirmation, { scale: .35, rotation: -18, ease: 'back.out(1.8)', clearProps: 'transform' }, 0);
+        }
+
+        const revealOrderCards = cards => cards.forEach((card, index) => {
+            gsap.from(card, {
+                opacity: .25, y: 22, duration: .65, delay: index % 3 * .065, ease: 'power3.out',
+                clearProps: 'opacity,transform',
+                scrollTrigger: { trigger: card, start: 'top 97%', once: true }
+            });
+        });
+
+        revealOrderCards(order.querySelectorAll('[data-drink-id], .order-history-card, .order-history-empty'));
+
         const revealMore = event => context.add(() => {
-            event.detail.cards.forEach(card => reveal(card, card));
+            revealOrderCards(event.detail.cards);
             ScrollTrigger.refresh();
         });
-        order?.addEventListener('menu:loaded', revealMore);
-        document.fonts.ready.then(() => ScrollTrigger.refresh());
-        return () => order?.removeEventListener('menu:loaded', revealMore);
+        const refreshOnToggle = event => {
+            if (event.target.matches('.branch-picker, .drink-customize')) ScrollTrigger.refresh(true);
+        };
+        order.addEventListener('menu:loaded', revealMore);
+        order.addEventListener('toggle', refreshOnToggle, true);
+        return () => {
+            order.removeEventListener('menu:loaded', revealMore);
+            order.removeEventListener('toggle', refreshOnToggle, true);
+        };
     });
 })();

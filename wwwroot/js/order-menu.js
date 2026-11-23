@@ -30,7 +30,7 @@
             const response = await fetch(link.getAttribute('href'), { credentials: 'same-origin' });
             if (!response.ok) throw new Error('Menu request failed');
             const nextPage = new DOMParser().parseFromString(await response.text(), 'text/html');
-            const cards = [...nextPage.querySelectorAll('[data-menu-results] .drink-card')];
+            const cards = [...nextPage.querySelectorAll('[data-menu-results] [data-drink-id]')];
             const nextMarker = nextPage.querySelector('[data-menu-scroll]');
             if (!cards.length || !nextMarker) throw new Error('Menu response is incomplete');
             grid.append(...cards);

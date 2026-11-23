@@ -16,7 +16,14 @@
 
     <body>
         <a class="skip-link" href="#main-content">Chuyển đến nội dung</a>
-        <partial name="_Navigation" />
+        @if (IsSectionDefined("Navigation"))
+        {
+            @await RenderSectionAsync("Navigation")
+        }
+        else
+        {
+            <partial name="_Navigation" />
+        }
         <main id="main-content">
             @RenderBody()
         </main>

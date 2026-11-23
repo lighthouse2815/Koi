@@ -17,7 +17,7 @@ public class OrderController(OrderService orders) : Controller
     public async Task<IActionResult> SelectBranch(Guid storeId, Guid? categoryId, Guid? drinkId, string? search = null)
     {
         if (!await orders.SelectBranchAsync(HttpContext.Session, storeId)) return BadRequest("Chi nhánh không nhận đơn.");
-        return RedirectToAction(nameof(Index), new { categoryId, drinkId, search });
+        return RedirectToAction(nameof(Index), null, new { categoryId, drinkId, search }, "drinks");
     }
 
     [HttpPost]
@@ -26,9 +26,7 @@ public class OrderController(OrderService orders) : Controller
         var result = await orders.AddAsync(HttpContext.Session, id, quantity, sizeId, toppingIds, sugar, ice);
         if (result.Status == "bad") return BadRequest(result.Message);
         TempData["OrderMessage"] = result.Message;
-        var filters = new { categoryId, drinkId, search };
-        if (result.Status is "branch" or "full" or "quantity") return RedirectToAction(nameof(Index), filters);
-        return RedirectToAction(nameof(Index), null, filters, "drinks");
+        return RedirectToAction(nameof(Index), null, new { categoryId, drinkId, search }, "drinks");
     }
 
     [HttpPost]
@@ -37,7 +35,7 @@ public class OrderController(OrderService orders) : Controller
         var result = orders.Update(HttpContext.Session, id, quantity);
         if (result == "missing") return NotFound();
         if (result == "invalid") return BadRequest("Số lượng không hợp lệ.");
-        return RedirectToAction(nameof(Index), new { categoryId, drinkId, search });
+        return RedirectToAction(nameof(Index), null, new { categoryId, drinkId, search }, "cart");
     }
 
     [HttpPost]
