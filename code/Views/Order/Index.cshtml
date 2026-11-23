@@ -41,7 +41,7 @@
             <span class="branch-change"><b data-branch-change>Danh sách</b> <span aria-hidden="true">↓</span></span>
         </summary>
         <div class="branch-picker-content">
-            @if (Model.Branches.Count == 0)
+            @if (Model.Stores.Count == 0)
             {
                 <p>Hiện chưa có chi nhánh mở nhận đơn.</p>
             }
@@ -51,9 +51,9 @@
                     <label class="visually-hidden" for="storeId">Chi nhánh nhận đơn</label>
                     <select id="storeId" name="storeId" required>
                         <option value="">Chọn chi nhánh</option>
-                        @foreach (var branch in Model.Branches)
+                        @foreach (var store in Model.Stores)
                         {
-                            <option value="@branch.Id" data-name="@branch.Name" data-address="@branch.Address">@branch.Name · @branch.Address</option>
+                            <option value="@store.Id" data-name="@store.Name" data-address="@store.Address">@store.Name · @store.Address</option>
                         }
                     </select>
                     <button class="order-button" type="submit">Xác nhận <span aria-hidden="true">↗</span></button>

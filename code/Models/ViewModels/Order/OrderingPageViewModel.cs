@@ -2,7 +2,7 @@ namespace Koi.Web.Models;
 
 public class OrderingPageViewModel
 {
-    public List<Store> Branches { get; set; } = [];
+    public List<Store> Stores { get; set; } = [];
     public Guid? CategoryId { get; set; }
     public Guid? DrinkId { get; set; }
     public string? Search { get; set; }

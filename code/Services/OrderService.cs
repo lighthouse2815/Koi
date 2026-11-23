@@ -103,7 +103,7 @@ public class OrderService(ApplicationDbContext database)
     {
         search = search?.Trim();
         if (search?.Length > 200) search = search[..200];
-        var branches = await database.Stores.AsNoTracking()
+        var stores = await database.Stores.AsNoTracking()
             .Where(value => value.AcceptsOrders)
             .OrderBy(value => value.Name)
             .ToListAsync();
@@ -137,7 +137,7 @@ public class OrderService(ApplicationDbContext database)
             ? await database.Categories.AsNoTracking().Where(value => value.Id == categoryId).Select(value => value.Name).SingleOrDefaultAsync() : null;
         return new OrderingPageViewModel
         {
-            Branches = branches,
+            Stores = stores,
             Drinks = drinks,
             CategoryId = categoryId,
             DrinkId = drinkId,
