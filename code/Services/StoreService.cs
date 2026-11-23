@@ -30,10 +30,10 @@ public class StoreService(
             .ThenBy(value => value.Id)
             .Skip((page - 1) * 20)
             .Take(20)
-            .ToArrayAsync();
+            .ToListAsync();
         var cities = await database.StoreCities.AsNoTracking()
             .OrderBy(value => value.SortOrder)
-            .ToArrayAsync();
+            .ToListAsync();
         return new AdminStoresViewModel(rows, cities, search, page, pages);
     }
 
@@ -49,7 +49,7 @@ public class StoreService(
             .StoreCities.AsNoTracking()
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
-            .ToArrayAsync();
+            .ToListAsync();
         if (!cities.Any(value => value.Id == s))
             s = Guid.Empty;
         var query = database
@@ -63,7 +63,7 @@ public class StoreService(
             .ThenBy(value => value.Id)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .ToArrayAsync();
+            .ToListAsync();
         return new StoreViewModel(
             cities,
             stores,

@@ -47,7 +47,7 @@ public class DrinkService(
                 .ThenBy(value => value.Id)
                 .Skip((page - 1) * 20)
                 .Take(20)
-                .ToArrayAsync(),
+                .ToListAsync(),
             await Categories(),
             categoryId,
             search,
@@ -107,7 +107,7 @@ public class DrinkService(
                 .Categories.AsNoTracking()
                 .OrderBy(value => value.SortOrder)
                 .ThenBy(value => value.Id)
-                .ToArrayAsync(),
+                .ToListAsync(),
             "Id",
             "Name"
         );

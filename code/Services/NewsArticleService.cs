@@ -51,7 +51,7 @@ public class NewsArticleService(
                 .ThenByDescending(article => article.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .ToArrayAsync(),
+                .ToListAsync(),
             category,
             page,
             pageCount
@@ -77,7 +77,7 @@ public class NewsArticleService(
             .ThenByDescending(article => article.Id)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .ToArrayAsync();
+            .ToListAsync();
         return new AdminNewsViewModel(articles, search, page, pageCount);
     }
 

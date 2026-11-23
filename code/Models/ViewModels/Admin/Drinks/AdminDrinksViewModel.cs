@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Koi.Web.Models;
 
 public record AdminDrinksViewModel(
-    Drink[] Drinks,
+    List<Drink> Drinks,
     SelectList Categories,
     Guid CategoryId,
     string? Search,

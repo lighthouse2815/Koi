@@ -35,6 +35,6 @@ public class StoreEditViewModel
     public string? CurrentImage { get; set; }
 
     [BindNever, ValidateNever]
-    public StoreCity[] Cities { get; set; } = [];
+    public List<StoreCity> Cities { get; set; } = [];
 
 }
