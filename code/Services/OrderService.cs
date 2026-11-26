@@ -112,8 +112,7 @@ public class OrderService(
 
         var stores = await storeService.GetStoresAcceptingOrdersAsync();
 
-        IQueryable<Drink> query = database.Drinks.AsNoTracking()
-            .Include(value => value.Category);
+        var query = database.Drinks.AsNoTracking();
         if (drinkId.HasValue) query = query.Where(value => value.Id == drinkId);
         else if (categoryId.HasValue) query = query.Where(value => value.CategoryId == categoryId);
         if (!string.IsNullOrEmpty(search))
@@ -126,6 +125,7 @@ public class OrderService(
         var pageCount = Math.Max(1, (int)Math.Ceiling(drinkCount / (double)pageSize));
         page = Math.Clamp(page, 1, pageCount);
         var drinks = await query
+            .Include(value => value.Category)
             .OrderBy(value => value.Category.SortOrder)
             .ThenBy(value => value.CategoryId)
             .ThenBy(value => value.SortOrder)
@@ -138,8 +138,13 @@ public class OrderService(
             .OrderBy(value => value.SortOrder)
             .ThenBy(value => value.Id)
             .ToListAsync();
-        var filterName = drinkId.HasValue ? null : categoryId.HasValue
-            ? await database.Categories.AsNoTracking().Where(value => value.Id == categoryId).Select(value => value.Name).SingleOrDefaultAsync() : null;
+        var filterName = drinkId.HasValue || !categoryId.HasValue
+            ? null
+            : categories.Find(category => category.Id == categoryId)?.Name
+                ?? await database.Categories
+                    .Where(category => category.Id == categoryId)
+                    .Select(category => category.Name)
+                    .SingleOrDefaultAsync();
         return new OrderingPageViewModel
         {
             Stores = stores,
