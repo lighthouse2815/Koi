@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Koi.Web.Services;
 
-public class DrinkService(ApplicationDbContext database)
+public class DrinkService(ApplicationDbContext database, CategoryService categoryService)
 {
     public async Task<AdminDrinksViewModel> GetListAsync(
         string? search,
@@ -40,7 +40,7 @@ public class DrinkService(ApplicationDbContext database)
                 .Take(20)
                 .ToListAsync(),
 
-            await Categories(),
+            new SelectList(await categoryService.GetListAsync(), nameof(Category.Id), nameof(Category.Name)),
             categoryId,
             search,
             page,
@@ -94,16 +94,4 @@ public class DrinkService(ApplicationDbContext database)
         database.Drinks.Remove(drink);
         await database.SaveChangesAsync();
     }
-
-    private async Task<SelectList> Categories() =>
-        new(
-            await database.Categories
-                        .AsNoTracking()
-                        .OrderBy(value => value.SortOrder)
-                        .ThenBy(value => value.Id)
-                        .ToListAsync(),
-
-            "Id",
-            "Name"
-        );
 }
