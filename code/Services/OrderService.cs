@@ -6,11 +6,63 @@ using Npgsql;
 
 namespace Koi.Web.Services;
 
+public enum OrderStatusChangeResult { InvalidTransition, Updated, Unchanged }
+
 public class OrderService(
     ApplicationDbContext database,
     StoreService storeService
 )
 {
+    public async Task<OrderListViewModel> GetAdminListAsync(Guid? storeId, OrderStatus? status, int page)
+    {
+        var query = database.Orders.AsNoTracking().Include(order => order.Items).AsQueryable();
+        if (storeId.HasValue)
+            query = query.Where(order => order.StoreId == storeId);
+        if (status.HasValue)
+            query = query.Where(order => order.Status == status);
+
+        const int pageSize = 25;
+        var pageCount = Math.Max(1, (int)Math.Ceiling(await query.CountAsync() / (double)pageSize));
+        page = Math.Clamp(page, 1, pageCount);
+
+        var branches = await database.Stores.AsNoTracking()
+            .Where(store => store.AcceptsOrders || database.Orders.Any(order => order.StoreId == store.Id))
+            .OrderBy(store => store.Name)
+            .ToListAsync();
+
+        return new OrderListViewModel
+        {
+            Orders = await query.OrderByDescending(order => order.CreatedAt)
+                .ThenBy(order => order.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(),
+            Branches = branches,
+            StoreId = storeId,
+            Status = status,
+            Page = page,
+            PageCount = pageCount
+        };
+    }
+
+    public Task<Order?> GetDetailsAsync(Guid id) =>
+        database.Orders.AsNoTracking()
+            .Include(order => order.Items)
+            .SingleOrDefaultAsync(order => order.Id == id);
+
+    public async Task<OrderStatusChangeResult> ChangeStatusAsync(Guid id, OrderStatus current, OrderStatus next)
+    {
+        var valid = current == OrderStatus.New && (next == OrderStatus.Preparing || next == OrderStatus.Cancelled)
+            || current == OrderStatus.Preparing && (next == OrderStatus.Completed || next == OrderStatus.Cancelled);
+        if (!valid)
+            return OrderStatusChangeResult.InvalidTransition;
+
+        var updated = await database.Orders.Where(order => order.Id == id && order.Status == current)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(order => order.Status, next));
+
+        return updated == 1 ? OrderStatusChangeResult.Updated : OrderStatusChangeResult.Unchanged;
+    }
+
     public Task<List<Order>> GetHistoryAsync(Guid customerId) =>
         database.Orders
             .AsNoTracking()
