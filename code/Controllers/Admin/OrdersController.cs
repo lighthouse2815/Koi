@@ -25,11 +25,8 @@ public class OrdersController(OrderService orders) : Controller
     [HttpPost]
     public async Task<IActionResult> ChangeStatus(Guid id, OrderStatus current, OrderStatus next)
     {
-        var result = await orders.ChangeStatusAsync(id, current, next);
-        if (result == OrderStatusChangeResult.InvalidTransition)
-            return BadRequest("Chuyển trạng thái không hợp lệ.");
-
-        TempData["Status"] = result == OrderStatusChangeResult.Updated
+        var updated = await orders.ChangeStatusAsync(id, current, next);
+        TempData["Status"] = updated
             ? "Đã cập nhật trạng thái đơn hàng."
             : "Đơn hàng đã thay đổi hoặc không còn tồn tại.";
         return RedirectToAction(nameof(Details), new { id });

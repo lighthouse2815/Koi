@@ -6,8 +6,6 @@ using Npgsql;
 
 namespace Koi.Web.Services;
 
-public enum OrderStatusChangeResult { InvalidTransition, Updated, Unchanged }
-
 public class OrderService(
     ApplicationDbContext database,
     StoreService storeService
@@ -50,17 +48,17 @@ public class OrderService(
             .Include(order => order.Items)
             .SingleOrDefaultAsync(order => order.Id == id);
 
-    public async Task<OrderStatusChangeResult> ChangeStatusAsync(Guid id, OrderStatus current, OrderStatus next)
+    public async Task<bool> ChangeStatusAsync(Guid id, OrderStatus current, OrderStatus next)
     {
         var valid = current == OrderStatus.New && (next == OrderStatus.Preparing || next == OrderStatus.Cancelled)
             || current == OrderStatus.Preparing && (next == OrderStatus.Completed || next == OrderStatus.Cancelled);
         if (!valid)
-            return OrderStatusChangeResult.InvalidTransition;
+            throw new AppException(ErrorCode.INVALID_INPUT with { Message = "Chuyển trạng thái không hợp lệ." });
 
         var updated = await database.Orders.Where(order => order.Id == id && order.Status == current)
             .ExecuteUpdateAsync(setters => setters.SetProperty(order => order.Status, next));
 
-        return updated == 1 ? OrderStatusChangeResult.Updated : OrderStatusChangeResult.Unchanged;
+        return updated == 1;
     }
 
     public Task<List<Order>> GetHistoryAsync(Guid customerId) =>
