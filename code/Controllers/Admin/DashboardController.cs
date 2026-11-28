@@ -1,3 +1,5 @@
+using Koi.Web.Components.Admin;
+using Koi.Web.Components.Shared;
 using Koi.Web.Data;
 using Koi.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -37,12 +39,14 @@ public class DashboardController(ApplicationDbContext database) : Controller
             .Select(order => new DashboardOrder(order.Id, order.StoreName, order.CreatedAt, order.Status))
             .ToListAsync(cancellationToken);
 
-        return View(new DashboardViewModel(
+        var model = new DashboardViewModel(
             await database.Orders.CountAsync(cancellationToken),
             await database.Drinks.CountAsync(cancellationToken),
             await database.Stores.CountAsync(cancellationToken),
             await database.NewsArticles.CountAsync(cancellationToken),
             chart,
-            recentOrders.Select(order => order with { CreatedAt = TimeZoneInfo.ConvertTimeFromUtc(order.CreatedAt, timeZone) }).ToList()));
+            recentOrders.Select(order => order with { CreatedAt = TimeZoneInfo.ConvertTimeFromUtc(order.CreatedAt, timeZone) }).ToList());
+
+        return new BlazorViewResult<AdminDashboardPage>(new { Model = model });
     }
 }

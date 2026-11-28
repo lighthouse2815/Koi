@@ -1,3 +1,5 @@
+using Koi.Web.Components.Admin;
+using Koi.Web.Components.Shared;
 using Koi.Web.Models;
 using Koi.Web.Filters;
 using Koi.Web.Services;
@@ -10,7 +12,7 @@ namespace Koi.Web.Controllers.Admin;
 public class DrinksController(DrinkService drinks) : Controller
 {
     public async Task<IActionResult> Index(string? search, Guid categoryId = default, int page = 1)
-        => View(await drinks.GetListAsync(search, categoryId, page));
+        => new BlazorViewResult<AdminDrinksPage>(new { Model = await drinks.GetListAsync(search, categoryId, page) });
 
     [HttpPost]
     [ValidateModel]

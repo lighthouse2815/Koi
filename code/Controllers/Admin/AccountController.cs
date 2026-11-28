@@ -1,3 +1,5 @@
+using Koi.Web.Components.Admin;
+using Koi.Web.Components.Shared;
 using Koi.Web.Models;
 using Koi.Web.Exceptions;
 using Koi.Web.Filters;
@@ -11,12 +13,16 @@ namespace Koi.Web.Controllers.Admin;
 public class AccountController(SignInManager<IdentityUser<Guid>> signInManager) : Controller
 {
     [HttpGet]
-    public IActionResult Login(string? returnUrl = null) => View(new LoginViewModel
+    public IActionResult Login(string? returnUrl = null)
     {
-        ReturnUrl = returnUrl,
-        Email = TempData["LoginEmail"] as string ?? "",
-        RememberMe = TempData["LoginRememberMe"] is true
-    });
+        var model = new LoginViewModel
+        {
+            ReturnUrl = returnUrl,
+            Email = TempData["LoginEmail"] as string ?? "",
+            RememberMe = TempData["LoginRememberMe"] is true
+        };
+        return new BlazorViewResult<LoginPage>(new { Model = model, LoginError = TempData["LoginError"] as string });
+    }
 
     [HttpPost]
     [ValidateModel]
@@ -47,9 +53,8 @@ public class AccountController(SignInManager<IdentityUser<Guid>> signInManager) 
     }
 
     [HttpGet]
-    public IActionResult AccessDenied()
+    public IActionResult AccessDenied() => new BlazorViewResult<AccessDeniedPage>()
     {
-        Response.StatusCode = StatusCodes.Status403Forbidden;
-        return View();
-    }
+        StatusCode = StatusCodes.Status403Forbidden
+    };
 }

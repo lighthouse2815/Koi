@@ -1,3 +1,5 @@
+using Koi.Web.Components.Admin;
+using Koi.Web.Components.Shared;
 using Koi.Web.Models;
 using Koi.Web.Filters;
 using Koi.Web.Services;
@@ -9,7 +11,8 @@ namespace Koi.Web.Controllers.Admin;
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class FeaturedDrinksController(FeaturedDrinkService drinks) : Controller
 {
-    public async Task<IActionResult> Index() => View(await drinks.GetListAsync());
+    public async Task<IActionResult> Index()
+        => new BlazorViewResult<AdminFeaturedDrinksPage>(new { Model = await drinks.GetListAsync() });
     [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(FeaturedDrinkEditViewModel model)

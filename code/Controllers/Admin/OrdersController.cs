@@ -1,3 +1,5 @@
+using Koi.Web.Components.Admin;
+using Koi.Web.Components.Shared;
 using Koi.Web.Models;
 using Koi.Web.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +13,7 @@ public class OrdersController(OrderService orders) : Controller
     public async Task<IActionResult> Index(Guid? storeId, OrderStatus? status, int page = 1)
     {
         if (status.HasValue && !Enum.IsDefined(status.Value)) return BadRequest();
-        return View(await orders.GetAdminListAsync(storeId, status, page));
+        return new BlazorViewResult<AdminOrdersPage>(new { Model = await orders.GetAdminListAsync(storeId, status, page) });
     }
 
     [HttpGet]
@@ -19,7 +21,9 @@ public class OrdersController(OrderService orders) : Controller
     {
         var order = await orders.GetDetailsAsync(id);
         if (order == null) return NotFound();
-        return preview ? PartialView("_OrderDetails", order) : View(order);
+        return preview
+            ? new BlazorViewResult<AdminOrderDetails>(new { Model = order })
+            : new BlazorViewResult<AdminOrderDetailsPage>(new { Model = order });
     }
 
     [HttpPost]

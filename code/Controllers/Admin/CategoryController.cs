@@ -1,3 +1,5 @@
+using Koi.Web.Components.Admin;
+using Koi.Web.Components.Shared;
 using Koi.Web.Models;
 using Koi.Web.Filters;
 using Koi.Web.Services;
@@ -10,7 +12,8 @@ namespace Koi.Web.Controllers.Admin;
 [Authorize(Roles = "Admin")]
 public class CategoryController(CategoryService categories) : Controller
 {
-    public async Task<IActionResult> Index() => View(await categories.GetListAsync());
+    public async Task<IActionResult> Index()
+        => new BlazorViewResult<AdminCategoriesPage>(new { Model = await categories.GetListAsync() });
 
     [HttpPost]
     [ValidateModel]

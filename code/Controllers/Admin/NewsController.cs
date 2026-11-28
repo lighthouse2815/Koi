@@ -1,3 +1,5 @@
+using Koi.Web.Components.Admin;
+using Koi.Web.Components.Shared;
 using Koi.Web.Models;
 using Koi.Web.Filters;
 using Koi.Web.Services;
@@ -10,7 +12,8 @@ namespace Koi.Web.Controllers.Admin;
 public class NewsController(NewsArticleService news) : Controller
 {
     [HttpGet]
-    public async Task<IActionResult> Index(string? search, int page = 1) => View(await news.GetListAsync(search, page));
+    public async Task<IActionResult> Index(string? search, int page = 1)
+        => new BlazorViewResult<AdminNewsPage>(new { Model = await news.GetListAsync(search, page) });
 
     [HttpGet]
     public IActionResult Preview(Guid id) => RedirectToAction("NewsPreview", "Home", new { area = "", id });

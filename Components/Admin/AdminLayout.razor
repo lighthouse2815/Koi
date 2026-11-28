@@ -1,10 +1,13 @@
 @inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
 @inject NavigationManager NavigationManager
 @inject LinkGenerator Links
+@inject ITempDataDictionaryFactory TempDataFactory
 
 @{
     var user = HttpContext?.User;
     var isAdmin = user?.IsInRole("Admin") == true;
+    var status = HttpContext is null ? null : TempDataFactory.GetTempData(HttpContext)["Status"] as string;
     var currentController = HttpContext?.GetRouteValue("controller")?.ToString()
         ?? new Uri(NavigationManager.Uri).AbsolutePath.Split('/', StringSplitOptions.RemoveEmptyEntries).Skip(1).FirstOrDefault();
     var navigation = new[]
@@ -113,7 +116,7 @@
                 </a>
             </header>
             <main class="admin-main" id="admin-content" tabindex="-1">
-                @if (Status is { Length: > 0 } status)
+                @if (status is { Length: > 0 })
                 {
                     <p class="status" role="status">@status</p>
                 }
@@ -131,6 +134,4 @@
 
 @code {
     [CascadingParameter] private HttpContext? HttpContext { get; set; }
-
-    [Parameter] public string? Status { get; set; }
 }

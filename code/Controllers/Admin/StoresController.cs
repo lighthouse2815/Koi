@@ -1,3 +1,5 @@
+using Koi.Web.Components.Admin;
+using Koi.Web.Components.Shared;
 using Koi.Web.Models;
 using Koi.Web.Filters;
 using Koi.Web.Services;
@@ -9,7 +11,8 @@ namespace Koi.Web.Controllers.Admin;
 [Area("Admin"), Authorize(Roles = "Admin")]
 public class StoresController(StoreService stores) : Controller
 {
-    public async Task<IActionResult> Index(string? search, int page = 1) => View(await stores.GetListAsync(search, page));
+    public async Task<IActionResult> Index(string? search, int page = 1)
+        => new BlazorViewResult<AdminStoresPage>(new { Model = await stores.GetListAsync(search, page) });
     [HttpPost]
     [ValidateModel]
     public async Task<IActionResult> Create(StoreEditViewModel model)

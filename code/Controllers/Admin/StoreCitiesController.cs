@@ -1,3 +1,5 @@
+using Koi.Web.Components.Admin;
+using Koi.Web.Components.Shared;
 using Koi.Web.Models;
 using Koi.Web.Filters;
 using Koi.Web.Services;
@@ -12,7 +14,7 @@ public class StoreCitiesController(StoreCityService cities) : Controller
     public async Task<IActionResult> Index(string kind = "cities")
     {
         var model = await cities.GetListAsync(kind);
-        return model == null ? NotFound() : View(model);
+        return model == null ? NotFound() : new BlazorViewResult<AdminStoreCitiesPage>(new { Model = model });
     }
 
     [HttpPost]
