@@ -4,8 +4,27 @@ using Koi.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.FileProviders.Physical;
 
 var builder = WebApplication.CreateBuilder(args);
+
+if (builder.Environment.IsDevelopment())
+{
+    using var localFiles = new PhysicalFileProvider(builder.Environment.ContentRootPath, ExclusionFilters.None);
+    using var localEnvironment = new ConfigurationManager();
+    localEnvironment.AddIniFile(localFiles, ".env", optional: true, reloadOnChange: false);
+
+    var cloudinary = new Dictionary<string, string?>();
+    foreach (var name in new[] { "CloudName", "ApiKey", "ApiSecret" })
+    {
+        var key = $"Cloudinary:{name}";
+        if (builder.Configuration[key] is null && localEnvironment[$"Cloudinary__{name}"] is { } value)
+            cloudinary[key] = value;
+    }
+
+    builder.Configuration.AddInMemoryCollection(cloudinary);
+}
 
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
     .AddRazorOptions(options =>

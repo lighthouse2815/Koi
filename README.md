@@ -25,7 +25,9 @@ Mở **Terminal** tại thư mục gốc của project, tức thư mục chứa 
    dotnet run
    ```
 
-Để tải ảnh mới lên Cloudinary, cấu hình thông tin tài khoản bằng user secrets trước khi chạy ứng dụng:
+Để tải ảnh mới lên Cloudinary khi phát triển, điền `Cloudinary__CloudName`, `Cloudinary__ApiKey` và `Cloudinary__ApiSecret` vào `.env` ở thư mục gốc theo mẫu `.env.example`. Dùng một dòng `KEY=value` cho mỗi giá trị và khởi động lại ứng dụng sau khi sửa file.
+
+Có thể dùng user secrets để cấu hình Cloudinary. Giá trị từ user secrets hoặc biến môi trường được ưu tiên hơn `.env`.
 
 ```bash
 dotnet user-secrets set "Cloudinary:CloudName" "<cloud-name>"
