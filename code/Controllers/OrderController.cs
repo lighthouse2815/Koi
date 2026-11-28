@@ -1,4 +1,6 @@
 using System.Security.Cryptography;
+using Koi.Web.Components.Ordering;
+using Koi.Web.Components.Shared;
 using Koi.Web.Exceptions;
 using Koi.Web.Models;
 using Koi.Web.Services;
@@ -19,8 +21,8 @@ public class OrderController(
     [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
     public async Task<IActionResult> Index(Guid? categoryId, Guid? drinkId, int page = 1, string? search = null)
     {
-        IssueCustomerToken();
-        return View(await orders.GetPageAsync(categoryId, drinkId, page, search));
+        var model = await orders.GetPageAsync(categoryId, drinkId, page, search);
+        return new BlazorViewResult<OrderPage>(new { Model = model, CustomerToken = CreateCustomerToken() });
     }
 
     [HttpGet]
@@ -62,16 +64,13 @@ public class OrderController(
         if (!Guid.TryParse(ReadProtectedValue(ReceiptPurpose, receipt), out var orderId))
             return RedirectToAction(nameof(Index));
 
-        return View((object)orderId.ToString("D"));
+        return new BlazorViewResult<OrderCompletePage>(new { Model = orderId.ToString("D") });
     }
 
     [HttpGet]
     [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
     public IActionResult History()
-    {
-        IssueCustomerToken();
-        return View();
-    }
+        => new BlazorViewResult<OrderHistoryPage>(new { CustomerToken = CreateCustomerToken() });
 
     [HttpPost]
     [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
@@ -80,11 +79,11 @@ public class OrderController(
         if (!Guid.TryParse(ReadProtectedValue(CustomerPurpose, customerToken), out var customerId))
             return Unauthorized();
 
-        return PartialView("_HistoryOrders", await orders.GetHistoryAsync(customerId));
+        return new BlazorViewResult<OrderHistoryList>(new { Model = await orders.GetHistoryAsync(customerId) });
     }
 
-    private void IssueCustomerToken() =>
-        ViewData["CustomerToken"] = protection.CreateProtector(CustomerPurpose).Protect(Guid.NewGuid().ToString("D"));
+    private string CreateCustomerToken() =>
+        protection.CreateProtector(CustomerPurpose).Protect(Guid.NewGuid().ToString("D"));
 
     private string? ReadProtectedValue(string purpose, string? value)
     {
