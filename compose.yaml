@@ -1,20 +1,20 @@
+name: koi-blazor
 services:
   postgres:
     image: postgres:17-alpine
-    container_name: koi-postgres
     restart: unless-stopped
     ports:
-      - "127.0.0.1:55432:5432"
+      - "127.0.0.1:55433:5432"
     environment:
-      POSTGRES_DB: koi
+      POSTGRES_DB: koi_blazor
       POSTGRES_USER: koi
-      POSTGRES_PASSWORD: koi
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Điền POSTGRES_PASSWORD trong .env}
     volumes:
-      - koi-postgres-data:/var/lib/postgresql/data
+      - koi-blazor-postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U koi -d koi"]
+      test: ["CMD-SHELL", "pg_isready -U koi -d koi_blazor"]
       interval: 5s
       timeout: 3s
       retries: 10
 volumes:
-  koi-postgres-data:
+  koi-blazor-postgres-data:

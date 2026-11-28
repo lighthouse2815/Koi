@@ -4,7 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>koi-web-development</UserSecretsId>
+    <RootNamespace>Koi.Web</RootNamespace>
+    <UserSecretsId>koi-blazor-development</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

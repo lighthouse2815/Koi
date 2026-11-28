@@ -1,6 +1,6 @@
-# Koi Thé MVC
+# Koi Thé Blazor
 
-Ứng dụng website KOI Thé xây dựng bằng ASP.NET Core MVC, Razor Views, Entity Framework Core và PostgreSQL. Dự án gồm website công khai, trang quản trị nội dung, quản lý đồ uống, chi nhánh và đơn hàng.
+Phiên bản KOI Thé dùng Blazor và PostgreSQL. Dự án nằm trên nhánh `blazor` và có thể chạy từ một thư mục riêng.
 
 ## Yêu cầu
 
@@ -10,16 +10,26 @@
 
 ## Cách chạy
 
-Mở **Terminal** tại thư mục gốc của project, tức thư mục chứa `Koi.sln`, `Koi.Web.csproj` và `compose.yaml`. Chạy các lệnh sau trong chính thư mục đó:
+Clone nhánh Blazor và mở terminal trong thư mục chứa `Koi.Blazor.sln`, `Koi.Blazor.csproj` và `compose.yaml`.
 
-1. Khởi động PostgreSQL và tạo database mới:
+   ```bash
+   git clone --branch blazor https://github.com/lighthouse2815/Koi.git Koi.Blazor
+   cd Koi.Blazor
+   ```
+
+1. Tạo `.env` từ mẫu và điền `POSTGRES_PASSWORD` cùng `Admin__Password`. Mật khẩu quản trị cần có ít nhất 12 ký tự, chữ hoa, chữ thường, số và ký tự đặc biệt.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Khởi động PostgreSQL. Docker Compose tạo database `koi_blazor` trên cổng `55433`.
 
    ```bash
    docker compose up -d --wait
-   docker compose exec postgres createdb -U koi koi_new
    ```
 
-2. Khôi phục package và chạy ứng dụng:
+3. Chạy ứng dụng. Ứng dụng áp dụng migration và tạo tài khoản quản trị khi khởi động ở môi trường Development.
 
    ```bash
    dotnet run
@@ -39,7 +49,5 @@ Trong môi trường triển khai, có thể dùng các biến môi trường `C
 
 Các biểu mẫu quản trị yêu cầu JavaScript để tải ảnh trực tiếp từ trình duyệt lên Cloudinary. Server cấp chữ ký. Khi tải ảnh thành công, trình duyệt gửi URL HTTPS do Cloudinary trả về để server lưu. Ảnh đã tải lên nhưng biểu mẫu không được lưu có thể còn trong Cloudinary và cần được dọn dẹp khi phù hợp.
 
-Mở trình duyệt tại `http://localhost:5118`; trang quản trị nằm tại `http://localhost:5118/Admin`.
-
-Đăng nhập quản trị bằng `admin@koi.local` / `KoiDev@2026!`.
+Mở trình duyệt tại `http://localhost:5119`. Đăng nhập tại `http://localhost:5119/Admin` bằng `admin@koi.local` và mật khẩu quản trị đã đặt trong `.env`.
 

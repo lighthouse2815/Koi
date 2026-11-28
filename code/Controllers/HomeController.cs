@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using Koi.Web.Components.Home;
+using Koi.Web.Components.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Koi.Web.Models;
 using Koi.Web.Services;
@@ -18,25 +20,26 @@ public class HomeController(
     {
         var news = await newsArticleService.GetForHomeAsync();
         var categories = await categoryService.GetListAsync(forHome: true);
-        return View(new HomeViewModel(news, categories));
+        return new BlazorViewResult<HomePage>(new { Model = new HomeViewModel(news, categories) });
     }
 
     public async Task<IActionResult> OurTea()
     {
         var categories = await categoryService.GetListAsync(includeDrinks: true);
         var featured = await featuredDrinkService.GetListAsync();
-        return View(new OurTeaViewModel(categories, featured));
+        return new BlazorViewResult<OurTeaPage>(new { Model = new OurTeaViewModel(categories, featured) });
     }
 
-    public async Task<IActionResult> Menu() => View(await menuService.GetListAsync());
+    public async Task<IActionResult> Menu()
+        => new BlazorViewResult<MenuPage>(new { Model = await menuService.GetListAsync() });
 
     public async Task<IActionResult> News(string? category, int page = 1)
-        => View(await newsArticleService.GetNewsAsync(category, page));
+        => new BlazorViewResult<NewsPage>(new { Model = await newsArticleService.GetNewsAsync(category, page) });
 
     public async Task<IActionResult> NewsDetail(Guid id)
     {
         var article = await newsArticleService.GetArticleAsync(id);
-        return article == null ? NotFound() : View(article);
+        return article == null ? NotFound() : new BlazorViewResult<NewsDetailPage>(new { Model = article });
     }
 
     [Authorize(Roles = "Admin")]
@@ -45,32 +48,32 @@ public class HomeController(
         var article = await newsArticleService.GetArticleAsync(id);
         if (article == null)
             return NotFound();
-        ViewData["IsAdminPreview"] = true;
-        return View("NewsDetail", article);
+        return new BlazorViewResult<NewsDetailPage>(new { Model = article, IsAdminPreview = true });
     }
 
     public async Task<IActionResult> Store(Guid s = default, int page = 1)
-        => View(await storeService.GetStoresAsync(s, page));
+        => new BlazorViewResult<StorePage>(new { Model = await storeService.GetStoresAsync(s, page) });
 
-    public IActionResult Impact() => View();
+    public IActionResult Impact() => new BlazorViewResult<ImpactPage>();
 
-    public IActionResult Responsibility() => View();
+    public IActionResult Responsibility() => new BlazorViewResult<ResponsibilityPage>();
 
-    public IActionResult Precision() => View();
+    public IActionResult Precision() => new BlazorViewResult<PrecisionPage>();
 
-    public IActionResult People() => View();
+    public IActionResult People() => new BlazorViewResult<PeoplePage>();
 
-    public IActionResult Connections() => View();
+    public IActionResult Connections() => new BlazorViewResult<ConnectionsPage>();
 
-    public IActionResult Contact() => View();
+    public IActionResult Contact() => new BlazorViewResult<ContactPage>();
 
-    public IActionResult About() => View();
+    public IActionResult About() => new BlazorViewResult<AboutPage>();
 
-    public IActionResult Recruit() => View();
+    public IActionResult Recruit() => new BlazorViewResult<RecruitPage>();
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        var model = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+        return new BlazorViewResult<ErrorPage>(new { Model = model });
     }
 }

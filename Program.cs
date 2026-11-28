@@ -3,9 +3,11 @@ using Koi.Web.Middleware;
 using Koi.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,15 +17,28 @@ if (builder.Environment.IsDevelopment())
     using var localEnvironment = new ConfigurationManager();
     localEnvironment.AddIniFile(localFiles, ".env", optional: true, reloadOnChange: false);
 
-    var cloudinary = new Dictionary<string, string?>();
-    foreach (var name in new[] { "CloudName", "ApiKey", "ApiSecret" })
+    var settings = new Dictionary<string, string?>();
+    foreach (var key in new[] { "Cloudinary:CloudName", "Cloudinary:ApiKey", "Cloudinary:ApiSecret", "Admin:Password" })
     {
-        var key = $"Cloudinary:{name}";
-        if (builder.Configuration[key] is null && localEnvironment[$"Cloudinary__{name}"] is { } value)
-            cloudinary[key] = value;
+        if (builder.Configuration[key] is null && localEnvironment[key.Replace(":", "__")] is { } value)
+            settings[key] = value;
     }
 
-    builder.Configuration.AddInMemoryCollection(cloudinary);
+    if (builder.Configuration.GetConnectionString("DefaultConnection") is null
+        && localEnvironment["POSTGRES_PASSWORD"] is { Length: > 0 } password)
+    {
+        var connection = new NpgsqlConnectionStringBuilder
+        {
+            Host = "127.0.0.1",
+            Port = 55433,
+            Database = "koi_blazor",
+            Username = "koi",
+            Password = password
+        };
+        settings["ConnectionStrings:DefaultConnection"] = connection.ConnectionString;
+    }
+
+    builder.Configuration.AddInMemoryCollection(settings);
 }
 
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
@@ -37,6 +52,8 @@ builder.Services.AddControllersWithViews(options => options.Filters.Add(new Auto
         options.AreaViewLocationFormats.Add("/code/Views/{2}/Shared/{0}.cshtml");
         options.AreaViewLocationFormats.Add("/code/Views/Shared/{0}.cshtml");
     });
+builder.Services.AddRazorComponents();
+builder.Services.Configure<CookieTempDataProviderOptions>(options => options.Cookie.Name = "Koi.Blazor.TempData");
 
 builder.Services.AddScoped<ImageUploadService>();
 builder.Services.AddScoped<NewsArticleService>();
@@ -64,7 +81,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Admin/Account/Login";
     options.AccessDeniedPath = "/Admin/Account/AccessDenied";
-    options.Cookie.Name = "Koi.Admin";
+    options.Cookie.Name = "Koi.Blazor.Admin";
     options.ExpireTimeSpan = TimeSpan.FromHours(8);
 });
 
@@ -84,6 +101,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseAntiforgery();
 
 app.MapStaticAssets();
 
