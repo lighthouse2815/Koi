@@ -1,0 +1,25 @@
+@inject LinkGenerator Links
+
+<OrderLayout IsHistory="true">
+    <PageTitle>Đơn đã mua · KOI Thé</PageTitle>
+
+    <div class="order-shell order-history">
+        <header class="order-history-heading">
+            <div>
+                <h1 class="order-title-line"><span>Đơn đã mua</span></h1>
+                <p>Các đơn bạn đã đặt trên trình duyệt này.</p>
+            </div>
+            <a class="order-explore" href="@(Links.GetPathByAction("Index", "Order"))">Tiếp tục đặt hàng <span class="order-arrow" aria-hidden="true">↗</span></a>
+        </header>
+
+        <form action="@(Links.GetPathByAction("HistoryOrders", "Order"))" method="post" data-order-history data-customer-token="@CustomerToken" hidden><AntiforgeryToken /></form>
+        <div data-history-results aria-live="polite">
+            <p role="status">Đang tải đơn hàng…</p>
+        </div>
+        <noscript><p class="order-notice">Bật JavaScript để xem các đơn đã mua trên trình duyệt này.</p></noscript>
+    </div>
+</OrderLayout>
+
+@code {
+    [Parameter, EditorRequired] public string CustomerToken { get; set; } = string.Empty;
+}

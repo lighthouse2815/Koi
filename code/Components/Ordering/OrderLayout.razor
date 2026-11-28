@@ -1,0 +1,62 @@
+@inject LinkGenerator Links
+
+<SectionContent SectionName="Styles">
+    <link rel="stylesheet" href="/css/ordering.css" />
+</SectionContent>
+
+<PublicLayout>
+    <Navigation>
+        <header class="order-header">
+            <div class="order-shell order-header-inner">
+                <a class="order-home-link" href="@(Links.GetPathByAction("OurTea", "Home"))"><span aria-hidden="true">←</span> Trà của KOI</a>
+                <a class="order-brand" href="@(Links.GetPathByAction("Index", "Home"))" aria-label="Trang chủ KOI Thé">
+                    <img src="/images/logo.svg" width="184" height="39" alt="KOI Thé" />
+                </a>
+                <nav aria-label="Điều hướng đặt hàng">
+                    @if (!ShowCart)
+                    {
+                        <a href="@(Links.GetPathByAction("Index", "Order"))">Đặt hàng</a>
+                    }
+                    <a href="@(Links.GetPathByAction("History", "Order"))" aria-current="@(IsHistory ? "page" : null)">Đơn đã mua</a>
+                    @if (ShowCart)
+                    {
+                        <a class="order-header-cart" href="#cart">
+                            Giỏ hàng <span class="cart-count" data-cart-count>0</span>
+                        </a>
+                    }
+                </nav>
+            </div>
+        </header>
+    </Navigation>
+
+    <Body>
+        <div class="order-page" id="home">
+            @ChildContent
+        </div>
+    </Body>
+</PublicLayout>
+
+<SectionContent SectionName="VendorScripts">
+    <script src="/lib/gsap/gsap.min.js" defer></script>
+    <script src="/lib/gsap/ScrollTrigger.min.js" defer></script>
+</SectionContent>
+
+<SectionContent SectionName="Scripts">
+    <script src="/js/shop-motion.js" defer></script>
+    @if (ShowCart || IsHistory)
+    {
+        <script src="/js/order-cart.js" defer></script>
+    }
+    @if (ShowCart)
+    {
+        <script src="/js/order-menu.js" defer></script>
+    }
+</SectionContent>
+
+@code {
+    [Parameter, EditorRequired] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public bool ShowCart { get; set; }
+
+    [Parameter] public bool IsHistory { get; set; }
+}

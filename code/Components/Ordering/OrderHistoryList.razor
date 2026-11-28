@@ -1,0 +1,51 @@
+@{
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+@if (Model.Count == 0)
+{
+    <div class="order-history-empty empty-cart">
+        <img src="/images/bear-head.svg" width="84" height="84" alt="" />
+        <p>Bạn chưa có đơn hàng nào.</p>
+    </div>
+}
+else
+{
+    <div class="order-history-list">
+        @foreach (var order in Model)
+        {
+            var status = order.Status switch
+            {
+                OrderStatus.New => "Mới đặt",
+                OrderStatus.Preparing => "Đang chuẩn bị",
+                OrderStatus.Completed => "Hoàn thành",
+                OrderStatus.Cancelled => "Đã hủy",
+                _ => "Không xác định"
+            };
+
+            <article class="order-history-card">
+                <div class="order-history-card-heading">
+                    <div>
+                        <h2>@order.StoreName</h2>
+                        <p>@order.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</p>
+                    </div>
+                    <span class="order-status" data-status="@order.Status">@status</span>
+                </div>
+                <p class="order-reference">Mã đơn <strong>@order.Id</strong></p>
+                <ul class="order-history-items">
+                    @foreach (var item in order.Items)
+                    {
+                        <li><span>@item.DrinkName × @item.Quantity</span><strong>@((item.UnitPrice * item.Quantity).ToString("N0", culture)) đ</strong></li>
+                    }
+                </ul>
+                <div class="cart-total">
+                    <span>Tổng tiền</span><strong>@order.Items.Sum(item => item.UnitPrice * item.Quantity).ToString("N0", culture) đ</strong>
+                </div>
+            </article>
+        }
+    </div>
+}
+
+@code {
+    [Parameter, EditorRequired] public List<Order> Model { get; set; } = default!;
+}

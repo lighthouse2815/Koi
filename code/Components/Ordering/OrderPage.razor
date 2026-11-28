@@ -1,0 +1,223 @@
+@inject LinkGenerator Links
+
+<OrderLayout ShowCart="true">
+    <PageTitle>Đặt hàng · KOI Thé</PageTitle>
+
+    @{
+        var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+        var hasSearch = !string.IsNullOrEmpty(Model.Search);
+        var catalogTitle = Model.FilterName ?? (Model.DrinkId.HasValue ? "Món bạn đã chọn" : hasSearch ? "Kết quả tìm kiếm" : "Tất cả đồ uống");
+    }
+
+    <a href="#cart" class="mobile-cart-link">
+        <span>Giỏ hàng · <span data-cart-count>0</span> món</span>
+        <strong><span data-cart-total>0 đ</span> <span aria-hidden="true">↗</span></strong>
+    </a>
+
+    <div class="order-shell" data-order-cart data-lines-url="@(Links.GetPathByAction("CartLines", "Order"))" data-customer-token="@CustomerToken">
+        <noscript><p class="order-notice">Bật JavaScript để chọn chi nhánh, dùng giỏ hàng và đặt món.</p></noscript>
+        <section class="order-hero" aria-labelledby="order-title">
+            <div class="order-hero-copy">
+                <h1 id="order-title">
+                    <span class="order-title-line"><span>Hôm nay,</span></span>
+                    <span class="order-title-line"><em>bạn uống gì?</em></span>
+                </h1>
+                <p>Trà pha mới, vị KOI bạn yêu thích.</p>
+                <a class="order-explore" href="#drinks">Khám phá thực đơn <span class="order-arrow" aria-hidden="true">↓</span></a>
+            </div>
+            <div class="order-hero-art" aria-hidden="true">
+                <div class="order-hero-orbit"></div>
+                <span class="order-hero-spark">✳</span>
+                <div class="order-hero-drink"><img src="/images/drink-milk-tea.png" width="561" height="786" alt="" fetchpriority="high" /></div>
+            </div>
+        </section>
+
+        <details class="branch-picker" id="branches" open>
+            <summary>
+                <span class="order-arrow branch-symbol" aria-hidden="true">↗</span>
+                <span class="branch-summary">
+                    <small>Chi nhánh của bạn</small>
+                    <strong data-branch-name>Chọn chi nhánh nhận đơn</strong>
+                    <span class="branch-address" data-branch-address hidden></span>
+                </span>
+                <span class="branch-change"><b data-branch-change>Danh sách</b> <span aria-hidden="true">↓</span></span>
+            </summary>
+            <div class="branch-picker-content">
+                @if (Model.Stores.Count == 0)
+                {
+                    <p>Hiện chưa có chi nhánh mở nhận đơn.</p>
+                }
+                else
+                {
+                    <form method="post" class="inline-form" data-branch-form>
+                        <label class="visually-hidden" for="storeId">Chi nhánh nhận đơn</label>
+                        <select id="storeId" name="storeId" required>
+                            <option value="">Chọn chi nhánh</option>
+                            @foreach (var store in Model.Stores)
+                            {
+                                <option value="@store.Id" data-name="@store.Name" data-address="@store.Address">@store.Name · @store.Address</option>
+                            }
+                        </select>
+                        <button class="order-button" type="submit">Xác nhận <span aria-hidden="true">↗</span></button>
+                    </form>
+                }
+            </div>
+        </details>
+
+        <div id="drinks">
+            <p class="order-notice" role="status" data-cart-message hidden><span></span> <a href="#cart" hidden>Xem giỏ hàng <span aria-hidden="true">↗</span></a></p>
+            <div class="order-workspace">
+                <section class="order-catalog" aria-labelledby="menu-title">
+                    <div class="order-section-heading">
+                        <div>
+                            <h2 id="menu-title">@catalogTitle</h2>
+                            <p class="menu-result-count">@Model.DrinkCount món</p>
+                        </div>
+                        <form action="@(Links.GetPathByAction("Index", "Order") + "#drinks")" method="get" class="menu-search" role="search">
+                            @if (Model.CategoryId.HasValue)
+                            {
+                                <input type="hidden" name="categoryId" value="@Model.CategoryId" />
+                            }
+                            <label class="visually-hidden" for="drink-search">Tìm đồ uống theo tên</label>
+                            <input type="search" id="drink-search" name="search" value="@Model.Search" placeholder="Tìm đồ uống theo tên" maxlength="200" />
+                            <button type="submit" class="order-button">Tìm kiếm</button>
+                        </form>
+                    </div>
+                    <nav class="order-category-nav" aria-label="Danh mục đồ uống">
+                        <a href="@(Links.GetPathByAction("Index", "Order", new { search = Model.Search }) + "#drinks")" aria-current="@(!Model.CategoryId.HasValue && !Model.DrinkId.HasValue ? "page" : null)"><span aria-hidden="true">✳</span> Tất cả</a>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <a href="@(Links.GetPathByAction("Index", "Order", new { categoryId = category.Id, search = Model.Search }) + "#drinks")" aria-current="@(category.Id == Model.CategoryId ? "page" : null)">
+                                @if (!string.IsNullOrWhiteSpace(category.Icon))
+                                {
+                                    <img src="@category.Icon" width="19" height="19" alt="" />
+                                }
+                                @category.Name
+                            </a>
+                        }
+                    </nav>
+                    @if (Model.DrinkId.HasValue || Model.CategoryId.HasValue || hasSearch)
+                    {
+                        <a class="order-reset" href="@(Links.GetPathByAction("Index", "Order") + "#drinks")">Xem toàn bộ thực đơn <span aria-hidden="true">↗</span></a>
+                    }
+                    <div class="drink-results" data-menu-results>
+                        <div class="drink-grid">
+                            @foreach (var drink in Model.Drinks)
+                            {
+                                var name = drink.Name;
+                                var hasImage = !string.IsNullOrWhiteSpace(drink.Image);
+                                <article class="order-drink-card" data-drink-id="@drink.Id">
+                                    <div class="drink-visual">
+                                        <img class="order-drink-image" src="@(hasImage ? drink.Image : drink.Category.Image)" alt="@name" loading="lazy" />
+                                        @if (!hasImage)
+                                        {
+                                            <small>Ảnh danh mục</small>
+                                        }
+                                    </div>
+                                    <div class="drink-card-content">
+                                        <p class="drink-category-label">@drink.Category.Name</p>
+                                        <h3>@name</h3>
+                                        <div class="drink-buy-row">
+                                            <p class="drink-price">@(drink.Price > 0 ? drink.Price.Value.ToString("N0", culture) + " đ" : "Chưa mở bán")</p>
+                                            @if (drink.Price > 0)
+                                            {
+                                                <a class="drink-branch-link" href="@(Links.GetPathByAction("Index", "Order", new { categoryId = Model.CategoryId, drinkId = drink.Id, search = Model.Search }) + "#branches")" aria-label="Chọn món @name">Chọn món <span class="order-arrow" aria-hidden="true">+</span></a>
+                                            }
+                                        </div>
+                                        @if (drink.Price > 0)
+                                        {
+                                            <details class="drink-customize" data-add-drink open="@(Model.DrinkId == drink.Id)">
+                                                <summary aria-label="Chọn món @name">Chọn món <span class="order-arrow" aria-hidden="true">+</span></summary>
+                                                <form method="post" data-add-item data-drink-id="@drink.Id" data-name="@name" data-price="@drink.Price.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)">
+                                                    <label class="quantity-option">Số lượng <input type="number" name="quantity" min="1" max="20" value="1" required /></label>
+                                                    <button class="order-button" type="submit">Thêm vào giỏ <span aria-hidden="true">↗</span></button>
+                                                </form>
+                                            </details>
+                                        }
+                                    </div>
+                                </article>
+                            }
+                            @if (Model.Drinks.Count == 0)
+                            {
+                                <div class="menu-empty">
+                                    <p>@(hasSearch ? "Không tìm thấy đồ uống phù hợp." : "Chưa có đồ uống trong danh mục này.")</p>
+                                </div>
+                            }
+                        </div>
+                        @if (Model.DrinkCount > 0)
+                        {
+                            <div class="menu-scroll" data-menu-scroll>
+                                <p class="menu-load-status" role="status">@(Model.HasMoreDrinks ? "Cuộn xuống để khám phá thêm món." : "Bạn đã xem hết đồ uống rồi.")</p>
+                                @if (Model.HasMoreDrinks)
+                                {
+                                    <a class="menu-load-more order-explore" href="@(Links.GetPathByAction("Index", "Order", new { categoryId = Model.CategoryId, drinkId = Model.DrinkId, search = Model.Search, page = Model.Page + 1 }) + "#drinks")" rel="next">Xem thêm đồ uống <span class="order-arrow" aria-hidden="true">↓</span></a>
+                                }
+                            </div>
+                        }
+                    </div>
+                </section>
+
+                <aside class="order-sidebar" aria-labelledby="cart-title">
+                    <section class="order-cart" id="cart" tabindex="-1">
+                        <div class="cart-heading">
+                            <h2 id="cart-title">Món của bạn</h2>
+                            <span class="cart-count" data-cart-count>0</span>
+                        </div>
+                        <div class="empty-cart" data-empty-cart>
+                            <img src="/images/bear-head.svg" width="84" height="84" alt="" />
+                            <p>Giỏ hàng còn trống.</p>
+                        </div>
+                        <div class="cart-lines" data-cart-lines></div>
+                        <template data-cart-line>
+                            <div class="cart-line">
+                                <div class="cart-line-title"><strong></strong><span></span></div>
+                                <div class="cart-line-actions">
+                                    <form class="cart-update" method="post" data-update-item>
+                                        <label>Số lượng <input type="number" name="quantity" min="0" max="20" required /></label>
+                                        <button class="order-button" type="submit">Lưu</button>
+                                    </form>
+                                    <button type="button" class="cart-remove" data-remove-item>Xóa</button>
+                                </div>
+                            </div>
+                        </template>
+                        <p class="order-notice" role="status" data-price-error hidden>
+                            Chưa tải được giá giỏ hàng. <button type="button" class="order-button" data-retry-prices>Thử lại</button>
+                        </p>
+                        <div class="cart-total"><span>Tạm tính</span><strong data-cart-total>0 đ</strong></div>
+                        <p class="cart-payment-note">Thanh toán khi nhận hàng.<br />Chi nhánh sẽ xác nhận phí giao hàng.</p>
+                        <a href="#checkout" class="checkout-link order-button" data-checkout-link hidden>Thông tin nhận hàng <span aria-hidden="true">↓</span></a>
+                        <a href="#branches" class="checkout-link order-button" data-choose-branch>Chọn chi nhánh <span aria-hidden="true">↗</span></a>
+                    </section>
+
+                    <section class="checkout-panel" id="checkout" tabindex="-1" hidden>
+                        <h2>Thông tin nhận hàng</h2>
+                        <div class="order-notice" role="alert" tabindex="-1" data-checkout-errors hidden></div>
+                        <form action="@(Links.GetPathByAction("Checkout", "Order"))" method="post" class="checkout-form" data-checkout-form><AntiforgeryToken />
+                            <label for="Checkout_CustomerName">Họ tên</label>
+                            <input id="Checkout_CustomerName" name="Checkout.CustomerName" value="@Model.Checkout.CustomerName" required maxlength="150" autocomplete="name" />
+                            <label for="Checkout_CustomerPhone">Số điện thoại</label>
+                            <input id="Checkout_CustomerPhone" name="Checkout.CustomerPhone" value="@Model.Checkout.CustomerPhone" type="tel" required maxlength="30" autocomplete="tel" />
+                            <label for="Checkout_Fulfillment">Cách nhận hàng</label>
+                            <select id="Checkout_Fulfillment" name="Checkout.Fulfillment">
+                                <option value="0" selected="@(Model.Checkout.Fulfillment == FulfillmentMethod.Pickup)">Nhận tại chi nhánh</option>
+                                <option value="1" selected="@(Model.Checkout.Fulfillment == FulfillmentMethod.Delivery)">Giao hàng</option>
+                            </select>
+                            <label for="Checkout_DeliveryAddress">Địa chỉ giao hàng</label>
+                            <input id="Checkout_DeliveryAddress" name="Checkout.DeliveryAddress" value="@Model.Checkout.DeliveryAddress" maxlength="2000" autocomplete="street-address" />
+                            <small>Bắt buộc nếu chọn giao hàng.</small>
+                            <label for="Checkout_Note">Ghi chú</label>
+                            <textarea id="Checkout_Note" name="Checkout.Note" maxlength="1000">@Model.Checkout.Note</textarea>
+                            <button class="order-button" type="submit" disabled>Gửi đơn hàng <span aria-hidden="true">↗</span></button>
+                        </form>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </div>
+</OrderLayout>
+
+@code {
+    [Parameter, EditorRequired] public OrderingPageViewModel Model { get; set; } = default!;
+
+    [Parameter, EditorRequired] public string CustomerToken { get; set; } = string.Empty;
+}
