@@ -3,7 +3,6 @@ using Koi.Web.Middleware;
 using Koi.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
@@ -24,8 +23,9 @@ if (builder.Environment.IsDevelopment())
             settings[key] = value;
     }
 
+    var postgresPassword = builder.Configuration["POSTGRES_PASSWORD"] ?? localEnvironment["POSTGRES_PASSWORD"];
     if (builder.Configuration.GetConnectionString("DefaultConnection") is null
-        && localEnvironment["POSTGRES_PASSWORD"] is { Length: > 0 } password)
+        && !string.IsNullOrEmpty(postgresPassword))
     {
         var connection = new NpgsqlConnectionStringBuilder
         {
@@ -33,7 +33,7 @@ if (builder.Environment.IsDevelopment())
             Port = 55433,
             Database = "koi_blazor",
             Username = "koi",
-            Password = password
+            Password = postgresPassword
         };
         settings["ConnectionStrings:DefaultConnection"] = connection.ConnectionString;
     }
@@ -41,17 +41,7 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.AddInMemoryCollection(settings);
 }
 
-builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
-    .AddRazorOptions(options =>
-    {
-        options.ViewLocationFormats.Clear();
-        options.ViewLocationFormats.Add("/code/Views/{1}/{0}.cshtml");
-        options.ViewLocationFormats.Add("/code/Views/Shared/{0}.cshtml");
-        options.AreaViewLocationFormats.Clear();
-        options.AreaViewLocationFormats.Add("/code/Views/{2}/{1}/{0}.cshtml");
-        options.AreaViewLocationFormats.Add("/code/Views/{2}/Shared/{0}.cshtml");
-        options.AreaViewLocationFormats.Add("/code/Views/Shared/{0}.cshtml");
-    });
+builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 builder.Services.AddRazorComponents();
 builder.Services.Configure<CookieTempDataProviderOptions>(options => options.Cookie.Name = "Koi.Blazor.TempData");
 

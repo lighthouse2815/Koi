@@ -1,6 +1,6 @@
 # Koi Thé Blazor
 
-Phiên bản KOI Thé dùng Blazor và PostgreSQL. Dự án nằm trên nhánh `blazor` và có thể chạy từ một thư mục riêng.
+Phiên bản KOI Thé dùng Blazor và PostgreSQL. Các trang công khai, đặt hàng và quản trị được render trên máy chủ bằng Blazor. Dự án nằm trên nhánh `blazor` và có thể chạy từ một thư mục riêng.
 
 ## Yêu cầu
 
@@ -12,10 +12,10 @@ Phiên bản KOI Thé dùng Blazor và PostgreSQL. Dự án nằm trên nhánh `
 
 Clone nhánh Blazor và mở terminal trong thư mục chứa `Koi.Blazor.sln`, `Koi.Blazor.csproj` và `compose.yaml`.
 
-   ```bash
-   git clone --branch blazor https://github.com/lighthouse2815/Koi.git Koi.Blazor
-   cd Koi.Blazor
-   ```
+```bash
+git clone --branch blazor https://github.com/lighthouse2815/Koi.git Koi.Blazor
+cd Koi.Blazor
+```
 
 1. Tạo `.env` từ mẫu và điền `POSTGRES_PASSWORD` cùng `Admin__Password`. Mật khẩu quản trị cần có ít nhất 12 ký tự, chữ hoa, chữ thường, số và ký tự đặc biệt.
 
