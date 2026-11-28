@@ -1,0 +1,66 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Quản lý thực đơn · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Quản lý thực đơn</SectionContent>
+
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><AdminIcon Name="menu" /></span><h1>Quản lý thực đơn</h1></div>
+    <button type="button" class="button" data-menu-create><AdminIcon Name="plus" /> Thêm thực đơn</button>
+</div>
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa thực đơn.</p></noscript>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách thực đơn">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="menu" /> Thực đơn</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="order" /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="settings" /> Thao tác</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var menu in Model)
+            {
+                var imageLink = ComponentImageLinks.ForNavigation(menu.File);
+                <tr data-row-preview>
+                    <td><a href="@imageLink" target="_blank" rel="noopener" class="admin-icon-label" data-row-preview-trigger><AdminIcon Name="eye" /> @menu.Label</a></td>
+                    <td>@menu.SortOrder</td>
+                    <td>
+                        <div class="row-actions">
+                            <button type="button" class="link-button" data-menu-edit
+                                    data-url="@(Links.GetPathByAction("Edit", "Menus", new { area = "Admin", id = menu.Id }))"
+                                    data-id="@menu.Id" data-revision="@menu.Revision" data-label="@menu.Label"
+                                    data-sort-order="@menu.SortOrder"
+                                    data-image="@imageLink"><AdminIcon Name="edit" /> Sửa</button>
+                            <a href="@(Links.GetPathByAction("Delete", "Menus", new { area = "Admin", id = menu.Id }))" class="delete-link" data-name="@menu.Label"><AdminIcon Name="trash" /> Xóa</a>
+                        </div>
+                        <template data-row-preview-content data-title="@menu.Label">
+                            <dl class="row-preview-details">
+                                <div><dt>Thứ tự</dt><dd>@menu.SortOrder</dd></div>
+                                <div class="row-preview-wide">
+                                    <dt>Ảnh thực đơn</dt>
+                                    <dd>
+                                        <a href="@imageLink" target="_blank" rel="noopener"><img class="row-preview-image" src="@imageLink" alt="Mở ảnh thực đơn @menu.Label" /></a>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </template>
+                    </td>
+                </tr>
+            }
+            @if (Model.Count == 0)
+            {
+                <tr><td colspan="3" class="empty-state">Chưa có thực đơn.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<RowPreviewDialog />
+<DeleteDialog Controller="Menus" />
+<MenuEditor Model="@(new MenuEditViewModel())" />
+<script src="/js/menu-editor.js" defer></script>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<Menu> Model { get; set; } = default!;
+}

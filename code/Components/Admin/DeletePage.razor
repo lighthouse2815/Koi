@@ -1,0 +1,37 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Xóa dữ liệu · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Xóa dữ liệu</SectionContent>
+
+<div class="card delete-card">
+    <div class="admin-heading-title">
+        <span class="admin-heading-icon"><AdminIcon Name="trash" /></span>
+        <h1>Xóa @Model.Name?</h1>
+    </div>
+    <p>Mục này sẽ được gỡ khỏi cơ sở dữ liệu. Ảnh đã tải lên được giữ lại để tránh ảnh hưởng nội dung khác.</p>
+    @if (Errors.Count > 0)
+    {
+        <div class="validation validation-summary-errors" data-valmsg-summary="true" role="alert">
+            <ul>
+                @foreach (var error in Errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }
+    <form action="@(Links.GetPathByAction("Delete", Controller, new { area = "Admin", id = Model.Id, kind = Model.Kind }))" method="post">
+        <AntiforgeryToken />
+        <button class="button danger" type="submit"><AdminIcon Name="trash" /> Xác nhận xóa</button>
+        <a href="@(Links.GetPathByAction("Index", Controller, new { area = "Admin", kind = Model.Kind }))">Hủy</a>
+    </form>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public DeleteContentViewModel Model { get; set; } = default!;
+
+    [Parameter, EditorRequired] public string Controller { get; set; } = string.Empty;
+
+    [Parameter] public IReadOnlyList<string> Errors { get; set; } = [];
+}

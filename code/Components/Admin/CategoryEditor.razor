@@ -1,0 +1,46 @@
+@inject LinkGenerator Links
+
+<dialog id="category-editor" class="category-editor" aria-labelledby="category-editor-title">
+    <div class="page-heading">
+        <div class="admin-icon-label"><AdminIcon Name="layers" /> <h2 id="category-editor-title">Thêm danh mục</h2></div>
+        <button type="button" class="button secondary" data-category-cancel>Đóng</button>
+    </div>
+    <form action="@(Links.GetPathByAction("Create", "Category", new { area = "Admin" }))" method="post" class="editor" data-upload-folder="categories" data-ajax-save
+          data-create-url="@(Links.GetPathByAction("Create", "Category", new { area = "Admin" }))" data-edit-url="@(Links.GetPathByAction("Edit", "Category", new { area = "Admin" }))">
+        <AntiforgeryToken />
+        <fieldset class="upload-fields" disabled>
+            <input id="Id" name="Id" value="@Model.Id" type="hidden" />
+            <input id="Revision" name="Revision" value="@Model.Revision" type="hidden" />
+            <div class="validation category-save-error validation-summary-valid" data-valmsg-summary="true" role="alert"></div>
+            <div class="editor-columns">
+                <div class="card">
+                    <label for="Name">Tên danh mục</label>
+                    <input id="Name" name="Name" value="@Model.Name" maxlength="200" required />
+
+                    <label for="ImageUpload">Ảnh danh mục và thẻ trang chủ</label>
+                    <img class="current-image" alt="Ảnh danh mục" hidden />
+                    <input id="ImageUploadUrl" name="ImageUploadUrl" value="@Model.ImageUploadUrl" type="hidden" />
+                    <input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+
+                    <label for="IconUpload">Biểu tượng danh mục trên trang chủ</label>
+                    <img class="current-icon" alt="Biểu tượng danh mục" hidden />
+                    <input id="IconUploadUrl" name="IconUploadUrl" value="@Model.IconUploadUrl" type="hidden" />
+                    <input id="IconUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <label class="check"><input id="RemoveIcon" name="RemoveIcon" type="checkbox" value="true" checked="@Model.RemoveIcon" /><input type="hidden" name="RemoveIcon" value="false" /> Bỏ biểu tượng danh mục</label>
+                    <p class="help">Mỗi ảnh JPG, PNG hoặc WebP tối đa 5 MB. Để trống để giữ ảnh hiện tại. Bật thẻ trang chủ cần có cả ảnh và biểu tượng thẻ.</p>
+                </div>
+                <aside class="card">
+                    <label class="check"><input id="ShowOnHome" name="ShowOnHome" type="checkbox" value="true" checked="@Model.ShowOnHome" /><input type="hidden" name="ShowOnHome" value="false" /> Hiển thị thẻ trên trang chủ</label>
+                    <label for="SortOrder">Thứ tự hiển thị</label>
+                    <input id="SortOrder" name="SortOrder" value="@Model.SortOrder" type="number" min="0" max="100000" />
+                    <button class="button" type="submit">Lưu danh mục</button>
+                    <a href="@(Links.GetPathByAction("Index", "Category", new { area = "Admin" }))" data-category-reload hidden>Tải lại bản mới nhất</a>
+                </aside>
+            </div>
+        </fieldset>
+    </form>
+</dialog>
+
+@code {
+    [Parameter, EditorRequired] public CategoryEditViewModel Model { get; set; } = default!;
+}

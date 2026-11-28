@@ -1,0 +1,41 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Đăng nhập · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Đăng nhập</SectionContent>
+
+<section class="login-card">
+    <div class="login-visual" aria-hidden="true"></div>
+    <div class="login-content">
+        <div class="admin-heading-title">
+            <span class="admin-heading-icon"><AdminIcon Name="lock" /></span>
+            <h1>Đăng nhập quản trị</h1>
+        </div>
+        <form action="@(Links.GetPathByAction("Login", "Account", new { area = "Admin" }))" method="post" data-ajax-save>
+            <AntiforgeryToken />
+            <input id="ReturnUrl" name="ReturnUrl" value="@Model.ReturnUrl" type="hidden" />
+            @if (LoginError is { Length: > 0 } error)
+            {
+                <div class="validation validation-summary-errors" data-valmsg-summary="true" role="alert"><ul><li>@error</li></ul></div>
+            }
+            else
+            {
+                <div class="validation validation-summary-valid" data-valmsg-summary="true" role="alert"></div>
+            }
+            <label for="Email">Email</label>
+            <input id="Email" name="Email" value="@Model.Email" type="email" autocomplete="username" required />
+            <span data-valmsg-for="Email" data-valmsg-replace="true" class="validation"></span>
+            <label for="Password">Mật khẩu</label>
+            <input id="Password" name="Password" type="password" autocomplete="current-password" required />
+            <span data-valmsg-for="Password" data-valmsg-replace="true" class="validation"></span>
+            <label class="check"><input id="RememberMe" name="RememberMe" type="checkbox" value="true" checked="@Model.RememberMe" /><input type="hidden" name="RememberMe" value="false" /> Giữ đăng nhập</label>
+            <button type="submit" class="button"><AdminIcon Name="lock" /> Đăng nhập</button>
+        </form>
+    </div>
+</section>
+
+@code {
+    [Parameter, EditorRequired] public LoginViewModel Model { get; set; } = default!;
+
+    [Parameter] public string? LoginError { get; set; }
+}

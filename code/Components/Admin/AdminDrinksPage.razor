@@ -1,0 +1,127 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Quản lý đồ uống · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Quản lý đồ uống</SectionContent>
+
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><AdminIcon Name="cup" /></span><h1>Quản lý đồ uống</h1></div>
+    <button type="button" class="button" data-drink-create>
+        <AdminIcon Name="plus" /> Thêm đồ uống
+    </button>
+</div>
+
+<noscript>
+    <p class="validation">
+        Vui lòng bật JavaScript để thêm hoặc sửa đồ uống.
+    </p>
+</noscript>
+
+<form method="get" class="search">
+    <div class="search-field">
+        <label for="search">Tên đồ uống</label>
+        <input id="search" name="search" value="@Model.Search" maxlength="200" />
+    </div>
+    <div class="search-field">
+        <label for="categoryId">Danh mục</label>
+        <select name="categoryId" id="categoryId">
+            <option value="">Tất cả danh mục</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Value" selected="@category.Selected">@category.Text</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="button secondary"><AdminIcon Name="search" /> Tìm kiếm</button>
+</form>
+
+<div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách đồ uống">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="cup" /> Đồ uống</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="layers" /> Danh mục</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="order" /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="settings" /> Thao tác</span></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var drink in Model.Drinks)
+            {
+                var previewImage = string.IsNullOrEmpty(drink.Image) ? drink.Category.Image : drink.Image;
+                <tr data-row-preview>
+                    <td>
+                        <div class="article-cell"><img src="@previewImage" alt="" loading="lazy" />
+                            <div><strong>@drink.Name</strong></div>
+                        </div>
+                    </td>
+                    <td>@drink.Category.Name</td>
+                    <td>@drink.SortOrder</td>
+                    <td>
+                        <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @drink.Name" hidden><AdminIcon Name="eye" /> Xem</button>
+                            <button type="button" class="link-button" data-drink-edit
+                                    data-url="@(Links.GetPathByAction("Edit", "Drinks", new { area = "Admin", id = drink.Id }))"
+                                    data-id="@drink.Id" data-revision="@drink.Revision" data-name="@drink.Name"
+                                    data-category-id="@drink.CategoryId" data-description="@drink.Description"
+                                    data-sort-order="@drink.SortOrder"
+                                    data-image="@drink.Image"><AdminIcon Name="edit" /> Sửa</button>
+                            <a href="@(Links.GetPathByAction("Delete", "Drinks", new { area = "Admin", id = drink.Id }))" class="delete-link" data-name="@drink.Name"><AdminIcon Name="trash" /> Xóa</a>
+                        </div>
+                        <template data-row-preview-content data-title="@drink.Name">
+                            <dl class="row-preview-details">
+                                <div><dt>Danh mục</dt><dd>@drink.Category.Name</dd></div>
+                                <div><dt>Thứ tự</dt><dd>@drink.SortOrder</dd></div>
+                                <div class="row-preview-wide"><dt>Mô tả</dt><dd>@(string.IsNullOrWhiteSpace(drink.Description) ? "Chưa có mô tả" : drink.Description)</dd></div>
+                                @if (!string.IsNullOrWhiteSpace(previewImage))
+                                {
+                                    <div class="row-preview-wide">
+                                        <dt>@(string.IsNullOrEmpty(drink.Image) ? "Ảnh dùng chung của danh mục" : "Ảnh đồ uống")</dt>
+                                        <dd><img class="row-preview-image" src="@previewImage" alt="" /></dd>
+                                    </div>
+                                }
+                            </dl>
+                        </template>
+                    </td>
+                </tr>
+            }
+            @if (Model.Drinks.Count == 0)
+            {
+                <tr><td colspan="4" class="empty-state">Không tìm thấy đồ uống.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<nav class="pagination" aria-label="Phân trang">
+    @if (Model.Page > 1)
+    {
+        <a href="@(Links.GetPathByAction("Index", "Drinks", new { area = "Admin", page = Model.Page - 1, categoryId = Model.CategoryId, search = Model.Search }))">
+            ← Trước
+        </a>
+    }
+
+    <span>Trang @Model.Page / @Model.PageCount</span>
+
+    @if (Model.Page < Model.PageCount)
+    {
+        <a href="@(Links.GetPathByAction("Index", "Drinks", new { area = "Admin", page = Model.Page + 1, categoryId = Model.CategoryId, search = Model.Search }))">
+            Sau →
+        </a>
+    }
+</nav>
+
+<RowPreviewDialog />
+<DeleteDialog Controller="Drinks" />
+<DrinkEditor Model="@(new DrinkEditViewModel
+    {
+        Categories = Model.Categories,
+        CategoryId = Model.CategoryId
+    })" />
+
+<script src="/js/drink-editor.js" defer></script>
+
+@code {
+    [Parameter, EditorRequired] public AdminDrinksViewModel Model { get; set; } = default!;
+}

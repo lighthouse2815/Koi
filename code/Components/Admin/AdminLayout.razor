@@ -1,0 +1,136 @@
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@inject LinkGenerator Links
+
+@{
+    var user = HttpContext?.User;
+    var isAdmin = user?.IsInRole("Admin") == true;
+    var currentController = HttpContext?.GetRouteValue("controller")?.ToString()
+        ?? new Uri(NavigationManager.Uri).AbsolutePath.Split('/', StringSplitOptions.RemoveEmptyEntries).Skip(1).FirstOrDefault();
+    var navigation = new[]
+    {
+        (Label: "Tổng quan", Links: new[] { (Controller: "Dashboard", Label: "Dashboard", Icon: "dashboard") }),
+        (Label: "Nội dung", Links: new[]
+        {
+            (Controller: "News", Label: "Tin tức", Icon: "news"),
+            (Controller: "Menus", Label: "Thực đơn", Icon: "menu"),
+            (Controller: "Drinks", Label: "Đồ uống", Icon: "cup"),
+            (Controller: "Category", Label: "Danh mục", Icon: "layers"),
+            (Controller: "FeaturedDrinks", Label: "New Drinks", Icon: "sparkles")
+        }),
+        (Label: "Vận hành", Links: new[]
+        {
+            (Controller: "Stores", Label: "Chi nhánh", Icon: "store"),
+            (Controller: "StoreCities", Label: "Khu vực", Icon: "pin"),
+            (Controller: "Orders", Label: "Đơn hàng", Icon: "receipt")
+        })
+    };
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <HeadOutlet />
+    <link rel="icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <SectionOutlet SectionName="Styles" />
+</head>
+<body>
+    <AdminIconSymbols />
+    <a class="admin-skip" href="#admin-content">Đến nội dung chính</a>
+    <div class="@(isAdmin ? "admin-shell" : "admin-guest")">
+        @if (isAdmin)
+        {
+            <aside class="admin-sidebar">
+                <div class="admin-sidebar-head">
+                    <a class="admin-brand" href="@(Links.GetPathByAction("Index", "Dashboard", new { area = "Admin" }))">
+                        <img src="/images/logo.svg" width="132" height="28" alt="KOI Thé" />
+                        <span>Quản trị website</span>
+                    </a>
+                    <button type="button" class="button secondary admin-menu-toggle" aria-controls="admin-menu" aria-expanded="false" hidden>
+                        <AdminIcon Name="bars" /> Menu
+                    </button>
+                </div>
+                <div class="admin-sidebar-content" id="admin-menu">
+                    <nav class="admin-nav" aria-label="Điều hướng quản trị">
+                        @foreach (var group in navigation)
+                        {
+                            <div class="admin-nav-group">
+                                <p>@group.Label</p>
+                                @foreach (var item in group.Links)
+                                {
+                                    var isActive = string.Equals(currentController, item.Controller, StringComparison.OrdinalIgnoreCase);
+                                    <a href="@(Links.GetPathByAction("Index", item.Controller, new { area = "Admin" }))" aria-current="@(isActive ? "true" : null)">
+                                        <AdminIcon Name="@item.Icon" /> @item.Label
+                                    </a>
+                                }
+                            </div>
+                        }
+                    </nav>
+                    <div class="admin-profile">
+                        <div>
+                            <strong>Quản trị viên</strong>
+                            <span>@user?.Identity?.Name</span>
+                        </div>
+                        <form action="@(Links.GetPathByAction("Logout", "Account", new { area = "Admin" }))" method="post">
+                            <AntiforgeryToken />
+                            <button type="submit" class="button secondary"><AdminIcon Name="logout" /> Đăng xuất</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+        }
+        <div class="admin-workspace">
+            <div class="admin-background" aria-hidden="true">
+                @foreach (var icon in new[]
+                {
+                    "cup", "sparkles", "leaf", "bubbles", "droplet", "calendar", "layers",
+                    "store", "chart", "pin", "menu", "image", "plus", "receipt"
+                })
+                {
+                    <span data-decoration="@icon"><AdminIcon Name="@icon" /></span>
+                }
+            </div>
+            <header class="admin-topbar">
+                @if (isAdmin)
+                {
+                    <div class="admin-breadcrumb">
+                        <a href="@(Links.GetPathByAction("Index", "Dashboard", new { area = "Admin" }))">Quản trị</a>
+                        <span aria-hidden="true">/</span>
+                        <span><SectionOutlet SectionName="AdminTitle" /></span>
+                    </div>
+                }
+                else
+                {
+                    <a class="admin-brand" href="@(Links.GetPathByAction("Index", "Dashboard", new { area = "Admin" }))">
+                        <img src="/images/logo.svg" width="132" height="28" alt="KOI Thé" />
+                    </a>
+                }
+                <a class="button secondary admin-site-link" href="@(Links.GetPathByAction("Index", "Home"))" target="_blank" rel="noopener">
+                    Xem website <AdminIcon Name="external" />
+                </a>
+            </header>
+            <main class="admin-main" id="admin-content" tabindex="-1">
+                @if (Status is { Length: > 0 } status)
+                {
+                    <p class="status" role="status">@status</p>
+                }
+                @Body
+            </main>
+        </div>
+    </div>
+    @if (isAdmin)
+    {
+        <script src="/js/admin-navigation.js" defer></script>
+    }
+    <script src="/js/admin-upload.js" defer></script>
+</body>
+</html>
+
+@code {
+    [CascadingParameter] private HttpContext? HttpContext { get; set; }
+
+    [Parameter] public string? Status { get; set; }
+}

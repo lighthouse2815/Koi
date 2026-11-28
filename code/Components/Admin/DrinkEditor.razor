@@ -1,0 +1,43 @@
+@inject LinkGenerator Links
+
+<dialog id="drink-editor" class="drink-editor" aria-labelledby="drink-editor-title">
+    <div class="page-heading">
+        <div class="admin-icon-label"><AdminIcon Name="cup" /> <h2 id="drink-editor-title">Thêm đồ uống</h2></div>
+        <button type="button" class="button secondary" data-drink-cancel>Đóng</button>
+    </div>
+    <form action="@(Links.GetPathByAction("Create", "Drinks", new { area = "Admin" }))" method="post" class="editor" data-upload-folder="drinks" data-ajax-save
+          data-create-url="@(Links.GetPathByAction("Create", "Drinks", new { area = "Admin" }))">
+        <AntiforgeryToken />
+        <fieldset class="upload-fields" disabled>
+            <input id="Id" name="Id" value="@Model.Id" type="hidden" /><input id="Revision" name="Revision" value="@Model.Revision" type="hidden" />
+            <div class="validation validation-summary-valid" data-valmsg-summary="true" role="alert"></div>
+            <div class="editor-columns">
+                <div class="card">
+                    <label for="Name">Tên đồ uống</label><input id="Name" name="Name" value="@Model.Name" maxlength="250" required />
+                    <label for="CategoryId">Danh mục</label><select id="CategoryId" name="CategoryId" required>
+                        <option value="">Chọn danh mục</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Value" selected="@(category.Value == Model.CategoryId.ToString())">@category.Text</option>
+                        }
+                    </select>
+                    <label for="Description">Mô tả</label><textarea id="Description" name="Description" rows="7" maxlength="4000">@Model.Description</textarea>
+                </div>
+                <aside class="card">
+                    <label for="ImageUpload">Ảnh đồ uống</label><img class="current-image" alt="Ảnh hiện tại" hidden />
+                    <input id="ImageUploadUrl" name="ImageUploadUrl" value="@Model.ImageUploadUrl" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Không có ảnh riêng sẽ dùng ảnh chung của danh mục.</p>
+                    <label class="check"><input id="RemoveImage" name="RemoveImage" type="checkbox" value="true" checked="@Model.RemoveImage" /><input type="hidden" name="RemoveImage" value="false" /> Bỏ ảnh riêng</label>
+                    <label for="SortOrder">Thứ tự trong danh mục</label><input id="SortOrder" name="SortOrder" value="@Model.SortOrder" type="number" min="0" max="100000" />
+                    <p class="help">Số nhỏ hiển thị trước.</p>
+                    <button class="button" type="submit">Lưu đồ uống</button>
+                    <a href="@(Links.GetPathByAction("Index", "Drinks", new { area = "Admin" }))" data-drink-reload hidden>Tải lại bản mới nhất</a>
+                </aside>
+            </div>
+        </fieldset>
+    </form>
+</dialog>
+
+@code {
+    [Parameter, EditorRequired] public DrinkEditViewModel Model { get; set; } = default!;
+}

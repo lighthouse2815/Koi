@@ -1,0 +1,48 @@
+@inject LinkGenerator Links
+
+<dialog id="news-editor" class="drink-editor" aria-labelledby="news-editor-title">
+    <div class="page-heading">
+        <div class="admin-icon-label"><AdminIcon Name="news" /> <h2 id="news-editor-title">Thêm bài viết</h2></div>
+        <button type="button" class="button secondary" data-news-cancel>Đóng</button>
+    </div>
+    <form action="@(Links.GetPathByAction("Create", "News", new { area = "Admin" }))" method="post" class="editor" data-upload-folder="news" data-ajax-save
+          data-create-url="@(Links.GetPathByAction("Create", "News", new { area = "Admin" }))">
+        <AntiforgeryToken />
+        <fieldset class="upload-fields" disabled>
+            <input id="Id" name="Id" value="@Model.Id" type="hidden" /><input id="Revision" name="Revision" value="@Model.Revision" type="hidden" />
+            <div class="validation validation-summary-valid" data-valmsg-summary="true" role="alert"></div>
+            <div class="editor-columns">
+                <div class="card">
+                    <label for="Title">Tiêu đề</label><input id="Title" name="Title" value="@Model.Title" maxlength="300" required />
+                    <div class="field-row">
+                        <div><label for="Category">Danh mục</label><select id="Category" name="Category">
+                                <option value="NEWS" selected="@(Model.Category == NewsCategory.NEWS)">Tin tức</option>
+                                <option value="MEDIA" selected="@(Model.Category == NewsCategory.MEDIA)">Truyền thông</option>
+                            </select></div>
+                        <div><label for="Date">Ngày đăng</label><input id="Date" name="Date" value="@(Model.Date?.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture))" type="date" required /></div>
+                    </div>
+                    <label for="BodyHtml">Nội dung (HTML)</label>
+                    <p class="help">Có thể dùng đoạn văn, tiêu đề, chữ đậm, liên kết và ảnh. Mã script được loại bỏ khi lưu.</p>
+                    <textarea id="BodyHtml" name="BodyHtml" rows="22" maxlength="200000" required class="content-editor" spellcheck="false">@Model.BodyHtml</textarea>
+                </div>
+                <aside class="card">
+                    <label for="ImageUpload">Ảnh đại diện</label><img class="current-image" alt="Ảnh hiện tại" hidden />
+                    <input id="ImageUploadUrl" name="ImageUploadUrl" value="@Model.ImageUploadUrl" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Khi sửa, để trống để giữ ảnh cũ.</p>
+                    <label for="VideoUrl">Video YouTube</label><input id="VideoUrl" name="VideoUrl" value="@Model.VideoUrl" type="url" maxlength="500" />
+                    <p class="help">Dán liên kết YouTube; để trống để dùng ảnh bìa.</p>
+                    <label class="check"><input id="IsFeatured" name="IsFeatured" type="checkbox" value="true" checked="@Model.IsFeatured" /><input type="hidden" name="IsFeatured" value="false" /> Tin nổi bật ở trang News</label>
+                    <label class="check"><input id="ShowOnHome" name="ShowOnHome" type="checkbox" value="true" checked="@Model.ShowOnHome" /><input type="hidden" name="ShowOnHome" value="false" /> Hiển thị trên trang chủ</label>
+                    <label for="HomeOrder">Thứ tự trên trang chủ</label><input id="HomeOrder" name="HomeOrder" value="@Model.HomeOrder" type="number" min="0" max="100" />
+                    <p class="help">Số nhỏ hiển thị trước. Trang chủ hiển thị tối đa sáu bài.</p>
+                    <button type="submit" class="button">Lưu bài viết</button>
+                    <a href="@(Links.GetPathByAction("Index", "News", new { area = "Admin" }))" data-news-reload hidden>Tải lại bản mới nhất</a>
+                </aside>
+            </div>
+        </fieldset>
+    </form>
+</dialog>
+
+@code {
+    [Parameter, EditorRequired] public NewsEditViewModel Model { get; set; } = default!;
+}

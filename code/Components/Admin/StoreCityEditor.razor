@@ -1,0 +1,25 @@
+@inject LinkGenerator Links
+
+<dialog id="geography-editor" class="drink-editor" aria-labelledby="geography-editor-title">
+    <div class="page-heading">
+        <div class="admin-icon-label"><AdminIcon Name="pin" /> <h2 id="geography-editor-title">Thêm khu vực</h2></div>
+        <button type="button" class="button secondary" data-geography-cancel>Đóng</button>
+    </div>
+    <form action="@(Links.GetPathByAction("Create", "StoreCities", new { area = "Admin" }))" method="post" class="editor" data-ajax-save data-create-url="@(Links.GetPathByAction("Create", "StoreCities", new { area = "Admin" }))">
+        <AntiforgeryToken />
+        <fieldset class="upload-fields" disabled>
+            <input id="Id" name="Id" value="@Model.Id" type="hidden" /><input id="Revision" name="Revision" value="@Model.Revision" type="hidden" /><input id="Kind" name="Kind" value="@Model.Kind" type="hidden" />
+            <div class="validation validation-summary-valid" data-valmsg-summary="true" role="alert"></div>
+            <div class="card">
+                <label for="Name">Tên</label><input id="Name" name="Name" value="@Model.Name" required maxlength="150" />
+                <label for="SortOrder">Thứ tự</label><input id="SortOrder" name="SortOrder" value="@Model.SortOrder" type="number" min="0" max="100000" />
+                <p><button type="submit" class="button">Lưu dữ liệu</button></p>
+                <a href="@(Links.GetPathByAction("Index", "StoreCities", new { area = "Admin", kind = Model.Kind }))" data-geography-reload hidden>Tải lại bản mới nhất</a>
+            </div>
+        </fieldset>
+    </form>
+</dialog>
+
+@code {
+    [Parameter, EditorRequired] public GeographyEditViewModel Model { get; set; } = default!;
+}

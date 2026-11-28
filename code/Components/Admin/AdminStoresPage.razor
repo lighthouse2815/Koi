@@ -1,0 +1,86 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Quản lý chi nhánh · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Quản lý chi nhánh</SectionContent>
+
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><AdminIcon Name="store" /></span><h1>Quản lý chi nhánh</h1></div>
+    <button type="button" class="button" data-store-create><AdminIcon Name="plus" /> Thêm chi nhánh</button>
+</div>
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa chi nhánh.</p></noscript>
+<form method="get" class="search">
+    <div class="search-field search-field--wide">
+        <label for="search">Tên hoặc địa chỉ</label>
+        <input id="search" name="search" value="@Model.Search" maxlength="200" />
+    </div>
+    <button type="submit" class="button secondary"><AdminIcon Name="search" /> Tìm kiếm</button>
+</form>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách chi nhánh">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="store" /> Chi nhánh</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="pin" /> Khu vực</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="settings" /> Thao tác</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var store in Model.Stores)
+            {
+                <tr data-row-preview>
+                    <td><strong>@store.Name</strong><span class="cell-detail">@store.Address</span></td>
+                    <td>@(store.City?.Name ?? "Việt Nam")</td>
+                    <td>
+                        <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @store.Name" hidden><AdminIcon Name="eye" /> Xem</button>
+                            <button type="button" class="link-button" data-store-edit
+                                    data-url="@(Links.GetPathByAction("Edit", "Stores", new { area = "Admin", id = store.Id }))"
+                                    data-id="@store.Id" data-revision="@store.Revision" data-name="@store.Name"
+                                    data-city-id="@store.CityId" data-address="@store.Address" data-phone="@store.Phone"
+                                    data-hours="@store.Hours" data-navigation-url="@store.NavigationUrl"
+                                    data-sort-order="@store.SortOrder"
+                                    data-image="@store.Photo"><AdminIcon Name="edit" /> Sửa</button>
+                            <a href="@(Links.GetPathByAction("Delete", "Stores", new { area = "Admin", id = store.Id }))" class="delete-link" data-name="@store.Name"><AdminIcon Name="trash" /> Xóa</a>
+                        </div>
+                        <template data-row-preview-content data-title="@store.Name">
+                            <dl class="row-preview-details">
+                                <div class="row-preview-wide"><dt>Địa chỉ</dt><dd>@(string.IsNullOrWhiteSpace(store.Address) ? "Chưa cập nhật" : store.Address)</dd></div>
+                                <div><dt>Khu vực</dt><dd>@(store.City?.Name ?? "Việt Nam")</dd></div>
+                                <div><dt>Điện thoại</dt><dd>@(string.IsNullOrWhiteSpace(store.Phone) ? "Chưa cập nhật" : store.Phone)</dd></div>
+                                <div><dt>Giờ mở cửa</dt><dd>@(string.IsNullOrWhiteSpace(store.Hours) ? "Chưa cập nhật" : store.Hours)</dd></div>
+                                <div><dt>Thứ tự</dt><dd>@store.SortOrder</dd></div>
+                                @if (!string.IsNullOrWhiteSpace(store.NavigationUrl) && Koi.Web.Services.StoreService.SafeLink(store.NavigationUrl))
+                                {
+                                    <div><dt>Bản đồ</dt><dd><a href="@store.NavigationUrl" target="_blank" rel="noopener">Xem chỉ đường</a></dd></div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(store.Photo))
+                                {
+                                    <div class="row-preview-wide"><dt>Ảnh chi nhánh</dt><dd><img class="row-preview-image" src="@store.Photo" alt="" /></dd></div>
+                                }
+                            </dl>
+                        </template>
+                    </td>
+                </tr>
+            }
+            @if (Model.Stores.Count == 0)
+            {
+                <tr><td colspan="3" class="empty-state">Không tìm thấy chi nhánh.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+<nav class="pagination" aria-label="Phân trang">
+    @if (Model.Page > 1) { <a href="@(Links.GetPathByAction("Index", "Stores", new { area = "Admin", page = Model.Page - 1, search = Model.Search }))">← Trước</a> }
+    <span>Trang @Model.Page / @Model.PageCount</span>
+    @if (Model.Page < Model.PageCount) { <a href="@(Links.GetPathByAction("Index", "Stores", new { area = "Admin", page = Model.Page + 1, search = Model.Search }))">Sau →</a> }
+</nav>
+
+<RowPreviewDialog />
+<DeleteDialog Controller="Stores" />
+<StoreEditor Model="@(new StoreEditViewModel { Cities = Model.Cities })" />
+<script src="/js/store-editor.js" defer></script>
+
+@code {
+    [Parameter, EditorRequired] public AdminStoresViewModel Model { get; set; } = default!;
+}

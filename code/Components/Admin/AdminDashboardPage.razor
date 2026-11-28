@@ -1,0 +1,105 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Dashboard · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Dashboard</SectionContent>
+
+@{
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var firstDay = Model.OrderActivity[0].Date;
+    var today = Model.OrderActivity[^1].Date;
+    var chartMax = Math.Max(1, Model.OrderActivity.Max(day => day.Count));
+    var metrics = new[]
+    {
+        (Controller: "Orders", Label: "Đơn hàng", Value: Model.OrderCount, Icon: "receipt"),
+        (Controller: "Drinks", Label: "Đồ uống", Value: Model.DrinkCount, Icon: "cup"),
+        (Controller: "Stores", Label: "Chi nhánh", Value: Model.StoreCount, Icon: "store"),
+        (Controller: "News", Label: "Bài viết", Value: Model.NewsCount, Icon: "news")
+    };
+}
+
+<SectionContent SectionName="Styles">
+    <link rel="stylesheet" href="/css/admin-dashboard.css" />
+</SectionContent>
+
+<div class="dashboard">
+    <header class="dashboard-hero">
+        <div class="dashboard-intro">
+            <time datetime="@today.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)">@today.ToString("dddd, dd/MM/yyyy", culture)</time>
+            <h1>Tổng quan quản trị</h1>
+            <a class="button" href="@(Links.GetPathByAction("Index", "Orders", new { area = "Admin" }))">Xem đơn hàng <AdminIcon Name="arrow-right" /></a>
+        </div>
+    </header>
+
+    <section class="dashboard-metrics" aria-label="Số liệu tổng quan">
+        @foreach (var metric in metrics)
+        {
+            <a class="dashboard-metric" href="@(Links.GetPathByAction("Index", metric.Controller, new { area = "Admin" }))">
+                <span class="dashboard-metric-label admin-icon-label"><AdminIcon Name="@metric.Icon" /> @metric.Label</span>
+                <strong>@metric.Value.ToString("N0", culture)</strong>
+                <span class="dashboard-metric-arrow"><AdminIcon Name="arrow-right" /></span>
+            </a>
+        }
+    </section>
+
+    <div class="dashboard-panels">
+        <section class="dashboard-panel" aria-labelledby="activity-heading">
+            <header class="dashboard-panel-heading">
+                <div>
+                    <h2 id="activity-heading" class="admin-icon-label"><AdminIcon Name="chart" /> Đơn hàng 7 ngày qua</h2>
+                    <p>@firstDay.ToString("dd/MM", culture) – @today.ToString("dd/MM/yyyy", culture) · Giờ Việt Nam</p>
+                </div>
+            </header>
+            <ul class="dashboard-chart" role="list">
+                @foreach (var day in Model.OrderActivity)
+                {
+                    <li class="@(day.Date == today ? "dashboard-chart-today" : null)">
+                        <strong aria-label="@day.Count đơn">@day.Count.ToString("N0", culture)</strong>
+                        <span class="dashboard-chart-track" aria-hidden="true">
+                            <span style="--bar-height: @((100.0 * day.Count / chartMax).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%"></span>
+                        </span>
+                        <time datetime="@day.Date.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)">@day.Date.ToString("dd/MM", culture)</time>
+                    </li>
+                }
+            </ul>
+        </section>
+
+        <section class="dashboard-panel" aria-labelledby="recent-orders-heading">
+            <header class="dashboard-panel-heading">
+                <div>
+                    <h2 id="recent-orders-heading" class="admin-icon-label"><AdminIcon Name="receipt" /> Đơn hàng gần đây</h2>
+                    <p>Thời gian theo giờ Việt Nam</p>
+                </div>
+            </header>
+            @if (Model.RecentOrders.Count == 0)
+            {
+                <p class="dashboard-empty">Chưa có đơn hàng.</p>
+            }
+            else
+            {
+                <ul class="dashboard-orders" role="list">
+                    @foreach (var order in Model.RecentOrders)
+                    {
+                        <li>
+                            <a href="@(Links.GetPathByAction("Details", "Orders", new { area = "Admin", id = order.Id }))"
+                               data-row-preview-trigger data-row-preview-title="Chi tiết đơn hàng"
+                               data-row-preview-url="@(Links.GetPathByAction("Details", "Orders", new { area = "Admin", id = order.Id, preview = true }))">
+                                <span>
+                                    <strong>@order.StoreName</strong>
+                                    <small>@order.CreatedAt.ToString("dd/MM/yyyy · HH:mm", culture)</small>
+                                </span>
+                                <AdminOrderStatus Status="@order.Status" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+        </section>
+    </div>
+</div>
+
+<RowPreviewDialog />
+
+@code {
+    [Parameter, EditorRequired] public DashboardViewModel Model { get; set; } = default!;
+}

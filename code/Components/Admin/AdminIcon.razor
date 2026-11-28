@@ -1,0 +1,7 @@
+<svg class="admin-icon" aria-hidden="true" focusable="false">
+    <use href="@($"#admin-icon-{Name}")"></use>
+</svg>
+
+@code {
+    [Parameter, EditorRequired] public string Name { get; set; } = string.Empty;
+}

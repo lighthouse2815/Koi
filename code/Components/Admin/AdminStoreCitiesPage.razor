@@ -1,0 +1,59 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>@(Model.Title) · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">@(Model.Title)</SectionContent>
+
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><AdminIcon Name="pin" /></span><h1>@Model.Title</h1></div>
+    <button type="button" class="button" data-geography-create><AdminIcon Name="plus" /> Thêm khu vực</button>
+</div>
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa khu vực.</p></noscript>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách khu vực">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="pin" /> Tên</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="order" /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="settings" /> Thao tác</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Rows)
+            {
+                <tr data-row-preview>
+                    <td>@row.Name</td>
+                    <td>@row.SortOrder</td>
+                    <td>
+                        <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @row.Name" hidden><AdminIcon Name="eye" /> Xem</button>
+                            <button type="button" class="link-button" data-geography-edit
+                                    data-url="@(Links.GetPathByAction("Edit", "StoreCities", new { area = "Admin", id = row.Id }))"
+                                    data-id="@row.Id" data-revision="@row.Revision" data-name="@row.Name"
+                                    data-sort-order="@row.SortOrder"><AdminIcon Name="edit" /> Sửa</button>
+                            <a href="@(Links.GetPathByAction("Delete", "StoreCities", new { area = "Admin", id = row.Id, kind = Model.Kind }))" class="delete-link" data-name="@row.Name"><AdminIcon Name="trash" /> Xóa</a>
+                        </div>
+                        <template data-row-preview-content data-title="@row.Name">
+                            <dl class="row-preview-details">
+                                <div><dt>Thứ tự</dt><dd>@row.SortOrder</dd></div>
+                            </dl>
+                        </template>
+                    </td>
+                </tr>
+            }
+            @if (Model.Rows.Count == 0)
+            {
+                <tr><td colspan="3" class="empty-state">Chưa có khu vực.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<RowPreviewDialog />
+<DeleteDialog Controller="StoreCities" />
+<StoreCityEditor Model="@(new GeographyEditViewModel { Kind = Model.Kind })" />
+<script src="/js/geography-editor.js" defer></script>
+
+@code {
+    [Parameter, EditorRequired] public GeographyIndexViewModel Model { get; set; } = default!;
+}

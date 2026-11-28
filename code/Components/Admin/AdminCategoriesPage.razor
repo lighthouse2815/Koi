@@ -1,0 +1,124 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Danh mục đồ uống · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Danh mục đồ uống</SectionContent>
+
+<div class="category-page">
+    <header class="page-heading admin-page-heading">
+        <div class="admin-heading-title">
+            <span class="admin-heading-icon"><AdminIcon Name="layers" /></span>
+            <div>
+                <h1>Danh mục đồ uống</h1>
+                <nav class="category-related" aria-label="Quản lý đồ uống">
+                    <a href="@(Links.GetPathByAction("Index", "Drinks", new { area = "Admin" }))">Đồ uống</a><span aria-hidden="true">·</span><a href="@(Links.GetPathByAction("Index", "FeaturedDrinks", new { area = "Admin" }))">New Drinks</a>
+                </nav>
+            </div>
+        </div>
+        <button type="button" class="button" data-category-create><AdminIcon Name="plus" /> Thêm danh mục</button>
+    </header>
+
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa danh mục.</p></noscript>
+
+<p class="category-scroll-hint">Vuốt ngang để xem thêm <span aria-hidden="true">→</span></p>
+<div class="table-wrap category-table-wrap" tabindex="0" role="region" aria-label="Bảng danh mục đồ uống">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="order" /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="layers" /> Danh mục</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="image" /> Ảnh</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="cup" /> Biểu tượng</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="home" /> Trang chủ</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="settings" /> Thao tác</span></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr data-row-preview>
+                    <td><span class="category-order">@category.SortOrder</span></td>
+                    <td class="category-name">@category.Name</td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(category.Image))
+                        {
+                            <img class="category-thumbnail" src="@category.Image" alt="Ảnh @category.Name" loading="lazy" />
+                        }
+                        else
+                        {
+                            <span class="category-missing">Chưa có</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(category.Icon))
+                        {
+                            <img class="category-thumbnail category-thumbnail--icon" src="@category.Icon" alt="Biểu tượng @category.Name" loading="lazy" />
+                        }
+                        else
+                        {
+                            <span class="category-missing">Chưa có</span>
+                        }
+                    </td>
+                    <td><span class="category-home">@(category.ShowOnHome ? "thứ tự " + category.SortOrder : "Không")</span></td>
+                    <td>
+                        <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @category.Name" hidden><AdminIcon Name="eye" /> Xem</button>
+                            <button type="button" data-category-edit
+                                    data-id="@category.Id" data-revision="@category.Revision" data-name="@category.Name"
+                                    data-sort-order="@category.SortOrder"
+                                    data-show-on-home="@category.ShowOnHome.ToString().ToLowerInvariant()"
+                                    data-image="@category.Image" data-icon="@category.Icon"><AdminIcon Name="edit" /> Sửa</button>
+                            <a href="@(Links.GetPathByAction("OurTea", "Home") + "#" + category.Id)" target="_blank" rel="noopener"><AdminIcon Name="external" /> Xem website</a>
+                            <a href="@(Links.GetPathByAction("Delete", "Category", new { area = "Admin", id = category.Id }))" class="delete-link" data-name="@category.Name"><AdminIcon Name="trash" /> Xóa</a>
+                        </div>
+                        <template data-row-preview-content data-title="@category.Name">
+                            <dl class="row-preview-details">
+                                <div><dt>Thứ tự</dt><dd>@category.SortOrder</dd></div>
+                                <div><dt>Hiển thị trên trang chủ</dt><dd>@(category.ShowOnHome ? "Có" : "Không")</dd></div>
+                                <div>
+                                    <dt>Ảnh danh mục</dt>
+                                    <dd>
+                                        @if (!string.IsNullOrWhiteSpace(category.Image))
+                                        {
+                                            <img class="row-preview-image" src="@category.Image" alt="Ảnh @category.Name" />
+                                        }
+                                        else
+                                        {
+                                            <span>Chưa có ảnh</span>
+                                        }
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt>Biểu tượng</dt>
+                                    <dd>
+                                        @if (!string.IsNullOrWhiteSpace(category.Icon))
+                                        {
+                                            <img class="row-preview-image category-thumbnail--icon" src="@category.Icon" alt="Biểu tượng @category.Name" />
+                                        }
+                                        else
+                                        {
+                                            <span>Chưa có biểu tượng</span>
+                                        }
+                                    </dd>
+                                </div>
+                            </dl>
+                        </template>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model.Count == 0) { <p class="category-empty">Chưa có danh mục.</p> }
+
+<RowPreviewDialog />
+<DeleteDialog Controller="Category" />
+<CategoryEditor Model="@(new CategoryEditViewModel())" />
+<script src="/js/category-editor.js" defer></script>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<Category> Model { get; set; } = default!;
+}

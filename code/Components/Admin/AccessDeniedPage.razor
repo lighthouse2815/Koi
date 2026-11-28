@@ -1,0 +1,14 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Không có quyền truy cập · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Không có quyền truy cập</SectionContent>
+
+<section class="card access-card">
+    <div class="admin-heading-title">
+        <span class="admin-heading-icon"><AdminIcon Name="lock" /></span>
+        <h1>Không có quyền truy cập</h1>
+    </div>
+    <p>Tài khoản này không có quyền quản trị.</p>
+    <a class="button" href="@(Links.GetPathByAction("Login", "Account", new { area = "Admin" }))"><AdminIcon Name="arrow-left" /> Quay lại đăng nhập</a>
+</section>

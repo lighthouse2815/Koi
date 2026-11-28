@@ -1,0 +1,91 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Quản lý tin tức · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Quản lý tin tức</SectionContent>
+
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title"><span class="admin-heading-icon"><AdminIcon Name="news" /></span><h1>Quản lý tin tức</h1></div>
+    <button type="button" class="button" data-news-create><AdminIcon Name="plus" /> Thêm bài viết</button>
+</div>
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa bài viết.</p></noscript>
+<form method="get" class="search">
+    <div class="search-field">
+        <label for="search">Tìm theo tiêu đề</label>
+        <input id="search" name="search" value="@Model.Search" maxlength="200" />
+    </div>
+    <button type="submit" class="button secondary"><AdminIcon Name="search" /> Tìm kiếm</button>
+</form>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách bài viết">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="news" /> Tiêu đề</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="layers" /> Danh mục</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="calendar" /> Ngày đăng</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="settings" /> Thao tác</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in Model.Articles)
+            {
+                <tr data-row-preview>
+                    <td>
+                        <div class="article-cell"><img src="@article.Image" alt="" loading="lazy" />
+                            <div><strong>@article.Title</strong>@if (article.IsFeatured) { <span class="badge">Nổi bật</span> }@if (article.ShowOnHome) { <span class="badge">Trang chủ</span> }</div>
+                        </div>
+                    </td>
+                    <td>@(article.Category == NewsCategory.NEWS ? "Tin tức" : "Truyền thông")</td>
+                    <td>@article.Date.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @article.Title" hidden><AdminIcon Name="eye" /> Xem</button>
+                            <button type="button" class="link-button" data-news-edit
+                                    data-url="@(Links.GetPathByAction("Edit", "News", new { area = "Admin", id = article.Id }))"
+                                    data-id="@article.Id" data-revision="@article.Revision" data-title="@article.Title"
+                                    data-category="@article.Category" data-date="@article.Date.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture)"
+                                    data-body-html="@article.BodyHtml" data-image="@article.Image"
+                                    data-video-url="@(article.VideoId == null ? "" : $"https://www.youtube.com/embed/{article.VideoId}")"
+                                    data-is-featured="@article.IsFeatured.ToString().ToLowerInvariant()"
+                                    data-show-on-home="@article.ShowOnHome.ToString().ToLowerInvariant()"
+                                    data-home-order="@article.HomeOrder"><AdminIcon Name="edit" /> Sửa</button>
+                            <a href="@(Links.GetPathByAction("Preview", "News", new { area = "Admin", id = article.Id }))" target="_blank" rel="noopener"><AdminIcon Name="external" /> Xem trước</a>
+                            <a href="@(Links.GetPathByAction("Delete", "News", new { area = "Admin", id = article.Id }))" class="delete-link" data-name="@article.Title"><AdminIcon Name="trash" /> Xóa</a>
+                        </div>
+                        <template data-row-preview-content data-title="@article.Title">
+                            <dl class="row-preview-details">
+                                <div><dt>Danh mục</dt><dd>@(article.Category == NewsCategory.NEWS ? "Tin tức" : "Truyền thông")</dd></div>
+                                <div><dt>Ngày đăng</dt><dd>@article.Date.ToString("dd/MM/yyyy")</dd></div>
+                                <div><dt>Bài nổi bật</dt><dd>@(article.IsFeatured ? "Có" : "Không")</dd></div>
+                                <div><dt>Hiển thị trên trang chủ</dt><dd>@(article.ShowOnHome ? $"Có · thứ tự {article.HomeOrder}" : "Không")</dd></div>
+                                @if (!string.IsNullOrWhiteSpace(article.Image))
+                                {
+                                    <div class="row-preview-wide"><dt>Ảnh đại diện</dt><dd><img class="row-preview-image" src="@article.Image" alt="" /></dd></div>
+                                }
+                            </dl>
+                            <p><a href="@(Links.GetPathByAction("Preview", "News", new { area = "Admin", id = article.Id }))" target="_blank" rel="noopener">Đọc bài viết</a></p>
+                        </template>
+                    </td>
+                </tr>
+            }
+            @if (Model.Articles.Count == 0)
+            {
+                <tr><td colspan="4" class="empty-state">Không tìm thấy bài viết.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+<nav class="pagination" aria-label="Phân trang">
+    @if (Model.Page > 1) { <a href="@(Links.GetPathByAction("Index", "News", new { area = "Admin", page = Model.Page - 1, search = Model.Search }))">← Trước</a> }
+    <span>Trang @Model.Page / @Model.PageCount</span>
+    @if (Model.Page < Model.PageCount) { <a href="@(Links.GetPathByAction("Index", "News", new { area = "Admin", page = Model.Page + 1, search = Model.Search }))">Sau →</a> }
+</nav>
+
+<RowPreviewDialog />
+<DeleteDialog Controller="News" />
+<NewsEditor Model="@(new NewsEditViewModel())" />
+<script src="/js/news-editor.js" defer></script>
+
+@code {
+    [Parameter, EditorRequired] public AdminNewsViewModel Model { get; set; } = default!;
+}

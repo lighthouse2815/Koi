@@ -1,0 +1,34 @@
+@inject LinkGenerator Links
+
+<dialog id="menu-editor" class="drink-editor" aria-labelledby="menu-editor-title">
+    <div class="page-heading">
+        <div class="admin-icon-label"><AdminIcon Name="menu" /> <h2 id="menu-editor-title">Thêm thực đơn</h2></div>
+        <button type="button" class="button secondary" data-menu-cancel>Đóng</button>
+    </div>
+    <form action="@(Links.GetPathByAction("Create", "Menus", new { area = "Admin" }))" method="post" class="editor" data-upload-folder="menus" data-ajax-save
+          data-create-url="@(Links.GetPathByAction("Create", "Menus", new { area = "Admin" }))">
+        <AntiforgeryToken />
+        <fieldset class="upload-fields" disabled>
+            <input id="Id" name="Id" value="@Model.Id" type="hidden" /><input id="Revision" name="Revision" value="@Model.Revision" type="hidden" />
+            <div class="validation validation-summary-valid" data-valmsg-summary="true" role="alert"></div>
+            <div class="editor-columns">
+                <div class="card">
+                    <label for="Label">Tên thực đơn</label><input id="Label" name="Label" value="@Model.Label" required maxlength="200" />
+                    <label for="ImageUpload">Ảnh thực đơn</label><input id="ImageUploadUrl" name="ImageUploadUrl" value="@Model.ImageUploadUrl" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Khi sửa, để trống để giữ ảnh hiện tại.</p>
+                    <a data-menu-current target="_blank" rel="noopener" hidden><img class="current-image" alt="Thực đơn hiện tại" />Mở ảnh kích thước đầy đủ ↗</a>
+                </div>
+                <aside class="card">
+                    <label for="SortOrder">Thứ tự</label><input id="SortOrder" name="SortOrder" value="@Model.SortOrder" type="number" min="0" max="100000" />
+                    <p class="help">Số nhỏ hiển thị trước.</p>
+                    <button class="button" type="submit">Lưu thực đơn</button>
+                    <a href="@(Links.GetPathByAction("Index", "Menus", new { area = "Admin" }))" data-menu-reload hidden>Tải lại bản mới nhất</a>
+                </aside>
+            </div>
+        </fieldset>
+    </form>
+</dialog>
+
+@code {
+    [Parameter, EditorRequired] public MenuEditViewModel Model { get; set; } = default!;
+}

@@ -1,0 +1,18 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>Chi tiết đơn hàng · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">Chi tiết đơn hàng</SectionContent>
+
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title">
+        <span class="admin-heading-icon"><AdminIcon Name="receipt" /></span>
+        <h1>Chi tiết đơn hàng</h1>
+    </div>
+    <a class="button secondary" href="@(Links.GetPathByAction("Index", "Orders", new { area = "Admin" }))"><AdminIcon Name="arrow-left" /> Danh sách đơn</a>
+</div>
+<AdminOrderDetails Model="Model" ShowActions="true" />
+
+@code {
+    [Parameter, EditorRequired] public Order Model { get; set; } = default!;
+}

@@ -1,0 +1,43 @@
+@inject LinkGenerator Links
+
+<dialog id="store-editor" class="drink-editor" aria-labelledby="store-editor-title">
+    <div class="page-heading">
+        <div class="admin-icon-label"><AdminIcon Name="store" /> <h2 id="store-editor-title">Thêm chi nhánh</h2></div>
+        <button type="button" class="button secondary" data-store-cancel>Đóng</button>
+    </div>
+    <form action="@(Links.GetPathByAction("Create", "Stores", new { area = "Admin" }))" method="post" class="editor" data-upload-folder="stores" data-ajax-save
+          data-create-url="@(Links.GetPathByAction("Create", "Stores", new { area = "Admin" }))">
+        <AntiforgeryToken />
+        <fieldset class="upload-fields" disabled>
+            <input id="Id" name="Id" value="@Model.Id" type="hidden" /><input id="Revision" name="Revision" value="@Model.Revision" type="hidden" />
+            <div class="validation validation-summary-valid" data-valmsg-summary="true" role="alert"></div>
+            <div class="editor-columns">
+                <div class="card">
+                    <label for="Name">Tên chi nhánh</label><input id="Name" name="Name" value="@Model.Name" required maxlength="300" />
+                    <label for="CityId">Khu vực</label><select id="CityId" name="CityId">
+                        <option value="">Không phân khu vực</option>@foreach (var city in Model.Cities) { <option value="@city.Id" selected="@(city.Id == Model.CityId)">@city.Name</option> }
+                    </select>
+                    <label for="Address">Địa chỉ</label><textarea id="Address" name="Address" rows="3" maxlength="2000">@Model.Address</textarea>
+                    <div class="field-row">
+                        <div><label for="Phone">Điện thoại</label><input id="Phone" name="Phone" value="@Model.Phone" maxlength="100" /></div>
+                        <div><label for="Hours">Giờ mở cửa</label><input id="Hours" name="Hours" value="@Model.Hours" maxlength="500" /></div>
+                    </div>
+                    <label for="NavigationUrl">Liên kết chỉ đường</label><input id="NavigationUrl" name="NavigationUrl" value="@Model.NavigationUrl" type="url" maxlength="2000" />
+                </div>
+                <aside class="card">
+                    <label for="ImageUpload">Ảnh chi nhánh</label><img class="current-image" alt="Ảnh hiện tại" hidden />
+                    <input id="ImageUploadUrl" name="ImageUploadUrl" value="@Model.ImageUploadUrl" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <p class="help">JPG, PNG hoặc WebP, tối đa 5 MB. Để trống để giữ ảnh hiện tại.</p>
+                    <label class="check"><input id="RemoveImage" name="RemoveImage" type="checkbox" value="true" checked="@Model.RemoveImage" /><input type="hidden" name="RemoveImage" value="false" /> Bỏ ảnh hiện tại</label>
+                    <label for="SortOrder">Thứ tự hiển thị</label><input id="SortOrder" name="SortOrder" value="@Model.SortOrder" type="number" min="0" max="1000000" />
+                    <p class="help">Số nhỏ hiển thị trước.</p><button type="submit" class="button">Lưu chi nhánh</button>
+                    <a href="@(Links.GetPathByAction("Index", "Stores", new { area = "Admin" }))" data-store-reload hidden>Tải lại bản mới nhất</a>
+                </aside>
+            </div>
+        </fieldset>
+    </form>
+</dialog>
+
+@code {
+    [Parameter, EditorRequired] public StoreEditViewModel Model { get; set; } = default!;
+}

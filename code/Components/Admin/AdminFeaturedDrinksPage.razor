@@ -1,0 +1,70 @@
+@layout AdminLayout
+@inject LinkGenerator Links
+
+<PageTitle>New Drinks · KOI Admin</PageTitle>
+<SectionContent SectionName="AdminTitle">New Drinks</SectionContent>
+
+<div class="page-heading admin-page-heading">
+    <div class="admin-heading-title">
+        <span class="admin-heading-icon"><AdminIcon Name="sparkles" /></span>
+        <div>
+            <h1>New Drinks</h1>
+            <p class="page-description">Sắp xếp đồ uống nổi bật trên trang Our Tea.</p>
+        </div>
+    </div>
+    <button type="button" class="button" data-featured-create><AdminIcon Name="plus" /> Thêm mục</button>
+</div>
+<noscript><p class="validation">Vui lòng bật JavaScript để thêm, sửa hoặc xóa mục New Drinks.</p></noscript>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Danh sách New Drinks">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="sparkles" /> Tên</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="order" /> Thứ tự</span></th>
+                <th scope="col"><span class="admin-column"><AdminIcon Name="settings" /> Thao tác</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-row-preview>
+                    <td>
+                        <div class="article-cell"><img src="@item.Image" alt="" loading="lazy" /><strong>@item.Name</strong></div>
+                    </td>
+                    <td>@item.SortOrder</td>
+                    <td>
+                        <div class="row-actions">
+                            <button type="button" data-row-preview-trigger aria-label="Xem thông tin @item.Name" hidden><AdminIcon Name="eye" /> Xem</button>
+                            <button type="button" class="link-button" data-featured-edit
+                                    data-url="@(Links.GetPathByAction("Edit", "FeaturedDrinks", new { area = "Admin", id = item.Id }))"
+                                    data-id="@item.Id" data-revision="@item.Revision" data-name="@item.Name"
+                                    data-sort-order="@item.SortOrder"
+                                    data-image="@item.Image" data-background="@item.BackgroundImage"><AdminIcon Name="edit" /> Sửa</button>
+                            <a href="@(Links.GetPathByAction("Delete", "FeaturedDrinks", new { area = "Admin", id = item.Id }))" class="delete-link" data-name="@item.Name"><AdminIcon Name="trash" /> Xóa</a>
+                        </div>
+                        <template data-row-preview-content data-title="@item.Name">
+                            <dl class="row-preview-details">
+                                <div class="row-preview-wide"><dt>Thứ tự</dt><dd>@item.SortOrder</dd></div>
+                                <div><dt>Ảnh đồ uống</dt><dd><img class="row-preview-image" src="@item.Image" alt="" /></dd></div>
+                                <div><dt>Ảnh nền</dt><dd><img class="row-preview-image" src="@item.BackgroundImage" alt="" /></dd></div>
+                            </dl>
+                        </template>
+                    </td>
+                </tr>
+            }
+            @if (Model.Count == 0)
+            {
+                <tr><td colspan="3" class="empty-state">Chưa có mục New Drinks.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<RowPreviewDialog />
+<DeleteDialog Controller="FeaturedDrinks" />
+<FeaturedDrinkEditor Model="@(new FeaturedDrinkEditViewModel())" />
+<script src="/js/featured-drink-editor.js" defer></script>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<FeaturedDrink> Model { get; set; } = default!;
+}

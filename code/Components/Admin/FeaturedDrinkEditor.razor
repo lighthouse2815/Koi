@@ -1,0 +1,36 @@
+@inject LinkGenerator Links
+
+<dialog id="featured-editor" class="drink-editor" aria-labelledby="featured-editor-title">
+    <div class="page-heading">
+        <div class="admin-icon-label"><AdminIcon Name="sparkles" /> <h2 id="featured-editor-title">Thêm New Drinks</h2></div>
+        <button type="button" class="button secondary" data-featured-cancel>Đóng</button>
+    </div>
+    <form action="@(Links.GetPathByAction("Create", "FeaturedDrinks", new { area = "Admin" }))" method="post" class="editor" data-upload-folder="featured-drinks" data-ajax-save
+          data-create-url="@(Links.GetPathByAction("Create", "FeaturedDrinks", new { area = "Admin" }))">
+        <AntiforgeryToken />
+        <fieldset class="upload-fields" disabled>
+            <input id="Id" name="Id" value="@Model.Id" type="hidden" /><input id="Revision" name="Revision" value="@Model.Revision" type="hidden" />
+            <div class="validation validation-summary-valid" data-valmsg-summary="true" role="alert"></div>
+            <div class="editor-columns">
+                <div class="card">
+                    <label for="Name">Tên đồ uống / bộ sưu tập</label><input id="Name" name="Name" value="@Model.Name" maxlength="250" required />
+                    <label for="ImageUpload">Ảnh đồ uống</label><img class="current-image" data-featured-image alt="Ảnh hiện tại" hidden />
+                    <input id="ImageUploadUrl" name="ImageUploadUrl" value="@Model.ImageUploadUrl" type="hidden" /><input id="ImageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <label for="BackgroundUpload">Ảnh nền</label><img class="current-image" data-featured-background alt="Ảnh nền hiện tại" hidden />
+                    <input id="BackgroundUploadUrl" name="BackgroundUploadUrl" value="@Model.BackgroundUploadUrl" type="hidden" /><input id="BackgroundUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                    <p class="help">Mỗi ảnh JPG, PNG hoặc WebP tối đa 5 MB. Khi sửa, để trống để giữ ảnh cũ.</p>
+                </div>
+                <aside class="card">
+                    <label for="SortOrder">Thứ tự</label><input id="SortOrder" name="SortOrder" value="@Model.SortOrder" type="number" min="0" max="100000" />
+                    <p class="help">Số nhỏ hiển thị trước.</p>
+                    <button class="button" type="submit">Lưu New Drinks</button>
+                    <a href="@(Links.GetPathByAction("Index", "FeaturedDrinks", new { area = "Admin" }))" data-featured-reload hidden>Tải lại bản mới nhất</a>
+                </aside>
+            </div>
+        </fieldset>
+    </form>
+</dialog>
+
+@code {
+    [Parameter, EditorRequired] public FeaturedDrinkEditViewModel Model { get; set; } = default!;
+}
