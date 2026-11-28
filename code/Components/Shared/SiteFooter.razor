@@ -1,0 +1,64 @@
+@inject LinkGenerator Links
+
+<aside class="floating-bear" aria-label="Liên kết nhanh đến thực đơn và cửa hàng" tabindex="0">
+    <div class="mascot-art" aria-hidden="true">
+        <div class="circle">
+            <img class="mascot-menu" src="/images/m-menu.svg" alt="" />
+            <img class="mascot-store" src="/images/m-store.svg" alt="" />
+            <img class="mascot-mobile" src="/images/m-text-mobile.svg" alt="" />
+        </div>
+        <div class="bear">
+            <div class="drink"><img src="/images/b-drink-menu.svg" alt="" /></div>
+            <div class="big-body"><img src="/images/b-big-body.svg" alt="" /></div>
+        </div>
+    </div>
+    <div class="hover-link">
+        <a href="@(Links.GetPathByAction("Menu", "Home"))" aria-label="Khám phá thực đơn">THỰC ĐƠN</a>
+        <a href="@(Links.GetPathByAction("Store", "Home"))" aria-label="Tìm cửa hàng KOI">CỬA HÀNG</a>
+    </div>
+</aside>
+<footer class="site-footer" id="footer">
+    <div class="footer-marquee" aria-hidden="true">
+        <div class="footer-marquee-track" data-marquee-speed="120">
+            @for (var copy = 0; copy < 2; copy++) { <ul class="footer-marquee-letters">
+                    @for (var letter = 1; letter <= 13; letter++) { <li><img src="@($"/images/footer-{letter}.svg")" alt="" /></li>
+                    }
+                </ul>
+                <img class="footer-mobile-art" src="/images/footer-wordmark.svg" width="2656" height="365" alt="" loading="lazy" />
+            }
+        </div>
+    </div>
+    <div class="footer-top"><a href="#home"><span aria-hidden="true">↑</span>( Đầu trang )</a></div>
+    <div class="footer-bottom">
+        <div class="footer-brand">
+            <div class="footer-bear" aria-hidden="true">
+                <img class="bear-body" src="/images/bear-body.svg" alt="" loading="lazy" />
+                <img class="bear-head" src="/images/bear-head.svg" alt="" loading="lazy" />
+                <img class="bear-drink" src="/images/bear-drink.svg" alt="" loading="lazy" />
+            </div>
+            <a href="@(Links.GetPathByAction("Index", "Home"))" aria-label="Trang chủ KOI Thé"><img src="/images/footer-logo.svg" width="184" height="39" alt="KOI Thé" loading="lazy" /></a>
+        </div>
+        <nav class="footer-navigation" aria-label="Điều hướng chân trang">
+            <span class="navigation-caption">(ĐIỀU HƯỚNG)</span>
+            <div>
+                <a href="@(Links.GetPathByAction("Index", "Home"))">TRANG CHỦ</a>
+                <a href="@(Links.GetPathByAction("About", "Home"))">GIỚI THIỆU</a>
+                <a href="@(Links.GetPathByAction("OurTea", "Home"))">TRÀ CỦA KOI</a>
+            </div>
+            <div>
+                <a href="@(Links.GetPathByAction("News", "Home"))">TIN TỨC</a>
+                <a href="@(Links.GetPathByAction("Store", "Home"))">CỬA HÀNG</a>
+                <a href="@(Links.GetPathByAction("Recruit", "Home"))">TUYỂN DỤNG</a>
+            </div>
+            <div>
+                <a href="@(Links.GetPathByAction("Impact", "Home"))">TÁC ĐỘNG</a>
+                <a href="@(Links.GetPathByAction("Contact", "Home"))">LIÊN HỆ</a>
+                <a href="@(Links.GetPathByAction("Menu", "Home"))">THỰC ĐƠN</a>
+                <a href="@(Links.GetPathByAction("Index", "Order"))">Đặt hàng</a>
+            </div>
+        </nav>
+        <div class="footer-copyright">
+            <p>© @DateTime.UtcNow.Year KOI CAFE GROUP (S) PTE LTD.<br />Bảo lưu mọi quyền.</p>
+        </div>
+    </div>
+</footer>

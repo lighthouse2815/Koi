@@ -1,0 +1,39 @@
+@inherits LayoutComponentBase
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Nhịp vui mỗi ngày. Khám phá trà pha mới, trân châu hoàng kim và những khoảnh khắc hạnh phúc cùng KOI Thé." />
+    <meta name="theme-color" content="#f9efe1" />
+    <HeadOutlet />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="preload" href="/fonts/red-hat-display-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/css/site.css" />
+    <link rel="stylesheet" href="/css/localization.css" />
+    <SectionOutlet SectionName="Styles" />
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Chuyển đến nội dung</a>
+    @if (Navigation is null)
+    {
+        <SiteNavigation />
+    }
+    else
+    {
+        @Navigation
+    }
+    <main id="main-content">
+        @Body
+    </main>
+    <SiteFooter />
+    <SectionOutlet SectionName="VendorScripts" />
+    <script src="/js/site.js" defer></script>
+    <SectionOutlet SectionName="Scripts" />
+</body>
+</html>
+
+@code {
+    [Parameter] public RenderFragment? Navigation { get; set; }
+}

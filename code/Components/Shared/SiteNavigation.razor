@@ -1,0 +1,66 @@
+@inject NavigationManager NavigationManager
+@inject LinkGenerator Links
+
+@{
+    var pages = new[]
+    {
+        (Label: "TRANG CHỦ", Url: Links.GetPathByAction("Index", "Home")!),
+        (Label: "GIỚI THIỆU", Url: Links.GetPathByAction("About", "Home")!),
+        (Label: "TRÀ CỦA KOI", Url: Links.GetPathByAction("OurTea", "Home")!),
+        (Label: "TIN TỨC", Url: Links.GetPathByAction("News", "Home")!),
+        (Label: "CỬA HÀNG", Url: Links.GetPathByAction("Store", "Home")!),
+        (Label: "TUYỂN DỤNG", Url: Links.GetPathByAction("Recruit", "Home")!),
+        (Label: "TÁC ĐỘNG", Url: Links.GetPathByAction("Impact", "Home")!),
+        (Label: "LIÊN HỆ", Url: Links.GetPathByAction("Contact", "Home")!)
+    };
+    var currentUrl = new Uri(NavigationManager.Uri).AbsolutePath;
+    var currentAction = currentUrl.Split('/', StringSplitOptions.RemoveEmptyEntries).Skip(1).FirstOrDefault();
+    currentUrl = currentAction?.ToLowerInvariant() switch
+    {
+        "newsdetail" or "newspreview" => Links.GetPathByAction("News", "Home"),
+        "menu" => Links.GetPathByAction("OurTea", "Home"),
+        "responsibility" or "precision" or "people" or "connections" => Links.GetPathByAction("Impact", "Home"),
+        _ => currentUrl
+    };
+    var currentIndex = Array.FindIndex(pages, page => string.Equals(page.Url, currentUrl, StringComparison.OrdinalIgnoreCase));
+    if (currentIndex < 0) currentIndex = 0;
+    var current = pages[currentIndex];
+}
+
+<header class="site-header">
+    <a class="current-page" href="@current.Url" aria-label="@current.Label, trang @(currentIndex + 1) / @pages.Length" aria-current="page">
+        <img src="/images/page-icon.svg" width="36" height="35" alt="" />
+        <span class="page-marker" aria-hidden="true">▸</span>
+        <span>@current.Label <i>(@((currentIndex + 1).ToString("D2"))/08)</i></span>
+    </a>
+    <a class="brand" href="@(Links.GetPathByAction("Index", "Home"))" aria-label="Trang chủ KOI Thé">
+        <picture>
+            <source media="(max-width: 1024px)" srcset="/images/logo-mobile.svg" />
+            <img src="/images/logo.svg" width="184" height="39" alt="KOI Thé" />
+        </picture>
+    </a>
+    <nav class="fan-navigation" aria-label="Điều hướng chính">
+        <button class="menu-toggle" type="button" aria-label="Mở menu điều hướng" aria-haspopup="dialog" aria-controls="navigation-dialog">
+            <span class="mobile-menu-label"><img src="/images/hamburger.svg" width="23" height="17" alt="" /></span>
+        </button>
+        <ul class="fan-links">
+            @foreach (var navItem in pages)
+            {
+                <li><a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)">@navItem.Label</a></li>
+            }
+        </ul>
+    </nav>
+</header>
+<dialog class="navigation-dialog" id="navigation-dialog" aria-labelledby="navigation-title">
+    <div class="dialog-heading">
+        <span id="navigation-title">KHÁM PHÁ KOI</span>
+        <button class="menu-close" type="button" aria-label="Đóng menu điều hướng">×</button>
+    </div>
+    <nav aria-label="Menu mở rộng">
+        @foreach (var navItem in pages)
+        {
+            <a href="@navItem.Url" aria-current="@(navItem.Label == current.Label ? "page" : null)"><span>@navItem.Label</span><span aria-hidden="true">↗</span></a>
+        }
+    </nav>
+    <div class="dialog-bottom"><span>NHỊP VUI MỖI NGÀY.</span><a href="@(Links.GetPathByAction("Index", "Order"))">Đặt hàng ↗</a></div>
+</dialog>

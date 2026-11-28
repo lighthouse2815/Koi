@@ -1,0 +1,18 @@
+@layout PublicLayout
+@inject LinkGenerator Links
+
+<PageTitle>Đã xảy ra lỗi · KOI Thé</PageTitle>
+
+<section class="error-page">
+    <h1>Vui lòng thử lại.</h1>
+    <p>Không tải được trang này. Hãy tải lại hoặc quay về trang chủ.</p>
+    <a href="@(Links.GetPathByAction("Index", "Home"))">Về trang chủ KOI Thé →</a>
+    @if (Model.ShowRequestId)
+    {
+        <p>Mã tham chiếu: <code>@Model.RequestId</code></p>
+    }
+</section>
+
+@code {
+    [Parameter, EditorRequired] public ErrorViewModel Model { get; set; } = default!;
+}
